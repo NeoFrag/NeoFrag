@@ -1,0 +1,89 @@
+<?php if (!defined('NEOFRAG_CMS')) exit;
+/**************************************************************************
+Copyright © 2015 Michaël BILCOT & Jérémy VALENTIN
+
+This file is part of NeoFrag.
+
+NeoFrag is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+NeoFrag is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
+**************************************************************************/
+ 
+class m_forum_c_admin_checker extends Controller
+{
+	public function _edit($forum_id, $title)
+	{
+		if ($forum = $this->model()->check_forum($forum_id, $title))
+		{
+			return $forum;
+		}
+		else
+		{
+			throw new Exception(NeoFrag::UNFOUND);
+		}
+	}
+
+	public function delete($forum_id, $title)
+	{
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		{
+			$this->ajax();
+		}
+
+		if ($this->model()->check_forum($forum_id, $title))
+		{
+			return array($forum_id, $title);
+		}
+		else if ($this->config->ajax_url)
+		{
+			return '<h4 class="alert-heading">Erreur</h4>Ce forum a déjà été supprimé.';
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+	
+	public function _categories_edit($category_id, $name)
+	{
+		if ($category = $this->model()->check_category($category_id, $name))
+		{
+			return $category;
+		}
+		else
+		{
+			throw new Exception(NeoFrag::UNFOUND);
+		}
+	}
+	
+	public function _categories_delete($category_id, $name)
+	{
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		{
+			$this->ajax();
+		}
+
+		if ($category = $this->model()->check_category($category_id, $name))
+		{
+			return $category;
+		}
+		else if ($this->config->ajax_url)
+		{
+			return '<h4 class="alert-heading">Erreur</h4>Cette catégorie a déjà été supprimée.';
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+}
+
+/*
+NeoFrag Alpha 0.1
+./modules/forum/controllers/admin_checker.php
+*/

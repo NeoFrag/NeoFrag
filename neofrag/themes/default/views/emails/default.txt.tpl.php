@@ -1,0 +1,1 @@
+{view emails/body.txt}

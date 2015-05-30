@@ -1,0 +1,1 @@
+<div style="text-align: center;"><h3>Aucun résultat</h3></div>

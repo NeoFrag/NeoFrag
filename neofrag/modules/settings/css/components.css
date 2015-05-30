@@ -1,0 +1,22 @@
+table tr td:first-child {
+	text-align: center;
+	vertical-align: middle;
+	width: 64px;
+}
+
+table .title {
+	font-size: 18px;
+	padding: 16px;
+	width: 100%;
+}
+
+table h1 {
+	font-size: 18px;
+	font-weight: normal;
+	margin: 0;
+}
+
+table h1 small {
+	display: block;
+	font-size: 14px;
+}

@@ -1,0 +1,1 @@
+<div style="text-align: center;"><h4>Utilisez le champ ci-dessus pour rechercher un ou plusieurs termes sur notre site</h4></div>

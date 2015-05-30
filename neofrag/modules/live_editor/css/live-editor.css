@@ -1,0 +1,118 @@
+body {
+	background: #e9eff0 !important;
+	margin-top: 50px;
+}
+
+/* Modal */
+.live-editor-modal *:not(.fa):not(.fonticon) {
+	font-family: inherit !important;
+}
+
+/* Styles */
+.live-editor-styles-row, .live-editor-styles-widget {
+	display: none;
+}
+
+/* Iframe */
+.live-editor-iframe {
+	height: calc(100% - 50px);
+	left: 0;
+	position: fixed;
+	top: 50px;
+	width: 100%;
+}
+
+.live-editor-iframe iframe {
+	border: 0;
+	height: 100%;
+	overflow-x: hidden;
+	width: 100%;
+}
+
+/* Save icon */
+@-webkit-keyframes blink {
+	0%     { opacity: 0; }
+	16.66% { opacity: 1; }
+	33.33% { opacity: 1; }
+	100%     { opacity: 0; }
+}
+
+.live-editor-save {
+		-webkit-animation: blink 1s linear infinite forwards;
+	display: none;
+	float: right;
+	font-size: 3em;
+	line-height: 50px;
+	margin-right: 10px;
+}
+
+/* Navbar */
+.live-editor-navbar {
+	background-color: #fff;
+	border-width: 0;
+	font-family: Arial, Sans-serif;
+	height: 50px;
+}
+
+.live-editor-navbar .navbar-header {
+	width: 100%;
+}
+
+.live-editor-navbar .navbar-right {
+	margin-right: 0;
+}
+
+.live-editor-navbar .navbar-brand {
+	background: url('{image neofrag/modules/live_editor/images/live_editor.png}') no-repeat 0 50%;
+	line-height: 15px;
+	padding-left: 30px;
+	padding-top: 13px;
+	width: 128px;
+}
+
+.live-editor-navbar .navbar-brand > small {
+	font-weight: bold;
+	font-size: 10px;
+}
+
+.live-editor-navbar .live-editor-screen, .live-editor-navbar .live-editor-mode {
+	background-color: #eceff3;
+	border: 1px solid #d3d7dc;
+	color: #3a3d43;
+	min-width: 40px;
+	padding: 7px;
+	text-align: center;
+}
+
+.live-editor-navbar .live-editor-screen:hover, .live-editor-navbar .live-editor-screen:focus {
+	background-color: #fff;
+	border: 1px solid #9ea7b5;
+	color: #4a4e56;
+}
+
+.live-editor-navbar .live-editor-screen.active {
+	background-color: #248dd0;
+	border: 1px solid #1b81c2;
+	color: #fff;
+}
+
+.live-editor-navbar .live-editor-screen.dropdown-toggle + .dropdown-menu {
+	border: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin: 8px 0 0;
+	min-width: 0;
+	padding: 0 15px 15px;
+}
+
+.live-editor-navbar .live-editor-mode:hover, .live-editor-navbar .live-editor-mode:focus {
+	background-color: #fff;
+	border: 1px solid #9ea7b5;
+	color: #4a4e56;
+}
+
+.live-editor-navbar .live-editor-mode.active {
+	background-color: #5cb85c;
+	border: 1px solid #4ea54e;
+	color: #fff;
+}

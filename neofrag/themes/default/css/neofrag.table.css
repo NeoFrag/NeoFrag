@@ -1,0 +1,77 @@
+td.no-data {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 20px;
+	text-align: center;
+}
+
+.table-search {
+	margin-right: 15px;
+}
+
+.table-actions {
+	background: url('{image arrow.png}') no-repeat;
+	left: 8px;
+	padding: 3px 0 0 30px;
+	position: relative;
+	top: 5px;
+	float: left;
+}
+
+.table-content table {
+	clear: both;
+	margin-bottom: 15px;
+}
+
+.table-actions a {
+	margin-left: 20px;
+}
+
+.table-content td .progress {
+	margin: 0;
+}
+
+.table-content > .pagination {
+	float: right;
+	margin: 0;
+}
+
+.table-content > .pagination a.btn-default {
+	background-color: #fff;
+	border-color: #dde1e4;
+	color: #333333;
+}
+
+.table-content > .pagination a.btn-default:hover {
+	background-color: #2f3640;
+	border-color: #2f3640;
+	color: #f0f0f0;
+}
+
+.table-content > .pagination a.btn-default.active {
+	background-color: #428bca;
+	border-color: #428bca;
+	color: #f0f0f0;
+	box-shadow: none;
+}
+
+.table-content > .pagination span.btn-default {
+	background-color: #fff;
+	border-color: #eaedef;
+	color: #c8ccce;
+}
+
+.table-content .action {
+	width: 16px;
+}
+
+img.table-sorter {
+	cursor: pointer;
+	float: right;
+	margin-top: 4px;
+	visibility: hidden;
+}
+
+th:hover > img.table-sorter, img.table-sorter.active {
+	visibility: visible;
+}

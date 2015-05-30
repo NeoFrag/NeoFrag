@@ -1,0 +1,61 @@
+.small-box {
+    border-radius: 2px;
+    display: block;
+    margin-bottom: 15px;
+    position: relative;
+}
+.small-box > .inner {
+    padding: 10px;
+}
+.small-box > .small-box-footer {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 10;
+}
+.small-box > .small-box-footer:hover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+.small-box h3 {
+    font-size: 38px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    padding: 0;
+    white-space: nowrap;
+}
+.small-box p {
+    font-size: 15px;
+}
+.small-box p > small {
+    color: #f9f9f9;
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
+}
+.small-box h3, .small-box p {
+}
+.small-box .icon {
+    bottom: 5px;
+    color: rgba(0, 0, 0, 0.15);
+    font-size: 90px;
+    position: absolute;
+    right: 5px;
+    top: auto;
+    z-index: 0;
+}
+.small-box:hover {
+    color: #f9f9f9;
+    text-decoration: none;
+}
+.small-box:hover .icon {
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-name: tansformAnimation;
+    animation-timing-function: ease;
+}

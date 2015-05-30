@@ -1,0 +1,11 @@
+#contact_profil .thumbnail {
+	display: inline-block;
+}
+
+blockquote p {
+	font-size: 14px;
+}
+
+.span4 {
+	width: 320px;
+}

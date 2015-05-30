@@ -1,0 +1,10 @@
+.module.module-forum .topic-icon {
+	position: relative;
+}
+
+.module.module-forum .topic-icon > .fa + .fa {
+	bottom: 0;
+	font-size: 1.2em;
+	position: absolute;
+	right: -15px;
+}

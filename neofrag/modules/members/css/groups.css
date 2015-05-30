@@ -1,0 +1,8 @@
+ul.groups {
+	list-style: none;
+	padding: 0;
+}
+
+ul.groups li {
+	vertical-align: top;
+}

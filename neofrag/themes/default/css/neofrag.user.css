@@ -1,0 +1,62 @@
+.dropdown.user .dropdown-toggle .label {
+	position: relative;
+}
+
+.dropdown.user .dropdown-toggle .label {
+	font-size: 8px;
+	left: 50px;
+	position: absolute;
+	top: 36px;
+}
+
+.dropdown.user .dropdown-toggle .avatar {
+	border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+	float: left;
+	height: 40px;
+	margin: -10px 10px 0 0;
+	width: 40px;
+}
+
+.dropdown.user .dropdown-menu {
+	width: 100%;
+}
+
+.dropdown.user .dropdown-menu .avatar {
+	text-align: center;
+}
+
+.dropdown.user .dropdown-menu a.thumbnail {
+	border-radius: 90px;
+		-webkit-border-radius: 90px;
+		-moz-border-radius: 90px;
+	display: inline-block;
+	margin: 10px;
+	padding: 4px;
+	text-align: center;
+}
+
+.dropdown.user .dropdown-menu .avatar img {
+	border-radius: 90px;
+		-webkit-border-radius: 90px;
+		-moz-border-radius: 90px;
+	margin: 0;
+	max-height: 150px;
+	max-width: 150px;
+}
+
+.dropdown.user .dropdown-menu .username {
+	text-align: center;
+}
+
+@media (max-width: 767px) {
+	.dropdown.user .dropdown-toggle {
+		display: none;
+	}
+	
+	.dropdown.user .dropdown-menu {
+		display: block;
+		position: static;
+	}
+}
