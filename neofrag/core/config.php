@@ -115,7 +115,9 @@ class Config extends Core
 								->update('nf_settings', array(
 									'value' => $value
 								));
-		
+
+		$this->_configs[$name] = $value;
+
 		return $this;
 	}
 
