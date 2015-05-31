@@ -1,8 +1,10 @@
-Options -Indexes
+Options +FollowSymLinks -Indexes
 AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+	
+	RewriteBase /
 
 	RewriteRule ^humans.txt$    ajax/settings/humans.txt
 	RewriteRule ^robots.txt$    ajax/settings/robots.txt
