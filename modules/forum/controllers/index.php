@@ -321,7 +321,7 @@ class m_forum_c_index extends Controller_Module
 		
 		$panels[] = $actions;
 		
-		if ($is_last_page && is_authorized('forum', 'category_write', $forum_id) && !$is_locked)
+		if ($is_last_page && is_authorized('forum', 'category_write', $category_id) && !$is_locked)
 		{
 			$this	->css('wbbtheme')
 					->js('jquery.wysibb.min')
