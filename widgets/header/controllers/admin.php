@@ -18,15 +18,15 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class w_header_c_index extends Controller_Widget
+class w_header_c_admin extends Controller_Widget
 {
 	public function index($settings = array())
 	{
-		echo $this->load->view('index', $settings);
+		return $this->load->view('admin', $settings);
 	}
 }
 
 /*
 NeoFrag Alpha 0.1
-./widgets/header/controllers/index.php
+./neofrag/widgets/navigation/controllers/admin.php
 */
