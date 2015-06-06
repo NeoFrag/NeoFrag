@@ -77,7 +77,7 @@ class w_forum_c_index extends Controller_Widget
 			'content' => $this->load->view('statistics', array(
 				'topics'    => $topics = $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->row(),
 				'messages'  => $this->db->select('COUNT(message_id)')->from('nf_forum_messages')->row() - $topics,
-				'announces' => $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->where('status', array(1, -1))->row(),
+				'announces' => $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->where('status', array('1', '-1'))->row(),
 				'users'     => $this->db->select('COUNT(DISTINCT user_id)')->from('nf_forum_messages')->row()
 			))
 		));
