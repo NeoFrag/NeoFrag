@@ -652,6 +652,7 @@ INSERT INTO `nf_settings_addons` VALUES('slider', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('talks', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('talks', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('teams', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('teams', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('user', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('user', 'widget', '1');
 
