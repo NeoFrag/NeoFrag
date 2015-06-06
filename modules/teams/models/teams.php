@@ -47,7 +47,7 @@ class m_teams_m_teams extends Model
 		return $list;
 	}
 	
-	public function get_players()
+	public function get_players($team_id)
 	{
 		return $this->db->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
 						->from('nf_teams_users tu')
@@ -55,6 +55,7 @@ class m_teams_m_teams extends Model
 						->join('nf_users u',           'tu.user_id = u.user_id')
 						->join('nf_users_profiles up', 'u.user_id = up.user_id')
 						->join('nf_sessions       s',  'u.user_id = s.user_id')
+						->where('tu.team_id', $team_id)
 						->where('u.deleted', FALSE)
 						->group_by('u.username')
 						->order_by('r.title', 'u.username')
