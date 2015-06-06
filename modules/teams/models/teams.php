@@ -69,8 +69,9 @@ class m_teams_m_teams extends Model
 							->join('nf_teams_lang tl', 't.team_id = tl.team_id')
 							->join('nf_games g',       'g.game_id = t.game_id')
 							->join('nf_games_lang gl', 'g.game_id = gl.game_id')
-							->where('tl.lang', $this->config->lang)
+							->where('t.team_id', $team_id)
 							->where('t.name', $name)
+							->where('tl.lang', $this->config->lang)
 							->row();
 	}
 
