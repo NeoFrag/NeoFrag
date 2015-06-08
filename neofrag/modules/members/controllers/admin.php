@@ -318,6 +318,7 @@ class m_members_c_admin extends Controller_Module
 				->subtitle('Ajouter')
 				->load->library('form')
 				->add_rules('groups')
+				->add_back('admin/members.html')
 				->add_submit('Ajouter');
 
 		if ($this->form->is_valid($post))
@@ -353,6 +354,7 @@ class m_members_c_admin extends Controller_Module
 					'icon'  => $icon,
 					'auto'  => $auto
 				))
+				->add_back('admin/members.html')
 				->add_submit('Éditer');
 
 		if ($this->form->is_valid($post))
