@@ -563,16 +563,14 @@ class Form extends Library
 		
 		$output = '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">'.$this->_display_label($var, $options).'
 					<div class="col-md-9">
-						<button class="btn btn-default" onclick="return false;">
-							<select id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" role="colorpicker">';
+						<select id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" role="colorpicker">';
 		
 		foreach ($colors as $value => $hex)
 		{
-			$output .= '		<option value="'.$value.'" data-color="'.$hex.'"'.((isset($options['value']) && $options['value'] == $value) || utf8_htmlentities($this->_display_value($var, $options)) == $value ? ' selected="selected"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').'>'.$value.'</option>';
+			$output .= '	<option value="'.$value.'" data-color="'.$hex.'"'.((isset($options['value']) && $options['value'] == $value) || utf8_htmlentities($this->_display_value($var, $options)) == $value ? ' selected="selected"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').'>'.$value.'</option>';
 		}
 
-		$output .= '		</select>
-						</button>
+		$output .= '	</select>
 					</div>
 				</div>';
 				
