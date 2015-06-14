@@ -275,7 +275,12 @@ class Session extends Core
 		
 		if (is_null($url))
 		{
-			$url = preg_replace('#'.implode('|', array(Module::$patterns['pages'], Module::$patterns['page'])).'#', '', $this->config->request_url);
+			$url = $this->config->request_url;
+			
+			if (preg_match('#('.($patern = implode('|', array(Module::$patterns['pages'], Module::$patterns['page']))).')\.html$#', $url, $match) && $match[1])
+			{
+				$url = preg_replace('#'.$patern.'#', '', $url);
+			}
 		}
 		
 		return $url;
