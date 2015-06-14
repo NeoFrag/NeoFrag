@@ -30,7 +30,7 @@
       var $markupUl = $("<ul>").addClass("dropdown-menu").addClass("dropdown-caret");
       var $markupDiv = $("<div>").addClass("dropdown").addClass("dropdown-colorselector");
       var $markupSpan = $("<span>").addClass("btn-colorselector").css("background-color", selectColor);
-      var $markupA = $("<a>").attr("data-toggle", "dropdown").addClass("dropdown-toggle").attr("href", "#").append($markupSpan);
+      var $markupA = $("<a>").attr("data-toggle", "dropdown").addClass("dropdown-toggle btn btn-default").attr("href", "#").append($markupSpan);
 
       // create an li-tag for every option of the select
       $("option", this.$select).each(function() {
