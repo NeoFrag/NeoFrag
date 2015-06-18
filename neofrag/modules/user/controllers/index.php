@@ -176,10 +176,19 @@ class m_user_c_index extends Controller_Module
 	
 	public function _session_delete($session_id)
 	{
-		$this->db	->where('session_id', $session_id)
-					->delete('nf_sessions');
-	
-		redirect_back('user/sessions.html');
+		$this	->title('Confirmation de suppression')
+				->load->library('form')
+				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cette session ?');
+
+		if ($this->form->is_valid())
+		{
+			$this->db	->where('session_id', $session_id)
+						->delete('nf_sessions');
+
+			return 'OK';
+		}
+
+		echo $this->form->display();
 	}
 
 	public function login($error = 0)
