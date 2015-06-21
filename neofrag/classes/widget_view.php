@@ -42,20 +42,17 @@ class Widget_View
 		
 		$widget = $widgets[$this->widget_id];
 		
-		$this->title    = $widget['title'];
-		$this->settings = unserialize($widget['settings']);
-		
 		$output   = array();
 		$instance = NeoFrag::loader()->widget($widget['widget']);
-		$result   = $instance->get_output($widget['type'], $this->settings);
+		$result   = $instance->get_output($widget['type'], is_array($settings = unserialize($widget['settings'])) ? $settings : array());
 		
 		foreach ($result as $result)
 		{
 			if (is_a($result, 'Panel'))
 			{
-				if ($this->title)
+				if (strlen($widget['title']))
 				{
-					$result->title = $this->title;
+					$result->title = $widget['title'];
 				}
 				
 				if (isset($this->style))
