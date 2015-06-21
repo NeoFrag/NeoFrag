@@ -1,5 +1,5 @@
 <div role="tabpanel">
-	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="Supprimer un lien" data-content="Déplacez un lien ici pour le supprimer" data-placement="top">Supprimer</a>
+	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="Supprimer un lien" data-content="Déplacez un lien ici pour le supprimer" data-placement="top"><i class="fa fa-trash-o"></i> Supprimer</a>
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab">Liens</a></li>
 		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab">{fa-icon plus} Ajouter</a></li>
@@ -64,11 +64,13 @@
 			revert: true
 		});
 		
-		$('#link-delete').sortable({
-			receive: function(event, ui){
-				ui.item.remove();
+		$('#link-delete').droppable({
+			accept: '#links .nav li',
+			tolerance: 'pointer',
+			drop: function(event, ui){
+				ui.draggable.remove();
 			}
-		}).css('max-height', $('#link-delete').outerHeight());
+		});
 		
 		$('#add-link button').click(function(){
 			var title = $('#settings-title').val();
