@@ -994,7 +994,7 @@ CREATE TABLE IF NOT EXISTS `nf_widgets` (
 --
 
 INSERT INTO `nf_widgets` VALUES(1, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"1";}');
-INSERT INTO `nf_widgets` VALUES(2, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:5:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:2;a:2:{s:5:"title";s:7:"Equipes";s:3:"url";s:10:"teams.html";}i:3;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:4;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}s:7:"display";b:1;}');
+INSERT INTO `nf_widgets` VALUES(2, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}s:7:"display";b:1;}');
 INSERT INTO `nf_widgets` VALUES(3, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(6, 'forum', 'topics', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(7, 'news', 'index', NULL, NULL);
@@ -1023,8 +1023,8 @@ INSERT INTO `nf_widgets` VALUES(41, 'news', 'categories', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(42, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"2";}');
 INSERT INTO `nf_widgets` VALUES(52, 'forum', 'statistics', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(53, 'forum', 'activity', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(54, 'header', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(55, 'header', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(54, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
+INSERT INTO `nf_widgets` VALUES(55, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
 INSERT INTO `nf_widgets` VALUES(58, 'breadcrumb', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(59, 'module', 'index', NULL, NULL);
 
