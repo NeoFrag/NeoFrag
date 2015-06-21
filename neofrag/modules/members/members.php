@@ -32,23 +32,25 @@ class m_members extends Module
 	public $path          = __FILE__;
 	public $routes        = array(
 		//Index
-		'{pages}'                                     => 'index',
-		'{id}/{url_title}'                            => '_member',
-		'group/(admins|members){pages}'               => '_group',
-		'group/{url_title}-{id}/{url_title}{pages}'   => '_group',
-		'group/{id}/{url_title}{pages}'               => '_group',
+		'{pages}'                                         => 'index',
+		'{id}/{url_title}'                                => '_member',
+		'group/(admins|members){pages}'                   => '_group',
+		'group/{url_title}-{id}/{url_title}{pages}'       => '_group',
+		'group/{id}/{url_title}{pages}'                   => '_group',
 		                                               
 		//Admin                                        
-		'admin{pages}'                                => 'index',
-		'admin/{id}/{url_title}'                      => '_edit',
-		'admin/ban'                                   => '_ban',
-		'admin/ban/{id}/{url_title}'                  => '_ban',
-		'admin/permissions'                           => '_permissions',
-		'admin/groups/add'                            => '_groups_add',
-		'admin/groups/edit/{url_title}/{url_title}'   => '_groups_edit',
-		'admin/groups/delete/{url_title}/{url_title}' => '_groups_delete',
-		'admin/sessions{pages}'                       => '_sessions',
-		'admin/sessions/delete/{url_title}'           => '_sessions_delete'
+		'admin{pages}'                                    => 'index',
+		'admin/{id}/{url_title}'                          => '_edit',
+		'admin/ban'                                       => '_ban',
+		'admin/ban/{id}/{url_title}'                      => '_ban',
+		'admin/permissions'                               => '_permissions',
+		'admin/groups/add'                                => '_groups_add',
+		'admin/groups/edit/(admins|members|visitors)'     => '_groups_edit',
+		'admin/groups/edit/{url_title}-{id}/{url_title}'  => '_groups_edit',
+		'admin/groups/edit/{id}/{url_title}'              => '_groups_edit',
+		'admin/groups/delete/{id}/{url_title}'            => '_groups_delete',
+		'admin/sessions{pages}'                           => '_sessions',
+		'admin/sessions/delete/{url_title}'               => '_sessions_delete'
 	);
 }
 

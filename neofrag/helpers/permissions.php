@@ -40,7 +40,7 @@ function is_authorized($addon_name, $action, $addon_id = 0)
 		foreach ($permissions as $permission)
 		{
 			$all_permissions[$permission['addon']][$permission['action']][$permission['addon_id']][] = array(
-				'entity_id'  => (int)$permission['entity_id'],
+				'entity_id'  => $permission['entity_id'],
 				'type'       => $permission['type'],
 				'authorized' => (bool)$permission['authorized'],
 			);
@@ -62,10 +62,10 @@ function is_authorized($addon_name, $action, $addon_id = 0)
 		}
 
 		$authorized = ($count_deny == count($permissions)) && NeoFrag::loader()->user();
-
+		
 		foreach ($permissions as $permission)
 		{
-			if (($permission['type'] == 'group' && in_array($permission['entity_id'], array_keys(NeoFrag::loader()->groups(NeoFrag::loader()->user('user_id'))))) ||
+			if (($permission['type'] == 'group' && in_array($permission['entity_id'], NeoFrag::loader()->groups(NeoFrag::loader()->user('user_id')))) ||
 				($permission['type'] == 'user' && $permission['entity_id'] == NeoFrag::loader()->user('user_id')))
 			{
 				$authorized = (bool)$permission['authorized'];

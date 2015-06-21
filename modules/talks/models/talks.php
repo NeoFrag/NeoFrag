@@ -114,7 +114,7 @@ class m_talks_m_talks extends Model
 		{
 			add_permission('talks', $talk_id, $permission, array(
 				array(
-					'entity_id'  => $is_private ? $this->groups()['admins']['id'] : $this->groups()[$group]['id'],
+					'entity_id'  => $is_private ? 'admins' : $group,
 					'type'       => 'group',
 					'authorized' => TRUE
 				)

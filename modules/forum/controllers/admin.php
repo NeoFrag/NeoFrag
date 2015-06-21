@@ -161,7 +161,7 @@ class m_forum_c_admin extends Controller_Module
 				->load->library('form')
 				->add_rules('categories', array(
 					'title'   => $title,
-					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $category_id)->where('addon', 'forum')->where('action', 'category_read')->row() == $this->groups()['admins']['id']
+					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $category_id)->where('addon', 'forum')->where('action', 'category_read')->row() == 'admins'
 				))
 				->add_submit('Éditer')
 				->add_back('admin/forum.html');

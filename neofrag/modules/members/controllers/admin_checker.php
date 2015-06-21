@@ -56,24 +56,24 @@ class m_members_c_admin_checker extends Controller_Module
 		throw new Exception(NeoFrag::UNFOUND);
 	}
 
-	public function _groups_edit($group_id, $title)
+	public function _groups_edit()
 	{
-		if ($group = $this->model('groups')->check_group($group_id, $title))
+		if ($group = $this->groups->check_group(func_get_args()))
 		{
-			return array($group['id'], $group['title'], $group['color'], $group['icon'], $group['auto']);
+			return array($group['id'], $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
 	}
 
-	public function _groups_delete($group_id, $title)
+	public function _groups_delete()
 	{
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
 		{
 			$this->ajax();
 		}
 
-		if ($group = $this->model('groups')->check_group($group_id, $title))
+		if ($group = $this->groups->check_group(func_get_args()))
 		{
 			if (!$group['auto'])
 			{

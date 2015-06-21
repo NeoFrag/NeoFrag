@@ -115,6 +115,8 @@ class m_teams_m_teams extends Model
 	{
 		$this->load->library('file')->delete($this->db->select('image_id', 'icon_id')->from('nf_teams')->where('team_id', $team_id)->row());
 
+		$this->groups->delete('teams', $team_id);
+		
 		$this->db	->where('team_id', $team_id)
 					->delete('nf_teams');
 	}

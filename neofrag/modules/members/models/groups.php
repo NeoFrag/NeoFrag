@@ -20,20 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_members_m_groups extends Model
 {
-	public function check_group($group_id, $title)
-	{
-		$groups = $this->groups();
-		
-		if (!empty($groups[$group_id]) && url_title($groups[$group_id]['title']) == $title)
-		{
-			return $groups[$group_id];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
 	public function add_group($title, $color, $icon, $lang)
 	{
 		$group_id = $this->db->insert('nf_groups', array(
@@ -54,8 +40,7 @@ class m_members_m_groups extends Model
 	{
 		$group = array(
 			'color' => $color,
-			'icon'  => $icon,
-			'auto'  => $auto
+			'icon'  => $icon
 		);
 		
 		if (!$auto)

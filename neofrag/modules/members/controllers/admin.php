@@ -32,8 +32,8 @@ class m_members_c_admin extends Controller_Module
 				),
 				array(
 					'content' => array(
-						button_edit('{base_url}admin/members/groups/edit/{url_title(data_id)}/{url_title(title)}.html'),
-						'<?php if (!$data[\'auto\']) echo \''.button_delete($this->config->base_url.'admin/members/groups/delete/\'.$data[\'data_id\'].\'/\'.url_title($data[\'title\']).\'.html').'\'; ?>'
+						button_edit('{base_url}admin/members/groups/edit/{url}.html'),
+						'<?php if (!$data[\'auto\']) echo \''.button_delete($this->config->base_url.'admin/members/groups/delete/\'.$data[\'url\'].\'.html').'\'; ?>'
 					)
 				)
 			))
@@ -343,7 +343,7 @@ class m_members_c_admin extends Controller_Module
 		));
 	}
 	
-	public function _groups_edit($group_id, $title, $color, $icon, $auto)
+	public function _groups_edit($group_id, $name, $title, $color, $icon, $auto)
 	{
 		$this	->title('Groupes')
 				->subtitle('Éditer')
@@ -372,12 +372,12 @@ class m_members_c_admin extends Controller_Module
 			}
 			else
 			{
-				$this->model('groups')->add_group(
-					$post['title'],
-					$post['color'],
-					$post['icon'],
-					$this->config->lang
-				);
+				$this->db->insert('nf_groups', array(
+					'name'  => $name,
+					'color' => $post['color'],
+					'icon'  => $post['icon'],
+					'auto'  => TRUE
+				));
 			}
 
 			add_alert('Succes', 'Groupe modifié');

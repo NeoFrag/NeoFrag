@@ -500,7 +500,7 @@ INSERT INTO `nf_permissions` VALUES(10, 1, 'forum', 'category_lock');
 DROP TABLE IF EXISTS `nf_permissions_details`;
 CREATE TABLE IF NOT EXISTS `nf_permissions_details` (
   `permission_id` int(11) unsigned NOT NULL,
-  `entity_id` int(11) unsigned NOT NULL,
+  `entity_id` varchar(100) NOT NULL,
   `type` enum('group','user') NOT NULL DEFAULT 'group',
   `authorized` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`permission_id`,`entity_id`,`type`)
@@ -510,16 +510,16 @@ CREATE TABLE IF NOT EXISTS `nf_permissions_details` (
 -- Contenu de la table `nf_permissions_details`
 --
 
-INSERT INTO `nf_permissions_details` VALUES(1, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(2, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(3, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(4, 2, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(5, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(6, 2, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(7, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(8, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(9, 1, 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(10, 1, 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(1, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(2, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(3, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(4, 'members', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(5, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(6, 'members', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(7, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(8, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(9, 'admins', 'group', '1');
+INSERT INTO `nf_permissions_details` VALUES(10, 'admins', 'group', '1');
 
 -- --------------------------------------------------------
 
@@ -572,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id` (`session_id`,`user_id`,`ip_address`,`host_name`,`referer`,`user_agent`,`date`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -819,6 +819,7 @@ CREATE TABLE IF NOT EXISTS `nf_teams_users` (
   KEY `user_id` (`user_id`),
   KEY `role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --

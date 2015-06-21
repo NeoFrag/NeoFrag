@@ -433,7 +433,7 @@ class m_forum_m_forum extends Model
 		{
 			add_permission('forum', $category_id, 'category_'.$permission, array(
 				array(
-					'entity_id'  => $is_private ? $this->groups()['admins']['id'] : $this->groups()[$group]['id'],
+					'entity_id'  => $is_private ? 'admins' : $group,
 					'type'       => 'group',
 					'authorized' => TRUE
 				)
