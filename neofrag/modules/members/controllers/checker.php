@@ -37,30 +37,12 @@ class m_members_c_checker extends Controller_Module
 
 	public function _group()
 	{
-		$n = func_num_args();
+		$args = func_get_args();
+		$page = array_pop($args);
 		
-		
-		$groups = $this->groups();
-		
-		if ($n == 2)
+		if ($group = $this->groups->check_group($args))
 		{
-			list($group_id, $page) = func_get_args();
-			return array($groups[$group_id]['title'], $this->load->library('pagination')->get_data($this->model()->get_members($groups[$group_id]['users']), $page));
-		}
-		
-		if ($n == 4)
-		{
-			list($module, $group_id, $name, $page) = func_get_args();
-			$group_id = $module.'-'.$group_id;
-		}
-		else if ($n == 3)
-		{
-			list($group_id, $name, $page) = func_get_args();
-		}
-		
-		if ($name == $groups[$group_id]['name'])
-		{
-			return array($groups[$group_id]['title'], $this->load->library('pagination')->get_data($this->model()->get_members($groups[$group_id]['users']), $page));
+			return array($group['title'], $this->load->library('pagination')->get_data($this->model()->get_members($group['users']), $page));
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

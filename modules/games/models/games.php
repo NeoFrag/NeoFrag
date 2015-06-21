@@ -113,6 +113,11 @@ class m_games_m_games extends Model
 			array_filter($files)
 		));
 		
+		foreach ($this->db->select('team_id')->from('nf_teams')->where('game_id', $game_id)->get() as $team_id)
+		{
+			$this->groups->delete('teams', $team_id);
+		}
+		
 		$this->db	->where('game_id', $game_id)
 					->delete('nf_games');
 	}

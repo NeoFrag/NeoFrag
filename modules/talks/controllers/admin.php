@@ -26,7 +26,7 @@ class m_talks_c_admin extends Controller_Module
 				->add_columns(array(
 					array(
 						'content' => function($data){
-							return NeoFrag::loader()->assets->icon(NeoFrag::loader()->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $data['talk_id'])->where('addon', 'talks')->where('action', 'write')->row() == NeoFrag::loader()->groups()['admins']['id'] ? 'fa-lock' : 'fa-unlock');
+							return NeoFrag::loader()->assets->icon(NeoFrag::loader()->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $data['talk_id'])->where('addon', 'talks')->where('action', 'write')->row() == 'admins' ? 'fa-lock' : 'fa-unlock');
 						},
 						'size'    => TRUE
 					),
@@ -95,7 +95,7 @@ class m_talks_c_admin extends Controller_Module
 				->load->library('form')
 				->add_rules('talks', array(
 					'title'   => $title,
-					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $talk_id)->where('addon', 'talks')->where('action', 'write')->row() == $this->groups()['admins']['id']
+					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $talk_id)->where('addon', 'talks')->where('action', 'write')->row() == 'admins'
 				))
 				->add_submit('Éditer')
 				->add_back('admin/talks.html');

@@ -64,22 +64,20 @@ class Groups extends Core
 
 		foreach ($groups as $group)
 		{
-			$group_id = url_title($group['name']);
-			
 			if ($group['auto'])
 			{
 				if ($group['color'])
 				{
-					$this->_groups[$group_id]['color'] = $group['color'];
+					$this->_groups[$group['name']]['color'] = $group['color'];
 				}
 				
 				if ($group['icon'])
 				{
-					$this->_groups[$group_id]['icon'] = $group['icon'];
+					$this->_groups[$group['name']]['icon'] = $group['icon'];
 				}
 				
-				$this->_groups[$group_id]['id']   = $group['group_id'];
-				$this->_groups[$group_id]['auto'] = TRUE;
+				$this->_groups[$group['name']]['id']   = $group['group_id'];
+				$this->_groups[$group['name']]['auto'] = TRUE;
 			}
 			else
 			{
@@ -112,6 +110,11 @@ class Groups extends Core
 					}
 				}
 			}
+		}
+		
+		foreach ($this->_groups as $group_id => &$group)
+		{
+			$group['url'] = url_title($group_id).($group['auto'] != 'neofrag' ? '/'.url_title($group['title']) : '');
 		}
 
 		uasort($this->_groups, function($a, $b){
@@ -146,13 +149,13 @@ class Groups extends Core
 			{
 				if (!empty($group['users']) && in_array($user_id, $group['users']))
 				{
-					$groups[$group['id']] = $group_id;
+					$groups[] = $group_id;
 				}
 			}
 			
 			$groups = array_unique($groups);
 			
-			return empty($groups) ? array($this->_groups['visitors']['id']) : $groups;
+			return $groups ?: array('visitors');
 		}
 		else
 		{
@@ -185,12 +188,57 @@ class Groups extends Core
 			}
 			
 			$class = !empty($this->_groups[$group_id]['color']) && in_array($this->_groups[$group_id]['color'], array('default', 'primary', 'success', 'info', 'warning', 'danger')) ? $this->_groups[$group_id]['color'] : 'default';
-			return '<'.($link ? 'a href="{base_url}members/group/'.url_title($group_id).($this->_groups[$group_id]['auto'] != 'neofrag' ? '/'.url_title($this->_groups[$group_id]['title']) : '').'.html"' : 'span').' class="label label-'.$class.'"'.(!empty($this->_groups[$group_id]['color']) && $this->_groups[$group_id]['color'][0] == '#' ? ' style="background-color: '.$this->_groups[$group_id]['color'].'"' : '').'>'.(!empty($this->_groups[$group_id]['icon']) ? $this->assets->icon($this->_groups[$group_id]['icon']).'&nbsp;&nbsp;' : '').$this->_groups[$group_id]['title'].'</'.($link ? 'a' : 'span').'>';
+			return '<'.($link ? 'a href="{base_url}members/group/'.$this->_groups[$group_id]['url'].'.html"' : 'span').' class="label label-'.$class.'"'.(!empty($this->_groups[$group_id]['color']) && $this->_groups[$group_id]['color'][0] == '#' ? ' style="background-color: '.$this->_groups[$group_id]['color'].'"' : '').'>'.(!empty($this->_groups[$group_id]['icon']) ? $this->assets->icon($this->_groups[$group_id]['icon']).'&nbsp;&nbsp;' : '').$this->_groups[$group_id]['title'].'</'.($link ? 'a' : 'span').'>';
 		}
 		else
 		{
 			return $this->_groups[$group_id]['title'];
 		}
+	}
+	
+	public function check_group($args)
+	{
+		$n = count($args);
+		
+		if ($n == 1)
+		{
+			return $this->_groups[$args[0]] + array('unique_id' => $args[0]);
+		}
+		
+		if ($n == 3)
+		{
+			list($module, $group_id, $name) = $args;
+			$group_id = $module.'-'.$group_id;
+		}
+		else if ($n == 2)
+		{
+			list($group_id, $name) = $args;
+		}
+		
+		if (isset($this->_groups[$group_id]) && $name == $this->_groups[$group_id]['name'])
+		{
+			return $this->_groups[$group_id] + array('unique_id' => $group_id);
+		}
+		
+		return FALSE;
+	}
+	
+	public function delete($module, $id)
+	{
+		$group_id = url_title($module.'_'.$id);
+		
+		if (isset($this->_groups[$group_id]))
+		{
+			if (!empty($this->_groups[$group_id]['id']))
+			{
+				$this->db	->where('group_id', $this->_groups[$group_id]['id'])
+							->delete('nf_groups');
+			}
+			
+			unset($this->_groups[$group_id]);
+		}
+		
+		return $this;
 	}
 	
 	public function profiler()
