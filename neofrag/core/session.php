@@ -63,7 +63,7 @@ class Session extends Core
 				$this->db->update_time_zone();
 			}
 		}
-		else if (!$this->assets->is_asset() && !$this->config->ajax_url && (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest'))
+		else if (!$this->assets->is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
 			$this->_session_id();
 
@@ -84,7 +84,7 @@ class Session extends Core
 	
 	public function __destruct()
 	{
-		if ($this->assets->is_asset() || $this->config->ajax_url || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'))
+		if ($this->assets->is_asset() || $this->config->ajax_url || $this->config->ajax_header || $_SERVER['REQUEST_METHOD'] == 'OPTIONS')
 		{
 			return;
 		}

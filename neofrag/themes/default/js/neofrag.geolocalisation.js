@@ -8,7 +8,7 @@
 				type: 'POST',
 				data: 'ip_address='+$icon.attr('data-geolocalisation'),
 				dataType: 'json',
-				crossDomain: true,
+				crossDomain: false,
 				success: function(data){
 					if (data != null){
 						$icon.replaceWith('<img src="'+(data['flag'] ? '{base_url}neofrag/themes/default/images/flags/'+data['flag'] : '{base_url}neofrag/themes/default/images/icons/user-silhouette-question.png')+'" data-toggle="tooltip" title="'+data['location']+'" style="margin-right: 10px;" alt="" />');

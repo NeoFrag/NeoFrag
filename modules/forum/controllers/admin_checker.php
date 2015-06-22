@@ -34,7 +34,7 @@ class m_forum_c_admin_checker extends Controller
 
 	public function delete($forum_id, $title)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}
@@ -65,7 +65,7 @@ class m_forum_c_admin_checker extends Controller
 	
 	public function _categories_delete($category_id, $name)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}

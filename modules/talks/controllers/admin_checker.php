@@ -39,7 +39,7 @@ class m_talks_c_admin_checker extends Controller_Module
 	
 	public function delete($talk_id, $title)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}

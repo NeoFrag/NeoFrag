@@ -8,7 +8,7 @@
 				type: 'POST',
 				data: 'user_agent='+$icon.data('user-agent'),
 				dataType: 'json',
-				crossDomain: true,
+				crossDomain: false,
 				success: function(data){
 					var output = '';
 					var img    = '';
