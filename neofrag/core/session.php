@@ -35,8 +35,6 @@ class Session extends Core
 					->where('UNIX_TIMESTAMP(last_activity) <', time() - strtoseconds($this->config->nf_cookie_expire))
 					->delete('nf_sessions');
 
-		statistics('nf_sessions_max_simultaneous', $this->_sessions = $this->db->select('COUNT(DISTINCT IFNULL(user_id, session_id))')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(), function($a, $b){ return $a > $b; });
-
 		$this->_ip_address = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];
 		$this->_host_name  = utf8_string(gethostbyaddr($this->_ip_address));
 
@@ -65,7 +63,7 @@ class Session extends Core
 				$this->db->update_time_zone();
 			}
 		}
-		else if (!$this->assets->is_asset() && !$this->config->ajax_url)
+		else if (!$this->assets->is_asset() && !$this->config->ajax_url && (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest'))
 		{
 			$this->_session_id();
 
@@ -80,11 +78,13 @@ class Session extends Core
 			$this->_user_data['session']['referer']    = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 			$this->_user_data['session']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 		}
+
+		statistics('nf_sessions_max_simultaneous', $this->_sessions = $this->db->select('COUNT(DISTINCT IFNULL(user_id, session_id))')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(), function($a, $b){ return $a > $b; });
 	}
 	
 	public function __destruct()
 	{
-		if ($this->assets->is_asset() || $this->config->ajax_url)
+		if ($this->assets->is_asset() || $this->config->ajax_url || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'))
 		{
 			return;
 		}
