@@ -164,7 +164,7 @@ class m_forum_c_checker extends Controller
 	
 	public function _message_delete($message_id, $title)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}

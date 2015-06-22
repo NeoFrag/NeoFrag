@@ -40,7 +40,7 @@ class m_user_c_checker extends Controller_Module
 	
 	public function _session_delete($session_id)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}

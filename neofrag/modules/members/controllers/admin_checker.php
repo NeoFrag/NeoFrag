@@ -39,7 +39,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function delete($user_id, $username)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}
@@ -68,7 +68,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function _groups_delete()
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}
@@ -99,7 +99,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function _sessions_delete($session_id)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}

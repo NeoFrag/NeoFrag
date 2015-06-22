@@ -22,7 +22,7 @@ class m_comments_c_ajax_checker extends Controller_Module
 {
 	public function delete($comment_id)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if ($this->config->ajax_header)
 		{
 			$this->ajax();
 		}
