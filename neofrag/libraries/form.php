@@ -154,7 +154,7 @@ class Form extends Library
 						
 						if (!empty($files['tmp_name'][$var]))
 						{
-							if (!($post[$var] = $this->file->add($files, $var, $filename, isset($options['value']) ? $options['value'] : NULL, isset($options['upload']) ? $options['upload'] : NULL)))
+							if (!($post[$var] = $this->file->upload($files, isset($options['upload']) ? $options['upload'] : NULL, $filename, isset($options['value']) ? $options['value'] : NULL, $var)))
 							{
 								$this->_errors[$var] = 'Erreur de transfert';
 								return FALSE;
