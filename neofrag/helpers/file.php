@@ -90,26 +90,29 @@ function parse_size($size)
 	}
 }
 
-function image_resize($filename, $width, $height)
+function image_resize($filename, $width, $height = NULL)
 {
 	$info = getimagesize($filename);
 	$w    = $info[0];
 	$h    = $info[1];
+	$type = $info[2];
 	$mime = $info['mime'];
 	
-	if ($w == $width && $h == $height)
+	if (is_null($height))
+	{
+		$height = ceil($h * $width / $w);
+	}
+	
+	if ($w <= $width && $h <= $height)
 	{
 		return;
 	}
 	
-	$resize = imagecreatetruecolor($width, $width);
+	$resize = imagecreatetruecolor($width, $height);
 	
 	if ($mime == 'image/png')
 	{
 		$image = imagecreatefrompng($filename);
-		imagealphablending($resize, FALSE);
-		imagesavealpha($resize, TRUE);
-		imagecolortransparent($resize, imagecolorallocatealpha($resize, 255, 255, 255, 127));
 	}
 	else if ($mime == 'image/jpeg')
 	{
@@ -124,7 +127,25 @@ function image_resize($filename, $width, $height)
 		return;
 	}
 	
-	imagecopyresampled($resize, $image, 0, 0, 0, 0, $width, $width, $w, $h);
+	if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_PNG)
+	{
+		$current_transparent = imagecolortransparent($image);
+		if ($current_transparent != -1)
+		{
+			$transparent_color = imagecolorsforindex($image, $current_transparent);
+			$current_transparent = imagecolorallocate($resize, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+			imagefill($resize, 0, 0, $current_transparent);
+			imagecolortransparent($resize, $current_transparent);
+		}
+		else if ($type == IMAGETYPE_PNG)
+		{
+			imagealphablending($resize, FALSE);
+			imagefill($resize, 0, 0, imagecolorallocatealpha($resize, 0, 0, 0, 127));
+			imagesavealpha($resize, TRUE);
+		}
+	}
+	
+	imagecopyresampled($resize, $image, 0, 0, 0, 0, $width, $height, $w, $h);
 	
 	if ($mime == 'image/png')
 	{
