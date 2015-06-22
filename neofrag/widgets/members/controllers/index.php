@@ -52,32 +52,42 @@ class w_members_c_index extends Controller_Widget
 	
 	public function online($config = array())
 	{
-		$users = $this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
+		$admins = $members = array();
+		$nb_admins = $nb_members = 0;
+		
+		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
 							->from('nf_sessions s')
-							->join('nf_users u', 'u.user_id = s.user_id')
+							->join('nf_users u', 'u.user_id = s.user_id', 'INNER')
 							->join('nf_users_profiles up', 'u.user_id = up.user_id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
+							->group_by('u.user_id')
 							->order_by('u.username')
-							->get();
+							->get() as $user)
+		{
+			if ($user['admin'])
+			{
+				$admins[] = $user;
+				$nb_admins++;
+			}
+			else
+			{
+				$members[] = $user;
+				$nb_members++;
+			}
+		}
 
 		$output = array(new Panel(array(
 			'title'   => 'Qui est en ligne ?',
 			'content' => $this->load->view('online', array(
-				'administrators'    => ($admins = array_filter($users, function($a){
-					return $a['admin'];
-				})),
-				'members'           => ($members = array_filter($users, function($a){
-					return $a['user_id'] && !$a['admin'];
-				})),
-				'nb_administrators' => ($nb_administrators = count($admins)),
-				'nb_members'        => ($nb_members = count($members)),
-				'nb_visitors'       => count(array_filter($users, function($a){
-					return !$a['user_id'];
-				}))
+				'administrators' => $admins,
+				'members'        => $members,
+				'nb_admins'      => $nb_admins,
+				'nb_members'     => $nb_members,
+				'nb_visitors'    => $this->session->current_sessions() - $nb_admins - $nb_members
 			))
 		)));
 		
-		if ($nb_administrators)
+		if ($nb_admins)
 		{
 			$output[] = $this->load->view('online-modal', array(
 				'name'  => 'administrators',
@@ -86,7 +96,7 @@ class w_members_c_index extends Controller_Widget
 			));
 		}
 		
-		if ($nb_administrators)
+		if ($nb_members)
 		{
 			$output[] = $this->load->view('online-modal', array(
 				'name'  => 'members',
