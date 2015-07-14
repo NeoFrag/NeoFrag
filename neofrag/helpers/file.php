@@ -161,6 +161,26 @@ function image_resize($filename, $width, $height = NULL)
 	}
 }
 
+function rmdir_all($directory)
+{
+	foreach (scandir($directory = rtrim($directory, '/')) as $dir)
+	{
+		if (!in_array($dir, array('.', '..')))
+		{
+			if (is_dir($dir = $directory.'/'.$dir))
+			{
+				rmdir_all($dir);
+			}
+			else
+			{
+				unlink($dir);
+			}
+		}
+	}
+	
+	rmdir($directory);
+}
+
 /*
 NeoFrag Alpha 0.1
 ./neofrag/helpers/file.php
