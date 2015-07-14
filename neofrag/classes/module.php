@@ -50,45 +50,61 @@ abstract class Module extends NeoFrag
 
 	public function __construct($module_name)
 	{
+		if (NeoFrag::loader()->theme)
+		{
+			if (in_array($theme_name = NeoFrag::loader()->theme->get_name(), array('default', 'admin')))
+			{
+				unset($theme_name);
+			}
+		}
+		
 		$this->load = new Loader(
 			array(
 				'assets' => array(
 					'./assets',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name : '',
 					'./overrides/modules/'.$module_name,
 					'./neofrag/modules/'.$module_name,
 					'./modules/'.$module_name
 				),
 				'controllers' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/controllers' : '',
 					'./overrides/modules/'.$module_name.'/controllers',
 					'./neofrag/modules/'.$module_name.'/controllers',
 					'./modules/'.$module_name.'/controllers'
 				),
 				'forms' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/forms' : '',
 					'./overrides/modules/'.$module_name.'/forms',
 					'./neofrag/modules/'.$module_name.'/forms',
 					'./modules/'.$module_name.'/forms'
 				),
 				'helpers' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/helpers' : '',
 					'./overrides/modules/'.$module_name.'/helpers',
 					'./neofrag/modules/'.$module_name.'/helpers',
 					'./modules/'.$module_name.'/helpers'
 				),
 				'lang' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/lang' : '',
 					'./overrides/modules/'.$module_name.'/lang',
 					'./neofrag/modules/'.$module_name.'/lang',
 					'./modules/'.$module_name.'/lang'
 				),
 				'libraries' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/libraries' : '',
 					'./overrides/modules/'.$module_name.'/libraries',
 					'./neofrag/modules/'.$module_name.'/libraries',
 					'./modules/'.$module_name.'/libraries'
 				),
 				'models' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/models' : '',
 					'./overrides/modules/'.$module_name.'/models',
 					'./neofrag/modules/'.$module_name.'/models',
 					'./modules/'.$module_name.'/models'
 				),
 				'views' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/views' : '',
 					'./overrides/modules/'.$module_name.'/views',
 					'./neofrag/modules/'.$module_name.'/views',
 					'./modules/'.$module_name.'/views'

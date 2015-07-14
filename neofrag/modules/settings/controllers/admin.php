@@ -122,12 +122,23 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-tint');
 		
 		return new Panel(array(
-			'title'   => 'Thèmes',
+			'title'   => 'Liste des thèmes installés',
 			'icon'    => 'fa-tint',
-			'style'   => 'panel-info',
-			'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant.',
+			'content' => $this->load->view('themes', array(
+				'themes' => $this->get_themes()
+			)),
+			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install"><i class="fa fa-download"></i> Installer / Mettre à jour un thème</button>',
 			'size'    => 'col-md-12'
 		));
+	}
+	
+	public function _theme_internal($title, $controller)
+	{
+		$this	->title($title)
+				->subtitle('Personnalisation du thème')
+				->icon('fa-paint-brush');
+		
+		return $controller->index();
 	}
 }
 
