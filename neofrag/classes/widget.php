@@ -32,58 +32,79 @@ abstract class Widget extends NeoFrag
 
 	public function __construct($widget_name)
 	{
+		if (NeoFrag::loader()->theme)
+		{
+			if (in_array($theme_name = NeoFrag::loader()->theme->get_name(), array('default', 'admin')))
+			{
+				unset($theme_name);
+			}
+		}
+
 		$this->load = new Loader(
 			array(
 				'assets' => array(
 					'./assets',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name : '',
 					'./overrides/widgets/'.$widget_name,
 					'./neofrag/widgets/'.$widget_name,
 					'./widgets/'.$widget_name,
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name : '',
 					'./overrides/modules/'.$widget_name,
 					'./neofrag/modules/'.$widget_name,
 					'./modules/'.$widget_name
 				),
 				'controllers' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/controllers' : '',
 					'./overrides/widgets/'.$widget_name.'/controllers',
 					'./neofrag/widgets/'.$widget_name.'/controllers',
 					'./widgets/'.$widget_name.'/controllers'
 				),
 				'helpers' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/helpers' : '',
 					'./overrides/widgets/'.$widget_name.'/helpers',
 					'./neofrag/widgets/'.$widget_name.'/helpers',
 					'./widgets/'.$widget_name.'/helpers',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name.'/helpers' : '',
 					'./overrides/modules/'.$widget_name.'/helpers',
 					'./neofrag/modules/'.$widget_name.'/helpers',
 					'./modules/'.$widget_name.'/helpers'
 				),
 				'lang' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/lang' : '',
 					'./overrides/widgets/'.$widget_name.'/lang',
 					'./neofrag/widgets/'.$widget_name.'/lang',
 					'./widgets/'.$widget_name.'/lang',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name.'/lang' : '',
 					'./overrides/modules/'.$widget_name.'/lang',
 					'./neofrag/modules/'.$widget_name.'/lang',
 					'./modules/'.$widget_name.'/lang'
 				),
 				'libraries' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/libraries' : '',
 					'./overrides/widgets/'.$widget_name.'/libraries',
 					'./neofrag/widgets/'.$widget_name.'/libraries',
 					'./widgets/'.$widget_name.'/libraries',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name.'/libraries' : '',
 					'./overrides/modules/'.$widget_name.'/libraries',
 					'./neofrag/modules/'.$widget_name.'/libraries',
 					'./modules/'.$widget_name.'/libraries'
 				),
 				'models' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/models' : '',
 					'./overrides/widgets/'.$widget_name.'/models',
 					'./neofrag/widgets/'.$widget_name.'/models',
 					'./widgets/'.$widget_name.'/models',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name.'/models' : '',
 					'./overrides/modules/'.$widget_name.'/models',
 					'./neofrag/modules/'.$widget_name.'/models',
 					'./modules/'.$widget_name.'/models'
 				),
 				'views' => array(
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/widgets/'.$widget_name.'/views' : '',
 					'./overrides/widgets/'.$widget_name.'/views',
 					'./neofrag/widgets/'.$widget_name.'/views',
 					'./widgets/'.$widget_name.'/views',
+					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$widget_name.'/views' : '',
 					'./overrides/modules/'.$widget_name.'/views',
 					'./neofrag/modules/'.$widget_name.'/views',
 					'./modules/'.$widget_name.'/views'

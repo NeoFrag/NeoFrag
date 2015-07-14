@@ -196,6 +196,38 @@ abstract class NeoFrag
 
 		return $list;
 	}
+
+	public function get_themes()
+	{
+		$list = array();
+		
+		foreach ($this->addons('theme') as $theme => $enable)
+		{
+			$theme_instance = NeoFrag::loader()->theme($theme, FALSE);
+
+			if (!is_null($theme_instance))
+			{
+				$list[] = $theme_instance;
+			}
+			else
+			{
+				unset($theme_instance);
+			}
+		}
+		
+		usort($list, function($a, $b){
+			if ($a->get_name() == 'default')
+			{
+				return -1;
+			}
+			else
+			{
+				return strnatcmp($a->get_name(), $b->get_name());
+			}
+		});
+
+		return $list;
+	}
 	
 	static public function unset_module()
 	{

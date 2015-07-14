@@ -61,6 +61,8 @@ class Loader extends Core
 			$this->paths = array_merge_recursive($paths, $this->parent->paths);
 		}
 
+		$paths = array_map('array_filter', $paths);
+
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
 		if (isset($backtrace[1]['object']) && get_class($object = $backtrace[1]['object']) != get_class($this))
 		{
@@ -230,7 +232,7 @@ class Loader extends Core
 				
 				$module_class = 'm_'.$module_name;
 
-				if (strpos($module_path, $overrides = './overrides/') === 0)
+				if (in_string('/overrides/', $module_path))
 				{
 					while (list(, $path) = each($this->paths['modules']))
 					{
@@ -298,7 +300,7 @@ class Loader extends Core
 			
 			$theme_class = 't_'.strtolower($theme_name);
 
-			if (strpos($theme_path, $overrides = './overrides/') === 0)
+			if (in_string('/overrides/', $theme_path))
 			{
 				while (list(, $path) = each($this->paths['themes']))
 				{
@@ -382,7 +384,7 @@ class Loader extends Core
 
 			$controller_name = get_class($this->object).'_c_'.$controller;
 
-			if (strpos($controller_path, $overrides = './overrides/') === 0)
+			if (in_string('/overrides/', $controller_path))
 			{
 				while (list(, $path) = each($this->paths['controllers']))
 				{

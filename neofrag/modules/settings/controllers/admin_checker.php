@@ -18,30 +18,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_settings extends Module
+class m_settings_c_admin_checker extends Controller_Module
 {
-	public $name          = 'Paramètres';
-	public $description   = '';
-	public $icon          = 'fa-cogs';
-	public $link          = 'http://www.neofrag.com';
-	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version       = 'Alpha 0.1';
-	public $nf_version    = 'Alpha 0.1';
-	public $administrable = FALSE;
-	public $deactivatable = FALSE;
-	public $path          = __FILE__;
-	public $routes        = array(
-		'admin/ajax/themes/active'       => '_theme_activation',
-		'admin/ajax/themes/install'      => '_theme_installation',
-		'admin/ajax/themes/reset'        => '_theme_reset',
-		'admin/ajax/themes/delete'       => '_theme_delete',
-		'admin/ajax/themes/{url_title}'  => '_theme_internal',
-		'admin/themes/{url_title}'       => '_theme_internal'
-	);
+	public function _theme_internal($theme_name)
+	{
+		if (($theme = $this->load->theme($theme_name, FALSE)) && !is_null($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
+		{
+			return array($theme->name, $controller);
+		}
+		
+		throw new Exception(NeoFrag::UNFOUND);
+	}
 }
 
 /*
 NeoFrag Alpha 0.1
-./neofrag/modules/settings/settings.php
+./neofrag/modules/settings/controllers/admin_checker.php
 */
