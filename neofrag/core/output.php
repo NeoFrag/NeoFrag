@@ -62,7 +62,7 @@ class Output extends Core
 			
 			if ($this->config->admin_url)
 			{
-				$this->data['module'] .= $this->profiler->output();
+				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->get_name().'">'.$this->data['module'].$this->profiler->output().'</div>';
 			}
 
 			if ($this->config->segments_url[0] != 'index' && !empty($this->data['module_title']))
