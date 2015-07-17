@@ -26,7 +26,7 @@ class Zone
 
 		$output = display($disposition, NeoFrag::live_editor() ? $zone_id : NULL);
 
-		if (!NeoFrag::live_editor() && $zone_id == 0)
+		if (!NeoFrag::live_editor() && in_string('<div class="module', $output))
 		{
 			$output .= $NeoFrag->profiler->output();
 		}
