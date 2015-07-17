@@ -290,6 +290,12 @@ class Database extends Core
 		return $this;
 	}
 
+	public function having()
+	{
+		$this->_request['having'] = func_get_args();
+		return $this;
+	}
+
 	public function order_by()
 	{
 		$this->_request['order_by'] = func_get_args();

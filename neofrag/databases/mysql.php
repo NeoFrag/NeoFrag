@@ -54,7 +54,7 @@ class Driver_mysql extends Driver
 		}
 		else if (isset($request['from']))
 		{
-			return 'SELECT '.(!empty($request['select']) && is_array($request['select']) ? trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['select'])), ', ') : '*').' FROM '.$request['from'].((isset($request['join'])) ? ' '.$request['join'] : '').((isset($request['where'])) ? ' WHERE '.trim_word($request['where'], ' AND ', ' OR ') : '').((isset($request['group_by'])) ? ' GROUP BY '.trim_word(implode(', ', $request['group_by']), ', ') : '').((isset($request['order_by'])) ? ' ORDER BY '.trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['order_by'])), ', ') : '').((isset($request['limit'])) ? ' LIMIT '.$request['limit'] : '');
+			return 'SELECT '.(!empty($request['select']) && is_array($request['select']) ? trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['select'])), ', ') : '*').' FROM '.$request['from'].((isset($request['join'])) ? ' '.$request['join'] : '').((isset($request['where'])) ? ' WHERE '.trim_word($request['where'], ' AND ', ' OR ') : '').((isset($request['group_by'])) ? ' GROUP BY '.trim_word(implode(', ', $request['group_by']), ', ') : '').((isset($request['having'])) ? ' HAVING '.trim_word(implode(', ', $request['having']), ', ') : '').((isset($request['order_by'])) ? ' ORDER BY '.trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['order_by'])), ', ') : '').((isset($request['limit'])) ? ' LIMIT '.$request['limit'] : '');
 		}
 		else if (isset($request['insert'], $request['values']))
 		{
