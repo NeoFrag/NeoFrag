@@ -114,11 +114,21 @@ class Config extends Core
 	
 	public function __invoke($name, $value)
 	{
-		NeoFrag::loader()->db	->where('name', $name)
-								->update('nf_settings', array(
-									'value' => $value
-								));
-
+		if (isset($this->_configs[$name]))
+		{
+			NeoFrag::loader()->db	->where('name', $name)
+									->update('nf_settings', array(
+										'value' => $value
+									));
+		}
+		else
+		{
+			NeoFrag::loader()->db->insert('nf_settings', array(
+				'name'  => $name,
+				'value' => $value
+			));
+		}
+		
 		$this->_configs[$name] = $value;
 
 		return $this;
