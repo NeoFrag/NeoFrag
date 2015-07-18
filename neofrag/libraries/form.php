@@ -439,6 +439,8 @@ class Form extends Library
 			$output .= $this->_display_label($var, $options).'<div class="col-md-9">';
 		}
 		
+		$classes = array();
+		
 		if ($type == 'date')
 		{
 			NeoFrag::loader()	->css('bootstrap-datepicker/datepicker3')
@@ -447,7 +449,8 @@ class Form extends Library
 								->js_load('$(".input-group.date").datepicker({format:"dd/mm/yyyy", language: "fr"});');
 				
 			$type = 'text';
-			$date = TRUE;
+			
+			$classes[] = 'date';
 			
 			if (empty($options['icon']))
 			{
@@ -472,10 +475,25 @@ class Form extends Library
 				$options['icon'] = 'fa-globe';
 			}
 		}
+		else if ($type == 'colorpicker')
+		{
+			$type = 'text';
+			
+			$classes[] = 'color';
+			
+			if (empty($options['icon']))
+			{
+				$options['icon'] = 'fa-eyedropper';
+			}
+			
+			NeoFrag::loader()	->css('bootstrap-colorpicker.min')
+								->js('bootstrap-colorpicker.min')
+								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon.color", colorSelectors: {default: "#777777", primary: "#337ab7", success: "#5cb85c", info: "#5bc0de", warning: "#f0ad4e", danger: "#d9534f"}});');
+		}
 		
 		if (!empty($options['icon']))
 		{
-			$output .= '<div class="input-group'.(!empty($date) ? ' date' : '').'">
+			$output .= '<div class="input-group'.(!empty($classes) ? ' '.implode(' ', $classes) : '').'">
 				<span class="input-group-addon">'.$this->assets->icon($options['icon']).'</span>';
 		}
 		
@@ -522,6 +540,11 @@ class Form extends Library
 		
 		if (!empty($options['icon']))
 		{
+			if (in_array('color', $classes))
+			{
+				$output .= '<span class="input-group-addon color"><i></i></span>';
+			}
+			
 			$output .= '</div>';
 		}
 		
@@ -548,33 +571,7 @@ class Form extends Library
 
 	private function _display_colorpicker($var, $options, $post)
 	{
-		NeoFrag::loader()	->css('bootstrap-colorselector')
-							->js('bootstrap-colorselector')
-							->js_load('$(\'select[role="colorpicker"]\').colorselector();');
-				
-		static $colors = array(
-			'default' => '#777',
-			'primary' => '#337ab7',
-			'success' => '#5cb85c',
-			'info'    => '#5bc0de',
-			'warning' => '#f0ad4e',
-			'danger'  => '#d9534f'
-		);
-		
-		$output = '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">'.$this->_display_label($var, $options).'
-					<div class="col-md-9">
-						<select id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" role="colorpicker">';
-		
-		foreach ($colors as $value => $hex)
-		{
-			$output .= '	<option value="'.$value.'" data-color="'.$hex.'"'.((isset($options['value']) && $options['value'] == $value) || utf8_htmlentities($this->_display_value($var, $options)) == $value ? ' selected="selected"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').'>'.$value.'</option>';
-		}
-
-		$output .= '	</select>
-					</div>
-				</div>';
-				
-		return $output;
+		return $this->_display_text($var, $options, $post, 'colorpicker');
 	}
 	
 	private function _display_popover($var, $options)
