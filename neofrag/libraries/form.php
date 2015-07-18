@@ -114,7 +114,6 @@ class Form extends Library
 				$this->_errors[$var] = $error;
 			}
 		}
-		
 
 		foreach ($post as $key => &$value)
 		{
@@ -186,7 +185,7 @@ class Form extends Library
 
 	private function _check_text($post, $var, $options)
 	{
-		if (!in_array($post, array('', NULL)) &&
+		if (!in_array($post[$var], array('', NULL)) &&
 			!empty($options['values']) &&
 			is_array($options['values']) &&
 			is_array($post[$var]) &&
@@ -196,12 +195,21 @@ class Form extends Library
 			return 'La ou les valeurs entrées ne sont pas valides';
 		}
 		
-		if (!empty($options['rules']) && in_array('required', $options['rules']) && !in_array('disabled', $options['rules']) && in_array($post[$var], array('', NULL)))
+		$is_file = !empty($options['type']) && $options['type'] == 'file';
+		
+		if (	!empty($options['rules']) &&
+				in_array('required', $options['rules']) &&
+				!in_array('disabled', $options['rules']) &&
+				(
+					($is_file && empty($_FILES[$this->id]['tmp_name'][$var])) ||
+					(!$is_file && in_array($post[$var], array('', NULL)))
+				)
+			)
 		{
 			return 'Veuillez remplir ce champ';
 		}
 		
-		if (!empty($options['type']) && $options['type'] == 'file' && !empty($_FILES[$this->id]['error'][$var]) && $_FILES[$this->id]['error'][$var] != 4)
+		if ($is_file && !empty($_FILES[$this->id]['error'][$var]) && $_FILES[$this->id]['error'][$var] != 4)
 		{
 			$errors = array(
 				'La taille du fichier téléchargé excède la valeur de upload_max_filesize, configurée dans le php.ini',
