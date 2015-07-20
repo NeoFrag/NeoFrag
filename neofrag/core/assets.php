@@ -146,8 +146,12 @@ class Assets extends Core
 			header('Last-Modified: '.date('r', $date));
 			header('Etag: '.($etag = md5($content)));
 			header('Content-Type: '.get_mime_by_extension($ext));
-			header('Content-Disposition: attachment; filename="'.basename($file_path).'"');
-
+			
+			if ($ext == 'zip')
+			{
+				header('Content-Disposition: attachment; filename="'.basename($file_path).'"');
+			}
+			
 			if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $date) || (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag))
 			{
 				header('HTTP/1.1 304 Not Modified');
