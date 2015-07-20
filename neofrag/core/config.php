@@ -46,11 +46,6 @@ class Config extends Core
 		{
 			$this->_configs['ajax_url'] = TRUE;
 		}
-
-		if (!$this->ajax && NeoFrag::loader()->assets->is_asset())
-		{
-			$this->assets($this->_configs['request_url']);
-		}
 		
 		if (is_null($configs = NeoFrag::loader()->db->select('site, lang, name, value, type')->from('nf_settings')->get()))
 		{
@@ -94,6 +89,11 @@ class Config extends Core
 		if (!empty($site))
 		{
 			$this->update('default');
+		}
+
+		if (!$this->ajax && NeoFrag::loader()->assets->is_asset())
+		{
+			$this->assets($this->_configs['request_url']);
 		}
 	}
 	
