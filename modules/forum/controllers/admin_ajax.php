@@ -38,19 +38,20 @@ class m_forum_c_admin_ajax extends Controller
 		}
 	}
 	
-	public function move($category_id, $forum_id, $position)
+	public function move($parent_id, $forum_id, $position, $is_subforum)
 	{
 		$this->db	->where('forum_id', $forum_id)
 					->update('nf_forum', array(
-						'parent_id' => $category_id
+						'parent_id' => $parent_id
 					));
 		
-		$forums = array();
-		
-		foreach ($this->db->select('forum_id')->from('nf_forum')->where('parent_id', $category_id)->where('is_subforum', FALSE)->where('forum_id !=', $forum_id)->order_by('order', 'forum_id')->get() as $forum)
-		{
-			$forums[] = $forum;
-		}
+		$forums = $this->db	->select('forum_id')
+							->from('nf_forum')
+							->where('parent_id', $parent_id)
+							->where('is_subforum', $is_subforum)
+							->where('forum_id !=', $forum_id)
+							->order_by('order', 'forum_id')
+							->get();
 		
 		foreach (array_merge(array_slice($forums, 0, $position, TRUE), array($forum_id), array_slice($forums, $position, NULL, TRUE)) as $order => $forum_id)
 		{

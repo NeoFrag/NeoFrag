@@ -20,66 +20,40 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
  
 class m_forum_m_forum extends Model
 {
-	public function get_categories_list()
+	public function get_categories_list($forum_id = NULL)
 	{
 		$categories = array();
 		
-		foreach ($this->db->select('category_id', 'title')->from('nf_forum_categories')->get() as $category)
+		foreach ($this->db	->select('c.category_id', 'c.title', 'f.forum_id', 'f.title as forum_title')
+							->from('nf_forum_categories c')
+							->join('nf_forum f', 'c.category_id = f.parent_id AND f.is_subforum = "0"')
+							->order_by('c.order', 'f.order')
+							->get() as $category)
 		{
-			$categories[$category['category_id']] = $category['title'];
+			if (!isset($categories[$category['category_id']]))
+			{
+				$categories[$category['category_id']] = $category['title'];
+			}
+			
+			if ($category['forum_id'] && (!$forum_id || $category['forum_id'] != $forum_id))
+			{
+				$categories['f'.$category['forum_id']] = str_repeat('&nbsp;', 10).$category['forum_title'];
+			}
 		}
-		
-		natsort($categories);
 		
 		return $categories;
 	}
 	
 	public function get_categories($all = FALSE)
 	{
-		$forums = $this->db	->select(	'f.forum_id',
-										'f.parent_id',
-										'f.title',
-										'f.description',
-										'f.count_messages',
-										'f.count_topics',
-										'f.last_message_id',
-										'm.user_id',
-										'u.username',
-										't.topic_id',
-										't.title as last_title',
-										'm.date as last_message_date',
-										't.count_messages as last_count_messages',
-										'u2.url',
-										'u2.redirects')
-									->from('nf_forum f')
-									->join('nf_forum_messages m', 'm.message_id = f.last_message_id')
-									->join('nf_forum_topics t',   't.topic_id = m.topic_id')
-									->join('nf_users u',          'u.user_id = m.user_id')
-									->join('nf_forum_url u2',     'u2.forum_id = f.forum_id')
-									->where('f.is_subforum', FALSE)
-									->order_by('f.order', 'f.forum_id')
-									->get();
-
-		if ($this->user())
-		{
-			$forum_reads = array();
-			
-			foreach ($this->db	->select('forum_id', 'date')
-								->from('nf_forum_read')
-								->where('user_id', $this->user('user_id'))
-								->get() as $read)
-			{
-				$forum_reads[$read['forum_id']] = strtotime($read['date']);
-			}
-		}
-
 		$categories = array();
+		$forums     = $this->get_forums();
 		$count_read = $i = 0;
 		
 		foreach ($this->db	->select('category_id', 'title')
-								->from('nf_forum_categories')
-								->order_by('order', 'category_id')
-								->get() as $category)
+							->from('nf_forum_categories')
+							->order_by('order', 'category_id')
+							->get() as $category)
 		{
 			if ($all || is_authorized('forum', 'category_read', $category['category_id']))
 			{
@@ -89,46 +63,9 @@ class m_forum_m_forum extends Model
 				{
 					if ($forum['parent_id'] == $category['category_id'])
 					{
-						/*if (!empty($forum['subforums']))
-						{
-							$forum['subforums'] = $this->db	->select('f.forum_id', 'f.title', 'u.url', 'IF(m.date AND (r.date IS NULL OR UNIX_TIMESTAMP(r.date) < UNIX_TIMESTAMP(m.date)), 1, 0) as has_new_messages')
-															->from('nf_forum f')
-															->join('nf_forum_messages m', 'm.message_id = f.last_message_id')
-															->join('nf_forum_topics t', 't.topic_id = m.topic_id')
-															->join('nf_forum_read r', 'r.forum_id = f.forum_id')
-															->join('nf_forum_url u', 'u.forum_id = f.forum_id')
-															->where('parent_id', $forum['forum_id'])
-															->where('is_subforum', TRUE)
-															->order_by('order')
-															->get();
-						}*/
-						
-						$forum_read_date = NULL;
-						
-						if (isset($forum_reads[0], $forum_reads[$forum['forum_id']]))
-						{
-							$forum_read_date = max($forum_reads[0], $forum_reads[$forum['forum_id']]);
-						}
-						else if (isset($forum_reads[0]))
-						{
-							$forum_read_date = $forum_reads[0];
-						}
-						else if (isset($forum_reads[$forum['forum_id']]))
-						{
-							$forum_read_date = $forum_reads[$forum['forum_id']];
-						}
-						 
-						$last_message_date = strtotime($forum['last_message_date']);
-						$unread = $forum['count_topics'] && $this->user() && (empty($forum_read_date) || $forum_read_date < $last_message_date);
-						$forum['icon'] = $this->assets->icon('fa-comments'.($unread ? '' : '-o').' fa-3x fa-fw');
-						
-						if (!$unread)
-						{
-							$count_read++;
-						}
-						
 						$category['forums'][] = $forum;
 						
+						$count_read += !$forum['has_unread'];
 						$i++;
 					}
 				}
@@ -143,6 +80,72 @@ class m_forum_m_forum extends Model
 		}
 
 		return $categories;
+	}
+	
+	public function get_forums($forum_id = NULL, $mini = FALSE)
+	{
+		if ($forum_id)
+		{
+			$this->db	->where('f.parent_id', $forum_id)
+						->where('f.is_subforum', TRUE);
+		}
+		else
+		{
+			$this->db	->join('nf_forum f2', 'f2.parent_id = f.forum_id AND f2.is_subforum = "1"')
+						->where('f.is_subforum', FALSE);
+		}
+		
+		$forums = $this->db	->select(	'f.forum_id',
+										'f.parent_id',
+										'f.title',
+										'f.description',
+										!$forum_id ? 'f.count_messages + SUM(IFNULL(f2.count_messages, 0)) as count_messages' : 'f.count_messages',
+										!$forum_id ? 'f.count_topics   + SUM(IFNULL(f2.count_topics, 0))   as count_topics'   : 'f.count_topics',
+										'f.last_message_id',
+										'm.user_id',
+										'u.username',
+										't.topic_id',
+										't.title as last_title',
+										'm.date as last_message_date',
+										't.count_messages as last_count_messages',
+										'u2.url',
+										'u2.redirects',
+										(!$forum_id ? 'COUNT(f2.forum_id)' : 0).' as subforums'
+									)
+									->from('nf_forum f')
+									->join('nf_forum_messages m', 'm.message_id = f.last_message_id')
+									->join('nf_forum_topics t',   't.topic_id = m.topic_id')
+									->join('nf_users u',          'u.user_id = m.user_id')
+									->join('nf_forum_url u2',     'u2.forum_id = f.forum_id')
+									->group_by('f.forum_id')
+									->order_by('f.order', 'f.forum_id')
+									->get();
+		
+		foreach ($forums as &$forum)
+		{
+			if ($forum['subforums'])
+			{
+				foreach ($forum['subforums'] = $this->get_forums($forum['forum_id'], TRUE) as $subforum)
+				{
+					if ($subforum['last_message_id'] > $forum['last_message_id'])
+					{
+						foreach (array('last_message_id', 'user_id', 'username', 'topic_id', 'last_title', 'last_message_date', 'last_count_messages') as $var)
+						{
+							$forum[$var] = $subforum[$var];
+						}
+					}
+				}
+			}
+			else
+			{
+				$forum['subforums'] = array();
+			}
+			
+			$forum['has_unread'] = $forum['url'] ? FALSE : $this->_has_unread($forum);
+			$forum['icon']       = $this->assets->icon(($forum['url'] ? 'fa-globe' : 'fa-comments'.($forum['has_unread'] ? '' : '-o')).($mini ? '' : ' fa-3x').' fa-fw');
+		}
+		
+		return $forums;
 	}
 	
 	public function get_topics($forum_id)
@@ -251,9 +254,10 @@ class m_forum_m_forum extends Model
 	
 	public function check_forum($forum_id, &$title)
 	{
-		$forum = $this->db	->select('f.forum_id', 'f.title', 'f.description', 'u.url', 'c.category_id', 'c.title as category_title')
+		$forum = $this->db	->select('f.forum_id', 'f.title', 'f.description', 'f.parent_id', 'f.is_subforum', 'u.url', 'IFNULL(f3.parent_id, f.parent_id) as category_id', 'COUNT(f2.forum_id) as subforums')
 							->from('nf_forum f')
-							->join('nf_forum_categories c', 'c.category_id = f.parent_id')
+							->join('nf_forum f2', 'f2.parent_id = f.forum_id  AND f2.is_subforum = "1"')
+							->join('nf_forum f3', 'f3.forum_id  = f.parent_id AND f.is_subforum  = "1"')
 							->join('nf_forum_url u', 'u.forum_id = f.forum_id')
 							->where('f.forum_id', $forum_id)
 							->row();
@@ -343,7 +347,7 @@ class m_forum_m_forum extends Model
 						'topic_id' => $topic_id,
 						'user_id'  => $this->user('user_id')
 					));
-					
+
 		$this->get_topics($forum_id);
 
 		return $topic_id;
@@ -397,14 +401,24 @@ class m_forum_m_forum extends Model
 		return $category_id;
 	}
 	
-	public function add_forum($title, $category_id, $description)
+	public function add_forum($title, $category_id, $description, $url)
 	{
-		return $this->db->insert('nf_forum', array(
+		$forum_id = $this->db->insert('nf_forum', array(
 			'title'       => $title,
-			'parent_id'   => $category_id,
-			'is_subforum' => FALSE,
+			'parent_id'   => $this->get_parent_id($category_id, $is_subforum),
+			'is_subforum' => $is_subforum,
 			'description' => $description
 		));
+		
+		if ($url)
+		{
+			$this->db->insert('nf_forum_url', array(
+				'forum_id' => $forum_id,
+				'url'      => $url
+			));
+		}
+		
+		return $forum_id;
 	}
 	
 	public function edit_category($category_id, $title, $is_private)
@@ -456,6 +470,11 @@ class m_forum_m_forum extends Model
 	
 	public function delete_forum($forum_id)
 	{
+		foreach ($this->db->select('forum_id')->from('nf_forum')->where('parent_id', $forum_id)->where('is_subforum', TRUE)->get() as $subforum_id)
+		{
+			$this->delete_forum($subforum_id);
+		}
+
 		$this->db	->where('forum_id', $forum_id)
 					->delete('nf_forum');
 					
@@ -495,6 +514,77 @@ class m_forum_m_forum extends Model
 	{
 		$this->db	->where('forum_id', $forum_id)
 					->update('nf_forum_url', 'redirects = redirects + 1');
+	}
+	
+	public function get_parent_id($parent_id, &$is_subforum)
+	{
+		$is_subforum = FALSE;
+
+		if (strpos($parent_id, 'f') === 0)
+		{
+			$parent_id   = substr($parent_id, 1);
+			$is_subforum = TRUE;
+		}
+		
+		return $parent_id;
+	}
+	
+	public function _has_unread($forum)
+	{
+		if (!$forum['count_topics'] || !$this->user())
+		{
+			return FALSE;
+		}
+		
+		static $forum_reads;
+		
+		if (is_null($forum_reads))
+		{
+			$forum_reads = array();
+			
+			foreach ($this->db	->select('forum_id', 'date')
+								->from('nf_forum_read')
+								->where('user_id', $this->user('user_id'))
+								->get() as $read)
+			{
+				$forum_reads[$read['forum_id']] = strtotime($read['date']);
+			}
+			
+			$registration_date = strtotime($this->user('registration_date'));
+			if (!isset($forum_reads[0]) || $registration_date > $forum_reads[0])
+			{
+				$forum_reads[0] = $registration_date;
+			}
+			
+			foreach ($this->db	->select('f.forum_id', 'f.parent_id')
+								->from('nf_forum f')
+								->join('nf_forum_url u', 'f.forum_id = u.forum_id')
+								->where('f.is_subforum', TRUE)
+								->where('u.forum_id', NULL)
+								->get() as $subforum)
+			{
+				if (isset($forum_reads[$subforum['parent_id']]))
+				{
+					$forum_reads[$subforum['parent_id']] = min(isset($forum_reads[$subforum['forum_id']]) ? $forum_reads[$subforum['forum_id']] : $forum_reads[0], $forum_reads[$subforum['parent_id']]);
+				}
+			}
+		}
+		
+		$dates = array();
+		
+		if (isset($forum_reads[0]))
+		{
+			$dates[] = $forum_reads[0];
+		}
+		
+		if (isset($forum_reads[$forum['forum_id']]))
+		{
+			$dates[] = $forum_reads[$forum['forum_id']];
+		}
+		
+		$forum_read_date = $dates ? max($dates) : NULL;
+		
+		return empty($forum_read_date) || $forum_read_date < strtotime($forum['last_message_date']);
 	}
 }
 
