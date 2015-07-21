@@ -2,10 +2,11 @@
 @import url(http://fonts.googleapis.com/css?family=Economica:400,700);
 
 body {
-	background-image: url('{image backgrounds/default.jpg}');
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-color: #141d26;
+	background-image: url('<?php echo $NeoFrag->config->default_background ? $NeoFrag->assets->file($NeoFrag->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
+	background-position: <?php echo $NeoFrag->config->default_background_position; ?>;
+	background-repeat: <?php echo $NeoFrag->config->default_background_repeat; ?>;
+	background-attachment: <?php echo $NeoFrag->config->default_background_attachment; ?>;
+	background-color: <?php echo $NeoFrag->config->default_background_color; ?>;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	color: #656D79;
