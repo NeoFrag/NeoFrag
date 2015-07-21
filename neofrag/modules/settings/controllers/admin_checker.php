@@ -24,7 +24,7 @@ class m_settings_c_admin_checker extends Controller_Module
 	{
 		if (($theme = $this->load->theme($theme_name, FALSE)) && !is_null($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
 		{
-			return array($theme->name, $controller);
+			return array($theme, $controller);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

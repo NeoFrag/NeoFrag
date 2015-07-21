@@ -132,13 +132,13 @@ class m_settings_c_admin extends Controller_Module
 		));
 	}
 	
-	public function _theme_internal($title, $controller)
+	public function _theme_internal($theme, $controller)
 	{
-		$this	->title($title)
+		$this	->title($theme->name)
 				->subtitle('Personnalisation du thème')
 				->icon('fa-paint-brush');
 		
-		return $controller->index();
+		return $controller->index($theme);
 	}
 }
 
