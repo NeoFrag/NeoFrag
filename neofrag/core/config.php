@@ -112,7 +112,7 @@ class Config extends Core
 		$this->_configs[$name] = $value;
 	}
 	
-	public function __invoke($name, $value)
+	public function __invoke($name, $value, $type = NULL)
 	{
 		if (isset($this->_configs[$name]))
 		{
@@ -120,12 +120,21 @@ class Config extends Core
 									->update('nf_settings', array(
 										'value' => $value
 									));
+			
+			if ($type)
+			{
+				NeoFrag::loader()->db	->where('name', $name)
+										->update('nf_settings', array(
+											'type' => $type
+										));
+			}
 		}
 		else
 		{
 			NeoFrag::loader()->db->insert('nf_settings', array(
 				'name'  => $name,
-				'value' => $value
+				'value' => $value,
+				'type'  => $type ?: 'string'
 			));
 		}
 		
