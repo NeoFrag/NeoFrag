@@ -608,6 +608,10 @@ INSERT INTO `nf_settings` VALUES('nf_description', 'default', '', 'ALPHA 0.1', '
 INSERT INTO `nf_settings` VALUES('nf_humans_txt', '', '', '/* TEAM */\n	NeoFrag CMS for gamers\n	Contact: contact [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: France\n\n	Developper: Micha&euml;l BILCOT\n	Contact: michael.bilcot [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Paris, France\n\n	Designer: J&eacute;r&eacute;my VALENTIN\n	Contact: jeremy.valentin [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Caen, France', 'string');
 INSERT INTO `nf_settings` VALUES('nf_name', 'default', '', 'NeoFrag CMS', 'string');
 INSERT INTO `nf_settings` VALUES('nf_robots_txt', '', '', 'User-agent: *\r\nDisallow:', 'string');
+INSERT INTO `nf_settings` VALUES('default_background_attachment', '', '', 'scroll', 'string');
+INSERT INTO `nf_settings` VALUES('default_background_color', '', '', '#141d26', 'string');
+INSERT INTO `nf_settings` VALUES('default_background_position', '', '', 'center top', 'string');
+INSERT INTO `nf_settings` VALUES('default_background_repeat', '', '', 'no-repeat', 'string');
 
 -- --------------------------------------------------------
 

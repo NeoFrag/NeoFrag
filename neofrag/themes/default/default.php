@@ -23,8 +23,8 @@ class t_default extends Theme
 	public $name        = 'Default';
 	public $description = 'Son design est minimaliste mais générique, il peut s\'adapter facilement à n\'importe quel domaine.';
 	public $thumbnail   = 'neofrag/themes/default/images/thumbnail.png';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
+	public $link        = 'http://www.neofrag.fr';
+	public $author      = 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>';
 	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
@@ -49,6 +49,11 @@ class t_default extends Theme
 	
 	public function install($dispositions = array())
 	{
+		$this	->config('default_background_repeat',     'no-repeat')
+				->config('default_background_attachment', 'scroll')
+				->config('default_background_position',   'center top')
+				->config('default_background_color',      '#141d26');
+		
 		$dispositions['*']['Contenu'] = array(
 			new Row(
 				new Col(
@@ -376,6 +381,13 @@ class t_default extends Theme
 		);
 		
 		return parent::install($dispositions);
+	}
+	
+	public function uninstall()
+	{
+		$this->load->library('file')->delete($this->config->default_background);
+		$this->db->where('name LIKE', 'default_%')->delete('nf_settings');
+		return parent::uninstall();
 	}
 }
 
