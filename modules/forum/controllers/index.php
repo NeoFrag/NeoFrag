@@ -56,11 +56,22 @@ class m_forum_c_index extends Controller_Module
 		return $panels;
 	}
 	
-	public function _forum($forum_id, $title, $category_id, $announces, $topics)
+	public function _forum($forum_id, $title, $category_id, $subforums, $announces, $topics)
 	{
 		$this->title($title);
 		
 		$panels = array();
+		
+		if (!empty($subforums))
+		{
+			$panels[] = new Panel(array(
+				'content' => $this->load->view('index', array(
+					'title'  => 'Sous-catégories',
+					'forums' => $subforums
+				)),
+				'body'    => FALSE
+			));
+		}
 		
 		if (!empty($announces))
 		{
@@ -165,9 +176,10 @@ class m_forum_c_index extends Controller_Module
 			'icon'    => 'fa-file-text-o',
 			'body'    => FALSE,
 			'content' => $this->load->view('new', array(
-				'form_id'  => $this->form->id,
-				'forum_id' => $forum_id,
-				'title'    => $title
+				'form_id'     => $this->form->id,
+				'forum_id'    => $forum_id,
+				'category_id' => $category_id,
+				'title'       => $title
 			))
 		));
 		
@@ -551,7 +563,11 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _mark_all_as_read($forum_id, $title)
 	{
-		$this->model()->mark_all_as_read($forum_id);
+		foreach (array_merge(array($forum_id), $this->db->select('forum_id')->from('nf_forum')->where('parent_id', $forum_id)->where('is_subforum', TRUE)->get()) as $id)
+		{
+			$this->model()->mark_all_as_read($id);
+		}
+		
 		add_alert('Succes', 'Tous les messages du forum '.$title.' sont désormais considéré comme étant lus');
 		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
 	}

@@ -36,6 +36,11 @@ $rules = array(
 		'label' => 'Description',
 		'value' => $description,
 		'type'  => 'text'
+	),
+	'url' => array(
+		'label' => 'Rediriger vers',
+		'value' => $url,
+		'type'  => 'url'
 	)
 );
 

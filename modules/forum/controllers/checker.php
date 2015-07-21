@@ -52,6 +52,7 @@ class m_forum_c_checker extends Controller
 						$forum_id,
 						$title,
 						$forum['category_id'],
+						$forum['subforums'] ? $this->model()->get_forums($forum_id) : array(),
 						$announces,
 						$this->load->library('pagination')->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
 					);

@@ -1,3 +1,26 @@
+.module.module-forum .subforums {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.module.module-forum.module-admin .subforums {
+	min-height: 15px;
+	width: 250px;
+}
+
+.module.module-forum:not(.module-admin) .subforums li {
+	float: left;
+	margin-right: 5px;
+}
+
+.module.module-forum.module-admin .subforums li {
+	margin: 7px 0 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .module.module-forum .topic-icon {
 	position: relative;
 }
