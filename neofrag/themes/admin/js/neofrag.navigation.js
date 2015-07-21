@@ -19,4 +19,10 @@ $(function(){
 
 		return true;
 	});
+	
+	$('[data-toggle="sidebar"]').click(function(){
+		$('.navbar-default.sidebar').toggleClass('hidden');
+		$('#page-wrapper').toggleClass('fullwidth');
+		return false;
+	});
 });
