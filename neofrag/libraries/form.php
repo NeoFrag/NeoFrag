@@ -148,7 +148,7 @@ class Form extends Library
 						if (!empty($post[$var]) && $post[$var] == 'delete' && !empty($options['value']))
 						{
 							$this->file->delete($options['value']);
-							$options['value'] = NULL;
+							$options['value'] = $post[$var] = NULL;
 						}
 						
 						if (!empty($files['tmp_name'][$var]))
