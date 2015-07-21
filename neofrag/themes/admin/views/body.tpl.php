@@ -1,17 +1,11 @@
 <div id="wrapper">
 	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse-1">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</button>
 			<a class="navbar-brand" href="{base_url}admin.html">NEOFRAG CMS <small><?php echo NEOFRAG_VERSION.($NeoFrag->config->nf_pro ? ' Pro' : ''); ?></small></a>
 		</div>
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">
-				<li><a href="#"><i class="fa fa-bars"></i></a></li>
+				<li><a href="#" class="toggle-menu" data-toggle="sidebar"><i class="fa fa-bars"></i></a></li>
 				<li><a href="//www.neofrag.com/support.html">{fa-icon support}<span class="hidden-xs hidden-sm"> Support</span></a></li>
 				<li><a href="//www.neofrag.com/forum.html">{fa-icon comment}<span class="hidden-xs hidden-sm"> Forum</span></a></li>
 				<li><a href="//www.neofrag.com/download.html">{fa-icon download}<span class="hidden-xs hidden-sm"> Téléchargements</span></a></li>

@@ -122,6 +122,15 @@ a:hover {
 	color: #91969c;
 }
 
+.navbar-default .navbar-nav.navbar-left > li > a.toggle-menu {
+	padding: 17px 17px 14px;
+}
+
+.navbar-default .navbar-nav.navbar-left > li > a.toggle-menu i.fa {
+	font-size: 20px;
+	color: #929BA6;
+}
+
 .navbar-default .navbar-nav.navbar-left > li:hover > a {
 	color: #2f3640;
 }
@@ -202,6 +211,11 @@ ul#side-menu.nav i.fa {
 	text-align: center;
 	color: #428bca;
 	width: 15px;
+	font-size: 14px;
+}
+
+ul#side-menu.nav .nav-second-level i.fa {
+	font-size: 12px;
 }
 
 ul#side-menu.nav > li:hover i.fa {
@@ -570,6 +584,9 @@ ul#side-menu.nav .btn.btn-user-logout:hover, ul#side-menu.nav .btn.btn-user-logo
 	#page-wrapper {
 		margin: 0 0 0 200px;
 	}
+	#page-wrapper.fullwidth {
+		margin: 0;
+	}
 	.sidebar {
 		width: 200px;
 	}
@@ -587,4 +604,8 @@ ul#side-menu.nav .btn.btn-user-logout:hover, ul#side-menu.nav .btn.btn-user-logo
 	.sidebar .nav-second-level li a, .sidebar ul.nav-second-level li a.active {
 		padding-left: 18px;
 	}
+}
+
+@media(max-width:768px) {
+	/*TODO*/
 }

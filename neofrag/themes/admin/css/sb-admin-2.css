@@ -44,6 +44,9 @@ body {
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
+	#page-wrapper.fullwidth {
+		margin: 0;
+	}
 }
 
 .navbar-header {
