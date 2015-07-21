@@ -32,9 +32,15 @@ class m_forum_c_admin_ajax_checker extends Controller
 	
 	public function move()
 	{
-		if (($check = $this->_check('category_id', 'forum_id', 'position')) && $this->db->select('1')->from('nf_forum')->where('forum_id', $check['forum_id'])->row() && $this->db->select('1')->from('nf_forum_categories')->where('category_id', $check['category_id'])->row())
+		if (	($check = $this->_check('parent_id', 'forum_id', 'position')) &&
+				!is_array($is_subforum = $this->db->select('is_subforum')->from('nf_forum')->where('forum_id', $check['forum_id'])->row()) &&
+				(
+					($is_subforum  && $this->db->select('1')->from('nf_forum')->where('forum_id', $check['parent_id'])->where('is_subforum', FALSE)->row()) ||
+					(!$is_subforum && $this->db->select('1')->from('nf_forum_categories')->where('category_id', $check['parent_id'])->row())
+				)
+			)
 		{
-			return $check;
+			return array_merge($check, array($is_subforum));
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

@@ -17,7 +17,7 @@
 					<div class="form-group">
 						<textarea class="form-control editor" name="{form_id}[message]" rows="10"><?php if (!empty($data['message'])) echo $data['message']; ?></textarea>
 					</div>
-					<?php if (!empty($data['forum_id'])): ?>
+					<?php if (!empty($data['forum_id']) && is_authorized('forum', 'category_announce', $data['category_id'])): ?>
 					<div class="checkbox">
 						<label><input type="checkbox" name="{form_id}[announce][]" /> Mettre en annonce</label>
 					</div>

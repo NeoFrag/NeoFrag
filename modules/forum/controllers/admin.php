@@ -23,6 +23,7 @@ class m_forum_c_admin extends Controller_Module
 	public function index()
 	{
 		$this	->subtitle('Liste des forums')
+				->css('forum')
 				->js('forum')
 				->add_action('{base_url}admin/forum/categories/add.html', 'Ajouter une catégorie', 'fa-plus')
 				->add_action('{base_url}admin/forum/add.html', 'Ajouter un forum', 'fa-plus');
@@ -64,7 +65,8 @@ class m_forum_c_admin extends Controller_Module
 		{
 			$this->model()->add_forum(	$post['title'],
 										$post['category'],
-										$post['description']);
+										$post['description'],
+										$post['url']);
 
 			add_alert('Succes', 'Forum ajouté');
 
@@ -78,7 +80,7 @@ class m_forum_c_admin extends Controller_Module
 		));
 	}
 
-	public function _edit($forum_id, $title, $description, $url, $category_id, $category_title)
+	public function _edit($forum_id, $title, $description, $parent_id, $is_subforum, $url)
 	{
 		$this	->title('&Eacute;dition')
 				->subtitle($title)
@@ -86,8 +88,9 @@ class m_forum_c_admin extends Controller_Module
 				->add_rules('forum', array(
 					'title'        => $title,
 					'description'  => $description,
-					'category_id'  => $category_id,
-					'categories'   => $this->model()->get_categories_list()
+					'category_id'  => ($is_subforum ? 'f' : '').$parent_id,
+					'categories'   => $this->model()->get_categories_list($forum_id),
+					'url'          => $url
 				))
 				->add_submit('Éditer')
 				->add_back('admin/forum.html');
@@ -97,9 +100,33 @@ class m_forum_c_admin extends Controller_Module
 			$this->db	->where('forum_id', $forum_id)
 						->update('nf_forum', array(
 							'title'       => $post['title'],
-							'parent_id'   => $post['category'],
+							'parent_id'   => $this->model()->get_parent_id($post['category'], $is_subforum),
+							'is_subforum' => $is_subforum,
 							'description' => $post['description']
 						));
+
+			if ($post['url'])
+			{
+				if ($url)
+				{
+					$this->db	->where('forum_id', $forum_id)
+								->update('nf_forum_url', array(
+									'url' => $post['url']
+								));
+				}
+				else
+				{
+					$this->db->insert('nf_forum_url', array(
+						'forum_id' => $forum_id,
+						'url'      => $post['url']
+					));
+				}
+			}
+			else if ($url)
+			{
+				$this->db	->where('forum_id', $forum_id)
+							->delete('nf_forum_url');
+			}
 
 			add_alert('Succes', 'Forum édité');
 
