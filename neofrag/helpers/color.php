@@ -18,37 +18,25 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Library extends NeoFrag
+function get_colors()
 {
-	public function reset($trace = 2)
-	{
-		if ($key = array_search($this, $this->load->libraries))
-		{
-			unset($this->load->libraries[$key]);
-			$this->load->library($key, $trace);
-		}
-	}
+	return array(
+		'default' => '#777777',
+		'primary' => '#337ab7', 
+		'success' => '#5cb85c',
+		'info'    => '#5bc0de',
+		'warning' => '#f0ad4e',
+		'danger'  => '#d9534f'
+	);
+}
 
-	public function copy()
-	{
-		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
-		$id = $backtrace['file'].$backtrace['line'];
-
-		$clone = clone $this;
-		$clone->set_id($backtrace['file'].$backtrace['line'].$clone->get_name());
-		
-		return $clone;
-	}
-
-	public function save()
-	{
-		$clone = clone $this;
-		$this->reset(4);
-		return $clone;
-	}
+function color2hex($color)
+{
+	$colors = get_colors();
+	return isset($colors[$color]) ? $colors[$color] : $color;
 }
 
 /*
 NeoFrag Alpha 0.1
-./neofrag/classes/library.php
+./neofrag/color/string.php
 */

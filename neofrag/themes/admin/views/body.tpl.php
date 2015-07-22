@@ -169,6 +169,5 @@
 			{view actions}
 		</div>
 		{module}
-		</div>
 	</div>
 </div>

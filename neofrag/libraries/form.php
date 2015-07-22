@@ -339,7 +339,28 @@ class Form extends Library
 				$type = 'text';
 			}
 
-			$output .= $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL);
+			if ($display = $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL))
+			{
+				$output .= '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">';
+				
+				if ($this->_fast_mode)
+				{
+					$output .= $display;
+				}
+				else
+				{
+					$output .= '<label class="control-label col-md-3"'.(!in_array($options['type'], array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $options['label'] : '');
+
+					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
+					{
+						$output .= '<em>*</em>';
+					}
+
+					$output .= '</label><div class="col-md-9">'.$display.'</div>';
+				}
+				
+				$output .= '</div>';
+			}
 		}
 
 		if ($this->_display_required)
@@ -396,30 +417,6 @@ class Form extends Library
 		return '';
 	}
 
-	private function _display_category($category)
-	{
-		return '<legend class="form-group">'.$category.'</legend>';
-	}
-
-	private function _display_label($var, $options)
-	{
-		$output = '';
-		
-		if (!empty($options['label']))
-		{
-			$output .= '<label class="control-label col-md-3" for="form_'.$this->id.'_'.$var.'">'.$options['label'];
-
-			if ($options['label'] && isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
-			{
-				$output .= '<em>*</em>';
-			}
-
-			$output .= '</label>';
-		}
-		
-		return $output;
-	}
-
 	private function _display_value($var, $options)
 	{
 		$post = post();
@@ -435,18 +432,33 @@ class Form extends Library
 		
 		return !empty($options['default']) ? $options['default'] : '';
 	}
+	
+	private function _display_popover($var, $options, &$icons = '')
+	{
+		$popover = $icons = array();
+		
+		if (!empty($options['description']))
+		{
+			$popover[] = ($icons[] = '<span class="text-info">'.$this->assets->icon('fa-info-circle').'</span>').' '.$options['description'];
+		}
+		
+		if (!empty($this->_errors[$var]))
+		{
+			$popover[] = ($icons[] = '<span class="text-danger">'.$this->assets->icon('fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
+		}
+		
+		$icons = implode(' ', $icons);
+		
+		if ($popover)
+		{
+			return ' data-toggle="popover" data-trigger="hover" data-placement="right" data-html="true" data-content="'.utf8_htmlentities(implode('<br /><br />', $popover)).'"';
+		}
+	}
 
 	private function _display_text($var, $options, $post, $type = 'text')
 	{
 		$typeahead = (isset($options['values']) && is_array($options['values']) && $options['values']) ? ' data-provide="typeahead" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_map(create_function('$a', 'return \'"\'.$a.\'"\';'), $options['values'])), ', ').']').'"' : '';
-		
-		$output = '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">';
-		
-		if (!$this->_fast_mode)
-		{
-			$output .= $this->_display_label($var, $options).'<div class="col-md-9">';
-		}
-		
+
 		$classes = array();
 		
 		if ($type == 'date')
@@ -493,8 +505,10 @@ class Form extends Library
 			
 			NeoFrag::loader()	->css('bootstrap-colorpicker.min')
 								->js('bootstrap-colorpicker.min')
-								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: {default: "#777777", primary: "#337ab7", success: "#5cb85c", info: "#5bc0de", warning: "#f0ad4e", danger: "#d9534f"}});');
+								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: '.json_encode(get_colors()).'});');
 		}
+		
+		$output = '';
 		
 		if (isset($options['icon']))
 		{
@@ -508,7 +522,7 @@ class Form extends Library
 			$value = ' value="'.$this->_display_value($var, $options).'"';
 		}
 		
-		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.$this->_display_popover($var, $options).(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) ? ' placeholder="'.$options['label'].'"' : '').' />';
+		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$options['label'].'"' : '').' />';
 
 		if ($type == 'file')
 		{
@@ -552,41 +566,35 @@ class Form extends Library
 			
 			$output .= '</div>';
 		}
-		
-		if (!$this->_fast_mode)
-		{
-			$output .= '</div>';
-		}
-		
-		return $output.'</div>';
+
+		return $output;
 	}
 
 	private function _display_iconpicker($var, $options, $post)
 	{
 		NeoFrag::loader()	->css('bootstrap-iconpicker.min')
-							->js('iconset-fontawesome-4.2.0.min')
-							->js('bootstrap-iconpicker.min');
+							->js('bootstrap-iconpicker-iconset-fontawesome-4.3.0.min')
+							->js('bootstrap-iconpicker.min')
+							->js_load('	$(".btn.iconpicker").iconpicker({
+											arrowClass: "btn-danger",
+											arrowPrevIconClass: "glyphicon glyphicon-chevron-left",
+											arrowNextIconClass: "glyphicon glyphicon-chevron-right",
+											cols: 10,
+											rows: 5,
+											iconset: "fontawesome",
+											labelHeader: "{0} sur {1} pages",
+											labelFooter: "<div class=\"pull-right\">{2} icônes</div>",
+											searchText: "Rechercher",
+											selectedClass: "btn-primary",
+											unselectedClass: ""
+										});');
 		
-		return '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">'.$this->_display_label($var, $options).'
-					<div class="col-md-9">
-						<button id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" class="btn btn-default" data-iconset="fontawesome" data-icon="'.$this->_display_value($var, $options).'" role="iconpicker"></button>
-					</div>
-				</div>';
+		return '<button id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.$this->_display_value($var, $options).'"></button>';
 	}
 
 	private function _display_colorpicker($var, $options, $post)
 	{
 		return $this->_display_text($var, $options, $post, 'colorpicker');
-	}
-	
-	private function _display_popover($var, $options)
-	{
-		$popover = '';
-		$popover .= (isset($options['description'])) ? '<span class="text-info">'.$this->assets->icon('fa-info').'</span> '.$options['description'] : '';
-		$popover .= (isset($options['description']) && isset($this->_errors[$var])) ? '<br /><br />' : '';
-		$popover .= (isset($this->_errors[$var]) && $this->_errors[$var]) ? '<span class="text-danger">'.$this->assets->icon('fa-exclamation-triangle').' '.$this->_errors[$var].'</span>' : '';
-
-		return $popover ? ' data-toggle="popover" data-placement="auto" data-html="true" data-content="'.utf8_htmlentities($popover).'" data-template="'.utf8_htmlentities('<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>').'"' : '';
 	}
 
 	private function _display_password($var, $options, $post)
@@ -621,91 +629,73 @@ class Form extends Library
 
 	private function _display_checkbox($var, $options, $post)
 	{
-		$output = '<div class="form-group">
-						<label class="control-label col-md-3">'.(isset($options['label']) ? $options['label'] : '').'</label>
-						<div class="col-md-9">
-							<div class="checkbox">
-								<input type="hidden" name="'.$this->id.'['.$var.'][]" value="" />';
+		$output = '<input type="hidden" name="'.$this->id.'['.$var.'][]" value="" />
+						';
 								
-		foreach ($options['values'] as $value => $label)
+		if (!empty($options['values']))
 		{
-			 $output .= '	<label class="checkbox">
-								<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.((is_null($post) && isset($options['checked'], $options['checked'][$value]) && $options['checked'][$value]) || ($post && in_array($value, $post)) ? ' checked="checked"' : '').' />
-								'.$label.'
-							</label>';
+			$user_value = (array)$this->_display_value($var, $options);
+			
+			foreach ($options['values'] as $value => $label)
+			{
+				 $output .= '	<div class="checkbox">
+									<label>
+										<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value, TRUE) ? ' checked="checked"' : '').' />
+										'.$label.'
+									</label>
+								</div>';
+			}
 		}
-
-		return $output.'</div></div></div>';
+		
+		return $output;
 	}
 
 	private function _display_radio($var, $options, $post)
 	{
-		$output = '<div class="form-group">
-						<label class="control-label col-md-3">'.(isset($options['label']) ? $options['label'] : '').'</label>
-						<div class="col-md-9">
-							<input type="hidden" name="'.$this->id.'['.$var.']" value="" />';
+		$output = '<input type="hidden" name="'.$this->id.'['.$var.']" value="" />';
 
-		if (isset($options['values']) && $options['values'])
+		if (!empty($options['values']))
 		{
+			$user_value = $this->_display_value($var, $options);
+
 			foreach ($options['values'] as $value => $label)
 			{
-				 $output .= '<label class="radio-inline">
-									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.((is_null($post) && isset($options['value']) && $options['value'] == $value) || $post == $value ? ' checked="checked"' : '').' />
+				 $output .= '	<label class="radio-inline">
+									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.($user_value === (string)$value ? ' checked="checked"' : '').' />
 									'.$label.'
 								</label>';
 			}
 		}
-
-		return $output.'</div></div>';
+		
+		return $output;
 	}
 
 	private function _display_select($var, $options, $post)
 	{
 		if (empty($options['values']) && (!isset($options['rules']) || !in_array('required', $options['rules'])))
 		{
-			return '';
+			return;
+		}
+
+		$output = '<select class="form-control" id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']">
+						<option></option>';
+
+		if (!empty($options['values']))
+		{
+			$user_value = $this->_display_value($var, $options);
+
+			foreach ($options['values'] as $value => $label)
+			{
+				$output .= '<option value="'.$value.'"'.($user_value === (string)$value ? ' selected="selected"' : '').'>'.$label.'</option>';
+			}
 		}
 		
-		$output = '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">'.$this->_display_label($var, $options).'
-						<div class="col-md-9">
-							<select class="form-control" id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']"'.$this->_display_popover($var, $options).'>
-								<option></option>';
-
-		foreach ($options['values'] as $value => $label)
-		{
-			$output .= '<option value="'.$value.'"'.((is_null($post) && isset($options['value']) && $options['value'] == $value) || $post == $value ? ' selected="selected"' : '').'>'.$label.'</option>';
-		}
-
-		return $output.'</select></div></div>';
+		return $output.'</select>';
 	}
 
 	private function _display_textarea($var, $options, $post, $editor = FALSE)
 	{
-		$output = '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">';
-
-		if (isset($options['label']))
-		{
-			$output .= '<label class="control-label col-md-3" for="form_'.$this->id.'_'.$var.'">'.$options['label'].(($options['label'] && isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required) ? '<em>*</em>' : '').'</label>';
-		}
-		
-		$output .= '<div class="col-md-9">
-						<textarea id="form_'.$this->id.'_'.$var.'" class="form-control'.($editor ? ' editor' : '').'" rows="10" name="'.$this->id.'['.$var.']">'.$this->_display_value($var, $options).'</textarea>';
-
-		if (isset($this->_errors[$var]))
-		{
-			$output .= '<span class="help-inline">'.$this->_errors[$var].'</span>';
-		}
-
-		if (isset($options['description']))
-		{
-			$output .= '<p class="help-block">'.$options['description'].'</p>';
-		}
-
-		$output .= '	</div>
-					</div>';
-
-		return $output;
-
+		return '<textarea id="form_'.$this->id.'_'.$var.'" class="form-control'.($editor ? ' editor' : '').'" rows="10" name="'.$this->id.'['.$var.']">'.$this->_display_value($var, $options).'</textarea>';
 	}
 
 	private function _display_editor($var, $options, $post)

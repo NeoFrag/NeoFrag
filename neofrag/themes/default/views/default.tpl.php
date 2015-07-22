@@ -35,7 +35,9 @@
 	<script type="text/javascript">
 	$(function(){
 		$('body').popover({
-			selector: '[data-toggle=popover]'
+			selector: '[data-toggle=popover]',
+			container: 'body',
+			trigger: 'hover'
 		});
 		
 		$('body').tooltip({
