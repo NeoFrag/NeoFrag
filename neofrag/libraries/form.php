@@ -489,20 +489,17 @@ class Form extends Library
 			
 			$classes[] = 'color';
 			
-			if (empty($options['icon']))
-			{
-				$options['icon'] = 'fa-eyedropper';
-			}
+			$options['icon'] = FALSE;
 			
 			NeoFrag::loader()	->css('bootstrap-colorpicker.min')
 								->js('bootstrap-colorpicker.min')
-								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon.color", colorSelectors: {default: "#777777", primary: "#337ab7", success: "#5cb85c", info: "#5bc0de", warning: "#f0ad4e", danger: "#d9534f"}});');
+								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: {default: "#777777", primary: "#337ab7", success: "#5cb85c", info: "#5bc0de", warning: "#f0ad4e", danger: "#d9534f"}});');
 		}
 		
-		if (!empty($options['icon']))
+		if (isset($options['icon']))
 		{
 			$output .= '<div class="input-group'.(!empty($classes) ? ' '.implode(' ', $classes) : '').'">
-				<span class="input-group-addon">'.$this->assets->icon($options['icon']).'</span>';
+				<span class="input-group-addon">'.($options['icon'] ? $this->assets->icon($options['icon']) : '<i></i>').'</span>';
 		}
 		
 		if ($type != 'file')
@@ -546,11 +543,11 @@ class Form extends Library
 		
 		$output .= $input;
 		
-		if (!empty($options['icon']))
+		if (isset($options['icon']))
 		{
 			if (in_array('color', $classes))
 			{
-				$output .= '<span class="input-group-addon color"><i></i></span>';
+				$output .= '<span class="input-group-addon"><span class="fa fa-eyedropper"></span></span>';
 			}
 			
 			$output .= '</div>';
