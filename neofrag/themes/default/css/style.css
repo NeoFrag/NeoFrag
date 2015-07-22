@@ -6,7 +6,7 @@ body {
 	background-position: <?php echo $NeoFrag->config->default_background_position; ?>;
 	background-repeat: <?php echo $NeoFrag->config->default_background_repeat; ?>;
 	background-attachment: <?php echo $NeoFrag->config->default_background_attachment; ?>;
-	background-color: <?php echo $NeoFrag->config->default_background_color; ?>;
+	background-color: <?php echo color2hex($NeoFrag->config->default_background_color); ?>;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	color: #656D79;
