@@ -29,6 +29,17 @@ class Library extends NeoFrag
 		}
 	}
 
+	public function copy()
+	{
+		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
+		$id = $backtrace['file'].$backtrace['line'];
+
+		$clone = clone $this;
+		$clone->set_id($backtrace['file'].$backtrace['line'].$clone->get_name());
+		
+		return $clone;
+	}
+
 	public function save()
 	{
 		$clone = clone $this;
