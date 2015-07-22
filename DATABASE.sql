@@ -261,6 +261,96 @@ CREATE TABLE IF NOT EXISTS `nf_forum_url` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_gallery`
+--
+
+DROP TABLE IF EXISTS `nf_gallery`;
+CREATE TABLE IF NOT EXISTS `nf_gallery` (
+  `gallery_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) unsigned NOT NULL,
+  `image_id` int(11) unsigned DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `published` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`gallery_id`),
+  KEY `category_id` (`category_id`),
+  KEY `image_id` (`image_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_gallery_categories`
+--
+
+DROP TABLE IF EXISTS `nf_gallery_categories`;
+CREATE TABLE IF NOT EXISTS `nf_gallery_categories` (
+  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) unsigned DEFAULT NULL,
+  `icon_id` int(11) unsigned DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `image_id` (`image_id`),
+  KEY `icon_id` (`icon_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_gallery_categories_lang`
+--
+
+DROP TABLE IF EXISTS `nf_gallery_categories_lang`;
+CREATE TABLE IF NOT EXISTS `nf_gallery_categories_lang` (
+  `category_id` int(11) unsigned NOT NULL,
+  `lang` varchar(5) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  PRIMARY KEY (`category_id`,`lang`),
+  KEY `lang` (`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_gallery_images`
+--
+
+DROP TABLE IF EXISTS `nf_gallery_images`;
+CREATE TABLE IF NOT EXISTS `nf_gallery_images` (
+  `image_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `thumbnail_file_id` int(11) unsigned NOT NULL,
+  `original_file_id` int(11) unsigned NOT NULL,
+  `file_id` int(11) unsigned NOT NULL,
+  `gallery_id` int(11) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `views` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`image_id`),
+  KEY `file_id` (`file_id`),
+  KEY `gallery_id` (`gallery_id`),
+  KEY `original_file_id` (`original_file_id`),
+  KEY `thumbnail_file_id` (`thumbnail_file_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_gallery_lang`
+--
+
+DROP TABLE IF EXISTS `nf_gallery_lang`;
+CREATE TABLE IF NOT EXISTS `nf_gallery_lang` (
+  `gallery_id` int(11) unsigned NOT NULL,
+  `lang` varchar(5) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`gallery_id`,`lang`),
+  KEY `lang` (`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_games`
 --
 
@@ -639,6 +729,8 @@ INSERT INTO `nf_settings_addons` VALUES('default', 'theme', '1');
 INSERT INTO `nf_settings_addons` VALUES('error', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'widget', '1');
+INSERT INTO `nf_settings_addons` VALUES('gallery', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('gallery', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('games', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('header', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('html', 'widget', '1');
@@ -999,7 +1091,7 @@ CREATE TABLE IF NOT EXISTS `nf_widgets` (
 --
 
 INSERT INTO `nf_widgets` VALUES(1, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"1";}');
-INSERT INTO `nf_widgets` VALUES(2, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}s:7:"display";b:1;}');
+INSERT INTO `nf_widgets` VALUES(2, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:7:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}i:6;a:2:{s:5:"title";s:7:"Galerie";s:3:"url";s:12:"gallery.html";}}s:7:"display";b:1;}');
 INSERT INTO `nf_widgets` VALUES(3, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(6, 'forum', 'topics', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(7, 'news', 'index', NULL, NULL);
@@ -1013,7 +1105,7 @@ INSERT INTO `nf_widgets` VALUES(14, 'members', 'online_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(15, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"2";}');
 INSERT INTO `nf_widgets` VALUES(16, 'news', 'categories', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(17, 'html', 'index', NULL, 'a:1:{s:7:"content";s:99:"[center]Propulsé par [url=http://www.neofrag.fr]NeoFrag CMS[/url]﻿ version Alpha 0.1﻿[/center]";}');
-INSERT INTO `nf_widgets` VALUES(20, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}s:7:"display";b:1;}');
+INSERT INTO `nf_widgets` VALUES(20, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:7:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}i:6;a:2:{s:5:"title";s:7:"Galerie";s:3:"url";s:12:"gallery.html";}}s:7:"display";b:1;}');
 INSERT INTO `nf_widgets` VALUES(21, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(22, 'slider', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(23, 'breadcrumb', 'index', NULL, NULL);
@@ -1097,6 +1189,43 @@ ALTER TABLE `nf_forum_track`
 --
 ALTER TABLE `nf_forum_url`
   ADD CONSTRAINT `nf_forum_url_ibfk_1` FOREIGN KEY (`forum_id`) REFERENCES `nf_forum` (`forum_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_gallery`
+--
+ALTER TABLE `nf_gallery`
+  ADD CONSTRAINT `nf_gallery_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_gallery_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_gallery_categories`
+--
+ALTER TABLE `nf_gallery_categories`
+  ADD CONSTRAINT `nf_gallery_categories_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_categories_ibfk_2` FOREIGN KEY (`icon_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_gallery_categories_lang`
+--
+ALTER TABLE `nf_gallery_categories_lang`
+  ADD CONSTRAINT `nf_gallery_categories_lang_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_gallery_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_categories_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_gallery_images`
+--
+ALTER TABLE `nf_gallery_images`
+  ADD CONSTRAINT `nf_gallery_images_ibfk_4` FOREIGN KEY (`original_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_images_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_images_ibfk_2` FOREIGN KEY (`gallery_id`) REFERENCES `nf_gallery` (`gallery_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_images_ibfk_3` FOREIGN KEY (`thumbnail_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_gallery_lang`
+--
+ALTER TABLE `nf_gallery_lang`
+  ADD CONSTRAINT `nf_gallery_lang_ibfk_1` FOREIGN KEY (`gallery_id`) REFERENCES `nf_gallery` (`gallery_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_games`

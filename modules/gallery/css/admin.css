@@ -1,0 +1,57 @@
+.vignettes-content {
+	margin-top: 15px;
+}
+
+.vignettes-content .thumbnail {
+	margin-bottom: 10px;
+	position: relative;
+	display: block;
+}
+
+.vignettes-content .thumbnail:hover, .dropzone:hover {
+	border-color: #428bca;
+}
+
+.vignettes-content .thumbnail .actions {
+	top: 4px;
+	right: 4px;
+	position: absolute;
+	padding: 5px;
+	background-color: rgba(255,255,255,.8);
+	border-bottom-left-radius: 3px;
+}
+
+.vignettes-content .thumbnail .actions:hover {
+	background-color: rgba(255,255,255,1);
+}
+
+.vignettes-content > .row {
+	-moz-column-width: 18em;
+	-webkit-column-width: 18em;
+	-moz-column-gap: 1em;
+	-webkit-column-gap:1em;
+	margin: 0 -3px;
+}
+
+.vignettes-content > .row .gallery-item {
+	display: inline-block;
+	padding: .25rem;
+	width: 100%;
+}
+
+.thumbnail-link:hover {
+	cursor: pointer;
+}
+
+#gallery-dropzone-add {
+	margin-top: 10px;
+}
+
+.dropzone {
+	border: 5px solid rgba(0, 0, 0, 0.1);
+	padding: 20px 15px;
+}
+
+.upload-infos > .progress {
+	margin-bottom: 10px;
+}
