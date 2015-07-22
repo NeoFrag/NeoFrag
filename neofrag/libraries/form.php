@@ -505,7 +505,7 @@ class Form extends Library
 			
 			NeoFrag::loader()	->css('bootstrap-colorpicker.min')
 								->js('bootstrap-colorpicker.min')
-								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: {default: "#777777", primary: "#337ab7", success: "#5cb85c", info: "#5bc0de", warning: "#f0ad4e", danger: "#d9534f"}});');
+								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: '.json_encode(get_colors()).'});');
 		}
 		
 		$output = '';
