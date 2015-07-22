@@ -396,11 +396,6 @@ class Form extends Library
 		return '';
 	}
 
-	private function _display_category($category)
-	{
-		return '<legend class="form-group">'.$category.'</legend>';
-	}
-
 	private function _display_label($var, $options)
 	{
 		$output = '';
