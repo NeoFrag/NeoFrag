@@ -408,6 +408,6 @@ abstract class Module extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/classes/module.php
 */

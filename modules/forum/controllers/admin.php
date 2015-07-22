@@ -230,6 +230,6 @@ class m_forum_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/forum/controllers/admin.php
 */

@@ -123,6 +123,6 @@ class m_teams_m_teams extends Model
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/teams/models/teams.php
 */

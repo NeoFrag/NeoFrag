@@ -27,6 +27,6 @@ class w_header_c_admin extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1
-./neofrag/widgets/navigation/controllers/admin.php
+NeoFrag Alpha 0.1.1
+./widgets/header/controllers/admin.php
 */

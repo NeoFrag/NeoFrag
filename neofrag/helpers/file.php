@@ -182,6 +182,6 @@ function rmdir_all($directory)
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/helpers/file.php
 */

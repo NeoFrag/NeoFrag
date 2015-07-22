@@ -46,6 +46,6 @@ class w_gallery_c_admin extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./widgets/gallery/controllers/admin.php
 */

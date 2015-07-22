@@ -557,6 +557,6 @@ class Loader extends Core
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/core/loader.php
 */

@@ -118,6 +118,6 @@ class m_members_c_admin_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/modules/members/controllers/admin_checker.php
 */
