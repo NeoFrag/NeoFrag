@@ -45,7 +45,8 @@ class TextEditor extends Library
 		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>',
 		'\x0A'                                              => '<br />',
 		'\[soundcloud\](.*?)\[/soundcloud\]'                => '<iframe width="100%" height="164" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=\1&auto_play=false&visual=false"></iframe>',
-		'\[twitchv=(.*?)\](.*?)\[/twitchv\]'                => '<object bgcolor="#000000" data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" height="378" id="clip_embed_player_flash" type="application/x-shockwave-flash" width="100%"><param name="movie" value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="allowFullScreen" value="true" /><param name="flashvars" value="channel=\1&start_volume=25&auto_play=false&videoId=\2&initial_time=0" /></object>'
+		'\[twitchv=(.*?)\](.*?)\[/twitchv\]'                => '<object bgcolor="#000000" data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" height="378" id="clip_embed_player_flash" type="application/x-shockwave-flash" width="100%"><param name="movie" value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="allowFullScreen" value="true" /><param name="flashvars" value="channel=\1&start_volume=25&auto_play=false&videoId=\2&initial_time=0" /></object>',
+		'\@([a-zA-Z0-9_]{3,30})'                            => '<a href="/members/<?php get_user_id("\1");?>/<?php echo strtolower("\1")?>.html">\1</a>'
 	);
 
 	public function bbcode2html($output)
