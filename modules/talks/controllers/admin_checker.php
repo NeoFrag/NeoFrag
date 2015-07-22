@@ -58,6 +58,6 @@ class m_talks_c_admin_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/talks/controllers/admin_checker.php
 */

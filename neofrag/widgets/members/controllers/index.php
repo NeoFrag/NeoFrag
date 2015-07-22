@@ -117,6 +117,6 @@ class w_members_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/widgets/members/controllers/index.php
 */

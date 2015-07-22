@@ -37,6 +37,6 @@ function color2hex($color)
 }
 
 /*
-NeoFrag Alpha 0.1
-./neofrag/color/string.php
+NeoFrag Alpha 0.1.1
+./neofrag/helpers/color.php
 */

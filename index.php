@@ -33,7 +33,7 @@ ob_start();
 define('NEOFRAG_CMS',     dirname(__FILE__));
 define('NEOFRAG_MEMORY',  memory_get_usage(TRUE));
 define('NEOFRAG_TIME',    microtime(TRUE));
-define('NEOFRAG_VERSION', 'Alpha 0.1');
+define('NEOFRAG_VERSION', 'Alpha 0.1.1');
 
 ini_set('default_charset', 'UTF8');
 ini_set('mbstring.func_overload', 7);
@@ -133,6 +133,6 @@ $NeoFrag->core(
 );
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./index.php
 */

@@ -124,6 +124,6 @@ class m_games_m_games extends Model
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/games/models/games.php
 */

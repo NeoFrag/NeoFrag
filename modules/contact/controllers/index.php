@@ -74,6 +74,6 @@ class m_contact_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/contact/controllers/index.php
 */

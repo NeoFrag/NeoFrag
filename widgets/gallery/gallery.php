@@ -37,6 +37,6 @@ class w_gallery extends Widget
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./widgets/gallery/gallery.php
 */

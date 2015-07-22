@@ -63,6 +63,6 @@ class TextEditor extends Library
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/libraries/text_editor.php
 */

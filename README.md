@@ -1,5 +1,7 @@
 # NeoFrag CMS
 
+[![Tag](http://img.shields.io/github/tag/NeoFragCMS/neofrag-cms.svg)](https://github.com/NeoFragCMS/neofrag-cms/tags)
+
 NeoFrag est un CMS qui vous offre des fonctionnalités évoluées pour la gestion de votre équipe de jeu, association sportive ou esportive ! Facile à prendre en main, complet et performant, vous pouvez créer votre site internet avec des interfaces modernes et personnalisables, le tout gratuitement, sans connaissance particulière.
 
 ##### En savoir plus sur NeoFrag CMS
@@ -22,12 +24,12 @@ NeoFrag CMS est un projet imaginé en 2011, qui a vu ça première version Alpha
 
 ## Prérequis
 
-NeoFrag CMS nécessite un hébergement web PHP/MySQL pour fonctionner avec un espace disque minimum conseillé de 10Mo.
+NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner.
 
-- PHP 5.4
+- PHP 5.4 ou supérieur (avec les extensions gd2, json, mbstring et zip)
 - Module Apache rewrite_module activé
 
-:warning: Toutes les versions de PHP supérieures à 5.4 n'ont pas encore pu être toutes testées.
+:warning: Les versions de PHP supérieures à 5.4 n'ont pas encore pu être toutes testées.
 
 ## :fr: Installation
 
@@ -35,7 +37,7 @@ NeoFrag CMS nécessite un hébergement web PHP/MySQL pour fonctionner avec un es
 - Créer une base de données MySQL et importer le fichier DATABASE.sql
 - Éditer le fichier de configuration de la base de données ./config/database.php
 - Connectez-vous sur votre site web avec comme identifiant: admin et mot de passe: admin123
-- Profitez de [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1 !
+- Profitez de [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1.1 !
 
 ## :uk: Installation
 
@@ -43,11 +45,11 @@ NeoFrag CMS nécessite un hébergement web PHP/MySQL pour fonctionner avec un es
 - Create a MySQL database and import DATABASE.sql
 - Edit database config file in ./config/database.php
 - Connect on your website and login with username: admin and password: admin123
-- Let's enjoy [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1
+- Let's enjoy [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1.1
 
 ## Contribuer
 
-Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visite sur le site [NeoFrag CMS](http://www.neofrag.fr) pour en apprendre d'avantage sur le fonctionne du CMS.
+Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visite sur le site [NeoFrag CMS](http://www.neofrag.fr) pour en apprendre d'avantage sur le fonctionnement du CMS.
 
 - Signalez-nous les bugs que vous remarquez sur [notre forum](http://www.neofrag.fr) ou via [Github](https://github.com/NeoFragCMS/neofrag-cms/issues).
 - Suivez [@NeoFragCMS](https://twitter.com/NeoFragCMS) sur Twitter

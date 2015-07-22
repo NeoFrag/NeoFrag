@@ -60,6 +60,6 @@ class m_members_m_groups extends Model
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/modules/members/models/groups.php
 */

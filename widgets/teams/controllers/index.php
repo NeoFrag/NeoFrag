@@ -51,6 +51,6 @@ class w_teams_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./widgets/teams/controllers/index.php
 */

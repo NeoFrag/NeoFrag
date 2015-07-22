@@ -145,6 +145,6 @@ $rules = array(
 );
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/modules/user/forms/user.php
 */

@@ -31,6 +31,6 @@ class w_teams extends Widget
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./widgets/teams/teams.php
 */
