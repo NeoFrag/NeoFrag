@@ -33,6 +33,6 @@ $rules = array(
 );
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/gallery/forms/image.php
 */

@@ -288,6 +288,6 @@ class m_gallery_m_gallery extends Model
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/gallery/models/gallery.php
 */

@@ -107,6 +107,6 @@ function add_permission($addon, $addon_id, $action, $details)
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/helpers/permissions.php
 */

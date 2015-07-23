@@ -574,6 +574,6 @@ class m_forum_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/forum/controllers/index.php
 */

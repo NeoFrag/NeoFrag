@@ -124,6 +124,6 @@ class m_talks_m_talks extends Model
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/talks/models/talks.php
 */

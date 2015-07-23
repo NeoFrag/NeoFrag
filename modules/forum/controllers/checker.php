@@ -226,6 +226,6 @@ class m_forum_c_checker extends Controller
 	}}
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./modules/forum/controllers/checker.php
 */

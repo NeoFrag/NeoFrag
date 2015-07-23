@@ -203,6 +203,6 @@ class Driver_mysql extends Driver
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/databases/mysql.php
 */

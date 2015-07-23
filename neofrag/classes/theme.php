@@ -150,6 +150,6 @@ abstract class Theme extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.1
 ./neofrag/classes/theme.php
 */
