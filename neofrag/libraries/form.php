@@ -349,7 +349,7 @@ class Form extends Library
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($options['type'], array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $options['label'] : '');
+					$output .= '<label class="control-label col-md-3"'.(!in_array($type, array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $options['label'] : '');
 
 					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
 					{
@@ -425,12 +425,16 @@ class Form extends Library
 		{
 			return $post[$this->id][$var];
 		}
+		else if (isset($options['checked']))
+		{
+			return array_keys(array_filter($options['checked']));
+		}
 		else if (isset($options['value']))
 		{
-			return $options['value'];
+			return (string)$options['value'];
 		}
 		
-		return !empty($options['default']) ? $options['default'] : '';
+		return isset($options['default']) ? (string)$options['default'] : '';
 	}
 	
 	private function _display_popover($var, $options, &$icons = '')
@@ -629,9 +633,8 @@ class Form extends Library
 
 	private function _display_checkbox($var, $options, $post)
 	{
-		$output = '<input type="hidden" name="'.$this->id.'['.$var.'][]" value="" />
-						';
-								
+		$output = '<input type="hidden" name="'.$this->id.'['.$var.'][]" value="" />';
+
 		if (!empty($options['values']))
 		{
 			$user_value = (array)$this->_display_value($var, $options);
@@ -640,7 +643,7 @@ class Form extends Library
 			{
 				 $output .= '	<div class="checkbox">
 									<label>
-										<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value, TRUE) ? ' checked="checked"' : '').' />
+										<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
 										'.$label.'
 									</label>
 								</div>';
@@ -661,7 +664,7 @@ class Form extends Library
 			foreach ($options['values'] as $value => $label)
 			{
 				 $output .= '	<label class="radio-inline">
-									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.($user_value === (string)$value ? ' checked="checked"' : '').' />
+									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
 									'.$label.'
 								</label>';
 			}
@@ -686,7 +689,7 @@ class Form extends Library
 
 			foreach ($options['values'] as $value => $label)
 			{
-				$output .= '<option value="'.$value.'"'.($user_value === (string)$value ? ' selected="selected"' : '').'>'.$label.'</option>';
+				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$label.'</option>';
 			}
 		}
 		
