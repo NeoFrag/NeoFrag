@@ -60,9 +60,16 @@ function in_string($needle, $haystack, $strict = TRUE)
 
 function url_title($string)
 {
+	static $strings = array();
+	
+	if (isset($strings[$string]))
+	{
+		return $strings[$string];
+	}
+	
 	static $a, $b;
 	
-	if (is_null($a) || is_null($b))
+	if ($a === NULL)
 	{
 		$chars = array(
 			'a'  => 'ÀÁÂÃÄÅÆàáâãäå',
@@ -88,8 +95,8 @@ function url_title($string)
 			}
 		}
 	}
-
-	return trim(str_replace('__', '_', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
+	
+	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
 }
 
 function strtolink($string)
