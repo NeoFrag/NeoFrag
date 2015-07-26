@@ -262,8 +262,7 @@ class User extends Core
 			$username = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->row();
 		}
 
-		//TODO Ajouter une popover avec un chargement ajax
-		return '<a href="{base_url}members/'.$user_id.'/'.url_title($username).'.html">'.$prefix.$username.'</a>';
+		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="{base_url}members/'.$user_id.'/'.url_title($username).'.html">'.$prefix.$username.'</a>';
 	}
 	
 	public function avatar($avatar = 0, $sex = '')

@@ -34,6 +34,7 @@ class m_members extends Module
 		//Index
 		'{pages}'                                         => 'index',
 		'{id}/{url_title}'                                => '_member',
+		'ajax/{id}/{url_title}'                           => '_member',
 		'group/(admins|members){pages}'                   => '_group',
 		'group/{url_title}-{id}/{url_title}{pages}'       => '_group',
 		'group/{id}/{url_title}{pages}'                   => '_group',
