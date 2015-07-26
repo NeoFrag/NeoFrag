@@ -23,7 +23,6 @@ class TextEditor extends Library
 	public $name = 'editor';
 	
 	private $_bbcode = array(
-		'\x0D'                                              => '',
 		'\[(b|bold|strong)\](.*?)\[/\1\]'                   => '<b>\2</b>',
 		'\[(i|italic)\](.*?)\[/\1\]'                        => '<i>\2</i>',
 		'\[(u|underline)\](.*?)\[/\1\]'                     => '<u>\2</u>',
@@ -42,8 +41,7 @@ class TextEditor extends Library
 		'\[(left|center|right)\](.*?)\[/\1\]'               => '<div style="text-align: \1;">\2</div>',
 		'\[quote\](.*?)\[/quote\]'                          => '<blockquote>\1</blockquote>',
 		'\[code\](.*?)\[/code\]'                            => '<code>\1</code>',
-		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>',
-		'\x0A'                                              => '<br />'
+		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>'
 	);
 
 	public function bbcode2html($output)

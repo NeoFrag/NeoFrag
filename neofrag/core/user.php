@@ -249,7 +249,7 @@ class User extends Core
 		}
 	}
 
-	public function link($user_id = 0, $username = '')
+	public function link($user_id = 0, $username = '', $prefix = '')
 	{
 		if (!$user_id)
 		{
@@ -263,7 +263,7 @@ class User extends Core
 		}
 
 		//TODO Ajouter une popover avec un chargement ajax
-		return '<a href="{base_url}members/'.$user_id.'/'.url_title($username).'.html">'.$username.'</a>';
+		return '<a href="{base_url}members/'.$user_id.'/'.url_title($username).'.html">'.$prefix.$username.'</a>';
 	}
 	
 	public function avatar($avatar = 0, $sex = '')

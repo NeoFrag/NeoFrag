@@ -99,14 +99,51 @@ function url_title($string)
 	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
 }
 
-function strtolink($string)
+function strtolink($string, $is_html = FALSE)
 {
-	//TODO détecter les @Username et remplacer par le badge du membre...
+	if ($is_html)
+	{
+		$offset = 0;
+		$string = '>'.$string;
+
+		while ($offset < strlen($string) && preg_match('_>([^<]+(</)?)_', $string, $match, PREG_OFFSET_CAPTURE, $offset))
+		{
+			
+			$offset = $match[1][1];
+			
+			if (!isset($match[2]))
+			{
+				$replacement = strtolink($match[1][0]);
+				$string      = substr_replace($string, $replacement, $offset, strlen($match[1][0]));
+				$offset     += strlen($replacement);
+			}
+			else
+			{
+				$offset += strlen($match[1][0]);
+			}
+		}
+		
+		return substr($string, 1);
+	}
 	
 	//regex by @diegoperini
-	return nl2br(preg_replace_callback('_(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?_iuS', function($match){
+	$string = preg_replace_callback('_(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?_iuS', function($match){
 		return '<a href="'.$match[0].'">'.str_shortener($match[0], 50).'</a>';
-	}, $string));
+	}, $string);
+	
+	return preg_replace_callback('_@((?:&quot;(.+?)&quot;)|([^@\s]+))_', function($match){
+		static $users;
+		
+		if ($users === NULL)
+		{
+			foreach (NeoFrag::loader()->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get() as $user)
+			{
+				$users[$user['user_id']] = $user['username'];
+			}
+		}
+		
+		return ($user_id = array_search($username = $match[3] ?: $match[2], $users)) !== FALSE ? NeoFrag::loader()->user->link($user_id, $username, '@') : $match[0];
+	}, $string);
 }
 
 function unique_id($list = array())
@@ -199,7 +236,7 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 
 function bbcode($string)
 {
-	return NeoFrag::loader()->load->library('text_editor')->bbcode2html($string);
+	return nl2br(strtolink(NeoFrag::loader()->load->library('text_editor')->bbcode2html($string), TRUE));
 }
 
 /*

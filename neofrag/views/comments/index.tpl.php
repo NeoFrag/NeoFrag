@@ -27,7 +27,7 @@
 			<?php echo $NeoFrag->user->link($data['user_id'], $data['username']); ?>
 			<small>{fa-icon clock-o} <?php echo time_span($data['date']); ?></small>
 		</h4>
-		<?php echo $data['content'] ? strtolink($data['content']) : '<i>Message supprimé</i>'; ?>
+		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>Message supprimé</i>'; ?>
 	</div>
 </div>
 <hr<?php if (!is_null($data['parent_id'])) echo ' class="comments-child"'; ?> />
