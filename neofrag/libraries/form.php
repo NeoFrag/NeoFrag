@@ -28,6 +28,7 @@ class Form extends Library
 	private $_rules            = array();
 	private $_display_required = TRUE;
 	private $_fast_mode        = FALSE;
+	private $_display_captcha  = FALSE;
 	
 	public function add_rules($rules, $values = array())
 	{
@@ -44,6 +45,16 @@ class Form extends Library
 			}
 			
 			$this->_rules[$var] = $options;
+		}
+
+		return $this;
+	}
+	
+	public function add_captcha()
+	{
+		if (!$this->user())
+		{
+			$this->_display_captcha = $this->load->library('captcha')->is_ok();
 		}
 
 		return $this;
@@ -91,6 +102,11 @@ class Form extends Library
 	public function is_valid(&$post = NULL)
 	{
 		$post = post($this->id);
+		
+		if ($this->_display_captcha && !$this->captcha->is_valid())
+		{
+			return FALSE;
+		}
 		
 		if (strtolower($_SERVER['REQUEST_METHOD']) != 'post' || empty($post))
 		{
@@ -371,6 +387,12 @@ class Form extends Library
 				
 				$output .= '</div>';
 			}
+		}
+
+		if ($this->_display_captcha)
+		{
+			NeoFrag::loader()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang.'&_=');
+			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-md-offset-3 col-md-9').'"><div class="g-recaptcha" data-sitekey="'.$this->captcha->get_public_key().'"></div></div></div>';
 		}
 
 		if ($this->_display_required)

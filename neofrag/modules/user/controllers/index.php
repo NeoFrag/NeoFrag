@@ -285,6 +285,7 @@ class m_user_c_index extends Controller_Module
 					}
 				)
 			))
+			->add_captcha()
 			->add_submit($this('create_account'))
 			->fast_mode()
 			->save();

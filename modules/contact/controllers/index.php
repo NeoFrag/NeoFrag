@@ -48,6 +48,7 @@ class m_contact_c_index extends Controller_Module
 				->load->library('form')
 				->display_required(FALSE)
 				->add_rules($rules)
+				->add_captcha()
 				->add_submit(icon('fa-envelope-o').' '.$this('send'))
 				->add_back('index.html');
 		
