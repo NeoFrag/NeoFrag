@@ -91,7 +91,7 @@ class Config extends Core
 			$this->update('default');
 		}
 
-		if (!$this->ajax && NeoFrag::loader()->assets->is_asset())
+		if (!$this->ajax && is_asset())
 		{
 			$this->assets($this->_configs['request_url']);
 		}

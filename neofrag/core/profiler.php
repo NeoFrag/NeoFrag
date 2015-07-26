@@ -41,7 +41,7 @@ class Profiler extends Core
 		$this->log('Espace mémoire alloué par NeoFrag : '.round((memory_get_peak_usage(TRUE) - NEOFRAG_MEMORY) / 1024 / 1024, 3).' Mo', self::INFO);
 		$this->log('Espace mémoire alloué par PHP : '.round(memory_get_peak_usage(TRUE) / 1024 / 1024, 3).' Mo', self::INFO);
 		
-		if (!is_null($this->assets) && !$this->assets->is_asset() && file_exists(NEOFRAG_CMS.'/logs/'))
+		if (!is_null($this->assets) && !is_asset() && file_exists(NEOFRAG_CMS.'/logs/'))
 		{
 			$f = fopen(NEOFRAG_CMS.'/logs/log.php', 'a');
 			

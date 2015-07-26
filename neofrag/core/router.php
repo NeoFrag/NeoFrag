@@ -108,7 +108,7 @@ class Router extends Core
 
 	private function _check_extension()
 	{
-		if (in_array($this->config->extension_url, array('html', 'json', 'xml', 'txt')) || $this->assets->is_asset())
+		if (in_array($this->config->extension_url, array('html', 'json', 'xml', 'txt')) || is_asset())
 		{
 			$this->_extension = TRUE;
 		}

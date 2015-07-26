@@ -20,18 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Assets extends Core
 {
-	public function is_asset()
-	{
-		static $is_asset;
-		
-		if (is_null($is_asset))
-		{
-			$is_asset = in_array(extension($this->config->request_url, $path), array('png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip'));
-		}
-		
-		return $is_asset;
-	}
-	
 	public function file($file_id, $file = '', $path = '')
 	{
 		if ($path && (!$file || file_exists($path)))
