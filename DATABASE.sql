@@ -76,18 +76,17 @@ CREATE TABLE IF NOT EXISTS `nf_dispositions` (
 -- Contenu de la table `nf_dispositions`
 --
 
-INSERT INTO `nf_dispositions` VALUES(1, 'default', '*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:9;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:10;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:4:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:11;s:5:"style";s:9:"panel-red";}i:1;O:11:"Widget_View":2:{s:9:"widget_id";i:12;s:5:"style";s:10:"panel-dark";}i:3;O:11:"Widget_View":2:{s:9:"widget_id";i:16;s:5:"style";s:13:"panel-default";}i:2;O:11:"Widget_View":2:{s:9:"widget_id";i:15;s:5:"style";s:13:"panel-default";}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(2, 'default', '*', 1, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:3:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:6;s:5:"style";s:13:"panel-default";}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:7;s:5:"style";s:10:"panel-dark";}}}i:2;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:8;s:5:"style";s:9:"panel-red";}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(1, 'default', '*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:2;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:3;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:4:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:4;s:5:"style";s:9:"panel-red";}i:1;O:11:"Widget_View":2:{s:9:"widget_id";i:5;s:5:"style";s:10:"panel-dark";}i:2;O:11:"Widget_View":2:{s:9:"widget_id";i:6;s:5:"style";s:13:"panel-default";}i:3;O:11:"Widget_View":2:{s:9:"widget_id";i:7;s:5:"style";s:13:"panel-default";}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(2, 'default', '*', 1, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:3:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:8;s:5:"style";s:13:"panel-default";}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:9;s:5:"style";s:10:"panel-dark";}}}i:2;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:10;s:5:"style";s:9:"panel-red";}}}}}}');
 INSERT INTO `nf_dispositions` VALUES(3, 'default', '*', 2, 'a:0:{}');
-INSERT INTO `nf_dispositions` VALUES(4, 'default', '*', 3, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:54;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-black";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:2;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:3;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(5, 'default', '*', 4, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:13;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:14;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(6, 'default', '*', 5, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:17;s:5:"style";s:10:"panel-dark";}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(7, 'default', '/', 3, 'a:3:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:55;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-black";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:20;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:21;}}}}}i:2;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:22;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(8, 'default', 'forum/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:23;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:24;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(9, 'default', 'news/_news/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:31;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:32;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(10, 'default', 'contact/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:37;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:2:{i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:4:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:39;s:5:"style";s:9:"panel-red";}i:1;O:11:"Widget_View":2:{s:9:"widget_id";i:40;s:5:"style";s:10:"panel-dark";}i:3;O:11:"Widget_View":2:{s:9:"widget_id";i:41;s:5:"style";s:13:"panel-default";}i:2;O:11:"Widget_View":2:{s:9:"widget_id";i:42;s:5:"style";s:13:"panel-default";}}}i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:38;}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(12, 'default', 'forum/*', 2, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:52;s:5:"style";s:9:"panel-red";}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:53;s:5:"style";s:10:"panel-dark";}}}}}}');
-INSERT INTO `nf_dispositions` VALUES(14, 'default', 'user/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:58;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:59;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(4, 'default', '*', 3, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:11;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-black";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:12;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:13;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(5, 'default', '*', 4, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:14;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:15;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(6, 'default', '*', 5, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:16;s:5:"style";s:10:"panel-dark";}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(7, 'default', '/', 3, 'a:3:{i:0;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:17;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-black";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:18;}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:19;}}}}}i:2;O:3:"Row":2:{s:5:"style";s:11:"row-default";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:20;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(8, 'default', 'forum/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:21;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:22;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(9, 'default', 'forum/*', 2, 'a:1:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:2:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-4";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:27;s:5:"style";s:9:"panel-red";}}}i:1;O:3:"Col":2:{s:10:"\0Col\0_size";s:8:"col-md-8";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":2:{s:9:"widget_id";i:28;s:5:"style";s:10:"panel-dark";}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(10, 'default', 'news/_news/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:23;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:24;}}}}}}');
+INSERT INTO `nf_dispositions` VALUES(11, 'default', 'user/*', 0, 'a:2:{i:0;O:3:"Row":2:{s:5:"style";s:9:"row-white";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:25;}}}}}i:1;O:3:"Row":2:{s:5:"style";s:9:"row-light";s:4:"cols";a:1:{i:0;O:3:"Col":2:{s:10:"\0Col\0_size";s:9:"col-md-12";s:7:"widgets";a:1:{i:0;O:11:"Widget_View":1:{s:9:"widget_id";i:26;}}}}}}');
 
 -- --------------------------------------------------------
 
@@ -287,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `nf_gallery` (
   PRIMARY KEY (`gallery_id`),
   KEY `category_id` (`category_id`),
   KEY `image_id` (`image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -304,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_categories` (
   PRIMARY KEY (`category_id`),
   KEY `image_id` (`image_id`),
   KEY `icon_id` (`icon_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -343,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_images` (
   KEY `gallery_id` (`gallery_id`),
   KEY `original_file_id` (`original_file_id`),
   KEY `thumbnail_file_id` (`thumbnail_file_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -676,7 +675,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id` (`session_id`,`user_id`,`ip_address`,`host_name`,`referer`,`user_agent`,`date`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1105,39 +1104,33 @@ CREATE TABLE IF NOT EXISTS `nf_widgets` (
 --
 
 INSERT INTO `nf_widgets` VALUES(1, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"1";}');
-INSERT INTO `nf_widgets` VALUES(2, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:7:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}i:6;a:2:{s:5:"title";s:7:"Galerie";s:3:"url";s:12:"gallery.html";}}s:7:"display";b:1;}');
-INSERT INTO `nf_widgets` VALUES(3, 'user', 'index_mini', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(6, 'forum', 'topics', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(7, 'news', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(8, 'members', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(9, 'breadcrumb', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(10, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(11, 'members', 'online', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(12, 'user', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(13, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:8:"Facebook";s:3:"url";s:1:"#";}i:1;a:2:{s:5:"title";s:7:"Twitter";s:3:"url";s:1:"#";}i:2;a:2:{s:5:"title";s:6:"Origin";s:3:"url";s:1:"#";}i:3;a:2:{s:5:"title";s:5:"Steam";s:3:"url";s:1:"#";}}s:7:"display";b:1;}');
-INSERT INTO `nf_widgets` VALUES(14, 'members', 'online_mini', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(15, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"2";}');
-INSERT INTO `nf_widgets` VALUES(16, 'news', 'categories', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(17, 'html', 'index', NULL, 'a:1:{s:7:"content";s:99:"[center]Propulsé par [url=http://www.neofrag.fr]NeoFrag CMS[/url]﻿ version Alpha 0.1.1﻿[/center]";}');
-INSERT INTO `nf_widgets` VALUES(20, 'navigation', 'index', NULL, 'a:2:{s:5:"links";a:7:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}i:6;a:2:{s:5:"title";s:7:"Galerie";s:3:"url";s:12:"gallery.html";}}s:7:"display";b:1;}');
-INSERT INTO `nf_widgets` VALUES(21, 'user', 'index_mini', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(22, 'slider', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(2, 'breadcrumb', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(3, 'module', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(4, 'members', 'online', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(5, 'user', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(6, 'news', 'categories', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(7, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";i:2;}');
+INSERT INTO `nf_widgets` VALUES(8, 'forum', 'topics', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(9, 'news', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(10, 'members', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(11, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
+INSERT INTO `nf_widgets` VALUES(12, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}}');
+INSERT INTO `nf_widgets` VALUES(13, 'user', 'index_mini', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(14, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:8:"Facebook";s:3:"url";s:1:"#";}i:1;a:2:{s:5:"title";s:7:"Twitter";s:3:"url";s:1:"#";}i:2;a:2:{s:5:"title";s:6:"Origin";s:3:"url";s:1:"#";}i:3;a:2:{s:5:"title";s:5:"Steam";s:3:"url";s:1:"#";}}}');
+INSERT INTO `nf_widgets` VALUES(15, 'members', 'online_mini', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(16, 'html', 'index', NULL, 'a:1:{s:7:"content";s:107:"[center]Propuls&eacute; par [url=http://www.neofrag.fr]NeoFrag CMS[/url]﻿ version Alpha 0.1﻿.1[/center]";}');
+INSERT INTO `nf_widgets` VALUES(17, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
+INSERT INTO `nf_widgets` VALUES(18, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}}');
+INSERT INTO `nf_widgets` VALUES(19, 'user', 'index_mini', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(20, 'slider', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(21, 'breadcrumb', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(22, 'module', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(23, 'breadcrumb', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(24, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(31, 'breadcrumb', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(32, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(37, 'breadcrumb', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(38, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(39, 'members', 'online', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(40, 'user', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(41, 'news', 'categories', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(42, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s:1:"2";}');
-INSERT INTO `nf_widgets` VALUES(52, 'forum', 'statistics', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(53, 'forum', 'activity', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(54, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
-INSERT INTO `nf_widgets` VALUES(55, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
-INSERT INTO `nf_widgets` VALUES(58, 'breadcrumb', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(59, 'module', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(25, 'breadcrumb', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(26, 'module', 'index', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(27, 'forum', 'statistics', NULL, NULL);
+INSERT INTO `nf_widgets` VALUES(28, 'forum', 'activity', NULL, NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -1229,10 +1222,10 @@ ALTER TABLE `nf_gallery_categories_lang`
 -- Contraintes pour la table `nf_gallery_images`
 --
 ALTER TABLE `nf_gallery_images`
-  ADD CONSTRAINT `nf_gallery_images_ibfk_4` FOREIGN KEY (`original_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_gallery_images_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_gallery_images_ibfk_2` FOREIGN KEY (`gallery_id`) REFERENCES `nf_gallery` (`gallery_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `nf_gallery_images_ibfk_3` FOREIGN KEY (`thumbnail_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `nf_gallery_images_ibfk_3` FOREIGN KEY (`thumbnail_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_gallery_images_ibfk_4` FOREIGN KEY (`original_file_id`) REFERENCES `nf_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_gallery_lang`
