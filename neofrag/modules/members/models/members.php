@@ -153,6 +153,7 @@ class m_members_m_members extends Model
 						->from('nf_sessions s')
 						->join('nf_users u', 'u.user_id = s.user_id')
 						->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
+						->where('s.is_crawler', FALSE)
 						->order_by('s.last_activity DESC')
 						->get();
 	}

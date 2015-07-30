@@ -60,6 +60,7 @@ class w_members_c_index extends Controller_Widget
 							->join('nf_users u', 'u.user_id = s.user_id', 'INNER')
 							->join('nf_users_profiles up', 'u.user_id = up.user_id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
+							->where('s.is_crawler', FALSE)
 							->group_by('u.user_id')
 							->order_by('u.username')
 							->get() as $user)

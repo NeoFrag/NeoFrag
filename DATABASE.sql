@@ -45,6 +45,19 @@ CREATE TABLE IF NOT EXISTS `nf_comments` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_crawlers`
+--
+
+DROP TABLE IF EXISTS `nf_crawlers`;
+CREATE TABLE IF NOT EXISTS `nf_crawlers` (
+  `name` varchar(100) NOT NULL,
+  `path` varchar(100) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_dispositions`
 --
 
@@ -636,6 +649,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions` (
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
+  `is_crawler` enum('0','1') NOT NULL DEFAULT '0',
   `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_data` text NOT NULL,
   `remember_me` enum('0','1') NOT NULL DEFAULT '0',

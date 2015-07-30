@@ -85,7 +85,7 @@ class w_forum_c_index extends Controller_Widget
 	
 	public function activity($config = array())
 	{
-		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_sessions s')->join('nf_users u', 'u.user_id = s.user_id', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->get();
+		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_sessions s')->join('nf_users u', 'u.user_id = s.user_id', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('s.is_crawler', FALSE)->get();
 		
 		usort($users, function($a, $b){
 			return strnatcmp(strtolower($a['username']), strtolower($b['username']));
@@ -96,7 +96,7 @@ class w_forum_c_index extends Controller_Widget
 			'icon'    => 'fa-globe',
 			'content' => $this->load->view('activity', array(
 				'users'    => $users,
-				'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row()
+				'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()
 			))
 		));
 	}

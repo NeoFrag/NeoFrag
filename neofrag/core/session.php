@@ -66,11 +66,22 @@ class Session extends Core
 		else if (!$this->assets->is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
 			$this->_session_id();
+			
+			$crawler = is_crawler();
+			
+			if ($crawler !== FALSE)
+			{
+				$this->db->insert('nf_crawlers', array(
+					'name' => $crawler,
+					'path' => $this->config->request_url
+				));
+			}
 
 			$this->db->insert('nf_sessions', array(
 				'session_id' => $this->_session_id,
 				'ip_address' => $this->_ip_address,
-				'host_name'  => $this->_host_name
+				'host_name'  => $this->_host_name,
+				'is_crawler' => $crawler !== FALSE
 			));
 			
 			$this->_user_data['session']['date']       = time();
@@ -79,7 +90,7 @@ class Session extends Core
 			$this->_user_data['session']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 		}
 
-		statistics('nf_sessions_max_simultaneous', $this->_sessions = $this->db->select('COUNT(DISTINCT IFNULL(user_id, session_id))')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(), function($a, $b){ return $a > $b; });
+		statistics('nf_sessions_max_simultaneous', $this->_sessions = $this->db->select('COUNT(DISTINCT IFNULL(user_id, session_id))')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(), function($a, $b){ return $a > $b; });
 	}
 	
 	public function __destruct()
