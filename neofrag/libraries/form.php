@@ -102,6 +102,26 @@ class Form extends Library
 			return $post === array('delete');
 		}
 
+		foreach ($post as $key => &$value)
+		{
+			if (!in_array($key, array_keys($this->_rules)))
+			{
+				return FALSE;
+			}
+			else if (is_array($value))
+			{
+				array_walk_recursive($value, function(&$v, $k){
+					$v = utf8_htmlentities(trim($v));
+				});
+			}
+			else if (!is_null($value))
+			{
+				$value = utf8_htmlentities(trim($value));
+			}
+			
+			unset($value);
+		}
+
 		foreach ($this->_rules as $var => $options)
 		{
 			if (!is_array($options) || !isset($options['type']) || !in_array($type = $options['type'], self::$types) || !method_exists($this, '_check_'.$type))
@@ -112,24 +132,6 @@ class Form extends Library
 			if (($error = $this->{'_check_'.$type}($post, $var, $options)) !== TRUE)
 			{
 				$this->_errors[$var] = $error;
-			}
-		}
-
-		foreach ($post as $key => &$value)
-		{
-			if (!in_array($key, array_keys($this->_rules)))
-			{
-				return FALSE;
-			}
-			else if (is_array($value))
-			{
-				array_walk_recursive($value, function(&$v, $k){
-					$v = utf8_htmlentities($v);
-				});
-			}
-			else if (!is_null($value))
-			{
-				$value = utf8_htmlentities($value);
 			}
 		}
 		
@@ -189,7 +191,7 @@ class Form extends Library
 			!empty($options['values']) &&
 			is_array($options['values']) &&
 			is_array($post[$var]) &&
-			array_diff(array_filter($post[$var]), array_keys($options['values']))
+			array_diff(array_filter($post[$var]), array_map('utf8_htmlentities', array_keys($options['values'])))
 		)
 		{
 			return 'La ou les valeurs entrées ne sont pas valides';
