@@ -133,6 +133,7 @@ class m_forum_c_index extends Controller_Module
 						'rules' => 'required'
 					),
 					'message' => array(
+						'type'  => 'editor',
 						'rules' => 'required'
 					)
 				));
@@ -342,6 +343,7 @@ class m_forum_c_index extends Controller_Module
 					->load->library('form')
 					->add_rules(array(
 						'message' => array(
+							'type'  => 'editor',
 							'rules' => 'required'
 						)
 					))
@@ -418,6 +420,7 @@ class m_forum_c_index extends Controller_Module
 				->load->library('form')
 				->add_rules(array(
 					'message' => array(
+						'type'  => 'editor',
 						'rules' => 'required'
 					)
 				));

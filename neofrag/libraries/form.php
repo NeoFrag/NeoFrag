@@ -290,6 +290,12 @@ class Form extends Library
 		return $this->_check_text($post, $var, $options);
 	}
 	
+	private function _check_editor(&$post, $var, $options)
+	{
+		$post[$var] = trim(preg_replace('/ {2,}/', ' ', preg_replace('/(^ +?)|( +?$)/m', '', str_replace('&nbsp;', ' ', $post[$var]))));
+		return $this->_check_text($post, $var, $options);
+	}
+	
 	public function display()
 	{
 		if ($this->_confirm_deletion)
