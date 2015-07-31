@@ -47,7 +47,10 @@ class t_admin extends Theme
 
 		usort($content_submenu, create_function('$a, $b', 'return strnatcmp(url_title($a[\'title\']), url_title($b[\'title\']));'));
 
-		$this	->css('sb-admin-2')
+		$this	->css('font.open-sans.300.400.600.700.800')
+				->css('font.roboto.100.300.400.500.700.900')
+				->css('font.signika-negative.400.600')
+				->css('sb-admin-2')
 				->css('font-awesome.min')
 				->css('style')
 				->css('neofrag.user')

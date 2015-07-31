@@ -1,0 +1,32 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Signika Negative'), local('SignikaNegative-Regular'), url(http://fonts.gstatic.com/s/signikanegative/v5/Z-Q1hzbY8uAo3TpTyPFMXcRUv4UNzckW6WBp2csADjc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Signika Negative'), local('SignikaNegative-Regular'), url(http://fonts.gstatic.com/s/signikanegative/v5/Z-Q1hzbY8uAo3TpTyPFMXeDvvFXM8xWgng_3Cf56FV0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Signika Negative Semibold'), local('SignikaNegative-Semibold'), url(http://fonts.gstatic.com/s/signikanegative/v5/q5TOjIw4CenPw6C-TW06Fs0YI9lVgEJqCxpuMbWw4uM.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Signika Negative';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Signika Negative Semibold'), local('SignikaNegative-Semibold'), url(http://fonts.gstatic.com/s/signikanegative/v5/q5TOjIw4CenPw6C-TW06Fvw-q-Pnk6uQno1dDeKVYHU.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}

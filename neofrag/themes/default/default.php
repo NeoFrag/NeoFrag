@@ -33,7 +33,9 @@ class t_default extends Theme
 
 	public function load()
 	{
-		$this	->css('style')
+		$this	->css('font.open-sans.300.400.600.700.800')
+				->css('font.economica.400.700')
+				->css('style')
 				->css('neofrag.user');
 	}
 	
