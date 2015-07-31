@@ -114,7 +114,9 @@ class Groups extends Core
 		
 		foreach ($this->_groups as $group_id => &$group)
 		{
-			$group['url'] = url_title($group_id).($group['auto'] != 'neofrag' ? '/'.url_title($group['title']) : '');
+			$group['url'] = url_title($group_id).($group['auto'] != 'neofrag' ? '/'.$group['name'] : '');
+			
+			unset($group);
 		}
 
 		uasort($this->_groups, function($a, $b){
