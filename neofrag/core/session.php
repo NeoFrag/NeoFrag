@@ -95,24 +95,22 @@ class Session extends Core
 	
 	public function __destruct()
 	{
-		if ($this->assets->is_asset() || $this->config->ajax_url || $this->config->ajax_header || $_SERVER['REQUEST_METHOD'] == 'OPTIONS')
+		if (!$this->assets->is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
-			return;
-		}
-		
-		if (in_array($this->_get_url(), array('index.html', 'admin.html')) || empty($_SERVER['HTTP_REFERER']))
-		{
-			$this->_user_data['session']['history'] = array($this->_get_url());
-		}
-		else if (empty($this->_user_data['session']['history']) || end($this->_user_data['session']['history']) != $this->_get_url())
-		{
-			if (prev($this->_user_data['session']['history']) == $this->_get_url())
+			if (in_array($this->_get_url(), array('index.html', 'admin.html')) || empty($_SERVER['HTTP_REFERER']))
 			{
-				array_pop($this->_user_data['session']['history']);
+				$this->_user_data['session']['history'] = array($this->_get_url());
 			}
-			else
+			else if (empty($this->_user_data['session']['history']) || end($this->_user_data['session']['history']) != $this->_get_url())
 			{
-				$this->_user_data['session']['history'][] = $this->_get_url();
+				if (prev($this->_user_data['session']['history']) == $this->_get_url())
+				{
+					array_pop($this->_user_data['session']['history']);
+				}
+				else
+				{
+					$this->_user_data['session']['history'][] = $this->_get_url();
+				}
 			}
 		}
 		
