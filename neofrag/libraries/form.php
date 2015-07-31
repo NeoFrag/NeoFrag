@@ -431,7 +431,7 @@ class Form extends Library
 
 		if (isset($post[$this->id][$var]))
 		{
-			return $post[$this->id][$var];
+			return utf8_htmlentities(trim($post[$this->id][$var]));
 		}
 		else if (isset($options['checked']))
 		{
@@ -531,7 +531,7 @@ class Form extends Library
 		if ($type != 'file')
 		{
 			$class = ' class="form-control"';
-			$value = ' value="'.$this->_display_value($var, $options).'"';
+			$value = ' value="'.addcslashes($this->_display_value($var, $options), '"').'"';
 		}
 		
 		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$options['label'].'"' : '').' />';
@@ -601,7 +601,7 @@ class Form extends Library
 											unselectedClass: ""
 										});');
 		
-		return '<button id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.$this->_display_value($var, $options).'"></button>';
+		return '<button id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
 	}
 
 	private function _display_colorpicker($var, $options, $post)
