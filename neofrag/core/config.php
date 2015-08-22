@@ -30,9 +30,7 @@ class Config extends Core
 		$this->_configs['base_url']      = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 		$this->_configs['request_url']   = $_SERVER['REQUEST_URI'] != $this->_configs['base_url'] ? substr($_SERVER['REQUEST_URI'], strlen($this->_configs['base_url'])) : 'index.html';
 		$this->_configs['extension_url'] = extension($this->_configs['request_url'], $this->_configs['request_url']);
-		
-		$headers = getallheaders();
-		$this->_configs['ajax_header']   = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') || (!empty($headers['X-Requested-With']) && $headers['X-Requested-With'] == 'XMLHttpRequest');
+		$this->_configs['ajax_header']   = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 
 		$ext = extension($url = !empty($_GET['request_url']) ? $_GET['request_url'] : $this->_configs['request_url'], $url);
 		$this->_configs['segments_url']  = explode('/', rtrim(substr($url, 0, - strlen($ext)), '.'));
