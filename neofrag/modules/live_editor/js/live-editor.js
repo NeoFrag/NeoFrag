@@ -46,13 +46,9 @@
 	});
 };
 
-var modal_settings = function(title, settings, callback, refresh){
+var modal_settings = function(title, settings, callback){
 	if ($('body').find('.live-editor-modal').length){
 		return;
-	}
-
-	if (typeof refresh === 'undefined'){
-		var refresh = false;
 	}
 	
 	var load_settings = function(widget, type){
@@ -99,10 +95,7 @@ var modal_settings = function(title, settings, callback, refresh){
 	$modal.on('change', '#live-editor-settings-widget', function(){
 		var $widgets = $(this), count = 0;
 		
-		
-		if (refresh){
-			$('#live-editor-settings-type option:selected').prop('selected', false);
-		}
+		$('#live-editor-settings-type option:selected').prop('selected', false);
 		
 		$('#live-editor-settings-type option').each(function(){
 			if ($(this).data('widget') == $widgets.val()){
@@ -116,10 +109,7 @@ var modal_settings = function(title, settings, callback, refresh){
 		
 		if (count){
 			$('#live-editor-settings-type').parents('.form-group:first').show();
-			
-			if (refresh){
-				$('#live-editor-settings-type option[data-widget="'+$(this).val()+'"]:first').prop('selected', true);
-			}
+			$('#live-editor-settings-type option[data-widget="'+$(this).val()+'"]:first').prop('selected', true);
 		}
 		else {
 			$('#live-editor-settings-type').parents('.form-group:first').hide();
