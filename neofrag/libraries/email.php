@@ -76,10 +76,10 @@ class Email extends Library
 			
 		$headers = array('From: '.$this->_from, 'Reply-to: '.$this->_from);
 		
-		$this->_data['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].$this->config->base_url;
+		$this->_data['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].url();
 
 		$this->template->parse_data($this->_data, $this->load);
-
+		
 		$message = $html = $this->load->view('emails/'.$this->_view, $this->_data);
 		$text            = $this->load->view('emails/'.$this->_view.'.txt', $this->_data);
 
@@ -97,7 +97,7 @@ class Email extends Library
 			$message .= str_replace('\r', '', $html)."\n\n";
 		}
 
-		$result = mail(trim_word($this->_to, ', '), $this->config->nf_name.' :: '.$this->_subject, wordwrap($this->template->clean($message), 70), implode("\r\n", $headers));
+		$result = mail(trim_word($this->_to, ', '), $this->config->nf_name.' :: '.$this->_subject, wordwrap($message, 70), implode("\r\n", $headers));
 		
 		$this->reset();
 		

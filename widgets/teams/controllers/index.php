@@ -36,7 +36,7 @@ class w_teams_c_index extends Controller_Widget
 					'teams'    => $teams
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="{base_url}teams.html">{fa-icon arrow-circle-o-right} Voir toutes nos équipes</a>',
+				'footer'       => '<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' Voir toutes nos équipes</a>',
 				'footer_align' => 'right'
 			));
 		}

@@ -3,7 +3,7 @@ html, body, #page-wrapper {
 }
 
 body {
-	background: url('{image bg.jpg}') no-repeat top center #d8e1e9;
+	background: url('<?php echo image('bg.jpg'); ?>') no-repeat top center #d8e1e9;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	color: #49525f;

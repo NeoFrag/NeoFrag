@@ -26,17 +26,23 @@ class m_members_c_index extends Controller_Module
 				->load->library('table')
 				->add_columns(array(
 					array(
-						'content' => '<img class="img-avatar-members" style="max-height: 40px; max-width: 40px;" src="<?php echo $NeoFrag->user->avatar($data[\'avatar\'], $data[\'sex\']); ?>" title="<?php echo $data[\'username\']; ?>" alt="" />',
+						'content' => function($data){
+							return '<img class="img-avatar-members" style="max-height: 40px; max-width: 40px;" src="'.NeoFrag::loader()->user->avatar($data['avatar'], $data['sex']).'" title="'.$data['username'].'" alt="" />';
+						},
 						'size'    => TRUE
 					),
 					array(
 						'title'   => 'Membre',
-						'content' => '<div><?php echo $NeoFrag->user->link($data[\'user_id\'], $data[\'username\']); ?></div><small><i class="fa fa-circle <?php echo $data[\'online\'] ? \'text-green\' : \'text-gray\'; ?>"></i> <?php echo $data[\'admin\'] ? \'Admin\' : \'Membre\'; ?> <?php echo $data[\'online\'] ? \'en ligne\' : \'hors ligne\'; ?></small>',
-						'search'  => '{username}'
+						'content' => function($data){
+							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+						},
+						'search'  => function($data){
+							return $data['username'];
+						}
 					)/*,
 					array(
 						//TODO link compose
-						'content' => '<?php echo $this->user() ? \'<a href="{base_url}user/compose.html"><i class="fa fa-envelope-o"></i> Contacter</a>\' : \'\' ?>',
+						'content' => '<?php echo $this->user() ? \'<a href="'.url('user/compose.html').'">'.icon('fa-envelope-o').' Contacter</a>\' : \'\' ?>',
 						'size'    => TRUE,
 						'align'   => 'right'
 					)*/
@@ -70,7 +76,7 @@ class m_members_c_index extends Controller_Module
 		$output = array($this->index($members));
 		
 		array_unshift($output, new Panel(array(
-			'content' => '<h2 class="no-margin">Groupe <small>'.$title.'</small>'.button('{base_url}members.html', 'fa-close', 'Voir tous les membres', 'danger', 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">Groupe <small>'.$title.'</small>'.button('members.html', 'fa-close', 'Voir tous les membres', 'danger', 'pull-right').'</h2>'
 		)));
 
 		return $output;

@@ -2,14 +2,14 @@
 	<thead class="forum-heading">
 		<tr>
 			<th colspan="2">
-				<h4 class="no-margin"><i class="fa fa-navicon"></i> <?php echo $data['title']; ?></h4>
+				<h4 class="no-margin"><?php echo icon('fa-navicon').' '.$data['title']; ?></h4>
 			</th>
-			<th class="col-md-2"><h4 class="no-margin"><i class="fa fa-signal"></i><span class="hidden-xs"> Statistiques</span></h4></th>
-			<th class="col-md-3"><h4 class="no-margin"><i class="fa fa-comment-o"></i><span class="hidden-xs"> Dernier message</span></h4></th>
+			<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal'); ?><span class="hidden-xs"> Statistiques</span></h4></th>
+			<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o'); ?><span class="hidden-xs"> Dernier message</span></h4></th>
 			<?php if ($NeoFrag->config->admin_url): ?>
 			<th class="col-md-1 text-right">
-				<?php echo button_edit('{base_url}admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
-				<?php echo button_delete('{base_url}admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
+				<?php echo button_edit('admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
+				<?php echo button_delete('admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
 			</th>
 			<?php endif; ?>
 		</tr>
@@ -21,15 +21,15 @@
 				<?php echo $forum['icon']; ?>
 			</td>
 			<td class="col-md-6">
-				<h4 class="no-margin"><a href="{base_url}forum/<?php echo $forum['forum_id']; ?>/<?php echo url_title($forum['title']); ?>.html"><?php echo $forum['title']; ?></a></h4>
+				<h4 class="no-margin"><a href="<?php echo url('forum/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>"><?php echo $forum['title']; ?></a></h4>
 				<?php if ($forum['description']) echo '<div>'.$forum['description'].'</div>'; ?>
 				<?php
 				if (!empty($forum['subforums']) || $NeoFrag->config->admin_url):
 					echo '<ul class="subforums">';
 					foreach ($forum['subforums'] as $subforum):
 						echo '<li'.($NeoFrag->config->admin_url ? ' data-forum-id="'.$subforum['forum_id'].'"' : '').'>'.
-								($NeoFrag->config->admin_url ? '<div class="pull-right">'.button_edit('{base_url}admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').' '.button_delete('{base_url}admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'</div>' : '')
-								.$subforum['icon'].' <a href="{base_url}forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html">'.$subforum['title'].'</a>'.
+								($NeoFrag->config->admin_url ? '<div class="pull-right">'.button_edit('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').' '.button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'</div>' : '')
+								.$subforum['icon'].' <a href="'.url('forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'">'.$subforum['title'].'</a>'.
 							'</li>';
 					endforeach;
 					echo '</ul>';
@@ -47,16 +47,16 @@
 			<td>
 				<?php if (!$forum['url']): ?>
 				<?php if ($forum['last_title']): ?>
-				<div><a href="{base_url}forum/topic/<?php echo $forum['topic_id']; ?>/<?php echo url_title($forum['last_title']).($forum['last_count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $NeoFrag->config->forum_messages_per_page) : ''); ?>.html#message_<?php echo $forum['last_message_id']; ?>">{fa-icon comment-o} <?php echo str_shortener($forum['last_title'], 40); ?></a></div>
-				<div>{fa-icon user} <?php echo $NeoFrag->user->link($forum['user_id'], $forum['username']); ?> {fa-icon clock-o} <?php echo time_span($forum['last_message_date']); ?></div>
+				<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $NeoFrag->config->forum_messages_per_page) : '').'.html#message_'.$forum['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40); ?></a></div>
+				<div><?php echo icon('fa-user').' '.$NeoFrag->user->link($forum['user_id'], $forum['username']).' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']); ?></div>
 				<?php else: ?>
 				Pas de message
 				<?php endif; endif; ?>
 			</td>
 			<?php if ($NeoFrag->config->admin_url): ?>
 			<td class="col-md-1 text-right">
-					<?php echo button_edit('{base_url}admin/forum/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
-					<?php echo button_delete('{base_url}admin/forum/delete/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
+					<?php echo button_edit('admin/forum/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
+					<?php echo button_delete('admin/forum/delete/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
 			</td>
 			<?php endif; ?>
 		</tr>

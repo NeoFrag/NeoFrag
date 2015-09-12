@@ -69,11 +69,11 @@ class Col
 		{
 			$output = '<div class="live-editor-col">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" title="Réduire"><i class="fa fa-compress fa-rotate-45"></i></button>
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" title="Augmenter"><i class="fa fa-expand fa-rotate-45"></i></button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" title="Supprimer"><i class="fa fa-close"></i></button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" title="Réduire">'.icon('fa-compress fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" title="Augmenter">'.icon('fa-expand fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" title="Supprimer">'.icon('fa-close').'</button>
 							</div>
-							<h3>Col <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" title="Nouveau Widget"><i class="fa fa-plus"></i></button></div></h3>
+							<h3>Col <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" title="Nouveau Widget">'.icon('fa-plus').'</button></div></h3>
 							'.$output.'
 						</div>';
 		}

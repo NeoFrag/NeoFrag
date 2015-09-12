@@ -52,10 +52,10 @@ class Row
 		{
 			$output .= '<div class="live-editor-row-header">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" title="Apparence"><i class="fa fa-paint-brush"></i></button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" title="Supprimer"><i class="fa fa-close"></i></button>
+								<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" title="Apparence">'.icon('fa-paint-brush').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" title="Supprimer">'.icon('fa-close').'</button>
 							</div>
-							<h3>Row <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" title="Nouveau Col"><i class="fa fa-plus"></i></button></div></h3>
+							<h3>Row <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" title="Nouveau Col">'.icon('fa-plus').'</button></div></h3>
 						</div>';
 		}
 		

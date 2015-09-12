@@ -1,5 +1,5 @@
 .help.alert > h4.alert-heading {
-	background: url('{image icons-24/lifebuoy.png}') no-repeat 0 50%;
+	background: url('<?php echo image('icons-24/lifebuoy.png'); ?>') no-repeat 0 50%;
 	line-height: 30px;
 	padding-left: 30px;
 }

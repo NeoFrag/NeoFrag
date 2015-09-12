@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 function geolocalisation($address_ip)
 {
 	NeoFrag::loader()->js('neofrag.geolocalisation');
-	return '<img src="{image ajax-loader.gif}" style="margin-right: 10px;" data-geolocalisation="'.$address_ip.'" alt="" />';
+	return '<img src="'.image('ajax-loader.gif').'" style="margin-right: 10px;" data-geolocalisation="'.$address_ip.'" alt="" />';
 }
 
 /*

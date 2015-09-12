@@ -16,7 +16,7 @@
 		<td>
 			<ul class="extentions">
 			<?php foreach ($data['extentions'] as $extention): ?>
-				<li><a href="#module_<?php echo $extention; ?>">{fa-icon puzzle-piece} <?php echo $extention; ?></a></li>
+				<li><a href="#module_<?php echo $extention; ?>"><?php echo icon('fa-puzzle-piece').' '.$extention; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
 		</td>

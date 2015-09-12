@@ -12,15 +12,15 @@
 					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
 				</div>
 			</div>
-			<form action="{base_url}admin/gallery/image/add/{gallery_id}/{name}.html" method="post" class="dropzone" id="gallery-dropzone" role="form">
+			<form action="<?php echo url('admin/gallery/image/add/'.$data['gallery_id'].'/'.$data['name'].'.html'); ?>" method="post" class="dropzone" id="gallery-dropzone" role="form">
 				<div class="pull-right label-dropzone">
-					<span class="label label-info" style="padding: 4px 5px;" data-toggle="tooltip" title="Cliquez dans le cadre pour sélectionner vos images">&nbsp;{fa-icon info}&nbsp;</span>
+					<span class="label label-info" style="padding: 4px 5px;" data-toggle="tooltip" title="Cliquez dans le cadre pour sélectionner vos images">&nbsp;<?php echo icon('fa-info'); ?>&nbsp;</span>
 				</div>
 			</form>
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="gallery-dropzone-add"><i class="fa fa-cloud-upload"></i> Ajouter les images</button>
+			<button type="button" class="btn btn-primary btn-lg btn-block" id="gallery-dropzone-add"><?php echo icon('fa-cloud-upload'); ?> Ajouter les images</button>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="single">
-			{form_image}
+			<?php echo $data['form_image']; ?>
 		</div>
 	</div>
 </div>

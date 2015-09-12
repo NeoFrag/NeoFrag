@@ -10,7 +10,7 @@ td.no-data {
 }
 
 .table-actions {
-	background: url('{image arrow.png}') no-repeat;
+	background: url('<?php echo image('arrow.png'); ?>') no-repeat;
 	left: 8px;
 	padding: 3px 0 0 30px;
 	position: relative;

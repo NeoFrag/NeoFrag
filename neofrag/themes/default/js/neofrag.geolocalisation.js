@@ -11,7 +11,7 @@
 				crossDomain: false,
 				success: function(data){
 					if (data != null){
-						$icon.replaceWith('<img src="'+(data['flag'] ? '{base_url}neofrag/themes/default/images/flags/'+data['flag'] : '{base_url}neofrag/themes/default/images/icons/user-silhouette-question.png')+'" data-toggle="tooltip" title="'+data['location']+'" style="margin-right: 10px;" alt="" />');
+						$icon.replaceWith('<img src="'+(data['flag'] ? '<?php echo url('neofrag/themes/default/images/flags/'); ?>'+data['flag'] : '<?php echo url('neofrag/themes/default/images/icons/user-silhouette-question.png'); ?>')+'" data-toggle="tooltip" title="'+data['location']+'" style="margin-right: 10px;" alt="" />');
 					}
 					else {
 						$icon.replaceWith('');

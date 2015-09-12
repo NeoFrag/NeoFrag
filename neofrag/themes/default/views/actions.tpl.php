@@ -7,7 +7,7 @@
 			{
 				list($url, $title, $icon) = $action;
 
-				echo '<li><a href="'.$url.'">'.$icon.$title.'</a></li>';
+				echo '<li><a href="'.url($url).'">'.$icon.$title.'</a></li>';
 			}
 		?>
 		</ul>
@@ -21,7 +21,7 @@
 			{
 				list($url, $title, $icon) = $action;
 
-				$output .= '<a class="btn btn-link" href="'.$url.'">'.$this->assets->icon($icon).' '.$title.'</a> ';
+				$output .= '<a class="btn btn-link" href="'.url($url).'">'.icon($icon).' '.$title.'</a> ';
 			}
 
 			echo trim($output);

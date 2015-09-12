@@ -140,7 +140,7 @@ class Session extends Core
 	private function _session_id()
 	{
 		$this->_session_id = unique_id($this->db->select('session_id')->from('nf_sessions')->get());
-		setcookie($this->config->nf_cookie_name, $this->_session_id, strtotime('+1 year'), $this->config->base_url);
+		setcookie($this->config->nf_cookie_name, $this->_session_id, strtotime('+1 year'), url());
 	}
 
 	public function save()

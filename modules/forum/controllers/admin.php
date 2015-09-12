@@ -25,8 +25,8 @@ class m_forum_c_admin extends Controller_Module
 		$this	->subtitle('Liste des forums')
 				->css('forum')
 				->js('forum')
-				->add_action('{base_url}admin/forum/categories/add.html', 'Ajouter une catégorie', 'fa-plus')
-				->add_action('{base_url}admin/forum/add.html', 'Ajouter un forum', 'fa-plus');
+				->add_action('admin/forum/categories/add.html', 'Ajouter une catégorie', 'fa-plus')
+				->add_action('admin/forum/add.html',            'Ajouter un forum',      'fa-plus');
 		
 		$panels = array();
 		

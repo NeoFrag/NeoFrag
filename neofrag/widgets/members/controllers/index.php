@@ -37,7 +37,7 @@ class w_members_c_index extends Controller_Widget
 					'members'  => $members
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="{base_url}members.html">{fa-icon arrow-circle-o-right} Liste des membres</a>',
+				'footer'       => '<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' Liste des membres</a>',
 				'footer_align' => 'right'
 			));
 		}

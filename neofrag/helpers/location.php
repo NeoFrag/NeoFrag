@@ -18,15 +18,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
+function url($url = '')
+{
+	return NeoFrag::loader()->config->base_url.$url;
+}
+
 function redirect($location = '')
 {
-	header('Location: '.NeoFrag::loader()->config->base_url.$location);
+	header('Location: '.url($location));
 	exit;
 }
 
 function redirect_back($default = '')
 {
-	header('Location: '.NeoFrag::loader()->config->base_url.(NeoFrag::loader()->session->get_back() ?: $default));
+	header('Location: '.url(NeoFrag::loader()->session->get_back() ?: $default));
 	exit;
 }
 

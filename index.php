@@ -117,9 +117,7 @@ $NeoFrag = new Loader(
 //Chargement des librairies
 $NeoFrag->core(
 	'error',
-	'cache',
 	'template',
-	'assets',
 	'profiler',
 	'database',
 	'config',

@@ -25,21 +25,37 @@ class m_pages_c_admin extends Controller_Module
 		$this	->load->library('table')
 				->add_columns(array(
 					array(
-						'content' => '<?php echo ($data[\'published\']) ? \'<i class="fa fa-circle" data-toggle="tooltip" title="Publiée" style="color: #7bbb17;"></i>\' : \'<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>\'; ?>',
-						'sort'    => '{published}',
+						'content' => function($data){
+							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="Publiée" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
+						},
+						'sort'    => function($data){
+							return $data['published'];
+						},
 						'size'    => TRUE
 					),
 					array(
 						'title'   => 'Titre de la page',
-						'content' => '<a href="{base_url}{name}.html">{title}</a> <small class="text-muted">{subtitle}</small>',
-						'sort'    => '{title}',
-						'search'  => '{title}'
+						'content' => function($data){
+							return '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>';
+						},
+						'sort'    => function($data){
+							return $data['title'];
+						},
+						'search'  => function($data){
+							return $data['title'];
+						}
 					),
 					array(
 						'content' => array(
-							button('{base_url}{name}.html', 'fa-eye', 'Voir la page'),
-							button_edit('{base_url}admin/pages/{page_id}/{url_title(title)}.html'),
-							button_delete('{base_url}admin/pages/delete/{page_id}/{url_title(title)}.html')
+							function($adta){
+								return button($data['name'].'.html', 'fa-eye', 'Voir la page');
+							},
+							function($data){
+								return button_edit('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+							},
+							function($data){
+								return button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+							}
 						),
 						'size'    => TRUE
 					)
@@ -51,7 +67,7 @@ class m_pages_c_admin extends Controller_Module
 			'title'   => 'Liste des pages',
 			'icon'    => 'fa-align-left',
 			'content' => $this->table->display(),
-			'footer'  => button_add('{base_url}admin/pages/add.html', 'Créer une page')
+			'footer'  => button_add('admin/pages/add.html', 'Créer une page')
 		));
 	}
 	

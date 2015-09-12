@@ -36,9 +36,9 @@ class Zone
 			if (NeoFrag::live_editor() & NeoFrag::ZONES)
 			{
 				$output = '	<div class="pull-right">
-								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enable="0"><i class="fa fa-toggle-off"></i> Disposition commune</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enable="1"><i class="fa fa-toggle-on"></i> Disposition spécifique à la page</button>').'
+								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enable="0">'.icon('fa-toggle-off').' Disposition commune</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enable="1">'.icon('fa-toggle-on').' Disposition spécifique à la page</button>').'
 							</div>
-							<h3>'.(!empty($NeoFrag->load->theme->zones[$zone_id]) ? $NeoFrag->load->theme->zones[$zone_id] : 'Zone #'.$zone_id).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" title="Nouveau Row"><i class="fa fa-plus"></i></button></div></h3>'.
+							<h3>'.(!empty($NeoFrag->load->theme->zones[$zone_id]) ? $NeoFrag->load->theme->zones[$zone_id] : 'Zone #'.$zone_id).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" title="Nouveau Row">'.icon('fa-plus').'</button></div></h3>'.
 							$output;
 			}
 

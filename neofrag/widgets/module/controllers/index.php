@@ -22,8 +22,8 @@ class w_module_c_index extends Controller_Widget
 {
 	public function index($config = array())
 	{
-		$this->title('{module_title}');
-		echo '{module}';
+		$this->title($this->output->data['module_title']);
+		echo $this->output->data['module'];
 	}
 }
 

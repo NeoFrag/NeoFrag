@@ -2,7 +2,7 @@
 	<div class="carousel-inner" role="listbox">
 		<?php foreach ($data['images'] as $image): ?>
 		<div class="item<?php echo !isset($active) ? $active = ' active' : ''; ?>">
-			<a href="{base_url}gallery/image/<?php echo $image['image_id']; ?>/<?php echo url_title($image['title']); ?>.html"><img class="img-responsive" src="{image <?php echo $image['file_id']; ?>}" data-toggle="tooltip" title="<?php echo $image['title']; ?>" alt="" /></a>
+			<a href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html'); ?>"><img class="img-responsive" src="<?php echo path($image['file_id']); ?>" data-toggle="tooltip" title="<?php echo $image['title']; ?>" alt="" /></a>
 		</div>
 		<?php endforeach; ?>
 	</div>

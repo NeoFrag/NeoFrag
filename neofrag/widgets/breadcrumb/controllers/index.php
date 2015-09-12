@@ -23,12 +23,12 @@ class w_breadcrumb_c_index extends Controller_Widget
 	public function index($config = array())
 	{
 		$links = array(
-			'<b>{config nf_name}</b>&nbsp;&nbsp;&nbsp;{fa-icon angle-right}&nbsp;&nbsp;&nbsp;'.($this->config->segments_url[0] == 'index' ? '{fa-icon map-marker} ' : '').'Accueil' => '{base_url}'
+			'<b>'.$this->config->nf_name.'</b>&nbsp;&nbsp;&nbsp;'.icon('fa-angle-right').'&nbsp;&nbsp;&nbsp;'.($this->config->segments_url[0] == 'index' ? icon('fa-map-marker').' ' : '').'Accueil' => url()
 		);
 		
 		if ($this->config->segments_url[0] != 'index')
 		{
-			$links[$this->assets->icon(NeoFrag::loader()->module->icon ?: 'fa-map-marker').' '.NeoFrag::loader()->module->name] = '{base_url}'.NeoFrag::loader()->module->get_name().'.html';
+			$links[icon(NeoFrag::loader()->module->icon ?: 'fa-map-marker').' '.NeoFrag::loader()->module->name] = url(NeoFrag::loader()->module->get_name().'.html');
 		}
 		
 		$names = array_keys($links);

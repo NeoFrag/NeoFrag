@@ -29,7 +29,7 @@ if (!empty($languages))
 
 	foreach (array_merge(array($current => $tmp[$current]), $languages) as $name => $lang)
 	{
-		echo '<li data-lang="'.$lang['code'].'"><img src="{image flags/'.$lang['flag'].'}" alt="" />'.$name.'</li>';
+		echo '<li data-lang="'.$lang['code'].'"><img src="'.image('flags/'.$lang['flag'])." alt="" />'.$name.'</li>';
 	}
 
 	echo '</ul>';

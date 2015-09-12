@@ -25,13 +25,13 @@ class Button_back
 	
 	public function __construct($url = '', $title = '')
 	{
-		$this->_url   = NeoFrag::loader()->config->base_url.(NeoFrag::loader()->session->get_back() ?: $url);
+		$this->_url   = NeoFrag::loader()->session->get_back() ?: $url;
 		$this->_title = $title;
 	}
 
 	public function display($id = NULL)
 	{
-		return '<div class="panel panel-back"><a class="btn btn-default" href="'.$this->_url.'">'.($this->_title ?: 'Retour').'</a></div>';
+		return '<div class="panel panel-back"><a class="btn btn-default" href="'.url($this->_url).'">'.($this->_title ?: 'Retour').'</a></div>';
 	}
 }
 

@@ -29,13 +29,19 @@ class m_admin_c_admin extends Controller_Module
 			->load->library('table')
 			->add_columns(array(
 				array(
-					'content' => '<a href="mailto:{email}" data-toggle="tooltip" title="{email}">{fa-icon envelope}</a>',
+					'content' => function($data){
+						return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('fa-envelope').'</a>';
+					},
 				),
 				array(
-					'content' => '<?php echo $this->user->link($data[\'user_id\'], $data[\'username\']); ?>',
+					'content' => function($data){
+						return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+					},
 				),
 				array(
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'registration_date\']); ?>">{time_span(registration_date)}</span>',
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+					},
 					'class'   => 'text-right',
 				)
 			))
@@ -50,8 +56,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-newspaper-o',
 						'color'  => 'bg-aqua',
 						'count'  => $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row(),
-						'url'    => '{base_url}admin/news.html',
-						'footer' => 'Voir la liste <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/news.html',
+						'footer' => 'Voir la liste '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
@@ -61,8 +67,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-users',
 						'color'  => 'bg-green',
 						'count'  => $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row(),
-						'url'    => '{base_url}admin/members.html',
-						'footer' => 'Gérer les utilisateurs <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/members.html',
+						'footer' => 'Gérer les utilisateurs '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
@@ -72,8 +78,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-calendar',
 						'color'  => 'bg-blue',
 						'count'  => 0,//TODO
-						'url'    => '{base_url}admin/events.html',
-						'footer' => 'Gérer le calendrier <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/events.html',
+						'footer' => 'Gérer le calendrier '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
@@ -83,8 +89,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-gamepad',
 						'color'  => 'bg-red',
 						'count'  => $this->db->select('COUNT(*)')->from('nf_teams')->row(),
-						'url'    => '{base_url}admin/teams.html',
-						'footer' => 'Gérer les équipes <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/teams.html',
+						'footer' => 'Gérer les équipes '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
@@ -94,8 +100,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-comments',
 						'color'  => 'bg-teal',
 						'count'  => $this->db->select('COUNT(*)')->from('nf_forum_messages')->row(),
-						'url'    => '{base_url}admin/forum.html',
-						'footer' => 'Gérer le forum <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/forum.html',
+						'footer' => 'Gérer le forum '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
@@ -105,8 +111,8 @@ class m_admin_c_admin extends Controller_Module
 						'icon'   => 'fa-comments-o',
 						'color'  => 'bg-maroon',
 						'count'  => $this->db->select('COUNT(*)')->from('nf_comments')->row(),
-						'url'    => '{base_url}admin/comments.html',
-						'footer' => 'Gérer les commentaires <i class="fa fa-arrow-circle-right"></i>',
+						'url'    => 'admin/comments.html',
+						'footer' => 'Gérer les commentaires '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				)
@@ -117,7 +123,7 @@ class m_admin_c_admin extends Controller_Module
 					new Panel(array(
 						'title'   => '<a href="//www.neofrag.com">Actualité NeoFrag CMS</a>',
 						'icon'    => 'fa-newspaper-o',
-						'content' => '{view nf_news}',
+						'content' => $this->load->view('nf_news'),
 						'size'    => 'col-md-8'
 					))
 				),
@@ -129,7 +135,7 @@ class m_admin_c_admin extends Controller_Module
 							'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
 							'max'       => statistics('nf_sessions_max_simultaneous')
 						)),
-						'footer' => '<a href="{base_url}admin/members/sessions.html">Voir toutes les sessions actives</a>',
+						'footer' => '<a href="'.url('admin/members/sessions.html').'">Voir toutes les sessions actives</a>',
 						'size'    => 'col-md-4'
 					)),
 					new Panel(array(

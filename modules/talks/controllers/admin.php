@@ -26,28 +26,34 @@ class m_talks_c_admin extends Controller_Module
 				->add_columns(array(
 					array(
 						'content' => function($data){
-							return NeoFrag::loader()->assets->icon(NeoFrag::loader()->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $data['talk_id'])->where('addon', 'talks')->where('action', 'write')->row() == 'admins' ? 'fa-lock' : 'fa-unlock');
+							return icon(NeoFrag::loader()->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $data['talk_id'])->where('addon', 'talks')->where('action', 'write')->row() == 'admins' ? 'fa-lock' : 'fa-unlock');
 						},
 						'size'    => TRUE
 					),
 					array(
 						'title'   => 'Discussion',
-						'content' => '{name}',
-						'sort'    => '{name}',
-						'search'  => '{name}'
+						'content' => function($data){
+							return $data['name'];
+						},
+						'sort'    => function($data){
+							return $data['name'];
+						},
+						'search'  => function($data){
+							return $data['name'];
+						}
 					),
 					array(
 						'content' => array(
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return button_edit('{base_url}admin/talks/{talk_id}/{url_title(name)}.html');
+									return button_edit('admin/talks/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
 								}
 							},
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return button_delete('{base_url}admin/talks/delete/{talk_id}/{url_title(name)}.html');
+									return button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
 								}
 							}
 						),
@@ -61,7 +67,7 @@ class m_talks_c_admin extends Controller_Module
 			'title'   => 'Liste des discussions',
 			'icon'    => 'fa-comment-o',
 			'content' => $this->table->display(),
-			'footer'  => button_add('{base_url}admin/talks/add.html', 'Créer une discussion')
+			'footer'  => button_add('admin/talks/add.html', 'Créer une discussion')
 		));
 	}
 	

@@ -29,7 +29,7 @@ class m_gallery_c_index extends Controller_Module
 		foreach ($this->model()->get_categories() as $category)
 		{
 			$panel = array(
-				'title'   => '<a href="{base_url}gallery/'.$category['category_id'].'/'.$category['name'].'.html">'.$category['title'].'</a>',
+				'title'   => '<a href="'.url('gallery/'.$category['category_id'].'/'.$category['name'].'.html').'">'.$category['title'].'</a>',
 				'content' => $this->load->view('index', array(
 					'category_image' => $category['image_id'],
 					'gallery'        => $this->model()->get_gallery($category['category_id'])
@@ -39,7 +39,7 @@ class m_gallery_c_index extends Controller_Module
 			
 			if ($category['icon_id'])
 			{
-				$panel['title'] = '<img src="{image '.$category['icon_id'].'}" alt="" /> '.$panel['title'];
+				$panel['title'] = '<img src="'.path($category['icon_id']).'" alt="" /> '.$panel['title'];
 			}
 			else
 			{
@@ -69,7 +69,7 @@ class m_gallery_c_index extends Controller_Module
 		$panels = array();
 		
 		$panel = array(
-			'title'   => '<a href="{base_url}gallery/'.$category_id.'/'.$name.'.html">'.$title.'</a>',
+			'title'   => '<a href="'.url('gallery/'.$category_id.'/'.$name.'.html').'">'.$title.'</a>',
 			'content' => $this->load->view('index', array(
 				'category_image' => $image_id,
 				'gallery'        => $this->model()->get_gallery($category_id)
@@ -79,7 +79,7 @@ class m_gallery_c_index extends Controller_Module
 		
 		if ($icon_id)
 		{
-			$panel['title'] = '<img src="{image '.$icon_id.'}" alt="" /> '.$title;
+			$panel['title'] = '<img src="'.path($icon_id).'" alt="" /> '.$title;
 		}
 		else
 		{
@@ -98,7 +98,7 @@ class m_gallery_c_index extends Controller_Module
 				->js('modal-carousel');
 		
 		$panels = array(new Panel(array(
-			'title'   => '<div class="pull-right"><a class="label label-default" href="{base_url}gallery/'.$category_id.'/'.$category_name.'.html">'.$category_title.'</a></div>'.$title,
+			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title,
 			'icon'    => 'fa-photo',
 			'content' => $this->load->view('gallery', array(
 				'title'           => $title,
@@ -118,7 +118,7 @@ class m_gallery_c_index extends Controller_Module
 				'title'   => 'Photos',
 				'icon'    => 'fa-photo',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center"><i class="fa fa-photo fa-4x"></i><h4>Aucune image dans cette galerie</h4></div>'
+				'content' => '<div class="text-center">'.icon('fa-photo fa-4x').'<h4>Aucune image dans cette galerie</h4></div>'
 			));
 		}
 
@@ -151,7 +151,7 @@ class m_gallery_c_index extends Controller_Module
 		}
 		
 		$panel = array(
-			'title'   => '<div class="pull-right"><a class="label label-default" href="{base_url}gallery/album/'.$gallery_id.'/'.$gallery_name.'.html">'.$gallery_title.'</a></div>'.$title,
+			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title,
 			'icon'    => 'fa-photo',
 			'content' => $this->load->view('image', array(
 				'image_id'          => $image_id,

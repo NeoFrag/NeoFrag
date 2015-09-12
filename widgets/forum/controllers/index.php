@@ -31,7 +31,7 @@ class w_forum_c_index extends Controller_Widget
 				'content'      => $this->load->view('index', array(
 					'messages' => $messages
 				)),
-				'footer'       => '<a href="{base_url}forum.html"><i class="fa fa-arrow-circle-o-right"></i> Accèder au forum</a>',
+				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' Accèder au forum</a>',
 				'footer_align' => 'right'
 			));
 		}
@@ -55,7 +55,7 @@ class w_forum_c_index extends Controller_Widget
 				'content'      => $this->load->view('topics', array(
 					'topics' => $topics
 				)),
-				'footer'       => '<a href="{base_url}forum.html"><i class="fa fa-arrow-circle-o-right"></i> Accèder au forum</a>',
+				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' Accèder au forum</a>',
 				'footer_align' => 'right'
 			));
 		}

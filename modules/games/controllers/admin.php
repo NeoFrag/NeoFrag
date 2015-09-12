@@ -25,13 +25,22 @@ class m_games_c_admin extends Controller_Module
 		$games = $this	->load->library('table')
 						->add_columns(array(
 							array(
-								'content' => '<?php if ($data[\'parent_id\']): ?><span style="padding-left: 35px;"><?php endif; ?><img src="{image {icon_id}}" alt="" /> {title}<?php if ($data[\'parent_id\']): ?></span><?php endif; ?>',
-								'search'  => '{title}'
+								'content' => function($data){
+									$output = '<img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'];
+									return $data['parent_id'] ? '<span style="padding-left: 35px;">'.$output.'</span>' : $output;
+								},
+								'search'  => function($data){
+									return $data['title'];
+								}
 							),
 							array(
 								'content' => array(
-									button_edit('{base_url}admin/games/{game_id}/{name}.html'),
-									button_delete('{base_url}admin/games/delete/{game_id}/{name}.html')
+									function($data){
+										return button_edit('admin/games/'.$data['game_id'].'/'.$data['name'].'.html');
+									},
+									function($data){
+										return button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name'].'.html');
+									}
 								),
 								'size'    => TRUE
 							)
@@ -41,37 +50,13 @@ class m_games_c_admin extends Controller_Module
 						->pagination(FALSE)
 						->display();
 		
-		/*$maps = $this   ->table
-						->add_columns(array(
-							array(
-								'title'   => 'Carte',
-								'content' => '{title}',
-								'search'  => '{title}'
-							),
-							array(
-								'title'   => 'Jeu',
-								'content' => '<?php if ($data[\'icon_id2\']): ?><img src="{image {icon_id2}}" alt="" /> <?php endif; ?><img src="{image {icon_id}}" alt="" /> {game}',
-								'search'  => '{game}'
-							),
-							array(
-								'content' => array(
-									button_edit('{base_url}admin/games/{game_id}/{url_title(title)}.html'),
-									button_delete('{base_url}admin/games/delete/{game_id}/{url_title(title)}.html')
-								),
-								'size'    => TRUE
-							)
-						))
-						->data($maps)
-						->no_data('Il n\'y a pas encore de carte')
-						->display();*/
-		
 		return new Row(
 			new Col(
 				new Panel(array(
 					'title'   => 'Liste des jeux',
 					'icon'    => 'fa-gamepad',
 					'content' => $games,
-					'footer'  => button_add('{base_url}admin/games/add.html', 'Ajouter un jeu'),
+					'footer'  => button_add('admin/games/add.html', 'Ajouter un jeu'),
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
@@ -80,7 +65,7 @@ class m_games_c_admin extends Controller_Module
 					'title'   => 'Liste des cartes',
 					'icon'    => 'fa-picture-o',
 					'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant. ',
-					//'footer'  => button_add('{base_url}admin/games/add.html', 'Ajouter une carte'),
+					//'footer'  => button_add('admin/games/add.html', 'Ajouter une carte'),
 					'style'   => 'panel-info',
 					'size'    => 'col-md-12 col-lg-8'
 				))

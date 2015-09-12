@@ -127,7 +127,7 @@ class m_settings_c_admin extends Controller_Module
 			'content' => $this->load->view('themes', array(
 				'themes' => $this->get_themes()
 			)),
-			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install"><i class="fa fa-download"></i> Installer / Mettre à jour un thème</button>',
+			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install">'.icon('fa-download').' Installer / Mettre à jour un thème</button>',
 			'size'    => 'col-md-12'
 		));
 	}

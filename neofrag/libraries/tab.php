@@ -130,7 +130,7 @@ class Tab extends Library
 					$tabs['sections'][] = array(
 						'active' => $lang['code'] == $code,
 						'url'    => ($i == 0) ? '' : $lang['code'],
-						'name'   => '<img src="{image flags/'.$lang['flag'].'}" alt="" />'.$lang['name']
+						'name'   => '<img src="'.image('flags/'.$lang['flag']).'" alt="" />'.$lang['name']
 					);
 
 					if ($lang['code'] == $index)
@@ -161,12 +161,11 @@ class Tab extends Library
 		}
 
 		$output = '	<div class="tabbable">
-						{tab_header}
 						<ul class="nav nav-tabs">';
 
 		foreach ($tabs['sections'] as $section)
 		{
-			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="{base_url}'.$module_name.'/'.trim(($this->_url_position == 'end') ? $base_url.'/'.$section['url'] : $section['url'].'/'.$base_url, '/').'.html">'.$section['name'].'</a></li>';
+			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="'.url($module_name.'/'.trim(($this->_url_position == 'end') ? $base_url.'/'.$section['url'] : $section['url'].'/'.$base_url, '/').'.html').'">'.$section['name'].'</a></li>';
 		}
 
 		$output .= '	</ul>

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function button($url, $icon, $title = '', $color = 'default', $class = '')
 {
-	return '<a class="'.($class ? $class.' ' : '').'btn btn-outline btn-'.$color.' btn-xs" href="'.$url.'"'.($title ? ' data-toggle="tooltip" title="'.$title.'"' : '').'>'.NeoFrag::loader()->assets->icon($icon).'</a>';
+	return '<a class="'.($class ? $class.' ' : '').'btn btn-outline btn-'.$color.' btn-xs" href="'.url($url).'"'.($title ? ' data-toggle="tooltip" title="'.$title.'"' : '').'>'.icon($icon).'</a>';
 }
 
 function button_edit($url, $title = 'Éditer')
@@ -38,7 +38,7 @@ function button_delete($url, $title = 'Supprimer')
 
 function button_add($url, $title, $icon = 'fa-plus')
 {
-	return '<a class="btn btn-outline btn-success" href="'.$url.'">'.NeoFrag::loader()->assets->icon($icon).' '.$title.'</a>';
+	return '<a class="btn btn-outline btn-success" href="'.url($url).'">'.icon($icon).' '.$title.'</a>';
 }
 
 /*

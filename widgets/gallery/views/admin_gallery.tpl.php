@@ -1,6 +1,6 @@
 <div role="tabpanel">
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab">{fa-icon cogs} Options</a></li>
+		<li role="presentation" class="active"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs'); ?> Options</a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="navigation-options" class="tab-pane active" role="tabpanel">

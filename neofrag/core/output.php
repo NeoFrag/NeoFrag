@@ -33,7 +33,6 @@ class Output extends Core
 
 		$this->data = $this->load->data;
 
-		$this->data['base_url']   = $this->config->base_url;
 		$this->data['page_title'] = $this->config->nf_name.' :: '.$this->config->nf_description;
 		$this->data['lang']       = $this->config->lang;
 		
@@ -72,10 +71,10 @@ class Output extends Core
 
 			if (!empty($this->load->module->icon) || !empty($this->data['module_icon']))
 			{
-				$this->data['module_title'] = $this->assets->icon(!empty($this->data['module_icon']) ? $this->data['module_icon'] : $this->load->module->icon).' '.$this->data['module_title'];
+				$this->data['module_title'] = icon(!empty($this->data['module_icon']) ? $this->data['module_icon'] : $this->load->module->icon).' '.$this->data['module_title'];
 			}
 			
-			$output = $this->load->theme->load->view('default', $this->data);
+			$this->data['body'] = $this->load->theme->load->view('body', $this->data);
 
 			if (isset($this->load->css))
 			{
@@ -83,7 +82,7 @@ class Output extends Core
 				
 				foreach ($this->load->css as $css)
 				{
-					$this->data['css'][] = $this->template->parse('<link rel="stylesheet" href="{css '.$css[0].'.css}" type="text/css" media="'.$css[1].'" />', $this->data, $css[2])."\r\n";
+					$this->data['css'][] = '<link rel="stylesheet" href="'.path($css[0].'.css', 'css', $css[2]->paths['assets']).'" type="text/css" media="'.$css[1].'" />'."\r\n";
 				}
 				
 				$this->data['css'] = implode(array_unique($this->data['css']));
@@ -95,7 +94,7 @@ class Output extends Core
 
 				foreach ($this->load->js as $js)
 				{
-					$this->data['js'][] = $this->template->parse('<script type="text/javascript" src="{js '.$js[0].'.js}"></script>', $this->data, $js[1])."\r\n";
+					$this->data['js'][] = '<script type="text/javascript" src="'.path($js[0].'.js', 'js', $js[1]->paths['assets']).'"></script>'."\r\n";
 				}
 				
 				$this->data['js'] = implode(array_unique($this->data['js']));
@@ -110,6 +109,8 @@ class Output extends Core
 					$this->data['js_load'] .= $js;
 				}
 			}
+			
+			$output = $this->load->theme->load->view('default', $this->data);
 		}
 
 		if ($this->config->extension_url == 'json')
@@ -131,25 +132,6 @@ class Output extends Core
 		{
 			header('Content-Type: text/html; charset=UTF-8');
 		}
-
-		$output = $this->template->parse($output, $this->data);
-		$output = $this->template->clean($output);
-
-		/*
-		if (extension_loaded('tidy'))
-		{
-			$output = tidy_repair_string($output, array(
-				'break-before-br'  => TRUE,
-				'char-encoding'    => 'utf8',
-				'clean'            => FALSE,
-				'indent'           => TRUE,
-				'indent-spaces'    => 4,
-				'output-xhtml'     => TRUE,
-				'sort-attributes'  => 'alpha',
-				'wrap'             => 0
-			),
-			'utf8');
-		}*/
 
 		echo $output;
 	}

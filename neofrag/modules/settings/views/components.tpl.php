@@ -6,7 +6,7 @@
 		</tr>
 		<?php foreach ($data['nf_modules'] as $module): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $module['title']; ?><small><?php echo $module['description']; ?></small></h1></td>
 			<td><a href="" class="btn">Désactiver</a></td>
 		</tr>
@@ -16,7 +16,7 @@
 		</tr>
 		<?php foreach ($data['nf_widgets'] as $widget): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $widget['title']; ?><small></small></h1></td>
 			<td></td>
 		</tr>
@@ -26,7 +26,7 @@
 		</tr>
 		<?php foreach ($data['nf_themes'] as $theme): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $theme['title']; ?><small></small></h1></td>
 			<td></td>
 		</tr>
@@ -38,7 +38,7 @@
 	<table class="table table-hover">
 		<?php foreach ($data['modules'] as $module): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $module['title']; ?><small></small></h1></td>
 			<td></td>
 		</tr>
@@ -50,7 +50,7 @@
 	<table class="table table-hover">
 		<?php foreach ($data['widgets'] as $widget): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $widget['title']; ?><small></small></h1></td>
 			<td></td>
 		</tr>
@@ -62,7 +62,7 @@
 	<table class="table table-hover">
 		<?php foreach ($data['themes'] as $theme): ?>
 		<tr>
-			<td><img src="{image icons-24/newspaper.png}" alt="" /></td>
+			<td><img src="<?php echo image('icons-24/newspaper.png'); ?>" alt="" /></td>
 			<td><h1><?php echo $theme['title']; ?><small></small></h1></td>
 			<td></td>
 		</tr>

@@ -329,7 +329,7 @@ class Table extends Library
 			if ($this->_pagination && !empty($this->pagination) && $this->pagination->count() > 10)
 			{
 				$output .= '<div class="pull-left" style="margin-bottom: 15px;">
-								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
+								<select class="form-control" style="width: auto;" onchange="window.location=\''.url($this->pagination->get_url()).'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
 									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">10 résultats</option>
 									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">25 résultats</option>
 									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">50 résultats</option>

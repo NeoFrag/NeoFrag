@@ -63,7 +63,7 @@ body {
 }
 
 .live-editor-navbar .navbar-brand {
-	background: url('{image neofrag/modules/live_editor/images/live_editor.png}') no-repeat 0 50%;
+	background: url('<?php echo image('neofrag/modules/live_editor/images/live_editor.png'); ?>') no-repeat 0 50%;
 	line-height: 15px;
 	padding-left: 30px;
 	padding-top: 13px;

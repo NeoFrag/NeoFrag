@@ -24,14 +24,14 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 404 Not Found');
 
-		$this->title('{lang unfound}');
+		$this->title('Page introuvable');
 
 		return array(
 			new Panel(array(
-				'title'   => '{lang unfound}',
+				'title'   => 'Page introuvable',
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
-				'content' => '{lang page_unfound}'
+				'content' => 'La page que vous souhaitez consulter est introuvable.'
 			)),
 			new Button_back()
 		);
@@ -41,11 +41,11 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 401 Unauthorized');
 
-		$this->title('{lang unauthorized}');
+		$this->title('Accès refusé');
 
 		return array(
 			new Panel(array(
-				'title'   => '{lang unauthorized}',
+				'title'   => 'Accès refusé',
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
 				'content' => 'Vous n\'avez pas les autorisations d\'accès requises pour visiter cette page.'
@@ -58,10 +58,10 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 503 Service Unavailable');
 
-		$this->title('{lang database}');
+		$this->title('Erreur de connexion à la base de données');
 
 		return new Panel(array(
-			'title'   => '{lang database}',
+			'title'   => 'Erreur de connexion à la base de données',
 			'icon'    => 'fa-warning',
 			'style'   => 'panel-danger',
 			'content' => 'Le serveur de bases de données est injoignable ou ne répond pas.'

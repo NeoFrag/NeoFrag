@@ -1,5 +1,5 @@
 body {
-	background-image: url('<?php echo $NeoFrag->config->default_background ? $NeoFrag->assets->file($NeoFrag->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
+	background-image: url('<?php echo $NeoFrag->config->default_background ? path($NeoFrag->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
 	background-position: <?php echo $NeoFrag->config->default_background_position; ?>;
 	background-repeat: <?php echo $NeoFrag->config->default_background_repeat; ?>;
 	background-attachment: <?php echo $NeoFrag->config->default_background_attachment; ?>;
@@ -305,7 +305,7 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 /* navbar-inverse */
 
 .navbar.navbar-inverse {
-	background: url('{image navbar.png}') no-repeat top center;
+	background: url('<?php echo image('navbar.png'); ?>') no-repeat top center;
 	border-color: #212427;
 }
 
@@ -554,13 +554,13 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 /* row light */
 
 .row-light {
-	background: url('{image gray_light.png}');
+	background: url('<?php echo image('gray_light.png'); ?>');
 }
 
 /* row dark */
 
 .row-dark {
-	background: url('{image gray_dark.png}');
+	background: url('<?php echo image('gray_dark.png'); ?>');
 }
 
 /* row black */

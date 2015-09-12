@@ -91,7 +91,7 @@ class Config extends Core
 
 		if (!$this->ajax && is_asset())
 		{
-			$this->assets($this->_configs['request_url']);
+			asset($this->_configs['request_url']);
 		}
 	}
 	

@@ -39,7 +39,7 @@ class w_talks_c_index extends Controller_Widget
 										<div class="input-group">
 											<input type="text" class="form-control" placeholder="Votre message..." />
 											<span class="input-group-btn">
-												<button class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
+												<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
 											</span>
 										</div>
 									</form>';

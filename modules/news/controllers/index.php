@@ -30,14 +30,14 @@ class m_news_c_index extends Controller_Module
 			
 			$panel = array(
 				'title'   => $news['title'],
-				'url'     => $this->config->base_url.'news/'.$news['news_id'].'/'.url_title($news['title']).'.html',
+				'url'     => url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html'),
 				'icon'    => 'fa-file-text-o',
 				'content' => $this->load->view('index', $news)
 			);
 			
 			if ($news['content'])
 			{
-				$panel['footer'] = '<a href="{base_url}news/'.$news['news_id'].'/'.url_title($news['title']).'.html">Lire la suite</a>';
+				$panel['footer'] = '<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">Lire la suite</a>';
 			}
 			
 			$panels[] = new Panel($panel);
@@ -77,7 +77,7 @@ class m_news_c_index extends Controller_Module
 		$news = $this->index($news);
 		
 		array_unshift($news, new Panel(array(
-			'content' => '<h2 class="no-margin">'.$filter.button('{base_url}news.html', 'fa-close', 'Voir toutes les actualités', 'danger', 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', 'Voir toutes les actualités', 'danger', 'pull-right').'</h2>'
 		)));
 
 		return $news;

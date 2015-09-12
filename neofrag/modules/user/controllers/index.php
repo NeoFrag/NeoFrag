@@ -33,7 +33,7 @@ class m_user_c_index extends Controller_Module
 			'title'   => 'Espace membre',
 			'icon'    => 'fa-user',
 			'content' => $this->load->view('index'),
-			'footer'  => '<a class="btn btn-primary" href="{base_url}user/edit.html"><i class="fa fa-cogs"></i> Gérer mon compte</a> <a class="btn btn-danger" href="{base_url}user/logout.html"><i class="fa fa-close"></i> Déconnexion</a>'
+			'footer'  => '<a class="btn btn-primary" href="'.url('user/edit.html').'">'.icon('fa-cogs').' Gérer mon compte</a> <a class="btn btn-danger" href="'.url('user/logout.html').'">'.icon('fa-close').' Déconnexion</a>'
 		));
 	}
 
@@ -98,36 +98,48 @@ class m_user_c_index extends Controller_Module
 		$active_sessions = $this->load->library('table')
 			->add_columns(array(
 				array(
-					'content' => '<?php echo $data[\'remember_me\'] ? \'<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>\' : \'<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>\' ?>',
+					'content' => function($data){
+						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
+					},
 					'size'    => TRUE,
 					'align'   => 'center'
 				),
 				array(
-					'content' => '<?php echo user_agent($data[\'user_agent\']); ?>',
+					'content' => function($data){
+						return user_agent($data['user_agent']);
+					},
 					'size'    => TRUE,
 					'align'   => 'center'
 				),
 				array(
 					'title'   => 'Adresse IP',
-					'content' => '<?php echo geolocalisation($data[\'ip_address\']); ?><span data-toggle="tooltip" data-original-title="{host_name}">{ip_address}</span>'
+					'content' => function($data){
+						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
+					}
 				),
 				array(
 					'title'   => 'Site référent',
-					'content' => '<?php echo ($data[\'referer\']) ? urltolink($data[\'referer\']) : \'Aucun\'; ?>'
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+					}
 				),
 				array(
 					'title'   => 'Date d\'arrivée',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+					}
 				),
 				array(
 					'title'   => 'Dernière activité',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'last_activity\']); ?>">{time_span(last_activity)}</span>'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+					}
 				),
 				array(
 					'content' => array(function($data){
 						if ($data['session_id'] != NeoFrag::loader()->session('session_id'))
 						{
-							return button_delete($this->config->base_url.'user/sessions/delete/'.$data['session_id'].'.html');
+							return button_delete('user/sessions/delete/'.$data['session_id'].'.html');
 						}
 					})
 				)
@@ -139,21 +151,29 @@ class m_user_c_index extends Controller_Module
 		$sessions_history = $this->table
 			->add_columns(array(
 				array(
-					'content' => '<?php echo user_agent($data[\'user_agent\']); ?>',
+					'content' => function($data){
+						return user_agent($data['user_agent']);
+					},
 					'size'    => TRUE,
 					'align'   => 'center'
 				),
 				array(
 					'title'   => 'Adresse IP',
-					'content' => '<?php echo geolocalisation($data[\'ip_address\']); ?><span data-toggle="tooltip" data-original-title="{host_name}">{ip_address}</span>'
+					'content' => function($data){
+						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
+					}
 				),
 				array(
 					'title'   => 'Site référent',
-					'content' => '<?php echo ($data[\'referer\']) ? urltolink($data[\'referer\']) : \'Aucun\'; ?>'
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+					}
 				),
 				array(
 					'title'   => 'Date d\'arrivée',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+					}
 				)
 			))
 			->data($sessions)
@@ -297,7 +317,7 @@ class m_user_c_index extends Controller_Module
 			if ($user_id == -1)
 			{
 				//TODO
-				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="{base_url}user/activate.html" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
+				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="'.url('user/activate.html').'" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
 			}
 			else if ($user_id > 0 && $this->load->library('password')->is_valid($password.$salt, $hash, (bool)$salt))
 			{
@@ -328,7 +348,7 @@ class m_user_c_index extends Controller_Module
 						'title'   => 'Identifiants incorrects !',
 						'icon'    => 'fa-warning',
 						'style'   => 'panel-danger',
-						'content' => 'Si vous avez oublié votre mot de passe, utilisez la fonction <a href="{base_url}user/lost-password.html">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous.'
+						'content' => 'Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password.html').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous.'
 					))
 					, 'col-md-12'
 				));
@@ -398,7 +418,9 @@ class m_user_c_index extends Controller_Module
 				->to($post['email'])
 				->subject('Mot de passe oublié ?')
 				->message('default', array(
-					'content' => '<a href="{base_url}user/lost-password/{key}.html">Réinitialisation de votre mot de passe</a>',
+					'content' => function($data){
+						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">Réinitialisation de votre mot de passe</a>';
+					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				))
 				->send();

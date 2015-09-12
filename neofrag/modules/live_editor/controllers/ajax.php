@@ -22,7 +22,7 @@ class m_live_editor_c_ajax extends Controller_Module
 {
 	public function zone_fork($disposition_id, $disposition, $url, $theme, $page, $zone)
 	{
-		$url = str_replace($this->config->base_url, '', $url);
+		$url = str_replace(url(), '', $url);
 		
 		if (!$url || preg_match('#^index(?:\.|/)#', $url))
 		{

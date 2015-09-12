@@ -28,42 +28,74 @@ class m_news_c_admin extends Controller_Module
 		$news = $this	->table
 						->add_columns(array(
 							array(
-								'content' => '<?php echo ($data[\'published\']) ? \'<i class="fa fa-circle" data-toggle="tooltip" title="Publiée" style="color: #7bbb17;"></i>\' : \'<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>\'; ?>',
-								'sort'    => '{published}',
+								'content' => function($data){
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="Publiée" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
+								},
+								'sort'    => function($data){
+									return $data['published'];
+								},
 								'size'    => TRUE
 							),
 							array(
 								'title'   => 'Titre',
-								'content' => '<a href="{base_url}news/{news_id}/{url_title(title)}.html">{title}</a>',
-								'sort'    => '{title}',
-								'search'  => '{title}'
+								'content' => function($data){
+									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
+								},
+								'sort'    => function($data){
+									return $data['title'];
+								},
+								'search'  => function($data){
+									return $data['title'];
+								}
 							),
 							array(
 								'title'   => 'Catégorie',
-								'content' => '<a href="{base_url}admin/news/categories/{category_id}/{url_title(category_name)}.html"><img src="{image {category_icon}}" alt="" /> {category_title}</a>',
-								'sort'    => '{category_title}',
-								'search'  => '{category_title}'
+								'content' => function($data){
+									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+								},
+								'sort'    => function($data){
+									return $data['category_title'];
+								},
+								'search'  => function($data){
+									return $data['category_title'];
+								}
 							),
 							array(
 								'title'   => 'Auteur',
-								'content' => '<?php echo $this->user->link($data[\'user_id\'], $data[\'username\']); ?>',
-								'sort'    => '{username}',
-								'search'  => '{username}'
+								'content' => function($data){
+									return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+								},
+								'sort'    => function($data){
+									return $data['username'];
+								},
+								'search'  => function($data){
+									return $data['username'];
+								}
 							),
 							array(
 								'title'   => 'Date',
-								'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>',
-								'sort'    => '{date}'
+								'content' => function($data){
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+								},
+								'sort'    => function($data){
+									return $data['date'];
+								}
 							),
 							array(
 								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Commentaires"></i>',
-								'content' => '<?php echo $NeoFrag->load->library(\'comments\')->admin_comments(\'news\', $data[\'news_id\']); ?>',
+								'content' => function($data){
+									return NeoFrag::loader()->library('comments')->admin_comments('news', $data['news_id']);
+								},
 								'size'    => TRUE
 							),
 							array(
 								'content' => array(
-									button_edit('{base_url}admin/news/{news_id}/{url_title(title)}.html'),
-									button_delete('{base_url}admin/news/delete/{news_id}/{url_title(title)}.html')
+									function($data){
+										return button_edit('admin/news/'.$data['news_id'].'/'.url_title($data['title']).'.html');
+									},
+									function($data){
+										return button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title']).'.html');
+									}
 								),
 								'size'    => TRUE
 							)
@@ -76,14 +108,24 @@ class m_news_c_admin extends Controller_Module
 		$categories = $this	->table
 							->add_columns(array(
 								array(
-									'content' => '<a href="{base_url}admin/news/categories/{category_id}/{name}.html"><img src="{image {icon_id}}" alt="" /> {title}</a>',
-									'search'  => '{title}',
-									'sort'    => '{title}'
+									'content' => function($data){
+										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+									},
+									'search'  => function($data){
+										return $data['title'];
+									},
+									'sort'    => function($data){
+										return $data['title'];
+									}
 								),
 								array(
 									'content' => array(
-										button_edit('{base_url}admin/news/categories/{category_id}/{name}.html'),
-										button_delete('{base_url}admin/news/categories/delete/{category_id}/{name}.html')
+										function($data){
+											return button_edit('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html');
+										},
+										function($data){
+											return button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html');
+										}
 									),
 									'size'    => TRUE
 								)
@@ -99,7 +141,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => 'Catégories',
 					'icon'    => 'fa-align-left',
 					'content' => $categories,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/news/categories/add.html"><i class="fa fa-plus"></i> Créer une catégorie</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/news/categories/add.html').'">'.icon('fa-plus').' Créer une catégorie</a>',
 					'size'    => 'col-md-12 col-lg-3'
 				))
 			),
@@ -108,7 +150,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => 'Liste des actualités',
 					'icon'    => 'fa-file-text-o',
 					'content' => $news,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/news/add.html"><i class="fa fa-plus"></i> Ajouter une actualité</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/news/add.html').'">'.icon('fa-plus').' Ajouter une actualité</a>',
 					'size'    => 'col-md-12 col-lg-9'
 				))
 			)

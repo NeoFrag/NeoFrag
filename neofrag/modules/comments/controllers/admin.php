@@ -28,7 +28,7 @@ class m_comments_c_admin extends Controller_Module
 		foreach ($modules as $module_name => $module)
 		{
 			list($title, $icon) = $module;
-			$this->tab->add_tab($module_name, $this->assets->icon($icon).' '.$title, '_tab_index', $comments, $title);
+			$this->tab->add_tab($module_name, icon($icon).' '.$title, '_tab_index', $comments, $title);
 		}
 								
 		return new Panel(array(
@@ -46,10 +46,16 @@ class m_comments_c_admin extends Controller_Module
 			$this->table->add_columns(array(
 				array(
 					'title'   => 'Module',
-					'content' => '<a href="{base_url}admin/comments/{module}.html">{icon {icon}} {module_title}</a>',
+					'content' => function($data){
+						return '<a href="'.url('admin/comments/'.$data['module'].'.html').'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
+					},
 					'size'    => '25%',
-					'sort'    => '{module_title}',
-					'search'  => '{module_title}'
+					'sort'    => function($data){
+						return $data['module_title'];
+					},
+					'search'  => function($data){
+						return $data['module_title'];
+					}
 				)
 			));
 		}
@@ -57,9 +63,15 @@ class m_comments_c_admin extends Controller_Module
 		echo $this->table->add_columns(array(
 			array(
 				'title'   => 'Nom',
-				'content' => '{title}',
-				'sort'    => '{title}',
-				'search'  => '{title}'
+				'content' => function($data){
+					return $data['title'];
+				},
+				'sort'    => function($data){
+					return $data['title'];
+				},
+				'search'  => function($data){
+					return $data['title'];
+				}
 			),
 			array(
 				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Nombre de commentaires"></i>',
@@ -69,7 +81,9 @@ class m_comments_c_admin extends Controller_Module
 				'size'    => TRUE
 			),
 			array(
-				'content' => button('{base_url}{url}', 'fa-eye', 'Voir les commentaires', 'info'),
+				'content' => function($data){
+					return button($data['url'], 'fa-eye', 'Voir les commentaires', 'info');
+				},
 				'size'    => TRUE
 			)
 		))

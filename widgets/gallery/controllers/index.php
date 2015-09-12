@@ -32,7 +32,7 @@ class w_gallery_c_index extends Controller_Widget
 					'categories' => $categories
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="{base_url}gallery.html"><i class="fa fa-arrow-circle-o-right"></i> Voir notre galerie</a>',
+				'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' Voir notre galerie</a>',
 				'footer_align' => 'right'
 			));
 		}
@@ -53,7 +53,7 @@ class w_gallery_c_index extends Controller_Widget
 				'gallery' => $this->model()->get_gallery($settings['category_id'])
 			)),
 			'body'         => FALSE,
-			'footer'       => '<a href="{base_url}gallery.html"><i class="fa fa-arrow-circle-o-right"></i> Voir notre galerie</a>',
+			'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' Voir notre galerie</a>',
 			'footer_align' => 'right'
 		));
 	}
@@ -61,15 +61,15 @@ class w_gallery_c_index extends Controller_Widget
 	public function image($settings = array())
 	{
 		$image = $this->model()->get_random_image($settings['gallery_id']);
-		$href  = '{base_url}gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html';
+		$href  = url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html');
 		
 		if (!empty($image['file_id']))
 		{
 			return new Panel(array(
 				'title'        => $image['title'],
-				'content'      => '<a href="'.$href.'"><img class="img-responsive" src="{image '.$image['file_id'].'}" alt="" /></a>',
+				'content'      => '<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>',
 				'body'         => FALSE,
-				'footer'       => '<a href="'.$href.'"><i class="fa fa-arrow-circle-o-right"></i> Détails</a>',
+				'footer'       => '<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' Détails</a>',
 				'footer_align' => 'right'
 			));
 		}

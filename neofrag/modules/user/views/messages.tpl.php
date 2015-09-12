@@ -1,4 +1,4 @@
-{menu}
+<?php echo $data['menu']; ?>
 <div class="panel-body">
-	{inbox}
+	<?php echo $data['inbox']; ?>
 </div>

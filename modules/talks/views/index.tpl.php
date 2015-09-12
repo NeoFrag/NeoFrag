@@ -30,7 +30,7 @@ foreach ($data['messages'] as $i => $message)
 	ob_start();
 ?>
 	<div class="media-<?php echo $media; ?>">
-		<a href="{base_url}members/<?php echo $message['user_id']; ?>/<?php echo url_title($message['username']); ?>.html">
+		<a href="<?php echo url('members/'.$message['user_id'].'/'.url_title($message['username']).'.html'); ?>">
 			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
 		</a>
 	</div>
@@ -42,12 +42,12 @@ foreach ($data['messages'] as $i => $message)
 		<?php
 			if ($NeoFrag->user('user_id') == $message['user_id'] || is_authorized('talks', 'delete', $message['talk_id']))
 			{
-				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.button_delete($this->config->base_url.'ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
+				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.button_delete('ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
 			}
 		?>
 		<h4 class="media-heading">
 		<?php
-			$title = array($NeoFrag->user->link($message['user_id'], $message['username']), '<small><i class="fa fa-clock-o"></i> '.time_span($message['date']).'</small>');
+			$title = array($NeoFrag->user->link($message['user_id'], $message['username']), '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>');
 			
 			if ($media == 'right')
 			{

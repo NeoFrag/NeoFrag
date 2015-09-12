@@ -1,7 +1,7 @@
-<h3>{module_title}</h3>
+<h3><?php echo $data['module_title']; ?></h3>
 <br />
-{content}
+<?php echo $data['content']; ?>
 <br />
 <br />
 <br />
-<a href="{base_url}">{config nf_name}</a>
+<a href="<?php echo $data['base_url']; ?>"><?php echo $NeoFrag->config->nf_name; ?></a>

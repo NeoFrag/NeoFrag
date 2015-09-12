@@ -1,1 +1,1 @@
-{view emails/body.txt}
+<?php echo $loader->view('emails/body.txt', $data); ?>

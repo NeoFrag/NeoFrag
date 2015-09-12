@@ -28,7 +28,7 @@ $(function(){
 		
 		$.ajax({
 			   
-			url: '{base_url}ajax/settings/profiler.html',
+			url: '<?php echo url('ajax/settings/profiler.html'); ?>',
 			type: 'POST',
 			data: 'part='+$(this).data('profiler')+'&hide='+hide
 		});

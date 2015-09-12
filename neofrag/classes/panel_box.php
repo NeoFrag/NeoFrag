@@ -29,8 +29,8 @@ class Panel_Box extends Panel
 						<h3>'.$this->count.'</h3>
 						<p>'.$this->label.'</p>
 					</div>
-					'.($this->icon ? '<div class="icon">'.NeoFrag::loader()->assets->icon($this->icon).'</div>' : '').'
-					<a class="small-box-footer" href="'.$this->url.'">
+					'.($this->icon ? '<div class="icon">'.icon($this->icon).'</div>' : '').'
+					<a class="small-box-footer" href="'.url($this->url).'">
 						'.$this->footer.'
 					</a>
 				</div>';

@@ -27,23 +27,37 @@ class m_gallery_c_admin extends Controller_Module
 		$gallery = $this->table
 						->add_columns(array(
 							array(
-								'content' => '<?php echo ($data[\'published\']) ? \'<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="Publiée dans la galerie"></i>\' : \'<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="Non visible dans la galerie"></i>\'; ?>',
-								'sort'    => '{published}',
+								'content' => function($data){
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="Publiée dans la galerie"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="Non visible dans la galerie"></i>';
+								},
+								'sort'    => function($data){
+									return $data['published'];
+								},
 								'size'    => TRUE
 							),
 							array(
 								'title'   => 'Album',
 								'content' => function($data){
-									return $data['published'] ? '<a href="{base_url}gallery/album/'.$data['gallery_id'].'/'.$data['name'].'.html">{title}</a>' : $data['title'];
+									return $data['published'] ? '<a href="'.url('gallery/album/'.$data['gallery_id'].'/'.$data['name'].'.html').'">'.$data['title'].'</a>' : $data['title'];
 								},
-								'sort'    => '{title}',
-								'search'  => '{title}'
+								'sort'    => function($data){
+									return $data['title'];
+								},
+								'search'  => function($data){
+									return $data['title'];
+								}
 							),
 							array(
 								'title'   => 'Catégorie',
-								'content' => '<a href="{base_url}admin/gallery/categories/{category_id}/{category_name}.html"><img src="{image {category_icon}}" alt="" /> {category_title}</a>',
-								'sort'    => '{category_title}',
-								'search'  => '{category_title}'
+								'content' => function($data){
+									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+								},
+								'sort'    => function($data){
+									return $data['category_title'];
+								},
+								'search'  => function($data){
+									return $data['category_title'];
+								}
 							),
 							/* //TODO
 							array(
@@ -53,13 +67,21 @@ class m_gallery_c_admin extends Controller_Module
 							*/
 							array(
 								'title'   => '<i class="fa fa-photo" data-toggle="tooltip" title="Images"></i>',
-								'content' => '{images}',
-								'sort'    => '{images}'
+								'content' => function($data){
+									return $data['images'];
+								},
+								'sort'    => function($data){
+									return $data['images'];
+								}
 							),
 							array(
 								'content' => array(
-									button_edit('{base_url}admin/gallery/{gallery_id}/{name}.html'),
-									button_delete('{base_url}admin/gallery/delete/{gallery_id}/{name}.html')
+									function($data){
+										return button_edit('admin/gallery/'.$data['gallery_id'].'/'.$data['name'].'.html');
+									},
+									function($data){
+										return button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name'].'.html');
+									}
 								),
 								'size'    => TRUE
 							)
@@ -71,17 +93,27 @@ class m_gallery_c_admin extends Controller_Module
 		$categories = $this	->table
 							->add_columns(array(
 								array(
-									'content' => '<img src="{image {icon_id}}" alt="" />',
+									'content' => function($data){
+										return '<img src="'.path($data['icon_id']).'" alt="" />';
+									},
 									'size'    => TRUE
 								),
 								array(
-									'content' => '<a href="{base_url}admin/gallery/categories/{category_id}/{name}.html">{title}</a>',
-									'search'  => '{title}'
+									'content' => function($data){
+										return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html').'">'.$data['title'].'</a>';
+									},
+									'search'  => function($data){
+										return $data['title'];
+									}
 								),
 								array(
 									'content' => array(
-										button_edit('{base_url}admin/gallery/categories/{category_id}/{name}.html'),
-										button_delete('{base_url}admin/gallery/categories/delete/{category_id}/{name}.html')
+										function($data){
+											return button_edit('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html');
+										},
+										function($data){
+											return button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html');
+										}
 									),
 									'size'    => TRUE
 								)
@@ -97,7 +129,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => 'Catégories',
 					'icon'    => 'fa-book',
 					'content' => $categories,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/gallery/categories/add.html"><i class="fa fa-plus"></i> Ajouter une catégorie</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/gallery/categories/add.html').'">'.icon('fa-plus').' Ajouter une catégorie</a>',
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
@@ -106,7 +138,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => 'Liste des albums photos',
 					'icon'    => 'fa-photo',
 					'content' => $gallery,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/gallery/add.html"><i class="fa fa-plus"></i> Créer un album</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/gallery/add.html').'">'.icon('fa-plus').' Créer un album</a>',
 					'size'    => 'col-md-12 col-lg-8'
 				))
 			)
@@ -196,28 +228,48 @@ class m_gallery_c_admin extends Controller_Module
 		$gallery_table = $this->load->library('table')
 									->add_columns(array(
 										array(
-											'content' => '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="Visualiser" data-image="{image {file_id}}" data-title="{title}" data-description="{description}"><img style="max-width: 80px;" src="{image {thumbnail_file_id}}" alt="" /></a>',
+											'content' => function($data){
+												return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="Visualiser" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+											},
 											'size'    => TRUE
 										),
 										array(
 											'title'   => 'Titre',
-											'content' => '{title}',
+											'content' => function($data){
+												return $data['title'];
+											},
 											'align'   => 'left',
-											'sort'    => '{title}',
-											'search'  => '{title}'
+											'sort'    => function($data){
+												return $data['title'];
+											},
+											'search'  => function($data){
+												return $data['title'];
+											}
 										),
 										array(
 											'title'   => 'Date',
-											'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>',
+											'content' => function($data){
+												return '<span data-toggle="tooltip" title="'.timetostr($NeoFrag->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+											},
 											'align'   => 'left',
-											'sort'    => '{date}',
-											'search'  => '{date}'
+											'sort'    => function($data){
+												return $data['date'];
+											},
+											'search'  => function($data){
+												return $data['date'];
+											}
 										),
 										array(
 											'content' => array(
-												button('{base_url}gallery/image/{image_id}/{url_title(title)}.html', 'fa-eye', 'Voir l\'image'),
-												button_edit('{base_url}admin/gallery/image/{image_id}/{url_title(title)}.html'),
-												button_delete('{base_url}admin/gallery/image/delete/{image_id}/{url_title(title)}.html')
+												function($data){
+													return button('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html', 'fa-eye', 'Voir l\'image');
+												},
+												function($data){
+													return button_edit('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												},
+												function($data){
+													return button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												}
 											),
 											'align'   => 'right',
 											'size'    => TRUE
@@ -422,9 +474,11 @@ class m_gallery_c_admin extends Controller_Module
 			),
 			new Col(
 				new Panel(array(
-					'title'   => '<div class="pull-right">'.button_delete('{base_url}admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>Aperçu de l\'image',
+					'title'   => '<div class="pull-right">'.button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>Aperçu de l\'image',
 					'icon'    => 'fa-photo',
-					'content' => '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="Visualiser" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="{image '.$thumbnail_file_id.'}" alt="" /></a>',
+					'content' => function($data) use ($image_id, $title, $description){
+						return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="Visualiser" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+					},
 					'size'    => 'col-md-4 col-lg-3'
 				))
 			)

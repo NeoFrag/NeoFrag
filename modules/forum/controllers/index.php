@@ -45,7 +45,7 @@ class m_forum_c_index extends Controller_Module
 		if ($this->user())
 		{
 			$actions = new Panel(array(
-				'content' => '<a class="btn btn-default" href="{base_url}forum/mark-all-as-read.html" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">{fa-icon eye}</a>',
+				'content' => '<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">'.icon('fa-eye').'</a>',
 				'body'    => FALSE,
 				'style'   => 'panel-back text-right'
 			));
@@ -94,7 +94,7 @@ class m_forum_c_index extends Controller_Module
 			'body'    => FALSE
 		));
 		
-		$content = '<a class="btn btn-default" href="{base_url}'.($this->session->get_back() ?: 'forum.html').'">Retour</a>';
+		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">Retour</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -103,12 +103,12 @@ class m_forum_c_index extends Controller_Module
 		
 		if (is_authorized('forum', 'category_write', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-primary" href="{base_url}forum/new/'.$forum_id.'/'.url_title($title).'.html">Nouveau sujet</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">Nouveau sujet</a>';
 		}
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-default" href="{base_url}forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">{fa-icon eye}</a>';
+			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">'.icon('fa-eye').'</a>';
 		}
 
 		array_unshift($panels, $panels[] = new Panel(array(
@@ -238,7 +238,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 		
-		$content = '<a class="btn btn-default" href="{base_url}'.($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">Retour</a>';
+		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">Retour</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -251,7 +251,7 @@ class m_forum_c_index extends Controller_Module
 		
 			if ($nb_messages > $this->pagination->get_items_per_page() && $this->pagination->get_page() != ($last_page = ceil($nb_messages / $this->pagination->get_items_per_page())))
 			{
-				$page = '{base_url}forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page.'.html';
+				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page.'.html');
 			}
 			
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">Répondre</a>';
@@ -259,18 +259,18 @@ class m_forum_c_index extends Controller_Module
 
 		if ($topic['user_id'] == $this->user('user_id') || is_authorized('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-default delete" href="{base_url}forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html" data-toggle="tooltip" title="Supprimer le sujet">{fa-icon close}</a>';
+			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Supprimer le sujet">'.icon('fa-close').'</a>';
 		}
 
 		if (is_authorized('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="{base_url}forum/lock/'.$topic_id.'/'.url_title($title).'.html" data-toggle="tooltip" title="Déverrouiller le sujet">{fa-icon unlock}</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Déverrouiller le sujet">'.icon('fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="{base_url}forum/lock/'.$topic_id.'/'.url_title($title).'.html" data-toggle="tooltip" title="Verrouiller le sujet">{fa-icon lock}</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Verrouiller le sujet">'.icon('fa-lock').'</a>';
 			}
 		}
 
@@ -278,11 +278,11 @@ class m_forum_c_index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="{base_url}forum/announce/'.$topic_id.'/'.url_title($title).'.html" data-toggle="tooltip" title="Retirer des annonces">{fa-icon flag-o}</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Retirer des annonces">'.icon('fa-flag-o').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="{base_url}forum/announce/'.$topic_id.'/'.url_title($title).'.html" data-toggle="tooltip" title="Mettre en annonce">{fa-icon flag}</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Mettre en annonce">'.icon('fa-flag').'</a>';
 			}
 		}
 		

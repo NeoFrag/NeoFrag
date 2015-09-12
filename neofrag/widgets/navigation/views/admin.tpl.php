@@ -1,9 +1,9 @@
 <div role="tabpanel">
-	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="Supprimer un lien" data-content="Déplacez un lien ici pour le supprimer" data-placement="top"><i class="fa fa-trash-o"></i> Supprimer</a>
+	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="Supprimer un lien" data-content="Déplacez un lien ici pour le supprimer" data-placement="top"><?php echo icon('fa-trash-o'); ?> Supprimer</a>
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab">Liens</a></li>
-		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab">{fa-icon plus} Ajouter</a></li>
-		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab">{fa-icon cogs} Options</a></li>
+		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab"><?php echo icon('fa-plus'); ?> Ajouter</a></li>
+		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs'); ?> Options</a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">

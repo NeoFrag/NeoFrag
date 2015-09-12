@@ -30,7 +30,7 @@ class w_user_c_index extends Controller_Widget
 					'username' => $this->user('username')
 				)),
 				'body'    => FALSE,
-				'footer'  => '<a href="{base_url}user/logout.html"><i class="fa fa-close"></i> Se déconnecter</a>'
+				'footer'  => '<a href="'.url('user/logout.html').'">'.icon('fa-close').' Se déconnecter</a>'
 			));
 		}
 		else
@@ -40,7 +40,7 @@ class w_user_c_index extends Controller_Widget
 				'content' => $this->load->view('index', array(
 					'form_id' => '6e0fbe194d97aa8c83e9f9e6b5d07c66'
 				)),
-				'footer'  => '<a href="{base_url}user.html"><i class="fa fa-sign-in"></i> Créer un compte</a>'
+				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in').' Créer un compte</a>'
 			));
 		}
 	}
@@ -70,7 +70,7 @@ class w_user_c_index extends Controller_Widget
 				'messages' => $messages
 			)),
 			'body'    => FALSE,
-			'footer'  => '<a class="btn btn-default" href="{base_url}user/messages.html"><i class="fa fa-inbox"></i> Boîte de réception</a> <a class="btn btn-primary" href="{base_url}user/messages/compose.html"><i class="fa fa-edit"></i> Rédiger</a>'
+			'footer'  => '<a class="btn btn-default" href="'.url('user/messages.html').'">'.icon('fa-inbox').' Boîte de réception</a> <a class="btn btn-primary" href="'.url('user/messages/compose.html').'">'.icon('fa-edit').' Rédiger</a>'
 		));
 	}
 }

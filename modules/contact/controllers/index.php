@@ -48,7 +48,7 @@ class m_contact_c_index extends Controller_Module
 				->load->library('form')
 				->display_required(FALSE)
 				->add_rules($rules)
-				->add_submit('{fa-icon envelope-o} Envoyer')
+				->add_submit(icon('fa-envelope-o').' Envoyer')
 				->add_back('index.html');
 		
 		if ($this->form->is_valid($post))

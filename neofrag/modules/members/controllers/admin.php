@@ -26,14 +26,27 @@ class m_members_c_admin extends Controller_Module
 			->load->library('table')
 			->add_columns(array(
 				array(
-					'content' => '<?php echo $this->groups->display($data[\'data_id\']); ?>',
-					'search'  => '<?php echo $this->groups->display($data[\'data_id\'], FALSE, FALSE); ?>',
-					'sort'    => '<?php echo $this->groups->display($data[\'data_id\'], FALSE, FALSE); ?>'
+					'content' => function($data){
+						return NeoFrag::loader()->groups->display($data['data_id']);
+					},
+					'search'  => function($data){
+						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
+					},
+					'sort'    => function($data){
+						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
+					}
 				),
 				array(
 					'content' => array(
-						button_edit('{base_url}admin/members/groups/edit/{url}.html'),
-						'<?php if (!$data[\'auto\']) echo \''.button_delete($this->config->base_url.'admin/members/groups/delete/\'.$data[\'url\'].\'.html').'\'; ?>'
+						function($data){
+							return button_edit('admin/members/groups/edit/'.$data['url'].'.html');
+						},
+						function($data){
+							if (!$data['auto'])
+							{
+								return button_delete('admin/members/groups/delete/'.$data['url'].'.html');
+							}
+						}
 					)
 				)
 			))
@@ -46,37 +59,69 @@ class m_members_c_admin extends Controller_Module
 			->add_columns(array(
 				array(
 					'title'   => 'Membre',
-					'content' => '<?php echo $this->user->link($data[\'user_id\'], $data[\'username\']); ?>',
-					'sort'    => '{username}',
-					'search'  => '{username}'
+					'content' => function($data){
+						return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+					},
+					'sort'    => function($data){
+						return $data['username'];
+					},
+					'search'  => function($data){
+						return $data['username'];
+					}
 				),
 				array(
 					'title'   => 'Email',
-					'content' => '<a href="mailto:{email}">{email}</a>',
-					'sort'    => '{email}',
-					'search'  => '{email}'
+					'content' => function($data){
+						return '<a href="mailto:'.$data['email'].'">'.$data['email'].'</a>';
+					},
+					'sort'    => function($data){
+						return $data['email'];
+					},
+					'search'  => function($data){
+						return $data['email'];
+					}
 				),
 				array(
 					'title'   => 'Groupes',
-					'content' => '<?php echo $this->groups->user_groups($data[\'user_id\']); ?>',
-					'sort'    => '<?php echo $this->groups->user_groups($data[\'user_id\'], FALSE); ?>',
-					'search'  => '<?php echo $this->groups->user_groups($data[\'user_id\'], FALSE); ?>'
+					'content' => function($data){
+						return NeoFrag::loader()->groups->user_groups($data['user_id']);
+					},
+					'sort'    => function($data){
+						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+					},
+					'search'  => function($data){
+						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+					}
 				),
 				array(
 					'title'   => 'Date d\'inscription',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'registration_date\']); ?>">{time_span(registration_date)}</span>',
-					'sort'    => '{registration_date}'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+					},
+					'sort'    => function($data){
+						return $data['registration_date'];
+					}
 				),
 				array(
 					'title'   => 'Dernière activité',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'last_activity_date\']); ?>">{time_span(last_activity_date)}</span>',
-					'sort'    => '{last_activity_date}'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
+					},
+					'sort'    => function($data){
+						return $data['last_activity_date'];
+					}
 				),
 				array(
 					'content' => array(
-						button('{base_url}admin/members/ban/{user_id}/{url_title(username)}.html', 'fa-ban', 'Bannir', 'warning'),
-						button_edit('{base_url}admin/members/{user_id}/{url_title(username)}.html'),
-						button_delete('{base_url}admin/members/delete/{user_id}/{url_title(username)}.html')
+						function($data){
+							return button('admin/members/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html', 'fa-ban', 'Bannir', 'warning');
+						},
+						function($data){
+							return button_edit('admin/members/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+						},
+						function($data){
+							return button_delete('admin/members/delete/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+						}
 					)
 				)
 			))
@@ -89,7 +134,7 @@ class m_members_c_admin extends Controller_Module
 					'title'   => 'Groupes',
 					'icon'    => 'fa-users',
 					'content' => $table_groups->display(),
-					'footer'  => button_add('{base_url}admin/members/groups/add.html', 'Ajouter un groupe'),
+					'footer'  => button_add('admin/members/groups/add.html', 'Ajouter un groupe'),
 					'size'    => 'col-md-12 col-lg-3'
 				))
 			),
@@ -140,56 +185,46 @@ class m_members_c_admin extends Controller_Module
 			))
 			->save();
 			
-		$activities = '';/*$this
-			->load->library('table')
-			->add_columns(array(
-				array(
-					'content' => '<div style="text-align: center;"><?php echo user_agent($data[\'user_agent\']); ?></div>',
-					'size'    => '56px'
-				),
-				array(
-					'content' => '<?php echo geolocalisation($data[\'ip_address\']); ?><span data-toggle="tooltip" data-original-title="{host_name}">{ip_address}</span>'
-				),
-				array(
-					'content' => '<?php echo ($data[\'referer\']) ? urltolink($data[\'referer\']) : \'Aucun\'; ?>'
-				),
-				array(
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>'
-				),
-				array(
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'last_activity\']); ?>">{time_span(last_activity)}</span>'
-				)
-			))
-			->data($this->user->get_sessions($member_id))
-			->no_data('Aucune session active')
-			->display();*/
+		$activities = '';
 			
 		$sessions = $this
 			->load->library('table')
 			->add_columns(array(
 				array(
-					'content' => '<div style="text-align: center;"><?php echo user_agent($data[\'user_agent\']); ?></div>',
+					'content' => function($data){
+						return '<div style="text-align: center;">'.user_agent($data['user_agent']).'</div>';
+					},
 					'size'    => '56px'
 				),
 				array(
 					'title'   => 'Adresse IP',
-					'content' => '<?php echo geolocalisation($data[\'ip_address\']); ?><span data-toggle="tooltip" data-original-title="{host_name}">{ip_address}</span>'
+					'content' => function($data){
+						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
+					}
 				),
 				array(
 					'title'   => 'Site référent',
-					'content' => '<?php echo ($data[\'referer\']) ? urltolink($data[\'referer\']) : \'Aucun\'; ?>'
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+					}
 				),
 				array(
 					'title'   => 'Date d\'arrivée',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+					}
 				),
 				array(
 					'title'   => 'Dernière activité',
-					'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'last_activity\']); ?>">{time_span(last_activity)}</span>'
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+					}
 				),
 				array(
 					'content' => array(
-						button_delete('{base_url}admin/members/sessions/delete/{session_id}.html')
+						function($data){
+							return button_delete('admin/members/sessions/delete/'.$data['session_id'].'.html');
+						}
 					)
 				)
 			))
@@ -247,7 +282,7 @@ class m_members_c_admin extends Controller_Module
 						'user_id' => $member_id,
 						'form_id' => $form_groups->id
 					)),
-					'footer'  => '<button class="btn btn-outline btn-primary"><i class="fa fa-check"></i> Valider</button>',
+					'footer'  => '<button class="btn btn-outline btn-primary">'.icon('fa-check').' Valider</button>',
 					'form'    => TRUE,
 					'size'    => 'col-md-12 col-lg-5'
 				)),
@@ -430,7 +465,9 @@ class m_members_c_admin extends Controller_Module
 				})
 				->add_columns(array(
 					array(
-						'content' => '<?php echo $data[\'remember_me\'] ? \'<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>\' : \'<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>\' ?>',
+						'content' => function($data){
+							return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
+						},
 						'size'    => TRUE,
 						'align'   => 'center'
 					),
@@ -447,49 +484,75 @@ class m_members_c_admin extends Controller_Module
 						}
 					),
 					array(
-						'content' => '<?php echo user_agent($data[\'user_agent\']); ?>',
+						'content' => function($data){
+							return user_agent($data['user_agent']);
+						},
 						'size'    => TRUE,
 						'align'   => 'center',
-						'search'  => '{user_agent}',
-						'sort'    => '{user_agent}'
+						'search'  => function($data){
+							return $data['user_agent'];
+						},
+						'sort'    => function($data){
+							return $data['user_agent'];
+						}
 					),
 					array(
 						'title'   => 'Adresse IP',
-						'content' => '<?php echo geolocalisation($data[\'ip_address\']); ?><span data-toggle="tooltip" data-original-title="{host_name}">{ip_address}</span>',
-						'search'  => '{ip_address}',
-						'sort'    => '{ip_address}'
+						'content' => function($data){
+							return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
+						},
+						'search'  => function($data){
+							return $data['ip_address'];
+						},
+						'sort'    => function($data){
+							return $data['ip_address'];
+						}
 					),
 					array(
 						'title'   => 'Site référent',
-						'content' => '<?php echo ($data[\'referer\']) ? urltolink($data[\'referer\']) : \'Aucun\'; ?>',
-						'search'  => '{referer}',
-						'sort'    => '{referer}'
+						'content' => function($data){
+							return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+						},
+						'search'  => function($data){
+							return $data['user_agent'];
+						},
+						'sort'    => function($data){
+							return $data['user_agent'];
+						}
 					),
 					array(
 						'title'   => 'Date d\'arrivée',
-						'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'date\']); ?>">{time_span(date)}</span>',
-						'sort'    => '{date}'
+						'content' => function($data){
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						},
+						'sort'    => function($data){
+							return $data['date'];
+						}
 					),
 					array(
 						'title'   => 'Dernière activité',
-						'content' => '<span data-toggle="tooltip" title="<?php echo timetostr($NeoFrag->lang(\'date_time_long\'), $data[\'last_activity\']); ?>">{time_span(last_activity)}</span>',
-						'sort'    => '{last_activity}'
+						'content' => function($data){
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						},
+						'sort'    => function($data){
+							return $data['last_activity'];
+						}
 					),
 					array(
 						'title'   => 'Historique',
 						'content' => function($data){
 							$links = implode('<br />', array_map(function($a){
-								return '<a href="'.NeoFrag::loader()->config->base_url.$a.'">'.$a.'</a>';
+								return '<a href="'.url($a).'">'.$a.'</a>';
 							}, $data['history']));
 
-							return '<span data-toggle="popover" title="Dernières pages visitées" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">{fa-icon history} '.reset($data['history']).'</span>';
+							return '<span data-toggle="popover" title="Dernières pages visitées" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
 						}
 					),
 					array(
 						'content' => array(function($data){
 							if ($data['user_id'] && $data['session_id'] != NeoFrag::loader()->session('session_id'))
 							{
-								return button_delete($this->config->base_url.'admin/members/sessions/delete/'.$data['session_id'].'.html');
+								return button_delete('admin/members/sessions/delete/'.$data['session_id'].'.html');
 							}
 						})
 					)

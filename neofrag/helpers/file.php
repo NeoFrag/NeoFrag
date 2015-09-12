@@ -181,11 +181,6 @@ function rmdir_all($directory)
 	rmdir($directory);
 }
 
-function is_asset($extension = NULL)
-{
-	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url, $path), array('png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip'));
-}
-
 /*
 NeoFrag Alpha 0.1.1
 ./neofrag/helpers/file.php

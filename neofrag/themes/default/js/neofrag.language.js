@@ -17,7 +17,7 @@ $(function(){
 	
 	$('#language ul li').click(function(){
 		$.ajax({
-		  url: '{base_url}ajax/settings/language.html',
+		  url: '<?php echo url('ajax/settings/language.html'); ?>',
 		  type: 'POST',
 		  data: 'language='+$(this).data('lang')
 		}).done(function(){

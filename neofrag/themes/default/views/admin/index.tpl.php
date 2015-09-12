@@ -2,7 +2,7 @@
 	<div role="tabpanel" class="tab-pane active" id="<?php echo $data['theme']->get_name(); ?>-dashboard">
 		<div class="row">
 			<div class="col-md-4">
-				<img class="img-responsive thumbnail no-margin" src="{image thumbnail.png}" alt="" />
+				<img class="img-responsive thumbnail no-margin" src="<?php echo image('thumbnail.png'); ?>" alt="" />
 			</div>
 			<div class="col-md-8">
 				<h2>Administration du thème !</h2>
@@ -22,6 +22,6 @@
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane" id="<?php echo $data['theme']->get_name(); ?>-background">
-		{form_background}
+		<?php echo $data['form_background']; ?>
 	</div>
 </div>

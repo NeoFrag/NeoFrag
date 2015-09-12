@@ -30,25 +30,43 @@ class m_teams_c_admin extends Controller_Module
 						->add_columns(array(
 							array(
 								'title'   => 'Équipe',
-								'content' => '<a href="{base_url}teams/{team_id}/{name}.html"><img src="{image {icon_id}}" alt="" /> {title}</a>',
-								'sort'    => '{title}',
-								'search'  => '{title}'
+								'content' => function($data){
+									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+								},
+								'sort'    => function($data){
+									return $data['title'];
+								},
+								'search'  => function($data){
+									return $data['title'];
+								}
 							),
 							array(
 								'title'   => 'Jeu',
-								'content' => '<a href="{base_url}admin/games/{game_id}/{game}.html"><img src="{image {game_icon}}" alt="" /> {game_title}</a>',
-								'sort'    => '{game_title}',
-								'search'  => '{game_title}'
+								'content' => function($data){
+									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game'].'.html').'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
+								},
+								'sort'    => function($data){
+									return $data['game_title'];
+								},
+								'search'  => function($data){
+									return $data['game_title'];
+								}
 							),
 							array(
 								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="Joueurs"></i>',
-								'content' => '{users}',
+								'content' => function($data){
+									return $data['users'];
+								},
 								'size'    => TRUE
 							),
 							array(
 								'content' => array(
-									button_edit('{base_url}admin/teams/{team_id}/{name}.html'),
-									button_delete('{base_url}admin/teams/delete/{team_id}/{name}.html')
+									function($data){
+										return button_edit('admin/teams/'.$data['team_id'].'/'.$data['name'].'.html');
+									},
+									function($data){
+										return button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name'].'.html');
+									}
 								),
 								'size'    => TRUE
 							)
@@ -61,14 +79,24 @@ class m_teams_c_admin extends Controller_Module
 		$roles = $this	->table
 							->add_columns(array(
 								array(
-									'content' => '<a href="{base_url}admin/teams/roles/{role_id}/{url_title(title)}.html">{title}</a>',
-									'search'  => '{title}',
-									'sort'    => '{title}'
+									'content' => function($data){
+										return '<a href="'.url('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
+									},
+									'search'  => function($data){
+										return $data['title'];
+									},
+									'sort'    => function($data){
+										return $data['title'];
+									}
 								),
 								array(
 									'content' => array(
-										button_edit('{base_url}admin/teams/roles/{role_id}/{url_title(title)}.html'),
-										button_delete('{base_url}admin/teams/roles/delete/{role_id}/{url_title(title)}.html')
+										function($data){
+											return button_edit('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+										},
+										function($data){
+											return button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+										}
 									),
 									'size'    => TRUE
 								)
@@ -84,7 +112,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => 'rôles',
 					'icon'    => 'fa-sitemap',
 					'content' => $roles,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/teams/roles/add.html"><i class="fa fa-plus"></i> Ajouter un rôle</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/teams/roles/add.html').'">'.icon('fa-plus').' Ajouter un rôle</a>',
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
@@ -93,7 +121,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => 'Liste des équipes',
 					'icon'    => 'fa-gamepad',
 					'content' => $teams,
-					'footer'  => '<a class="btn btn-outline btn-success" href="{base_url}admin/teams/add.html"><i class="fa fa-plus"></i> Ajouter une équipe</a>',
+					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/teams/add.html').'">'.icon('fa-plus').' Ajouter une équipe</a>',
 					'size'    => 'col-md-12 col-lg-8'
 				))
 			)
@@ -210,11 +238,15 @@ class m_teams_c_admin extends Controller_Module
 						},
 					),
 					array(
-						'content' => '{title}',
+						'content' => function($data){
+							return $data['title'];
+						},
 					),
 					array(
 						'content' => array(
-							button_delete('{base_url}admin/teams/players/delete/'.$team_id.'/'.$name.'/{user_id}.html')
+							function($data) use ($team_id, $name){
+								return button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id'].'.html');
+							}
 						),
 						'size'    => TRUE
 					)

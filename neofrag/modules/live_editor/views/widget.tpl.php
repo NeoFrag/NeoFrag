@@ -24,8 +24,8 @@
 	<div class="form-group">
 		<label for="live-editor-settings-title" class="col-md-3 control-label">Titre</label>
 		<div class="col-md-5">
-			<input type="text" class="form-control" id="live-editor-settings-title" name="title" value="{title}" placeholder="Titre par défaut" />
+			<input type="text" class="form-control" id="live-editor-settings-title" name="title" value="<?php echo $data['title']; ?>" placeholder="Titre par défaut" />
 		</div>
 	</div>
-	<div id="live-editor-settings" data-widget-id="{widget_id}" data-original-widget="{widget}" data-original-type="{type}"></div>
+	<div id="live-editor-settings" data-widget-id="<?php echo $data['widget_id']; ?>" data-original-widget="<?php echo $data['widget']; ?>" data-original-type="<?php echo $data['type']; ?>"></div>
 </form>

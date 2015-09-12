@@ -16,16 +16,16 @@
 					
 					if (data['agent_type'] == 'Browser'){
 						if (data['agent_name'] == 'Firefox'){
-							img = '{image icons/firefox.png}';
+							img = '<?php echo image('icons/firefox.png'); ?>';
 						}
 						else if (data['agent_name'] == 'Chrome'){
-							img = '{image icons/chrome.png}';
+							img = '<?php echo image('icons/chrome.png'); ?>';
 						}
 						else if (data['agent_name'] == 'Safari'){
-							img = '{image icons/safari.png}';
+							img = '<?php echo image('icons/safari.png'); ?>';
 						}
 						else if (data['agent_name'] == 'Internet Explorer'){
-							img = '{image icons/ie.png}';
+							img = '<?php echo image('icons/ie.png'); ?>';
 						}
 						
 						if (img){
@@ -34,13 +34,13 @@
 					}
 					
 					if (data['os_type'] == 'Windows'){
-						img2 = '{image icons/windows.png}';
+						img2 = '<?php echo image('icons/windows.png'); ?>';
 					}
 					else if (data['os_type'] == 'Linux'){
-						img2 = '{image icons/animal-penguin.png}';
+						img2 = '<?php echo image('icons/animal-penguin.png'); ?>';
 					}
 					else if (data['os_type'] == 'Macintosh'){
-						img2 = '{image icons/mac-os.png}';
+						img2 = '<?php echo image('icons/mac-os.png'); ?>';
 					}
 						
 					if (img2){
@@ -48,7 +48,7 @@
 					}
 					
 					if (output == ''){
-						output += '<img src="{image icons/user-silhouette-question.png}" data-toggle="tooltip" title="'+$icon.data('user-agent')+'" alt="" />';
+						output += '<img src="<?php echo image('icons/user-silhouette-question.png'); ?>" data-toggle="tooltip" title="'+$icon.data('user-agent')+'" alt="" />';
 					}
 					
 					$icon.replaceWith('<span class="no-wrap">'+output+'</span>');

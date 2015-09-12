@@ -119,8 +119,8 @@ $rules = array(
 		'label'  => 'Sexe',
 		'value'  => $sex,
 		'values' => array(
-			'female' => '{fa-icon female} Femme',
-			'male'   => '{fa-icon male} Homme'
+			'female' => icon('fa-female').' Femme',
+			'male'   => icon('fa-male').' Homme'
 		),
 		'type'   => 'radio'
 	),

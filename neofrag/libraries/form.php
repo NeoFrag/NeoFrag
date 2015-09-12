@@ -53,7 +53,7 @@ class Form extends Library
 	{
 		array_unshift($this->_buttons, array(
 			'label'  => 'Retour',
-			'action' => $this->config->base_url.($this->session->get_back() ?: $url)
+			'action' => $this->session->get_back() ?: $url
 		));
 
 		return $this;
@@ -313,7 +313,7 @@ class Form extends Library
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-							<a class="btn btn-danger delete-confirm" href="{base_url}'.$this->config->request_url.'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
 						</div>';
 			}
 			else
@@ -321,7 +321,7 @@ class Form extends Library
 				//TODO
 				/*return 	'<p>'.$message.'</p><p>
 							<button type="button" class="btn btn-default" onclick="$(this).parents(\'.alert\').alert(\'close\');">Annuler</button>
-							<a class="btn btn-danger delete-confirm" href="{base_url}'.$this->config->request_url.'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
 						</p>';*/
 			}
 
@@ -335,7 +335,7 @@ class Form extends Library
 			$this->js('neofrag.file');
 		}
 		
-		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.$this->config->base_url.$this->config->request_url.'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
+		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->config->request_url).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
 						<fieldset>';
 
 		$post = post($this->id);
@@ -419,7 +419,7 @@ class Form extends Library
 		}
 		else if (!empty($button['label']) && !empty($button['action']))
 		{
-			return '<a href="'.$button['action'].'" class="btn btn-default">'.$button['label'].'</a>';
+			return '<a href="'.url($button['action']).'" class="btn btn-default">'.$button['label'].'</a>';
 		}
 		
 		return '';
@@ -451,12 +451,12 @@ class Form extends Library
 		
 		if (!empty($options['description']))
 		{
-			$popover[] = ($icons[] = '<span class="text-info">'.$this->assets->icon('fa-info-circle').'</span>').' '.$options['description'];
+			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$options['description'];
 		}
 		
 		if (!empty($this->_errors[$var]))
 		{
-			$popover[] = ($icons[] = '<span class="text-danger">'.$this->assets->icon('fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
+			$popover[] = ($icons[] = '<span class="text-danger">'.icon('fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
 		}
 		
 		$icons = implode(' ', $icons);
@@ -525,7 +525,7 @@ class Form extends Library
 		if (isset($options['icon']))
 		{
 			$output .= '<div class="input-group'.(!empty($classes) ? ' '.implode(' ', $classes) : '').'">
-				<span class="input-group-addon">'.($options['icon'] ? $this->assets->icon($options['icon']) : '<i></i>').'</span>';
+				<span class="input-group-addon">'.($options['icon'] ? icon($options['icon']) : '<i></i>').'</span>';
 		}
 		
 		if ($type != 'file')
@@ -540,7 +540,7 @@ class Form extends Library
 		{
 			$post = post();
 			
-			$input = '<div style="margin: 7px 0;"><p>{fa-icon download} Télécharger un fichier'.(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
+			$input = '<div style="margin: 7px 0;"><p>'.icon('fa-download').' Télécharger un fichier'.(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
 			
 			if (!empty($options['value']))
 			{
@@ -553,9 +553,9 @@ class Form extends Library
 					$input = '	<div class="row">
 									<div class="col-md-3">
 										<div class="thumbnail no-margin">
-											<img src="'.$this->config->base_url.$this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row().'" alt="" />
+											<img src="'.url($this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row()).'" alt="" />
 											<div class="caption text-center">
-												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->id.'['.$var.']"><i class="fa fa-trash-o"></i> Supprimer</a>
+												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->id.'['.$var.']">'.icon('fa-trash-o').' Supprimer</a>
 											</div>
 										</div>
 									</div>

@@ -1,6 +1,6 @@
 ﻿$.ajax({
 	   
-	url: '{base_url}ajax/settings/javascript.html',
+	url: '<?php echo url('ajax/settings/javascript.html'); ?>',
 	type: 'POST',
 	data: 'time_zone='+new Date().getTimezoneOffset(),
 	success: function(data){

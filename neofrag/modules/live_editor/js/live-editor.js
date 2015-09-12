@@ -66,7 +66,7 @@ var modal_settings = function(title, settings, callback){
 
 		$('#live-editor-settings').html('');
 		
-		$.post('{base_url}ajax/live-editor/widget-admin.html', data, function(data){
+		$.post('<?php echo url('ajax/live-editor/widget-admin.html'); ?>', data, function(data){
 			if (data){
 				$('#live-editor-settings').html(data);
 			}
@@ -286,9 +286,9 @@ $(function(){
 						<div class="widget-hover-content">\
 							<h4>'+($(this).hasClass('module') ? '<b>Module</b> ' : '')+$(this).data('title')+'</h4>\
 							<div class="btn-group" role="group">\
-								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-placement="bottom" title="Apparence"><i class="fa fa-paint-brush"></i></button>' : '')+'\
-								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" title="Configurer"><i class="fa fa-cogs"></i></button>\
-								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" title="Supprimer"><i class="fa fa-close"></i></button>\
+								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-placement="bottom" title="Apparence"><?php echo icon('fa-paint-brush'); ?></button>' : '')+'\
+								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" title="Configurer"><?php echo icon('fa-cogs'); ?></button>\
+								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" title="Supprimer"><?php echo icon('fa-close'); ?></button>\
 							</div>\
 						</div>\
 					</div>').prependTo(this).fadeTo('fast', 1);
@@ -302,7 +302,7 @@ $(function(){
 		$iframe.on('click', 'a', function(){
 			var href = $(this).attr('href');
 			
-			if (href.match(/<?php echo str_replace('/', '\/', $NeoFrag->config->base_url); ?>(?!(admin|live-editor|#))/)){
+			if (href.match(/<?php echo str_replace('/', '\/', url()); ?>(?!(admin|live-editor|#))/)){
 				$('form[target="live-editor-iframe"]').prop('action', href).submit();
 			}
 			
@@ -317,7 +317,7 @@ $(function(){
 				
 				var $zone = $this.parents('[data-disposition-id]:first');
 				
-				$.post('{base_url}ajax/live-editor/zone-fork.html', {
+				$.post('<?php echo url('ajax/live-editor/zone-fork.html'); ?>', {
 					disposition_id: $zone.data('disposition-id'),
 					url: $iframe[0].location.pathname,
 					live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -346,7 +346,7 @@ $(function(){
 			var $this = $(this).parents('[data-disposition-id]:first');
 			$('.live-editor-save').show();
 			
-			$.post('{base_url}ajax/live-editor/row-add.html', {
+			$.post('<?php echo url('ajax/live-editor/row-add.html'); ?>', {
 				disposition_id: $this.data('disposition-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
@@ -372,7 +372,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/row-move.html', {
+				$.post('<?php echo url('ajax/live-editor/row-move.html'); ?>', {
 					disposition_id: $(this).data('disposition-id'),
 					row_id: ui.item.find('.row:first').data('row-id'),
 					position: $(this).find('.live-editor-row').index(ui.item)
@@ -390,7 +390,7 @@ $(function(){
 			modal_style('Apparence de la ligne', $row, '.live-editor-styles-row', function(style){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/row-style.html', {
+				$.post('<?php echo url('ajax/live-editor/row-style.html'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id'),
 					style: style
@@ -409,7 +409,7 @@ $(function(){
 			
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/row-delete.html', {
+				$.post('<?php echo url('ajax/live-editor/row-delete.html'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id')
 				}, function(){
@@ -425,7 +425,7 @@ $(function(){
 			var $row = $(this).parents('.live-editor-row-header:first').next('[data-row-id]:first');
 			$('.live-editor-save').show();
 			
-			$.post('{base_url}ajax/live-editor/col-add.html', {
+			$.post('<?php echo url('ajax/live-editor/col-add.html'); ?>', {
 				disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 				row_id: $row.data('row-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -455,7 +455,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/col-move.html', {
+				$.post('<?php echo url('ajax/live-editor/col-move.html'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).data('row-id'),
 					col_id: ui.item.data('col-id'),
@@ -477,7 +477,7 @@ $(function(){
 				
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/col-size.html', {
+				$.post('<?php echo url('ajax/live-editor/col-size.html'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id'),
@@ -496,7 +496,7 @@ $(function(){
 			modal_delete('Êtes-vous sûr(e) de vouloir supprimer cette <b>colonne</b> ?<br />Tous les <b>widgets</b> contenus seront également supprimés.', function(){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/col-delete.html', {
+				$.post('<?php echo url('ajax/live-editor/col-delete.html'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $this.parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id')
@@ -518,7 +518,7 @@ $(function(){
 				widget_id: -1
 			};
 		
-			$.post('{base_url}ajax/live-editor/widget-settings.html', data, function(html){
+			$.post('<?php echo url('ajax/live-editor/widget-settings.html'); ?>', data, function(html){
 				modal_settings('Nouveau Widget', html, function(settings){
 					$.extend(data, settings);
 					$.extend(data, {
@@ -527,7 +527,7 @@ $(function(){
 				
 					$('.live-editor-save').show();
 					
-					$.post('{base_url}ajax/live-editor/widget-add.html', data, function(data){
+					$.post('<?php echo url('ajax/live-editor/widget-add.html'); ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -557,7 +557,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/widget-move.html', {
+				$.post('<?php echo url('ajax/live-editor/widget-move.html'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $(this).data('col-id'),
@@ -586,7 +586,7 @@ $(function(){
 				
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/widget-style.html', data).always(function(){
+				$.post('<?php echo url('ajax/live-editor/widget-style.html'); ?>', data).always(function(){
 					$('.live-editor-save').hide();
 				});
 			});
@@ -602,13 +602,13 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 	
-			$.post('{base_url}ajax/live-editor/widget-settings.html', data, function(html){
+			$.post('<?php echo url('ajax/live-editor/widget-settings.html'); ?>', data, function(html){
 				modal_settings('Configuration du Widget', html, function(settings){
 					$.extend(data, settings);
 				
 					$('.live-editor-save').show();
 					
-					$.post('{base_url}ajax/live-editor/widget-update.html', data, function(data){
+					$.post('<?php echo url('ajax/live-editor/widget-update.html'); ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -638,7 +638,7 @@ $(function(){
 			modal_delete('Êtes-vous sûr(e) de vouloir supprimer ce <b>widget</b> ?', function(){
 				$('.live-editor-save').show();
 				
-				$.post('{base_url}ajax/live-editor/widget-delete.html', data, function(){
+				$.post('<?php echo url('ajax/live-editor/widget-delete.html'); ?>', data, function(){
 					$widget.remove();
 					$('.live-editor-save').hide();
 				});

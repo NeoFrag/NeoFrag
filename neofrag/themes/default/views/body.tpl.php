@@ -1,28 +1,28 @@
 <nav class="navbar navbar-topbar">
 	<div class="container">
-		{zone 4}
+		<?php echo $NeoFrag->output->display_zone(4); ?>
 	</div>
 </nav>
-{zone 3}
+<?php if ($zone = $NeoFrag->output->display_zone(3)): ?>
 <div class="container">
-	{zone}
+	<?php echo $zone; ?>
 </div>
-{/zone 3}
+<?php endif; ?>
 <div class="page">
-	{zone 1}
+	<?php if ($zone = $NeoFrag->output->display_zone(1)): ?>
 	<div class="container">
-		{zone}
+		<?php echo $zone; ?>
 	</div>
-	{/zone 1}
+	<?php endif; ?>
 	<div class="container">
-		{zone 0}
+		<?php echo $NeoFrag->output->display_zone(0); ?>
 	</div>
 	<div class="container">
 		<div class="container-dark">
-			{zone 2}
+			<?php echo $NeoFrag->output->display_zone(2); ?>
 		</div>
 	</div>
 	<div class="container">
-		{zone 5}
+		<?php echo $NeoFrag->output->display_zone(5); ?>
 	</div>
 </div>
