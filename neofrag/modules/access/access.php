@@ -18,16 +18,26 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
-		'label' => 'Titre',
-		'value' => $title,
-		'type'  => 'text',
-		'rules' => 'required'
-	)
-);
+class m_access extends Module
+{
+	public $name          = 'Permissions';
+	public $description   = '';
+	public $icon          = 'fa-unlock-alt';
+	public $link          = 'http://www.neofrag.com';
+	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
+	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
+	public $version       = 'Alpha 0.1';
+	public $nf_version    = 'Alpha 0.1';
+	public $administrable = FALSE;
+	public $deactivatable = FALSE;
+	public $path          = __FILE__;
+	public $routes        = array(
+		'admin/edit/{url_title*}'   => '_edit',
+		'admin/{url_title*}{pages}' => 'index'
+	);
+}
 
 /*
-NeoFrag Alpha 0.1
-./modules/talks/forms/talks.php
+NeoFrag Alpha 0.1.1
+./neofrag/modules/access/access.php
 */

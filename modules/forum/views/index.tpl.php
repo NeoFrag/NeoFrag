@@ -9,6 +9,7 @@
 				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o'); ?><span class="hidden-xs"> Dernier message</span></h4></th>
 				<?php if ($NeoFrag->config->admin_url): ?>
 				<th class="col-md-1 text-right">
+					<?php echo button_access($data['category_id'], 'category'); ?>
 					<?php echo button_edit('admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
 					<?php echo button_delete('admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
 				</th>
@@ -49,7 +50,7 @@
 					<?php if (!$forum['url']): ?>
 					<?php if ($forum['last_title']): ?>
 					<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $NeoFrag->config->forum_messages_per_page) : '').'.html#message_'.$forum['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40); ?></a></div>
-					<div><?php echo icon('fa-user').' '.$NeoFrag->user->link($forum['user_id'], $forum['username']).' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']); ?></div>
+					<div><?php echo icon('fa-user').' '.($forum['user_id'] ? $NeoFrag->user->link($forum['user_id'], $forum['username']) : '<i>Visiteur</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']); ?></div>
 					<?php else: ?>
 					Pas de message
 					<?php endif; endif; ?>

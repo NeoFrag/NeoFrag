@@ -1,0 +1,15 @@
+[data-action] td, [data-radio], .access-radio {
+	cursor: pointer;
+}
+
+table.table-access th, table.table-access td {
+	padding: 9px 11px !important;
+}
+
+table.table-access td.no-padding {
+	padding: 5px !important;
+}
+
+table.table-access .label {
+	font-size: 11px;
+}

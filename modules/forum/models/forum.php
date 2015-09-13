@@ -55,7 +55,7 @@ class m_forum_m_forum extends Model
 							->order_by('order', 'category_id')
 							->get() as $category)
 		{
-			if ($all || is_authorized('forum', 'category_read', $category['category_id']))
+			if ($all || $this->access('forum', 'category_read', $category['category_id']))
 			{
 				$category['forums'] = array();
 				
@@ -390,13 +390,13 @@ class m_forum_m_forum extends Model
 		return $message_id;
 	}
 	
-	public function add_category($title, $is_private)
+	public function add_category($title)
 	{
 		$category_id = $this->db->insert('nf_forum_categories', array(
 			'title' => $title
 		));
 		
-		$this->_category_permission($category_id, $is_private);
+		$this->access->init('forum', 'category', $category_id);
 		
 		return $category_id;
 	}
@@ -421,38 +421,12 @@ class m_forum_m_forum extends Model
 		return $forum_id;
 	}
 	
-	public function edit_category($category_id, $title, $is_private)
+	public function edit_category($category_id, $title)
 	{
 		$this->db	->where('category_id', $category_id)
 					->update('nf_forum_categories', array(
 						'title' => $title
 					));
-		
-		delete_permission('forum', $category_id);
-		$this->_category_permission($category_id, $is_private);
-	}
-	
-	private function _category_permission($category_id, $is_private)
-	{
-		$permissions = array('write' => 'members', 'modify' => 'admins', 'delete' => 'admins', 'announce' => 'admins', 'lock' => 'admins');
-		
-		if ($is_private)
-		{
-			$permissions = array_merge($permissions, array(
-				'read' => ''
-			));
-		}
-		
-		foreach ($permissions as $permission => $group)
-		{
-			add_permission('forum', $category_id, 'category_'.$permission, array(
-				array(
-					'entity_id'  => $is_private ? 'admins' : $group,
-					'type'       => 'group',
-					'authorized' => TRUE
-				)
-			));
-		}
 	}
 	
 	public function delete_category($category_id)
@@ -465,7 +439,7 @@ class m_forum_m_forum extends Model
 			$this->delete_forum($forum_id);
 		}
 		
-		delete_permission('forum', $category_id);
+		$this->access->delete('forum', $category_id);
 	}
 	
 	public function delete_forum($forum_id)

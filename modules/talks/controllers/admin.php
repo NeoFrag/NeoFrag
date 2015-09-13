@@ -25,12 +25,6 @@ class m_talks_c_admin extends Controller_Module
 		$this	->load->library('table')
 				->add_columns(array(
 					array(
-						'content' => function($data){
-							return icon(NeoFrag::loader()->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $data['talk_id'])->where('addon', 'talks')->where('action', 'write')->row() == 'admins' ? 'fa-lock' : 'fa-unlock');
-						},
-						'size'    => TRUE
-					),
-					array(
 						'title'   => 'Discussion',
 						'content' => function($data){
 							return $data['name'];
@@ -44,6 +38,12 @@ class m_talks_c_admin extends Controller_Module
 					),
 					array(
 						'content' => array(
+							function($data){
+								if ($data['talk_id'] > 1)
+								{
+									return button_access($data['talk_id'], 'talk');
+								}
+							},
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
@@ -81,7 +81,7 @@ class m_talks_c_admin extends Controller_Module
 
 		if ($this->form->is_valid($post))
 		{
-			$this->model()->add_talk($post['title'], in_array('on', $post['private']));
+			$this->model()->add_talk($post['title']);
 			
 			add_alert('Succes', 'Discussion ajoutée avec succès');
 
@@ -100,17 +100,14 @@ class m_talks_c_admin extends Controller_Module
 		$this	->subtitle($title)
 				->load->library('form')
 				->add_rules('talks', array(
-					'title'   => $title,
-					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $talk_id)->where('addon', 'talks')->where('action', 'write')->row() == 'admins'
+					'title' => $title
 				))
 				->add_submit('Éditer')
 				->add_back('admin/talks.html');
 		
 		if ($this->form->is_valid($post))
 		{	
-			$this->model()->edit_talk(	$talk_id,
-										$post['title'],
-										in_array('on', $post['private']));
+			$this->model()->edit_talk($talk_id, $post['title']);
 		
 			add_alert('Succes', 'Discussion éditée avec succès');
 

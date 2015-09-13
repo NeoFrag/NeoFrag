@@ -181,11 +181,6 @@ class User extends Core
 									->get()));*/
 	}
 
-	public function is_allowed($module_name)
-	{
-		return is_authorized($module_name, 'module_access');
-	}
-
 	public function get_online_users()
 	{
 		$users = array();

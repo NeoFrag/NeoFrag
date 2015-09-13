@@ -6,7 +6,13 @@ $(function(){
 				url: '<?php echo url(); ?>'+help.data('help'),
 				dataType: 'text',
 				success: function(data){
-					$('#alerts').append('<div class="help alert alert-info fade in"><button data-dismiss="alert" class="close" type="button">×</button><h4 class="alert-heading">Aide</h4>'+data+'</div>');
+					$('#alerts').append('<div class="col-md-12">\
+											<div class="help alert alert-info fade in">\
+												<button data-dismiss="alert" class="close" type="button">×</button>\
+												<h4 class="alert-heading"><?php echo icon('fa-life-bouy'); ?> Aide</h4>\
+												'+data+'\
+											</div>\
+										</div>');
 				}
 			});
 		}

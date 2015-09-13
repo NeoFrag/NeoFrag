@@ -9,15 +9,21 @@
 			<tr>
 				<td class="col-md-3 col-sm-2 hidden-xs text-center">
 					<br />
-					<h4 class="no-margin"><?php echo !empty($data['topic_id']) ? $NeoFrag->user->link($data['user_id'], $data['username']) : $NeoFrag->user->link(); ?></h4>
-					<p><?php echo icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.(!empty($data['topic_id']) ? $data['admin'] : $NeoFrag->user('admin') ? 'Admin' : 'Membre').' '.(empty($data['topic_id']) || $data['online'] ? 'en ligne' : 'hors ligne'); ?></p>
+					<?php if (!empty($data['topic_id']) && $data['user_id']): ?>
+					<h4 class="no-margin"><?php echo $NeoFrag->user->link($data['user_id'], $data['username']); ?></h4>
+					<?php elseif (empty($data['topic_id']) && $this->user()): ?>
+					<h4 class="no-margin"><?php echo $NeoFrag->user->link(); ?></h4>
+					<?php else: ?>
+					<h4 class="no-margin"><i>Visiteur</i></h4>
+					<?php endif; ?>
+					<?php if (!empty($data['topic_id']) && $data['user_id'] || empty($data['topic_id']) && $this->user()) echo '<p>'.icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.(!empty($data['topic_id']) ? $data['admin'] : $NeoFrag->user('admin') ? 'Admin' : 'Membre').' '.(empty($data['topic_id']) || $data['online'] ? 'en ligne' : 'hors ligne').'</p>'; ?>
 					<img class="img-avatar-forum" src="<?php echo !empty($data['topic_id']) ? $NeoFrag->user->avatar($data['avatar'], $data['sex']) : $NeoFrag->user->avatar(); ?>" title="<?php echo !empty($data['topic_id']) ? $data['username'] : $NeoFrag->user('username'); ?>" alt="" />
 				</td>
 				<td class="text-left col-md-9 col-sm-10">
 					<div class="form-group">
 						<textarea class="form-control editor" name="<?php echo $data['form_id']; ?>[message]" rows="10"><?php if (!empty($data['message'])) echo $data['message']; ?></textarea>
 					</div>
-					<?php if (!empty($data['forum_id']) && is_authorized('forum', 'category_announce', $data['category_id'])): ?>
+					<?php if (!empty($data['forum_id']) && $NeoFrag->access('forum', 'category_announce', $data['category_id'])): ?>
 					<div class="checkbox">
 						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]" /> Mettre en annonce</label>
 					</div>

@@ -111,61 +111,21 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header"><?php echo $NeoFrag->output->data['module_title']; ?> <small><?php echo $NeoFrag->output->data['module_subtitle']; ?></small></h1>
-				<!-- //TODO -->
-				<div class="page-actions">
-					<!-- <a class="btn btn-outline btn-success btn-sm"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</small></a> 
-					<a class="btn btn-outline btn-info btn-sm"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> Configuration</small></a> -->
-					<?php
-						foreach ($data['menu_tabs'] as $tab)
-						{
-							if (isset($tab['help']))
-							{
-								echo '<a class="btn btn-outline btn-warning btn-sm" href="'.url($tab['url']).'" data-help="'.$tab['help'].'">'.icon('fa-life-bouy').'<span class="hidden-sm"> Aide</span></a> ';
-							}
-						}
-					?>
+				<div class="page-actions pull-right">
+					<?php if ($data['module_method'] == 'index' && $NeoFrag->module->get_access('default')): ?>
+						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/'.$NeoFrag->module->get_name().'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
+					<?php endif; ?>
+
+					<!--<a class="btn btn-outline btn-warning btn-sm"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> Configuration</span></a> -->
 					
+					<?php if (!is_null($help = $NeoFrag->module->load->controller('admin_help')) && method_exists($help, $data['module_method'])): ?>
+					<?php NeoFrag::loader()->js('neofrag.help'); ?>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->config->request_url); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->get_name().'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> Aide</span></a>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<?php if ($data['menu_tabs']): ?>
-				<nav class="navbar navbar-default box-shadow" role="navigation">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse2">
-							<span class="sr-only">Actions</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-					</div>
-					<div class="collapse navbar-collapse" id="main-navbar-collapse2">
-						<ul class="nav navbar-nav">
-						<?php
-							$actives = array();
-							
-							foreach ($data['menu_tabs'] as $tab)
-							{
-								if (strpos($NeoFrag->config->request_url, substr($tab['url'], 0, -5)) === 0 && !isset($tab['help']))
-								{
-									$actives[] = $tab['url'];
-								}
-							}
-
-							usort($actives, create_function('$a, $b', 'return strlen($a) < strlen($b);'));
-
-							foreach ($data['menu_tabs'] as $tab)
-							{
-								if (!isset($tab['help']))
-								{
-									echo '<li'.(($actives && $actives[0] == $tab['url']) ? ' class="active"' : '').'><a href="'.url($tab['url']).'"><img src="'.image($tab['icon']).'" alt="" /> <span class="hidden-phone">'.$tab['title'].'</span></a></li>';
-								}
-							}
-						?>
-						</ul>
-					</div>
-				</nav>
-			<?php endif; ?>
 			<div id="alerts"></div>
 			<?php echo $loader->view('actions', $data); ?>
 		</div>

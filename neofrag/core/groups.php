@@ -237,6 +237,8 @@ class Groups extends Core
 							->delete('nf_groups');
 			}
 			
+			$this->access->revoke($group_id);
+			
 			unset($this->_groups[$group_id]);
 		}
 		

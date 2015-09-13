@@ -128,7 +128,7 @@ class t_admin extends Theme
 							array(
 								'title' => 'Permissions',
 								'icon'  => 'fa-unlock-alt',
-								'url'   => 'admin/members/permissions.html'
+								'url'   => 'admin/access.html'
 							),
 							array(
 								'title' => 'Bannissement',

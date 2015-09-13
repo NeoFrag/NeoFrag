@@ -101,7 +101,7 @@ class m_forum_c_index extends Controller_Module
 			$content .= $pagination;
 		}
 		
-		if (is_authorized('forum', 'category_write', $category_id))
+		if ($this->access('forum', 'category_write', $category_id))
 		{
 			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">Nouveau sujet</a>';
 		}
@@ -138,7 +138,7 @@ class m_forum_c_index extends Controller_Module
 					)
 				));
 		
-		if (is_authorized('forum', 'category_announce', $category_id))
+		if ($this->access('forum', 'category_announce', $category_id))
 		{
 			$this->form->add_rules(array(
 				'announce' => array(
@@ -245,7 +245,7 @@ class m_forum_c_index extends Controller_Module
 			$content .= $pagination;
 		}
 		
-		if (!$is_locked && is_authorized('forum', 'category_write', $category_id))
+		if (!$is_locked && $this->access('forum', 'category_write', $category_id))
 		{
 			$page = '';
 		
@@ -257,12 +257,12 @@ class m_forum_c_index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">Répondre</a>';
 		}
 
-		if ($topic['user_id'] == $this->user('user_id') || is_authorized('forum', 'category_delete', $category_id))
+		if ($topic['user_id'] == $this->user('user_id') || $this->access('forum', 'category_delete', $category_id))
 		{
 			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Supprimer le sujet">'.icon('fa-close').'</a>';
 		}
 
-		if (is_authorized('forum', 'category_lock', $category_id))
+		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
@@ -274,7 +274,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 
-		if (is_authorized('forum', 'category_announce', $category_id))
+		if ($this->access('forum', 'category_announce', $category_id))
 		{
 			if ($is_announce)
 			{
@@ -334,7 +334,7 @@ class m_forum_c_index extends Controller_Module
 		
 		$panels[] = $actions;
 		
-		if ($is_last_page && is_authorized('forum', 'category_write', $category_id) && !$is_locked)
+		if ($is_last_page && $this->access('forum', 'category_write', $category_id) && !$is_locked)
 		{
 			$this	->css('wbbtheme')
 					->js('jquery.wysibb.min')

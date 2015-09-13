@@ -333,20 +333,6 @@ class m_members_c_admin extends Controller_Module
 		));
 	}
 	
-	public function _permissions()
-	{
-		$this	->title('Permissions')
-				->icon('fa-unlock-alt');
-		
-		return new Panel(array(
-			'title'   => 'Gestion des permissions',
-			'icon'    => 'fa-unlock-alt',
-			'style'   => 'panel-info',
-			'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant.',
-			'size'    => 'col-md-12'
-		));
-	}
-	
 	public function _groups_add()
 	{
 		$this	->title('Groupes')
@@ -438,6 +424,8 @@ class m_members_c_admin extends Controller_Module
 		{
 			$this->db	->where('group_id', $group_id)
 						->delete('nf_groups');
+						
+			$this->access->revoke($group_id);
 
 			return 'OK';
 		}

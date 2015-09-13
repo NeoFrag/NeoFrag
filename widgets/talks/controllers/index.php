@@ -33,7 +33,7 @@ class w_talks_c_index extends Controller_Widget
 			)).'</div>'
 		);
 		
-		if (is_authorized('talks', 'write', $settings['talk_id']))
+		if ($this->access('talks', 'write', $settings['talk_id']))
 		{
 			$params['footer'] = '	<form>
 										<div class="input-group">

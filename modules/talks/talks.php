@@ -33,6 +33,57 @@ class m_talks extends Module
 		'admin{pages}'            => 'index',
 		'admin/{id}/{url_title*}' => '_edit'
 	);
+
+	public static function access()
+	{
+		return array(
+			'talk' => array(
+				'get_all' => function(){
+					return NeoFrag::loader()->db->select('talk_id', 'CONCAT_WS(" ", "Discussion", name)')->from('nf_talks')->where('talk_id >', 1)->get();
+				},
+				'check'   => function($talk_id){
+					if ($talk_id > 1 && ($talk = NeoFrag::loader()->db->select('name')->from('nf_talks')->where('talk_id', $talk_id)->row()) !== array())
+					{
+						return 'Discussion '.$talk;
+					}
+				},
+				'init'    => array(
+					'write' => array(
+						array('visitors', FALSE)
+					),
+					'delete' => array(
+						array('admins', TRUE)
+					)
+				),
+				'access'  => array(
+					array(
+						'title'  => 'Discussion',
+						'icon'   => 'fa-comment-o',
+						'access' => array(
+							'read' => array(
+								'title' => 'Lire',
+								'icon'  => 'fa-eye'
+							),
+							'write' => array(
+								'title' => 'Écrire',
+								'icon'  => 'fa-reply'
+							)
+						)
+					),
+					array(
+						'title'  => 'Modération',
+						'icon'   => 'fa-user',
+						'access' => array(
+							'delete' => array(
+								'title' => 'Supprimer un message',
+								'icon'  => 'fa-trash-o'
+							)
+						)
+					)
+				)
+			)
+		);
+	}
 }
 
 /*

@@ -24,6 +24,68 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_access`
+--
+
+DROP TABLE IF EXISTS `nf_access`;
+CREATE TABLE IF NOT EXISTS `nf_access` (
+  `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL,
+  `module` varchar(100) NOT NULL,
+  `action` varchar(100) NOT NULL,
+  PRIMARY KEY (`access_id`),
+  UNIQUE KEY `module_id` (`id`,`module`,`action`),
+  KEY `module` (`module`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_access`
+--
+
+INSERT INTO `nf_access` VALUES(9, 1, 'forum', 'category_announce');
+INSERT INTO `nf_access` VALUES(8, 1, 'forum', 'category_delete');
+INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_lock');
+INSERT INTO `nf_access` VALUES(7, 1, 'forum', 'category_modify');
+INSERT INTO `nf_access` VALUES(6, 1, 'forum', 'category_write');
+INSERT INTO `nf_access` VALUES(3, 1, 'talks', 'delete');
+INSERT INTO `nf_access` VALUES(1, 1, 'talks', 'read');
+INSERT INTO `nf_access` VALUES(2, 1, 'talks', 'write');
+INSERT INTO `nf_access` VALUES(5, 2, 'talks', 'delete');
+INSERT INTO `nf_access` VALUES(4, 2, 'talks', 'write');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_access_details`
+--
+
+DROP TABLE IF EXISTS `nf_access_details`;
+CREATE TABLE IF NOT EXISTS `nf_access_details` (
+  `access_id` int(11) unsigned NOT NULL,
+  `entity` varchar(100) NOT NULL,
+  `type` enum('group','user') NOT NULL DEFAULT 'group',
+  `authorized` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`access_id`,`entity`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_access_details`
+--
+
+INSERT INTO `nf_access_details` VALUES(1, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(2, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(3, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(4, 'members', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(5, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(6, 'members', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(7, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(8, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(9, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(10, 'admins', 'group', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_comments`
 --
 
@@ -169,7 +231,7 @@ DROP TABLE IF EXISTS `nf_forum_messages`;
 CREATE TABLE IF NOT EXISTS `nf_forum_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `topic_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `message` text,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`message_id`),
@@ -564,68 +626,6 @@ CREATE TABLE IF NOT EXISTS `nf_pages_lang` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `nf_permissions`
---
-
-DROP TABLE IF EXISTS `nf_permissions`;
-CREATE TABLE IF NOT EXISTS `nf_permissions` (
-  `permission_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `addon_id` int(11) unsigned NOT NULL,
-  `addon` varchar(100) NOT NULL,
-  `action` varchar(100) NOT NULL,
-  PRIMARY KEY (`permission_id`),
-  UNIQUE KEY `module_id` (`addon_id`,`addon`,`action`),
-  KEY `module` (`addon`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `nf_permissions`
---
-
-INSERT INTO `nf_permissions` VALUES(1, 1, 'talks', 'read');
-INSERT INTO `nf_permissions` VALUES(2, 1, 'talks', 'write');
-INSERT INTO `nf_permissions` VALUES(3, 1, 'talks', 'delete');
-INSERT INTO `nf_permissions` VALUES(4, 2, 'talks', 'write');
-INSERT INTO `nf_permissions` VALUES(5, 2, 'talks', 'delete');
-INSERT INTO `nf_permissions` VALUES(6, 1, 'forum', 'category_write');
-INSERT INTO `nf_permissions` VALUES(7, 1, 'forum', 'category_modify');
-INSERT INTO `nf_permissions` VALUES(8, 1, 'forum', 'category_delete');
-INSERT INTO `nf_permissions` VALUES(9, 1, 'forum', 'category_announce');
-INSERT INTO `nf_permissions` VALUES(10, 1, 'forum', 'category_lock');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `nf_permissions_details`
---
-
-DROP TABLE IF EXISTS `nf_permissions_details`;
-CREATE TABLE IF NOT EXISTS `nf_permissions_details` (
-  `permission_id` int(11) unsigned NOT NULL,
-  `entity_id` varchar(100) NOT NULL,
-  `type` enum('group','user') NOT NULL DEFAULT 'group',
-  `authorized` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`permission_id`,`entity_id`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `nf_permissions_details`
---
-
-INSERT INTO `nf_permissions_details` VALUES(1, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(2, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(3, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(4, 'members', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(5, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(6, 'members', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(7, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(8, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(9, 'admins', 'group', '1');
-INSERT INTO `nf_permissions_details` VALUES(10, 'admins', 'group', '1');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `nf_search_keywords`
 --
 
@@ -675,7 +675,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id` (`session_id`,`user_id`,`ip_address`,`host_name`,`referer`,`user_agent`,`date`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -734,6 +734,7 @@ CREATE TABLE IF NOT EXISTS `nf_settings_addons` (
 -- Contenu de la table `nf_settings_addons`
 --
 
+INSERT INTO `nf_settings_addons` VALUES('access', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('admin', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('breadcrumb', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('comments', 'module', '1');
@@ -853,7 +854,7 @@ DROP TABLE IF EXISTS `nf_talks_messages`;
 CREATE TABLE IF NOT EXISTS `nf_talks_messages` (
   `message_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `talk_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
   `message` text,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`message_id`)
@@ -1139,6 +1140,18 @@ INSERT INTO `nf_widgets` VALUES(28, 'forum', 'activity', NULL, NULL);
 --
 
 --
+-- Contraintes pour la table `nf_access`
+--
+ALTER TABLE `nf_access`
+  ADD CONSTRAINT `nf_access_ibfk_1` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_access_details`
+--
+ALTER TABLE `nf_access_details`
+  ADD CONSTRAINT `nf_access_details_ibfk_1` FOREIGN KEY (`access_id`) REFERENCES `nf_access` (`access_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `nf_comments`
 --
 ALTER TABLE `nf_comments`
@@ -1293,18 +1306,6 @@ ALTER TABLE `nf_news_lang`
 ALTER TABLE `nf_pages_lang`
   ADD CONSTRAINT `nf_pages_lang_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `nf_pages` (`page_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_pages_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `nf_permissions`
---
-ALTER TABLE `nf_permissions`
-  ADD CONSTRAINT `nf_permissions_ibfk_1` FOREIGN KEY (`addon`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `nf_permissions_details`
---
-ALTER TABLE `nf_permissions_details`
-  ADD CONSTRAINT `nf_permissions_details_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `nf_permissions` (`permission_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_sessions`

@@ -71,24 +71,21 @@ class m_talks_m_talks extends Model
 		}
 	}
 	
-	public function add_talk($title, $is_private)
+	public function add_talk($title)
 	{
 		$talk_id = $this->db->insert('nf_talks', array(
 			'name' => $title
 		));
 		
-		$this->_talk_permission($talk_id, $is_private); 
+		$this->access->init('talks', 'talks', $talk_id);
 	}
 	
-	public function edit_talk($talk_id, $title, $is_private)
+	public function edit_talk($talk_id, $title)
 	{
 		$this->db	->where('talk_id', $talk_id)
 					->update('nf_talks', array(
 						'name' => $title
 					));
-		
-		delete_permission('talks', $talk_id);
-		$this->_talk_permission($talk_id, $is_private);
 	}
 	
 	public function delete_talk($talk_id)
@@ -96,30 +93,7 @@ class m_talks_m_talks extends Model
 		$this->db	->where('talk_id', $talk_id)
 					->delete('nf_talks');
 		
-		delete_permission('talks', $talk_id);
-	}
-	
-	private function _talk_permission($talk_id, $is_private)
-	{
-		$permissions = array('write' => 'members', 'delete' => 'admins');
-		
-		if ($is_private)
-		{
-			$permissions = array_merge($permissions, array(
-				'read' => ''
-			));
-		}
-		
-		foreach ($permissions as $permission => $group)
-		{
-			add_permission('talks', $talk_id, $permission, array(
-				array(
-					'entity_id'  => $is_private ? 'admins' : $group,
-					'type'       => 'group',
-					'authorized' => TRUE
-				)
-			));
-		}
+		$this->access->delete('talks', $talk_id);
 	}
 }
 

@@ -184,7 +184,7 @@ abstract class NeoFrag
 		{
 			$module_instance = NeoFrag::loader()->init_module($module);
 
-			if (!is_null($module_instance) && ($enable || !$module_instance->deactivatable || $get_all) && $this->user->is_allowed($module))
+			if (!is_null($module_instance) && ($enable || !$module_instance->deactivatable || $get_all) && $this->access($module, 'module_access'))
 			{
 				$list[] = $module_instance;
 			}

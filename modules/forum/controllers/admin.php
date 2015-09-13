@@ -167,8 +167,7 @@ class m_forum_c_admin extends Controller_Module
 
 		if ($this->form->is_valid($post))
 		{
-			$this->model()->add_category(	$post['title'],
-											in_array('on', $post['private']));
+			$this->model()->add_category($post['title']);
 
 			add_alert('Succes', 'Catégorie ajoutée avec succès');
 
@@ -187,17 +186,14 @@ class m_forum_c_admin extends Controller_Module
 		$this	->subtitle('Catégorie '.$title)
 				->load->library('form')
 				->add_rules('categories', array(
-					'title'   => $title,
-					'private' => $this->db->select('entity_id')->from('nf_permissions p')->join('nf_permissions_details d', 'p.permission_id = d.permission_id')->where('addon_id', $category_id)->where('addon', 'forum')->where('action', 'category_read')->row() == 'admins'
+					'title' => $title
 				))
 				->add_submit('Éditer')
 				->add_back('admin/forum.html');
 		
 		if ($this->form->is_valid($post))
 		{
-			$this->model()->edit_category(	$category_id,
-											$post['title'],
-											in_array('on', $post['private']));
+			$this->model()->edit_category($category_id, $post['title']);
 		
 			add_alert('Succes', 'Catégorie éditée avec succès');
 

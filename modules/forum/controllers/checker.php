@@ -24,7 +24,7 @@ class m_forum_c_checker extends Controller
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE)
 		{
-			if (is_authorized('forum', 'category_read', $forum['category_id']))
+			if ($this->access('forum', 'category_read', $forum['category_id']))
 			{
 				if (!is_null($forum['url']))
 				{
@@ -73,7 +73,7 @@ class m_forum_c_checker extends Controller
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && is_null($forum['url']))
 		{
-			if (is_authorized('forum', 'category_write', $forum['category_id']))
+			if ($this->access('forum', 'category_write', $forum['category_id']))
 			{
 				return array($forum_id, $title, $forum['category_id']);
 			}
@@ -92,7 +92,7 @@ class m_forum_c_checker extends Controller
 	{
 		if ($topic = $this->model()->check_topic($topic_id, $title))
 		{
-			if (is_authorized('forum', 'category_read', $topic['category_id']))
+			if ($this->access('forum', 'category_read', $topic['category_id']))
 			{
 				return array(
 					$topic_id,
@@ -124,7 +124,7 @@ class m_forum_c_checker extends Controller
 	{
 		if ($topic = $this->model()->check_topic($topic_id, $title))
 		{
-			if (is_authorized('forum', $permission, $topic['category_id']))
+			if ($this->access('forum', $permission, $topic['category_id']))
 			{
 				return array($topic_id, $topic['topic_title'], $topic['announce'], $topic['locked']);
 			}
@@ -148,7 +148,7 @@ class m_forum_c_checker extends Controller
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
 		{
-			if (is_authorized('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $message['user_id'] == $this->user('user_id')))
 			{
 				return array($message_id, $message['topic_id'], $message['topic_title'], $message['is_topic'], $message['message'], $message['category_id'], $message['user_id'], $message['username'], $message['avatar'], $message['sex'], $message['online'], $message['admin']);
 			}
@@ -179,7 +179,7 @@ class m_forum_c_checker extends Controller
 		
 		if ($message && $title == url_title($message['title']))
 		{
-			if (is_authorized('forum', 'category_delete', $message['category_id']) || $message['user_id'] == $this->user('user_id'))
+			if ($this->access('forum', 'category_delete', $message['category_id']) || $message['user_id'] == $this->user('user_id'))
 			{
 				return array($message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']);
 			}
@@ -210,7 +210,7 @@ class m_forum_c_checker extends Controller
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && is_null($forum['url']))
 		{
-			if ($this->user() && is_authorized('forum', 'category_read', $forum['category_id']))
+			if ($this->user() && $this->access('forum', 'category_read', $forum['category_id']))
 			{
 				return array($forum_id, $title);
 			}

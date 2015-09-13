@@ -24,11 +24,6 @@ $rules = array(
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'
-	),
-	'private' => array(
-		'type'    => 'checkbox',
-		'checked' => array('on' => $private),
-		'values'  => array('on' => 'Privé')
 	)
 );
 

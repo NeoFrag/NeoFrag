@@ -24,7 +24,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 	{
 		$check = $this->_check('talk_id', 'message_id');
 		
-		if (is_authorized('talks', 'read', $check['talk_id']))
+		if ($this->access('talks', 'read', $check['talk_id']))
 		{
 			return $check;
 		}
@@ -36,7 +36,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 	{
 		$check = $this->_check('talk_id', 'message_id', 'position');
 		
-		if (is_authorized('talks', 'read', $check['talk_id']))
+		if ($this->access('talks', 'read', $check['talk_id']))
 		{
 			return $check;
 		}
@@ -48,7 +48,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 	{
 		$check = $this->_check('talk_id', 'message');
 		
-		if (is_authorized('talks', 'write', $check['talk_id']))
+		if ($this->access('talks', 'write', $check['talk_id']))
 		{
 			return $check;
 		}
@@ -80,7 +80,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 		
 		if ($message)
 		{
-			if (is_authorized('talks', 'delete', $message['talk_id']) || $message['user_id'] == $this->user('user_id'))
+			if ($this->access('talks', 'delete', $message['talk_id']) || ($message['user_id'] && $message['user_id'] == $this->user('user_id')))
 			{
 				return array($message_id, $message['talk_id']);
 			}

@@ -44,7 +44,6 @@ class m_members extends Module
 		'admin/{id}/{url_title}'                          => '_edit',
 		'admin/ban'                                       => '_ban',
 		'admin/ban/{id}/{url_title}'                      => '_ban',
-		'admin/permissions'                               => '_permissions',
 		'admin/groups/add'                                => '_groups_add',
 		'admin/groups/edit/(admins|members|visitors)'     => '_groups_edit',
 		'admin/groups/edit/{url_title}-{id}/{url_title}'  => '_groups_edit',

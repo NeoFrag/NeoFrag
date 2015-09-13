@@ -21,16 +21,16 @@
 						}
 					?>
 					<h4 class="no-margin"><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title']).'.html'); ?>"><?php echo $topic['title']; ?></a></h4>
-					<div><?php echo icon('fa-user').' '.$NeoFrag->user->link($topic['user_id'], $topic['username']).' '.icon('fa-clock-o').' '.time_span($topic['date']); ?></div>
+					<div><?php echo icon('fa-user').' '.($topic['user_id'] ? $NeoFrag->user->link($topic['user_id'], $topic['username']) : '<i>Visiteur</i>').' '.icon('fa-clock-o').' '.time_span($topic['date']); ?></div>
 				</td>
 				<td>
 					<b><?php echo $topic['count_messages']; ?></b> <?php echo $topic['count_messages'] > 1 ? 'réponses' : 'réponse'; ?><br />
 					<b><?php echo $topic['views']; ?></b> <?php echo $topic['views'] > 1 ? 'vues' : 'vue'; ?>
 				</td>
 				<td>
-					<?php if ($topic['last_user_id']): ?>
+					<?php if ($topic['count_messages']): ?>
 					<div><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title']).($topic['count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($topic['count_messages'] / $NeoFrag->config->forum_messages_per_page) : '').'.html#message_'.$topic['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener(strip_tags(str_replace('<br />', ' ', bbcode($topic['message']))), 35); ?></a></div>
-					<div><?php echo icon('fa-user').' '.$NeoFrag->user->link($topic['last_user_id'], $topic['last_username']).' '.icon('fa-clock-o').' '.time_span($topic['last_message_date']); ?></div>
+					<div><?php echo icon('fa-user').' '.($topic['last_user_id'] ? $NeoFrag->user->link($topic['last_user_id'], $topic['last_username']) : '<i>Visiteur</i>').' '.icon('fa-clock-o').' '.time_span($topic['last_message_date']); ?></div>
 					<?php else: ?>
 					Pas de réponse
 					<?php endif; ?>

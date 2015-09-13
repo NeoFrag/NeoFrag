@@ -48,6 +48,78 @@ class m_forum extends Module
 		'admin/categories/delete/{id}/{url_title}' => '_categories_delete',
 		'admin/ajax/categories/move'               => '_categories_move'
 	);
+
+	public static function access()
+	{
+		return array(
+			'category' => array(
+				'get_all' => function(){
+					return NeoFrag::loader()->db->select('category_id', 'CONCAT_WS(" ", "Catégorie", title)')->from('nf_forum_categories')->get();
+				},
+				'check'   => function($category_id){
+					if (($category = NeoFrag::loader()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== array())
+					{
+						return 'Catégorie '.$category;
+					}
+				},
+				'init'    => array(
+					'category_write' => array(
+						array('visitors', FALSE)
+					),
+					'category_modify' => array(
+						array('admins', TRUE)
+					),
+					'category_delete' => array(
+						array('admins', TRUE)
+					),
+					'category_announce' => array(
+						array('admins', TRUE)
+					),
+					'category_lock' => array(
+						array('admins', TRUE)
+					)
+				),
+				'access'  => array(
+					array(
+						'title'  => 'Catégorie',
+						'icon'   => 'fa-navicon',
+						'access' => array(
+							'category_read' => array(
+								'title' => 'Lire',
+								'icon'  => 'fa-eye'
+							),
+							'category_write' => array(
+								'title' => 'Écrire',
+								'icon'  => 'fa-reply'
+							)
+						)
+					),
+					array(
+						'title'  => 'Modération',
+						'icon'   => 'fa-user',
+						'access' => array(
+							'category_modify' => array(
+								'title' => 'Éditer un sujet / message',
+								'icon'  => 'fa-edit'
+							),
+							'category_delete' => array(
+								'title' => 'Supprimer un sujet / message',
+								'icon'  => 'fa-trash-o'
+							),
+							'category_announce' => array(
+								'title' => 'Mettre un sujet en annonce',
+								'icon'  => 'fa-flag'
+							),
+							'category_lock' => array(
+								'title' => 'Vérouiller un sujet',
+								'icon'  => 'fa-lock'
+							)
+						)
+					)
+				)
+			)
+		);
+	}
 	
 	public function load()
 	{

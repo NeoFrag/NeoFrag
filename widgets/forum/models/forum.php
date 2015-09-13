@@ -57,7 +57,7 @@ class w_forum_m_forum extends Model
 		
 		foreach ($this->db->select('category_id')->from('nf_forum_categories')->get() as $category_id)
 		{
-			if (is_authorized('forum', 'category_read', $category_id))
+			if ($this->access('forum', 'category_read', $category_id))
 			{
 				$categories[] = $category_id;
 			}

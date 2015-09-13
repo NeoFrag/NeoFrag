@@ -121,6 +121,7 @@ $NeoFrag->core(
 	'profiler',
 	'database',
 	'config',
+	'access',
 	'addons',
 	'session',
 	'user',

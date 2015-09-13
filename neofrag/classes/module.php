@@ -120,7 +120,7 @@ abstract class Module extends NeoFrag
 
 	public function run($args = array())
 	{
-		if (!$this->user->is_allowed($this->get_name()))
+		if (!$this->access($this->get_name(), 'module_access'))
 		{
 			$this->unset_module();
 
@@ -230,24 +230,10 @@ abstract class Module extends NeoFrag
 			try
 			{
 				$this->add_data('module_title', $this->name);
+				$this->add_data('module_method', $method);
 				
 				if (($output = $controller->method($method, $args)) !== FALSE)
 				{
-					if ($this->config->admin_url && !is_null($help = $this->load->controller('admin_help')) && method_exists($help, $method))
-					{
-						NeoFrag::loader()	->css('neofrag.help')
-											->js('neofrag.help');
-
-						$this->add_data('menu_tabs', array(
-							array(
-								'title' => 'Aide',
-								'icon'  => 'icons-24/lifebuoy.png',
-								'url'   => $this->config->request_url,
-								'help'  => 'admin/help/'.$this->_module_name.'/'.$method.'.html'
-							)
-						));
-					}
-
 					$this->segments = array($this->_module_name, $method);
 					$this->append_output($output);
 					return;
@@ -404,6 +390,25 @@ abstract class Module extends NeoFrag
 		}
 		
 		return $method;
+	}
+	
+	public function get_access($type = NULL)
+	{
+		if (method_exists($this, 'access'))
+		{
+			$access = $this::access();
+			
+			if ($type === NULL)
+			{
+				return $access;
+			}
+			else if (isset($access[$type]))
+			{
+				return $access[$type];
+			}
+		}
+		
+		return array();
 	}
 }
 

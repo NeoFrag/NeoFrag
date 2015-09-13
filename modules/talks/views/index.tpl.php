@@ -26,13 +26,16 @@ foreach ($data['messages'] as $i => $message)
 ?>
 <div class="media" data-message-id="<?php echo $message['message_id']; ?>" data-position="<?php echo $media; ?>">
 <?php
-	
 	ob_start();
 ?>
 	<div class="media-<?php echo $media; ?>">
+		<?php if ($message['user_id']): ?>
 		<a href="<?php echo url('members/'.$message['user_id'].'/'.url_title($message['username']).'.html'); ?>">
 			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
 		</a>
+		<?php else: ?>
+		<img class="media-object" src="<?php echo $NeoFrag->user->avatar(); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
+		<?php endif; ?>
 	</div>
 <?php
 	$avatar = ob_get_clean();
@@ -40,14 +43,14 @@ foreach ($data['messages'] as $i => $message)
 ?>
 	<div class="media-body<?php if ($media == 'right') echo ' text-right'; ?>">
 		<?php
-			if ($NeoFrag->user('user_id') == $message['user_id'] || is_authorized('talks', 'delete', $message['talk_id']))
+			if (($message['user_id'] && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('talks', 'delete', $message['talk_id']))
 			{
 				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.button_delete('ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
 			}
 		?>
 		<h4 class="media-heading">
 		<?php
-			$title = array($NeoFrag->user->link($message['user_id'], $message['username']), '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>');
+			$title = array($message['user_id'] ? $NeoFrag->user->link($message['user_id'], $message['username']) : '<i>Visiteur</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>');
 			
 			if ($media == 'right')
 			{

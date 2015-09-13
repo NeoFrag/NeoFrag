@@ -38,6 +38,11 @@ function button_sort($id, $url, $title = 'Ordonner')
 	));
 }
 
+function button_access($id, $access, $module = NULL, $title = 'Permissions')
+{
+	return button('admin/access/edit/'.($module ?: NeoFrag::loader()->module->get_name()).'/'.$id.'-'.$access.'.html', 'fa-unlock-alt', $title, 'success');
+}
+
 function button_edit($url, $title = 'Éditer')
 {
 	return button($url, 'fa-pencil', $title, 'info');
