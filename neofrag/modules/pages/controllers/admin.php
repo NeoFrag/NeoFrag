@@ -36,7 +36,7 @@ class m_pages_c_admin extends Controller_Module
 					array(
 						'title'   => 'Titre de la page',
 						'content' => function($data){
-							return '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>';
+							return $data['published'] ? '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
 						},
 						'sort'    => function($data){
 							return $data['title'];
@@ -47,8 +47,8 @@ class m_pages_c_admin extends Controller_Module
 					),
 					array(
 						'content' => array(
-							function($adta){
-								return button($data['name'].'.html', 'fa-eye', 'Voir la page');
+							function($data){
+								return $data['published'] ? button($data['name'].'.html', 'fa-eye', 'Voir la page') : '';
 							},
 							function($data){
 								return button_edit('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');

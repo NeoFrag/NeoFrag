@@ -23,7 +23,7 @@ $rules = array(
 		'label'         => 'Titre de la page',
 		'value'         => $title,
 		'type'          => 'text',
-		'rules'			=> 'required'
+		'rules'         => 'required'
 	),
 	'subtitle' => array(
 		'label'         => 'Sous-titre',
@@ -33,7 +33,20 @@ $rules = array(
 	'name' => array(
 		'label'         => 'Chemin d\'accès',
 		'value'         => $name,
-		'type'          => 'text'
+		'type'          => 'text',
+		'check'         => function($value, $post) use ($name){
+			if (!$value)
+			{
+				$value = $post['title'];
+			}
+			
+			$value = url_title($value);
+			
+			if ($value != $name && NeoFrag::loader()->db->select('1')->from('nf_pages')->where('name', $value)->row())
+			{
+				return 'Chemin d\'accès déjà utilisé';
+			}
+		}
 	),
 	'content' => array(
 		'label'			=> 'Contenu',
