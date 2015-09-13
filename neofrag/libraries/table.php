@@ -183,6 +183,8 @@ class Table extends Library
 			$search = $this->session('table', $this->id, 'search');
 		}
 		
+		$count_results  = $this->_pagination && !empty($this->pagination) ? $this->pagination->count() : count($this->_data);
+		
 		if ($this->_is_searchable() && $search && $this->_pagination && !empty($this->pagination))
 		{
 			$this->_data = $this->pagination->display_all();
@@ -344,6 +346,8 @@ class Table extends Library
 				$output .= $pagination;
 			}
 
+			$count = count($this->_data);
+			
 			$output .= '<table class="table table-hover table-striped">';
 		
 			if ($this->_display_header())
@@ -352,7 +356,7 @@ class Table extends Library
 
 				$header = '			<tr class="navbar-inner">';
 
-				if (count($this->_data) > 1 && !empty($this->_actions))
+				if ($count > 1 && !empty($this->_actions))
 				{
 					array_unshift($this->_columns, array(
 						'title' => '<input class="table-checkbox" type="checkbox" data-toggle="tooltip" title="Sélectionner toutes les lignes" autocomplete="off" />',
@@ -456,14 +460,14 @@ class Table extends Library
 
 			$output .= '	</tbody>';
 
-			if ($this->_pagination && !empty($this->pagination) && $this->pagination->get_items_per_page() >= 50 && count($this->_data) >= 50)
+			if ($this->_pagination && !empty($this->pagination) && $this->pagination->get_items_per_page() >= 50 && $count >= 50)
 			{
 				$output .= '<tfoot>'.$header.'</tfoot>';
 			}
 
 			$output .= '</table>';
 
-			if (count($this->_data) > 1 && !empty($this->_actions))
+			if ($count > 1 && !empty($this->_actions))
 			{
 				$output .= '<div class="table-actions">';
 
@@ -479,6 +483,8 @@ class Table extends Library
 			{
 				$output .= $pagination;
 			}
+
+			$output .= '<i>'.$count.' '.($count > 1 ? 'résultats' : 'résultat').($count < $count_results ? ' sur '.$count_results.' au total' : '').'</i>';
 
 			if (!$this->_ajax)
 			{
