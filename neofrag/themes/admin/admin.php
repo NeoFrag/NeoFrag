@@ -54,9 +54,9 @@ class t_admin extends Theme
 				->css('font-awesome.min')
 				->css('style')
 				->css('neofrag.user')
-				->js('neofrag.navigation')
 				->js('metisMenu.min')
-				->js_load('$(\'#side-menu\').metisMenu();')
+				->js('neofrag.navigation')
+				->js('slideout.min')
 				->add_data('menu', array(
 					array(
 						'title' => 'Tableau de bord',
