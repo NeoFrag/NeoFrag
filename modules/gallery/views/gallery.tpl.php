@@ -32,7 +32,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="pull-right"><h4 class="modal-title"><?php echo icon('fa-photo').' '.($data['total_images'] > 1 ? $data['total_images'].' images' : $data['total_images'].' image'); ?></h4></div>
-				<h4 class="modal-title"><?php echo icon('fa-play-circle-o fa-fw'); ?> <b>Diaporama</b> <?php echo $data['title']; ?></h4>
+				<h4 class="modal-title"><?php echo icon('fa-play-circle-o'); ?> <b>Diaporama</b> <?php echo $data['title']; ?></h4>
 			</div>
 			<div class="modal-body no-padding">
 				<hr class="transition-timer-carousel-progress-bar" />
@@ -65,7 +65,7 @@
 					<button type="button" id="pauseButton" class="btn btn-default" data-toggle="tooltip" title="Pause"><?php echo icon('fa-pause'); ?></button>
 				</div>
 				<a href="#carousel-gallery" role="button" data-slide="next" class="btn btn-default" data-toggle="tooltip" title="Suivante"><?php echo icon('fa-angle-right'); ?></a>
-				<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo icon('fa-sign-out fa-fw'); ?> Quitter</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo icon('fa-sign-out'); ?> Quitter</button>
 			</div>
 		</div>
 	</div>

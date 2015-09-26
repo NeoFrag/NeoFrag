@@ -27,7 +27,7 @@ function icon($icon)
 {
 	if (preg_match('/^fa-(.+)/', $icon, $match))
 	{
-		return '<i class="fa fa-'.$match[1].'"></i>';
+		return '<i class="fa fa-fw fa-'.$match[1].'"></i>';
 	}
 	
 	return '';
