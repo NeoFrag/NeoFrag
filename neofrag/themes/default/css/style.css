@@ -241,13 +241,6 @@ a.btn-link.btn-light:hover {
 	color: #fff;
 }
 
-.table-content > .pagination a.btn-default.active {
-	background-color: #484e58;
-	border-color: #2c3037;
-	box-shadow: none;
-	color: #dddad6;
-}
-
 /* Navbar */
 
 .navbar {

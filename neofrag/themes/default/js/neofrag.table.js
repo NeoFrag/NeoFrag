@@ -14,41 +14,42 @@
 	
 	$('body').on('click', '.table thead .sort', function(){
 		var $col     = $(this);
-		var table_id = $col.parents('.table-area').data('table-id');
+		var $table   = $col.parents('.table-area:first');
+		var table_id = $table.data('table-id');
 		
 		if (request[table_id] != null){
 			request[table_id].abort();
 		}
 		
 		request[table_id] = $.ajax({
-			url: window.location.pathname,
+			url: $table.data('ajax-url') ? $table.data('ajax-url') : window.location.pathname,
 			type: 'POST',
-			data: 'sort=['+$col.data('column')+',"'+$col.data('order-by')+'"]&table_id='+table_id,
+			data: ($table.data('ajax-post') ? $table.data('ajax-post')+'&' : '')+'sort=['+$col.data('column')+',"'+$col.data('order-by')+'"]&table_id='+table_id,
 			dataType: 'json',
 			success: function(data){
-				$col.parents('.table-content').html(data.content);
+				$table.find('.table-content').html(data.content);
 				$('body').trigger('nf.table.load');
 			}
 		});
 	});
 	
-	$('.table-search-input').keyup(function(){
+	$('body').on('keyup', '.table-search input', function(){
 		var $input   = $(this);
-		var $table   = $input.parents('.table-area');
+		var $table   = $input.parents('.table-area:first');
 		var table_id = $table.data('table-id');
 		
 		if (request[table_id] != null){
 			request[table_id].abort();
-		}	
+		}
 		
 		if (!$input.next('.form-control-feedback').length){
 			$input.after('<span class="form-control-feedback" style="background: url(<?php echo image('ajax-loader.gif'); ?>) 50% 50% no-repeat;"></span>');
 		}
 		
 		request[table_id] = $.ajax({
-			url: window.location.pathname,
+			url: $table.data('ajax-url') ? $table.data('ajax-url') : window.location.pathname,
 			type: 'POST',
-			data: 'search='+$input.val()+'&table_id='+table_id,
+			data: ($table.data('ajax-post') ? $table.data('ajax-post')+'&' : '')+'search='+$input.val()+'&table_id='+table_id,
 			dataType: 'json',
 			success: function(data){
 				/*input.typeahead().data('typeahead').source = data.search;*/ //TODO

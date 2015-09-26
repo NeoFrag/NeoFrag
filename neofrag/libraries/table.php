@@ -22,7 +22,6 @@ class Table extends Library
 {
 	private $_ajax          = FALSE;
 	private $_pagination    = TRUE;
-	private $_actions       = array();
 	private $_columns       = array();
 	private $_data          = array();
 	private $_sortings      = array();
@@ -47,12 +46,6 @@ class Table extends Library
 	public function add_columns($columns)
 	{
 		$this->_columns = array_merge($this->_columns, $columns);
-		return $this;
-	}
-
-	public function add_action($action)
-	{
-		$this->_actions[] = $action;
 		return $this;
 	}
 
@@ -269,7 +262,7 @@ class Table extends Library
 
 		if (empty($this->_data))
 		{
-			$output = $this->_no_data ?: 'Il n\'y a rien ici pour le moment';
+			$output = '<div class="clearfix"></div>'.($this->_no_data ?: 'Il n\'y a rien ici pour le moment');
 		}
 		else
 		{
@@ -277,7 +270,7 @@ class Table extends Library
 			{
 				$search_input = '	<div class="table-search pull-left">
 										<div class="form-group has-feedback">
-											<input class="form-control table-search-input" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_unique($words)), ', ').']').'" type="text"'.((isset($search)) ? ' value="'.$search.'"' : '').' placeholder="Rechercher..." autocomplete="off" />
+											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_unique($words)), ', ').']').'" type="text"'.((isset($search)) ? ' value="'.$search.'"' : '').' placeholder="Rechercher..." autocomplete="off" />
 										</div>
 									</div>';
 			}
@@ -330,7 +323,7 @@ class Table extends Library
 
 			if ($this->_pagination && !empty($this->pagination) && $this->pagination->count() > 10)
 			{
-				$output .= '<div class="pull-left" style="margin-bottom: 15px;">
+				$output .= '<div class="form-group pull-left">
 								<select class="form-control" style="width: auto;" onchange="window.location=\''.url($this->pagination->get_url()).'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
 									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">10 résultats</option>
 									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">25 résultats</option>
@@ -343,12 +336,12 @@ class Table extends Library
 
 			if ($this->_pagination && !empty($this->pagination) && ($pagination = $this->pagination->get_pagination()) != '')
 			{
-				$output .= $pagination;
+				$output .= '<div class="form-group pull-right">'.$pagination.'</div>';
 			}
 
 			$count = count($this->_data);
 			
-			$output .= '<table class="table table-hover table-striped">';
+			$output .= '<div class="table-responsive"><table class="table table-hover table-striped">';
 		
 			if ($this->_display_header())
 			{
@@ -356,20 +349,7 @@ class Table extends Library
 
 				$header = '			<tr class="navbar-inner">';
 
-				if ($count > 1 && !empty($this->_actions))
-				{
-					array_unshift($this->_columns, array(
-						'title' => '<input class="table-checkbox" type="checkbox" data-toggle="tooltip" title="Sélectionner toutes les lignes" autocomplete="off" />',
-						'content' => '<input class="table-checkbox" type="checkbox" autocomplete="off" />',
-						'size' => TRUE
-					));
-					
-					$i = -1;
-				}
-				else
-				{
-					$i = 0;
-				}
+				$i = 0;
 
 				foreach ($this->_columns as $th)
 				{
@@ -404,7 +384,7 @@ class Table extends Library
 						}
 					}
 
-					$header .= '		<th'.(is_array($th['content']) && !empty($this->_data) ? ' colspan="'.count($th['content']).'"' : '').(!empty($class) ? ' class="'.implode(' ', $class).'"' : '').(!is_bool($width) ? ' style="width: '.$width.';"' : '').(!empty($sort) ? $sort : '').'>'.(!empty($th['title']) ? $th['title'] : '').'</th>';
+					$header .= '		<th'.(!empty($class) ? ' class="'.implode(' ', $class).'"' : '').(!is_bool($width) ? ' style="width: '.$width.';"' : '').(!empty($sort) ? $sort : '').'>'.(!empty($th['title']) ? $th['title'] : '').'</th>';
 
 					$i++;
 				}
@@ -427,10 +407,14 @@ class Table extends Library
 				{
 					if (is_array($value['content']))
 					{
+						$actions = array();
+						
 						foreach ($value['content'] as $val)
 						{
-							$output .= '<td class="action">'.$this->template->parse($val, $data, $this->load).'</td>';
+							$actions[] = $this->template->parse($val, $data, $this->load);
 						}
+						
+						$output .= '<td class="action">'.implode('&nbsp;', array_filter($actions)).'</td>';
 					}
 					else
 					{
@@ -465,30 +449,18 @@ class Table extends Library
 				$output .= '<tfoot>'.$header.'</tfoot>';
 			}
 
-			$output .= '</table>';
-
-			if ($count > 1 && !empty($this->_actions))
-			{
-				$output .= '<div class="table-actions">';
-
-				foreach ($this->_actions as $action)
-				{
-					$output .= $action;
-				}
-
-				$output .= '</div>';
-			}
+			$output .= '</table></div>';
 
 			if (!empty($pagination))
 			{
-				$output .= $pagination;
+				$output .= '<div class="pull-right">'.$pagination.'</div>';
 			}
 
 			$output .= '<i>'.$count.' '.($count > 1 ? 'résultats' : 'résultat').($count < $count_results ? ' sur '.$count_results.' au total' : '').'</i>';
 
 			if (!$this->_ajax)
 			{
-				$output = '<div class="table-area" data-table-id="'.$this->id.'">'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
+				$output = '<div class="table-area" data-table-id="'.$this->id.'"'.($this->config->ajax_url ? ' data-ajax-url="'.url($this->config->request_url).'"  data-ajax-post="'.http_build_query(post()).'"' : '').'>'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
 			}
 		}
 		
