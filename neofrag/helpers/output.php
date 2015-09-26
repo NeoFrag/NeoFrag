@@ -22,16 +22,22 @@ function display($objects, $id = NULL)
 {
 	$output = '';
 	
-	if (is_object($objects) && is_a($objects, 'Panel'))
+	if (!NeoFrag::loader()->config->ajax_url)
 	{
-		$objects = array(
-			new Row(
-				new Col($objects)
-			)
-		);
+		if (is_object($objects) && is_a($objects, 'Panel'))
+		{
+			$objects = new Col($objects);
+		}
 		
+		if (is_object($objects) && is_a($objects, 'Col'))
+		{
+			$objects = new Row(
+				$objects
+			);
+		}
 	}
-	else if (is_object($objects) && is_a($objects, 'Row'))
+	
+	if (!is_array($objects))
 	{
 		$objects = array($objects);
 	}
