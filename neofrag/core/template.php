@@ -29,7 +29,7 @@ class Template extends Core
 
 		if ($parse_php && is_callable($content))
 		{
-			$content = call_user_func($content, $data);
+			$content = call_user_func($content, $data, $loader);
 		}
 		//Si le template contient du code PHP
 		else if (in_string('<?php', $content) && in_string('?>', $content))
