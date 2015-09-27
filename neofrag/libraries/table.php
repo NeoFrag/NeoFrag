@@ -418,24 +418,31 @@ class Table extends Library
 					}
 					else
 					{
-						$classes = array();
-						
-						if (isset($value['size']) && $value['size'] === TRUE)
-						{
-							$classes[] = 'action';
-						}
-						
-						if (!empty($value['class']))
-						{
-							$classes[] = $value['class'];
-						}
-						
-						if (!empty($value['align']) && in_array($value['align'], array('left', 'center', 'right')))
-						{
-							$classes[] = 'text-'.$value['align'];
-						}
+						$content = $this->template->parse($value['content'], $data, $this->load);
 
-						$output .= '<td'.(!empty($classes) ? ' class="'.implode(' ', $classes).'"' : '').'>'.$this->template->parse($value['content'], $data, $this->load).'</td>';
+						if (!isset($value['td']) || $value['td'])
+						{
+							$classes = array();
+							
+							if (isset($value['size']) && $value['size'] === TRUE)
+							{
+								$classes[] = 'action';
+							}
+							
+							if (!empty($value['class']))
+							{
+								$classes[] = $value['class'];
+							}
+							
+							if (!empty($value['align']) && in_array($value['align'], array('left', 'center', 'right')))
+							{
+								$classes[] = 'text-'.$value['align'];
+							}
+
+							$content = '<td'.(!empty($classes) ? ' class="'.implode(' ', $classes).'"' : '').'>'.$content.'</td>';
+						}
+						
+						$output .= $content;
 					}
 				}
 
