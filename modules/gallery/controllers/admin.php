@@ -129,7 +129,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => 'Catégories',
 					'icon'    => 'fa-book',
 					'content' => $categories,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/gallery/categories/add.html').'">'.icon('fa-plus').' Ajouter une catégorie</a>',
+					'footer'  => button_add('admin/gallery/categories/add.html', 'Ajouter une catégorie'),
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
@@ -138,7 +138,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => 'Liste des albums photos',
 					'icon'    => 'fa-photo',
 					'content' => $gallery,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/gallery/add.html').'">'.icon('fa-plus').' Créer un album</a>',
+					'footer'  => button_add('admin/gallery/add.html', 'Créer un album'),
 					'size'    => 'col-md-12 col-lg-8'
 				))
 			)

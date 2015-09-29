@@ -112,7 +112,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => 'rôles',
 					'icon'    => 'fa-sitemap',
 					'content' => $roles,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/teams/roles/add.html').'">'.icon('fa-plus').' Ajouter un rôle</a>',
+					'footer'  => button_add('admin/teams/roles/add.html', 'Ajouter un rôle'),
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
@@ -121,7 +121,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => 'Liste des équipes',
 					'icon'    => 'fa-gamepad',
 					'content' => $teams,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/teams/add.html').'">'.icon('fa-plus').' Ajouter une équipe</a>',
+					'footer'  => button_add('admin/teams/add.html', 'Ajouter une équipe'),
 					'size'    => 'col-md-12 col-lg-8'
 				))
 			)

@@ -141,7 +141,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => 'Catégories',
 					'icon'    => 'fa-align-left',
 					'content' => $categories,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/news/categories/add.html').'">'.icon('fa-plus').' Créer une catégorie</a>',
+					'footer'  => button_add('admin/news/categories/add.html', 'Créer une catégorie'),
 					'size'    => 'col-md-12 col-lg-3'
 				))
 			),
@@ -150,7 +150,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => 'Liste des actualités',
 					'icon'    => 'fa-file-text-o',
 					'content' => $news,
-					'footer'  => '<a class="btn btn-outline btn-success" href="'.url('admin/news/add.html').'">'.icon('fa-plus').' Ajouter une actualité</a>',
+					'footer'  => button_add('admin/news/add.html', 'Ajouter une actualité'),
 					'size'    => 'col-md-12 col-lg-9'
 				))
 			)

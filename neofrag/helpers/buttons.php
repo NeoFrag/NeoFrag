@@ -38,7 +38,7 @@ function button_delete($url, $title = 'Supprimer')
 
 function button_add($url, $title, $icon = 'fa-plus')
 {
-	return '<a class="btn btn-outline btn-success" href="'.url($url).'">'.icon($icon).' '.$title.'</a>';
+	return '<a class="btn btn-outline btn-primary" href="'.url($url).'">'.icon($icon).' '.$title.'</a>';
 }
 
 /*
