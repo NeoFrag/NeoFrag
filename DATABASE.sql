@@ -878,6 +878,7 @@ CREATE TABLE IF NOT EXISTS `nf_teams` (
   `image_id` int(11) unsigned DEFAULT NULL,
   `icon_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(100) NOT NULL,
+  `order` smallint(6) unsigned NOT NULL,
   PRIMARY KEY (`team_id`),
   KEY `activity_id` (`game_id`),
   KEY `image_id` (`image_id`),
@@ -910,6 +911,7 @@ DROP TABLE IF EXISTS `nf_teams_roles`;
 CREATE TABLE IF NOT EXISTS `nf_teams_roles` (
   `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
+  `order` smallint(6) unsigned NOT NULL,
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

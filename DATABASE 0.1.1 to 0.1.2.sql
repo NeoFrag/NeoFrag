@@ -5,3 +5,5 @@ CREATE TABLE IF NOT EXISTS `nf_crawlers` (
   `path` varchar(100) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `nf_teams_roles` ADD `order` smallint(6) unsigned NOT NULL AFTER `title`;
+ALTER TABLE `nf_teams` ADD `order` smallint(6) unsigned NOT NULL AFTER `name`;

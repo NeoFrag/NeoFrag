@@ -20,11 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_teams_c_admin_checker extends Controller_Module
 {
-	public function index($page = '')
-	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_teams(), $page));
-	}
-
 	public function _edit($team_id, $name)
 	{
 		if ($team = $this->model()->check_team($team_id, $name))

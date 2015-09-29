@@ -20,36 +20,29 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_teams_c_admin extends Controller_Module
 {
-	public function index($teams)
+	public function index()
 	{
-		$this	->title('Équipe')
-				->subtitle('Liste des équipes')
+		$this	->subtitle('Liste des équipes')
 				->load->library('table');
 
 		$teams = $this	->table
 						->add_columns(array(
 							array(
+								'content' => function($data){
+									return button_sort($data['team_id'], 'admin/ajax/teams/sort.html');
+								},
+								'size'    => TRUE
+							),
+							array(
 								'title'   => 'Équipe',
 								'content' => function($data){
 									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
-								},
-								'sort'    => function($data){
-									return $data['title'];
-								},
-								'search'  => function($data){
-									return $data['title'];
 								}
 							),
 							array(
 								'title'   => 'Jeu',
 								'content' => function($data){
 									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game'].'.html').'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
-								},
-								'sort'    => function($data){
-									return $data['game_title'];
-								},
-								'search'  => function($data){
-									return $data['game_title'];
 								}
 							),
 							array(
@@ -71,8 +64,7 @@ class m_teams_c_admin extends Controller_Module
 								'size'    => TRUE
 							)
 						))
-						->sort_by(1, SORT_ASC)
-						->data($teams)
+						->data($this->model()->get_teams())
 						->no_data('Il n\'y a pas encore d\'équipe')
 						->display();
 			
@@ -80,13 +72,13 @@ class m_teams_c_admin extends Controller_Module
 							->add_columns(array(
 								array(
 									'content' => function($data){
+										return button_sort($data['role_id'], 'admin/ajax/teams/roles/sort.html');
+									},
+									'size'    => TRUE
+								),
+								array(
+									'content' => function($data){
 										return '<a href="'.url('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
-									},
-									'search'  => function($data){
-										return $data['title'];
-									},
-									'sort'    => function($data){
-										return $data['title'];
 									}
 								),
 								array(
@@ -109,7 +101,7 @@ class m_teams_c_admin extends Controller_Module
 		return new Row(
 			new Col(
 				new Panel(array(
-					'title'   => 'rôles',
+					'title'   => 'Rôles',
 					'icon'    => 'fa-sitemap',
 					'content' => $roles,
 					'footer'  => button_add('admin/teams/roles/add.html', 'Ajouter un rôle'),
@@ -163,14 +155,12 @@ class m_teams_c_admin extends Controller_Module
 		$users = $this->db	->select('u.user_id', 'u.username', 'tu.user_id IS NOT NULL AS in_team')
 							->from('nf_users u')
 							->join('nf_teams_users tu', 'tu.user_id = u.user_id AND tu.team_id = '.$team_id)
+							->join('nf_teams_roles r',  'r.role_id  = tu.role_id')
 							->where('u.deleted', FALSE)
-							->order_by('u.username')
+							->order_by('r.order', 'r.role_id', 'u.username')
 							->get();
 		
-		$roles = $this->db	->select('role_id', 'title')
-							->from('nf_teams_roles')
-							->order_by('title')
-							->get();
+		$roles = $this->model('roles')->get_roles();
 		
 		$form_team = $this	->title('&Eacute;dition')
 							->subtitle($title)

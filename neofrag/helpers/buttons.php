@@ -18,9 +18,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function button($url, $icon, $title = '', $color = 'default', $class = '')
+function button($url, $icon, $title = '', $color = 'default', $class = '', $data = array())
 {
-	return '<a class="'.($class ? $class.' ' : '').'btn btn-outline btn-'.$color.' btn-xs" href="'.url($url).'"'.($title ? ' data-toggle="tooltip" title="'.$title.'"' : '').'>'.icon($icon).'</a>';
+	array_walk($data, function(&$value, $name){
+		$value = ' data-'.$name.'="'.$value.'"';
+	});
+	
+	$output = ' class="'.($class ? $class.' ' : '').'btn btn-outline btn-'.$color.' btn-xs"'.($title ? ' data-toggle="tooltip" title="'.$title.'"' : '').($data ? implode($data) : '').'>'.icon($icon);
+	
+	return $url ? '<a href="'.url($url).'"'.$output.'</a>' : '<span'.$output.'</span>';
+}
+
+function button_sort($id, $url, $title = 'Ordonner')
+{
+	NeoFrag::loader()->js('neofrag.sortable');
+	return button(NULL, 'fa-arrows-v', $title, 'link', 'btn-sortable', array(
+		'id'     => $id,
+		'update' => url($url),
+	));
 }
 
 function button_edit($url, $title = 'Éditer')

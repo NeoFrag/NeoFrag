@@ -17,57 +17,39 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
-
-class m_teams_m_roles extends Model
+ 
+class m_teams_c_admin_ajax_checker extends Controller
 {
-	public function get_roles()
+	public function sort()
 	{
-		return $this->db	->select('role_id', 'title')
-							->from('nf_teams_roles')
-							->order_by('order', 'role_id')
-							->get();
-	}
-	
-	public function check_role($role_id, $title)
-	{
-		$role = $this->db	->select('role_id', 'title')
-							->from('nf_teams_roles')
-							->where('role_id', $role_id)
-							->row();
+		if (($check = $this->_check('id', 'position')) && $this->db->select('1')->from('nf_teams')->where('team_id', $check['id'])->row())
+		{
+			return $check;
+		}
 		
-		if ($role && $title == url_title($role['title']))
-		{
-			return $role;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
-	public function add_role($title)
-	{
-		$this->db->insert('nf_teams_roles', array(
-			'title' => $title
-		));
+		throw new Exception(NeoFrag::UNFOUND);
 	}
 
-	public function edit_role($role_id, $title)
+	public function _roles_sort()
 	{
-		$this->db	->where('role_id', $role_id)
-					->update('nf_teams_roles', array(
-						'title' => $title
-					));
+		if (($check = $this->_check('id', 'position')) && $this->db->select('1')->from('nf_teams_roles')->where('role_id', $check['id'])->row())
+		{
+			return $check;
+		}
+		
+		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
-	public function delete_role($role_id)
+	private function _check()
 	{
-		$this->db	->where('role_id', $role_id)
-					->delete('nf_teams_roles');
+		if (!array_diff(func_get_args(), array_keys($args = array_intersect_key(post(), array_flip(func_get_args())))))
+		{
+			return $args;
+		}
 	}
 }
 
 /*
-NeoFrag Alpha 0.1
-./modules/teams/models/roles.php
+NeoFrag Alpha 0.1.1
+./modules/teams/controllers/admin_ajax_checker.php
 */

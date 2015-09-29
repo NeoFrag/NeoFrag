@@ -34,12 +34,12 @@ class m_teams extends Module
 		'{id}/{url_title}'                           => '_team',
 
 		//Admin
-		'admin{pages}'                               => 'index',
 		'admin/{id}/{url_title*}'                    => '_edit',
 		'admin/roles/add'                            => '_roles_add',
 		'admin/roles/{id}/{url_title*}'              => '_roles_edit',
 		'admin/roles/delete/{id}/{url_title}'        => '_roles_delete',
-		'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete'
+		'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
+		'admin/ajax/roles/sort'                      => '_roles_sort'
 	);
 	
 	public function groups()

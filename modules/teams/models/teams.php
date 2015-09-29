@@ -31,7 +31,7 @@ class m_teams_m_teams extends Model
 						->where('tl.lang', $this->config->lang)
 						->where('gl.lang', $this->config->lang)
 						->group_by('t.team_id')
-						->order_by('tl.title')
+						->order_by('t.order', 't.team_id')
 						->get();
 	}
 	
@@ -58,7 +58,7 @@ class m_teams_m_teams extends Model
 						->where('tu.team_id', $team_id)
 						->where('u.deleted', FALSE)
 						->group_by('u.username')
-						->order_by('r.title', 'u.username')
+						->order_by('r.order', 'r.role_id', 'u.username')
 						->get();
 	}
 
