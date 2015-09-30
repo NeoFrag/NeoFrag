@@ -31,8 +31,7 @@
 		});
 		
 		$('body').tooltip({
-			selector: '[data-toggle=tooltip]',
-			container: 'body'
+			selector: '[data-toggle=tooltip]'
 		});
 		
 		<?php echo $data['js_load']; ?>

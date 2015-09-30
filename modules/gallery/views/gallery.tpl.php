@@ -61,8 +61,8 @@
 			<div class="modal-footer">
 				<a href="#carousel-gallery" role="button" data-slide="prev" class="btn btn-default" data-toggle="tooltip" title="Précédente"><?php echo icon('fa-angle-left'); ?></a>
 				<div class="btn-group" role="group">
-					<button type="button" id="playButton" class="btn btn-default" data-toggle="tooltip" title="Lecture"><?php echo icon('fa-play-circle'); ?></button>
-					<button type="button" id="pauseButton" class="btn btn-default" data-toggle="tooltip" title="Pause"><?php echo icon('fa-pause'); ?></button>
+					<button type="button" id="playButton" class="btn btn-default" data-toggle="tooltip" data-container="body" title="Lecture"><?php echo icon('fa-play-circle'); ?></button>
+					<button type="button" id="pauseButton" class="btn btn-default" data-toggle="tooltip" data-container="body" title="Pause"><?php echo icon('fa-pause'); ?></button>
 				</div>
 				<a href="#carousel-gallery" role="button" data-slide="next" class="btn btn-default" data-toggle="tooltip" title="Suivante"><?php echo icon('fa-angle-right'); ?></a>
 				<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo icon('fa-sign-out'); ?> Quitter</button>

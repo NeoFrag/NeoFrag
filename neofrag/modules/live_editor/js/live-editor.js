@@ -286,9 +286,9 @@ $(function(){
 						<div class="widget-hover-content">\
 							<h4>'+($(this).hasClass('module') ? '<b>Module</b> ' : '')+$(this).data('title')+'</h4>\
 							<div class="btn-group" role="group">\
-								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-placement="bottom" title="Apparence"><?php echo icon('fa-paint-brush'); ?></button>' : '')+'\
-								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" title="Configurer"><?php echo icon('fa-cogs'); ?></button>\
-								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" title="Supprimer"><?php echo icon('fa-close'); ?></button>\
+								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Apparence"><?php echo icon('fa-paint-brush'); ?></button>' : '')+'\
+								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Configurer"><?php echo icon('fa-cogs'); ?></button>\
+								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Supprimer"><?php echo icon('fa-close'); ?></button>\
 							</div>\
 						</div>\
 					</div>').prependTo(this).fadeTo('fast', 1);
