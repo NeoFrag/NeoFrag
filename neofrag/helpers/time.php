@@ -123,11 +123,11 @@ function time_span($timestamp)
 	{
 		return 'Il y a '.floor($diff / 3660).' heures';
 	}
-	else if ($diff < strtoseconds('2 days'))
+	else if ($timestamp >= strtotime('yesterday'))
 	{
 		return 'Hier, à '.timetostr(NeoFrag::loader()->lang('time_short'), $timestamp);
 	}
-	else if ($diff < strtoseconds('7 days'))
+	else if ($timestamp >= strtotime('6 days ago midnight'))
 	{
 		return ucfirst(timetostr('%A', $timestamp)).', à '.timetostr(NeoFrag::loader()->lang('time_short'), $timestamp);
 	}
