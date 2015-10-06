@@ -313,6 +313,9 @@ class m_members_c_admin extends Controller_Module
 			$this->db	->where('user_id', $user_id)
 						->update('nf_users', array('deleted' => TRUE));
 
+			$this->db	->where('user_id', $user_id)
+						->delete('nf_sessions');
+
 			return 'OK';
 		}
 
