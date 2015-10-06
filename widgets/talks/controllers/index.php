@@ -22,6 +22,11 @@ class w_talks_c_index extends Controller_Widget
 {
 	public function index($settings = array())
 	{
+		if (!$this->access('talks', 'read', $settings['talk_id']))
+		{
+			return;
+		}
+
 		$this	->js('talks')
 				->css('talks')
 				->js('jquery.mCustomScrollbar.min')
