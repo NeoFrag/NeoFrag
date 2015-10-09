@@ -32,20 +32,20 @@ class w_members_c_index extends Controller_Widget
 		if (!empty($members))
 		{
 			return new Panel(array(
-				'title'        => 'Derniers membres',
+				'title'        => $this('last_members'),
 				'content'      => $this->load->view('index', array(
 					'members'  => $members
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' Liste des membres</a>',
+				'footer'       => '<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Derniers membres',
-				'content' => 'Aucun membre pour le moment'
+				'title'   => $this('last_members'),
+				'content' => $this('no_members')
 			));
 		}
 	}
@@ -78,7 +78,7 @@ class w_members_c_index extends Controller_Widget
 		}
 
 		$output = array(new Panel(array(
-			'title'   => 'Qui est en ligne ?',
+			'title'   => $this('whos_online'),
 			'content' => $this->load->view('online', array(
 				'administrators' => $admins,
 				'members'        => $members,
@@ -92,7 +92,7 @@ class w_members_c_index extends Controller_Widget
 		{
 			$output[] = $this->load->view('online-modal', array(
 				'name'  => 'administrators',
-				'title' => 'Administrateurs en ligne',
+				'title' => $this('admins_online'),
 				'users' => $admins
 			));
 		}
@@ -101,7 +101,7 @@ class w_members_c_index extends Controller_Widget
 		{
 			$output[] = $this->load->view('online-modal', array(
 				'name'  => 'members',
-				'title' => 'Membres en ligne',
+				'title' => $this('members_online'),
 				'users' => $members
 			));
 		}

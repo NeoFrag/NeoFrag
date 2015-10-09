@@ -10,7 +10,7 @@
 			
 			if ($NeoFrag->user() && is_null($data['parent_id']))
 			{
-				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$data['comment_id'].'">'.icon('fa-mail-reply').' Répondre</a>';
+				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$data['comment_id'].'">'.icon('fa-mail-reply').' '.$NeoFrag->lang('reply').'</a>';
 			}
 			
 			if ($NeoFrag->user('admin') || $NeoFrag->user('user_id') == $data['user_id'])
@@ -27,7 +27,7 @@
 			<?php echo $NeoFrag->user->link($data['user_id'], $data['username']); ?>
 			<small><?php echo icon('fa-clock-o').' '.time_span($data['date']); ?></small>
 		</h4>
-		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>Message supprimé</i>'; ?>
+		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$NeoFrag->lang('removed_message').'</i>'; ?>
 	</div>
 </div>
 <hr<?php if (!is_null($data['parent_id'])) echo ' class="comments-child"'; ?> />

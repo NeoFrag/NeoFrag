@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_pages extends Module
 {
-	public $name        = 'Pages';
+	public $title       = '{lang pages}';
 	public $description = '';
 	public $icon        = 'fa-file-o';
 	public $link        = 'http://www.neofrag.com';

@@ -1,2 +1,2 @@
-<p class="lead">Bravo ! Vous utilisez la toute première version du CMS NeoFrag.</p>
-<p>Vous contribuez grandement à l'évolution du projet, si vous avez des suggestions, des problèmes, ou simplement pour donner votre avis, n'hésitez pas à vous connecter sur le <a href="//www.neofrag.com">forum NeoFrag</a>.</p>
+<p class="lead"><?php echo i18n('bravo'); ?></p>
+<p><?php echo i18n('bravo2'); ?></p>

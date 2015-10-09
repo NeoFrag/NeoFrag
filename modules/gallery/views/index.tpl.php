@@ -10,17 +10,17 @@
 				<a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title']).'.html'); ?>" class="gallery-item thumbnail" style="background-image: url('<?php echo path(!empty($album['image']) ? $album['image'] : $this->db->select('file_id')->from('nf_gallery_images')->where('gallery_id', $album['gallery_id'])->order_by('RAND()')->limit(1)->row()); ?>');">
 					<div class="black-caption-hover">
 						<div class="black-caption-hover-content">
-							<h4 class="no-margin"><?php echo icon('fa-eye'); ?> Ouvrir l'album</h4>
+							<h4 class="no-margin"><?php echo icon('fa-eye').' '.i18n('open_album'); ?></h4>
 						</div>
 					</div>
 					<div class="caption">
-						<span class="label label-default"><?php echo icon('fa-photo').' '.$album['images'].' '.($album['images'] > 1 ? 'images' : 'image'); ?></span>
+						<span class="label label-default"><?php echo icon('fa-photo').' '.i18n('images', $album['images'], $album['images']); ?></span>
 					</div>
 				</a>
 			</div>
 		<?php endforeach; ?>
 	</div>
 	<?php else: ?>
-	<div class="text-center">Aucun album dans cette catégorie</div>
+	<div class="text-center"><?php echo i18n('no_category_albums'); ?></div>
 	<?php endif; ?>
 </div>

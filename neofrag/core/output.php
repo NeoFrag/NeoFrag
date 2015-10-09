@@ -61,7 +61,7 @@ class Output extends Core
 			
 			if ($this->config->admin_url)
 			{
-				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->get_name().'">'.$this->data['module'].$this->profiler->output().'</div>';
+				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].$this->profiler->output().'</div>';
 			}
 
 			if ($this->config->segments_url[0] != 'index' && !empty($this->data['module_title']))
@@ -144,7 +144,7 @@ class Output extends Core
 		{
 			$this->db	->select('zone', 'disposition_id', 'disposition', 'page')
 						->from('nf_dispositions')
-						->where('theme', $this->load->theme->get_name())
+						->where('theme', $this->load->theme->name)
 						->order_by('page DESC');
 
 			$pages = array('page', '*', 'OR');

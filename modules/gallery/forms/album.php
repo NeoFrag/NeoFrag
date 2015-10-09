@@ -20,40 +20,40 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label'  => 'Titre',
+		'label'  => '{lang title}',
 		'value'  => $title,
 		'type'   => 'text',
 		'rules'  => 'required',
 	),
 	'category' => array(
-		'label'  => 'Catégorie',
+		'label'  => '{lang category}',
 		'value'  => $category_id,
 		'values' => $categories,
 		'type'   => 'select',
 		'rules'  => 'required'
 	),
 	'image' => array(
-		'label'  => 'Affiche',
+		'label'  => '{lang upload}',
 		'value'  => $image,
 		'type'   => 'file',
 		'upload' => 'gallery/covers',
-		'info'   => ' d\'image (max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 		}
 	),
 	'description' => array(
-		'label'   => 'Description',
+		'label'   => '{lang description}',
 		'value'   => $description,
 		'type'    => 'editor'
 	),
 	'published' => array(
 		'type'    => 'checkbox',
 		'checked' => array('on' => $published),
-		'values'  => array('on' => 'Album visible dans la galerie')
+		'values'  => array('on' => '{lang album_visible}')
 	)
 );
 

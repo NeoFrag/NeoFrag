@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_slider extends Widget
 {
-	public $name        = 'Slider';
+	public $title       = '{lang slider}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';

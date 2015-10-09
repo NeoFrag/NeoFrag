@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label' => 'Titre',
+		'label' => '{lang title}',
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'

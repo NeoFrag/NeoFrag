@@ -46,25 +46,25 @@ class m_games_c_admin extends Controller_Module
 							)
 						))
 						->data($this->model()->get_games())
-						->no_data('Il n\'y a pas encore de jeu')
+						->no_data($this('no_games'))
 						->pagination(FALSE)
 						->display();
 		
 		return new Row(
 			new Col(
 				new Panel(array(
-					'title'   => 'Liste des jeux',
+					'title'   => $this('game_list'),
 					'icon'    => 'fa-gamepad',
 					'content' => $games,
-					'footer'  => button_add('admin/games/add.html', 'Ajouter un jeu'),
+					'footer'  => button_add('admin/games/add.html', $this('add_game')),
 					'size'    => 'col-md-12 col-lg-4'
 				))
 			),
 			new Col(
 				new Panel(array(
-					'title'   => 'Liste des cartes',
+					'title'   => $this('maps_list_title'),
 					'icon'    => 'fa-picture-o',
-					'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant. ',
+					'content' => $this('unavailable_feature'),
 					//'footer'  => button_add('admin/games/add.html', 'Ajouter une carte'),
 					'style'   => 'panel-info',
 					'size'    => 'col-md-12 col-lg-8'
@@ -75,13 +75,13 @@ class m_games_c_admin extends Controller_Module
 	
 	public function add()
 	{
-		$this	->title('Jeux / Cartes')
-				->subtitle('Ajouter un jeu')
+		$this	->title($this('games_maps'))
+				->subtitle($this('add_game'))
 				->load->library('form')
 				->add_rules('games', array(
 					'games' => $this->model()->get_games_list(),
 				))
-				->add_submit('Ajouter')
+				->add_submit($this('add'))
 				->add_back('admin/games.html');
 
 		if ($this->form->is_valid($post))
@@ -91,12 +91,12 @@ class m_games_c_admin extends Controller_Module
 										$post['image'],
 										$post['icon']);
 
-			add_alert('Succes', 'Jeu ajouté avec succès');
+			//add_alert('success', $this('game_success_message'));
 			redirect_back('admin/games.html');
 		}
 
 		return new Panel(array(
-			'title'   => 'Nouveau jeu',
+			'title'   => $this('new_game'),
 			'icon'    => 'fa-gamepad',
 			'content' => $this->form->display()
 		));
@@ -104,8 +104,8 @@ class m_games_c_admin extends Controller_Module
 	
 	public function _edit($game_id, $parent_id, $image_id, $icon_id, $title)
 	{
-		$this	->title('Jeux / Cartes')
-				->subtitle('Editer un jeu')
+		$this	->title($this('games_maps'))
+				->subtitle($this('edit_game'))
 				->load->library('form')
 				->add_rules('games', array(
 					'games'     => $this->model()->get_games_list($game_id),
@@ -114,7 +114,7 @@ class m_games_c_admin extends Controller_Module
 					'image_id'  => $image_id,
 					'icon_id'   => $icon_id
 				))
-				->add_submit('Éditer')
+				->add_submit($this('edit'))
 				->add_back('admin/games.html');
 		
 		if ($this->form->is_valid($post))
@@ -125,7 +125,7 @@ class m_games_c_admin extends Controller_Module
 										$post['image'],
 										$post['icon']);
 		
-			add_alert('Succes', 'Jeu édité avec succès');
+			//add_alert('success', $this('edit_game_message'));
 
 			redirect_back('admin/games.html');
 		}
@@ -133,7 +133,7 @@ class m_games_c_admin extends Controller_Module
 		$game = $this->form->display();
 		
 		return new Panel(array(
-			'title'   => 'Édition du jeu '.$title,
+			'title'   => $this('edit_game_title', $title),
 			'icon'    => 'fa-gamepad',
 			'content' => $game
 		));
@@ -141,10 +141,10 @@ class m_games_c_admin extends Controller_Module
 	
 	public function delete($game_id, $title)
 	{
-		$this	->title('Suppression d\'un jeu')
+		$this	->title($this('delete_game'))
 				->subtitle($title)
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer le jeu <b>'.$title.'</b> ?<br />Toutes les cartes et les équipes associées à ce jeu seront aussi supprimées.');
+				->confirm_deletion($this('delete_confirmation'), $this('delete_game_message', $title));
 
 		if ($this->form->is_valid())
 		{

@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -69,11 +69,11 @@ class Col
 		{
 			$output = '<div class="live-editor-col">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="Réduire">'.icon('fa-compress fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="Augmenter">'.icon('fa-expand fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="Supprimer">'.icon('fa-close').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('reduce').'">'.icon('fa-compress fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('increase').'">'.icon('fa-expand fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('remove').'">'.icon('fa-close').'</button>
 							</div>
-							<h3>Col <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="Nouveau Widget">'.icon('fa-plus').'</button></div></h3>
+							<h3>'.NeoFrag::loader()->lang('col').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('new_widget').'">'.icon('fa-plus').'</button></div></h3>
 							'.$output.'
 						</div>';
 		}

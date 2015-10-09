@@ -47,7 +47,7 @@ class Profiler extends Core
 			
 			foreach ($this->_log as $log)
 			{
-				fwrite($f, timetostr($this->lang('date_time_short')).' : '.$log[0]."\n");
+				fwrite($f, timetostr(NeoFrag::loader()->lang('date_time_short')).' : '.$log[0]."\n");
 			}
 			
 			fwrite($f, str_repeat('=', 150)."\n");

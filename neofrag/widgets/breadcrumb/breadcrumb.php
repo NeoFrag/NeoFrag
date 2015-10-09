@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_breadcrumb extends Widget
 {
-	public $name        = 'Fil d\'Ariane';
+	public $title       = '{lang breadcrumb}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';

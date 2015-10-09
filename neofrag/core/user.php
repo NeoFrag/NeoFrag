@@ -130,6 +130,10 @@ class User extends Core
 							));
 			}
 		}
+		
+		$this->config->set_language();
+
+		$this->check_http_authentification();
 	}
 	
 	public function set($name, $value)

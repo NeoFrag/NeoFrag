@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_gallery extends Widget
 {
-	public $name        = 'Galeries';
+	public $title       = '{lang galleries}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Jérémy Valentin <jeremy.valentin@neofrag.com>';
@@ -29,10 +29,10 @@ class w_gallery extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index'  => 'Liste des catégories',
-		'albums' => 'Albums d\'une catégorie',
-		'image'  => 'Image aléatoire',
-		'slider' => 'Slider d\'un album'
+		'index'  => '{lang categories_list}',
+		'albums' => '{lang albums_from_category}',
+		'image'  => '{lang random_picture}',
+		'slider' => '{lang album_slide}'
 	);
 }
 

@@ -52,7 +52,7 @@ class Form extends Library
 	public function add_back($url)
 	{
 		array_unshift($this->_buttons, array(
-			'label'  => 'Retour',
+			'label'  => NeoFrag::loader()->lang('back'),
 			'action' => $this->session->get_back() ?: $url
 		));
 
@@ -157,7 +157,7 @@ class Form extends Library
 						{
 							if (!($post[$var] = $this->file->upload($files, isset($options['upload']) ? $options['upload'] : NULL, $filename, isset($options['value']) ? $options['value'] : NULL, $var)))
 							{
-								$this->_errors[$var] = 'Erreur de transfert';
+								$this->_errors[$var] = NeoFrag::loader()->lang('file_transfer_error');
 								return FALSE;
 							}
 							else if (isset($options['post_upload']) && is_callable($options['post_upload']))
@@ -194,7 +194,7 @@ class Form extends Library
 			array_diff(array_filter($post[$var]), array_map('utf8_htmlentities', array_keys($options['values'])))
 		)
 		{
-			return 'La ou les valeurs entrées ne sont pas valides';
+			return NeoFrag::loader()->lang('invalid_values', count($post[$var]));
 		}
 		
 		$is_file = !empty($options['type']) && $options['type'] == 'file';
@@ -208,22 +208,12 @@ class Form extends Library
 				)
 			)
 		{
-			return 'Veuillez remplir ce champ';
+			return NeoFrag::loader()->lang('required_input');
 		}
 		
 		if ($is_file && !empty($_FILES[$this->id]['error'][$var]) && $_FILES[$this->id]['error'][$var] != 4)
 		{
-			$errors = array(
-				'La taille du fichier téléchargé excède la valeur de upload_max_filesize, configurée dans le php.ini',
-				'La taille du fichier téléchargé excède la valeur de MAX_FILE_SIZE, qui a été spécifiée dans le formulaire HTML',
-				'Le fichier n\'a été que partiellement téléchargé',
-				'Aucun fichier n\'a été téléchargé',
-				'Un dossier temporaire est manquant',
-				'Échec de l\'écriture du fichier sur le disque',
-				'Une extension PHP a arrêté l\'envoi de fichier'
-			);
-			
-			return $errors[$_FILES[$this->id]['error'][$var]  - 1];
+			return NeoFrag::loader()->lang('file_transfer_error_'.$_FILES[$this->id]['error'][$var]);
 		}
 		
 		if (isset($options['check']) && is_callable($options['check']))
@@ -268,7 +258,7 @@ class Form extends Library
 	{
 		if (strlen($post[$var]) && !is_valid_email($post[$var]))
 		{
-			return 'Veuillez entrer une adresse email valide';
+			return NeoFrag::loader()->lang('wrong_email');
 		}
 		
 		return $this->_check_text($post, $var, $options);
@@ -278,7 +268,7 @@ class Form extends Library
 	{
 		if (strlen($post[$var]) && !is_valid_url($post[$var]))
 		{
-			return 'Veuillez entrer une adresse url valide';
+			return NeoFrag::loader()->lang('wrong_url');
 		}
 		
 		return $this->_check_text($post, $var, $options);
@@ -305,15 +295,15 @@ class Form extends Library
 			if ($this->config->ajax_url)
 			{
 				return '<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.NeoFrag::loader()->lang('close').'</span></button>
 							<h4 class="modal-title">'.$title.'</h4>
 						</div>
 						<div class="modal-body">
 							'.$message.'
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
+							<button type="button" class="btn btn-default" data-dismiss="modal">'.NeoFrag::loader()->lang('cancel').'</button>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">'.NeoFrag::loader()->lang('remove').'</a>
 						</div>';
 			}
 			else
@@ -357,7 +347,7 @@ class Form extends Library
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($type, array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $options['label'] : '');
+					$output .= '<label class="control-label col-md-3"'.(!in_array($type, array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
 
 					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
 					{
@@ -373,7 +363,7 @@ class Form extends Library
 
 		if ($this->_display_required)
 		{
-			$output .= '<div class="form-group"><div class="col-md-offset-3 col-md-9"><em class="text-muted">* Toutes les informations marquées d\'une étoile sont requises.</em></div></div>';
+			$output .= '<div class="form-group"><div class="col-md-offset-3 col-md-9"><em class="text-muted">'.NeoFrag::loader()->lang('required_fields').'</em></div></div>';
 		}
 
 		if (!empty($this->_buttons))
@@ -451,7 +441,7 @@ class Form extends Library
 		
 		if (!empty($options['description']))
 		{
-			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$options['description'];
+			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$this->load->lang($options['description'], NULL);
 		}
 		
 		if (!empty($this->_errors[$var]))
@@ -534,13 +524,13 @@ class Form extends Library
 			$value = ' value="'.addcslashes($this->_display_value($var, $options), '"').'"';
 		}
 		
-		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$options['label'].'"' : '').' />';
+		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$this->load->lang($options['label'], NULL).'"' : '').' />';
 
 		if ($type == 'file')
 		{
 			$post = post();
 			
-			$input = '<div style="margin: 7px 0;"><p>'.icon('fa-download').' Télécharger un fichier'.(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
+			$input = '<div style="margin: 7px 0;"><p>'.icon('fa-download').' '.NeoFrag::loader()->lang('upload_file').(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
 			
 			if (!empty($options['value']))
 			{
@@ -555,7 +545,7 @@ class Form extends Library
 										<div class="thumbnail no-margin">
 											<img src="'.url($this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row()).'" alt="" />
 											<div class="caption text-center">
-												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->id.'['.$var.']">'.icon('fa-trash-o').' Supprimer</a>
+												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->id.'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag::loader()->lang('remove').'</a>
 											</div>
 										</div>
 									</div>
@@ -594,9 +584,9 @@ class Form extends Library
 											cols: 10,
 											rows: 5,
 											iconset: "fontawesome",
-											labelHeader: "{0} sur {1} pages",
-											labelFooter: "<div class=\"pull-right\">{2} icônes</div>",
-											searchText: "Rechercher",
+											labelHeader: "'.NeoFrag::loader()->lang('pages').'",
+											labelFooter: "<div class=\"pull-right\">'.NeoFrag::loader()->lang('icons').'</div>",
+											searchText: "'.NeoFrag::loader()->lang('search').'",
 											selectedClass: "btn-primary",
 											unselectedClass: ""
 										});');
@@ -652,7 +642,7 @@ class Form extends Library
 				 $output .= '	<div class="checkbox">
 									<label>
 										<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
-										'.$label.'
+										'.$this->load->lang($label, NULL).'
 									</label>
 								</div>';
 			}
@@ -673,7 +663,7 @@ class Form extends Library
 			{
 				 $output .= '	<label class="radio-inline">
 									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
-									'.$label.'
+									'.$this->load->lang($label, NULL).'
 								</label>';
 			}
 		}
@@ -697,7 +687,7 @@ class Form extends Library
 
 			foreach ($options['values'] as $value => $label)
 			{
-				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$label.'</option>';
+				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$this->load->lang($label, NULL).'</option>';
 			}
 		}
 		

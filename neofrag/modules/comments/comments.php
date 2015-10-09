@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_comments extends Module
 {
-	public $name        = 'Commentaires';
+	public $title       = '{lang comments}';
 	public $description = '';
 	public $icon        = 'fa-comments-o';
 	public $link        = 'http://www.neofrag.com';

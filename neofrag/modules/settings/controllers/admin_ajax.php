@@ -73,7 +73,7 @@ class m_settings_c_admin_ajax extends Controller_Module
 										zip_entry_close($zip_entry);
 										
 										return json_encode(array(
-											'error' => $cmp == 0 ? 'Cette version est déjà instalée' : 'Une version plus récente de ce thème est déjà instalée'
+											'error' => $this($cmp == 0 ? 'already_installed_version' : 'not_newer_installed_version')
 										));
 									}
 								}
@@ -115,14 +115,14 @@ class m_settings_c_admin_ajax extends Controller_Module
 					}
 					
 					return json_encode(array(
-						'error' => 'Le thème n\'a pas pu être installé, veuillez vérifier qu\'il s\'agisse bien d\'un thème'
+						'error' => $this('error_theme_install')
 					));
 				}
 			}
 		}
 		
 		return json_encode(array(
-			'error' => 'Veuillez télécharger un thème .zip'
+			'error' => $this('zip_file_required')
 		));
 	}
 	

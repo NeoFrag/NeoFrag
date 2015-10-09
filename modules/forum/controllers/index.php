@@ -35,17 +35,17 @@ class m_forum_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = new Panel(array(
-				'title'   => 'Forum',
+				'title'   => $this('forum'),
 				'icon'    => 'fa-comments',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center">Il n\'y a pas de forum pour le moment</div>'
+				'content' => '<div class="text-center">'.$this('no_forum').'</div>'
 			));
 		}
 		
 		if ($this->user())
 		{
 			$actions = new Panel(array(
-				'content' => '<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">'.icon('fa-eye').'</a>',
+				'content' => '<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>',
 				'body'    => FALSE,
 				'style'   => 'panel-back text-right'
 			));
@@ -66,7 +66,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = new Panel(array(
 				'content' => $this->load->view('index', array(
-					'title'  => 'Sous-catégories',
+					'title'  => $this('subforums'),
 					'forums' => $subforums
 				)),
 				'body'    => FALSE
@@ -77,7 +77,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = new Panel(array(
 				'content' => $this->load->view('forum', array(
-					'title'  => 'Annonces',
+					'title'  => $this('announces'),
 					'icon'   => 'fa-flag',
 					'topics' => $announces
 				)),
@@ -94,7 +94,7 @@ class m_forum_c_index extends Controller_Module
 			'body'    => FALSE
 		));
 		
-		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">Retour</a>';
+		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">'.$this('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -103,12 +103,12 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($this->access('forum', 'category_write', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">Nouveau sujet</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">'.$this('new_topic').'</a>';
 		}
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Marquer tous les messages comme étant lus">'.icon('fa-eye').'</a>';
+			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>';
 		}
 
 		array_unshift($panels, $panels[] = new Panel(array(
@@ -122,7 +122,7 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _new($forum_id, $title, $category_id)
 	{
-		$this	->title('Nouveau sujet')
+		$this	->title($this('new_topic'))
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
@@ -165,7 +165,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = new Row(new Col(
 				new Panel(array(
-					'title'   => 'Veuillez remplir tous les champs',
+					'title'   => $this('fill_all_fields'),
 					'icon'    => 'fa-warning',
 					'style'   => 'panel-danger'
 				))
@@ -173,7 +173,7 @@ class m_forum_c_index extends Controller_Module
 		}
 		
 		$panels[] = new Panel(array(
-			'title'   => 'Nouveau sujet',
+			'title'   => $this('new_topic'),
 			'icon'    => 'fa-file-text-o',
 			'body'    => FALSE,
 			'content' => $this->load->view('new', array(
@@ -238,7 +238,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 		
-		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">Retour</a>';
+		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">'.$this('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -254,23 +254,23 @@ class m_forum_c_index extends Controller_Module
 				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page.'.html');
 			}
 			
-			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">Répondre</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this('reply').'</a>';
 		}
 
 		if ($topic['user_id'] == $this->user('user_id') || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Supprimer le sujet">'.icon('fa-close').'</a>';
+			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('remove_topic').'">'.icon('fa-close').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Déverrouiller le sujet">'.icon('fa-unlock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('unlock_topic').'">'.icon('fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Verrouiller le sujet">'.icon('fa-lock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('lock_topic').'">'.icon('fa-lock').'</a>';
 			}
 		}
 
@@ -278,11 +278,11 @@ class m_forum_c_index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Retirer des annonces">'.icon('fa-flag-o').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('unset_announce').'">'.icon('fa-flag-o').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="Mettre en annonce">'.icon('fa-flag').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('set_announce').'">'.icon('fa-flag').'</a>';
 			}
 		}
 		
@@ -291,7 +291,7 @@ class m_forum_c_index extends Controller_Module
 		if ($is_locked)
 		{
 			$panels[] = new Panel(array(
-				'title'   => '<a name="reply"></a>Le sujet est verrouillé',
+				'title'   => '<a name="reply"></a>'.$this('locked_topic'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger'
 			));
@@ -347,13 +347,13 @@ class m_forum_c_index extends Controller_Module
 							'rules' => 'required'
 						)
 					))
-					->add_submit('Répondre');
+					->add_submit($this('reply'));
 			
 			if ($this->form->is_valid($post))
 			{
 				$message_id = $this->model()->add_message($topic_id, $post['message']);
 
-				add_alert('Succes', 'Réponse ajoutée');
+				//add_alert('success', $this('add_reply_success'));
 			
 				$page = '';
 			
@@ -369,7 +369,7 @@ class m_forum_c_index extends Controller_Module
 			{
 				$panels[] = new Row(new Col(
 					new Panel(array(
-						'title'   => '<a name="reply"></a>Veuillez remplir un message',
+						'title'   => '<a name="reply"></a>'.$this('message_needed'),
 						'icon'    => 'fa-warning',
 						'style'   => 'panel-danger'
 					))
@@ -377,7 +377,7 @@ class m_forum_c_index extends Controller_Module
 			}
 
 			$panels[] = new Panel(array(
-				'title'   => '<a name="reply"></a>Répondre au sujet',
+				'title'   => '<a name="reply"></a>'.$this('reply_topic').'',
 				'icon'    => 'fa-file-text-o',
 				'body'    => FALSE,
 				'content' => $this->load->view('new', array(
@@ -395,7 +395,7 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', array(
 						'status' => (string)($is_announce ? ($is_locked ? -1 : 0) : ($is_locked ? -2 : 1))
 					));
-		add_alert('succes', 'topic mis en annonce ou pas...');
+		//add_alert('success', $this('toggle_announce_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
@@ -405,14 +405,14 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', array(
 						'status' => (string)($is_locked ? ($is_announce ? 1 : 0) : ($is_announce ? -2 : -1))
 					));
-		add_alert('succes', 'topic verrouillé ou pas...');
+		//add_alert('success', $this('toggle_lock_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 		
 	}
 	
 	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $user_id, $username, $avatar, $sex, $online, $admin)
 	{
-		$this	->title('Édition du '.($is_topic ? 'sujet' : 'message'))
+		$this	->title($this($is_topic ? 'edit_topic' : 'edit_message'))
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
@@ -449,7 +449,7 @@ class m_forum_c_index extends Controller_Module
 							'message' => $post['message']
 						));
 
-			add_alert('Succes', 'message modifié');
+			//add_alert('success', $this('edit_message_success'));
 
 			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title).'.html');
 		}
@@ -460,7 +460,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = new Row(new Col(
 				new Panel(array(
-					'title'   => $is_topic ? 'Veuillez remplir tous les champs' : 'Veuillez remplir un message',
+					'title'   => $this($is_topic ? 'fill_all_fields' : 'message_needed'),
 					'icon'    => 'fa-warning',
 					'style'   => 'panel-danger'
 				))
@@ -468,7 +468,7 @@ class m_forum_c_index extends Controller_Module
 		}
 		
 		$panels[] = new Panel(array(
-			'title'   => 'Édition du '.($is_topic ? 'sujet' : 'message'),
+			'title'   => $this($is_topic ? 'edit_topic' : 'edit_message'),
 			'icon'    => 'fa-file-text-o',
 			'body'    => FALSE,
 			'content' => $this->load->view('new', array(
@@ -491,10 +491,10 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _message_delete($message_id, $title, $topic_id, $forum_id, $is_topic)
 	{
-		$this	->title('Suppression du '.($is_topic ? 'sujet' : 'message'))
+		$this	->title($this($is_topic ? 'delete_topic' : 'delete_message'))
 				->subtitle($title)
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer '.($is_topic ? 'le sujet <b>'.$title.'</b>' : 'ce message').' ?');
+				->confirm_deletion($this('delete_confirmation'),  $is_topic ? $this('topic_confirmation', $title) : $this('message_confirmation'));
 
 		if ($this->form->is_valid())
 		{
@@ -560,7 +560,7 @@ class m_forum_c_index extends Controller_Module
 	public function mark_all_as_read()
 	{
 		$this->model()->mark_all_as_read();
-		add_alert('Succes', 'Tous les messages sont désormais considéré comme étant lus');
+		//add_alert('success', $this('marked_as_read'));
 		redirect('forum.html');
 	}
 	
@@ -571,7 +571,7 @@ class m_forum_c_index extends Controller_Module
 			$this->model()->mark_all_as_read($id);
 		}
 		
-		add_alert('Succes', 'Tous les messages du forum '.$title.' sont désormais considéré comme étant lus');
+		//add_alert('success', $this('forum_marked_as_read', $title));
 		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
 	}
 }

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_games extends Module
 {
-	public $name        = 'Jeux / Cartes';
+	public $title       = '{lang games_maps}';
 	public $description = '';
 	public $icon        = 'fa-gamepad';
 	public $link        = 'http://www.neofrag.com';

@@ -1,13 +1,13 @@
 <?php if (isset($data['module_actions']) && count($data['module_actions']) > 3): ?>
 	<div class="pull-right btn-group">
-		<button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+		<button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo i18n('actions'); ?> <span class="caret"></span></button>
 		<ul class="dropdown-menu">
 		<?php
 			foreach ($data['module_actions'] as $action)
 			{
 				list($url, $title, $icon) = $action;
 
-				echo '<li><a href="'.url($url).'">'.$icon.$title.'</a></li>';
+				echo '<li><a href="'.url($url).'">'.$icon.' '.$title.'</a></li>';
 			}
 		?>
 		</ul>

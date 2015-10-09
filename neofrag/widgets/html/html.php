@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_html extends Widget
 {
-	public $name        = 'Contenu libre / Code HTML';
+	public $title       = '{lang free_content_html_code}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -29,8 +29,8 @@ class w_html extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index' => 'Contenu libre',
-		'html'  => 'Code HTML'
+		'index' => '{lang free_content}',
+		'html'  => '{lang html_code}'
 	);
 }
 

@@ -23,7 +23,7 @@ class m_comments_c_admin extends Controller_Module
 	public function index($comments, $modules, $tab)
 	{
 		$this	->load->library('tab')
-				->add_tab('default', 'Tous les commentaires', '_tab_index', $comments);
+				->add_tab('default', $this('all_comments'), '_tab_index', $comments);
 
 		foreach ($modules as $module_name => $module)
 		{
@@ -38,14 +38,14 @@ class m_comments_c_admin extends Controller_Module
 	
 	public function _tab_index($comments, $title = NULL)
 	{
-		$this	->subtitle(is_null($title) ? 'Tous les commentaires' : $title)
-					->load->library('table');
+		$this	->subtitle(is_null($title) ? $this('all_comments') : $title)
+				->load->library('table');
 		
 		if (is_null($title))
 		{
 			$this->table->add_columns(array(
 				array(
-					'title'   => 'Module',
+					'title'   => $this('module'),
 					'content' => function($data){
 						return '<a href="'.url('admin/comments/'.$data['module'].'.html').'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
 					},
@@ -62,7 +62,7 @@ class m_comments_c_admin extends Controller_Module
 	
 		echo $this->table->add_columns(array(
 			array(
-				'title'   => 'Nom',
+				'title'   => $this('name'),
 				'content' => function($data){
 					return $data['title'];
 				},
@@ -74,21 +74,21 @@ class m_comments_c_admin extends Controller_Module
 				}
 			),
 			array(
-				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Nombre de commentaires"></i>',
+				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this('number_comments').'"></i>',
 				'content' => function($data){
 					return NeoFrag::loader()->library('comments')->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
 				'size'    => TRUE
 			),
 			array(
-				'content' => function($data){
-					return button($data['url'], 'fa-eye', 'Voir les commentaires', 'info');
+				'content' => function($data, $loader){
+					return button($data['url'], 'fa-eye', $loader->lang('see_comments'), 'info');
 				},
 				'size'    => TRUE
 			)
 		))
 		->data($comments)
-		->no_data('Il n\'y a pas de commentaire')
+		->no_data($this('no_comments'))
 		->sort_by(1)
 		->display();
 	}

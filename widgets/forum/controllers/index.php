@@ -27,19 +27,19 @@ class w_forum_c_index extends Controller_Widget
 		if (!empty($messages))
 		{
 			return new Panel(array(
-				'title'        => 'Derniers messages',
+				'title'        => $this('last_messages'),
 				'content'      => $this->load->view('index', array(
 					'messages' => $messages
 				)),
-				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' Accèder au forum</a>',
+				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Derniers messages',
-				'content' => 'Aucun message pour le moment'
+				'title'   => $this('last_messages'),
+				'content' => $this('no_messages')
 			));
 		}
 	}
@@ -51,19 +51,19 @@ class w_forum_c_index extends Controller_Widget
 		if (!empty($topics))
 		{
 			return new Panel(array(
-				'title'        => 'Derniers sujets',
+				'title'        => $this('last_topics'),
 				'content'      => $this->load->view('topics', array(
 					'topics' => $topics
 				)),
-				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' Accèder au forum</a>',
+				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Derniers sujets',
-				'content' => 'Aucun sujet pour le moment'
+				'title'   => $this('last_topics'),
+				'content' => $this('no_topics')
 			));
 		}
 	}
@@ -71,7 +71,7 @@ class w_forum_c_index extends Controller_Widget
 	public function statistics($config = array())
 	{
 		return new Panel(array(
-			'title'   => 'Statistiques',
+			'title'   => $this('statistics'),
 			'icon'    => 'fa-signal',
 			'body'    => FALSE,
 			'content' => $this->load->view('statistics', array(
@@ -92,7 +92,7 @@ class w_forum_c_index extends Controller_Widget
 		});
 		
 		return new Panel(array(
-			'title'   => 'Activité du forum',
+			'title'   => $this('forum_activity'),
 			'icon'    => 'fa-globe',
 			'content' => $this->load->view('activity', array(
 				'users'    => $users,

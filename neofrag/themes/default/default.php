@@ -20,8 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class t_default extends Theme
 {
-	public $name        = 'Default';
-	public $description = 'Son design est minimaliste mais générique, il peut s\'adapter facilement à n\'importe quel domaine.';
+	public $title       = '{lang default_theme}';
+	public $description = '{lang default_theme_description}';
 	public $thumbnail   = 'neofrag/themes/default/images/thumbnail.png';
 	public $link        = 'http://www.neofrag.fr';
 	public $author      = 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>';
@@ -29,7 +29,7 @@ class t_default extends Theme
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $zones       = array('Contenu', 'Avant-contenu', 'Post-contenu', 'Header', 'Top', 'Footer');
+	public $zones       = array('{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}');
 
 	public function load()
 	{
@@ -56,7 +56,7 @@ class t_default extends Theme
 				->config('default_background_position',   'center top')
 				->config('default_background_color',      '#141d26');
 		
-		$dispositions['*']['Contenu'] = array(
+		$dispositions['*']['{lang content}'] = array(
 			new Row(
 				new Col(
 					new Widget_View(array(
@@ -110,7 +110,7 @@ class t_default extends Theme
 			, 'row-light')
 		);
 		
-		$dispositions['*']['Avant-contenu'] = array(
+		$dispositions['*']['{lang pre_content}'] = array(
 			new Row(
 				new Col(
 					new Widget_View(array(
@@ -142,9 +142,9 @@ class t_default extends Theme
 			, 'row-default')
 		);
 		
-		$dispositions['*']['Post-contenu'] = array();
+		$dispositions['*']['{lang post_content}'] = array();
 		
-		$dispositions['*']['Header'] = array(
+		$dispositions['*']['{lang header}'] = array(
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
@@ -163,34 +163,34 @@ class t_default extends Theme
 			new Row(
 				new Col(
 					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', array(
+						'widget_id' => $this->db->insert('nf_widgets', $navigation = array(
 							'widget'   => 'navigation',
 							'type'     => 'index',
 							'settings' => serialize(array(
 								'display' => TRUE,
 								'links'   => array(
 									array(
-										'title' => 'Accueil',
+										'title' => utf8_htmlentities($this('home')),
 										'url'   => 'index.html'
 									),
 									array(
-										'title' => 'Actualit&eacute;s',
+										'title' => utf8_htmlentities($this('news')),
 										'url'   => 'news.html'
 									),
 									array(
-										'title' => 'Forum',
+										'title' => utf8_htmlentities($this('forum')),
 										'url'   => 'forum.html'
 									),
 									array(
-										'title' => '&Eacute;quipes',
+										'title' => utf8_htmlentities($this('teams')),
 										'url'   => 'teams.html'
 									),
 									array(
-										'title' => 'Membres',
+										'title' => utf8_htmlentities($this('members')),
 										'url'   => 'members.html'
 									),
 									array(
-										'title' => 'Contact',
+										'title' => utf8_htmlentities($this('contact')),
 										'url'   => 'contact.html'
 									)
 								)
@@ -209,7 +209,7 @@ class t_default extends Theme
 			, 'row-black')
 		);
 
-		$dispositions['*']['Top'] = array(
+		$dispositions['*']['{lang top}'] = array(
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
@@ -247,14 +247,14 @@ class t_default extends Theme
 			, 'row-default')
 		);
 		
-		$dispositions['*']['Footer'] = array(
+		$dispositions['*']['{lang footer}'] = array(
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
 						'widget'   => 'html',
 						'type'     => 'index',
 						'settings' => serialize(array(
-							'content' => '[center]Propuls&eacute; par [url=http://www.neofrag.fr]NeoFrag CMS[/url]﻿ version Alpha 0.1﻿.1[/center]'
+							'content' => utf8_htmlentities($this('powered_by_neofrag'))
 						))
 					)),
 					'style' => 'panel-dark'
@@ -262,7 +262,7 @@ class t_default extends Theme
 			, 'row-default')
 		);
 		
-		$dispositions['/']['Header'] = array(
+		$dispositions['/']['{lang header}'] = array(
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
@@ -281,39 +281,7 @@ class t_default extends Theme
 			new Row(
 				new Col(
 					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', array(
-							'widget'   => 'navigation',
-							'type'     => 'index',
-							'settings' => serialize(array(
-								'display' => TRUE,
-								'links'   => array(
-									array(
-										'title' => 'Accueil',
-										'url'   => 'index.html'
-									),
-									array(
-										'title' => 'Actualit&eacute;s',
-										'url'   => 'news.html'
-									),
-									array(
-										'title' => 'Forum',
-										'url'   => 'forum.html'
-									),
-									array(
-										'title' => '&Eacute;quipes',
-										'url'   => 'teams.html'
-									),
-									array(
-										'title' => 'Membres',
-										'url'   => 'members.html'
-									),
-									array(
-										'title' => 'Contact',
-										'url'   => 'contact.html'
-									)
-								)
-							))
-						))
+						'widget_id' => $this->db->insert('nf_widgets', $navigation)
 					)), 'col-md-8'
 				),
 				new Col(
@@ -337,7 +305,7 @@ class t_default extends Theme
 		
 		foreach (array('forum/*', 'news/_news/*', 'user/*') as $page)
 		{
-			$dispositions[$page]['Contenu'] = array(
+			$dispositions[$page]['{lang content}'] = array(
 				new Row(
 					new Col(
 						new Widget_View(array(
@@ -359,7 +327,7 @@ class t_default extends Theme
 			);
 		}
 		
-		$dispositions['forum/*']['Post-contenu'] = array(
+		$dispositions['forum/*']['{lang post_content}'] = array(
 			new Row(
 				new Col(
 					new Widget_View(array(

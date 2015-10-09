@@ -22,41 +22,59 @@ class m_settings_c_admin extends Controller_Module
 {
 	public function index()
 	{
-		$this->title('Configuration');
+		$this->title($this('configuration'));
 		
 		$modules = array();
 		foreach ($this->get_modules() as $module)
 		{
 			if ($module->administrable)
 			{
-				$modules[$module->get_name()] = $module->name;
+				$modules[$module->name] = $module->get_title();
 			}
 		}
 		
 		natsort($modules);
-		
+
+		$langs = array();
+		foreach (preg_grep('/\.php$/', scandir('./neofrag/lang/')) as $file)
+		{
+			$lang = array();
+			include './neofrag/lang/'.$file;
+
+			$langs[substr($file, 0, -4)] = $lang['lang'];
+		}
+
+		natsort($langs);
+
 		$this->load->library('form')
 				->add_rules(array(
 					'name' => array(
-						'label'         => 'Titre du site',
+						'label'         => $this('site_title'),
 						'value'         => $this->config->nf_name,
 						'rules'			=> 'required'
 					),
 					'description' => array(
-						'label'         => 'Description du site',
+						'label'         => $this('site_description'),
 						'value'         => $this->config->nf_description,
 						'rules'			=> 'required'
 					),
 					'contact' => array(
-						'label'			=> 'Email de contact',
+						'label'			=> $this('contact_email'),
 						'value'			=> $this->config->nf_contact,
 						'type'			=> 'email',
 						'rules'			=> 'required'
 					),
 					'default_page' => array(
-						'label'			=> 'Page d\'accueil',
+						'label'			=> $this('default_page'),
 						'values'		=> $modules,
 						'value'			=> $this->config->nf_default_page,
+						'type'			=> 'select',
+						'rules'			=> 'required'
+					),
+					'default_language' => array(
+						'label'			=> $this('language'),
+						'values'		=> $langs,
+						'value'			=> $this->config->nf_default_language,
 						'type'			=> 'select',
 						'rules'			=> 'required'
 					),
@@ -71,18 +89,18 @@ class m_settings_c_admin extends Controller_Module
 						'value'			=> $this->config->nf_robots_txt
 					),
 					'analytics' => array(
-						'label'			=> 'Code analytics',
+						'label'			=> $this('code_analytics'),
 						'type'			=> 'textarea',
 						'value'			=> $this->config->nf_analytics
 					),
 					'debug' => array(
-						'label'			=> 'Mode débug',
+						'label'			=> $this('debug_mode'),
 						'type'			=> 'radio',
 						'value'			=> $this->config->nf_debug,
-						'values'        => array('Désactivé', 'Erreurs seulement', 'Complet')
+						'values'        => array($this('debug_disabled'), $this('debug_errors_only'), $this('debug_full'))
 					)
 				))
-				->add_submit('Valider')
+				->add_submit($this('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -96,7 +114,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 		
 		return new Panel(array(
-			'title'   => 'Préférences générales',
+			'title'   => $this('general_settings'),
 			'icon'    => 'fa-cogs',
 			'content' => $this->form->display()
 		));
@@ -104,38 +122,38 @@ class m_settings_c_admin extends Controller_Module
 
 	public function components()
 	{
-		$this	->title('Gestion des composants')
+		$this	->title($this('components_management'))
 				->icon('fa-puzzle-piece');
 		
 		return new Panel(array(
-			'title'   => 'Gestion des composants',
+			'title'   => $this('components_management'),
 			'icon'    => 'fa-puzzle-piece',
 			'style'   => 'panel-info',
-			'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant.',
+			'content' => $this('unavailable_feature'),
 			'size'    => 'col-md-12'
 		));
 	}
 
 	public function themes()
 	{
-		$this	->title('Thèmes')
+		$this	->title($this('themes'))
 				->icon('fa-tint');
 		
 		return new Panel(array(
-			'title'   => 'Liste des thèmes installés',
+			'title'   => $this('list_installed_themes'),
 			'icon'    => 'fa-tint',
 			'content' => $this->load->view('themes', array(
 				'themes' => $this->get_themes()
 			)),
-			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install">'.icon('fa-download').' Installer / Mettre à jour un thème</button>',
+			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install">'.icon('fa-download').' '.$this('install_theme_btn').'</button>',
 			'size'    => 'col-md-12'
 		));
 	}
 	
 	public function _theme_internal($theme, $controller)
 	{
-		$this	->title($theme->name)
-				->subtitle('Personnalisation du thème')
+		$this	->title($theme->get_title())
+				->subtitle($this('theme_customize'))
 				->icon('fa-paint-brush');
 		
 		return $controller->index($theme);

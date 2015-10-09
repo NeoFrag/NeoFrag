@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_error extends Module
 {
-	public $name          = 'Erreur';
+	public $title         = '{lang error}';
 	public $description   = '';
 	public $icon          = 'fa-exclamation-triangle';
 	public $link          = 'http://www.neofrag.com';

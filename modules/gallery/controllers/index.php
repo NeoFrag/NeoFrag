@@ -52,10 +52,10 @@ class m_gallery_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = new Panel(array(
-				'title'   => 'Galerie',
+				'title'   => $this('gallery'),
 				'icon'    => 'fa-photo',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center">Aucune catégorie n\'a été créée pour le moment</div>'
+				'content' => '<div class="text-center">'.$this('no_category_message').'</div>'
 			));
 		}
 
@@ -115,10 +115,10 @@ class m_gallery_c_index extends Controller_Module
 		if (empty($images))
 		{
 			$panels[] = new Panel(array(
-				'title'   => 'Photos',
+				'title'   => $this('photos'),
 				'icon'    => 'fa-photo',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.icon('fa-photo fa-4x').'<h4>Aucune image dans cette galerie</h4></div>'
+				'content' => '<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this('no_images_message').'</h4></div>'
 			));
 		}
 

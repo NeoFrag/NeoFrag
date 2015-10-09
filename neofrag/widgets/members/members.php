@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_members extends Widget
 {
-	public $name        = 'Membres';
+	public $title       = '{lang members}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -29,9 +29,9 @@ class w_members extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index'       => 'Derniers membres',
-		'online'      => 'Qui est en ligne ?',
-		'online_mini' => 'Qui est en ligne ? (mini)'
+		'index'       => '{lang last_members}',
+		'online'      => '{lang whos_online}',
+		'online_mini' => '{lang whos_online_mini}'
 	);
 }
 

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_settings extends Module
 {
-	public $name          = 'Paramètres';
+	public $title         = '{lang settings}';
 	public $description   = '';
 	public $icon          = 'fa-cogs';
 	public $link          = 'http://www.neofrag.com';

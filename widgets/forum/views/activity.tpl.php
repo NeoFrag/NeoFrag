@@ -1,2 +1,2 @@
-<p>Il y a <?php echo $count = ($users = count($data['users'])) + $data['visitors']; ?> <?php echo $count > 1 ? 'utilisateurs' : 'utilisateur'; ?> sur le forum</p>
-<?php echo implode(', ', array_map(function($a) use ($NeoFrag){ return $NeoFrag->user->link($a['user_id'], $a['username']); }, $data['users'])).' '.($users ? 'et' : '').' '.($data['visitors'] ?: ($users ? 'a' : 'A').'ucun').' '.($data['visitors'] > 1 ? 'visiteurs' : 'visiteur'); ?>
+<p><?php echo i18n('there_are', $count = ($users = count($data['users'])) + $data['visitors'], $count); ?></p>
+<?php echo implode(', ', array_map(function($a) use ($NeoFrag){ return $NeoFrag->user->link($a['user_id'], $a['username']); }, $data['users'])).' '.($users ? i18n('and') : '').' '.i18n('guests', $data['visitors'], $data['visitors']); ?>

@@ -234,7 +234,7 @@ class Table extends Library
 				$this->session->set('table', $this->id, 'search', $search);
 
 				$this->_data    = $results;
-				$this->_no_data = 'Aucun résultat ne correspond à la recherche';
+				$this->_no_data = NeoFrag::loader()->lang('no_result');
 			}
 			else
 			{
@@ -262,7 +262,7 @@ class Table extends Library
 
 		if (empty($this->_data))
 		{
-			$output = '<div class="clearfix"></div>'.($this->_no_data ?: 'Il n\'y a rien ici pour le moment');
+			$output = '<div class="clearfix"></div>'.($this->_no_data ?: NeoFrag::loader()->lang('no_data'));
 		}
 		else
 		{
@@ -270,7 +270,7 @@ class Table extends Library
 			{
 				$search_input = '	<div class="table-search pull-left">
 										<div class="form-group has-feedback">
-											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_unique($words)), ', ').']').'" type="text"'.((isset($search)) ? ' value="'.$search.'"' : '').' placeholder="Rechercher..." autocomplete="off" />
+											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_unique($words)), ', ').']').'" type="text"'.((isset($search)) ? ' value="'.$search.'"' : '').' placeholder="'.NeoFrag::loader()->lang('search').'" autocomplete="off" />
 										</div>
 									</div>';
 			}
@@ -324,12 +324,12 @@ class Table extends Library
 			if ($this->_pagination && !empty($this->pagination) && $this->pagination->count() > 10)
 			{
 				$output .= '<div class="form-group pull-left">
-								<select class="form-control" style="width: auto;" onchange="window.location=\''.url($this->pagination->get_url()).'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
-									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">10 résultats</option>
-									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">25 résultats</option>
-									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">50 résultats</option>
-									<option value="100"'.($this->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">100 résultats</option>
-									<option value="all"'.($this->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">Tout afficher</option>
+								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
+									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag::loader()->lang('results', 10, 10).'</option>
+									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag::loader()->lang('results', 25, 25).'</option>
+									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag::loader()->lang('results', 50, 50).'</option>
+									<option value="100"'.($this->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">'.NeoFrag::loader()->lang('results', 100, 100).'</option>
+									<option value="all"'.($this->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">'.NeoFrag::loader()->lang('show_all').'</option>
 								</select>
 							</div>';
 			}
@@ -463,7 +463,7 @@ class Table extends Library
 				$output .= '<div class="pull-right">'.$pagination.'</div>';
 			}
 
-			$output .= '<i>'.$count.' '.($count > 1 ? 'résultats' : 'résultat').($count < $count_results ? ' sur '.$count_results.' au total' : '').'</i>';
+			$output .= '<i>'.NeoFrag::loader()->lang('results', $count, $count).($count < $count_results ? NeoFrag::loader()->lang('results_total', $count_results) : '').'</i>';
 
 			if (!$this->_ajax)
 			{

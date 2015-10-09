@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_news extends Widget
 {
-	public $name        = 'Actualités';
+	public $title       = '{lang news}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -29,8 +29,8 @@ class w_news extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index'      => 'Actualités récentes',
-		'categories' => 'Catégories'
+		'index'      => '{lang recent_news}',
+		'categories' => '{lang categories}'
 	);
 }
 

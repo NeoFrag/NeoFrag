@@ -2,12 +2,12 @@
 	<table class="table table-access table-hover">
 		<thead>
 			<tr>
-				<th class="col-md-6 col-lg-7">Groupes</th>
+				<th class="col-md-6 col-lg-7"><?php echo i18n('groups'); ?></th>
 				<th class="col-md-1 text-center" data-radio="success">
-					<div data-toggle="tooltip" title="Groupe autorisé"><?php echo icon('fa-check'); ?></div>
+					<div data-toggle="tooltip" title="<?php echo i18n('authorized_group'); ?>"><?php echo icon('fa-check'); ?></div>
 				</th>
 				<th class="col-md-1 text-center" data-radio="danger">
-					<div data-toggle="tooltip" title="Groupe exclu"><?php echo icon('fa-ban'); ?></div>
+					<div data-toggle="tooltip" title="<?php echo i18n('forbidden_group'); ?>"><?php echo icon('fa-ban'); ?></div>
 				</th>
 			</tr>
 		</thead>

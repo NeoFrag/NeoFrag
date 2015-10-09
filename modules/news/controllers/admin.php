@@ -22,14 +22,14 @@ class m_news_c_admin extends Controller_Module
 {
 	public function index($news)
 	{
-		$this	->title('Actualités')
+		$this	->title($this('news'))
 				->load->library('table');
 			
 		$news = $this	->table
 						->add_columns(array(
 							array(
-								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="Publiée" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
+								'content' => function($data, $loader){
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$loader->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$loader->lang('awaiting_publication').'" style="color: #535353;"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -37,7 +37,7 @@ class m_news_c_admin extends Controller_Module
 								'size'    => TRUE
 							),
 							array(
-								'title'   => 'Titre',
+								'title'   => $this('title'),
 								'content' => function($data){
 									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
 								},
@@ -49,7 +49,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							),
 							array(
-								'title'   => 'Catégorie',
+								'title'   => $this('category'),
 								'content' => function($data){
 									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
 								},
@@ -61,7 +61,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							),
 							array(
-								'title'   => 'Auteur',
+								'title'   => $this('author'),
 								'content' => function($data){
 									return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
 								},
@@ -73,7 +73,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							),
 							array(
-								'title'   => 'Date',
+								'title'   => $this('date'),
 								'content' => function($data){
 									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 								},
@@ -82,7 +82,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							),
 							array(
-								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Commentaires"></i>',
+								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.i18n('comments').'"></i>',
 								'content' => function($data){
 									return NeoFrag::loader()->library('comments')->admin_comments('news', $data['news_id']);
 								},
@@ -102,7 +102,7 @@ class m_news_c_admin extends Controller_Module
 						))
 						->sort_by(5, SORT_DESC, SORT_NUMERIC)
 						->data($news)
-						->no_data('Il n\'y a pas encore d\'actualité')
+						->no_data($this('no_news'))
 						->display();
 			
 		$categories = $this	->table
@@ -132,25 +132,25 @@ class m_news_c_admin extends Controller_Module
 							))
 							->pagination(FALSE)
 							->data($this->model('categories')->get_categories())
-							->no_data('Aucune catégorie')
+							->no_data($this('no_category'))
 							->display();
 
 		return new Row(
 			new Col(
 				new Panel(array(
-					'title'   => 'Catégories',
+					'title'   => $this('categories'),
 					'icon'    => 'fa-align-left',
 					'content' => $categories,
-					'footer'  => button_add('admin/news/categories/add.html', 'Créer une catégorie'),
+					'footer'  => button_add('admin/news/categories/add.html', $this('create_category')),
 					'size'    => 'col-md-12 col-lg-3'
 				))
 			),
 			new Col(
 				new Panel(array(
-					'title'   => 'Liste des actualités',
+					'title'   => $this('list_news'),
 					'icon'    => 'fa-file-text-o',
 					'content' => $news,
-					'footer'  => button_add('admin/news/add.html', 'Ajouter une actualité'),
+					'footer'  => button_add('admin/news/add.html', $this('add_news')),
 					'size'    => 'col-md-12 col-lg-9'
 				))
 			)
@@ -159,12 +159,12 @@ class m_news_c_admin extends Controller_Module
 	
 	public function add()
 	{
-		$this	->subtitle('Ajouter une actualité')
+		$this	->subtitle($this('add_news'))
 				->load->library('form')
 				->add_rules('news', array(
 					'categories' => $this->model('categories')->get_categories_list(),
 				))
-				->add_submit('Ajouter')
+				->add_submit($this('add'))
 				->add_back('admin/news.html');
 
 		if ($this->form->is_valid($post))
@@ -177,13 +177,13 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										in_array('on', $post['published']));
 
-			add_alert('Succes', 'News ajoutée');
+			//add_alert('success', $this('add_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 
 		return new Panel(array(
-			'title'   => 'Ajouter une actualité',
+			'title'   => $this('add_news'),
 			'icon'    => 'fa-file-text-o',
 			'content' => $this->form->display()
 		));
@@ -191,7 +191,7 @@ class m_news_c_admin extends Controller_Module
 
 	public function _edit($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $news_image, $category_image, $category_icon)
 	{
-		$this	->title('&Eacute;dition')
+		$this	->title($this('edit_news'))
 				->subtitle($title)
 				->load->library('form')
 				->add_rules('news', array(
@@ -204,7 +204,7 @@ class m_news_c_admin extends Controller_Module
 					'tags'         => $tags,
 					'published'    => $published
 				))
-				->add_submit('Éditer')
+				->add_submit($this('edit'))
 				->add_back('admin/news.html');
 
 		if ($this->form->is_valid($post))
@@ -219,13 +219,13 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										$this->config->lang);
 
-			add_alert('Succes', 'News éditée');
+			//add_alert('success', $this('edit_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 
 		return new Panel(array(
-			'title'   => 'Éditer l\'actualité',
+			'title'   => $this('edit_news'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
 		));
@@ -233,10 +233,10 @@ class m_news_c_admin extends Controller_Module
 
 	public function delete($news_id, $title)
 	{
-		$this	->title('Suppression actualité')
+		$this	->title($this('delete_news'))
 				->subtitle($title)
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer l\'actualité <b>'.$title.'</b> ?<br />Tous les commentaires associés à cette actualité seront aussi supprimés.');
+				->confirm_deletion($this('delete_confirmation'), $this('delete_news_message', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -250,11 +250,11 @@ class m_news_c_admin extends Controller_Module
 	
 	public function _categories_add()
 	{
-		$this	->subtitle('Ajouter une catégorie')
+		$this	->subtitle($this('add_category'))
 				->load->library('form')
 				->add_rules('categories')
 				->add_back('admin/news.html')
-				->add_submit('Ajouter');
+				->add_submit($this('add'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -262,13 +262,13 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 
-			add_alert('Succes', 'Catégorie ajoutée avec succès');
+			//add_alert('success', $this('add_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 		
 		return new Panel(array(
-			'title'   => 'Ajouter une catégorie',
+			'title'   => $this('add_category'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
 		));
@@ -276,14 +276,14 @@ class m_news_c_admin extends Controller_Module
 	
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
-		$this	->subtitle('Catégorie '.$title)
+		$this	->subtitle($this('category_', $title))
 				->load->library('form')
 				->add_rules('categories', array(
 					'title' => $title,
 					'image' => $image_id,
 					'icon'  => $icon_id
 				))
-				->add_submit('Éditer')
+				->add_submit($this('edit'))
 				->add_back('admin/news.html');
 		
 		if ($this->form->is_valid($post))
@@ -293,13 +293,13 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 		
-			add_alert('Succes', 'Catégorie éditée avec succès');
+			//add_alert('success', $this('edit_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 		
 		return new Panel(array(
-			'title'   => 'Éditer la catégorie',
+			'title'   => $this('edit_category'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
 		));
@@ -307,10 +307,10 @@ class m_news_c_admin extends Controller_Module
 	
 	public function _categories_delete($category_id, $title)
 	{
-		$this	->title('Suppression catégorie')
+		$this	->title($this('delete_category'))
 				->subtitle($title)
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer la catégorie <b>'.$title.'</b> ?<br />Toutes les actualités associées à cette catégorie seront aussi supprimées.');
+				->confirm_deletion($this('delete_confirmation'), $this('delete_category_message', $title));
 				
 		if ($this->form->is_valid())
 		{

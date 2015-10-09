@@ -20,45 +20,45 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label'  => 'Titre',
+		'label'  => '{lang title}',
 		'value'  => $title,
 		'type'   => 'text',
 		'rules'  => 'required'
 	),
 	'image' => array(
-		'label'  => 'Image',
+		'label'  => '{lang image}',
 		'value'  => $image,
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
-		'info'   => ' d\'image (max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 		}
 	),
 	'icon' => array(
-		'label'  => 'Icône',
+		'label'  => '{lang icon}',
 		'value'  => $icon,
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
-		'info'   => ' d\'image (format carré min. 16px et max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'   => i18n('file_icon', 16, file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 			
 			list($w, $h) = getimagesize($filename);
 			
 			if ($w != $h)
 			{
-				return 'L\'icône doit être carré';
+				return i18n('icon_must_be_square');
 			}
 			else if ($w < 16)
 			{
-				return 'L\'icône doit faire au moins 16px';
+				return i18n('icon_size_error', 16);
 			}
 		},
 		'post_upload' => function($filename){

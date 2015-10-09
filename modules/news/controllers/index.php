@@ -37,7 +37,7 @@ class m_news_c_index extends Controller_Module
 			
 			if ($news['content'])
 			{
-				$panel['footer'] = '<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">Lire la suite</a>';
+				$panel['footer'] = '<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">'.$this('read_more').'</a>';
 			}
 			
 			$panels[] = new Panel($panel);
@@ -46,10 +46,10 @@ class m_news_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = new Panel(array(
-				'title'   => 'Actualités',
+				'title'   => $this('news'),
 				'icon'    => 'fa-file-text-o',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center">Aucune actualité n\'a été publiée pour le moment</div>'
+				'content' => '<div class="text-center">'.$this('no_news_published').'</div>'
 			));
 		}
 		else if ($pagination = $this->pagination->get_pagination())
@@ -62,14 +62,14 @@ class m_news_c_index extends Controller_Module
 
 	public function _tag($tag, $news)
 	{
-		$this->subtitle('Tag '.$tag);
-		return $this->_filter($news, 'Actualités <small>'.$tag.'</small>');
+		$this->subtitle($this('tag', $tag));
+		return $this->_filter($news, $this('news').' <small>'.$tag.'</small>');
 	}
 	
 	public function _category($title, $news)
 	{
-		$this->subtitle('Catégorie '.$title);
-		return $this->_filter($news, 'Catégorie d\'actualité <small>'.$title.'</small>');
+		$this->subtitle($this('category_', $title));
+		return $this->_filter($news, $this('category_news').' <small>'.$title.'</small>');
 	}
 	
 	private function _filter($news, $filter)
@@ -77,7 +77,7 @@ class m_news_c_index extends Controller_Module
 		$news = $this->index($news);
 		
 		array_unshift($news, new Panel(array(
-			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', 'Voir toutes les actualités', 'danger', 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', $this('show_more'), 'pull-right').'</h2>'
 		)));
 
 		return $news;
@@ -119,7 +119,7 @@ class m_news_c_index extends Controller_Module
 			new Row(
 				new Col(
 					new Panel(array(
-						'title'   => 'À propos de l\'auteur',
+						'title'   => $this('about_the_author'),
 						'icon'    => 'fa-user',
 						'content' => $this->load->view('author', array(
 							'user_id'  => $user_id,
@@ -135,7 +135,7 @@ class m_news_c_index extends Controller_Module
 				),
 				new Col(
 					new Panel(array(
-						'title'   => 'Autre actualités de l\'auteur',
+						'title'   => $this('more_news_from_author'),
 						'icon'    => 'fa-file-text-o',
 						'content' => $this->load->view('author_news', array(
 							'news' => $this->model()->get_news_by_user($user_id, $news_id)

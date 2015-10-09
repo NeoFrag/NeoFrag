@@ -31,21 +31,21 @@ class Groups extends Core
 		$this->_groups = array(
 			'admins' => array(
 				'name'  => 'admins',
-				'title' => $this->lang('admins'),
+				'title' => NeoFrag::loader()->lang('group_admins'),
 				'icon'  => 'fa-rocket',
 				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
 				'auto'  => 'neofrag'
 			),
 			'members' => array(
 				'name'  => 'members',
-				'title' => $this->lang('members'),
+				'title' => NeoFrag::loader()->lang('group_members'),
 				'icon'  => 'fa-user',
 				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
 				'auto'  => 'neofrag'
 			),
 			'visitors' => array(
 				'name'  => 'visitors',
-				'title' => $this->lang('visitors'),
+				'title' => NeoFrag::loader()->lang('group_visitors'),
 				'icon'  => '',
 				'users' => NULL,
 				'auto'  => 'neofrag'
@@ -99,10 +99,10 @@ class Groups extends Core
 			{
 				foreach ($module->groups() as $id => $group)
 				{
-					$group_id = url_title($module->get_name().'_'.$id);
+					$group_id = url_title($module->name.'_'.$id);
 					
 					$this->_groups[$group_id]         = !empty($this->_groups[$group_id]) ? array_merge($group, $this->_groups[$group_id]) : $group;
-					$this->_groups[$group_id]['auto'] = 'module_'.$module->get_name();
+					$this->_groups[$group_id]['auto'] = 'module_'.$module->name;
 					
 					if (empty($this->_groups[$group_id]['icon']))
 					{

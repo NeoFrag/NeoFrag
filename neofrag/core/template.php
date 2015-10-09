@@ -34,8 +34,9 @@ class Template extends Core
 		//Si le template contient du code PHP
 		else if (in_string('<?php', $content) && in_string('?>', $content))
 		{
-			$NeoFrag = $this->load;
-			$paths   = $loader->paths;
+			$NeoFrag           = $this->load;
+			$paths             = $loader->paths;
+			$GLOBALS['loader'] = $loader;
 
 			//Récupèration du contenu du template avec exécution du code PHP
 			$content = eval('ob_start(); ?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', $content)).'<?php return ob_get_clean();');

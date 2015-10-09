@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_user extends Module
 {
-	public $name          = 'User';
+	public $title         = '{lang member_area}';
 	public $description   = '';
 	public $icon          = 'fa-user';
 	public $link          = 'http://www.neofrag.com';

@@ -3,7 +3,7 @@
 		<tbody class="forum-content">
 			<?php if (!empty($data['forum_id']) || !empty($data['is_topic'])): ?>
 			<tr>
-				<td colspan="2"><input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[title]"<?php if (!empty($data['is_topic'])) echo ' value="'.$data['title'].'"'; ?> placeholder="Titre du sujet" /></td>
+				<td colspan="2"><input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[title]"<?php if (!empty($data['is_topic'])) echo ' value="'.$data['title'].'"'; ?> placeholder="<?php echo i18n('title_topic'); ?>" /></td>
 			</tr>
 			<?php endif; ?>
 			<tr>
@@ -14,9 +14,9 @@
 					<?php elseif (empty($data['topic_id']) && $this->user()): ?>
 					<h4 class="no-margin"><?php echo $NeoFrag->user->link(); ?></h4>
 					<?php else: ?>
-					<h4 class="no-margin"><i>Visiteur</i></h4>
+					<h4 class="no-margin"><?php echo i18n('guest'); ?></h4>
 					<?php endif; ?>
-					<?php if (!empty($data['topic_id']) && $data['user_id'] || empty($data['topic_id']) && $this->user()) echo '<p>'.icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.(!empty($data['topic_id']) ? $data['admin'] : $NeoFrag->user('admin') ? 'Admin' : 'Membre').' '.(empty($data['topic_id']) || $data['online'] ? 'en ligne' : 'hors ligne').'</p>'; ?>
+					<?php if (!empty($data['topic_id']) && $data['user_id'] || empty($data['topic_id']) && $this->user()) echo '<p>'.icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.(!empty($data['topic_id']) ? $data['admin'] : i18n($NeoFrag->user('admin') ? 'admin' : 'member')).' '.i18n(empty($data['topic_id']) || $data['online'] ? 'online' : 'offline').'</p>'; ?>
 					<img class="img-avatar-forum" src="<?php echo !empty($data['topic_id']) ? $NeoFrag->user->avatar($data['avatar'], $data['sex']) : $NeoFrag->user->avatar(); ?>" title="<?php echo !empty($data['topic_id']) ? $data['username'] : $NeoFrag->user('username'); ?>" alt="" />
 				</td>
 				<td class="text-left col-md-9 col-sm-10">
@@ -25,17 +25,17 @@
 					</div>
 					<?php if (!empty($data['forum_id']) && $NeoFrag->access('forum', 'category_announce', $data['category_id'])): ?>
 					<div class="checkbox">
-						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]" /> Mettre en annonce</label>
+						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]" /> <?php echo i18n('set_announce'); ?></label>
 					</div>
 					<?php endif; ?>
 					<?php if (!empty($data['forum_id'])): ?>
-					<a href="<?php echo url($NeoFrag->session->get_back() ?: 'forum/'.$data['forum_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default">Retour</a>
-					<button type="submit" class="btn btn-primary">Poster le sujet</button>
+					<a href="<?php echo url($NeoFrag->session->get_back() ?: 'forum/'.$data['forum_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default"><?php echo i18n('back'); ?></a>
+					<button type="submit" class="btn btn-primary"><?php echo i18n('post_topic'); ?></button>
 					<?php elseif (!empty($data['topic_id'])): ?>
-					<a href="<?php echo url($NeoFrag->session->get_back() ?: 'forum/topic/'.$data['topic_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default">Retour</a>
-					<button type="submit" class="btn btn-primary">Modifier le <?php echo $data['is_topic'] ? 'sujet' : 'message'; ?></button>
+					<a href="<?php echo url($NeoFrag->session->get_back() ?: 'forum/topic/'.$data['topic_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default"><?php echo i18n('back'); ?></a>
+					<button type="submit" class="btn btn-primary"><?php echo i18n('modify'); ?><?php echo $data['is_topic'] ? i18n('topic') : i18n('message'); ?></button>
 					<?php else: ?>
-					<button type="submit" class="btn btn-primary">Répondre au sujet</button>
+					<button type="submit" class="btn btn-primary"><?php echo i18n('reply_topic'); ?></button>
 					<?php endif; ?>
 				</td>
 			</tr>

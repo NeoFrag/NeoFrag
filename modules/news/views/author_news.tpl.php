@@ -9,6 +9,6 @@
 </ul>
 <?php else: ?>
 <div class="panel-body text-center">
-	L'auteur n'a pas publié d'autre actualité
+	<?php echo i18n('no_news_from_author'); ?>
 </div>
 <?php endif; ?>

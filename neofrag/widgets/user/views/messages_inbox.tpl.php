@@ -1,6 +1,6 @@
 <?php if (empty($data['messages'])): ?>
 <div class="panel-body text-center">
-	<?php echo icon('fa-envelope-o'); ?> Vous n'avez pas de nouveau message.
+	<?php echo icon('fa-envelope-o').' '.i18n('pm_no_new_messages'); ?>
 </div>
 <?php else: ?>
 <div class="panel-body text-center">
@@ -16,7 +16,7 @@
 				</a>
 			</td>
 			<td class="col-md-8 col-xs-7">
-				<p><?php echo icon('fa-user').' '.$NeoFrag->user->link($messages['user_id'], $messages['username']).' '.icon('fa-clock-o').' '.echo time_span($messages['date']); ?></p>
+				<p><?php echo icon('fa-user').' '.$NeoFrag->user->link($messages['user_id'], $messages['username']).' '.icon('fa-clock-o').' '. time_span($messages['date']); ?></p>
 				<p><?php echo bbcode($messages['content']); ?></p>
 			</td>
 			<td class="col-md-2 col-xs-3 text-right">

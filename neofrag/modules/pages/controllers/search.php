@@ -20,16 +20,16 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_pages_c_search extends Controller_Module
 {
-	public $name = 'Général';
+	public $name = '{lang general}';
 
 	public function index($results)
 	{
-		echo 'index Général';
+		echo '{lang index_general}';
 	}
 
 	public function detail($results)
 	{
-		echo 'detail Général';
+		echo '{lang detail_general}';
 	}
 
 	public function search($keywords, $not_keywords)

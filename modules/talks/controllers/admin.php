@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -25,7 +25,7 @@ class m_talks_c_admin extends Controller_Module
 		$this	->load->library('table')
 				->add_columns(array(
 					array(
-						'title'   => 'Discussion',
+						'title'   => $this('talks'),
 						'content' => function($data){
 							return $data['name'];
 						},
@@ -61,35 +61,35 @@ class m_talks_c_admin extends Controller_Module
 					)
 				))
 				->data($talks)
-				->no_data('Il n\'y a pas encore de discussion');
+				->no_data($this('no_talks'));
 						
 		return new Panel(array(
-			'title'   => 'Liste des discussions',
+			'title'   => $this('talks_list'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->table->display(),
-			'footer'  => button_add('admin/talks/add.html', 'Créer une discussion')
+			'footer'  => button_add('admin/talks/add.html', $this('create_talk'))
 		));
 	}
 	
 	public function add()
 	{
-		$this	->subtitle('Ajouter une discussion')
+		$this	->subtitle($this('add_talk'))
 				->load->library('form')
 				->add_rules('talks')
-				->add_submit('Ajouter')
+				->add_submit($this('add'))
 				->add_back('admin/talks.html');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->add_talk($post['title']);
 			
-			add_alert('Succes', 'Discussion ajoutée avec succès');
+			//add_alert('success', $this('add_success_message'));
 
 			redirect_back('admin/talks.html');
 		}
 		
 		return new Panel(array(
-			'title'   => 'Ajouter une discussion',
+			'title'   => $this('add_talk'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->form->display()
 		));
@@ -102,20 +102,20 @@ class m_talks_c_admin extends Controller_Module
 				->add_rules('talks', array(
 					'title' => $title
 				))
-				->add_submit('Éditer')
+				->add_submit($this('edit'))
 				->add_back('admin/talks.html');
 		
 		if ($this->form->is_valid($post))
 		{	
 			$this->model()->edit_talk($talk_id, $post['title']);
 		
-			add_alert('Succes', 'Discussion éditée avec succès');
+			//add_alert('success', $this('edit_success_message'));
 
 			redirect_back('admin/talks.html');
 		}
 		
 		return new Panel(array(
-			'title'   => 'Édition de la discussion',
+			'title'   => $this('edit_talk'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->form->display()
 		));
@@ -123,10 +123,10 @@ class m_talks_c_admin extends Controller_Module
 	
 	public function delete($talk_id, $title)
 	{
-		$this	->title('Suppression d\'une discussion')
+		$this	->title($this('delete_talk_title'))
 				->subtitle($title)
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer la discussion <b>'.$title.'</b> ?');
+				->confirm_deletion($this('delete_confirmation'), $this('delete_talk', $title));
 
 		if ($this->form->is_valid())
 		{

@@ -50,9 +50,9 @@ class m_talks_c_ajax extends Controller_Module
 	
 	public function delete($message_id, $talk_id)
 	{
-		$this	->title('Confirmation de suppression')
+		$this	->title($this('delete_confirmation'))
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer ce message ?');
+				->confirm_deletion($this('delete_confirmation'), $this('delete_message_ajax'));
 
 		if ($this->form->is_valid())
 		{

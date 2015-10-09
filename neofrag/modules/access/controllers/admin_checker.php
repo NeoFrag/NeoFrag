@@ -30,18 +30,17 @@ class m_access_c_admin_checker extends Controller_Module
 			{
 				if (!empty($access['get_all']) && $get_all = call_user_func($access['get_all']))
 				{
-					$module_name           = $module->get_name();
-					$modules[$module_name] = array($module->name, $module->icon, $type, $access);
-					$objects[$module_name] = $get_all;
+					$modules[$module->name] = array($module, $module->icon, $type, $access);
+					$objects[$module->name] = $get_all;
 				}
 			}
 		}
 
 		uasort($modules, function($a, $b){
-			return strnatcmp($a[0], $b[0]);
+			return strnatcmp($a[0]->get_title(), $b[0]->get_title());
 		});
 
-		foreach (array_keys($modules) as $module_name)
+		foreach ($modules as $module_name => $module)
 		{
 			if ($tab === '' || $module_name == $tab)
 			{
@@ -53,7 +52,7 @@ class m_access_c_admin_checker extends Controller_Module
 					
 					$object = array(
 						'id'     => $id,
-						'title'  => $title
+						'title'  => $module[0]->load->lang($title, NULL)
 					);
 					
 					unset($object);
@@ -77,7 +76,7 @@ class m_access_c_admin_checker extends Controller_Module
 		
 		if (empty($access['check']) || $title = call_user_func($access['check'], $id))
 		{
-			return array($module, $type, $access['access'], $id, isset($title) ? $title : NULL);
+			return array($module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

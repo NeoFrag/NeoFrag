@@ -22,9 +22,9 @@ class m_comments_c_ajax extends Controller_Module
 {
 	public function delete($comment_id, $module_id, $module)
 	{
-		$this	->title('Confirmation de suppression')
+		$this	->title($this('delete_confirmation'))
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer ce commentaire ?');
+				->confirm_deletion($this('delete_confirmation'), $this('comment_confirmation'));
 
 		if ($this->form->is_valid())
 		{

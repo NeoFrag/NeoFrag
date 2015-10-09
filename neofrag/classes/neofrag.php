@@ -23,7 +23,6 @@ abstract class NeoFrag
 	const UNFOUND      = 0;
 	const UNAUTHORIZED = 1;
 	const UNCONNECTED  = 2;
-	const DATABASE     = 3;
 	
 	const ZONES        = 1;
 	const ROWS         = 2;
@@ -109,7 +108,7 @@ abstract class NeoFrag
 	{
 		if (is_null($library = $this->load->get_library($name)))
 		{
-			$this->error('Undefined property: '.get_class($this).'::$'.$name);
+			$this->error($this->load->lang('unknown_property', get_class($this), $name));
 		}
 
 		return $library;
@@ -125,7 +124,7 @@ abstract class NeoFrag
 		}
 		else
 		{
-			$this->error('Call to undefined method '.get_class($this).'::$'.$name);
+			$this->error($this->load->lang('unknown_method', get_class($this), $name));
 			return NULL;
 		}
 	}
@@ -216,13 +215,13 @@ abstract class NeoFrag
 		}
 		
 		usort($list, function($a, $b){
-			if ($a->get_name() == 'default')
+			if ($a->name == 'default')
 			{
 				return -1;
 			}
 			else
 			{
-				return strnatcmp($a->get_name(), $b->get_name());
+				return strnatcmp($a->get_title(), $b->get_title());
 			}
 		});
 

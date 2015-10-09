@@ -20,25 +20,25 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label' => 'Titre',
+		'label' => '{lang title}',
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'
 	),
 	'category' => array(
-		'label'  => 'Catégorie',
+		'label'  => '{lang category}',
 		'value'  => $category_id,
 		'values' => $categories,
 		'type'   => 'select',
 		'rules'  => 'required'
 	),
 	'description' => array(
-		'label' => 'Description',
+		'label' => '{lang description}',
 		'value' => $description,
 		'type'  => 'text'
 	),
 	'url' => array(
-		'label' => 'Rediriger vers',
+		'label' => '{lang redirect}',
 		'value' => $url,
 		'type'  => 'url'
 	)

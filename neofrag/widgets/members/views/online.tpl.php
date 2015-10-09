@@ -1,16 +1,16 @@
 <div class="col-xs-4 text-center">
 	<h2 class="no-margin"><?php echo $data['nb_visitors']; ?></h2>
-	<?php echo $data['nb_visitors'] > 1 ? 'Visiteurs' : 'Visiteur'; ?>
+	<?php echo i18n('guest',$data['nb_visitors'], $data['nb_visitors']); ?>
 </div>
 <div class="col-xs-4 text-center">
 	<?php if ($data['nb_members']): ?><a href="#" data-toggle="modal" data-target="#modal-online-members"><?php endif; ?>
 		<h2 class="no-margin"><?php echo $data['nb_members']; ?></h2>
-		<?php echo $data['nb_members'] > 1 ? 'Membres' : 'Membre'; ?>
+		<?php echo i18n('member', $data['nb_members'], $data['nb_members']); ?>
 	<?php if ($data['nb_members']): ?></a><?php endif; ?>
 </div>
 <div class="col-xs-4 text-center">
 	<?php if ($data['nb_admins']): ?><a href="#" data-toggle="modal" data-target="#modal-online-administrators"><?php endif; ?>
 		<h2 class="no-margin"><?php echo $data['nb_admins']; ?></h2>
-		<?php echo $data['nb_admins'] > 1 ? 'Admins' : 'Admin'; ?>
+		<?php echo i18n('admin', $data['nb_admins'], $data['nb_admins']); ?>
 	<?php if ($data['nb_admins']): ?></a><?php endif; ?>
 </div>

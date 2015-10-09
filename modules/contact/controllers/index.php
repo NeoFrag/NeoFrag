@@ -27,28 +27,28 @@ class m_contact_c_index extends Controller_Module
 		if (!$this->user())
 		{
 			$rules['email'] = array(
-				'label' => 'Adresse email',
+				'label' => $this('email'),
 				'type'  => 'email',
 				'rules' => 'required'
 			);
 		}
 		
 		$rules['subject'] = array(
-			'label' => 'Objet',
+			'label' => $this('subject'),
 			'rules' => 'required'
 		);
 		
 		$rules['message'] = array(
-			'label' => 'Message',
+			'label' => $this('message'),
 			'type'  => 'editor',
 			'rules' => 'required'
 		);
 		
-		$this->title('Nous contacter')
+		$this->title($this('contact_us'))
 				->load->library('form')
 				->display_required(FALSE)
 				->add_rules($rules)
-				->add_submit(icon('fa-envelope-o').' Envoyer')
+				->add_submit(icon('fa-envelope-o').' '.$this('send'))
 				->add_back('index.html');
 		
 		if ($this->form->is_valid($post))
@@ -56,7 +56,7 @@ class m_contact_c_index extends Controller_Module
 			$this->load->library('email')
 				->from($this->user() ? $this->user('email') : $post['email'])
 				->to($this->config->nf_contact)
-				->subject('Contact :: '.$post['subject'])
+				->subject($this('contact').' :: '.$post['subject'])
 				->message('default', array(
 					'content' => bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '')
 				))
@@ -66,7 +66,7 @@ class m_contact_c_index extends Controller_Module
 		}
 
 		return new Panel(array(
-			'title'   => 'Nous contacter',
+			'title'   => $this('contact_us'),
 			'icon'    => 'fa-envelope-o',
 			'content' => $this->form->display()
 		));

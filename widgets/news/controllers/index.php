@@ -29,19 +29,19 @@ class w_news_c_index extends Controller_Widget
 		if (!empty($news))
 		{
 			return new Panel(array(
-				'title'        => 'Actualités récentes',
+				'title'        => $this('recent_news'),
 				'content'      => $this->load->view('index', array(
 					'news'     => array_slice($news, 0, 3)
 				)),
-				'footer'       => '<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' Voir toutes les actualités</a>',
+				'footer'       => '<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Actualités récentes',
-				'content' => 'Aucune actualité pour le moment'
+				'title'   => $this('recent_news'),
+				'content' => $this('no_news')
 			));
 		}
 	}
@@ -53,7 +53,7 @@ class w_news_c_index extends Controller_Widget
 		if (!empty($categories))
 		{
 			return new Panel(array(
-				'title'   => 'Catégories',
+				'title'   => $this('categories'),
 				'content' => $this->load->view('categories', array(
 					'categories' => $categories
 				)),
@@ -63,8 +63,8 @@ class w_news_c_index extends Controller_Widget
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Catégories',
-				'content' => 'Aucune catégorie pour le moment'
+				'title'   => $this('categories'),
+				'content' => $this('no_category')
 			));
 		}
 	}

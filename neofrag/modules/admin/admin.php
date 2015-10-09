@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_admin extends Module
 {
-	public $name          = 'Administration';
+	public $title         = '{lang administration}';
 	public $description   = '';
 	public $icon          = 'fa-dashboard';
 	public $link          = 'http://www.neofrag.com';
