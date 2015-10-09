@@ -20,57 +20,57 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'username' => array(
-		'label' => 'Identifiant',
+		'label' => '{lang username}',
 		'value' => $username,
 		'rules' => 'required',
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
 			{
-				return 'Identifiant déjà utilisé';
+				return i18n('username_unavailable');
 			}
 		}
 	),
 	'email' => array(
-		'label' => 'Adresse email',
+		'label' => '{lang email}',
 		'value' => $email,
 		'type'  => 'email',
 		'rules' => 'required',
 		'check' => function($value) use ($email){
 			if ($value != $email && NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 			{
-				return 'Addresse email déjà utilisée';
+				return i18n('email_unavailable');
 			}
 		}
 	),
 	'first_name' => array(
-		'label' => 'Prénom',
+		'label' => '{lang first_name}',
 		'value' => $first_name,
 	),
 	'last_name' => array(
-		'label' => 'Nom',
+		'label' => '{lang last_name}',
 		'value' => $last_name,
 	),
 	'avatar' => array(
-		'label'       => 'Avatar',
+		'label'       => '{lang avatar}',
 		'value'       => $avatar,
 		'upload'      => 'members',
 		'type'        => 'file',
-		'info'        => ' d\'image (format carré min. 250px et max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'        => i18n('file_icon', 250, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 			
 			list($w, $h) = getimagesize($filename);
 			
 			if ($w != $h)
 			{
-				return 'L\'avatar doit être carré';
+				return i18n('avatar_must_be_square');
 			}
 			else if ($w < 250)
 			{
-				return 'L\'avatar doit faire au moins 250px';
+				return i18n('avatar_size_error', 250);
 			}
 		},
 		'post_upload' => function($filename){
@@ -78,40 +78,40 @@ $rules = array(
 		}
 	),
 	'date_of_birth' => array(
-		'label' => 'Date de naissance',
+		'label' => '{lang birth_date}',
 		'value' => $date_of_birth && $date_of_birth != '0000-00-00' ? timetostr(NeoFrag::loader()->lang('date_short'), strtotime($date_of_birth)) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
 			{
-				return 'Vraiment ?! 2.1 Gigowatt !';
+				return i18n('invalid_birth_date');
 			}
 		}
 	),
 	'sex' => array(
-		'label'  => 'Sexe',
+		'label'  => '{lang gender}',
 		'value'  => $sex,
 		'values' => array(
-			'female' => icon('fa-female').' Femme',
-			'male'   => icon('fa-male').' Homme'
+			'female' => icon('fa-female').' {lang female}',
+			'male'   => icon('fa-male').' {lang male}'
 		),
 		'type'   => 'radio'
 	),
 	'location' => array(
-		'label' => 'Localisation',
+		'label' => '{lang location}',
 		'value' => $location
 	),
 	'website' => array(
-		'label' => 'Site web',
+		'label' => '{lang website}',
 		'value' => $website,
 		'type'  => 'url'
 	),
 	'quote' => array(
-		'label'  => 'Citation',
+		'label'  => '{lang quote}',
 		'value' => $quote
 	),
 	'signature' => array(
-		'label' => 'Signature',
+		'label' => '{lang signature}',
 		'value' => $signature,
 		'type'  => 'editor'
 	)

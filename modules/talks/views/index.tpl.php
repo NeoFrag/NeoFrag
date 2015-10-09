@@ -50,7 +50,7 @@ foreach ($data['messages'] as $i => $message)
 		?>
 		<h4 class="media-heading">
 		<?php
-			$title = array($message['user_id'] ? $NeoFrag->user->link($message['user_id'], $message['username']) : '<i>Visiteur</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>');
+			$title = array($message['user_id'] ? $NeoFrag->user->link($message['user_id'], $message['username']) : '<i>'.i18n('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>');
 			
 			if ($media == 'right')
 			{
@@ -60,7 +60,7 @@ foreach ($data['messages'] as $i => $message)
 			echo implode(' ', $title);
 		?>
 		</h4>
-		<?php echo $message['message'] ? strtolink($message['message']) : '<i>Message supprimé</i>'; ?>
+		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.i18n('removed_message').'</i>'; ?>
 	</div>
 <?php
 	$output = array($avatar, ob_get_clean());
@@ -83,5 +83,5 @@ foreach ($data['messages'] as $i => $message)
 }
 ?>
 <?php if (!$count && empty($data['user_id']) && empty($data['position'])): ?>
-	<div class="text-center">Aucun message dans la discussion</div>
+	<div class="text-center"><?php echo i18n('no_messages'); ?></div>
 <?php endif; ?>

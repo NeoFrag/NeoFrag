@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_talks extends Module
 {
-	public $name        = 'Discussions';
+	public $title       = '{lang talks}';
 	public $description = '';
 	public $icon        = 'fa-comment-o';
 	public $link        = 'http://www.neofrag.com';
@@ -39,12 +39,12 @@ class m_talks extends Module
 		return array(
 			'talk' => array(
 				'get_all' => function(){
-					return NeoFrag::loader()->db->select('talk_id', 'CONCAT_WS(" ", "Discussion", name)')->from('nf_talks')->where('talk_id >', 1)->get();
+					return NeoFrag::loader()->db->select('talk_id', 'CONCAT_WS(" ", "{lang talks}", name)')->from('nf_talks')->where('talk_id >', 1)->get();
 				},
 				'check'   => function($talk_id){
 					if ($talk_id > 1 && ($talk = NeoFrag::loader()->db->select('name')->from('nf_talks')->where('talk_id', $talk_id)->row()) !== array())
 					{
-						return 'Discussion '.$talk;
+						return '{lang talks} '.$talk;
 					}
 				},
 				'init'    => array(
@@ -57,25 +57,25 @@ class m_talks extends Module
 				),
 				'access'  => array(
 					array(
-						'title'  => 'Discussion',
+						'title'  => '{lang talks}',
 						'icon'   => 'fa-comment-o',
 						'access' => array(
 							'read' => array(
-								'title' => 'Lire',
+								'title' => '{lang read}',
 								'icon'  => 'fa-eye'
 							),
 							'write' => array(
-								'title' => 'Écrire',
+								'title' => '{lang write}',
 								'icon'  => 'fa-reply'
 							)
 						)
 					),
 					array(
-						'title'  => 'Modération',
+						'title'  => '{lang moderation}',
 						'icon'   => 'fa-user',
 						'access' => array(
 							'delete' => array(
-								'title' => 'Supprimer un message',
+								'title' => '{lang delete_message}',
 								'icon'  => 'fa-trash-o'
 							)
 						)

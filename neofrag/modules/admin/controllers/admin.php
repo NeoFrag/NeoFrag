@@ -23,7 +23,7 @@ class m_admin_c_admin extends Controller_Module
 	public function index()
 	{
 		$users = $this
-			->title('Tableau de bord')
+			->title($this('dashboard'))
 			->js('jquery.knob')
 			->js_load('$(\'.knob\').knob();')
 			->load->library('table')
@@ -39,8 +39,8 @@ class m_admin_c_admin extends Controller_Module
 					},
 				),
 				array(
-					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+					'content' => function($data, $loader){
+						return '<span data-toggle="tooltip" title="'.timetostr($loader->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
 					'class'   => 'text-right',
 				)
@@ -52,67 +52,67 @@ class m_admin_c_admin extends Controller_Module
 			new Row(
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Actualités',
+						'label'  => $this('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()),
 						'icon'   => 'fa-newspaper-o',
 						'color'  => 'bg-aqua',
-						'count'  => $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row(),
+						'count'  => $count,
 						'url'    => 'admin/news.html',
-						'footer' => 'Voir la liste '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_news').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Membres',
+						'label'  => $this('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()),
 						'icon'   => 'fa-users',
 						'color'  => 'bg-green',
-						'count'  => $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row(),
+						'count'  => $count,
 						'url'    => 'admin/members.html',
-						'footer' => 'Gérer les utilisateurs '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_members').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Événements',
+						'label'  => $this('events', $count = 0, $count),//TODO
 						'icon'   => 'fa-calendar',
 						'color'  => 'bg-blue',
-						'count'  => 0,//TODO
+						'count'  => $count,
 						'url'    => 'admin/events.html',
-						'footer' => 'Gérer le calendrier '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_events').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Équipes',
+						'label'  => $this('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row(), $count),
 						'icon'   => 'fa-gamepad',
 						'color'  => 'bg-red',
-						'count'  => $this->db->select('COUNT(*)')->from('nf_teams')->row(),
+						'count'  => $count,
 						'url'    => 'admin/teams.html',
-						'footer' => 'Gérer les équipes '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_teams').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Messages',
+						'label'  => $this('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()),
 						'icon'   => 'fa-comments',
 						'color'  => 'bg-teal',
-						'count'  => $this->db->select('COUNT(*)')->from('nf_forum_messages')->row(),
+						'count'  => $count,
 						'url'    => 'admin/forum.html',
-						'footer' => 'Gérer le forum '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_forum').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => 'Commentaires',
+						'label'  => $this('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()),
 						'icon'   => 'fa-comments-o',
 						'color'  => 'bg-maroon',
-						'count'  => $this->db->select('COUNT(*)')->from('nf_comments')->row(),
+						'count'  => $count,
 						'url'    => 'admin/comments.html',
-						'footer' => 'Gérer les commentaires '.icon('fa-arrow-circle-right'),
+						'footer' => $this('manage_comments').' '.icon('fa-arrow-circle-right'),
 						'size'   => 'col-md-4 col-lg-2'
 					))
 				)
@@ -121,7 +121,7 @@ class m_admin_c_admin extends Controller_Module
 				new Col(
 					new Widget_view(array('widget_id' => 1)),
 					new Panel(array(
-						'title'   => '<a href="//www.neofrag.com">Actualité NeoFrag CMS</a>',
+						'title'   => '<a href="//www.neofrag.com">'.$this('nf_news').'</a>',
 						'icon'    => 'fa-newspaper-o',
 						'content' => $this->load->view('nf_news'),
 						'size'    => 'col-md-8'
@@ -129,17 +129,17 @@ class m_admin_c_admin extends Controller_Module
 				),
 				new Col(
 					new Panel(array(
-						'title'   => 'Utilisateurs connectés',
+						'title'   => $this('connected_users'),
 						'icon'    => 'fa-globe',
 						'content' => $this->load->view('users_online', array(
 							'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
 							'max'       => statistics('nf_sessions_max_simultaneous')
 						)),
-						'footer' => '<a href="'.url('admin/members/sessions.html').'">Voir toutes les sessions actives</a>',
+						'footer' => '<a href="'.url('admin/members/sessions.html').'">'.$this('view_all_sessions').'</a>',
 						'size'    => 'col-md-4'
 					)),
 					new Panel(array(
-						'title'   => 'Dernières inscriptions',
+						'title'   => $this('last_registrations'),
 						'icon'    => 'fa-users',
 						'content' => $users,
 						'size'    => 'col-md-4'
@@ -165,30 +165,30 @@ class m_admin_c_admin extends Controller_Module
 
 	public function about()
 	{
-		$this->title('À propos')->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
+		$this->title($this('about'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
 
 		return array(
 			new Row(
 				new Col(
 					new Panel(array(
-						'title'   => 'Licence LGPL v3',
+						'title'   => $this('lgpl_license'),
 						'content' => $this->load->view('license'),
 						'size'    => 'col-md-12 col-lg-8'
 					))
 				),
 				new Col(
 					new Panel(array(
-						'title'   => 'L\'équipe',
+						'title'   => $this('the_team'),
 						'content' => '	<div class="row">
 											<div class="col-md-6 text-center">
 												<p><img src="//www.neofrag.com/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Michaël BILCOT "FoxLey"</b></div>
-												<span class="text-muted">Développeur web</span>
+												<span class="text-muted">'.$this('web_developer').'</span>
 											</div>
 											<div class="col-md-6 text-center">
 												<p><img src="//www.neofrag.com/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Jérémy VALENTIN "eResnova"</b></div>
-												<span class="text-muted">Web designer</span>
+												<span class="text-muted">'.$this('web_designer').'</span>
 											</div>
 										</div>',
 						'size'    => 'col-md-12 col-lg-4'
@@ -200,19 +200,19 @@ class m_admin_c_admin extends Controller_Module
 
 	public function phpinfo()
 	{
-		$this	->title('Serveur')
+		$this	->title($this('server'))
 				->subtitle('PHP '.phpversion())
 				->css('phpinfo');
 		
-		$extentions = get_loaded_extensions();
-		natcasesort($extentions);
+		$extensions = get_loaded_extensions();
+		natcasesort($extensions);
 
 		ob_start();
 		phpinfo();
 
 		$output = array(new Panel(array(
 			'content' => $this->load->view('phpinfo', array(
-				'extentions' => $extentions
+				'extensions' => $extensions
 			))
 		)));
 		
@@ -232,28 +232,28 @@ class m_admin_c_admin extends Controller_Module
 	
 	public function notifications()
 	{
-		$this	->title('Notifications')
+		$this	->title($this('notifications'))
 				->icon('fa-flag');
 		
 		return new Panel(array(
-			'title'   => 'Notifications',
+			'title'   => $this('notifications'),
 			'icon'    => 'fa-flag',
 			'style'   => 'panel-info',
-			'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant.',
+			'content' => $this('unavailable_feature'),
 			'size'    => 'col-md-12'
 		));
 	}
 	
 	public function database()
 	{
-		$this	->title('Base de données')
+		$this	->title($this('database'))
 				->icon('fa-database');
 		
 		return new Panel(array(
-			'title'   => 'Base de données',
+			'title'   => $this('database'),
 			'icon'    => 'fa-database',
 			'style'   => 'panel-info',
-			'content' => 'Cette fonctionnalité n\'est pas disponible pour l\'instant.',
+			'content' => $this('unavailable_feature'),
 			'size'    => 'col-md-12'
 		));
 	}

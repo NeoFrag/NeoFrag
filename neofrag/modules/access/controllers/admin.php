@@ -25,9 +25,9 @@ class m_access_c_admin extends Controller_Module
 		if (!$modules)
 		{
 			return new Panel(array(
-				'title'   => 'Permissions',
+				'title'   => $this('permissions'),
 				'icon'    => 'fa-unlock-alt',
-				'content' => 'Il n\'y a aucune permission à administrer'
+				'content' => $this('no_permission')
 			));
 		}
 		
@@ -36,8 +36,8 @@ class m_access_c_admin extends Controller_Module
 
 		foreach ($modules as $module_name => $module)
 		{
-			list($title, $icon, $type, $access) = $module;
-			$this->tab->add_tab($module_name, icon($icon).' '.$title, '_tab_index', $objects, $title, $module_name, $type, $access);
+			list($module, $icon, $type, $access) = $module;
+			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), '_tab_index', $objects, $module->get_title(), $module, $type, $access);
 		}
 
 		return new Panel(array(
@@ -51,7 +51,7 @@ class m_access_c_admin extends Controller_Module
 				->load->library('table')
 				->add_columns(array(
 					array(
-						'title'   => 'Nom',
+						'title'   => $this('name'),
 						'content' => function($data){
 							return $data['title'];
 						}
@@ -65,9 +65,9 @@ class m_access_c_admin extends Controller_Module
 				$this	->table
 						->add_columns(array(
 							array(
-								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$access['title'].'">'.icon($access['icon']).'</div>',
+								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->load->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
 								'content' => function($data) use ($module, $action){
-									return NeoFrag::loader()->access->count($module, $action, $data['id']);
+									return NeoFrag::loader()->access->count($module->name, $action, $data['id']);
 								},
 								'class'   => 'col-md-1'
 							)
@@ -79,9 +79,9 @@ class m_access_c_admin extends Controller_Module
 				->add_columns(array(
 					array(
 						'content' => array(
-							function($data) use ($module, $type){
-								return button(NULL, 'fa-refresh', 'Réinitialiser', 'info', 'access-reset', array(
-									'module' => $module,
+							function($data, $loader) use ($module, $type){
+								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info', 'access-reset', array(
+									'module' => $module->name,
 									'type'   => $type,
 									'id'     => $data['id']
 								));
@@ -89,8 +89,8 @@ class m_access_c_admin extends Controller_Module
 							/*function(){
 								return button('#', 'fa-copy', 'Glissez pour copier', 'primary');
 							},*/
-							function($data) use ($module, $type){
-								return button_access($data['id'], $type, $module, 'Éditer');
+							function($data, $loader) use ($module, $type){
+								return button_access($data['id'], $type, $module->name, $loader->lang('edit'));
 							}
 						)
 					)
@@ -102,8 +102,8 @@ class m_access_c_admin extends Controller_Module
 	
 	public function _edit($module, $type, $access, $id, $title = NULL)
 	{
-		$this	->title($module->name)
-				->subtitle($title ?: 'Gestion des permissions')
+		$this	->title($module->get_title())
+				->subtitle($title ?: $this('permissions_management'))
 				->icon($module->icon)
 				->css('access')
 				->js('access')
@@ -114,14 +114,15 @@ class m_access_c_admin extends Controller_Module
 			new Row(
 				new Col(
 					new Panel(array(
-						'title'   => 'Liste des permissions<div class="pull-right">'.button(NULL, 'fa-refresh', 'Réinitialiser toutes les permissions', 'info', 'access-reset', array(
-							'module' => $module->get_name(),
+						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info', 'access-reset', array(
+							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id
 						)).'</div>',
 						'icon'    => 'fa-unlock-alt',
 						'content' => $this->load->view('index', array(
-							'module' => $module->get_name(),
+							'loader' => $module->load,
+							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id,
 							'access' => $access

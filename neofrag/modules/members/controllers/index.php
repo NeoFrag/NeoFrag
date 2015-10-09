@@ -22,7 +22,7 @@ class m_members_c_index extends Controller_Module
 {
 	public function index($members)
 	{
-		$this	->title('Liste des membres')
+		$this	->title($this('member_list'))
 				->load->library('table')
 				->add_columns(array(
 					array(
@@ -33,8 +33,8 @@ class m_members_c_index extends Controller_Module
 					),
 					array(
 						'title'   => 'Membre',
-						'content' => function($data){
-							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+						'content' => function($data, $loader){
+							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$loader->lang($data['admin'] ? 'admin' : 'member').' '.$loader->lang($data['online'] ? 'online' : 'offline').'</small>';
 						},
 						'search'  => function($data){
 							return $data['username'];
@@ -48,10 +48,10 @@ class m_members_c_index extends Controller_Module
 					)*/
 				))
 				->data($members)
-				->no_data('Il n\'y a pas encore de membre dans ce groupe');
+				->no_data($this('no_members'));
 			
 		return new Panel(array(
-			'title'   => 'Liste des membres',
+			'title'   => $this('member_list'),
 			'icon'    => 'fa-users',
 			'content' => $this->table->display()
 		));
@@ -76,7 +76,7 @@ class m_members_c_index extends Controller_Module
 		$output = array($this->index($members));
 		
 		array_unshift($output, new Panel(array(
-			'content' => '<h2 class="no-margin">Groupe <small>'.$title.'</small>'.button('members.html', 'fa-close', 'Voir tous les membres', 'danger', 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.button('members.html', 'fa-close', $this('show_all_members'), 'danger', 'pull-right').'</h2>'
 		)));
 
 		return $output;

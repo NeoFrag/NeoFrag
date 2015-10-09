@@ -72,7 +72,7 @@ class Widget_View
 		{
 			$type   = 'module';
 			$module = NeoFrag::loader()->module;
-			$name   = $module->get_name();
+			$name   = $module->name;
 		}
 		else
 		{
@@ -80,7 +80,7 @@ class Widget_View
 			$name = $widget['widget'];
 		}
 		
-		return '<div class="'.$type.' '.$type.'-'.$name.(!is_null($id) ? ' live-editor-widget" data-widget-id="'.$id.'" data-title="'.(!empty($module) ? $module->name : $instance->name).'"' : '"').'>'.implode($output).'</div>';
+		return '<div class="'.$type.' '.$type.'-'.$name.(!is_null($id) ? ' live-editor-widget" data-widget-id="'.$id.'" data-title="'.(!empty($module) ? $module->get_title() : $instance->get_title()).'"' : '"').'>'.implode($output).'</div>';
 	}
 }
 

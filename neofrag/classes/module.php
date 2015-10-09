@@ -11,14 +11,14 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Module extends NeoFrag
+abstract class Module extends Translatable
 {
 	static public $patterns = array(
 		'id'         => '([0-9]+?)',
@@ -33,7 +33,7 @@ abstract class Module extends NeoFrag
 	private $_output      = '';
 	private $_actions     = array();
 
-	public $name          = '';
+	public $title         = '';
 	public $description   = '';
 	public $icon          = '';
 	public $link          = '';
@@ -52,7 +52,7 @@ abstract class Module extends NeoFrag
 	{
 		if (NeoFrag::loader()->theme)
 		{
-			if (in_array($theme_name = NeoFrag::loader()->theme->get_name(), array('default', 'admin')))
+			if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
 			{
 				unset($theme_name);
 			}
@@ -113,14 +113,14 @@ abstract class Module extends NeoFrag
 			NeoFrag::loader()
 		);
 
-		$this->_module_name = $module_name;
+		$this->name = $module_name;
 
 		$this->set_path();
 	}
 
 	public function run($args = array())
 	{
-		if (!$this->access($this->get_name(), 'module_access'))
+		if (!$this->access($this->name, 'module_access'))
 		{
 			$this->unset_module();
 
@@ -229,12 +229,12 @@ abstract class Module extends NeoFrag
 		{
 			try
 			{
-				$this->add_data('module_title', $this->name);
+				$this->add_data('module_title', $this->get_title());
 				$this->add_data('module_method', $method);
 				
 				if (($output = $controller->method($method, $args)) !== FALSE)
 				{
-					$this->segments = array($this->_module_name, $method);
+					$this->segments = array($this->name, $method);
 					$this->append_output($output);
 					return;
 				}
@@ -278,14 +278,6 @@ abstract class Module extends NeoFrag
 			{
 				$this->load->module('user', 'login', NeoFrag::UNCONNECTED);
 			}
-			else if ((int)$error === NeoFrag::DATABASE)
-			{
-				$this->load->module('error', 'database');
-			}
-			else
-			{
-				$this->load->module('error', 'unknow');
-			}
 		}
 		//Gestion des redirections demandées par les Exceptions
 		else
@@ -326,9 +318,16 @@ abstract class Module extends NeoFrag
 		return $this->_actions;
 	}
 
-	public function get_name()
+	public function get_title()
 	{
-		return $this->_module_name;
+		static $title;
+		
+		if (is_null($title))
+		{
+			$title = $this->load->lang($this->title, NULL);
+		}
+		
+		return $title;
 	}
 	
 	public function get_method(&$args, $ignore_ajax = FALSE)
@@ -401,13 +400,13 @@ abstract class Module extends NeoFrag
 			if ($type === NULL)
 			{
 				return $access;
-			}
+}
 			else if (isset($access[$type]))
 			{
 				return $access[$type];
 			}
 		}
-		
+
 		return array();
 	}
 }

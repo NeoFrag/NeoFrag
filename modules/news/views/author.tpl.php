@@ -7,7 +7,7 @@
 	<div class="media-body">
 		<div><?php echo $NeoFrag->user->link($data['user_id'], $data['username']); ?></div>
 		<p>
-			<small><?php echo icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne'); ?></small>
+			<small><?php echo icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.i18n($data['admin'] ? 'admin' : 'member').' '.i18n($data['online'] ? 'online' : 'offline'); ?></small>
 		</p>
 	</div>
 </div>

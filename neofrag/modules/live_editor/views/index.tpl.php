@@ -13,20 +13,20 @@
 						<?php echo icon('fa-desktop'); ?>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><button type="button" class="live-editor-screen active" data-width="100%" data-toggle="tooltip" data-placement="bottom" title="Ordinateur"><?php echo icon('fa-desktop'); ?></button></li>
-						<li><button type="button" class="live-editor-screen" data-width="992px" data-toggle="tooltip" data-placement="bottom" title="Tablette paysage"><?php echo icon('fa-tablet fa-rotate-270'); ?></button></li>
-						<li><button type="button" class="live-editor-screen" data-width="768px" data-toggle="tooltip" data-placement="bottom" title="Tablette portrait"><?php echo icon('fa-tablet'); ?></button></li>
-						<li><button type="button" class="live-editor-screen" data-width="400px" data-toggle="tooltip" data-placement="bottom" title="Smartphone"><?php echo icon('fa-mobile'); ?></button></li>
+						<li><button type="button" class="live-editor-screen active" data-width="100%" data-toggle="tooltip" data-placement="bottom" title="<?php echo i18n('desktop'); ?>"><?php echo icon('fa-desktop'); ?></button></li>
+						<li><button type="button" class="live-editor-screen" data-width="992px" data-toggle="tooltip" data-placement="bottom" title="<?php echo i18n('landscape_tablet'); ?>"><?php echo icon('fa-tablet fa-rotate-270'); ?></button></li>
+						<li><button type="button" class="live-editor-screen" data-width="768px" data-toggle="tooltip" data-placement="bottom" title="<?php echo i18n('portrait_tablet'); ?>"><?php echo icon('fa-tablet'); ?></button></li>
+						<li><button type="button" class="live-editor-screen" data-width="400px" data-toggle="tooltip" data-placement="bottom" title="<?php echo i18n('mobile'); ?>"><?php echo icon('fa-mobile'); ?></button></li>
 					</ul>
 				</div>
-				<p class="navbar-text navbar-right hidden-xs hidden-sm">Simuler l'affichage</p>
+				<p class="navbar-text navbar-right hidden-xs hidden-sm"><?php echo i18n('simulate_display'); ?></p>
 				<div class="navbar-form navbar-right">
-					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ZONES ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::ZONES; ?>"><?php echo icon('fa-square-o'); ?> Zones</button>
-					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ROWS ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::ROWS; ?>"><?php echo icon('fa-columns fa-rotate-270'); ?></i> Rows</button>
-					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::COLS ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::COLS; ?>"><?php echo icon('fa-columns'); ?> Cols</button>
-					<button type="button" class="live-editor-mode active" data-mode="<?php echo NeoFrag::WIDGETS; ?>"><?php echo icon('fa-th-large'); ?> Widgets</button>
+					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ZONES ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::ZONES; ?>"><?php echo icon('fa-square-o').' '.i18n('zones'); ?></button>
+					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ROWS ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::ROWS; ?>"><?php echo icon('fa-columns fa-rotate-270').' '.i18n('rows'); ?></button>
+					<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::COLS ? ' active' : ''; ?>" data-mode="<?php echo NeoFrag::COLS; ?>"><?php echo icon('fa-columns').' '.i18n('cols'); ?></button>
+					<button type="button" class="live-editor-mode active" data-mode="<?php echo NeoFrag::WIDGETS; ?>"><?php echo icon('fa-th-large').' '.i18n('widgets'); ?></button>
 				</div>
-				<p class="navbar-text navbar-right hidden-xs hidden-sm">Gestion du contenu</p>
+				<p class="navbar-text navbar-right hidden-xs hidden-sm"><?php echo i18n('content_management'); ?></p>
 			</div>
 		</div>
 	</nav>

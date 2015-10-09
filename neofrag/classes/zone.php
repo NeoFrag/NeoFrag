@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -36,9 +36,9 @@ class Zone
 			if (NeoFrag::live_editor() & NeoFrag::ZONES)
 			{
 				$output = '	<div class="pull-right">
-								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enable="0">'.icon('fa-toggle-off').' Disposition commune</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enable="1">'.icon('fa-toggle-on').' Disposition spécifique à la page</button>').'
+								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enable="0">'.icon('fa-toggle-off').' '.$NeoFrag->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enable="1">'.icon('fa-toggle-on').' '.$NeoFrag->lang('custom_layout').'</button>').'
 							</div>
-							<h3>'.(!empty($NeoFrag->load->theme->zones[$zone_id]) ? $NeoFrag->load->theme->zones[$zone_id] : 'Zone #'.$zone_id).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="Nouveau Row">'.icon('fa-plus').'</button></div></h3>'.
+							<h3>'.(!empty($NeoFrag->load->theme->zones[$zone_id]) ? $NeoFrag->load->theme->load->lang($NeoFrag->load->theme->zones[$zone_id], NULL) : $NeoFrag->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.$NeoFrag->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
 							$output;
 			}
 

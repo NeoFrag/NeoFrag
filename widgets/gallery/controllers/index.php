@@ -27,20 +27,20 @@ class w_gallery_c_index extends Controller_Widget
 		if (!empty($categories))
 		{
 			return new Panel(array(
-				'title'        => 'Nos galeries',
+				'title'        => $this('ours_galleries'),
 				'content'      => $this->load->view('index', array(
 					'categories' => $categories
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' Voir notre galerie</a>',
+				'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Galerie',
-				'content' => 'Aucune catégorie pour le moment'
+				'title'   => $this('gallery'),
+				'content' => $this('no_category')
 			));
 		}
 	}
@@ -48,12 +48,12 @@ class w_gallery_c_index extends Controller_Widget
 	public function albums($settings = array())
 	{
 		return new Panel(array(
-			'title'        => 'Nos albums',
+			'title'        => $this('ours_albums'),
 			'content'      => $this->load->view('gallery', array(
 				'gallery' => $this->model()->get_gallery($settings['category_id'])
 			)),
 			'body'         => FALSE,
-			'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' Voir notre galerie</a>',
+			'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>',
 			'footer_align' => 'right'
 		));
 	}
@@ -69,15 +69,15 @@ class w_gallery_c_index extends Controller_Widget
 				'title'        => $image['title'],
 				'content'      => '<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>',
 				'body'         => FALSE,
-				'footer'       => '<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' Détails</a>',
+				'footer'       => '<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this('details').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Image aléatoire',
-				'content' => 'Aucune image à afficher.'
+				'title'   => $this('random_picture'),
+				'content' => $this('no_picture')
 			));
 		}
 	}
@@ -99,8 +99,8 @@ class w_gallery_c_index extends Controller_Widget
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Album',
-				'content' => 'Aucune image pour le moment.'
+				'title'   => $this('album'),
+				'content' => $this('no_picture')
 			));
 		}
 	}

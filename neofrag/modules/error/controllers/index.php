@@ -24,14 +24,14 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 404 Not Found');
 
-		$this->title('Page introuvable');
+		$this->title($this('unfound'));
 
 		return array(
 			new Panel(array(
-				'title'   => 'Page introuvable',
+				'title'   => $this('unfound'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
-				'content' => 'La page que vous souhaitez consulter est introuvable.'
+				'content' => $this('page_unfound')
 			)),
 			new Button_back()
 		);
@@ -41,31 +41,17 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 401 Unauthorized');
 
-		$this->title('Accès refusé');
+		$this->title($this('unauthorized'));
 
 		return array(
 			new Panel(array(
-				'title'   => 'Accès refusé',
+				'title'   => $this('unauthorized'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
-				'content' => 'Vous n\'avez pas les autorisations d\'accès requises pour visiter cette page.'
+				'content' => $this('required_permissions')
 			)),
 			new Button_back()
 		);
-	}
-
-	public function database()
-	{
-		header('HTTP/1.0 503 Service Unavailable');
-
-		$this->title('Erreur de connexion à la base de données');
-
-		return new Panel(array(
-			'title'   => 'Erreur de connexion à la base de données',
-			'icon'    => 'fa-warning',
-			'style'   => 'panel-danger',
-			'content' => 'Le serveur de bases de données est injoignable ou ne répond pas.'
-		));
 	}
 }
 

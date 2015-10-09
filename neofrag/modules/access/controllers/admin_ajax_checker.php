@@ -99,7 +99,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 				{
 					if (isset($permissions['access'][$action]))
 					{
-						return array($action, $permissions['access'][$action]['title'], $permissions['access'][$action]['icon'], $module_name, $id);
+						return array($action, $module->load->lang($permissions['access'][$action]['title'], NULL), $permissions['access'][$action]['icon'], $module_name, $id);
 					}
 				}
 			}

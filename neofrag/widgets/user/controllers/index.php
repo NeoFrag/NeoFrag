@@ -25,22 +25,22 @@ class w_user_c_index extends Controller_Widget
 		if ($this->user())
 		{
 			return new Panel(array(
-				'title'   => 'Espace membre',
+				'title'   => $this('member_area'),
 				'content' => $this->load->view('logged', array(
 					'username' => $this->user('username')
 				)),
 				'body'    => FALSE,
-				'footer'  => '<a href="'.url('user/logout.html').'">'.icon('fa-close').' Se déconnecter</a>'
+				'footer'  => '<a href="'.url('user/logout.html').'">'.icon('fa-close').' '.$this('logout').'</a>'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Espace membre',
+				'title'   => $this('member_area'),
 				'content' => $this->load->view('index', array(
 					'form_id' => '6e0fbe194d97aa8c83e9f9e6b5d07c66'
 				)),
-				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in').' Créer un compte</a>'
+				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in').' '.$this('create_account').'</a>'
 			));
 		}
 	}
@@ -64,13 +64,13 @@ class w_user_c_index extends Controller_Widget
 								->get();
 		
 		return new Panel(array(
-			'title'   => 'Messagerie privée',
+			'title'   => $this('private_messages'),
 			'icon'    => 'fa-envelope',
 			'content' => $this->load->view('messages_inbox', array(
 				'messages' => $messages
 			)),
 			'body'    => FALSE,
-			'footer'  => '<a class="btn btn-default" href="'.url('user/messages.html').'">'.icon('fa-inbox').' Boîte de réception</a> <a class="btn btn-primary" href="'.url('user/messages/compose.html').'">'.icon('fa-edit').' Rédiger</a>'
+			'footer'  => '<a class="btn btn-default" href="'.url('user/messages.html').'">'.icon('fa-inbox').' '.$this('pm_inbox').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose.html').'">'.icon('fa-edit').' '.$this('pm_compose').'</a>'
 		));
 	}
 }

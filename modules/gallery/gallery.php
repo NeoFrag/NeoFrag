@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_gallery extends Module
 {
-	public $name        = 'Galeries';
+	public $title       = '{lang gallery_module}';
 	public $description = '';
 	public $icon        = 'fa-photo';
 	public $link        = 'http://www.neofrag.com';

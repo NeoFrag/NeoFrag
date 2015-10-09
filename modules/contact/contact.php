@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_contact extends Module
 {
-	public $name          = 'Contact';
+	public $title         = '{lang contact}';
 	public $description   = '';
 	public $icon          = 'fa-envelope-o';
 	public $link          = 'http://www.neofrag.com';

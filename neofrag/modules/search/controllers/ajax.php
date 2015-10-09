@@ -22,7 +22,7 @@ class m_search_c_ajax extends Controller_Module
 {
 	public function index()
 	{
-		echo 'Tu cherches quoi ?';
+		echo '{lang search_message}';
 	}
 }
 

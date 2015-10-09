@@ -1121,7 +1121,7 @@ INSERT INTO `nf_widgets` VALUES(12, 'navigation', 'index', NULL, 'a:2:{s:7:"disp
 INSERT INTO `nf_widgets` VALUES(13, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(14, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:8:"Facebook";s:3:"url";s:1:"#";}i:1;a:2:{s:5:"title";s:7:"Twitter";s:3:"url";s:1:"#";}i:2;a:2:{s:5:"title";s:6:"Origin";s:3:"url";s:1:"#";}i:3;a:2:{s:5:"title";s:5:"Steam";s:3:"url";s:1:"#";}}}');
 INSERT INTO `nf_widgets` VALUES(15, 'members', 'online_mini', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(16, 'html', 'index', NULL, 'a:1:{s:7:"content";s:107:"[center]Propuls&eacute; par [url=http://www.neofrag.fr]NeoFrag CMS[/url]﻿ version Alpha 0.1﻿.2[/center]";}');
+INSERT INTO `nf_widgets` VALUES(16, 'html', 'index', NULL, 'a:1:{s:7:"content";s:107:"[center]Propuls&eacute; par [url=http://www.neofrag.fr]NeoFrag CMS[/url] version Alpha 0.1.3[/center]";}');
 INSERT INTO `nf_widgets` VALUES(17, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
 INSERT INTO `nf_widgets` VALUES(18, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:9:"news.html";}i:2;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:3;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:4;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:12:"members.html";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:12:"contact.html";}}}');
 INSERT INTO `nf_widgets` VALUES(19, 'user', 'index_mini', NULL, NULL);

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_access extends Module
 {
-	public $name          = 'Permissions';
+	public $title         = '{lang permissions}';
 	public $description   = '';
 	public $icon          = 'fa-unlock-alt';
 	public $link          = 'http://www.neofrag.com';

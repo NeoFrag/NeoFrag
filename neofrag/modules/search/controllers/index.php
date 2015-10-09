@@ -100,7 +100,7 @@ class m_search_c_index extends Controller_Module
 					$modules = array();
 					foreach ($results as $title => $result)
 					{
-						if (($name = url_title($result[0]->get_name())) == $module_name)
+						if (($name = url_title($result[0]->name)) == $module_name)
 						{
 							$display = $result[0]->load->template->parse($result[1]->method('detail', array($result[2])), array(), $result[0]->load);
 							$details = TRUE;

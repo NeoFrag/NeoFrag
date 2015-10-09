@@ -11,22 +11,24 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$lang = array(
-	'error'        => 'Erreur',
-	'unfound'      => 'Page introuvable',
-	'unauthorized' => 'Accès refusé',
-	'database'     => 'Erreur de connexion à la base de données',
-	'page_unfound' => 'La page que vous souhaitez consulter est introuvable.'
-);
+/**************************************************************************
+Translated by NeoFrag community, contributors are:
+FoxLey, eResnova, creativewild
+**************************************************************************/
+
+$lang['page_unfound']         = 'La page que vous souhaitez consulter est introuvable';
+$lang['required_permissions'] = 'Vous n\'avez pas les autorisations d\'accès requises pour visiter cette page';
+$lang['unauthorized']         = 'Accès refusé';
+$lang['unfound']              = 'Page introuvable';
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.3
 ./neofrag/modules/error/lang/fr.php
 */

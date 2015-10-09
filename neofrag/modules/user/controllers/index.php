@@ -27,19 +27,19 @@ class m_user_c_index extends Controller_Module
 			return $this->login();
 		}
 		
-		$this->title('Espace membre');
+		$this->title($this('member_area'));
 		
 		return new Panel(array(
-			'title'   => 'Espace membre',
+			'title'   => $this('member_area'),
 			'icon'    => 'fa-user',
 			'content' => $this->load->view('index'),
-			'footer'  => '<a class="btn btn-primary" href="'.url('user/edit.html').'">'.icon('fa-cogs').' Gérer mon compte</a> <a class="btn btn-danger" href="'.url('user/logout.html').'">'.icon('fa-close').' Déconnexion</a>'
+			'footer'  => '<a class="btn btn-primary" href="'.url('user/edit.html').'">'.icon('fa-cogs').' '.$this('manage_my_account').'</a> <a class="btn btn-danger" href="'.url('user/logout.html').'">'.icon('fa-close').' '.$this('logout').'</a>'
 		));
 	}
 
 	public function edit()
 	{
-		$this->title('Gérer mon compte');
+		$this->title($this('manage_my_account'));
 		
 		$this->load->library('form')
 			->add_rules('user', array(
@@ -55,7 +55,7 @@ class m_user_c_index extends Controller_Module
 				'website'       => $this->user('website'),
 				'quote'         => $this->user('quote')
 			))
-			->add_submit('Valider')
+			->add_submit($this('save'))
 			->add_back('user.html');
 		
 		if ($this->form->is_valid($post))
@@ -85,7 +85,7 @@ class m_user_c_index extends Controller_Module
 		}
 		
 		return new Panel(array(
-			'title'           => 'Gérer mon compte',
+			'title'           => $this('manage_my_account'),
 			'icon'            => 'fa-cogs',
 			'content'         => $this->form->display()
 		));
@@ -93,13 +93,13 @@ class m_user_c_index extends Controller_Module
 
 	public function sessions($sessions)
 	{
-		$this->title('Sessions');
+		$this->title($this('sessions'));
 		
 		$active_sessions = $this->load->library('table')
 			->add_columns(array(
 				array(
 					'content' => function($data){
-						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
+						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.i18n('persistent_connection').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.i18n('nonpersistent_connection').'"></i>';
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
@@ -112,25 +112,25 @@ class m_user_c_index extends Controller_Module
 					'align'   => 'center'
 				),
 				array(
-					'title'   => 'Adresse IP',
+					'title'   => $this('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				),
 				array(
-					'title'   => 'Site référent',
-					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+					'title'   => $this('reference'),
+					'content' => function($data, $loader){
+						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
 					}
 				),
 				array(
-					'title'   => 'Date d\'arrivée',
+					'title'   => $this('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				),
 				array(
-					'title'   => 'Dernière activité',
+					'title'   => $this('last_activity'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
@@ -158,35 +158,35 @@ class m_user_c_index extends Controller_Module
 					'align'   => 'center'
 				),
 				array(
-					'title'   => 'Adresse IP',
+					'title'   => $this('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				),
 				array(
-					'title'   => 'Site référent',
-					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : 'Aucun';
+					'title'   => $this('reference'),
+					'content' => function($data, $loader){
+						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
 					}
 				),
 				array(
-					'title'   => 'Date d\'arrivée',
+					'title'   => $this('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
 				)
 			))
 			->data($sessions)
-			->no_data('Aucun historique disponible');
+			->no_data($this('no_historic_available'));
 		
 		return array(
 			new Panel(array(
-				'title'   => 'Mes sessions actives',
+				'title'   => $this('my_active_sessions'),
 				'icon'    => 'fa-shield',
 				'content' => $active_sessions->display()
 			)),
 			new Panel(array(
-				'title'   => 'Historique de mes sessions',
+				'title'   => $this('sessions_historic'),
 				'icon'    => 'fa-power-off',
 				'content' => $sessions_history->display()
 			)),
@@ -196,9 +196,9 @@ class m_user_c_index extends Controller_Module
 	
 	public function _session_delete($session_id)
 	{
-		$this	->title('Confirmation de suppression')
+		$this	->title($this('delete_confirmation'))
 				->load->library('form')
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cette session ?');
+				->confirm_deletion($this('delete_confirmation'), $this('session_delete_message'));
 
 		if ($this->form->is_valid())
 		{
@@ -213,7 +213,7 @@ class m_user_c_index extends Controller_Module
 
 	public function login($error = 0)
 	{
-		$this->title('Connexion');
+		$this->title($this('login'));
 
 		$form_login = $this
 			->load
@@ -221,23 +221,23 @@ class m_user_c_index extends Controller_Module
 			->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 			->add_rules(array(
 				'login' => array(
-					'label'       => 'Identifiant',
-					'description' => 'Vous pouvez vous identifier avec votre adresse mail ou bien votre pseudonyme.',
+					'label'       => $this('username'),
+					'description' => $this('username_description'),
 					'type'        => 'text',
 					'rules'       => 'required|max(50)'
 				),
 				'password' => array(
-					'label' => 'Mot de passe',
+					'label' => $this('password'),
 					'type'  => 'password'
 				),
 				'remember_me' => array(
 					'type'   => 'checkbox',
-					'values' => array('on' => 'Se souvenir de moi')
+					'values' => array('on' => $this('remember_me'))
 				),
 				'redirect' => array(
 				)
 			))
-			->add_submit('Connexion')
+			->add_submit($this('login'))
 			->display_required(FALSE)
 			->save();
 		
@@ -245,47 +245,47 @@ class m_user_c_index extends Controller_Module
 			->form
 			->add_rules(array(
 				'username' => array(
-					'label' => 'Identifiant',
+					'label' => $this('username'),
 					'icon'  => 'fa-user',
 					'rules' => 'required',
 					'check' => function($value){
 						if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
 						{
-							return 'Identifiant déjà utilisé';
+							return i18n('username_unavailable');
 						}
 					}
 				),
 				'password' => array(
-					'label' => 'Mot de passe',
+					'label' => $this('password'),
 					'icon'  => 'fa-lock',
 					'type'  => 'password',
 					'rules' => 'required'
 				),
 				'password_confirm' => array(
-					'label' => 'Confirmation',
+					'label' => $this('password_confirmation'),
 					'icon'  => 'fa-lock',
 					'type'  => 'password',
 					'rules' => 'required',
 					'check' => function($value, $post){
 						if ($post['password'] != $value)
 						{
-							return 'Les mots de passe doivent être identiques';
+							return i18n('password_not_match');
 						}
 					}
 				),
 				'email' => array(
-					'label' => 'Adresse email',
+					'label' => $this('email'),
 					'type'  => 'email',
 					'rules' => 'required',
 					'check' => function($value){
 						if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 						{
-							return 'Addresse email déjà utilisée';
+							return i18n('email_unavailable');
 						}
 					}
 				)
 			))
-			->add_submit('Créer un compte')
+			->add_submit($this('create_account'))
 			->fast_mode()
 			->save();
 
@@ -297,10 +297,10 @@ class m_user_c_index extends Controller_Module
 			
 			$rows[] = new Row(new Col(
 				new Panel(array(
-					'title'   => 'Connexion requise',
+					'title'   => $this('login_required'),
 					'icon'    => 'fa-warning',
 					'style'   => 'panel-danger',
-					'content' => '<p>La page que vous souhaitez consulter n\'est accessible qu\'aux utilisateurs connectés.</p>Connectez-vous si vous avez déjà un compte utilisateur.<br />Vous pouvez aussi créer un nouveau compte en vous inscrivant ci-dessous.'
+					'content' => $this('login_required_message')
 				))
 				, 'col-md-12'
 			));
@@ -345,13 +345,14 @@ class m_user_c_index extends Controller_Module
 			{
 				$rows[] = new Row(new Col(
 					new Panel(array(
-						'title'   => 'Identifiants incorrects !',
+						'title'   => $this('invalid_login'),
 						'icon'    => 'fa-warning',
 						'style'   => 'panel-danger',
-						'content' => 'Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password.html').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous.'
-					))
+						'content' => $this('invalid_login_message')
+						)
 					, 'col-md-12'
-				));
+				))
+				);
 			}
 		}
 		else if ($form_registration->is_valid($post))
@@ -369,7 +370,7 @@ class m_user_c_index extends Controller_Module
 		$rows[] = new Row(
 			new Col(
 				new Panel(array(
-					'title'   => 'Se connecter',
+					'title'   => $this('login_title'),
 					'icon'    => 'fa-sign-out',
 					'content' => $this->load->view('login', array(
 						'form_id' => $form_login->id
@@ -379,9 +380,9 @@ class m_user_c_index extends Controller_Module
 			),
 			new Col(
 				new Panel(array(
-					'title'   => 'Pas encore inscrit ?',
+					'title'   => $this('create_account_title'),
 					'icon'    => 'fa-sign-in',
-					'content' => '<p>Créez votre compte maintenant pour profiter pleinement du site.</p>'.$form_registration->display()
+					'content' => $this('create_account_message').$form_registration->display()
 				))
 				, 'col-md-6'
 			)
@@ -392,23 +393,23 @@ class m_user_c_index extends Controller_Module
 
 	public function lost_password()
 	{
-		$this->title('Mot de passe oublié ?');
+		$this->title($this('forgot_password'));
 		
 		$this->load	->library('form')
 					->add_rules(array(
 						'email' => array(
-							'label' => 'Adresse email',
+							'label' => $this('email'),
 							'type'  => 'email',
 							'rules' => 'required',
 							'check' => function($value){
 								if (!NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 								{
-									return 'Addresse email introuvable';
+									return i18n('email_not_found');
 								}
 							}
 						)
 					))
-					->add_submit('Valider')
+					->add_submit($this('save'))
 					->add_back('user.html')
 					->fast_mode();
 
@@ -416,10 +417,10 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->load->library('email')
 				->to($post['email'])
-				->subject('Mot de passe oublié ?')
+				->subject($this('forgot_password'))
 				->message('default', array(
 					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">Réinitialisation de votre mot de passe</a>';
+						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.i18n('password_reset').'</a>';
 					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				))
@@ -429,7 +430,7 @@ class m_user_c_index extends Controller_Module
 		}
 					
 		return new Panel(array(
-				'title'   => 'Mot de passe oublié ?',
+				'title'   => $this('forgot_password'),
 				'icon'    => 'fa-unlock-alt',
 				'content' => $this->form->display()
 			));
@@ -437,30 +438,30 @@ class m_user_c_index extends Controller_Module
 	
 	public function _lost_password($key_id, $user_id)
 	{
-		$this->title('Réinitialisation de votre mot de passe');
+		$this->title($this('password_reset'));
 		
 		$this->load	->library('form')
 					->add_rules(array(
 						'password' => array(
-							'label' => 'Nouveau mot de passe',
+							'label' => $this('new_password'),
 							'icon'  => 'fa-lock',
 							'type'  => 'password',
 							'rules' => 'required'
 						),
 						'password_confirm' => array(
-							'label' => 'Confirmation',
+							'label' => $this('password_confirmation'),
 							'icon'  => 'fa-lock',
 							'type'  => 'password',
 							'rules' => 'required',
 							'check' => function($value, $post){
 								if ($post['password'] != $value)
 								{
-									return 'Les mots de passe doivent être identiques';
+									return i18n('password_not_match');
 								}
 							}
 						)
 					))
-					->add_submit('Valider')
+					->add_submit($this('save'))
 					->add_back('user.html')
 					->fast_mode();
 
@@ -468,9 +469,9 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->load->library('email')
 				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
-				->subject('Mot de passe réinitialisé')
+				->subject($this('password_reset_confirmation_email'))
 				->message('default', array(
-					'content' => 'Votre mot de passe a bien été réinitialisé'
+					'content' => $this('password_reset_confirmation_message')
 				))
 				->send();
 
@@ -492,7 +493,7 @@ class m_user_c_index extends Controller_Module
 		}
 					
 		return new Panel(array(
-				'title'   => 'Réinitialisation de votre mot de passe',
+				'title'   => $this('password_reset'),
 				'icon'    => 'fa-lock',
 				'content' => $this->form->display()
 			));
@@ -505,7 +506,7 @@ class m_user_c_index extends Controller_Module
 		if ($this->config->nf_http_authentication)
 		{
 			$this->ajax();
-			echo 'Vous n\'êtes plus authentifié.';
+			echo $this('not_logged_in');
 		}
 		else
 		{

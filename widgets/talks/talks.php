@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_talks extends Widget
 {
-	public $name        = 'Discussions';
+	public $title       = '{lang talks}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';

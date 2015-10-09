@@ -88,11 +88,6 @@ class Config extends Core
 		{
 			$this->update('default');
 		}
-
-		if (!$this->ajax && is_asset())
-		{
-			asset($this->_configs['request_url']);
-		}
 	}
 	
 	public function __get($name)
@@ -152,6 +147,18 @@ class Config extends Core
 			{
 				$this->_configs[$name] = $value;
 			}
+		}
+	}
+	
+	public function set_language()
+	{
+		$this->update($this->site, $this->nf_default_language ?: 'fr');
+
+		setlocale(LC_ALL, $this->load->lang('locale'));
+
+		if (!$this->ajax && is_asset())
+		{
+			asset($this->_configs['request_url']);
 		}
 	}
 

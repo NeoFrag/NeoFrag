@@ -115,8 +115,8 @@ class m_settings_m_components extends Model
 	private function _data($object)
 	{
 		return array(
-			'name'        => $object->get_name(),
-			'title'       => $this->template->parse($object->name, array(), $object->load),
+			'name'        => $object->name,
+			'title'       => $object->get_title(),
 			'description' => $this->template->parse($object->description, array(), $object->load)
 		);
 	}

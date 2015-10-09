@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_forum extends Module
 {
-	public $name        = 'Forum';
+	public $title       = '{lang forum}';
 	public $description = '';
 	public $icon        = 'fa-comments';
 	public $link        = 'http://www.neofrag.com';
@@ -54,12 +54,12 @@ class m_forum extends Module
 		return array(
 			'category' => array(
 				'get_all' => function(){
-					return NeoFrag::loader()->db->select('category_id', 'CONCAT_WS(" ", "Catégorie", title)')->from('nf_forum_categories')->get();
+					return NeoFrag::loader()->db->select('category_id', 'CONCAT_WS(" ", "{lang category}", title)')->from('nf_forum_categories')->get();
 				},
 				'check'   => function($category_id){
 					if (($category = NeoFrag::loader()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== array())
 					{
-						return 'Catégorie '.$category;
+						return '{lang category} '.$category;
 					}
 				},
 				'init'    => array(
@@ -81,37 +81,37 @@ class m_forum extends Module
 				),
 				'access'  => array(
 					array(
-						'title'  => 'Catégorie',
+						'title'  => '{lang category}',
 						'icon'   => 'fa-navicon',
 						'access' => array(
 							'category_read' => array(
-								'title' => 'Lire',
+								'title' => '{lang read}',
 								'icon'  => 'fa-eye'
 							),
 							'category_write' => array(
-								'title' => 'Écrire',
+								'title' => '{lang write}',
 								'icon'  => 'fa-reply'
 							)
 						)
 					),
 					array(
-						'title'  => 'Modération',
+						'title'  => '{lang moderation}',
 						'icon'   => 'fa-user',
 						'access' => array(
 							'category_modify' => array(
-								'title' => 'Éditer un sujet / message',
+								'title' => '{lang edit_topic_message}',
 								'icon'  => 'fa-edit'
 							),
 							'category_delete' => array(
-								'title' => 'Supprimer un sujet / message',
+								'title' => '{lang remove_topic_message}',
 								'icon'  => 'fa-trash-o'
 							),
 							'category_announce' => array(
-								'title' => 'Mettre un sujet en annonce',
+								'title' => '{lang set_topic_announce}',
 								'icon'  => 'fa-flag'
 							),
 							'category_lock' => array(
-								'title' => 'Vérouiller un sujet',
+								'title' => '{lang lock_a_topic}',
 								'icon'  => 'fa-lock'
 							)
 						)

@@ -28,7 +28,7 @@ class m_teams_c_index extends Controller_Module
 		{
 			$panel = array(
 				'title'  => '<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'">'.$team['title'].'</a>',
-				'footer' => icon('fa-users').' '.$team['users'].' '.($team['users'] > 1 ? 'joueurs' : 'joueur'),
+				'footer' => icon('fa-users').' '.$this('player', $team['users'], $team['users']),
 				'body'   => FALSE
 			);
 			
@@ -52,10 +52,10 @@ class m_teams_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = new Panel(array(
-				'title'   => 'Équipes',
+				'title'   => $this('teams'),
 				'icon'    => 'fa-gamepad',
 				'style'   => 'panel-info',
-				'content' => '<div class="text-center">Aucune équipe n\'a été créée pour le moment</div>'
+				'content' => '<div class="text-center">'.$this('no_team_yet').'</div>'
 			));
 		}
 
@@ -74,8 +74,8 @@ class m_teams_c_index extends Controller_Module
 						'size'    => TRUE
 					),
 					array(
-						'content' => function($data){
-							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+						'content' => function($data, $loader){
+							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$loader->lang($data['admin'] ? 'admin' : 'member').' '.$loader->lang($data['online'] ? 'online' : 'offline').'</small>';
 						},
 					),
 					array(
@@ -85,7 +85,7 @@ class m_teams_c_index extends Controller_Module
 					)
 				))
 				->data($this->model()->get_players($team_id))
-				->no_data('Il n\'y a pas encore de joueur dans cette équipe');
+				->no_data($this('no_players_on_team'));
 		
 		$panel = array(
 			'title' => '	<div class="pull-right">

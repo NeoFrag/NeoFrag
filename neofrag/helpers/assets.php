@@ -124,7 +124,7 @@ function path($file, $file_type = '', $paths = array())
 
 		if (!in_array($file_type, array('images', 'css', 'js')))
 		{
-			NeoFrag::loader()->profiler->log('Type de ressource non géré', Profiler::WARNING);
+			NeoFrag::loader()->profiler->log(NeoFrag::loader()->lang('invalide_filetype'), Profiler::WARNING);
 			return url($file_type.'/'.$file);
 		}
 

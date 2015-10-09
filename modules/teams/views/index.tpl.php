@@ -3,9 +3,9 @@
 <?php endif; ?>
 <div class="panel-body">
 	<?php if ($data['description']): ?>
-	<h3>Présentation</h3>
+	<h3><?php echo i18n('overview'); ?></h3>
 	<?php echo $data['description']; ?>
 	<?php endif; ?>
-	<h3>Nos joueurs</h3>
+	<h3><?php echo i18n('our_players'); ?></h3>
 	<?php echo $data['users']; ?>
 </div>

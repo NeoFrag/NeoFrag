@@ -61,7 +61,7 @@ class Loader extends Core
 			$this->paths = array_merge_recursive($paths, $this->parent->paths);
 		}
 
-		$paths = array_map('array_filter', $paths);
+		$this->paths = array_map('array_filter', $this->paths);
 
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
 		if (isset($backtrace[1]['object']) && get_class($object = $backtrace[1]['object']) != get_class($this))
@@ -514,6 +514,64 @@ class Loader extends Core
 
 		return '';
 	}
+	
+	public function lang($name)
+	{
+		$args = func_get_args();
+		$name = array_shift($args);
+
+		if (count($args) == 1 && $args[0] === NULL)
+		{
+			$loader = $this;
+			return preg_replace_callback('/\{lang (.+?)\}/', function($a) use ($loader){
+				return $loader->lang($a[1]);
+			}, $name);
+		}
+		
+		static $langs;
+		
+		foreach ($this->paths['lang'] as $path)
+		{
+			if (!file_exists($lang_path = $path.'/'.$this->config->lang.'.php'))
+			{
+				continue;
+			}
+			
+			if (isset($langs[$lang_path]))
+			{
+				$lang = $langs[$lang_path];
+			}
+			else
+			{
+				$lang = array();
+				include $lang_path;
+				$langs[$lang_path] = $lang;
+			}
+
+			if (isset($lang[$name]))
+			{
+				if (is_array($lang[$name]))
+				{
+					return $lang[$name];
+				}
+				else
+				{
+					array_unshift($args, $lang[$name]);
+					if (($translation = call_user_func_array('p11n', $args)) !== FALSE)
+					{
+						return $translation;
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		//TODO chercher la traduc en english
+		
+		$this->profiler->log(NeoFrag::loader()->lang('unfound_translation', isset($translation), $name), Profiler::WARNING);
+		return '___'.$name;
+	}
 
 	public function profiler($type)
 	{
@@ -523,7 +581,7 @@ class Loader extends Core
 		}
 		else if ($type == 'module')
 		{
-			$name = $this->template->parse(NeoFrag::loader()->module->name, array(), NeoFrag::loader()->module);
+			$name = $this->template->parse(NeoFrag::loader()->module->get_title(), array(), NeoFrag::loader()->module);
 		}
 
 		$output = '	<div style="clear: both;"></div>

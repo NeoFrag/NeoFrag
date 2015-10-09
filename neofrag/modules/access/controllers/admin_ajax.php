@@ -41,7 +41,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		}
 		
 		return new Col(new Panel(array(
-			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' Ambiguités à corriger</span>&nbsp;&nbsp;&nbsp;'.button('#', 'fa-users', 'Utilisateurs', 'info', 'access-users').'</span>'.$title,
+			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.button('#', 'fa-users', $this('users'), 'info', 'access-users').'</span>'.$title,
 			'icon'    => $icon,
 			'content' => $this->load->view('details', array(
 				'groups' => $groups
@@ -98,7 +98,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		$this->load->library('table')
 			->add_columns(array(
 				array(
-					'title'   => 'Membre',
+					'title'   => $this('member'),
 					'content' => function($data){
 						return NeoFrag::loader()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
 					},
@@ -110,7 +110,7 @@ class m_access_c_admin_ajax extends Controller_Module
 					}
 				),
 				array(
-					'title'   => 'Groupes',
+					'title'   => $this('groups'),
 					'content' => function($data){
 						return NeoFrag::loader()->groups->user_groups($data['user_id']);
 					},
@@ -122,16 +122,16 @@ class m_access_c_admin_ajax extends Controller_Module
 					}
 				),
 				array(
-					'content' => function($data){
+					'content' => function($data, $loader){
 						$output = '';
 						
 						if ($data['active'] === NULL)
 						{
-							$output = '<div data-toggle="tooltip" title="Ambiguité">'.icon('fa-warning text-danger').'</div>';
+							$output = '<div data-toggle="tooltip" title="'.$loader->lang('ambiguity').'">'.icon('fa-warning text-danger').'</div>';
 						}
 						else if (is_int($data['active']))
 						{
-							$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="Remetre en automatique">'.icon('fa-thumb-tack').'</a>';
+							$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$loader->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
 						}
 						
 						return '<td class="access-status">'.$output.'</td>';
@@ -143,7 +143,7 @@ class m_access_c_admin_ajax extends Controller_Module
 					'td'      => FALSE
 				),
 				array(
-					'title'   => '<div class="text-center" data-toggle="tooltip" title="Membre autorisé">'.icon('fa-check').'</i></div>',
+					'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
 					'content' => function($data, $loader){
 						return $loader->view('radio', array(
 							'class'  => 'success',
@@ -153,7 +153,7 @@ class m_access_c_admin_ajax extends Controller_Module
 					'td'      => FALSE
 				),
 				array(
-					'title'   => '<div class="text-center" data-toggle="tooltip" title="Membre exclu">'.icon('fa-ban').'</i></div>',
+					'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
 					'content' => function($data, $loader){
 						static $admins;
 						

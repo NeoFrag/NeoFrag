@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_live_editor extends Module
 {
-	public $name          = 'LiveEditor';
+	public $title         = '{lang live_editor}';
 	public $description   = '';
 	public $link          = 'http://www.neofrag.com';
 	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -30,7 +30,6 @@ class m_live_editor extends Module
 	public $administrable = FALSE;
 	public $deactivatable = FALSE;
 	public $path          = __FILE__;
-	public $routes        = array();
 }
 
 /*

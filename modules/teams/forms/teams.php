@@ -26,46 +26,46 @@ $rules = array(
 		'rules'			=> 'required'
 	),
 	'game' => array(
-		'label'         => 'Jeux',
+		'label'         => '{lang game}',
 		'value'         => $game_id,
 		'values'        => $games,
 		'type'          => 'select',
 		'rules'			=> 'required'
 	),
 	'image' => array(
-		'label'       => 'Image',
+		'label'       => '{lang image}',
 		'value'       => $image_id,
 		'type'        => 'file',
 		'upload'      => 'teams',
-		'info'        => ' d\'image (max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'        => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 		}
 	),
 	'icon' => array(
-		'label'       => 'Icône',
+		'label'       => '{lang icon}',
 		'value'       => $icon_id,
 		'upload'      => 'teams/icons',
 		'type'        => 'file',
-		'info'        => ' d\'image (format carré min. 16px et max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+		'info'        => i18n('file_icon', 16, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 			{
-				return 'Veuiller choisir un fichier d\'image';
+				return i18n('select_image_file');
 			}
 			
 			list($w, $h) = getimagesize($filename);
 			
 			if ($w != $h)
 			{
-				return 'L\'icône doit être carré';
+				return i18n('icon_must_be_square');
 			}
 			else if ($w < 16)
 			{
-				return 'L\'icône doit faire au moins 16px';
+				return i18n('icon_size_error', 16);
 			}
 		},
 		'post_upload' => function($filename){
@@ -73,7 +73,7 @@ $rules = array(
 		}
 	),
 	'description' => array(
-		'label' => 'Description',
+		'label' => '{lang description}',
 		'value' => $description,
 		'type'  => 'editor'
 	)

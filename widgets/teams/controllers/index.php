@@ -31,20 +31,20 @@ class w_teams_c_index extends Controller_Widget
 		if (!empty($teams))
 		{
 			return new Panel(array(
-				'title'        => 'Nos équipes',
+				'title'        => $this('ours_teams'),
 				'content'      => $this->load->view('index', array(
 					'teams'    => $teams
 				)),
 				'body'         => FALSE,
-				'footer'       => '<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' Voir toutes nos équipes</a>',
+				'footer'       => '<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_all_teams').'</a>',
 				'footer_align' => 'right'
 			));
 		}
 		else
 		{
 			return new Panel(array(
-				'title'   => 'Nos équipes',
-				'content' => 'Aucune équipe pour le moment'
+				'title'   => $this('ours_teams'),
+				'content' => $this('no_team')
 			));
 		}
 	}

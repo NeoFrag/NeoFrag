@@ -27,37 +27,37 @@ class t_default_c_admin extends Controller
 				->load->library('form')
 				->add_rules(array(
 					'background' => array(
-						'label'  => 'Image de fond',
+						'label'  => $this('background'),
 						'value'  => $this->config->{'default_background'},
 						'type'   => 'file',
 						'upload' => 'themes/default/backgrounds',
-						'info'   => ' d\'image (max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
+						'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 						'check'  => function($filename, $ext){
 							if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
 							{
-								return 'Veuiller choisir un fichier d\'image';
+								return i18n('select_image_file');
 							}
 						}
 					),
 					'repeat' => array(
-						'label'  => 'Répéter l\'image',
+						'label'  => $this('background_repeat'),
 						'value'  => $this->config->{'default_background_repeat'},
 						'values' => array(
-							'no-repeat' => 'Non',
-							'repeat-x'  => 'Horizontalement',
-							'repeat-y'  => 'Verticalement',
-							'repeat'    => 'Les deux'
+							'no-repeat' => $this('no'),
+							'repeat-x'  => $this('horizontally'),
+							'repeat-y'  => $this('vertically'),
+							'repeat'    => $this('both')
 						),
 						'type'   => 'radio',
 						'rules'  => 'required'
 					),
 					'positionX' => array(
-						'label'  => 'Position',
+						'label'  => $this('position'),
 						'value'  => explode(' ', $this->config->{'default_background_position'})[0],
 						'values' => array(
-							'left'   => 'Gauche',
-							'center' => 'Centré',
-							'right'  => 'Droite'
+							'left'   => $this('left'),
+							'center' => $this('center'),
+							'right'  => $this('right')
 						),
 						'type'   => 'radio',
 						'rules'  => 'required'
@@ -65,9 +65,9 @@ class t_default_c_admin extends Controller
 					'positionY' => array(
 						'value'  => explode(' ', $this->config->{'default_background_position'})[1],
 						'values' => array(
-							'top'    => 'Haut',
-							'center' => 'Milieu',
-							'bottom' => 'Bas'
+							'top'    => $this('top'),
+							'center' => $this('middle'),
+							'bottom' => $this('bottom')
 						),
 						'type'   => 'radio',
 						'rules'  => 'required'
@@ -75,18 +75,18 @@ class t_default_c_admin extends Controller
 					'fixed' => array(
 						'value'  => $this->config->{'default_background_attachment'},
 						'values' => array(
-							'on'  => 'Image fixe'
+							'on'  => $this('background_fixed')
 						),
 						'type'   => 'checkbox'
 					),
 					'color' => array(
-						'label' => 'Couleur de fond',
+						'label' => $this('background_color'),
 						'value' => $this->config->{'default_background_color'},
 						'type'  => 'colorpicker',
 						'rules' => 'required'
 					)
 				))
-				->add_submit('Enregistrer');
+				->add_submit($this('save'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -111,7 +111,7 @@ class t_default_c_admin extends Controller
 			new Col(
 				new Panel(array(
 					'content' => $this->load->view('admin/menu', array(
-						'theme_name' => $theme->get_name()
+						'theme_name' => $theme->name
 					)),
 					'body'    => FALSE
 				))
@@ -119,7 +119,7 @@ class t_default_c_admin extends Controller
 			),
 			new Col(
 				new Panel(array(
-					'title'   => 'Dashboard',
+					'title'   => $this('dashboard'),
 					'icon'    => 'fa-cog',
 					'content' => $this->load->view('admin/index', array(
 						'theme'           => $theme,

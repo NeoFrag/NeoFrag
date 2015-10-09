@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class t_admin extends Theme
 {
-	public $name        = 'Admin';
+	public $title       = '{lang administration}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -38,9 +38,9 @@ class t_admin extends Theme
 			if ($module->administrable)
 			{
 				$content_submenu[] = array(
-					'title' => $this->template->parse($module->name),
+					'title' => $module->get_title(),
 					'icon'  => $this->template->parse($module->icon),
-					'url'   => 'admin/'.$module->get_name().'.html'
+					'url'   => 'admin/'.$module->name.'.html'
 				);
 			}
 		}
@@ -59,12 +59,12 @@ class t_admin extends Theme
 				->js('slideout.min')
 				->add_data('menu', array(
 					array(
-						'title' => 'Tableau de bord',
+						'title' => $this('dashboard'),
 						'icon'  => 'fa-dashboard',
 						'url'   => 'admin.html'
 					),
 					array(
-						'title' => 'Paramètres',
+						'title' => $this('settings'),
 						'icon'  => 'fa-cogs',
 						'url'   => array(
 							/*array(
@@ -80,12 +80,12 @@ class t_admin extends Theme
 								'pro'   => TRUE
 							),*/
 							array(
-								'title' => 'Configuration',
+								'title' => $this('configuration'),
 								'icon'  => 'fa-wrench',
 								'url'   => 'admin/settings.html'
 							),
 							array(
-								'title' => 'Gestion des composants',
+								'title' => $this('addons'),
 								'icon'  => 'fa-puzzle-piece',
 								'url'   => 'admin/settings/components.html'
 							),
@@ -107,16 +107,16 @@ class t_admin extends Theme
 						)
 					),
 					array(
-						'title' => 'Utilisateurs',
+						'title' => $this('users'),
 						'icon'  => 'fa-users',
 						'url'   => array(
 							array(
-								'title' => 'Membres',
+								'title' => $this('members'),
 								'icon'  => 'fa-users',
 								'url'   => 'admin/members.html'
 							),
 							array(
-								'title' => 'Sessions',
+								'title' => $this('sessions'),
 								'icon'  => 'fa-globe',
 								'url'   => 'admin/members/sessions.html'
 							),
@@ -126,49 +126,49 @@ class t_admin extends Theme
 								'url'   => 'admin/user.html'
 							),*/
 							array(
-								'title' => 'Permissions',
+								'title' => $this('permissions'),
 								'icon'  => 'fa-unlock-alt',
 								'url'   => 'admin/access.html'
 							),
 							array(
-								'title' => 'Bannissement',
+								'title' => $this('ban'),
 								'icon'  => 'fa-bomb',
 								'url'   => 'admin/members/ban.html'
 							)
 						)
 					),
 					array(
-						'title' => 'Contenu',
+						'title' => $this('content'),
 						'icon'  => 'fa-edit',
 						'url'   => $content_submenu
 					),
 					array(
-						'title' => 'Apparence',
+						'title' => $this('design'),
 						'icon'  => 'fa-paint-brush',
 						'url'   => array(
 							array(
-								'title' => 'Thèmes',
+								'title' => $this('themes'),
 								'icon'  => 'fa-tint',
 								'url'   => 'admin/settings/themes.html'
 							),
 							array(
-								'title' => 'Live Editor',
+								'title' => $this('liveditor'),
 								'icon'  => 'fa-desktop',
 								'url'   => 'live-editor.html'
 							)
 						)
 					),
 					array(
-						'title' => 'Sécurité',
+						'title' => $this('security'),
 						'icon'  => 'fa-shield',
 						'url'   => array(
 							array(
-								'title' => 'Notifications',
+								'title' => $this('notifications'),
 								'icon'  => 'fa-flag',
 								'url'   => 'admin/notifications.html'
 							),
 							array(
-								'title' => 'Base de données',
+								'title' => $this('database'),
 								'icon'  => 'fa-database',
 								'url'   => 'admin/database.html'
 							),
@@ -183,7 +183,7 @@ class t_admin extends Theme
 								'url'   => 'admin/logs.html'
 							),*/
 							array(
-								'title' => 'Serveur',
+								'title' => $this('server'),
 								'icon'  => 'fa-cogs',
 								'url'   => 'admin/phpinfo.html'
 							)
@@ -206,7 +206,7 @@ class t_admin extends Theme
 						)
 					),*/
 					array(
-						'title' => 'À propos',
+						'title' => $this('about'),
 						'icon'  => 'fa-info',
 						'url'   => 'admin/about.html'
 					)

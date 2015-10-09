@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_news extends Module
 {
-	public $name        = 'Actualités';
+	public $title       = '{lang news}';
 	public $description = '';
 	public $icon        = 'fa-file-text-o';
 	public $link        = 'http://www.neofrag.com';

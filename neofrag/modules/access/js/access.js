@@ -73,10 +73,10 @@ $(function(){
 				
 				if (typeof data.user_authorized != 'undefined' && typeof data.user_ambiguous != 'undefined' && typeof data.user_forced != 'undefined'){
 					if (data.user_ambiguous){
-						$tr.find('.access-status').html('<div data-toggle="tooltip" title="Ambiguité"><?php echo icon('fa-warning text-danger'); ?></div>');
+						$tr.find('.access-status').html('<div data-toggle="tooltip" title="<?php echo i18n('ambiguity'); ?>"><?php echo icon('fa-warning text-danger'); ?></div>');
 					}
 					else if (data.user_forced){
-						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="Remetre en automatique"><?php echo icon('fa-thumb-tack'); ?></a>');
+						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo i18n('reset_automatic'); ?>"><?php echo icon('fa-thumb-tack'); ?></a>');
 					}
 					else {
 						$tr.find('.access-status').html('');
@@ -174,15 +174,15 @@ $(function(){
 				<div class="modal-dialog">\
 					<div class="modal-content">\
 						<div class="modal-header">\
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fermer</span></button>\
-							<h4 class="modal-title">Confirmation de réinitialisation des permissions</h4>\
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo i18n('close'); ?></span></button>\
+							<h4 class="modal-title"><?php echo i18n('permissions_reset_comfirmation'); ?></h4>\
 						</div>\
 						<div class="modal-body">\
-							Êtes-vous sûr(e) de vouloir réinitialiser les permissions ?\
+							<?php echo i18n('permissions_reset_message'); ?>\
 						</div>\
 						<div class="modal-footer">\
-							<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>\
-							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'">Réinitialiser</button>\
+							<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo i18n('cancel'); ?></button>\
+							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'"><?php echo i18n('reset'); ?></button>\
 						</div>\
 					</div>\
 				</div>\

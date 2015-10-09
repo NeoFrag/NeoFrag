@@ -35,7 +35,7 @@ class Library extends NeoFrag
 		$id = $backtrace['file'].$backtrace['line'];
 
 		$clone = clone $this;
-		$clone->set_id($backtrace['file'].$backtrace['line'].$clone->get_name());
+		$clone->set_id($backtrace['file'].$backtrace['line'].$clone->name);
 		
 		return $clone;
 	}

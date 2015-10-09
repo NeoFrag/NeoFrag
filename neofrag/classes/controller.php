@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Controller extends NeoFrag
+abstract class Controller extends Translatable
 {
 	protected $_parent;
 
@@ -60,7 +60,7 @@ abstract class Controller extends NeoFrag
 		}
 		else
 		{
-			$this->profiler->log('Méthode '.$name.' inexistante', Profiler::WARNING);
+			$this->profiler->log($this('unknown_method', get_class($this), $name), Profiler::WARNING);
 			return FALSE;
 		}
 	}

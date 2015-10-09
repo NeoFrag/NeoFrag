@@ -31,7 +31,7 @@ class Button_back
 
 	public function display($id = NULL)
 	{
-		return '<div class="panel panel-back"><a class="btn btn-default" href="'.url($this->_url).'">'.($this->_title ?: 'Retour').'</a></div>';
+		return '<div class="panel panel-back"><a class="btn btn-default" href="'.url($this->_url).'">'.($this->_title ?: NeoFrag::loader()->lang('back')).'</a></div>';
 	}
 }
 

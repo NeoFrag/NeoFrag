@@ -43,6 +43,7 @@ mb_internal_encoding('UTF-8');
 //Appel des classes de base
 include_class('./neofrag/classes/neofrag.php');
 include_class('./neofrag/classes/library.php');
+include_class('./neofrag/classes/translatable.php');
 include_class('./neofrag/classes/controller.php');
 include_class('./neofrag/classes/controller_module.php');
 include_class('./neofrag/classes/controller_widget.php');
@@ -125,7 +126,6 @@ $NeoFrag->core(
 	'addons',
 	'session',
 	'user',
-	'language',
 	'groups',
 	'router',
 	'output'

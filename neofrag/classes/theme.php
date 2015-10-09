@@ -18,11 +18,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Theme extends NeoFrag
+abstract class Theme extends Translatable
 {
-	private $_theme_name;
-
-	public $name;
+	public $title;
 	public $description;
 	public $link;
 	public $author;
@@ -83,14 +81,21 @@ abstract class Theme extends NeoFrag
 			NeoFrag::loader()
 		);
 
-		$this->_theme_name = $theme_name;
+		$this->name = $theme_name;
 
 		$this->set_path();
 	}
 
-	public function get_name()
+	public function get_title()
 	{
-		return $this->_theme_name;
+		static $title;
+		
+		if (is_null($title))
+		{
+			$title = $this->load->lang($this->title, NULL);
+		}
+		
+		return $title;
 	}
 	
 	public function install($dispositions = array())
@@ -100,7 +105,7 @@ abstract class Theme extends NeoFrag
 			foreach ($dispositions as $zone => $disposition)
 			{
 				$this->db->insert('nf_dispositions', array(
-					'theme'       => $this->_theme_name,
+					'theme'       => $this->name,
 					'page'        => $page,
 					'zone'        => array_search($zone, $this->zones),
 					'disposition' => serialize($disposition)
@@ -109,7 +114,7 @@ abstract class Theme extends NeoFrag
 		}
 		
 		$this->db->insert('nf_settings_addons', array(
-			'name'   => $this->_theme_name,
+			'name'   => $this->name,
 			'type'   => 'theme',
 			'enable' => TRUE
 		));
@@ -121,7 +126,7 @@ abstract class Theme extends NeoFrag
 	{
 		$widgets = array();
 		
-		foreach ($this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->_theme_name)->get() as $disposition)
+		foreach ($this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get() as $disposition)
 		{
 			foreach (unserialize($disposition) as $rows)
 			{
@@ -135,13 +140,13 @@ abstract class Theme extends NeoFrag
 			}
 		}
 		
-		$this->db	->where('theme', $this->_theme_name)
+		$this->db	->where('theme', $this->name)
 					->delete('nf_dispositions');
 		
 		$this->db	->where('widget_id', $widgets)
 					->delete('nf_widgets');
 		
-		$this->db	->where('name', $this->_theme_name)
+		$this->db	->where('name', $this->name)
 					->where('type', 'theme')
 					->delete('nf_settings_addons');
 		

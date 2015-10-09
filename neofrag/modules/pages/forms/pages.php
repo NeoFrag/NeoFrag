@@ -20,18 +20,18 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label'         => 'Titre de la page',
+		'label'         => '{lang page_title}',
 		'value'         => $title,
 		'type'          => 'text',
 		'rules'         => 'required'
 	),
 	'subtitle' => array(
-		'label'         => 'Sous-titre',
+		'label'         => '{lang subtitle}',
 		'value'         => $subtitle,
 		'type'          => 'text'
 	),
 	'name' => array(
-		'label'         => 'Chemin d\'accès',
+		'label'         => '{lang access_path}',
 		'value'         => $name,
 		'type'          => 'text',
 		'check'         => function($value, $post) use ($name){
@@ -44,19 +44,19 @@ $rules = array(
 			
 			if ($value != $name && NeoFrag::loader()->db->select('1')->from('nf_pages')->where('name', $value)->row())
 			{
-				return 'Chemin d\'accès déjà utilisé';
+				return i18n('access_path_already_used');
 			}
 		}
 	),
 	'content' => array(
-		'label'			=> 'Contenu',
+		'label'			=> '{lang content}',
 		'value'			=> $content,
 		'type'			=> 'editor'
 	),
 	'published' => array(
 		'type'			=> 'checkbox',
 		'checked'		=> array('on' => $published),
-		'values'        => array('on' => 'Publier la page dès maintenant')
+		'values'        => array('on' => '{lang publish_now}')
 	)
 );
 

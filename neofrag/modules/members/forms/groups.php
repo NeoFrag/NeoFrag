@@ -20,17 +20,17 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label' => 'Nom',
+		'label' => '{lang name}',
 		'value' => $title,
 		'rules' => 'required'.(!empty($auto) ? '|disabled' : '')
 	),
 	'color' => array(
-		'label' => 'Couleur',
+		'label' => '{lang color}',
 		'value' => $color,
 		'type'  => 'colorpicker'
 	),
 	'icon' => array(
-		'label'   => 'Icône',
+		'label'   => '{lang icon}',
 		'value'   => $icon,
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'

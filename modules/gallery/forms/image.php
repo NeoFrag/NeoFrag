@@ -20,13 +20,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 $rules = array(
 	'title' => array(
-		'label' => 'Titre',
+		'label' => '{lang title}',
 		'type'  => 'text',
 		'value' => $title,
 		'rules' => 'required'
 	),
 	'description' => array(
-		'label' => 'Description',
+		'label' => '{lang description}',
 		'type'  => 'textarea',
 		'value' => $description
 	)

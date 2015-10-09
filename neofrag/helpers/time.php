@@ -85,51 +85,51 @@ function time_span($timestamp)
 
 	if (!$diff)
 	{
-		return 'À l\'instant';
+		return NeoFrag::loader()->lang('now');
 	}
 	else if ($diff == strtoseconds('1 seconds'))
 	{
-		return 'Il y a une seconde';
+		return NeoFrag::loader()->lang('seconds_ago', 1);
 	}
 	else if ($diff <= strtoseconds('30 seconds'))
 	{
-		return 'Il y a '.$diff.' secondes';
+		return NeoFrag::loader()->lang('seconds_ago', $diff, $diff);
 	}
 	else if ($diff < strtoseconds('45 seconds'))
 	{
-		return 'Il y a 30 secondes';
+		return NeoFrag::loader()->lang('seconds_ago', 30, 30);
 	}
 	else if ($diff < strtoseconds('50 seconds'))
 	{
-		return 'Il y a 45 secondes';
+		return NeoFrag::loader()->lang('seconds_ago', 45, 45);
 	}
 	else if ($diff < strtoseconds('55 seconds'))
 	{
-		return 'Il y a 50 secondes';
+		return NeoFrag::loader()->lang('seconds_ago', 50, 50);
 	}
 	else if ($diff < strtoseconds('2 minutes'))
 	{
-		return 'Il y a environ une minute';
+		return NeoFrag::loader()->lang('minutes_ago', 1);
 	}
 	else if ($diff <= strtoseconds('59 minutes'))
 	{
-		return 'Il y a '.floor($diff / 60).' minutes';
+		return NeoFrag::loader()->lang('minutes_ago', $diff = floor($diff / 60), $diff);
 	}
 	else if ($diff < strtoseconds('2 hours'))
 	{
-		return 'Il y a environ une heure';
+		return NeoFrag::loader()->lang('hours_ago', 1);
 	}
 	else if ($diff <= strtoseconds('23 hours'))
 	{
-		return 'Il y a '.floor($diff / 3660).' heures';
+		return NeoFrag::loader()->lang('hours_ago', $diff = floor($diff / 3660), $diff);
 	}
 	else if ($timestamp >= strtotime('yesterday'))
 	{
-		return 'Hier, à '.timetostr(NeoFrag::loader()->lang('time_short'), $timestamp);
+		return NeoFrag::loader()->lang('yesterday_at', timetostr(NeoFrag::loader()->lang('time_short'), $timestamp));
 	}
 	else if ($timestamp >= strtotime('6 days ago midnight'))
 	{
-		return ucfirst(timetostr('%A', $timestamp)).', à '.timetostr(NeoFrag::loader()->lang('time_short'), $timestamp);
+		return NeoFrag::loader()->lang('day_at', ucfirst(timetostr('%A', $timestamp)), timetostr(NeoFrag::loader()->lang('time_short'), $timestamp));
 	}
 	else
 	{

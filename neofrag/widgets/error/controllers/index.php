@@ -23,10 +23,10 @@ class w_error_c_index extends Controller_Widget
 	public function index($config = array())
 	{
 		return new Panel(array(
-			'title'   => 'Erreur',
+			'title'   => $this('error'),
 			'style'   => 'panel-danger',
 			'icon'    => 'fa-warning',
-			'content' => 'Widget introuvable ou mal configuré'
+			'content' => $this('widget_error')
 		));
 	}
 }

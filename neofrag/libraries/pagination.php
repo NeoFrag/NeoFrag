@@ -139,7 +139,7 @@ class Pagination extends Library
 			}
 			else
 			{
-				$buttons[] = '<a class="btn btn-default btn-'.$size.(($current_page == $p) ? ' active' : '').'" href="'.url($base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').'.html').'">'.$p.'</a>';
+				$buttons[] = '<a class="btn btn-default btn-'.$size.(($current_page == $p) ? ' active' : '').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').'.html">'.$p.'</a>';
 			}
 		}
 
@@ -148,7 +148,7 @@ class Pagination extends Library
 
 	public function get_url()
 	{
-		return implode('/', ($pos = array_search('page', $this->config->segments_url)) !== FALSE || ($pos = array_search('all', $this->config->segments_url)) !== FALSE ? array_slice($this->config->segments_url, 0, $pos) : $this->config->segments_url);
+		return url(implode('/', ($pos = array_search('page', $this->config->segments_url)) !== FALSE || ($pos = array_search('all', $this->config->segments_url)) !== FALSE ? array_slice($this->config->segments_url, 0, $pos) : $this->config->segments_url));
 	}
 
 	public function get_items_per_page()

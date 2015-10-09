@@ -18,11 +18,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Widget extends NeoFrag
+abstract class Widget extends Translatable
 {
 	private $_widget_name;
 
-	public $name;
+	public $title;
 	public $description;
 	public $link;
 	public $author;
@@ -34,7 +34,7 @@ abstract class Widget extends NeoFrag
 	{
 		if (NeoFrag::loader()->theme)
 		{
-			if (in_array($theme_name = NeoFrag::loader()->theme->get_name(), array('default', 'admin')))
+			if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
 			{
 				unset($theme_name);
 			}
@@ -113,7 +113,7 @@ abstract class Widget extends NeoFrag
 			NeoFrag::loader()
 		);
 
-		$this->_widget_name = $widget_name;
+		$this->name = $widget_name;
 
 		$this->set_path();
 	}
@@ -165,9 +165,16 @@ abstract class Widget extends NeoFrag
 		}
 	}
 
-	public function get_name()
+	public function get_title()
 	{
-		return $this->_widget_name;
+		static $title;
+		
+		if (is_null($title))
+		{
+			$title = $this->load->lang($this->title, NULL);
+		}
+		
+		return $title;
 	}
 }
 

@@ -8,12 +8,12 @@
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">
 				<li><a href="#" class="toggle-menu" data-toggle="sidebar"><?php echo icon('fa-bars'); ?></a></li>
-				<li><a href="//www.neofrag.com/support.html"><?php echo icon('fa-support'); ?><span class="hidden-xs hidden-sm"> Support</span></a></li>
-				<li><a href="//www.neofrag.com/forum.html"><?php echo icon('fa-comment'); ?><span class="hidden-xs hidden-sm"> Forum</span></a></li>
-				<li><a href="//www.neofrag.com/download.html"><?php echo icon('fa-download'); ?><span class="hidden-xs hidden-sm"> Téléchargements</span></a></li>
-				<li><a href="//www.neofrag.com/documentation.html"><?php echo icon('fa-list-alt'); ?><span class="hidden-xs hidden-sm"> Documentation</span></a></li>
+				<li><a href="//www.neofrag.com/support.html"><?php echo icon('fa-support'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('support'); ?></span></a></li>
+				<li><a href="//www.neofrag.com/forum.html"><?php echo icon('fa-comment'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('forum'); ?></span></a></li>
+				<li><a href="//www.neofrag.com/download.html"><?php echo icon('fa-download'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('downloads'); ?></span></a></li>
+				<li><a href="//www.neofrag.com/documentation.html"><?php echo icon('fa-list-alt'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('documentation'); ?></span></a></li>
 			</ul>
-			<a class="btn btn-default navbar-btn navbar-right" href="<?php echo url(); ?>"><?php echo icon('fa-sign-out'); ?><span class="hidden-xs hidden-sm"> Retour sur le site</span></a>
+			<a class="btn btn-default navbar-btn navbar-right" href="<?php echo url(); ?>"><?php echo icon('fa-sign-out'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('back_front'); ?></span></a>
 		</div>
 	</nav>
 	<nav class="navbar-default sidebar">
@@ -33,9 +33,9 @@
 									<?php echo icon('fa-user').' '.icon('fa-angle-down'); ?>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo url('user.html'); ?>"><?php echo icon('fa-user'); ?>Mon espace</a></li>
-									<li><a href="<?php echo url('user/edit.html'); ?>"><?php echo icon('fa-cogs'); ?>Gérer mon compte</a></li>
-									<li><a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($NeoFrag->user('username')).'.html'); ?>"><?php echo icon('fa-eye'); ?>Voir mon profil</a></li>
+									<li><a href="<?php echo url('user.html'); ?>"><?php echo icon('fa-user').i18n('my_account'); ?></a></li>
+									<li><a href="<?php echo url('user/edit.html'); ?>"><?php echo icon('fa-cogs').i18n('edit_account'); ?></a></li>
+									<li><a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($NeoFrag->user('username')).'.html'); ?>"><?php echo icon('fa-eye').i18n('view_my_profile'); ?></a></li>
 								</ul>
 							</div>
 							<!--<div class="btn-group">
@@ -113,14 +113,14 @@
 				<h1 class="page-header"><?php echo $NeoFrag->output->data['module_title']; ?> <small><?php echo $NeoFrag->output->data['module_subtitle']; ?></small></h1>
 				<div class="page-actions pull-right">
 					<?php if ($data['module_method'] == 'index' && $NeoFrag->module->get_access('default')): ?>
-						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/'.$NeoFrag->module->get_name().'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
+						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif; ?>
-
+					
 					<!--<a class="btn btn-outline btn-warning btn-sm"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> Configuration</span></a> -->
 					
 					<?php if (!is_null($help = $NeoFrag->module->load->controller('admin_help')) && method_exists($help, $data['module_method'])): ?>
 					<?php NeoFrag::loader()->js('neofrag.help'); ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->config->request_url); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->get_name().'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> Aide</span></a>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->config->request_url); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo i18n('help'); ?></span></a>
 					<?php endif; ?>
 				</div>
 			</div>

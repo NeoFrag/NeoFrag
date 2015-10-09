@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_forum extends Widget
 {
-	public $name        = 'Forum';
+	public $title       = '{lang forum}';
 	public $description = '';
 	public $link        = 'http://www.neofrag.com';
 	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
@@ -29,10 +29,10 @@ class w_forum extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index'      => 'Derniers messages',
-		'topics'     => 'Derniers sujets',
-		'statistics' => 'Statistiques',
-		'activity'   => 'Activité'
+		'index'      => '{lang last_messages}',
+		'topics'     => '{lang last_topics}',
+		'statistics' => '{lang statistics}',
+		'activity'   => '{lang activity}'
 	);
 }
 

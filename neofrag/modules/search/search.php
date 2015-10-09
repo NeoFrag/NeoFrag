@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_search extends Module
 {
-	public $name          = 'Recherche';
+	public $title         = 'Recherche';
 	public $description   = '';
 	public $icon          = 'fa-zoom';
 	public $link          = 'http://www.neofrag.com';

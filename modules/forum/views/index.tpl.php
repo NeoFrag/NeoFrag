@@ -5,8 +5,8 @@
 				<th colspan="2">
 					<h4 class="no-margin"><?php echo icon('fa-navicon').' '.$data['title']; ?></h4>
 				</th>
-				<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal'); ?><span class="hidden-xs"> Statistiques</span></h4></th>
-				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o'); ?><span class="hidden-xs"> Dernier message</span></h4></th>
+				<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal'); ?><span class="hidden-xs"> <?php echo i18n('statistics'); ?></span></h4></th>
+				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o'); ?><span class="hidden-xs"> <?php echo i18n('last_message'); ?></span></h4></th>
 				<?php if ($NeoFrag->config->admin_url): ?>
 				<th class="col-md-1 text-right">
 					<?php echo button_access($data['category_id'], 'category'); ?>
@@ -39,20 +39,25 @@
 					?>
 				</td>
 				<td>
-					<?php if ($forum['url']): ?>
-					<b><?php echo $forum['redirects']; ?></b> <?php echo $forum['redirects'] > 1 ? 'redirections' : 'redirection'; ?>
-					<?php else: ?>
-					<b><?php echo $forum['count_topics']; ?></b> <?php echo $forum['count_topics'] > 1 ? 'sujets' : 'sujet'; ?><br />
-					<b><?php echo $forum['count_messages']; ?></b> <?php echo $forum['count_messages'] > 1 ? 'réponses' : 'réponse'; ?>
-					<?php endif; ?>
+				<?php
+					if ($forum['url'])
+					{
+						echo 	i18n('redirects', $forum['redirects'], $forum['redirects']);
+					}
+					else
+					{
+						echo 	i18n('topics', $forum['count_topics'], $forum['count_topics']).'<br />'.
+								i18n('messages', $forum['count_messages'], $forum['count_messages']);
+					}
+				?>
 				</td>
 				<td>
 					<?php if (!$forum['url']): ?>
 					<?php if ($forum['last_title']): ?>
-					<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $NeoFrag->config->forum_messages_per_page) : '').'.html#message_'.$forum['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40); ?></a></div>
-					<div><?php echo icon('fa-user').' '.($forum['user_id'] ? $NeoFrag->user->link($forum['user_id'], $forum['username']) : '<i>Visiteur</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']); ?></div>
+						<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $NeoFrag->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $NeoFrag->config->forum_messages_per_page) : '').'.html#message_'.$forum['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40); ?></a></div>
+						<div><?php echo icon('fa-user').' '.($forum['user_id'] ? $NeoFrag->user->link($forum['user_id'], $forum['username']) : '<i>'.i18n('guest').'</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']); ?></div>
 					<?php else: ?>
-					Pas de message
+						<?php echo i18n('no_message'); ?>
 					<?php endif; endif; ?>
 				</td>
 				<?php if ($NeoFrag->config->admin_url): ?>
@@ -65,7 +70,7 @@
 			<?php endforeach; ?>
 			<?php if (empty($data['forums'])): ?>
 			<tr>
-				<td colspan="4" class="text-center"><h4>Aucun forum</h4></td>
+				<td colspan="4" class="text-center"><h4><?php echo i18n('no_forum'); ?></h4></td>
 			</tr>
 			<?php endif; ?>
 		</tbody>

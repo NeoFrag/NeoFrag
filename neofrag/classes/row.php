@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -52,10 +52,10 @@ class Row
 		{
 			$output .= '<div class="live-editor-row-header">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" data-container="body" title="Apparence">'.icon('fa-paint-brush').'</button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="Supprimer">'.icon('fa-close').'</button>
+								<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('design').'">'.icon('fa-paint-brush').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('remove').'">'.icon('fa-close').'</button>
 							</div>
-							<h3>Row <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" data-container="body" title="Nouveau Col">'.icon('fa-plus').'</button></div></h3>
+							<h3>'.NeoFrag::loader()->lang('row').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('new_col').'">'.icon('fa-plus').'</button></div></h3>
 						</div>';
 		}
 		

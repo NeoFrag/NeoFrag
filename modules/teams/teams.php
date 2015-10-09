@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_teams extends Module
 {
-	public $name        = 'Équipes';
+	public $title       = '{lang teams_title}';
 	public $description = '';
 	public $icon        = 'fa-gamepad';
 	public $link        = 'http://www.neofrag.com';
