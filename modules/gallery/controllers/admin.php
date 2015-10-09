@@ -249,7 +249,7 @@ class m_gallery_c_admin extends Controller_Module
 										array(
 											'title'   => 'Date',
 											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr($NeoFrag->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+												return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 											},
 											'align'   => 'left',
 											'sort'    => function($data){
