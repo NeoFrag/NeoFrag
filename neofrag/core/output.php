@@ -155,12 +155,14 @@ class Output extends Core
 				$pages[] = '/';
 				$pages[] = 'OR';
 			}
-
-			for ($i = count($segments = $this->load->module->segments); $i > 0; $i--)
+			else
 			{
-				$pages[] = 'page';
-				$pages[] = implode('/', array_slice($segments, 0, $i)).'/*';
-				$pages[] = 'OR';
+				for ($i = count($segments = $this->load->module->segments); $i > 0; $i--)
+				{
+					$pages[] = 'page';
+					$pages[] = implode('/', array_slice($segments, 0, $i)).'/*';
+					$pages[] = 'OR';
+				}
 			}
 
 			call_user_func_array(array($this->db, 'where'), $pages);
