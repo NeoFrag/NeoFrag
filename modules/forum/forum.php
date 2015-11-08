@@ -65,22 +65,24 @@ class m_forum extends Module
 					}
 				},
 				'init'    => array(
-					'category_write' => array(
+					'category_read'     => array(
+					),
+					'category_write'    => array(
 						array('visitors', FALSE)
 					),
-					'category_modify' => array(
+					'category_modify'   => array(
 						array('admins', TRUE)
 					),
-					'category_delete' => array(
+					'category_delete'   => array(
 						array('admins', TRUE)
 					),
 					'category_announce' => array(
 						array('admins', TRUE)
 					),
-					'category_lock' => array(
+					'category_lock'     => array(
 						array('admins', TRUE)
 					),
-					'category_move' => array(
+					'category_move'     => array(
 						array('admins', TRUE)
 					)
 				),

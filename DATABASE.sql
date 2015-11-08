@@ -42,17 +42,16 @@ CREATE TABLE IF NOT EXISTS `nf_access` (
 -- Contenu de la table `nf_access`
 --
 
-INSERT INTO `nf_access` VALUES(9, 1, 'forum', 'category_announce');
-INSERT INTO `nf_access` VALUES(8, 1, 'forum', 'category_delete');
-INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_lock');
-INSERT INTO `nf_access` VALUES(11, 1, 'forum', 'category_move');
-INSERT INTO `nf_access` VALUES(7, 1, 'forum', 'category_modify');
-INSERT INTO `nf_access` VALUES(6, 1, 'forum', 'category_write');
-INSERT INTO `nf_access` VALUES(3, 1, 'talks', 'delete');
-INSERT INTO `nf_access` VALUES(1, 1, 'talks', 'read');
-INSERT INTO `nf_access` VALUES(2, 1, 'talks', 'write');
-INSERT INTO `nf_access` VALUES(5, 2, 'talks', 'delete');
-INSERT INTO `nf_access` VALUES(4, 2, 'talks', 'write');
+INSERT INTO `nf_access` VALUES(1, 2, 'talks', 'read');
+INSERT INTO `nf_access` VALUES(2, 2, 'talks', 'write');
+INSERT INTO `nf_access` VALUES(3, 2, 'talks', 'delete');
+INSERT INTO `nf_access` VALUES(4, 1, 'forum', 'category_read');
+INSERT INTO `nf_access` VALUES(5, 1, 'forum', 'category_write');
+INSERT INTO `nf_access` VALUES(6, 1, 'forum', 'category_modify');
+INSERT INTO `nf_access` VALUES(7, 1, 'forum', 'category_delete');
+INSERT INTO `nf_access` VALUES(8, 1, 'forum', 'category_announce');
+INSERT INTO `nf_access` VALUES(9, 1, 'forum', 'category_lock');
+INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_move');
 
 -- --------------------------------------------------------
 
@@ -73,17 +72,14 @@ CREATE TABLE IF NOT EXISTS `nf_access_details` (
 -- Contenu de la table `nf_access_details`
 --
 
-INSERT INTO `nf_access_details` VALUES(1, 'admins', 'group', '1');
-INSERT INTO `nf_access_details` VALUES(2, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(2, 'visitors', 'group', '0');
 INSERT INTO `nf_access_details` VALUES(3, 'admins', 'group', '1');
-INSERT INTO `nf_access_details` VALUES(4, 'members', 'group', '1');
-INSERT INTO `nf_access_details` VALUES(5, 'admins', 'group', '1');
-INSERT INTO `nf_access_details` VALUES(6, 'members', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(5, 'visitors', 'group', '0');
+INSERT INTO `nf_access_details` VALUES(6, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(7, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(8, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(9, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(10, 'admins', 'group', '1');
-INSERT INTO `nf_access_details` VALUES(11, 'admins', 'group', '1');
 
 -- --------------------------------------------------------
 
