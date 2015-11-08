@@ -4,4 +4,4 @@
 
 
 <?php echo $NeoFrag->config->nf_name; ?>
-<?php echo $data['base_url']; ?>
+<?php echo url(); ?>

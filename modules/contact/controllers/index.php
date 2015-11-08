@@ -58,7 +58,9 @@ class m_contact_c_index extends Controller_Module
 				->to($this->config->nf_contact)
 				->subject($this('contact').' :: '.$post['subject'])
 				->message('default', array(
-					'content' => bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '')
+					'content' => function() use ($post){
+						return bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '');
+					}
 				))
 				->send();
 			
