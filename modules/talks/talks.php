@@ -48,7 +48,9 @@ class m_talks extends Module
 					}
 				},
 				'init'    => array(
-					'write' => array(
+					'read'   => array(
+					),
+					'write'  => array(
 						array('visitors', FALSE)
 					),
 					'delete' => array(

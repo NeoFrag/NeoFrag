@@ -33,32 +33,45 @@ class Access extends Core
 	{
 		$this->_access = array();
 		
-		foreach ($this->db->select('ad.entity', 'ad.type', 'ad.authorized', 'a.action', 'a.id', 'a.module')
-								->from('nf_access a')
-								->join('nf_access_details ad', 'a.access_id = ad.access_id', 'INNER')
-								->order_by('type <> "user"', 'authorized DESC')
-								->get() as $access)
+		foreach ($this->db	->select('ad.entity', 'ad.type', 'ad.authorized', 'a.action', 'a.id', 'a.module')
+							->from('nf_access a')
+							->join('nf_access_details ad', 'a.access_id = ad.access_id')
+							->order_by('type <> "user"', 'authorized DESC')
+							->get() as $access)
 		{
-			$this->_access[$access['module']][$access['action']][$access['id']][] = array(
-				'entity'     => $access['entity'],
-				'type'       => $access['type'],
-				'authorized' => (bool)$access['authorized'],
-			);
+			if ($access['entity'])
+			{
+				$this->_access[$access['module']][$access['action']][$access['id']][] = array(
+					'entity'     => $access['entity'],
+					'type'       => $access['type'],
+					'authorized' => (bool)$access['authorized'],
+				);
+			}
+			else
+			{
+				$this->_access[$access['module']][$access['action']][$access['id']] = TRUE;
+			}
 		}
 	}
 	
 	public function __invoke($module, $action, $id = 0, $group_id = NULL, $user_id = NULL)
 	{
+		$access = isset($this->_access[$module][$action][$id]) ? $this->_access[$module][$action][$id] : FALSE;
+
 		if (	$group_id == 'admins' || 
 				($user_id !== NULL && in_array('admins', $this->groups($user_id))) || 
-				($group_id === NULL && $user_id === NULL && $this->user('admin')) || 
-				!isset($this->_access[$module][$action][$id])
+				($group_id === NULL && $user_id === NULL && $this->user('admin')) ||
+				$access === TRUE
 			)
 		{
 			return TRUE;
 		}
+		else if (!$access)
+		{
+			//TODO return FALSE;
+			return $action == 'module_access';
+		}
 
-		$access     = $this->_access[$module][$action][$id];
 		$authorized = array_fill(0, 2, 0);
 		
 		foreach ($access as $permission)
