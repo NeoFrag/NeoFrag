@@ -1,0 +1,25 @@
+#modal-topic-move .forum-tree {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#modal-topic-move .forum-tree label {
+	font-weight: normal;
+}
+
+#modal-topic-move .modal-body > .forum-tree > li + li {
+	margin-top: 10px;
+}
+
+#modal-topic-move .forum-tree-forums {
+	padding-left: 10px;
+}
+
+#modal-topic-move .forum-tree-forums input[type="radio"] {
+	margin-right: 20px;
+}
+
+#modal-topic-move .forum-tree-subforums input[type="radio"] {
+	margin-right: 50px;
+}

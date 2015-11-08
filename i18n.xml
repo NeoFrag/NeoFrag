@@ -52,7 +52,7 @@
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R705C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="705" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="707" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -6678,6 +6678,18 @@
     <Cell><Data ss:Type="String">zones</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Zones</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Zones</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">modules/forum/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">select_forum</Data></Cell>
+    <Cell><Data ss:Type="String">Choisissez un forum pour déplacer</Data></Cell>
+    <Cell><Data ss:Type="String">Select a forum to move</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">modules/forum/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">move_topic</Data></Cell>
+    <Cell><Data ss:Type="String">Déplacer le sujet</Data></Cell>
+    <Cell><Data ss:Type="String">Move the topic</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

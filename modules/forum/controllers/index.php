@@ -285,6 +285,14 @@ class m_forum_c_index extends Controller_Module
 				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('set_announce').'">'.icon('fa-flag').'</a>';
 			}
 		}
+
+		if ($this->access('forum', 'category_move', $category_id))
+		{
+			$this	->css('move')
+					->js('move');
+
+			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title).'.html').'" title="'.$this('move_topic').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
+		}
 		
 		$panels = array();
 		
@@ -407,7 +415,69 @@ class m_forum_c_index extends Controller_Module
 					));
 		//add_alert('success', $this('toggle_lock_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
+	}
+	
+	public function _topic_move($topic_id, $title, $forum_id)
+	{
+		$forums = array();
 		
+		foreach ($this->model()->get_forums_tree() as $category_id => $category)
+		{
+			foreach ($category['forums'] as $f_id => $forum)
+			{
+				$forums = array_merge($forums, array($f_id), array_keys($forum['subforums']));
+			}
+		}
+		
+		$this->load	->library('form')
+					->set_id('3a27fa5555e6f34491793733f32169db')
+					->add_rules(array(
+						'forum_id' => array(
+							'type'   => 'radio',
+							'values' => array_flip($forums)
+						)
+					));
+
+		if ($this->form->is_valid($post) && $forum_id != $post['forum_id'])
+		{
+			$this->db	->where('topic_id', $topic_id)
+						->update('nf_forum_topics', array(
+							'forum_id' => $post['forum_id']
+						));
+
+			$count_messages = $this->model()->count_messages($topic_id);
+			
+			$this->db	->where('forum_id', $forum_id)
+						->update('nf_forum', 'count_topics = count_topics - 1');
+			
+			$this->db	->where('forum_id', $forum_id)
+						->update('nf_forum', 'count_messages = count_messages - '.$count_messages);
+			
+			$last_message_id = $this->model()->get_last_message_id($forum_id);
+			
+			$this->db	->where('forum_id', $forum_id)
+						->update('nf_forum', array(
+							'last_message_id' => $last_message_id
+						));
+			
+			$this->db	->where('forum_id', $post['forum_id'])
+						->update('nf_forum', 'count_topics = count_topics + 1');
+			
+			$this->db	->where('forum_id', $post['forum_id'])
+						->update('nf_forum', 'count_messages = count_messages + '.$count_messages);
+						
+			
+			$last_message_id = $this->model()->get_last_message_id($post['forum_id']);
+			
+			$this->db	->where('forum_id', $post['forum_id'])
+						->update('nf_forum', array(
+							'last_message_id' => $last_message_id
+						));
+			
+			//add_alert('success', ....);
+		}
+
+		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
 	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $user_id, $username, $avatar, $sex, $online, $admin)
@@ -502,7 +572,7 @@ class m_forum_c_index extends Controller_Module
 			
 			if ($is_topic)
 			{
-				$count_messages = $this->db->select('COUNT(*) - 1')->from('nf_forum_messages')->where('topic_id', $topic_id)->row();
+				$count_messages = $this->model()->count_messages($topic_id);
 				
 				$this->db	->where('topic_id', $topic_id)
 							->delete('nf_forum_topics');
@@ -543,8 +613,10 @@ class m_forum_c_index extends Controller_Module
 				$delete = FALSE;
 			}
 
-			if ($delete && $last_message_id = $this->db->select('m.message_id')->from('nf_forum_messages m')->join('nf_forum_topics t', 't.topic_id = m.topic_id')->where('t.forum_id', $forum_id)->order_by('message_id DESC')->limit(1)->row())
+			if ($delete)
 			{
+				$last_message_id = $this->model()->get_last_message_id($forum_id);
+
 				$this->db	->where('forum_id', $forum_id)
 							->update('nf_forum', array(
 								'last_message_id' => $last_message_id

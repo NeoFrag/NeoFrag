@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `nf_access` (
 INSERT INTO `nf_access` VALUES(9, 1, 'forum', 'category_announce');
 INSERT INTO `nf_access` VALUES(8, 1, 'forum', 'category_delete');
 INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_lock');
+INSERT INTO `nf_access` VALUES(11, 1, 'forum', 'category_move');
 INSERT INTO `nf_access` VALUES(7, 1, 'forum', 'category_modify');
 INSERT INTO `nf_access` VALUES(6, 1, 'forum', 'category_write');
 INSERT INTO `nf_access` VALUES(3, 1, 'talks', 'delete');
@@ -82,6 +83,7 @@ INSERT INTO `nf_access_details` VALUES(7, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(8, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(9, 'admins', 'group', '1');
 INSERT INTO `nf_access_details` VALUES(10, 'admins', 'group', '1');
+INSERT INTO `nf_access_details` VALUES(11, 'admins', 'group', '1');
 
 -- --------------------------------------------------------
 
