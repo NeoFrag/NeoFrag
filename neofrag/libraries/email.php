@@ -76,7 +76,7 @@ class Email extends Library
 			
 		$headers = array('From: '.$this->_from, 'Reply-to: '.$this->_from);
 		
-		$this->_data['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].url();
+		$this->config->base_url = 'http://'.$_SERVER['HTTP_HOST'].url();
 
 		$this->template->parse_data($this->_data, $this->load);
 		

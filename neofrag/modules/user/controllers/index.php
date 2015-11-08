@@ -420,7 +420,7 @@ class m_user_c_index extends Controller_Module
 				->subject($this('forgot_password'))
 				->message('default', array(
 					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.i18n('password_reset').'</a>';
+						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.$this('password_reset').'</a>';
 					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				))
