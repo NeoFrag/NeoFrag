@@ -37,11 +37,13 @@ class m_forum extends Module
 		'delete/{id}/{url_title}'                  => '_topic_delete',
 		'announce/{id}/{url_title}'                => '_topic_announce',
 		'lock/{id}/{url_title}'                    => '_topic_lock',
+		'topic/move/{id}/{url_title}'              => '_topic_move',
+		'ajax/topic/move/{id}/{url_title}'         => '_topic_move',
 		'message/edit/{id}/{url_title}'            => '_message_edit',
 		'message/delete/{id}/{url_title}'          => '_message_delete',
 		'mark-all-as-read/{id}/{url_title}'        => '_mark_all_as_read',
-		                                           
-		//Admin                                    
+
+		//Admin
 		'admin/{id}/{url_title}'                   => '_edit',
 		'admin/categories/add'                     => '_categories_add',
 		'admin/categories/{id}/{url_title}'        => '_categories_edit',
@@ -76,6 +78,9 @@ class m_forum extends Module
 						array('admins', TRUE)
 					),
 					'category_lock' => array(
+						array('admins', TRUE)
+					),
+					'category_move' => array(
 						array('admins', TRUE)
 					)
 				),
@@ -113,6 +118,10 @@ class m_forum extends Module
 							'category_lock' => array(
 								'title' => '{lang lock_a_topic}',
 								'icon'  => 'fa-lock'
+							),
+							'category_move' => array(
+								'title' => 'Déplacer un sujet',
+								'icon'  => 'fa-reply fa-flip-horizontal'
 							)
 						)
 					)

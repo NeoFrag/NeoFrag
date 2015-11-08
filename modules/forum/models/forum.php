@@ -44,7 +44,7 @@ class m_forum_m_forum extends Model
 		return $categories;
 	}
 	
-	public function get_categories($all = FALSE)
+	public function get_categories()
 	{
 		$categories = array();
 		$forums     = $this->get_forums();
@@ -55,7 +55,7 @@ class m_forum_m_forum extends Model
 							->order_by('order', 'category_id')
 							->get() as $category)
 		{
-			if ($all || $this->access('forum', 'category_read', $category['category_id']))
+			if ($this->access('forum', 'category_read', $category['category_id']))
 			{
 				$category['forums'] = array();
 				
@@ -80,6 +80,61 @@ class m_forum_m_forum extends Model
 		}
 
 		return $categories;
+	}
+	
+	public function get_forums_tree()
+	{
+		$tree = array();
+		
+		foreach ($this->db	->select('category_id', 'title')
+							->from('nf_forum_categories')
+							->order_by('order', 'category_id')
+							->get() as $category)
+		{
+			if ($this->access('forum', 'category_read', $category['category_id']))
+			{
+				$forums = array();
+				
+				foreach ($this->db	->select('f.forum_id', 'f.title')
+									->from('nf_forum f')
+									->join('nf_forum_url u', 'u.forum_id = f.forum_id')
+									->where('f.parent_id', $category['category_id'])
+									->where('f.is_subforum', FALSE)
+									->where('u.forum_id', NULL)
+									->order_by('f.order', 'f.forum_id')
+									->get() as $forum)
+				{
+					$subforums = array();
+					
+					foreach ($this->db	->select('f.forum_id', 'f.title')
+										->from('nf_forum f')
+										->join('nf_forum_url u', 'u.forum_id = f.forum_id')
+										->where('f.parent_id', $forum['forum_id'])
+										->where('f.is_subforum', TRUE)
+										->where('u.forum_id', NULL)
+										->order_by('f.order', 'f.forum_id')
+										->get() as $subforum)
+					{
+						$subforums[$subforum['forum_id']] = $subforum['title'];
+					}
+
+					$forums[$forum['forum_id']] = array(
+						'title'     => $forum['title'],
+						'subforums' => $subforums
+					);
+				}
+				
+				if ($forums)
+				{
+					$tree[$category['category_id']] = array(
+						'title'  => $category['title'],
+						'forums' => $forums
+					);
+				}
+			}
+		}
+		
+		return $tree;
 	}
 	
 	public function get_forums($forum_id = NULL, $mini = FALSE)
@@ -501,6 +556,27 @@ class m_forum_m_forum extends Model
 		}
 		
 		return $parent_id;
+	}
+	
+	public function get_last_message_id($forum_id)
+	{
+		$message_id = $this->db	->select('m.message_id')
+								->from('nf_forum_messages m')
+								->join('nf_forum_topics t', 't.topic_id = m.topic_id')
+								->where('t.forum_id', $forum_id)
+								->order_by('message_id DESC')
+								->limit(1)
+								->row();
+		
+		return $message_id ?: NULL;
+	}
+	
+	public function count_messages($topic_id)
+	{
+		return $this->db	->select('COUNT(*) - 1')
+							->from('nf_forum_messages')
+							->where('topic_id', $topic_id)
+							->row();
 	}
 	
 	public function _has_unread($forum)

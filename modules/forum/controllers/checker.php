@@ -144,6 +144,25 @@ class m_forum_c_checker extends Controller
 		return $this->_topic_announce($topic_id, $title, 'category_lock');
 	}
 	
+	public function _topic_move($topic_id, $title)
+	{
+		if ($topic = $this->model()->check_topic($topic_id, $title))
+		{
+			if ($this->access('forum', 'category_move', $topic['category_id']))
+			{
+				return array($topic_id, $topic['topic_title'], $topic['forum_id']);
+			}
+			else
+			{
+				throw new Exception(NeoFrag::UNAUTHORIZED);
+			}
+		}
+		else
+		{
+			throw new Exception(NeoFrag::UNFOUND);
+		}
+	}
+	
 	public function _message_edit($message_id, $title)
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
