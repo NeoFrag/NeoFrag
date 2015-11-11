@@ -169,7 +169,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $message['user_id'] == $this->user('user_id')))
 			{
-				return array($message_id, $message['topic_id'], $message['topic_title'], $message['is_topic'], $message['message'], $message['category_id'], $message['user_id'], $message['username'], $message['avatar'], $message['sex'], $message['online'], $message['admin']);
+				return array($message_id, $message['topic_id'], $message['topic_title'], $message['is_topic'], $message['message'], $message['category_id'], $message['forum_id'], $message['user_id'], $message['username'], $message['avatar'], $message['sex'], $message['online'], $message['admin']);
 			}
 			else
 			{

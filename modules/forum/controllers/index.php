@@ -58,7 +58,8 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _forum($forum_id, $title, $category_id, $subforums, $announces, $topics)
 	{
-		$this->title($title);
+		$this	->title($title)
+				->_breadcrumb($category_id, $forum_id);
 		
 		$panels = array();
 		
@@ -123,6 +124,8 @@ class m_forum_c_index extends Controller_Module
 	public function _new($forum_id, $title, $category_id)
 	{
 		$this	->title($this('new_topic'))
+				->_breadcrumb($category_id, $forum_id)
+				->breadcrumb($this('new_topic'))
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
@@ -190,6 +193,8 @@ class m_forum_c_index extends Controller_Module
 	public function _topic($topic_id, $title, $forum_id, $forum_title, $category_id, $views, $nb_users, $nb_messages, $is_announce, $is_locked, $topic, $messages)
 	{
 		$this	->title($title)
+				->_breadcrumb($category_id, $forum_id)
+				->breadcrumb($title)
 				->js('neofrag.delete');
 		
 		$last_message_read = NULL;
@@ -480,9 +485,12 @@ class m_forum_c_index extends Controller_Module
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
-	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $user_id, $username, $avatar, $sex, $online, $admin)
+	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $username, $avatar, $sex, $online, $admin)
 	{
 		$this	->title($this($is_topic ? 'edit_topic' : 'edit_message'))
+				->_breadcrumb($category_id, $forum_id)
+				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title).'.html')
+				->breadcrumb($this($is_topic ? 'edit_topic' : 'edit_message'))
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
@@ -645,6 +653,26 @@ class m_forum_c_index extends Controller_Module
 		
 		//add_alert('success', $this('forum_marked_as_read', $title));
 		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
+	}
+	
+	private function _breadcrumb($category_id, $forum_id)
+	{
+		if ($category = $this->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row())
+		{
+			$this->breadcrumb($category, 'forum.html');
+		}
+		
+		if (list($title, $parent_forum_id) = array_values($this->db->select('title', 'IF(is_subforum = "1", parent_id, 0)')->from('nf_forum')->where('forum_id', $forum_id)->row()))
+		{
+			if ($parent_forum_id && $parent_forum = $this->db->select('title')->from('nf_forum')->where('forum_id', $parent_forum_id)->row())
+			{
+				$this->breadcrumb($parent_forum, 'forum/'.$parent_forum_id.'/'.url_title($parent_forum).'.html');
+			}
+			
+			$this->breadcrumb($title, 'forum/'.$forum_id.'/'.url_title($title).'.html');
+		}
+		
+		return $this;
 	}
 }
 

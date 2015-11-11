@@ -18,21 +18,35 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class w_breadcrumb_c_index extends Controller_Widget
+class Breadcrumb extends Core
 {
-	public function index($config = array())
+	private $_links = array();
+	
+	public function get_links()
 	{
-		$count = count($links = $this->breadcrumb->get_links());
+		$links = $this->_links;
 		
-		array_walk($links, function(&$value, $key) use ($count){
-			$value = '<li'.(($is_last = $key == $count - 1) ? ' class="active"' : '').'><a href="'.url($value[1]).'">'.($is_last && $value[2] !== '' ? icon($value[2]).' ' : '').$value[0].'</a></li>';
-		});
+		if (empty($links) && $this->config->segments_url[0] == 'index')
+		{
+			array_unshift($links, array($this->load->lang('home'), '', 'fa-map-marker'));
+		}
+		else
+		{
+			array_unshift($links, array($this->load->module->get_title(), $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker'));
+		}
+
+		return $links;
+	}
+
+	public function __invoke($title, $link = '', $icon = '')
+	{
+		$this->_links[] = array($title, $link ?: $this->config->request_url, $icon ?: $this->load->module->icon);
 		
-		return '<ol class="breadcrumb"><b>'.$this->config->nf_name.'</b>&nbsp;&nbsp;&nbsp;'.icon('fa-angle-right').'&nbsp;&nbsp;&nbsp;'.implode($links).'</ol>';
+		return $this;
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.2
-./neofrag/widgets/breadcrumb/controllers/index.php
+NeoFrag Alpha 0.1.3
+./neofrag/core/breadcrumb.php
 */

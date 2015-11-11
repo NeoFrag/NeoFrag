@@ -127,6 +127,7 @@ $NeoFrag->core(
 	'session',
 	'user',
 	'groups',
+	'breadcrumb',
 	'router',
 	'output'
 );
