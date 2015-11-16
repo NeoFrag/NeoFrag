@@ -172,7 +172,7 @@ class m_user_c_index extends Controller_Module
 				array(
 					'title'   => $this('initial_session_date'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				)
 			))
