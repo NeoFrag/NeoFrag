@@ -24,14 +24,11 @@ FoxLey, eResnova, creativewild
 **************************************************************************/
 
 $lang['alignment']           = 'Alignement';
-$lang['center']              = 'Centré';
 $lang['default_description'] = 'Description par défaut';
 $lang['default_title']       = 'Titre par défaut';
 $lang['description']         = 'Description';
 $lang['header']              = 'Header';
-$lang['left']                = 'Gauche';
 $lang['options']             = 'Options';
-$lang['right']               = 'Droite';
 $lang['website_title']       = 'Titre du site';
 
 /*

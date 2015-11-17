@@ -18,6 +18,14 @@
 <title><?php echo $data['page_title']; ?></title>
 </head>
 <body>
+	<?php if ($NeoFrag->config->nf_maintenance && !$NeoFrag->config->admin_url && $NeoFrag->user('admin')): ?>
+		<nav class="navbar no-margin bg-danger">
+			<div class="container">
+				<p class="navbar-text"><?php echo icon('fa-power-off').' '.i18n('website_down_for_maintenance'); ?></p>
+				<a href="<?php echo url('admin/settings/maintenance.html'); ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo i18n('open_website'); ?></a>
+			</div>
+		</nav>
+	<?php endif; ?>
 	<?php echo $data[$NeoFrag->module->name == 'live_editor' ? 'module' : 'body']; ?>
 	<script type="text/javascript" src="<?php echo js('bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo js('neofrag.user.js'); ?>"></script>

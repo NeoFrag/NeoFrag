@@ -35,7 +35,6 @@ $lang['invalid_login_message']               = 'Si vous avez oublié votre mot d
 $lang['invalid_password']                    = 'Mot de passe incorrect';
 $lang['login_required']                      = 'Connexion requise';
 $lang['login_required_message']              = '<p>La page que vous souhaitez consulter n\'est accessible qu\'aux utilisateurs connectés.</p>Connectez-vous si vous avez déjà un compte utilisateur.<br />Vous pouvez aussi créer un nouveau compte en vous inscrivant ci-dessous.';
-$lang['login_title']                         = 'Se connecter';
 $lang['logout']                              = 'Déconnexion';
 $lang['manage_my_account']                   = 'Gérer mon compte';
 $lang['manage_my_sessions']                  = 'Gérer mes sessions';

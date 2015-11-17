@@ -134,6 +134,75 @@ class User extends Core
 		$this->config->set_language();
 
 		$this->check_http_authentification();
+		
+		if ($this->config->nf_maintenance)
+		{
+			if ($this->config->nf_maintenance_opening && date_create() >= ($opening = date_create($this->config->nf_maintenance_opening)))
+			{
+				$this	->config('nf_maintenance', FALSE, 'bool')
+						->config('nf_maintenance_opening', '');
+			}
+			else if (!$this('admin') && $this->config->request_url != 'user/logout.html')
+			{
+				header('HTTP/1.0 503 Service Unavailable');
+				
+				if (!empty($opening))
+				{
+					header('Retry-After: '.$opening->setTimezone(new DateTimezone('UTC'))->format('D, d M Y H:i:s \G\M\T'));
+				}
+				
+				if (!$this->config->ajax_header)
+				{
+					$form_login = $this
+						->load
+						->library('form')
+						->set_id('dd74f62896869c798933e29305aa9473')
+						->add_rules(array(
+							'login' => array(
+								'rules' => 'required'
+							),
+							'password' => array(
+								'type'  => 'password'
+							)
+						))
+						->save();
+
+					if ($form_login->is_valid($post))
+					{
+						$module = $this->load->init_module('user');
+
+						$user_id = $module->load->model($module, 'user')->check_login($post['login'], $hash, $salt);
+
+						if ($user_id > 0 && $this->load->library('password')->is_valid($post['password'].$salt, $hash, (bool)$salt))
+						{
+							$this->login($user_id, FALSE);
+							refresh();
+						}
+					}
+					
+					$this->load->theme($this->config->nf_default_theme);
+					
+					echo $this->load->theme->load->view('default', array(
+						'lang'       => $this->config->lang,
+						'css'        => implode("\r\n", array(
+							'<link rel="stylesheet" href="'.path('font.open-sans.300.400.600.700.800.css', 'css').'" type="text/css" media="screen" />',
+							'<link rel="stylesheet" href="'.path('jquery.countdown.css', 'css').'" type="text/css" media="screen" />',
+							'<link rel="stylesheet" href="'.path('style.maintenance.css', 'css').'" type="text/css" media="screen" />'
+						)),
+						'js'         => implode("\r\n", array(
+							'<script type="text/javascript" src="'.path('jquery.countdown.js', 'js').'"></script>',
+							'<script type="text/javascript" src="'.path('maintenance.js', 'js').'"></script>'
+						)),
+						'page_title' => ($page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')).' :: '.$this->config->nf_name,
+						'body'       => $this->load->theme->load->view('maintenance', array(
+							'page_title' => $page_title
+						))
+					));
+				}
+				
+				exit();
+			}
+		}
 	}
 	
 	public function set($name, $value)
@@ -158,7 +227,10 @@ class User extends Core
 
 		$this->session->save();
 
-		$this->_init();
+		if (!$this->config->nf_maintenance)
+		{
+			$this->_init();
+		}
 	}
 
 	public function logout()

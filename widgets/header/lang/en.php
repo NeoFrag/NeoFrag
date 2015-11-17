@@ -24,14 +24,11 @@ FoxLey, eResnova
 **************************************************************************/
 
 $lang['alignment']           = 'Alignment';
-$lang['center']              = 'Centered';
 $lang['default_description'] = 'Default description';
 $lang['default_title']       = 'Default title';
 $lang['description']         = 'Description';
 $lang['header']              = 'Header';
-$lang['left']                = 'Left';
 $lang['options']             = 'Options';
-$lang['right']               = 'Right';
 $lang['website_title']       = 'Site Title';
 
 /*

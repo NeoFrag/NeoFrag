@@ -20,6 +20,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_settings_c_admin_ajax extends Controller_Module
 {
+	public function maintenance()
+	{
+		$this->config('nf_maintenance', (bool)post('closed'), 'bool');
+		
+		return (int)$this->config->nf_maintenance;
+	}
+	
 	public function _theme_activation($theme)
 	{
 		$this->config('nf_default_theme', $theme);

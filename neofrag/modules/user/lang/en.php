@@ -35,7 +35,6 @@ $lang['invalid_login_message']               = 'If you have forgotten your passw
 $lang['invalid_password']                    = 'Incorrect password';
 $lang['login_required']                      = 'Login required';
 $lang['login_required_message']              = '<p>The page you want to see is only accessible to connected users.</p> Log in if you already have an account. <br /> you can also create a new account by registering below.';
-$lang['login_title']                         = 'Login';
 $lang['logout']                              = 'Logout';
 $lang['manage_my_account']                   = 'Manage my account';
 $lang['manage_my_sessions']                  = 'Manage my sessions';

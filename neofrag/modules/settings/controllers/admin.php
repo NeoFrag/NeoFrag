@@ -134,6 +134,185 @@ class m_settings_c_admin extends Controller_Module
 		));
 	}
 
+	public function maintenance()
+	{
+		$this	->title($this('maintenance'))
+				->icon('fa-power-off')
+				->css('maintenance')
+				->js('maintenance');
+				
+		$form_opening = $this->load->library('form')
+			->add_rules(array(
+				'opening' => array(
+					'type'  => 'datetime',
+					'value' => $this->config->nf_maintenance_opening
+				)
+			))
+			->fast_mode()
+			->add_submit($this('save'))
+			->save();
+
+		$form_maintenance = $this->form
+			->add_rules(array(
+				'title' => array(
+					'label' => $this('title'),
+					'type'  => 'text',
+					'value' => $this->config->nf_maintenance_title
+				),
+				'content' => array(
+					'label' => $this('content'),
+					'type'  => 'editor',
+					'value' => $this->config->nf_maintenance_content
+				),
+				'logo' => array(
+					'label'  => $this('logo'),
+					'value'  => $this->config->nf_maintenance_logo,
+					'type'   => 'file',
+					'upload' => 'maintenance',
+					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
+					'check'  => function($filename, $ext){
+						if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+						{
+							return i18n('select_image_file');
+						}
+					}
+				),
+				'background' => array(
+					'label'  => $this('background'),
+					'value'  => $this->config->nf_maintenance_background,
+					'type'   => 'file',
+					'upload' => 'maintenance',
+					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
+					'check'  => function($filename, $ext){
+						if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+						{
+							return i18n('select_image_file');
+						}
+					}
+				),
+				'repeat' => array(
+					'label'  => $this('background_repeat'),
+					'value'  => $this->config->nf_maintenance_background_repeat,
+					'values' => array(
+						'no-repeat' => $this('no'),
+						'repeat-x'  => $this('horizontally'),
+						'repeat-y'  => $this('vertically'),
+						'repeat'    => $this('both')
+					),
+					'type'   => 'radio'
+				),
+				'positionX' => array(
+					'label'  => $this('position'),
+					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[0] : '',
+					'values' => array(
+						'left'   => $this('left'),
+						'center' => $this('center'),
+						'right'  => $this('right')
+					),
+					'type'   => 'radio'
+				),
+				'positionY' => array(
+					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[1] : '',
+					'values' => array(
+						'top'    => $this('top'),
+						'center' => $this('middle'),
+						'bottom' => $this('bottom')
+					),
+					'type'   => 'radio'
+				),
+				'background_color' => array(
+					'label' => $this('background_color'),
+					'value' => $this->config->nf_maintenance_background_color,
+					'type'  => 'colorpicker'
+				),
+				'text_color' => array(
+					'label' => $this('text_color'),
+					'value' => $this->config->nf_maintenance_text_color,
+					'type'  => 'colorpicker'
+				),
+				'facebook' => array(
+					'label' => 'Facebook',
+					'icon'  => 'fa-facebook',
+					'value' => $this->config->nf_maintenance_facebook,
+					'type'  => 'url'
+				),
+				'twitter' => array(
+					'label' => 'Twitter',
+					'icon'  => 'fa-twitter',
+					'value' => $this->config->nf_maintenance_twitter,
+					'type'  => 'url'
+				),
+				'google' => array(
+					'label' => 'Google+',
+					'icon'  => 'fa-google-plus',
+					'value' => $this->config->{'nf_maintenance_google-plus'},
+					'type'  => 'url'
+				),
+				'steam' => array(
+					'label' => 'Steam',
+					'icon'  => 'fa-steam',
+					'value' => $this->config->nf_maintenance_steam,
+					'type'  => 'url'
+				),
+				'twitch' => array(
+					'label' => 'Twitch',
+					'icon'  => 'fa-twitch',
+					'value' => $this->config->nf_maintenance_twitch,
+					'type'  => 'url'
+				)
+			))
+			->add_submit($this('save'))
+			->save();
+			
+		if ($form_opening->is_valid($post))
+		{
+			$this->config('nf_maintenance_opening', $post['opening']);
+			refresh();
+		}
+		else if ($form_maintenance->is_valid($post))
+		{
+			$this	->config('nf_maintenance_title',               $post['title'])
+					->config('nf_maintenance_content',             $post['content'])
+					->config('nf_maintenance_logo',                $post['logo'], 'int')
+					->config('nf_maintenance_background',          $post['background'], 'int')
+					->config('nf_maintenance_background_repeat',   $post['repeat'])
+					->config('nf_maintenance_background_position', $post['positionX'].' '.$post['positionY'])
+					->config('nf_maintenance_background_color',    $post['background_color'])
+					->config('nf_maintenance_text_color',          $post['text_color'])
+					->config('nf_maintenance_facebook',            $post['facebook'])
+					->config('nf_maintenance_twitter',             $post['twitter'])
+					->config('nf_maintenance_google-plus',         $post['google'])
+					->config('nf_maintenance_steam',               $post['steam'])
+					->config('nf_maintenance_twitch',              $post['twitch']);
+
+			refresh();
+		}
+
+		return new Row(
+			new Col(
+				new Panel(array(
+					'title'   => $this('website_status'),
+					'icon'    => 'fa-power-off',
+					'content' => $this->load->view('maintenance')
+				)),
+				new Panel(array(
+					'title'   => $this('planned_opening'),
+					'icon'    => 'fa-clock-o',
+					'content' => $form_opening->display()
+				))
+				, 'col-md-3'
+			),
+			new Col(
+				new Panel(array(
+					'title'   => $this('customizing_maintenance_page'),
+					'icon'    => 'fa-paint-brush',
+					'content' => $form_maintenance->display()
+				))
+				, 'col-md-9'
+			)
+		);
+	}
+
 	public function themes()
 	{
 		$this	->title($this('themes'))

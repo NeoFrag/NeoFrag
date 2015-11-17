@@ -85,6 +85,11 @@ class t_admin extends Theme
 								'url'   => 'admin/settings.html'
 							),
 							array(
+								'title' => $this('maintenance'),
+								'icon'  => 'fa-power-off',
+								'url'   => 'admin/settings/maintenance.html'
+							),
+							array(
 								'title' => $this('addons'),
 								'icon'  => 'fa-puzzle-piece',
 								'url'   => 'admin/settings/components.html'
