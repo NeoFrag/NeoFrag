@@ -5,7 +5,7 @@
 		</a>
 	</div>
 	<div class="media-body">
-		<h4 class="media-heading"><?php echo $NeoFrag->user('first_name').' '.$NeoFrag->user('first_name').' <b>'.$NeoFrag->user('username').'</b>'; ?></h4>
+		<h4 class="media-heading"><?php echo $NeoFrag->user('first_name').' '.$NeoFrag->user('last_name').' <b>'.$NeoFrag->user('username').'</b>'; ?></h4>
 		<?php echo $NeoFrag->groups->user_groups($NeoFrag->user('user_id')); ?>
 		<hr />
 		<dl class="dl-horizontal">
