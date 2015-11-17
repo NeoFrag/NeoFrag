@@ -115,6 +115,8 @@ $NeoFrag = new Loader(
 	)
 );
 
+NeoFrag::loader();
+
 //Chargement des librairies
 $NeoFrag->core(
 	'error',

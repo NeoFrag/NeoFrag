@@ -35,8 +35,15 @@ abstract class NeoFrag
 	
 	static public function loader()
 	{
-		global $NeoFrag;
-		return $NeoFrag;
+		static $NF;
+		
+		if ($NF === NULL)
+		{
+			global $NeoFrag;
+			$NF = $NeoFrag;
+		}
+		
+		return $NF;
 	}
 	
 	static public function live_editor()
