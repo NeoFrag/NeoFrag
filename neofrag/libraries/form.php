@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Form extends Library
 {
-	static private $types      = array('text', 'password', 'email', 'url', 'date', 'checkbox', 'radio', 'select', 'tags', 'file', 'textarea', 'editor', 'colorpicker', 'iconpicker');
+	static private $types      = array('text', 'password', 'email', 'url', 'date', 'datetime', 'time', 'checkbox', 'radio', 'select', 'tags', 'file', 'textarea', 'editor', 'colorpicker', 'iconpicker');
 	
 	private $_buttons          = array();
 	private $_confirm_deletion = array();
@@ -274,6 +274,18 @@ class Form extends Library
 		return $this->_check_text($post, $var, $options);
 	}
 	
+	private function _check_datetime(&$post, $var, $options)
+	{
+		datetime2sql($post[$var]);
+		return $this->_check_text($post, $var, $options);
+	}
+	
+	private function _check_time(&$post, $var, $options)
+	{
+		time2sql($post[$var]);
+		return $this->_check_text($post, $var, $options);
+	}
+	
 	private function _check_date(&$post, $var, $options)
 	{
 		date2sql($post[$var]);
@@ -463,21 +475,22 @@ class Form extends Library
 
 		$classes = array();
 		
-		if ($type == 'date')
+		if (in_array($type, array('date', 'datetime', 'time')))
 		{
-			NeoFrag::loader()	->css('bootstrap-datepicker/datepicker3')
-								->js('bootstrap-datepicker/bootstrap-datepicker')
-								->js('bootstrap-datepicker/locales/bootstrap-datepicker.fr')
-								->js_load('$(".input-group.date").datepicker({format:"dd/mm/yyyy", language: "fr"});');
-				
-			$type = 'text';
+			NeoFrag::loader()	->css('bootstrap-datetimepicker.min')
+								->js('bootstrap-datetimepicker/moment.min')
+								->js('bootstrap-datetimepicker/bootstrap-datetimepicker.min')
+								->js('bootstrap-datetimepicker/locales/'.$this->config->lang)
+								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang.'", format: "'.array('date' => 'L', 'datetime' => 'L LT', 'time' => 'LT')[$type].'"});');
 			
-			$classes[] = 'date';
+			$classes[] = $type;
 			
 			if (empty($options['icon']))
 			{
-				$options['icon'] = 'fa-calendar';
+				$options['icon'] = $type == 'time' ? 'fa-clock-o' : 'fa-calendar';
 			}
+			
+			$type = 'text';
 		}
 		else if ($type == 'email')
 		{
@@ -606,7 +619,32 @@ class Form extends Library
 
 	private function _display_date($var, $options, $post)
 	{
+		if (!empty($options['value']))
+		{
+			$options['value'] = timetostr(NeoFrag::loader()->lang('date_short'), $options['value']);
+		}
+
 		return $this->_display_text($var, $options, $post, 'date');
+	}
+
+	private function _display_datetime($var, $options, $post)
+	{
+		if (!empty($options['value']))
+		{
+			$options['value'] = timetostr(NeoFrag::loader()->lang('date_time_short'), $options['value']);
+		}
+
+		return $this->_display_text($var, $options, $post, 'datetime');
+	}
+
+	private function _display_time($var, $options, $post)
+	{
+		if (!empty($options['value']))
+		{
+			$options['value'] = timetostr(NeoFrag::loader()->lang('time_short'), $options['value']);
+		}
+
+		return $this->_display_text($var, $options, $post, 'time');
 	}
 
 	private function _display_email($var, $options, $post)
