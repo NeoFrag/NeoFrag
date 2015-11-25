@@ -22,15 +22,34 @@ class m_live_editor_c_index extends Controller_Module
 {
 	public function index()
 	{
-		$this	->css('live-editor')
+		$this	->css('font.open-sans.300.400.600.700.800')
+				->css('live-editor')
 				->js('live-editor');
 
 		$dispositions = $this->db	->select('DISTINCT page')
 									->from('nf_settings_dispositions')
 									->where('theme', $theme)
 									->get();
+		
+		$modules = array();
+		
+		foreach ($this->get_modules(TRUE) as $module)
+		{
+			//TODO
+			if (!in_array($module->name, array('access', 'admin', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks')))
+			{
+				$modules[$module->name] = $module->get_title();
+			}
+		}
+		
+		natcasesort($modules);
+		
+		$modules = array_merge(array(
+			'index' => NeoFrag::loader()->lang('home')
+		), $modules);
 
 		echo $this->load->view('index', array(
+			'modules'       => $modules,
 			'styles_row'    => NeoFrag::loader()->theme->styles_row(),
 			'styles_widget' => NeoFrag::loader()->theme->styles_widget()
 		));

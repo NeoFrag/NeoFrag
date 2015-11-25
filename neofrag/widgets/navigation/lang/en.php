@@ -26,7 +26,6 @@ FoxLey, eResnova
 $lang['horizontal']          = 'Horizontal';
 $lang['links']               = 'Links';
 $lang['move_here_to_remove'] = 'Move a link here to delete';
-$lang['navigation']          = 'Navigation';
 $lang['options']             = 'Options';
 $lang['orientation']         = 'Orientation';
 $lang['path']                = 'Path';

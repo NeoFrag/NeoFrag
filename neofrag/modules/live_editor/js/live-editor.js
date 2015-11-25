@@ -244,8 +244,16 @@ $(function(){
 	
 	$('.live-editor-screen[data-width]').click(function(){
 		var width = $(this).data('width');
-		$('.live-editor-iframe')	.width(width)
-									.css('left', 'calc(50% - '+width+' / 2)');
+		
+		if (width == '100%'){
+			var size = '20px';
+			width = 'calc('+width+' - 40px)';
+		}
+		else {
+			var size = 'calc(50% - '+width+' / 2)';
+		}
+		
+		$('.live-editor-iframe').width(width).css('left', size);
 		$('.live-editor-screen').removeClass('active');
 		$(this).addClass('active');
 		$(this).parents('.dropdown-menu:first').prev('.dropdown-toggle:first').html($(this).html());
@@ -258,13 +266,21 @@ $(function(){
 			return;
 		}
 
-		var mode = 0;
+		var mode = <?php echo NeoFrag::LIVE_EDITOR; ?>;
 		$('.live-editor-mode.active').each(function(){
 			mode += $(this).data('mode');
 		});
 	
 		$('input[type="hidden"][name="live_editor"]').val(mode);
 		$('form[target="live-editor-iframe"]').submit();
+	});
+	
+	$('#modules-links-collapse').on('click', 'a', function(){
+		$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.i18n('loading'); ?>');
+		$('#modules-links-collapse').removeClass('in');
+		$('form[target="live-editor-iframe"]').prop('action', $(this).attr('href')).submit();
+
+		return false;
 	});
 	
 	/* Styles Overview */
@@ -278,6 +294,8 @@ $(function(){
 
 	$('.live-editor-iframe iframe').bind('load', function(){
 		var $iframe = $(this).contents();
+		
+		$('#live-editor-map').html('<i class="fa fa-map-marker fa-fw"></i> '+$iframe.find('#live_editor').data('module-title'));
 		
 		$iframe.on('mouseover', '.widget, .module', function(){
 			if ($widgets.hasClass('active') && !$(this).find('.widget-hover').length){
@@ -294,21 +312,22 @@ $(function(){
 					</div>').prependTo(this).fadeTo('fast', 1);
 			}
 		});
-		
+
 		$iframe.on('mouseleave', '.widget-hover', function(){
 			$(this).remove();
 		});
-		
+
 		$iframe.on('click', 'a', function(){
 			var href = $(this).attr('href');
-			
+
 			if (href.match(/<?php echo str_replace('/', '\/', url()); ?>(?!(admin|live-editor|#))/)){
+				$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.i18n('loading'); ?>');
 				$('form[target="live-editor-iframe"]').prop('action', href).submit();
 			}
 			
 			return false;
 		});
-		
+
 		/* Zone Fork */
 		$iframe.on('click', '.live-editor-zone .live-editor-fork', function(){
 			var $this = $(this);
@@ -350,7 +369,14 @@ $(function(){
 				disposition_id: $this.data('disposition-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
-				$this.append(data);
+				var $rows_button = $('.live-editor-mode[data-mode="<?php echo NeoFrag::ROWS; ?>"]');
+
+				if (!$rows_button.hasClass('active')){
+					$rows_button.trigger('click');
+				}
+				else {
+					$this.append(data);
+				}
 			}).always(function(){
 				$('.live-editor-save').hide();
 			});
@@ -430,7 +456,14 @@ $(function(){
 				row_id: $row.data('row-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
-				$row.append(data);
+				var $cols_button = $('.live-editor-mode[data-mode="<?php echo NeoFrag::COLS; ?>"]');
+
+				if (!$cols_button.hasClass('active')){
+					$cols_button.trigger('click');
+				}
+				else {
+					$row.append(data);
+				}
 			}).always(function(){
 				$('.live-editor-save').hide();
 			});

@@ -46,11 +46,6 @@ class Output extends Core
 		}
 		else
 		{
-			if (NeoFrag::live_editor())
-			{
-				$this->load->css('neofrag.live-editor');
-			}
-			
 			$this->data['module_actions'] = $this->load->module->get_actions();
 
 			$this->data = array_merge($this->data, $this->load->module->load->data);
@@ -64,17 +59,34 @@ class Output extends Core
 				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].$this->profiler->output().'</div>';
 			}
 
-			if ($this->config->segments_url[0] != 'index' && !empty($this->data['module_title']))
+			if (!empty($this->data['module_title']))
 			{
-				$this->data['page_title'] = $this->data['module_title'].' :: '.$this->config->nf_name;
+				$module_title = $this->data['module_title'];
+				
+				if ($this->config->segments_url[0] != 'index')
+				{
+					$this->data['page_title'] = $this->data['module_title'].' :: '.$this->config->nf_name;
+				}
+			}
+			else
+			{
+				$module_title = '';
 			}
 
 			if (!empty($this->load->module->icon) || !empty($this->data['module_icon']))
 			{
 				$this->data['module_title'] = icon(!empty($this->data['module_icon']) ? $this->data['module_icon'] : $this->load->module->icon).' '.$this->data['module_title'];
 			}
-			
+
 			$this->data['body'] = $this->load->theme->load->view('body', $this->data);
+
+			if (NeoFrag::live_editor())
+			{
+				$this->data['body'] = '<div id="live_editor" data-module-title="'.($this->config->segments_url[0] == 'index' ? NeoFrag::loader()->lang('home') : $module_title).'"></div>'.$this->data['body'];
+			
+				$this->load	->css('font.open-sans.300.400.600.700.800')
+							->css('neofrag.live-editor');
+			}
 
 			if (isset($this->load->css))
 			{

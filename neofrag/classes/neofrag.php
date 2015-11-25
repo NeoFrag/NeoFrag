@@ -24,10 +24,11 @@ abstract class NeoFrag
 	const UNAUTHORIZED = 1;
 	const UNCONNECTED  = 2;
 	
-	const ZONES        = 1;
-	const ROWS         = 2;
-	const COLS         = 4;
-	const WIDGETS      = 8;
+	const LIVE_EDITOR  = 1;
+	const ZONES        = 2;
+	const ROWS         = 4;
+	const COLS         = 8;
+	const WIDGETS      = 16;
 
 	public $id;
 	public $load;

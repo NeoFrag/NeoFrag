@@ -26,7 +26,6 @@ FoxLey, eResnova, creativewild
 $lang['horizontal']          = 'Horizontale';
 $lang['links']               = 'Liens';
 $lang['move_here_to_remove'] = 'Déplacez un lien ici pour le supprimer';
-$lang['navigation']          = 'Navigation';
 $lang['options']             = 'Options';
 $lang['orientation']         = 'Orientation';
 $lang['path']                = 'Chemin';

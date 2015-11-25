@@ -49,10 +49,10 @@
  </Styles>
  <Worksheet ss:Name="NeoFrag CMS">
   <Names>
-   <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R719C8"
+   <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R720C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="719" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="720" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -4638,7 +4638,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/navigation/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">navigation</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -6817,6 +6817,12 @@
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Coming soon</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">loading</Data></Cell>
+    <Cell><Data ss:Type="String">Chargement en cours...</Data></Cell>
+    <Cell><Data ss:Type="String">Loading…</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
