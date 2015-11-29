@@ -5,7 +5,7 @@
 <?php endif; ?>
 <p class="news-detail">
 	<span><?php echo icon('fa-clock-o').' '.timetostr('%e %b %Y', $data['date']); ?></span>
-	<span><?php echo icon('fa-user').' '.$NeoFrag->user->link($data['user_id'], $data['username']); ?></span>
+	<span><?php echo icon('fa-user').' '.($data['user_id'] ? $NeoFrag->user->link($data['user_id'], $data['username']) : i18n('guest')); ?></span>
 	<!--<span><?php echo icon('fa-eye').' ' .$data['views']; ?></span>-->
 	<span><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#comments'); ?>"><?php echo icon('fa-comments-o').' '.$NeoFrag->library('comments')->count_comments('news', $data['news_id']); ?></a></span>
 	<?php if ($data['vote'] && $note = $NeoFrag->library('votes')->get_note('news', $data['news_id'])): ?><div class="info-votes"><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#vote'); ?>"><?php echo $note; ?>/5</a></div><?php endif; ?>

@@ -98,6 +98,7 @@ class User extends Core
 								->from('nf_users u')
 								->join('nf_users_profiles p', 'u.user_id = p.user_id')
 								->where('u.user_id', $user_id)
+								->where('u.deleted', FALSE)
 								->row();
 			if ($user)
 			{

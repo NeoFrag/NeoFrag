@@ -26,7 +26,7 @@ class Groups extends Core
 	{
 		parent::__construct();
 		
-		$users = $this->db->select('user_id', 'admin')->from('nf_users')->get();
+		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
 		
 		$this->_groups = array(
 			'admins' => array(
@@ -52,10 +52,11 @@ class Groups extends Core
 			)
 		);
 		
-		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(ug.user_id) AS users', 'g.auto')
+		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
 							->from('nf_groups g')
-							->join('nf_groups_lang gl', 'gl.group_id = g.group_id')
+							->join('nf_groups_lang gl',  'gl.group_id = g.group_id')
 							->join('nf_users_groups ug', 'ug.group_id = g.group_id')
+							->join('nf_users u',         'ug.user_id  = u.user_id AND u.deleted = "0"')
 							->where('gl.lang', $this->config->lang, 'OR')
 							->where('gl.lang', NULL)
 							->group_by('g.group_id')

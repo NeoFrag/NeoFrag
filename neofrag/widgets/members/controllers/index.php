@@ -57,7 +57,7 @@ class w_members_c_index extends Controller_Widget
 		
 		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
 							->from('nf_sessions s')
-							->join('nf_users u', 'u.user_id = s.user_id', 'INNER')
+							->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')
 							->join('nf_users_profiles up', 'u.user_id = up.user_id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
 							->where('s.is_crawler', FALSE)

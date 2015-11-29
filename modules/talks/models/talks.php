@@ -22,9 +22,9 @@ class m_talks_m_talks extends Model
 {
 	public function get_messages($talks_id, $message_id = 0, $limit = FALSE)
 	{
-		$this->db	->select('m.*', 'u.username', 'up.avatar', 'up.sex')
+		$this->db	->select('m.message_id', 'm.talk_id', 'u.user_id', 'm.message', 'm.date', 'u.username', 'up.avatar', 'up.sex')
 					->from('nf_talks_messages m')
-					->join('nf_users u', 'u.user_id = m.user_id')
+					->join('nf_users u', 'u.user_id = m.user_id AND u.deleted = "0"')
 					->join('nf_users_profiles up', 'u.user_id = up.user_id');
 					
 		if ($message_id && !$limit)

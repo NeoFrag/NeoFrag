@@ -87,66 +87,75 @@ class m_news_c_index extends Controller_Module
 	{
 		$this->title($title);
 		
-		return array(
-			new Row(
-				new Col(
-					new Panel(array(
-						'title'   => $title,
-						'icon'    => 'fa-file-text-o',
-						'content' => $this->load->view('index', array(
-							'news_id'        => $news_id,
-							'category_id'    => $category_id,
-							'user_id'        => $user_id,
-							'image_id'       => $image_id,
-							'date'           => $date,
-							'views'          => $views,
-							'vote'           => $vote,
-							'title'          => $title,
-							'introduction'   => bbcode($introduction).'<br /><br />'.bbcode($content),
-							'content'        => '',
-							'tags'           => $tags,
-							'image'          => $image,
-							'category_icon'  => $category_icon,
-							'category_name'  => $category_name,
-							'category_title' => $category_title,
-							'username'       => $username,
-							'avatar'         => $avatar,
-							'sex'            => $sex
-						))
-					))
-				)
-			),
-			new Row(
-				new Col(
-					new Panel(array(
-						'title'   => $this('about_the_author'),
-						'icon'    => 'fa-user',
-						'content' => $this->load->view('author', array(
-							'user_id'  => $user_id,
-							'username' => $username,
-							'avatar'   => $avatar,
-							'sex'      => $sex,
-							'admin'    => $admin,
-							'online'   => $online,
-							'quote'    => $quote
-						))
-					))
-					, 'col-md-6'
+		$news = new Panel(array(
+			'title'   => $title,
+			'icon'    => 'fa-file-text-o',
+			'content' => $this->load->view('index', array(
+				'news_id'        => $news_id,
+				'category_id'    => $category_id,
+				'user_id'        => $user_id,
+				'image_id'       => $image_id,
+				'date'           => $date,
+				'views'          => $views,
+				'vote'           => $vote,
+				'title'          => $title,
+				'introduction'   => bbcode($introduction).'<br /><br />'.bbcode($content),
+				'content'        => '',
+				'tags'           => $tags,
+				'image'          => $image,
+				'category_icon'  => $category_icon,
+				'category_name'  => $category_name,
+				'category_title' => $category_title,
+				'username'       => $username,
+				'avatar'         => $avatar,
+				'sex'            => $sex
+			))
+		));
+		
+		if ($user_id)
+		{
+			return array(
+				new Row(
+					new Col(
+						$news
+					)
 				),
-				new Col(
-					new Panel(array(
-						'title'   => $this('more_news_from_author'),
-						'icon'    => 'fa-file-text-o',
-						'content' => $this->load->view('author_news', array(
-							'news' => $this->model()->get_news_by_user($user_id, $news_id)
-						)),
-						'body'    => FALSE
-					))
-					, 'col-md-6'
-				)
-			),
-			$this->load->library('comments')->display('news', $news_id)
-		);
+				new Row(
+					new Col(
+						new Panel(array(
+							'title'   => $this('about_the_author'),
+							'icon'    => 'fa-user',
+							'content' => $this->load->view('author', array(
+								'user_id'  => $user_id,
+								'username' => $username,
+								'avatar'   => $avatar,
+								'sex'      => $sex,
+								'admin'    => $admin,
+								'online'   => $online,
+								'quote'    => $quote
+							))
+						))
+						, 'col-md-6'
+					),
+					new Col(
+						new Panel(array(
+							'title'   => $this('more_news_from_author'),
+							'icon'    => 'fa-file-text-o',
+							'content' => $this->load->view('author_news', array(
+								'news' => $this->model()->get_news_by_user($user_id, $news_id)
+							)),
+							'body'    => FALSE
+						))
+						, 'col-md-6'
+					)
+				),
+				$this->load->library('comments')->display('news', $news_id)
+			);
+		}
+		else
+		{
+			return array($news, $this->load->library('comments')->display('news', $news_id));
+		}
 	}
 }
 

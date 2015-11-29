@@ -83,9 +83,9 @@ class Comments extends Library
 			redirect($this->config->request_url.'#comment-'.$comment_id);
 		}
 
-		$comments = $this->db	->select('c.*', 'u.username', 'up.avatar', 'up.sex')
+		$comments = $this->db	->select('c.comment_id', 'c.parent_id', 'u.user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')
 								->from('nf_comments c')
-								->join('nf_users u', 'u.user_id = c.user_id')
+								->join('nf_users u', 'u.user_id = c.user_id AND u.deleted = "0"')
 								->join('nf_users_profiles up', 'u.user_id = up.user_id')
 								->where('module', $module_name)
 								->where('module_id', $module_id)

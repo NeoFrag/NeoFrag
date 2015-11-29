@@ -27,7 +27,7 @@ class m_news_m_news extends Model
 					->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
 					->join('nf_news_categories c',       'n.category_id = c.category_id')
 					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
-					->join('nf_users u',                 'n.user_id     = u.user_id')
+					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
 					->join('nf_users_profiles up',       'up.user_id    = u.user_id')
 					->where('nl.lang', $this->config->lang)
 					->where('cl.lang', $this->config->lang)
@@ -77,12 +77,12 @@ class m_news_m_news extends Model
 			$lang = $this->config->lang;
 		}
 
-		$this->db	->select('n.*', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'c.name as category_name', 'cl.title as category_title', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'u.username', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'up.quote', 'up.avatar', 'up.sex')
+		$this->db	->select('n.news_id', 'n.category_id', 'u.user_id', 'n.image_id', 'n.date', 'n.published', 'n.views', 'n.vote', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'c.name as category_name', 'cl.title as category_title', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'u.username', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'up.quote', 'up.avatar', 'up.sex')
 						->from('nf_news n')
 						->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
 						->join('nf_news_categories c',       'n.category_id = c.category_id')
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
-						->join('nf_users u',                 'u.user_id     = n.user_id')
+						->join('nf_users u',                 'u.user_id     = n.user_id AND u.deleted = "0"')
 						->join('nf_users_profiles up',       'u.user_id     = up.user_id')
 						->join('nf_sessions       s',        'u.user_id     = s.user_id')
 						->where('n.news_id', $news_id)

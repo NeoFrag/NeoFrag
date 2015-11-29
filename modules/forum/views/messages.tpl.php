@@ -22,7 +22,7 @@
 			<td class="text-left col-md-9">
 				<div class="padding-top">
 					<div class="pull-right">
-					<?php if (($message['user_id'] && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('forum', 'category_modify', $data['category_id'])): ?>
+					<?php if (($NeoFrag->user() && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('forum', 'category_modify', $data['category_id'])): ?>
 						<a href="<?php echo url('forum/message/edit/'.$message['message_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-xs btn-primary"><?php echo icon('fa-edit'); ?></a>
 						<a href="<?php echo url('forum/message/delete/'.$message['message_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-xs btn-primary delete"><?php echo icon('fa-close'); ?></a>
 					<?php endif; ?>

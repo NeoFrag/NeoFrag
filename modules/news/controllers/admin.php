@@ -63,7 +63,7 @@ class m_news_c_admin extends Controller_Module
 							array(
 								'title'   => $this('author'),
 								'content' => function($data){
-									return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+									return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : i18n('guest');
 								},
 								'sort'    => function($data){
 									return $data['username'];

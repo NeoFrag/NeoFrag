@@ -167,7 +167,7 @@ class m_forum_c_checker extends Controller
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
 		{
-			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $this->user() && $message['user_id'] == $this->user('user_id')))
 			{
 				return array($message_id, $message['topic_id'], $message['topic_title'], $message['is_topic'], $message['message'], $message['category_id'], $message['forum_id'], $message['user_id'], $message['username'], $message['avatar'], $message['sex'], $message['online'], $message['admin']);
 			}
@@ -198,7 +198,7 @@ class m_forum_c_checker extends Controller
 		
 		if ($message && $title == url_title($message['title']))
 		{
-			if ($this->access('forum', 'category_delete', $message['category_id']) || $message['user_id'] == $this->user('user_id'))
+			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
 			{
 				return array($message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']);
 			}

@@ -43,7 +43,7 @@ foreach ($data['messages'] as $i => $message)
 ?>
 	<div class="media-body<?php if ($media == 'right') echo ' text-right'; ?>">
 		<?php
-			if (($message['user_id'] && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('talks', 'delete', $message['talk_id']))
+			if (($NeoFrag->user() && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('talks', 'delete', $message['talk_id']))
 			{
 				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.button_delete('ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
 			}

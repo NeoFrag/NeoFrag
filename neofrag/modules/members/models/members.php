@@ -151,7 +151,7 @@ class m_members_m_members extends Model
 	{
 		return $this->db->select('u.user_id', 'u.username', 's.session_id', 's.ip_address', 's.host_name', 's.last_activity', 's.user_data', 's.remember_me')
 						->from('nf_sessions s')
-						->join('nf_users u', 'u.user_id = s.user_id')
+						->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"')
 						->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
 						->where('s.is_crawler', FALSE)
 						->order_by('s.last_activity DESC')

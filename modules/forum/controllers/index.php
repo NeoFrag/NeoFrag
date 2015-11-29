@@ -262,7 +262,7 @@ class m_forum_c_index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this('reply').'</a>';
 		}
 
-		if ($topic['user_id'] == $this->user('user_id') || $this->access('forum', 'category_delete', $category_id))
+		if (($this->user() && $topic['user_id'] == $this->user('user_id')) || $this->access('forum', 'category_delete', $category_id))
 		{
 			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('remove_topic').'">'.icon('fa-close').'</a>';
 		}
