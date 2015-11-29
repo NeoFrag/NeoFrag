@@ -173,6 +173,6 @@ function js($file)
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/helpers/assets.php
 */

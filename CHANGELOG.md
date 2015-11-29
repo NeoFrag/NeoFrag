@@ -1,5 +1,46 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.3](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.3) (2015-11-29)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.2...alpha0.1.3)
+
+**Features**
+
+- Internationalization (french and english)
+- Google reCAPTCHA
+- Maintenance page
+- Moving forum topics
+
+**Core**
+
+- [Access] Setting default access to FALSE
+- [Breadcrumb] Add breadcrumb on forum module
+- [Output] Fix dispositions request
+
+**Libraries**
+
+- [Email] Fix base url
+- [Form] Using bootstrap-datetimepicker (adding datetime and time inputs)
+
+**LiveEditor**
+
+- Global improving
+
+**Modules**
+
+- [Gallery] Fix php error on editing
+- [Members] Destroy user sessions when delete one
+- [User] Display correctly user last name
+- [User] Fix date on sessions historic
+
+**Widgets**
+
+- [Talks] Fix read permission
+
+**Fixes**
+
+- Fix global $NeoFrag not found in destruct scope
+- Replace deleted users by a guest mention
+
 ## [Alpha 0.1.2](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.2) (2015-10-04)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.1...alpha0.1.2)
 

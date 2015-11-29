@@ -51,10 +51,10 @@ class m_teams_m_teams extends Model
 	public function get_players($team_id)
 	{
 		return $this->db->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
-						->from('nf_teams_users tu')
-						->join('nf_teams_roles r',     'r.role_id  = tu.role_id')
-						->join('nf_users u',           'tu.user_id = u.user_id AND u.user_id = "0"', 'INNER')
+						->from('nf_teams_users    tu')
+						->join('nf_users          u',  'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')
 						->join('nf_users_profiles up', 'u.user_id  = up.user_id')
+						->join('nf_teams_roles    r',  'r.role_id  = tu.role_id')
 						->join('nf_sessions       s',  'u.user_id  = s.user_id')
 						->where('tu.team_id', $team_id)
 						->group_by('u.username')
@@ -123,6 +123,6 @@ class m_teams_m_teams extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./modules/teams/models/teams.php
 */

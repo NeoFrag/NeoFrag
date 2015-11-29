@@ -216,6 +216,6 @@ class Output extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/core/output.php
 */

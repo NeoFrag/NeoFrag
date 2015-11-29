@@ -499,11 +499,13 @@ class Form extends Library
 		
 		if (in_array($type, array('date', 'datetime', 'time')))
 		{
+			$types = array('date' => 'L', 'datetime' => 'L LT', 'time' => 'LT');
+			
 			NeoFrag::loader()	->css('bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/moment.min')
 								->js('bootstrap-datetimepicker/bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/locales/'.$this->config->lang)
-								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang.'", format: "'.array('date' => 'L', 'datetime' => 'L LT', 'time' => 'LT')[$type].'"});');
+								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang.'", format: "'.$types[$type].'"});');
 			
 			$classes[] = $type;
 			
@@ -784,6 +786,6 @@ class Form extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/libraries/form.php
 */

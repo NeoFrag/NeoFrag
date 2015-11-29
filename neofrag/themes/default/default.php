@@ -362,6 +362,6 @@ class t_default extends Theme
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/themes/default/default.php
 */

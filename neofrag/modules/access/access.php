@@ -38,6 +38,6 @@ class m_access extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/modules/access/access.php
 */

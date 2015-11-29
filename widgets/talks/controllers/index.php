@@ -55,6 +55,6 @@ class w_talks_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./widgets/talks/controllers/index.php
 */

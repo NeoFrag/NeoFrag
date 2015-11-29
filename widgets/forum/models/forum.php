@@ -68,6 +68,6 @@ class w_forum_m_forum extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./widgets/forum/models/forum.php
 */

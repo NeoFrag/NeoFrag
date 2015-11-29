@@ -71,6 +71,6 @@ class w_news_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./widgets/news/controllers/index.php
 */

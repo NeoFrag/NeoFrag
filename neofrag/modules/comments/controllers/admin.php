@@ -95,6 +95,6 @@ class m_comments_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/modules/comments/controllers/admin.php
 */

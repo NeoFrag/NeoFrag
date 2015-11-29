@@ -107,20 +107,27 @@ class Access extends Core
 			return $default;
 		}
 
-		foreach (array_keys($this->groups()) as $group)
+		if ($user_id || $this->user())
 		{
-			if (!isset($groups[$group]) && !in_array($group, array('admins', 'visitors')))
+			foreach (array_keys($this->groups()) as $group)
 			{
-				$groups[$group] = $default;
+				if (!isset($groups[$group]) && $group != 'admins')
+				{
+					$groups[$group] = $default;
+				}
+			}
+			
+			foreach (array_keys($groups) as $group)
+			{
+				if (!in_array($group, $user_groups))
+				{
+					unset($groups[$group]);
+				}
 			}
 		}
-		
-		foreach (array_keys($groups) as $group)
+		else
 		{
-			if (!in_array($group, $user_groups))
-			{
-				unset($groups[$group]);
-			}
+			$groups = array('visitors' => isset($groups['visitors']) ? $groups['visitors'] : $default);
 		}
 		
 		foreach (array_keys($groups) as $group)
@@ -252,6 +259,6 @@ class Access extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/core/access.php
 */

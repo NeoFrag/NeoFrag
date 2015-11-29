@@ -340,6 +340,6 @@ class m_settings_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/modules/settings/controllers/admin.php
 */

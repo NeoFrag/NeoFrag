@@ -324,6 +324,6 @@ class m_news_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./modules/news/controllers/admin.php
 */

@@ -104,6 +104,6 @@ class m_teams_c_admin_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./modules/teams/controllers/admin_checker.php
 */

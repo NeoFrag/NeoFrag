@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -33,7 +33,7 @@ ob_start();
 define('NEOFRAG_CMS',     dirname(__FILE__));
 define('NEOFRAG_MEMORY',  memory_get_usage(TRUE));
 define('NEOFRAG_TIME',    microtime(TRUE));
-define('NEOFRAG_VERSION', 'Alpha 0.1.2');
+define('NEOFRAG_VERSION', 'Alpha 0.1.3');
 
 ini_set('default_charset', 'UTF8');
 ini_set('mbstring.func_overload', 7);
@@ -135,6 +135,6 @@ $NeoFrag->core(
 );
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./index.php
 */

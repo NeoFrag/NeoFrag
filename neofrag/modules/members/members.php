@@ -55,6 +55,6 @@ class m_members extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.3
 ./neofrag/modules/members/members.php
 */
