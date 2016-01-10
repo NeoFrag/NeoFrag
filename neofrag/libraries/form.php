@@ -20,7 +20,26 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Form extends Library
 {
-	static private $types      = array('text', 'password', 'email', 'url', 'date', 'datetime', 'time', 'checkbox', 'radio', 'select', 'tags', 'file', 'textarea', 'editor', 'colorpicker', 'iconpicker');
+	static private $types = array(
+		'text',
+		'password',
+		'email',
+		'url',
+		'date',
+		'datetime',
+		'time',
+		'number',
+		'phone',
+		'checkbox',
+		'radio',
+		'select',
+		'tags',
+		'file',
+		'textarea',
+		'editor',
+		'colorpicker',
+		'iconpicker'
+	);
 	
 	private $_buttons          = array();
 	private $_confirm_deletion = array();
@@ -102,17 +121,12 @@ class Form extends Library
 	public function is_valid(&$post = NULL)
 	{
 		$post = post($this->id);
-		
-		if ($this->_display_captcha && !$this->captcha->is_valid())
+
+		if (($this->_display_captcha && !$this->captcha->is_valid()) || strtolower($_SERVER['REQUEST_METHOD']) != 'post' || (empty($post) && empty($_FILES[$this->id])))
 		{
 			return FALSE;
 		}
-		
-		if (strtolower($_SERVER['REQUEST_METHOD']) != 'post' || empty($post))
-		{
-			return FALSE;
-		}
-		
+
 		if ($this->_confirm_deletion)
 		{
 			return $post === array('delete');
@@ -272,7 +286,7 @@ class Form extends Library
 	
 	private function _check_email($post, $var, $options)
 	{
-		if (strlen($post[$var]) && !is_valid_email($post[$var]))
+		if ($post[$var] !== '' && !is_valid_email($post[$var]))
 		{
 			return NeoFrag::loader()->lang('wrong_email');
 		}
@@ -282,9 +296,29 @@ class Form extends Library
 	
 	private function _check_url($post, $var, $options)
 	{
-		if (strlen($post[$var]) && !is_valid_url($post[$var]))
+		if ($post[$var] !== '' && !is_valid_url($post[$var]))
 		{
 			return NeoFrag::loader()->lang('wrong_url');
+		}
+		
+		return $this->_check_text($post, $var, $options);
+	}
+	
+	private function _check_number(&$post, $var, $options)
+	{
+		if ($post[$var] !== '' && $post[$var] != (int)$post[$var])
+		{
+			return 'Nombre invalide';
+		}
+		
+		return $this->_check_text($post, $var, $options);
+	}
+	
+	private function _check_phone(&$post, $var, $options)
+	{
+		if ($post[$var] !== '' && !preg_match('/^0[1-9]([. ]?)\d{2}(?:\1\d{2}){3}$/', $post[$var], $match))
+		{
+			return 'Numéro de téléphone invalide';
 		}
 		
 		return $this->_check_text($post, $var, $options);
@@ -382,7 +416,7 @@ class Form extends Library
 						$output .= '<em>*</em>';
 					}
 
-					$output .= '</label><div class="col-md-9">'.$display.'</div>';
+					$output .= '</label><div class="'.(!empty($options['size']) && preg_match('/^col-md-([1-9])$/', $options['size'], $match) ? 'col-md-'.$match[1] : 'col-md-9').'">'.$display.'</div>';
 				}
 				
 				$output .= '</div>';
@@ -455,7 +489,14 @@ class Form extends Library
 
 		if (isset($post[$this->id][$var]))
 		{
-			return utf8_htmlentities(trim($post[$this->id][$var]));
+			if (is_array($post[$this->id][$var]))
+			{
+				return array_values(array_filter($post[$this->id][$var]));
+			}
+			else
+			{
+				return utf8_htmlentities(trim($post[$this->id][$var]));
+			}
 		}
 		else if (isset($options['checked']))
 		{
@@ -532,6 +573,15 @@ class Form extends Library
 				$options['icon'] = 'fa-globe';
 			}
 		}
+		else if ($type == 'phone')
+		{
+			$type = 'text';
+			
+			if (empty($options['icon']))
+			{
+				$options['icon'] = 'fa-phone';
+			}
+		}
 		else if ($type == 'colorpicker')
 		{
 			$type = 'text';
@@ -553,13 +603,29 @@ class Form extends Library
 				<span class="input-group-addon">'.($options['icon'] ? icon($options['icon']) : '<i></i>').'</span>';
 		}
 		
+		$placeholder = '';
+		
 		if ($type != 'file')
 		{
 			$class = ' class="form-control"';
 			$value = ' value="'.addcslashes($this->_display_value($var, $options), '"').'"';
+			
+			if (!empty($options['placeholder']))
+			{
+				$placeholder = $options['placeholder'];
+			}
+			else if ($this->_fast_mode && !empty($options['label']))
+			{
+				$placeholder = $options['label'];
+			}
+			
+			if ($placeholder)
+			{
+				$placeholder = ' placeholder="'.$this->load->lang($placeholder, NULL).'"';
+			}
 		}
-		
-		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').(!empty($class) ? $class : '').($type == 'password' && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$this->load->lang($options['label'], NULL).'"' : '').' />';
+
+		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').(!empty($class) ? $class : '').($type == 'password' && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').$placeholder.' />';
 
 		if ($type == 'file')
 		{
@@ -679,6 +745,16 @@ class Form extends Library
 		}
 
 		return $this->_display_text($var, $options, $post, 'time');
+	}
+
+	private function _display_number($var, $options, $post)
+	{
+		return $this->_display_text($var, $options, $post, 'number');
+	}
+
+	private function _display_phone($var, $options, $post)
+	{
+		return $this->_display_text($var, $options, $post, 'phone');
 	}
 
 	private function _display_email($var, $options, $post)
