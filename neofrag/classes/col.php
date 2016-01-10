@@ -26,15 +26,24 @@ class Col
 	
 	public function __construct()
 	{
-		foreach (func_get_args() as $widget)
+		$this->_init(func_get_args());
+	}
+	
+	private function _init($args)
+	{
+		foreach ($args as $widget)
 		{
-			if (is_a($widget, 'Widget_View') || is_a($widget, 'Panel'))
+			if (is_array($widget))
 			{
-				$this->widgets[] = $widget;
+				$this->_init($widget);
 			}
 			else if (is_string($widget))
 			{
 				$this->_size = $widget;
+			}
+			else if ($widget !== NULL)
+			{
+				$this->widgets[] = $widget;
 			}
 		}
 	}
