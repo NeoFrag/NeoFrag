@@ -57,7 +57,7 @@
 		});
 	};
 	
-	$('body').on('nf.table.load', user_agent);
+	$('body').on('nf.load', user_agent);
 	
 	user_agent();
 });

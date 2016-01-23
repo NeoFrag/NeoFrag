@@ -78,10 +78,12 @@ class m_pages_m_pages extends Model
 
 	public function edit_page($page_id, $name, $title, $published, $subtitle, $content, $lang)
 	{
-		if ($this->db	->query('	SELECT title, subtitle, content
-									FROM nf_pages p
-									JOIN nf_pages_lang l ON p.page_id = l.page_id
-									WHERE p.page_id = %d AND lang = %s', (int)$page_id, $lang)->row())
+		if ($this->db	->select('1')
+						->from('nf_pages p')
+						->join('nf_pages_lang l', 'p.page_id = l.page_id')
+						->where('p.page_id', $page_id)
+						->where('l.lang', $lang)
+						->row())
 		{
 			$this->db	->where('page_id', $page_id)
 						->where('lang', $lang)

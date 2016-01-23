@@ -30,7 +30,7 @@ class m_news_c_index extends Controller_Module
 			
 			$panel = array(
 				'title'   => $news['title'],
-				'url'     => url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html'),
+				'url'     => 'news/'.$news['news_id'].'/'.url_title($news['title']).'.html',
 				'icon'    => 'fa-file-text-o',
 				'content' => $this->load->view('index', $news)
 			);
@@ -77,7 +77,7 @@ class m_news_c_index extends Controller_Module
 		$news = $this->index($news);
 		
 		array_unshift($news, new Panel(array(
-			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', $this('show_more'), 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', $this('show_more'), 'danger pull-right', array(), FALSE, TRUE).'</h2>'
 		)));
 
 		return $news;

@@ -32,7 +32,7 @@ class Widget_View
 	{
 		static $widgets;
 
-		if (is_null($widgets))
+		if ($widgets === NULL)
 		{
 			foreach (NeoFrag::loader()->db->from('nf_widgets')->get() as $widget)
 			{
@@ -43,8 +43,13 @@ class Widget_View
 		$widget = $widgets[$this->widget_id];
 		
 		$output   = array();
-		$instance = NeoFrag::loader()->widget($widget['widget']);
-		$result   = $instance->get_output($widget['type'], is_array($settings = unserialize($widget['settings'])) ? $settings : array());
+		
+		if (!$instance = NeoFrag::loader()->widget($widget['widget']))
+		{
+			return;
+		}
+		
+		$result = $instance->get_output($widget['type'], is_array($settings = unserialize($widget['settings'])) ? $settings : array());
 		
 		foreach ($result as $result)
 		{
@@ -80,7 +85,7 @@ class Widget_View
 			$name = $widget['widget'];
 		}
 		
-		return '<div class="'.$type.' '.$type.'-'.$name.(!is_null($id) ? ' live-editor-widget" data-widget-id="'.$id.'" data-title="'.(!empty($module) ? $module->get_title() : $instance->get_title()).'"' : '"').'>'.implode($output).'</div>';
+		return '<div class="'.$type.' '.$type.'-'.$name.($id !== NULL ? ' live-editor-widget" data-widget-id="'.$id.'" data-title="'.(!empty($module) ? $module->get_title() : $instance->get_title()).'"' : '"').'>'.display($output).'</div>';
 	}
 }
 

@@ -22,7 +22,7 @@ function relative_path($file)
 {
 	$file  = substr(str_replace('\\', '/', $file), strlen(NEOFRAG_CMS));
 
-	return ((substr($file, 0, 1) == '/') ? '.' : './').$file;
+	return (substr($file, 0, 1) == '/' ? '.' : './').$file;
 }
 
 function extension($file, &$path = NULL)
@@ -98,7 +98,7 @@ function image_resize($filename, $width, $height = NULL)
 	$type = $info[2];
 	$mime = $info['mime'];
 	
-	if (is_null($height))
+	if ($height === NULL)
 	{
 		$height = ceil($h * $width / $w);
 	}
@@ -179,6 +179,33 @@ function rmdir_all($directory)
 	}
 	
 	rmdir($directory);
+}
+
+function copy_all($src, $dst)
+{ 
+	if (!file_exists($dst))
+	{
+		mkdir($dst, 0777, TRUE);
+	}
+
+	$dir = opendir($src); 
+
+	while (($file = readdir($dir)) !== FALSE)
+	{
+		if (!in_array($file, array('.', '..')))
+		{
+			if (is_dir($src.'/'.$file))
+			{
+				copy_all($src.'/'.$file, $dst.'/'.$file); 
+			}
+			else
+			{
+				copy($src.'/'.$file, $dst.'/'.$file); 
+			}
+		}
+	}
+	
+	closedir($dir); 
 }
 
 /*

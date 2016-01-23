@@ -22,15 +22,8 @@ class Output extends Core
 {
 	public $data = array();
 
-	public function __construct()
+	public function display()
 	{
-		parent::__construct();
-
-		if (method_exists($this->load->theme, 'load'))
-		{
-			$this->load->theme->load();
-		}
-
 		$this->data = $this->load->data;
 
 		$this->data['page_title'] = $this->config->nf_name.' :: '.$this->config->nf_description;
@@ -40,9 +33,9 @@ class Output extends Core
 		{
 			$output = $this->load->module->table->get_output(ob_get_clean(), $this->data);
 		}
-		else if ($this->config->ajax_url)
+		else if ($this->router->ajax())
 		{
-			$output = $this->load->module->get_output();
+			$output = ob_get_clean().$this->load->module->get_output();
 		}
 		else
 		{
@@ -52,11 +45,11 @@ class Output extends Core
 
 			$this->template->parse_data($this->data, $this->load->module->load);
 
-			$this->data['module'] = ob_get_clean().$this->template->parse($this->load->module->get_output(), $this->data, $this->load->module->load);
+			$this->data['module'] = ob_get_clean().$this->load->module->get_output();
 			
 			if ($this->config->admin_url)
 			{
-				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].$this->profiler->output().'</div>';
+				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].'</div>';
 			}
 
 			if (!empty($this->data['module_title']))
@@ -87,40 +80,14 @@ class Output extends Core
 				$this->load	->css('font.open-sans.300.400.600.700.800')
 							->css('neofrag.live-editor');
 			}
-
-			if (isset($this->load->css))
+			else
 			{
-				$this->data['css'] = array();
-				
-				foreach ($this->load->css as $css)
-				{
-					$this->data['css'][] = '<link rel="stylesheet" href="'.path($css[0].'.css', 'css', $css[2]->paths['assets']).'" type="text/css" media="'.$css[1].'" />'."\r\n";
-				}
-				
-				$this->data['css'] = implode(array_unique($this->data['css']));
+				$this->data['body'] .= $this->debug->display();
 			}
 
-			if (isset($this->load->js))
-			{
-				$this->data['js'] = array();
-
-				foreach ($this->load->js as $js)
-				{
-					$this->data['js'][] = '<script type="text/javascript" src="'.path($js[0].'.js', 'js', $js[1]->paths['assets']).'"></script>'."\r\n";
-				}
-				
-				$this->data['js'] = implode(array_unique($this->data['js']));
-			}
-
-			if (isset($this->load->js_load))
-			{
-				$this->data['js_load'] = '';
-
-				foreach (array_unique($this->load->js_load) as $js)
-				{
-					$this->data['js_load'] .= $js;
-				}
-			}
+			$this->data['css']     = output('css');
+			$this->data['js']      = output('js');
+			$this->data['js_load'] = output('js_load');
 			
 			$output = $this->load->theme->load->view('default', $this->data);
 		}
@@ -152,7 +119,7 @@ class Output extends Core
 	{
 		static $dispositions;
 		
-		if (is_null($dispositions))
+		if ($dispositions === NULL)
 		{
 			$this->db	->select('zone', 'disposition_id', 'disposition', 'page')
 						->from('nf_dispositions')
@@ -196,22 +163,6 @@ class Output extends Core
 		}
 
 		return '';
-	}
-
-	public function profiler()
-	{
-		if (!$this->data)
-		{
-			return '';
-		}
-
-		ksort($this->data);
-
-		$output = '	<a href="#" data-profiler="output"><i class="icon-chevron-'.(($this->session('profiler', 'output')) ? 'down' : 'up').' pull-right"></i></a>
-					<h2>Output</h2>
-					<div class="profiler-block">'.$this->profiler->table($this->data).'</div>';
-
-		return $output;
 	}
 }
 

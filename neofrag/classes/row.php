@@ -48,7 +48,7 @@ class Row
 	{
 		$output = '';
 		
-		if ($live_editor = NeoFrag::live_editor() & NeoFrag::ROWS && !is_null($id))
+		if ($live_editor = NeoFrag::live_editor() & NeoFrag::ROWS && $id !== NULL)
 		{
 			$output .= '<div class="live-editor-row-header">
 							<div class="btn-group">
@@ -62,10 +62,10 @@ class Row
 		$cols = array();
 		foreach ($this->cols as $i => $col)
 		{
-			$cols[] = $col->display(!is_null($id) ? $i : NULL);
+			$cols[] = $col->display($id !== NULL ? $i : NULL);
 		}
 		
-		$output .= '<div class="row'.(!empty($this->style) ? ' '.$this->style.($live_editor ? '" data-original-style="'.$this->style : '') : '').'"'.(!is_null($id) ? ' data-row-id="'.$id.'"' : '').'>
+		$output .= '<div class="row'.(!empty($this->style) ? ' '.$this->style.($live_editor ? '" data-original-style="'.$this->style : '') : '').'"'.($id !== NULL ? ' data-row-id="'.$id.'"' : '').'>
 						'.implode($cols).'
 					</div>';
 	

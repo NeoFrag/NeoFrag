@@ -190,7 +190,7 @@ class Access extends Core
 
 	public function init($module_name, $type = 'default', $id = 0)
 	{
-		$module = $this->load->module($module_name, FALSE);
+		$module = $this->load->module($module_name);
 		$access = $module->get_access($type);
 		
 		if (!empty($access['init']))

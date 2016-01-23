@@ -39,18 +39,11 @@ class m_talks_c_admin_checker extends Controller_Module
 	
 	public function delete($talk_id, $title)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($talk_id > 1 && $talk = $this->model()->check_talk($talk_id, $title))
 		{
 			return $talk;
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette discussion a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

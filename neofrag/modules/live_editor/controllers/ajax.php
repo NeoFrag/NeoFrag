@@ -51,17 +51,10 @@ class m_live_editor_c_ajax extends Controller_Module
 				{
 					foreach ($col->widgets as &$w)
 					{
-						$widget = $this->db	->select('widget', 'type', 'title', 'settings')
-											->from('nf_widgets')
-											->where('widget_id', $w->widget_id)
-											->row();
-						
-						$w->widget_id = $this->db->insert('nf_widgets', array(
-							'widget'   => $widget['widget'],
-							'type'     => $widget['type'],
-							'title'    => $widget['title'],
-							'settings' => $widget['settings']
-						));
+						$w->widget_id = $this->db->insert('nf_widgets', $this->db	->select('widget', 'type', 'title', 'settings')
+																					->from('nf_widgets')
+																					->where('widget_id', $w->widget_id)
+																					->row());
 					}
 				}
 			}

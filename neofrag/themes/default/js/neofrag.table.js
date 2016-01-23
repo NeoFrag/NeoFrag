@@ -28,7 +28,7 @@
 			dataType: 'json',
 			success: function(data){
 				$table.find('.table-content').html(data.content);
-				$('body').trigger('nf.table.load');
+				$('body').trigger('nf.load');
 			}
 		});
 	});
@@ -57,7 +57,7 @@
 				$table.find('.table-content').html(data.content);
 				$input.next('.form-control-feedback').remove();
 			
-				$('body').trigger('nf.table.load');
+				$('body').trigger('nf.load');
 			}
 		});
 	});

@@ -40,10 +40,7 @@ class m_user_c_checker extends Controller_Module
 	
 	public function _session_delete($session_id)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if (!$this->user())
 		{
@@ -52,10 +49,6 @@ class m_user_c_checker extends Controller_Module
 		else if ($this->db->select('1')->from('nf_sessions')->where('user_id', $this->user('user_id'))->where('session_id', $session_id)->row())
 		{
 			return array($session_id);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette session à déjà été supprimée.';
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

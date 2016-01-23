@@ -13,8 +13,6 @@
 <?php echo $data['css']; ?>
 <script type="text/javascript" src="<?php echo js('jquery-1.11.2.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo js('jquery-ui.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo js('neofrag.noscript.js'); ?>"></script>
-<noscript><meta http-equiv="refresh" content="0; URL=<?php echo url('noscript.html'); ?>" /></noscript>
 <title><?php echo $data['page_title']; ?></title>
 </head>
 <body>

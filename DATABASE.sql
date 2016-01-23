@@ -724,7 +724,7 @@ DROP TABLE IF EXISTS `nf_settings_addons`;
 CREATE TABLE IF NOT EXISTS `nf_settings_addons` (
   `name` varchar(100) NOT NULL,
   `type` enum('module','theme','widget') NOT NULL,
-  `enable` enum('0','1') NOT NULL DEFAULT '0',
+  `is_enabled` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`name`,`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -733,12 +733,14 @@ CREATE TABLE IF NOT EXISTS `nf_settings_addons` (
 --
 
 INSERT INTO `nf_settings_addons` VALUES('access', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('addons', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('admin', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('breadcrumb', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('comments', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('contact', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('default', 'theme', '1');
 INSERT INTO `nf_settings_addons` VALUES('error', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('error', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('gallery', 'module', '1');
@@ -772,26 +774,23 @@ INSERT INTO `nf_settings_addons` VALUES('user', 'widget', '1');
 
 DROP TABLE IF EXISTS `nf_settings_languages`;
 CREATE TABLE IF NOT EXISTS `nf_settings_languages` (
-  `language_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(5) NOT NULL,
-  `domain_extension` varchar(6) NOT NULL,
   `name` varchar(100) NOT NULL,
   `flag` varchar(100) NOT NULL,
   `order` smallint(6) unsigned NOT NULL,
-  PRIMARY KEY (`language_id`),
-  UNIQUE KEY `code` (`code`)
+  PRIMARY KEY (`code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `nf_settings_languages`
 --
 
-INSERT INTO `nf_settings_languages` VALUES(1, 'fr', '.fr', 'Français', 'fr.png', 1);
-INSERT INTO `nf_settings_languages` VALUES(2, 'en', '.com', 'English', 'gb.png', 2);
-INSERT INTO `nf_settings_languages` VALUES(3, 'de', '.de', 'Deutsch', 'de.png', 3);
-INSERT INTO `nf_settings_languages` VALUES(4, 'es', '.es', 'Español', 'es.png', 4);
-INSERT INTO `nf_settings_languages` VALUES(5, 'it', '.it', 'Italiano', 'it.png', 5);
-INSERT INTO `nf_settings_languages` VALUES(6, 'pt', '.pt', 'Português', 'pt.png', 6);
+INSERT INTO `nf_settings_languages` VALUES('fr', 'Français', 'fr.png', 1);
+INSERT INTO `nf_settings_languages` VALUES('en', 'English', 'gb.png', 2);
+INSERT INTO `nf_settings_languages` VALUES('de', 'Deutsch', 'de.png', 3);
+INSERT INTO `nf_settings_languages` VALUES('es', 'Español', 'es.png', 4);
+INSERT INTO `nf_settings_languages` VALUES('it', 'Italiano', 'it.png', 5);
+INSERT INTO `nf_settings_languages` VALUES('pt', 'Português', 'pt.png', 6);
 
 -- --------------------------------------------------------
 
@@ -951,7 +950,6 @@ CREATE TABLE IF NOT EXISTS `nf_users` (
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_activity_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `admin` enum('0','1') NOT NULL DEFAULT '0',
-  `theme` varchar(100) DEFAULT NULL,
   `language` varchar(5) DEFAULT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
@@ -965,7 +963,7 @@ CREATE TABLE IF NOT EXISTS `nf_users` (
 -- Contenu de la table `nf_users`
 --
 
-INSERT INTO `nf_users` VALUES(1, 'admin', '$H$92EwygSmbdXunbIvoo/V91MWcnHqzX/', '', 'noreply@neofrag.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', NULL, NULL, '0');
+INSERT INTO `nf_users` VALUES(1, 'admin', '$H$92EwygSmbdXunbIvoo/V91MWcnHqzX/', '', 'noreply@neofrag.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', NULL, '0');
 
 -- --------------------------------------------------------
 

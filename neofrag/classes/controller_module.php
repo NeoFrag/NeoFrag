@@ -42,7 +42,7 @@ abstract class Controller_Module extends Controller
 	{
 		if ($condition)
 		{
-			$this->_parent->add_action($url, $title, $icon);
+			$this->load->object->add_action($url, $title, $icon);
 		}
 
 		return $this;

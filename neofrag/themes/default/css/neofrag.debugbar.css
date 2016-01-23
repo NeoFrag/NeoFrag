@@ -1,0 +1,121 @@
+body, #wrapper {
+	padding-bottom: 53px;
+}
+
+.debugbar {
+	background-color: #fff;
+	bottom: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 1001;
+}
+
+.debugbar nav {
+	border-bottom: 1px solid;
+	border-top: 2px solid;
+	border-color: #e7e7e7;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 13px;
+	height: 53px;
+	line-height: 50px;
+}
+
+.debugbar .logo {
+	background: url('<?php echo image('debugbar.png'); ?>') no-repeat 0 50%;
+	display: inline-block;
+	float: left;
+	height: 50px;
+	margin: 0 20px 0 10px;
+	width: 128px;
+}
+
+.debugbar p {
+	color: #607D8B;
+	font-size: 13px;
+	display: inline;
+	margin: 0;
+	padding: 0 10px;
+	line-height: 50px;
+}
+
+.debugbar .debugbar-close {
+	display: none;
+}
+
+.debugbar.active .debugbar-resize {
+	cursor: n-resize;
+	height: 5px;
+	position: absolute;
+	top: -2px;
+	width: 100%;
+}
+
+.debugbar.active .debugbar-close {
+	background-color: #EA7C73;
+	font-size: 13px;
+	font-weight: normal;
+	cursor: pointer;
+	color: #fff;
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+}
+
+.debugbar .debugbar-tab {
+	border-left: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
+	color: #607D8B;
+	cursor: pointer;
+	display: inline-block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 15px 0 18px;
+}
+
+.debugbar .debugbar-tab + .debugbar-tab {
+	border-left: 0;
+	margin-left: 0;
+}
+
+.debugbar .debugbar-tab .fa-link {
+	color: #4a4234;
+}
+
+.debugbar .debugbar-tab:hover, .debugbar .debugbar-tab:focus, .debugbar .debugbar-tab.active {
+	color: #21a8e6;
+}
+
+.debugbar .debugbar-content {
+	display: none;
+}
+
+.debugbar.active .debugbar-content {
+	display: block;
+	height: 350px;
+	overflow: auto;
+	padding-top: 5px;
+}
+
+.debugbar .debugbar-pane {
+	display: none;
+}
+
+.debugbar .debugbar-pane.active {
+	display: block;
+}
+
+.debugbar .debugbar-pane[data-tab="loader"] ul {
+	list-style: none;
+	padding: 5px 0 0 25px;
+}
+
+.debugbar .debugbar-pane[data-tab="loader"] li + li {
+	padding-top: 5px;
+}
+
+.debugbar .debugbar-pane[data-tab="loader"] > ul {
+	padding: 0 5px 0;
+}

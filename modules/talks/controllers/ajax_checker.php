@@ -68,10 +68,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 
 	public function delete($message_id)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		$message = $this->db	->select('user_id', 'talk_id')
 								->from('nf_talks_messages')
@@ -84,16 +81,8 @@ class m_talks_c_ajax_checker extends Controller_Module
 			{
 				return array($message_id, $message['talk_id']);
 			}
-			else if ($this->config->ajax_url)
-			{
-				return '<h4 class="alert-heading">Erreur</h4>Vous ne pouvez pas supprimer ce message';
-			}
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce message a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

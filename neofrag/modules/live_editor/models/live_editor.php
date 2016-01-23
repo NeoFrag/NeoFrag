@@ -86,7 +86,7 @@ class m_live_editor_m_live_editor extends Model
 							
 		if ($widget)
 		{
-			if (!is_null($widget['settings']))
+			if ($widget['settings'] !== NULL)
 			{
 				$widget['settings'] = serialize($widget['settings']);
 			}
@@ -101,16 +101,14 @@ class m_live_editor_m_live_editor extends Model
 	
 	public function get_widgets(&$widgets, &$types)
 	{
-		foreach (array_keys($this->addons('widget')) as $widget_name)
+		foreach ($this->addons->get_widgets() as $widget)
 		{
-			$w = $this->load->widget($widget_name);
+			$widgets[$widget->name] = $widget->get_title();
 			
-			$widgets[$widget_name] = $w->get_title();
-			
-			if (!empty($w->types))
+			if (!empty($widget->types))
 			{
-				$types[$widget_name] = $w->load->lang($w->types, NULL);
-				natsort($types[$widget_name]);
+				$types[$widget->name] = $widget->load->lang($widget->types, NULL);
+				natsort($types[$widget->name]);
 			}
 		}
 		

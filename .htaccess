@@ -8,7 +8,6 @@ AddDefaultCharset UTF-8
 
 	RewriteRule ^humans.txt$    ajax/settings/humans.txt
 	RewriteRule ^robots.txt$    ajax/settings/robots.txt
-	RewriteRule ^noscript.html$ ajax/settings/noscript.html
 
 	RewriteCond %{REQUEST_FILENAME} !index.php
 

@@ -21,7 +21,7 @@
 		});
 	};
 	
-	$('body').on('nf.table.load', geolocalisation);
+	$('body').on('nf.load', geolocalisation);
 	
 	geolocalisation();
 });

@@ -16,6 +16,10 @@ tr.navbar-inner:before, tr.navbar-inner:after {
 	text-align: center;
 }
 
+.img-flag {
+	margin-right: 5px;
+}
+
 .no-wrap {
 	display: block;
 	overflow: hidden;

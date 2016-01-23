@@ -37,6 +37,8 @@ class t_default extends Theme
 				->css('font.economica.400.700')
 				->css('style')
 				->css('neofrag.user');
+				
+		return parent::load();
 	}
 	
 	public function styles_row()
@@ -353,11 +355,11 @@ class t_default extends Theme
 		return parent::install($dispositions);
 	}
 	
-	public function uninstall()
+	public function uninstall($remove = TRUE)
 	{
 		$this->load->library('file')->delete($this->config->default_background);
 		$this->db->where('name LIKE', 'default_%')->delete('nf_settings');
-		return parent::uninstall();
+		return parent::uninstall($remove);
 	}
 }
 

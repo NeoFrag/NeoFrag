@@ -22,23 +22,16 @@ class Zone
 {
 	static public function display($disposition_id, $disposition, $page, $zone_id)
 	{
-		global $NeoFrag;
-
 		$output = display($disposition, NeoFrag::live_editor() ? $zone_id : NULL);
-
-		if (!NeoFrag::live_editor() && in_string('<div class="module', $output))
-		{
-			$output .= $NeoFrag->profiler->output();
-		}
 
 		if (NeoFrag::live_editor())
 		{
 			if (NeoFrag::live_editor() & NeoFrag::ZONES)
 			{
 				$output = '	<div class="pull-right">
-								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enable="0">'.icon('fa-toggle-off').' '.$NeoFrag->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enable="1">'.icon('fa-toggle-on').' '.$NeoFrag->lang('custom_layout').'</button>').'
+								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.NeoFrag::loader()->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.NeoFrag::loader()->lang('custom_layout').'</button>').'
 							</div>
-							<h3>'.(!empty($NeoFrag->load->theme->zones[$zone_id]) ? $NeoFrag->load->theme->load->lang($NeoFrag->load->theme->zones[$zone_id], NULL) : $NeoFrag->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.$NeoFrag->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
+							<h3>'.(!empty(NeoFrag::loader()->theme->zones[$zone_id]) ? NeoFrag::loader()->theme->load->lang(NeoFrag::loader()->theme->zones[$zone_id], NULL) : NeoFrag::loader()->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
 							$output;
 			}
 

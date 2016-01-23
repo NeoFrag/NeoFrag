@@ -34,18 +34,11 @@ class m_forum_c_admin_checker extends Controller
 
 	public function delete($forum_id, $title)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($this->model()->check_forum($forum_id, $title))
 		{
 			return array($forum_id, $title);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce forum a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -65,18 +58,11 @@ class m_forum_c_admin_checker extends Controller
 	
 	public function _categories_delete($category_id, $name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($category = $this->model()->check_category($category_id, $name))
 		{
 			return $category;
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette catégorie a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

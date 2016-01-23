@@ -22,10 +22,6 @@ class m_comments_c_ajax_checker extends Controller_Module
 {
 	public function delete($comment_id)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
 
 		$comment = $this->db	->select('user_id', 'module_id', 'module')
 								->from('nf_comments')
@@ -35,10 +31,6 @@ class m_comments_c_ajax_checker extends Controller_Module
 		if ($comment && ($this->user('admin') || ($this->user() && $comment['user_id'] == $this->user('user_id'))))
 		{
 			return array($comment_id, $comment['module_id'], $comment['module']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce commentaire a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

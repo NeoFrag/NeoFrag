@@ -137,7 +137,7 @@ class m_members_m_members extends Model
 			$this->db->where('u.user_id', $users);
 		}
 		
-		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.theme', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
+		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
 						->from('nf_users u')
 						->join('nf_users_profiles up', 'u.user_id = up.user_id')
 						->join('nf_sessions       s',  'u.user_id = s.user_id')
@@ -160,7 +160,7 @@ class m_members_m_members extends Model
 	
 	public function get_member_profile($user_id)
 	{
-		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.theme', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'up.first_name', 'up.last_name', 'up.signature', 'up.date_of_birth', 'up.location', 'up.website', 'up.quote', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
+		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'up.first_name', 'up.last_name', 'up.signature', 'up.date_of_birth', 'up.location', 'up.website', 'up.quote', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
 						->from('nf_users u')
 						->join('nf_users_profiles up', 'u.user_id = up.user_id')
 						->join('nf_sessions       s',  'u.user_id = s.user_id')

@@ -380,8 +380,7 @@ class m_forum_m_forum extends Model
 									'status'   => $announce
 								));
 		
-		$message_id = $this->db	->check_foreign_keys()
-								->insert('nf_forum_messages', array(
+		$message_id = $this->db	->insert('nf_forum_messages', array(
 									'topic_id' => $topic_id,
 									'user_id'  => $this->user('user_id'),
 									'message'  => $message
@@ -590,7 +589,7 @@ class m_forum_m_forum extends Model
 		
 		static $forum_reads;
 		
-		if (is_null($forum_reads))
+		if ($forum_reads === NULL)
 		{
 			$forum_reads = array();
 			

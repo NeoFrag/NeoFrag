@@ -23,7 +23,6 @@ Translated by NeoFrag community, contributors are:
 FoxLey, eResnova
 **************************************************************************/
 
-$lang['addons']        = 'Manage Components';
 $lang['admin_theme']   = 'Administration';
 $lang['back_front']    = 'Back on the site';
 $lang['ban']           = 'Bans';

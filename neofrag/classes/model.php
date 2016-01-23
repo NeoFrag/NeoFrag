@@ -20,6 +20,12 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Model extends Translatable
 {
+	public $load;
+	
+	public function __construct($name)
+	{
+		$this->name = $name;
+	}
 }
 
 /*

@@ -62,15 +62,17 @@
 		{
 			foreach ($link['url'] as $sublink)
 			{
-				if (preg_match('#^'.substr($sublink['url'], 0, -5).'(?:\.|/)#', $NeoFrag->config->request_url))
+				if (preg_match('#^(.*?)\.html#', $sublink['url'], $match) && preg_match('#^'.$match[1].'(?:\.|/)#', $NeoFrag->config->request_url))
 				{
-					$actives[] = $sublink['url'];
+					$actives[] = $match[1].'.html';
 				}
 			}
 		}
 	}
 
-	usort($actives, create_function('$a, $b', 'return strlen($a) < strlen($b);'));
+	usort($actives, function($a, $b){
+		return strlen($a) < strlen($b);
+	});
 
 	foreach ($data['menu'] as $link)
 	{
@@ -78,6 +80,7 @@
 		{
 			$active  = FALSE;
 			$submenu = '';
+
 			foreach ($link['url'] as $sublink)
 			{
 				$class = array();
@@ -110,15 +113,15 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header"><?php echo $NeoFrag->output->data['module_title']; ?> <small><?php echo $NeoFrag->output->data['module_subtitle']; ?></small></h1>
+				<h1 class="page-header"><?php echo $NeoFrag->output->data['module_title']; if (!empty($NeoFrag->output->data['module_subtitle'])) echo '<small>'.$NeoFrag->output->data['module_subtitle'].'</small>'; ?></h1>
 				<div class="page-actions pull-right">
 					<?php if ($data['module_method'] == 'index' && $NeoFrag->module->get_access('default')): ?>
 						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif; ?>
-					
-					<!--<a class="btn btn-outline btn-warning btn-sm"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> Configuration</span></a> -->
-					
-					<?php if (!is_null($help = $NeoFrag->module->load->controller('admin_help')) && method_exists($help, $data['module_method'])): ?>
+					<?php if (method_exists($NeoFrag->module, 'settings')): ?>
+						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> <?php echo i18n('configuration'); ?></span></a>
+					<?php endif; ?>
+					<?php if (($help = $NeoFrag->module->load->controller('admin_help')) && method_exists($help, $data['module_method'])): ?>
 					<?php NeoFrag::loader()->js('neofrag.help'); ?>
 					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->config->request_url); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo i18n('help'); ?></span></a>
 					<?php endif; ?>

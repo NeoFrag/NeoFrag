@@ -34,18 +34,11 @@ class m_teams_c_admin_checker extends Controller_Module
 
 	public function delete($team_id, $name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($team = $this->model()->check_team($team_id, $name))
 		{
 			return array($team['team_id'], $team['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette actualité a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -65,18 +58,11 @@ class m_teams_c_admin_checker extends Controller_Module
 	
 	public function _roles_delete($role_id, $name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($role = $this->model('roles')->check_role($role_id, $name))
 		{
 			return $role;
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce rôle a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -84,19 +70,12 @@ class m_teams_c_admin_checker extends Controller_Module
 	
 	public function _players_delete($team_id, $name, $user_id)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 		
 
 		if (($team = $this->model()->check_team($team_id, $name)) && $user = $this->db->select('u.user_id', 'u.username')->from('nf_teams_users tu')->join('nf_users u', 'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')->where('tu.team_id', $team['team_id'])->where('tu.user_id', $user_id)->row())
 		{
 			return array_merge(array($team['team_id']), $user);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce joueur a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

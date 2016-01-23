@@ -93,8 +93,8 @@ class Groups extends Core
 				);
 			}
 		}
-
-		foreach ($this->get_modules() as $module)
+		
+		foreach ($this->addons->get_modules() as $module)
 		{
 			if (method_exists($module, 'groups'))
 			{
@@ -115,7 +115,14 @@ class Groups extends Core
 		
 		foreach ($this->_groups as $group_id => &$group)
 		{
-			$group['url'] = url_title($group_id).($group['auto'] != 'neofrag' ? '/'.$group['name'] : '');
+			if (array_key_exists('users', $group))
+			{
+				$group['url'] = url_title($group_id).($group['auto'] != 'neofrag' ? '/'.$group['name'] : '');
+			}
+			else
+			{
+				unset($this->_groups[$group_id]);
+			}
 			
 			unset($group);
 		}
@@ -244,11 +251,6 @@ class Groups extends Core
 		}
 		
 		return $this;
-	}
-	
-	public function profiler()
-	{
-
 	}
 }
 

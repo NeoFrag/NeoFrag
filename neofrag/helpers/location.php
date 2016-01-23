@@ -20,6 +20,11 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function url($url = '')
 {
+	if (substr($url, 0, 1) == '#')
+	{
+		$url = NeoFrag::loader()->config->request_url.$url;
+	}
+	
 	return NeoFrag::loader()->config->base_url.$url;
 }
 

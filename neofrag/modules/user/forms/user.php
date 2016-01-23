@@ -35,7 +35,7 @@ $rules = array(
 		'icon'  => 'fa-lock',
 		'type'  => 'password',
 		'check' => function($value, $post){
-			if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag::loader()->load->library('password')->is_valid($value.($salt = NeoFrag::loader()->user('salt')), NeoFrag::loader()->user('password'), (bool)$salt))
+			if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag::loader()->library('password')->is_valid($value.($salt = NeoFrag::loader()->user('salt')), NeoFrag::loader()->user('password'), (bool)$salt))
 			{
 				return i18n('invalid_password');
 			}

@@ -100,8 +100,7 @@ class Table extends Library
 		{
 			if (post('table_id') == $this->id)
 			{
-				$this->config->ajax_url = TRUE;
-				$this->_ajax            = TRUE;
+				$this->config->ajax_allowed = $this->config->ajax_url = $this->_ajax = TRUE;
 			}
 			else
 			{
@@ -110,7 +109,7 @@ class Table extends Library
 			}
 		}
 
-		if (!is_null($session_sort = $this->session('table', $this->id, 'sort')))
+		if (($session_sort = $this->session('table', $this->id, 'sort')) !== NULL )
 		{
 			foreach ($session_sort as $session)
 			{
@@ -119,12 +118,12 @@ class Table extends Library
 			}
 		}
 
-		if ($this->_pagination && !empty($this->pagination) && !is_null($items_per_page = $this->session('table', $this->id, 'items_per_page')))
+		if ($this->_pagination && !empty($this->pagination) && ($items_per_page = $this->session('table', $this->id, 'items_per_page')) !== NULL)
 		{
 			$this->pagination->set_items_per_page($items_per_page);
 		}
 
-		if (!is_null($sort = post('sort')) && $this->_ajax)
+		if (($sort = post('sort')) !== NULL && $this->_ajax)
 		{
 			list($column_id, $order) = json_decode($sort);
 			
@@ -145,7 +144,7 @@ class Table extends Library
 				
 				$added = FALSE;
 				
-				if (!is_null($session_sort = $this->session('table', $this->id, 'sort')))
+				if (($session_sort = $this->session('table', $this->id, 'sort')) !== NULL)
 				{
 					foreach ($session_sort as $i => $session)
 					{
@@ -204,7 +203,7 @@ class Table extends Library
 
 					foreach ($this->_columns as $value)
 					{
-						if (!isset($value['search']) || is_null($value['search']))
+						if (!isset($value['search']) || $value['search'] === NULL)
 						{
 							continue;
 						}
@@ -249,7 +248,7 @@ class Table extends Library
 				
 				foreach ($this->_columns as $value)
 				{
-					if (!isset($value['search']) || is_null($value['search']))
+					if (!isset($value['search']) || $value['search'] === NULL)
 					{
 						continue;
 					}
@@ -270,7 +269,7 @@ class Table extends Library
 			{
 				$search_input = '	<div class="table-search pull-left">
 										<div class="form-group has-feedback">
-											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_unique($words)), ', ').']').'" type="text"'.((isset($search)) ? ' value="'.$search.'"' : '').' placeholder="'.NeoFrag::loader()->lang('search').'" autocomplete="off" />
+											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.implode(', ', array_unique(array_filter($words))).']').'" type="text"'.(!empty($search) ? ' value="'.$search.'"' : '').' placeholder="'.NeoFrag::loader()->lang('search').'" autocomplete="off" />
 										</div>
 									</div>';
 			}
@@ -382,6 +381,11 @@ class Table extends Library
 							$class[] = 'sorting';
 							$sort   .= ' data-order-by="asc"';
 						}
+					}
+					
+					if (!empty($th['align']) && in_array($th['align'], array('left', 'center', 'right')))
+					{
+						$class[] = 'text-'.$th['align'];
 					}
 
 					$header .= '		<th'.(!empty($class) ? ' class="'.implode(' ', $class).'"' : '').(!is_bool($width) ? ' style="width: '.$width.';"' : '').(!empty($sort) ? $sort : '').'>'.(!empty($th['title']) ? $th['title'] : '').'</th>';

@@ -20,6 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_members_c_admin extends Controller_Module
 {
+	public $administrable = FALSE;
+
 	public function index($members)
 	{
 		$table_groups = $this
@@ -179,7 +181,7 @@ class m_members_c_admin extends Controller_Module
 				'groups' => array(
 					'type'   => 'checkbox',
 					'values' => array_filter($this->groups(), function($group){
-						return !$group['auto'] || $group['auto'] == 'neofrag' || !is_null($group['users']);
+						return !$group['auto'] || $group['auto'] == 'neofrag' || $group['users'] !== NULL;
 					}),
 					'rules'  => 'required'
 				)

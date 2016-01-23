@@ -28,8 +28,6 @@ class m_access extends Module
 	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
-	public $administrable = FALSE;
-	public $deactivatable = FALSE;
 	public $path          = __FILE__;
 	public $routes        = array(
 		'admin/edit/{url_title*}'   => '_edit',

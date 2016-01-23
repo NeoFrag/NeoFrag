@@ -40,18 +40,11 @@ class m_games_c_admin_checker extends Controller_Module
 
 	public function delete($game_id, $name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($game = $this->model()->check_game($game_id, $name))
 		{
 			return array($game['game_id'], $game['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette équipe a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

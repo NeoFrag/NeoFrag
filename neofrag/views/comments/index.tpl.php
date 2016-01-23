@@ -1,4 +1,4 @@
-<div id="comment-<?php echo $data['comment_id']; ?>" class="media<?php if (!is_null($data['parent_id'])) echo ' comments-child'; ?>">
+<div id="comment-<?php echo $data['comment_id']; ?>" class="media<?php if ($data['parent_id'] !== NULL) echo ' comments-child'; ?>">
 	<div class="media-left">
 		<a href="<?php echo url('members/'.$data['user_id'].'/'.url_title($data['username']).'.html'); ?>">
 			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>" style="max-width: 64px; max-height: 64px;" alt="" />
@@ -8,7 +8,7 @@
 		<?php
 			$actions = array();
 			
-			if ($NeoFrag->user() && is_null($data['parent_id']))
+			if ($NeoFrag->user() && $data['parent_id'] == NULL)
 			{
 				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$data['comment_id'].'">'.icon('fa-mail-reply').' '.$NeoFrag->lang('reply').'</a>';
 			}
@@ -30,4 +30,4 @@
 		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$NeoFrag->lang('removed_message').'</i>'; ?>
 	</div>
 </div>
-<hr<?php if (!is_null($data['parent_id'])) echo ' class="comments-child"'; ?> />
+<hr<?php if ($data['parent_id'] !== NULL) echo ' class="comments-child"'; ?> />

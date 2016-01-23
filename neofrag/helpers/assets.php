@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function is_asset($extension = NULL)
 {
-	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url, $path), array('png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip'));
+	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url), array('png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip'));
 }
 
 function icon($icon)
@@ -35,7 +35,7 @@ function icon($icon)
 
 function asset($file_path, $file_name = '')
 {
-	if (file_exists($file_path))
+	if (check_file($file_path))
 	{
 		$content = file_get_contents($file_path);
 		$date    = filemtime($file_path);
@@ -45,7 +45,7 @@ function asset($file_path, $file_name = '')
 	{
 		foreach (NeoFrag::loader()->paths['assets'] as $path)
 		{
-			if (!file_exists($path = $path.'/'.$file_path))
+			if (!check_file($path = $path.'/'.$file_path))
 			{
 				continue;
 			}
@@ -119,12 +119,11 @@ function path($file, $file_type = '', $paths = array())
 
 		if (!$paths)
 		{
-			$paths = NeoFrag::loader()->load->paths['assets'];
+			$paths = NeoFrag::loader()->paths['assets'];
 		}
 
 		if (!in_array($file_type, array('images', 'css', 'js')))
 		{
-			NeoFrag::loader()->profiler->log(NeoFrag::loader()->lang('invalide_filetype'), Profiler::WARNING);
 			return url($file_type.'/'.$file);
 		}
 
@@ -137,9 +136,9 @@ function path($file, $file_type = '', $paths = array())
 		{
 			foreach ($paths as $path)
 			{
-				if (file_exists($file_path = $path.'/'.$file_type.'/'.$file))
+				if (check_file($file_path = $path.'/'.$file_type.'/'.$file))
 				{
-					return $assets[$checksum][$file_type][$file] = url(trim_word($file_path, './'));
+					return $assets[$checksum][$file_type][$file] = url($file_path);
 				}
 			}
 		}
@@ -148,7 +147,7 @@ function path($file, $file_type = '', $paths = array())
 			return $assets[$checksum][$file_type][$file];
 		}
 
-		if (file_exists($file))
+		if (check_file($file))
 		{
 			return url($file);
 		}

@@ -22,6 +22,7 @@ class m_user_m_messages extends Model
 {
 	public function get_messages_inbox()
 	{
+		//TODO db->query
 		$messages = $this->db	->query('	SELECT m.message_id, m.title, UNIX_TIMESTAMP(m.date) as date, m.user_id, u.username, r.read
 											FROM nf_users_messages_recipients r
 											JOIN nf_users_messages            m ON r.message_id = m.message_id
@@ -56,6 +57,7 @@ class m_user_m_messages extends Model
 
 	public function check_message($message_id, &$title, &$messages)
 	{
+		//TODO db->query
 		$message = $this->db->query('	SELECT m.title, m.content, UNIX_TIMESTAMP(m.date) as date, r.read, m.user_id, u.username
 										FROM nf_users_messages_recipients r
 										JOIN nf_users_messages            m ON r.message_id = m.message_id
@@ -66,6 +68,7 @@ class m_user_m_messages extends Model
 		if ($message && $title == url_title($message['title']))
 		{
 			$title    = $message['title'];
+			//TODO db->query
 			$messages = $this->db->query('	SELECT r.content, UNIX_TIMESTAMP(r.date) as date, r.read, r.user_id, u.username
 											FROM nf_users_messages_replies r
 											JOIN nf_users                  u ON r.user_id    = u.user_id
@@ -110,13 +113,11 @@ class m_user_m_messages extends Model
 		{
 			foreach ($recipients as $recipient)
 			{
-				$this->db->insert('nf_users_messages', array(
+				$message_id = $this->db->insert('nf_users_messages', array(
 					'user_id' => $user_id,
 					'title'   => $title,
 					'content' => $content
 				));
-
-				$message_id = $this->db->get_last_id();
 
 				$this->db->insert('nf_users_messages_recipients', array(
 				   'user_id'    => $recipient,

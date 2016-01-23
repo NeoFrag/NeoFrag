@@ -355,7 +355,7 @@ $(function(){
 				});
 			};
 			
-			if ($this.data('enable')){
+			if ($this.data('enabled')){
 				modal_fork(fork);
 			}
 			else {

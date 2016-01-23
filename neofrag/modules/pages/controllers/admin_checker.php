@@ -39,18 +39,11 @@ class m_pages_c_admin_checker extends Controller_Module
 	
 	public function delete($page_id, $title)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($page = $this->model()->check_page($page_id, $title, 'default', TRUE))
 		{
 			return array($page['page_id'], $page['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette page a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

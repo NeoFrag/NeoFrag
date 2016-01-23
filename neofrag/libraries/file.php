@@ -22,7 +22,7 @@ class File extends Library
 {	
 	public function upload($files, $dir = NULL, &$filename = NULL, $file_id = NULL, $var = NULL)
 	{
-		if (!file_exists($dir = './upload/'.($dir ?: 'unknow')))
+		if (!check_file($dir = 'upload/'.($dir ?: 'unknow')))
 		{
 			if (!mkdir($dir, 0777, TRUE))
 			{
@@ -34,7 +34,7 @@ class File extends Library
 		{
 			$file = unique_id().'.'.extension(basename($var ? $files['name'][$var] : $files['name']));
 		}
-		while (file_exists($filename = $dir.'/'.$file));
+		while (check_file($filename = $dir.'/'.$file));
 		
 		if (move_uploaded_file($var ? $files['tmp_name'][$var] : $files['tmp_name'], $filename))
 		{
@@ -84,7 +84,7 @@ class File extends Library
 	
 	private function _unlink($file_id)
 	{
-		if (file_exists($file = $this->db->select('path')->from('nf_files')->where('file_id', $file_id)->row()))
+		if (check_file($file = $this->db->select('path')->from('nf_files')->where('file_id', $file_id)->row()))
 		{
 			unlink($file);
 		}

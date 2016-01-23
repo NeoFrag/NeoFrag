@@ -20,186 +20,105 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Driver_mysql extends Driver
 {
-	public function connect($hostname, $username, $password, $database)
+	static public function connect($hostname, $username, $password, $database)
 	{
-		$this->_connect_id = @mysql_connect($hostname, $username, $password);
+		self::$db = @mysql_connect($hostname, $username, $password);
 
-		if ($this->_connect_id !== FALSE && mysql_select_db($database, $this->_connect_id))
+		if (self::$db !== FALSE && mysql_select_db($database, self::$db))
 		{
-			mysql_query('SET NAMES UTF8');
+			mysql_set_charset('UTF8');
 
 			return TRUE;
 		}
-		else
-		{
-			return FALSE;
-		}
 	}
 	
-	public function get_server_info()
+	static public function get_server_info()
 	{
 		return 'MySQL '.mysql_get_server_info();
 	}
-	
-	public function set_time_zone($time_zone)
+
+	static public function check_foreign_keys($check)
 	{
-		return mysql_query('SET time_zone = \''.$time_zone.'\'');
-	}
-
-	public function builder($request)
-	{
-		if (isset($request['query']))
-		{
-			return $request['query'];
-		}
-		else if (isset($request['from']))
-		{
-			return 'SELECT '.(!empty($request['select']) && is_array($request['select']) ? trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['select'])), ', ') : '*').' FROM '.$request['from'].((isset($request['join'])) ? ' '.$request['join'] : '').((isset($request['where'])) ? ' WHERE '.trim_word($request['where'], ' AND ', ' OR ') : '').((isset($request['group_by'])) ? ' GROUP BY '.trim_word(implode(', ', $request['group_by']), ', ') : '').((isset($request['having'])) ? ' HAVING '.trim_word(implode(', ', $request['having']), ', ') : '').((isset($request['order_by'])) ? ' ORDER BY '.trim_word(implode(', ', array_map(array(&$this, 'escape_keyword'), $request['order_by'])), ', ') : '').((isset($request['limit'])) ? ' LIMIT '.$request['limit'] : '');
-		}
-		else if (isset($request['insert'], $request['values']))
-		{
-			$keys = '';
-			foreach (array_keys($request['values']) as $key)
-			{
-				$keys .= $this->escape_keyword($key).', ';
-			}
-
-			$values = '';
-			foreach ($request['values'] as $value)
-			{
-				$values .= $this->escape_string($value).', ';
-			}
-
-			return 'INSERT INTO '.$request['insert'].' ('.trim_word($keys, ', ').') VALUES ('.trim_word($values, ', ').')';
-		}
-		else if (isset($request['update'], $request['set']))
-		{
-			if (is_array($request['set']))
-			{
-				$sets = '';
-				foreach ($request['set'] as $key => $value)
-				{
-					$sets .= $this->escape_keyword($key).' = '.$this->escape_string($value).', ';
-				}
-			}
-			else
-			{
-				$sets = $request['set'];
-			}
-
-			return 'UPDATE '.$request['update'].' SET '.trim_word($sets, ', ').((isset($request['where'])) ? ' WHERE '.trim_word($request['where'], ' AND ', ' OR ') : '');
-		}
-		else if (isset($request['delete']))
-		{
-			$query = 'DELETE ';
-			
-			if (isset($request['multi_tables']))
-			{
-				$query .= $request['delete'].' FROM '.$request['multi_tables'];
-			}
-			else
-			{
-				$query .= 'FROM '.$request['delete'];
-			}
-			
-			return $query.((isset($request['where'])) ? ' WHERE '.trim_word($request['where'], ' AND ', ' OR ') : '');
-		}
-
-		return '';
-	}
-
-	public function query($request)
-	{
-		$start    = microtime(TRUE);
-		
-		$resource = mysql_query($request);
-		
-		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
-
-		$this->_db->requests[] = array($request, microtime(TRUE) - $start, mysql_error(), (!is_bool($resource) && !empty($resource)) ? mysql_num_rows($resource) : 0, relative_path($backtrace[2]['file']), $backtrace[2]['line']);
-
-		return $resource;
+		return mysql_query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
 	}
 	
-	public function free_result($result)
+	protected function build_sql()
 	{
-		return mysql_free_result($result);
-	}
-
-	public function get($request)
-	{
-		$result = array();
+		parent::build_sql();
 		
-		if (is_resource($request))
+		if (!empty($this->bind))
 		{
-			while ($data = mysql_fetch_array($request, MYSQL_ASSOC))
-			{
-				$result[] = $data;
-			}
-		}
-
-		return $result;
-	}
-
-	public function row($request)
-	{
-		if (!is_resource($request))
-		{
-			return array();
+			$this->sql = vsprintf($this->sql, $this->bind);
 		}
 		
-		$result = mysql_fetch_array($request, MYSQL_ASSOC);
+		return $this;
+	}
+
+	protected function execute()
+	{
+		if (!$this->result = mysql_query($this->sql))
+		{
+			$this->error = mysql_error();
+		}
+	}
+
+	protected function bind($value)
+	{
+		$return = '%d';
+
+		if ($value === NULL)
+		{
+			$return = '%s';
+			$value  = 'NULL';
+		}
+		else if (is_bool($value))
+		{
+			$return = '%s';
+			$value  = '"'.(int)$value.'"';
+		}
+		else if (!is_integer($value))
+		{
+			$return = '%s';
+			$value  = '"'.mysql_real_escape_string($value).'"';
+		}
+
+		$this->bind[] = $value;
+
+		return $return;
+	}
+
+	public function get()
+	{
+		$return = array();
 		
-		return $result ?: array();
+		while ($data = mysql_fetch_array($this->result, MYSQL_ASSOC))
+		{
+			$return[] = $data;
+		}
+		
+		mysql_free_result($this->result);
+
+		return $return;
 	}
 
-	public function escape_string($string)
+	public function row()
 	{
-		if (is_bool($string))
-		{
-			return '\''.intval($string).'\'';
-		}
-		else if ($string === NULL)
-		{
-			return 'NULL';
-		}
-		else if (!is_integer($string))
-		{
-			return '\''.mysql_real_escape_string($string).'\'';
-		}
+		$return = mysql_fetch_array($this->result, MYSQL_ASSOC);
 
-		return $string;
+		mysql_free_result($this->result);
+
+		return $return;
 	}
 
-	public function escape_keyword($string)
+	public function last_id()
 	{
-		if (in_array(strtolower($string), array('order')))
-		{
-			return '`'.$string.'`';
-		}
-		else
-		{
-			return $string;
-		}
-	}
-
-	public function get_last_id()
-	{
-		return mysql_insert_id($this->_connect_id);
+		return mysql_insert_id(self::$db);
 	}
 
 	public function affected_rows()
 	{
 		return mysql_affected_rows();
 	}
-		
-	public function check_foreign_keys($check)
-	{
-		mysql_query('SET FOREIGN_KEY_CHECKS='.(int)$check.';');
-		
-		return $this;
-	}
-
 }
 
 /*

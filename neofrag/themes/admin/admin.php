@@ -33,9 +33,9 @@ class t_admin extends Theme
 	{
 		$content_submenu = array();
 		
-		foreach ($this->get_modules() as $module)
+		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->administrable)
+			if ($module->is_administrable())
 			{
 				$content_submenu[] = array(
 					'title' => $module->get_title(),
@@ -67,18 +67,6 @@ class t_admin extends Theme
 						'title' => $this('settings'),
 						'icon'  => 'fa-cogs',
 						'url'   => array(
-							/*array(
-								'title' => 'Langues',
-								'icon'  => 'icons/locale.png',
-								'url'   => 'admin/settings/languages.html',
-								'pro'   => TRUE
-							),
-							array(
-								'title' => 'Sites',
-								'icon'  => 'icons/globe-network.png',
-								'url'   => 'admin/settings/sites.html',
-								'pro'   => TRUE
-							),*/
 							array(
 								'title' => $this('configuration'),
 								'icon'  => 'fa-wrench',
@@ -92,23 +80,8 @@ class t_admin extends Theme
 							array(
 								'title' => $this('addons'),
 								'icon'  => 'fa-puzzle-piece',
-								'url'   => 'admin/settings/components.html'
-							),
-							/*array(
-								'title' => 'BBcode',
-								'icon'  => 'icons/edit-code.png',
-								'url'   => 'admin/settings/bbcode.html'
-							),
-							array(
-								'title' => 'Smileys',
-								'icon'  => 'icons/smiley.png',
-								'url'   => 'admin/settings/smileys.html'
-							),
-							array(
-								'title' => 'Licences d\'utilisation',
-								'icon'  => 'icons/license-key.png',
-								'url'   => 'admin/settings/licenses.html'
-							)*/
+								'url'   => 'admin/addons.html'
+							)
 						)
 					),
 					array(
@@ -154,7 +127,7 @@ class t_admin extends Theme
 							array(
 								'title' => $this('themes'),
 								'icon'  => 'fa-tint',
-								'url'   => 'admin/settings/themes.html'
+								'url'   => 'admin/addons.html#themes'
 							),
 							array(
 								'title' => $this('liveditor'),
@@ -218,6 +191,8 @@ class t_admin extends Theme
 				));
 
 		//TODO vérification de la licence pour afficher une alerte
+		
+		return parent::load();
 	}
 	
 	public function styles_row()

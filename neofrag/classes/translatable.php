@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Translatable extends NeoFrag
+abstract class Translatable extends NeoFrag
 {
 	public function __invoke()
 	{

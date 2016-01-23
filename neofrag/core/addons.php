@@ -28,18 +28,90 @@ class Addons extends Core
 
 		foreach ($this->db->from('nf_settings_addons')->get() as $addon)
 		{
-			$this->_addons[$addon['type']][$addon['name']] = (bool)$addon['enable'];
+			$this->_addons[$addon['type']][$addon['name']] = (bool)$addon['is_enabled'];
+		}
+		
+		foreach (array('module', 'widget') as $type)
+		{
+			foreach ($type::$core as $name => $deactivatable)
+			{
+				if (!isset($this->_addons[$type][$name]) || !$deactivatable)
+				{
+					$this->_addons[$type][$name] = TRUE;
+				}
+			}
+		}
+
+		foreach ($this->db->select('code', 'name', 'flag')->from('nf_settings_languages')->order_by('order')->get() as $language)
+		{
+			$this->_addons['language'][array_shift($language)] = $language;
 		}
 	}
-
-	public function __invoke($type)
+	
+	public function is_enabled($name, $type)
 	{
-		return $this->_addons[$type];
+		return !empty($this->_addons[$type][$name]);
 	}
 	
-	public function profiler()
+	private function _get_addons($get_all, $type)
 	{
+		static $list = array();
+		
+		if (!isset($list[$type][(int)$get_all]))
+		{
+			foreach ($this->_addons[$type] as $name => $is_enabled)
+			{
+				if (($object = NeoFrag::loader()->$type($name, $get_all)) && ($is_enabled || $get_all))
+				{
+					$list[$type][(int)$get_all][$name] = $object;
+				}
+			}
 
+			uasort($list[$type][(int)$get_all], function($a, $b){
+				return strnatcasecmp(url_title($a->get_title()), url_title($b->get_title()));
+			});
+		}
+
+		return $list[$type][(int)$get_all];
+	}
+
+	public function get_modules($get_all = FALSE)
+	{
+		return $this->_get_addons($get_all, 'module');
+	}
+	
+	public function get_widgets($get_all = FALSE)
+	{
+		return $this->_get_addons($get_all, 'widget');
+	}
+
+	public function get_themes()
+	{
+		static $list;
+		
+		if ($list === NULL)
+		{
+			$list = array();
+
+			foreach (array_keys($this->_addons['theme']) as $name)
+			{
+				if ($theme = NeoFrag::loader()->theme($name))
+				{
+					$list[$name] = $theme;
+				}
+			}
+			
+			uasort($list, function($a, $b){
+				return strnatcasecmp(url_title($a->get_title()), url_title($b->get_title()));
+			});
+		}
+
+		return $list;
+	}
+
+	public function get_languages()
+	{
+		return $this->_addons['language'];
 	}
 }
 

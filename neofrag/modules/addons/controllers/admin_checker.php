@@ -18,45 +18,53 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_settings_c_admin_ajax_checker extends Controller_Module
+class m_addons_c_admin_checker extends Controller_Module
 {
-	public function _theme_activation()
+	public function _module_settings($name)
 	{
-		return array($this->_check_theme());
-	}
-	
-	public function _theme_reset()
-	{
-		return array($this->_check_theme());
-	}
-	
-	public function _theme_delete()
-	{
-		if (!in_array($theme_name = $this->_check_theme(), array('default', $this->config->default_theme)))
+		if (($module = $this->load->module($name)) && method_exists($module, 'settings'))
 		{
-			return array($theme_name);
+			return array($module);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
 	}
-	
-	public function _theme_internal($theme_name)
+
+	public function _module_delete($name)
 	{
-		if (($theme = $this->load->theme($theme_name, FALSE)) && !is_null($controller = $theme->load->controller('admin_ajax')) && method_exists($controller, 'index'))
+		if ($this->config->ajax_header)
 		{
-			return array($controller);
+			$this->ajax();
+		}
+
+		if (($module = $this->load->module($name)) && $module->is_removable())
+		{
+			return array($module);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
 	}
-	
-	public function _check_theme()
+
+	public function _theme_settings($name)
 	{
-		$post = post();
-		
-		if (!empty($post['theme']) && in_array($post['theme'], array_keys($this->addons('theme'))))
+		if (($theme = $this->load->theme($name)) && ($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
 		{
-			return $post['theme'];
+			return array($theme, $controller);
+		}
+		
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _theme_delete($name)
+	{
+		if ($this->config->ajax_header)
+		{
+			$this->ajax();
+		}
+
+		if (($theme = $this->load->theme($name)) && $theme->is_removable())
+		{
+			return array($theme);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -64,6 +72,6 @@ class m_settings_c_admin_ajax_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.1
-./neofrag/modules/settings/controllers/admin_ajax_checker.php
+NeoFrag Alpha 0.1.4
+./neofrag/modules/addons/controllers/admin_checker.php
 */

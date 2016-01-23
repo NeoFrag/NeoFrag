@@ -72,7 +72,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 		{
 			list($module_name, $type, $id) = array_values(array_merge($args, $values));
 			
-			$module = $this->load->module($module_name, FALSE);
+			$module = $this->load->module($module_name);
 			$permissions = $module->get_access($type);
 			
 			if (empty($permissions['check']) || call_user_func($permissions['check'], $id))
@@ -90,7 +90,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 		{
 			list($action, $module_name, $type, $id) = array_values(array_merge($args, $values));
 			
-			$module = $this->load->module($module_name, FALSE);
+			$module = $this->load->module($module_name);
 			$permissions = $module->get_access($type);
 			
 			if (empty($permissions['check']) || call_user_func($permissions['check'], $id))

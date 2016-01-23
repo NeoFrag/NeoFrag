@@ -157,13 +157,6 @@ function unique_id($list = array())
 	return $id;
 }
 
-function trim_word($string, $word)
-{
-	$word = implode('|', array_map(create_function('$a', 'return preg_quote($a, \'/\');'), array_offset_left(func_get_args())));
-
-	return preg_replace('/^('.$word.')*(.*?)('.$word.')*$/', '\\2', $string);
-}
-
 function is_valid_email($email)
 {
 	if (function_exists('filter_var'))
@@ -236,7 +229,7 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 
 function bbcode($string)
 {
-	return nl2br(strtolink(NeoFrag::loader()->load->library('text_editor')->bbcode2html($string), TRUE));
+	return nl2br(strtolink(NeoFrag::loader()->library('bbcode')->bbcode2html($string), TRUE));
 }
 
 /*

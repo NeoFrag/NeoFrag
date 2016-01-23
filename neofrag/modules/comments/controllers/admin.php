@@ -38,10 +38,10 @@ class m_comments_c_admin extends Controller_Module
 	
 	public function _tab_index($comments, $title = NULL)
 	{
-		$this	->subtitle(is_null($title) ? $this('all_comments') : $title)
+		$this	->subtitle($title === NULL ? $this('all_comments') : $title)
 				->load->library('table');
 		
-		if (is_null($title))
+		if ($title === NULL)
 		{
 			$this->table->add_columns(array(
 				array(

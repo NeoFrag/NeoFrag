@@ -26,7 +26,7 @@ class User extends Core
 	{
 		parent::__construct();
 		
-		if ($this->config->nf_http_authentication && is_null($this->session('user_id')) && $this->session('session', 'http_authentication'))
+		if ($this->config->nf_http_authentication && $this->session('user_id') === NULL && $this->session('session', 'http_authentication'))
 		{
 			$this->session->destroy('session', 'http_authentication');
 
@@ -73,12 +73,14 @@ class User extends Core
 			}
 		}
 
+		setlocale(LC_ALL, $this->load->lang('locale'));
+
 		$this->_init();
 	}
 
 	public function __invoke($var = NULL)
 	{
-		if (is_null($var))
+		if ($var === NULL)
 		{
 			return !empty($this->_user_data['user_id']);
 		}
@@ -94,7 +96,7 @@ class User extends Core
 	{
 		if ($user_id = $this->session('user_id'))
 		{
-			$user = $this->db	->select('u.username', 'u.password', 'u.salt', 'u.email', 'u.admin', 'u.theme', 'u.language', 'u.registration_date', 'p.first_name', 'p.last_name', 'p.avatar', 'p.signature', 'p.date_of_birth', 'p.sex', 'p.location', 'p.website', 'p.quote')
+			$user = $this->db	->select('u.username', 'u.password', 'u.salt', 'u.email', 'u.admin', 'u.language', 'u.registration_date', 'p.first_name', 'p.last_name', 'p.avatar', 'p.signature', 'p.date_of_birth', 'p.sex', 'p.location', 'p.website', 'p.quote')
 								->from('nf_users u')
 								->join('nf_users_profiles p', 'u.user_id = p.user_id')
 								->where('u.user_id', $user_id)
@@ -102,28 +104,27 @@ class User extends Core
 								->row();
 			if ($user)
 			{
-				$this->_user_data['user_id']              = (int)$user_id;
-				$this->_user_data['username']             = $user['username'];
-				$this->_user_data['password']             = $user['password'];
-				$this->_user_data['salt']                 = $user['salt'];
-				$this->_user_data['email']                = $user['email'];
-				$this->_user_data['admin']                = (bool)$user['admin'];
-				$this->_user_data['theme']                = $user['theme'];
-				$this->_user_data['language']             = $user['language'];
-				$this->_user_data['registration_date']    = $user['registration_date'];
-				$this->_user_data['last_activity_date']   = now();
+				$this->_user_data['user_id']            = (int)$user_id;
+				$this->_user_data['username']           = $user['username'];
+				$this->_user_data['password']           = $user['password'];
+				$this->_user_data['salt']               = $user['salt'];
+				$this->_user_data['email']              = $user['email'];
+				$this->_user_data['admin']              = (bool)$user['admin'];
+				$this->_user_data['language']           = $user['language'];
+				$this->_user_data['registration_date']  = $user['registration_date'];
+				$this->_user_data['last_activity_date'] = now();
 				
-				$this->_user_data['first_name']           = $user['first_name'];
-				$this->_user_data['last_name']            = $user['last_name'];
-				$this->_user_data['avatar']               = $user['avatar'];
-				$this->_user_data['signature']            = $user['signature'];
-				$this->_user_data['date_of_birth']        = $user['date_of_birth'];
-				$this->_user_data['sex']                  = $user['sex'];
-				$this->_user_data['location']             = $user['location'];
-				$this->_user_data['website']              = $user['website'];
-				$this->_user_data['quote']                = $user['quote'];
+				$this->_user_data['first_name']         = $user['first_name'];
+				$this->_user_data['last_name']          = $user['last_name'];
+				$this->_user_data['avatar']             = $user['avatar'];
+				$this->_user_data['signature']          = $user['signature'];
+				$this->_user_data['date_of_birth']      = $user['date_of_birth'];
+				$this->_user_data['sex']                = $user['sex'];
+				$this->_user_data['location']           = $user['location'];
+				$this->_user_data['website']            = $user['website'];
+				$this->_user_data['quote']              = $user['quote'];
 				
-				$this->_user_data['messages_unread'] = $this->db->from('nf_users_messages_recipients')->where('user_id', $this('user_id'))->where('`read`', FALSE)->num_rows();
+				$this->_user_data['messages_unread']    = $this->db->select('COUNT(*)')->from('nf_users_messages_recipients')->where('user_id', $this('user_id'))->where('read', FALSE)->row();
 
 				$this->db	->where('user_id', $this->_user_data['user_id'])
 							->update('nf_users', array(
@@ -131,8 +132,6 @@ class User extends Core
 							));
 			}
 		}
-		
-		$this->config->set_language();
 
 		$this->check_http_authentification();
 		
@@ -170,9 +169,7 @@ class User extends Core
 
 					if ($form_login->is_valid($post))
 					{
-						$module = $this->load->init_module('user');
-
-						$user_id = $module->load->model($module, 'user')->check_login($post['login'], $hash, $salt);
+						$user_id = $this->load->module('user')->model()->check_login($post['login'], $hash, $salt);
 
 						if ($user_id > 0 && $this->load->library('password')->is_valid($post['password'].$salt, $hash, (bool)$salt))
 						{
@@ -181,39 +178,28 @@ class User extends Core
 						}
 					}
 					
-					$this->load->theme($this->config->nf_default_theme);
+					$theme = $this->load->theme('default')->load();
 					
-					echo $this->load->theme->load->view('default', array(
+					$this	->css('font.open-sans.300.400.600.700.800')
+							->css('jquery.countdown')
+							->css('style.maintenance')
+							->js('jquery.countdown')
+							->js('maintenance');
+					
+					echo $theme->load->view('default', array(
+						'body'       => $theme->load->view('maintenance', array(
+							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')
+						)).$this->debug->output(),
 						'lang'       => $this->config->lang,
-						'css'        => implode("\r\n", array(
-							'<link rel="stylesheet" href="'.path('font.open-sans.300.400.600.700.800.css', 'css').'" type="text/css" media="screen" />',
-							'<link rel="stylesheet" href="'.path('jquery.countdown.css', 'css').'" type="text/css" media="screen" />',
-							'<link rel="stylesheet" href="'.path('style.maintenance.css', 'css').'" type="text/css" media="screen" />'
-						)),
-						'js'         => implode("\r\n", array(
-							'<script type="text/javascript" src="'.path('jquery.countdown.js', 'js').'"></script>',
-							'<script type="text/javascript" src="'.path('maintenance.js', 'js').'"></script>'
-						)),
-						'page_title' => ($page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')).' :: '.$this->config->nf_name,
-						'body'       => $this->load->theme->load->view('maintenance', array(
-							'page_title' => $page_title
-						))
+						'css'        => output('css'),
+						'js'         => output('js'),
+						'js_load'    => output('js_load'),
+						'page_title' => $page_title.' :: '.$this->config->nf_name
 					));
 				}
 				
-				exit();
+				exit;
 			}
-		}
-	}
-	
-	public function set($name, $value)
-	{
-		if (in_array($name, array('language', 'theme')) && $this->_user_data[$name] !== $value)
-		{
-			$this->db	->where('user_id', $this->_user_data['user_id'])
-						->update('nf_users', array(
-							$name => $value
-						));
 		}
 	}
 
@@ -241,38 +227,6 @@ class User extends Core
 						->destroy();
 
 		$this->_user_data = array();
-	}
-
-	public function group($group)
-	{
-		if ($group == 'administrators')
-		{
-			return $this('admin');
-		}
-
-		//TODO
-		/*return !is_null(($this->db	->query('	SELECT *
-												FROM nf_users_groups u
-												JOIN nf_groups       g ON u.group_id = g.group_id
-												WHERE u.user_id = %d AND g.name = %s', $this('user_id'), $group)
-									->get()));*/
-	}
-
-	public function get_online_users()
-	{
-		$users = array();
-
-		if ($this())
-		{
-			$users[] = $this('user_id');
-		}
-
-		$users = array_merge($users, $this->db	->select('user_id')
-												->from('nf_sessions')
-												->where('UNIX_TIMESTAMP(last_activity) >=', time() - strtoseconds('5 minutes'))
-												->get());
-
-		return array_unique($users);
 	}
 
 	public function get_sessions($user_id = NULL)
@@ -346,32 +300,6 @@ class User extends Core
 		}
 
 		return !empty($avatar) ? path($avatar) : image($sex == 'female' ? 'default_avatar_female.jpg' : 'default_avatar_male.jpg');
-	}
-
-	public function profiler()
-	{
-		if (!$this->_user_data)
-		{
-			return '';
-		}
-		
-		$data = array();
-
-		foreach ($this->_user_data as $key => $value)
-		{
-			if (!in_array($key, array('password', 'salt')))
-			{
-				$data[$key] = $value;
-			}
-		}
-		
-		ksort($data);
-
-		$output = '	<a href="#" data-profiler="user"><i class="icon-chevron-'.(!empty($data['profiler']['user']) ? 'down' : 'up').' pull-right"></i></a>
-					<h2>User</h2>
-					<div class="profiler-block">'.$this->profiler->table($data).'</div>';
-
-		return $output;
 	}
 }
 

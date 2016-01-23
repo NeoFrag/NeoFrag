@@ -76,7 +76,7 @@ class m_members_c_index extends Controller_Module
 		$output = array($this->index($members));
 		
 		array_unshift($output, new Panel(array(
-			'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.button('members.html', 'fa-close', $this('show_all_members'), 'danger', 'pull-right').'</h2>'
+			'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.button('members.html', 'fa-close', $this('show_all_members'), 'danger pull-right').'</h2>'
 		)));
 
 		return $output;

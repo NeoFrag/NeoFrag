@@ -11,27 +11,29 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_settings_c_admin_checker extends Controller_Module
+class m_error_c_ajax extends Controller_Module
 {
-	public function _theme_internal($theme_name)
+	public function index()
 	{
-		if (($theme = $this->load->theme($theme_name, FALSE)) && !is_null($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
-		{
-			return array($theme, $controller);
-		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
+		header('HTTP/1.0 404 Not Found');
+		echo 'error';
+	}
+
+	public function unauthorized()
+	{
+		header('HTTP/1.0 401 Unauthorized');
+		echo 'unauthorized';
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.1
-./neofrag/modules/settings/controllers/admin_checker.php
+NeoFrag Alpha 0.1.3
+./neofrag/modules/error/controllers/index.php
 */

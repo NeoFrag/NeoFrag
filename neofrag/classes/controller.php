@@ -20,12 +20,11 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 abstract class Controller extends Translatable
 {
-	protected $_parent;
+	public $load;
 
-	public function __construct($parent)
+	public function __construct($name)
 	{
-		$this->load    = NeoFrag::get_loader();
-		$this->_parent = $parent;
+		$this->name = $name;
 	}
 
 	public function method($name, $args = array())
@@ -34,7 +33,7 @@ abstract class Controller extends Translatable
 		{
 			if (!is_array($args))
 			{
-				if (is_null($args))
+				if ($args === NULL)
 				{
 					$args = array();
 				}
@@ -60,19 +59,13 @@ abstract class Controller extends Translatable
 		}
 		else
 		{
-			$this->profiler->log($this('unknown_method', get_class($this), $name), Profiler::WARNING);
 			return FALSE;
 		}
 	}
 
-	public function model($model = '')
+	public function model($model = NULL)
 	{
-		if (!$model)
-		{
-			$model = substr(get_class($this->_parent), strlen('m_'));
-		}
-
-		return $this->load->model($this->_parent, $model);
+		return $this->load->object->load->model($model);
 	}
 
 	public function extension($extension)
@@ -81,8 +74,7 @@ abstract class Controller extends Translatable
 		{
 			throw new Exception(NeoFrag::UNFOUND);
 		}
-		
-		
+
 		$this->config->extension_url = $extension;
 
 		return $this;

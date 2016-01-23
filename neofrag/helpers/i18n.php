@@ -54,7 +54,7 @@ function p11n($locale)
 					break;
 				}
 			}
-			else if (is_null($n))
+			else if ($n === NULL)
 			{
 				$l = '[0,1]'.$l;
 				$n = 1;

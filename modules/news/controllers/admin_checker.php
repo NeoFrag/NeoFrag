@@ -39,18 +39,11 @@ class m_news_c_admin_checker extends Controller_Module
 
 	public function delete($news_id, $title)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($news = $this->model()->check_news($news_id, $title))
 		{
 			return array($news['news_id'], $news['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette actualité a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -70,18 +63,11 @@ class m_news_c_admin_checker extends Controller_Module
 	
 	public function _categories_delete($category_id, $name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($category = $this->model('categories')->check_category($category_id, $name, 'default'))
 		{
 			return array($category_id, $category['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette catégorie a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

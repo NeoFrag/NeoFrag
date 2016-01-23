@@ -24,7 +24,7 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 404 Not Found');
 
-		$this->title($this('unfound'));
+		$this->title($this->load->object->get_title($this('unfound')));
 
 		return array(
 			new Panel(array(
@@ -41,7 +41,7 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 401 Unauthorized');
 
-		$this->title($this('unauthorized'));
+		$this->title($this->load->object->get_title($this('unauthorized')));
 
 		return array(
 			new Panel(array(

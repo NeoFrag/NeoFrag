@@ -29,8 +29,6 @@ class Email extends Library
 	
 	public function __construct($settings)
 	{
-		parent::__construct();
-		
 		$this->_settings = $settings;
 	}
 	

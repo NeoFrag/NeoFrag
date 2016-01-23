@@ -18,32 +18,6 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function set_time_zone($time_zone)
-{
-	if (preg_match('/(\+|-)([0-9]{2}):([0-9]{2})/', $time_zone, $matches))
-	{
-		list(, $sign, $hours, $minutes) = $matches;
-		
-		$offset = (($sign == '+') ? 1 : -1) * ((int)$hours * 3600 + (int)$minutes * 60);
-
-		if (($time_zone = timezone_name_from_abbr('', $offset, 0)) === FALSE)
-		{
-			foreach (timezone_abbreviations_list() as $abbr)
-			{
-				foreach ($abbr as $zone)
-				{
-					if (!$zone['dst'] && $zone['offset'] == $offset)
-					{
-						return date_default_timezone_set($zone['timezone_id']);
-					}
-				}
-			}	
-		}
-	}
-	
-	return $time_zone ? date_default_timezone_set($time_zone) : FALSE;
-}
-
 function now($timestamp = NULL)
 {
 	return timetostr('%Y-%m-%d %H:%M:%S', $timestamp);
@@ -56,7 +30,7 @@ function strtoseconds($string)
 
 function timetostr($format, $timestamp = NULL)
 {
-	if (is_null($timestamp))
+	if ($timestamp === NULL)
 	{
 		$timestamp = time();
 	}

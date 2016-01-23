@@ -30,7 +30,7 @@
 					<a name="message_<?php echo $message['message_id']; ?>"></a><?php echo icon('fa-clock-o').' '.time_span($message['date']).' '.($data['last_message_read'] && $message['date'] <= $data['last_message_read'] ? icon('fa-comment-o').' '.i18n('message_read') : icon('fa-comment').' '.i18n('message_unread')); ?>
 				</div>
 				<hr />
-				<?php echo !is_null($message['message']) ? bbcode($message['message']) : i18n('message_deleted'); ?>
+				<?php echo $message['message'] !== NULL ? bbcode($message['message']) : i18n('message_deleted'); ?>
 				<?php if (!empty($message['signature'])): ?>
 				<hr />
 				<?php echo bbcode($message['signature']); ?>

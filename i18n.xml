@@ -508,7 +508,7 @@
     <Cell><Data ss:Type="String">Actions</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_activation</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -518,7 +518,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">activate</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1585,7 +1585,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">already_installed_version</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1706,10 +1706,10 @@
    <Row>
     <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_full</Data><NamedCell
+    <Cell><Data ss:Type="String">debug_always</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Complet</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Complete</Data><NamedCell
+    <Cell><Data ss:Type="String">Toujours</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Always</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -2639,11 +2639,11 @@
    <Row>
     <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_errors_only</Data><NamedCell
+    <Cell><Data ss:Type="String">debug_admins_only</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Erreurs seulement</Data><NamedCell
+    <Cell><Data ss:Type="String">Administrateurs seulement</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Errors only</Data><NamedCell
+    <Cell><Data ss:Type="String">Admins only</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -2674,7 +2674,7 @@
     <Cell><Data ss:Type="String">and</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_activation_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2694,7 +2694,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="90">
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_reinstallation_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2784,7 +2784,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="60">
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_deletion_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3240,22 +3240,12 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">components_management</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Gestion des composants</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Manage Components</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/themes/admin/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">addons</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Gestion des composants</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Manage Components</Data><NamedCell
+    <Cell><Data ss:Type="String">Addons management</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -3746,7 +3736,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">install_theme</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3756,7 +3746,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">install_in_progress</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3766,22 +3756,12 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">install</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Installer</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Install</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">install_theme_btn</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Installer / Mettre à jour un thème</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Install / update a theme</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
     <Cell><Data ss:Type="String">modules/news/lang/</Data><NamedCell
@@ -3963,15 +3943,6 @@
     <Cell><Data ss:Type="String">Play slideshow</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">language</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Langue</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Language</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
    <Row ss:Height="30">
     <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3993,7 +3964,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">error_theme_install</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4213,7 +4184,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">list_installed_themes</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4984,7 +4955,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_customize</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4994,7 +4965,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">personalize</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5255,7 +5226,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">reinstall</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5265,7 +5236,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">reinstall_to_default</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5756,7 +5727,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">theme_deletion</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5958,7 +5929,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">upload_zip_file</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -6167,7 +6138,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">not_newer_installed_version</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -6317,7 +6288,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/addons/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">zip_file_required</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -6823,6 +6794,32 @@
     <Cell><Data ss:Type="String">loading</Data></Cell>
     <Cell><Data ss:Type="String">Chargement en cours...</Data></Cell>
     <Cell><Data ss:Type="String">Loading...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">modules/forum/lang/</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">messages_per_page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Réponses par page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Replies per page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">modules/forum/lang/</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">topics_per_page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Sujets par page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Topic per page</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">modules/news/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">news_per_page</Data></Cell>
+    <Cell><Data ss:Type="String">Actualités par page</Data></Cell>
+    <Cell><Data ss:Type="String">News per page</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

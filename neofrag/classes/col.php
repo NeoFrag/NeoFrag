@@ -71,10 +71,10 @@ class Col
 				$this->_size = $widget->size;
 			}
 			
-			$output .= $widget->display(!is_null($id) ? $i : NULL);
+			$output .= $widget->display($id !== NULL ? $i : NULL);
 		}
 		
-		if (NeoFrag::live_editor() & NeoFrag::COLS && !is_null($id))
+		if (NeoFrag::live_editor() & NeoFrag::COLS && $id !== NULL)
 		{
 			$output = '<div class="live-editor-col">
 							<div class="btn-group">
@@ -87,7 +87,7 @@ class Col
 						</div>';
 		}
 		
-		return '<div class="'.$this->_size.'"'.(!is_null($id) ? ' data-col-id="'.$id.'"' : '').'>'.$output.'</div>';
+		return '<div class="'.$this->_size.'"'.($id !== NULL ? ' data-col-id="'.$id.'"' : '').'>'.$output.'</div>';
 	}
 }
 

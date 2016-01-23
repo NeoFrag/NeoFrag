@@ -20,12 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_settings_c_ajax extends Controller_Module
 {
-	public function profiler()
-	{
-		$this->session->set('profiler', post('part'), (bool)post('hide'));
-		echo 'OK';
-	}
-
 	public function pagination()
 	{
 		if (in_array($items_per_page = post('items_per_page'), array(0, 10, 25, 50, 100)))
@@ -58,7 +52,10 @@ class m_settings_c_ajax extends Controller_Module
 	{
 		if ($this->user())
 		{
-			$this->user->set('language', post('language'));
+			$this->db	->where('user_id', $this->_user_data['user_id'])
+						->update('nf_users', array(
+							'language' => post('language')
+						));
 		}
 		else
 		{
@@ -66,33 +63,6 @@ class m_settings_c_ajax extends Controller_Module
 		}
 
 		echo 'OK';
-	}
-
-	public function javascript()
-	{
-		$old_time_zone  = $this->session('session', 'time_zone');
-		$old_javascript = $this->session('session', 'javascript');
-	
-		$time_zone = (int)post('time_zone');
-	
-		$this->session	->set('session', 'time_zone', (($time_zone > 0) ? '-' : '+').((($hours = floor(abs($time_zone) / 60)) < 10) ? 0 : '').$hours.':'.((($minutes = floor(abs($time_zone) % 60)) < 10) ? 0 : '').$minutes)
-						->set('session', 'javascript', TRUE);
-
-		if ($old_time_zone == $this->session('session', 'time_zone') && $old_javascript == $this->session('session', 'javascript'))
-		{
-			echo 'OK';
-		}
-		else
-		{
-			echo 'RELOAD';
-		}
-	}
-
-	public function noscript()
-	{
-		$this->session->set('session', 'javascript', FALSE);
-
-		redirect();
 	}
 
 	public function humans()
@@ -117,6 +87,22 @@ class m_settings_c_ajax extends Controller_Module
 		}
 
 		echo $this->config->nf_robots_txt;
+	}
+
+	public function debugbar()
+	{
+		if ($tab = post('tab'))
+		{
+			$this->session->set('debugbar', 'tab', $tab);
+		}
+		else if ($tab === '')
+		{
+			$this->session->destroy('debugbar', 'tab');
+		}
+		else if ($height = (int)post('height'))
+		{
+			$this->session->set('debugbar', 'height', $height);
+		}
 	}
 }
 

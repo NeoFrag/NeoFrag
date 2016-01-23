@@ -48,10 +48,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		{
 			return array($gallery['gallery_id'], $gallery['title']);
 		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cet album a déjà été supprimé.';
-		}
 
 		throw new Exception(NeoFrag::UNFOUND);
 	}
@@ -78,10 +74,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
 		{
 			return array($category_id, $category['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette catégorie a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -118,18 +110,11 @@ class m_gallery_c_admin_checker extends Controller_Module
 	
 	public function _image_delete($image_id, $name)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($image = $this->model()->check_image($image_id, $name))
 		{
 			return array($image_id, $image['title']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette image a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

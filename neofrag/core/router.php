@@ -20,132 +20,201 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Router extends Core
 {
-	private $_consecutive_slashes = FALSE;
-	private $_extension           = FALSE;
-	private $_invalid_characters  = FALSE;
+	public $segments = array();
 
-	public function __construct()
+	public function exec()
 	{
-		parent::__construct();
-		
-		$segments = $this->config->segments_url;
-		
-		if ($segments[0] == 'index')
-		{
-			$segments[0] = $this->config->nf_default_page;
-		}
-		
-		if ($this->config->admin_url && $this->config->request_url != 'admin.html')
-		{
-			$segments = array_offset_left($segments);
-		}
-		
-		if ($this->config->ajax_url)
-		{
-			$segments = array_offset_left($segments);
-		}
+		$segments = array('error');
 
-		$this->load->theme($this->user('theme') ?: $this->config->nf_default_theme);
-
-		$this->_check_invalid_characters();
-		$this->_check_consecutive_slashes();
-		$this->_check_extension();
-
-		if ($this->_invalid_characters && $this->_consecutive_slashes)
+		if ((in_array($this->config->extension_url, array('html', 'json', 'xml', 'txt')) || is_asset()) && !in_string('//', $this->config->request_url))
 		{
-			if ($this->_extension)
+			$segments = $this->config->segments_url;
+			
+			if ($segments[0] == 'index')
 			{
-				if ($this->config->site != 'default' && $this->config->segments_url[0] != 'index')
-				{
-					array_unshift($segments, $this->config->nf_default_page);
-				}
+				$segments = array_merge(explode('/', $this->config->nf_default_page), array_offset_left($segments));
+			}
+			
+			if ($this->config->admin_url && $this->config->request_url != 'admin.html')
+			{
+				$segments = array_offset_left($segments);
+			}
+			
+			if ($this->config->ajax_url)
+			{
+				$segments = array_offset_left($segments);
+			}
+			
+			if ($this->config->admin_url && !$this->user('admin'))
+			{
+				$this->config->admin_url = FALSE;
 				
-				$this->load->module(array_shift($segments), $segments);
-
-				if ($this->config->admin_url)
+				if ($this->user())
 				{
-					$this->load->theme('admin');
+					$segments = array('error', 'unauthorized');
 				}
-
-				return;
+				else
+				{
+					$segments = array('user', 'login', NeoFrag::UNCONNECTED);
+				}
 			}
 		}
 
-		if (!$this->_invalid_characters || !$this->_consecutive_slashes || !$this->_extension)
-		{
-			/* TODO
-			 * Charger le module d'erreur pour proposer une URL correcte ou des éléments de recherche
-			 * Mettre un HEADER HTTP de redirection vers la page corrigée (si elle existe et qu'elle est unique)
-			 */
+		$this->load->theme = $this->load->theme($this->config->admin_url ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
 
-			 $this->load->module('error');
-		}
+		$this->_load($segments);
+		
+		return $this;
+	}
+	
+	public function ajax()
+	{
+		return $this->config->ajax_url || ($this->config->ajax_header && $this->config->ajax_allowed);
 	}
 
-	private function _check_invalid_characters()
+	private function _load($segments)
 	{
-		if (array_diff(array_map('rawurlencode', array_map('rawurldecode', $this->config->segments_url)), $this->config->segments_url))
+		if (!$module = $this->load->module = $this->load->module(!in_string('_', $segments[0]) ? str_replace('-', '_', $segments[0]) : 'error'))
 		{
-			$this->profiler->log('Caractères interdits dans l\'URL', Profiler::ERROR);
+			return $this->_load($segments[0] != 'pages' ? array_merge(array($this->config->admin_url ? 'admin' : 'pages'), $segments) : array('error'));
+		}
+		
+		array_shift($segments);
+		
+		if (method_exists($module, 'load'))
+		{
+			$module->load();
+		}
+
+		//Méthode par défault
+		if (empty($segments))
+		{
+			$method = 'index';
+		}
+		else if (strpos($segments[0], '_') === 0)
+		{
+			return $this->_load(array('error'));
+		}
+		//Méthode définie par routage
+		else if (!empty($module->routes))
+		{
+			$method = $module->get_method($segments);
+		}
+
+		//Routage automatique
+		if (!isset($method))
+		{
+			$method = str_replace('-', '_', array_shift($segments));
+		}
+		
+		$this->segments = array_merge(array($module->name, $method), $segments);
+		
+		//Checker Controller
+		if (($checker = $module->load->controller(($this->config->admin_url ? 'admin_' : '').($this->config->ajax_url ? 'ajax_' : '').'checker')) && method_exists($checker, $method))
+		{
+			try
+			{
+				$segments = call_user_func_array(array($checker, $method), $segments);
+
+				if (!is_array($segments) && $segments !== NULL)
+				{
+					$module->append_output($segments);
+					return;
+				}
+			}
+			catch (Exception $error)
+			{
+				$this->_check($error->getMessage());
+				return;
+			}
+		}
+		
+		$controller_name = array();
+		
+		if ($module->name != 'error')
+		{
+			if (($ajax_error = $this->config->ajax_header && !$this->config->ajax_url && !$this->config->ajax_allowed) && !post('table_id'))
+			{
+				return $this->_load(array('error'));
+			}
+			
+			if ($this->config->admin_url)
+			{
+				$controller_name[] = 'admin';
+			}
+			
+			if ($this->config->ajax_url)
+			{
+				$controller_name[] = 'ajax';
+			}
+			
+			if (!$controller_name)
+			{
+				$controller_name[] = 'index';
+			}
 		}
 		else
 		{
-			$this->_invalid_characters = TRUE;
+			$controller_name[] = $this->config->ajax_header ? 'ajax' : 'index';
 		}
+	
+		//Controller
+		if ($controller = $module->load->controller(implode('_', $controller_name)))
+		{
+			try
+			{
+				$module->add_data('module_title', $module->get_title());
+				$module->add_data('module_method', $method);
+				
+				if (($output = $controller->method($method, $segments)) !== FALSE && (empty($ajax_error) || $this->config->ajax_allowed))
+				{
+					$module->segments = array($module->name, $method);
+					$module->append_output($output);
+					return;
+				}
+				
+				throw new Exception(NeoFrag::UNFOUND);
+			}
+			catch (Exception $error)
+			{
+				$this->_check($error->getMessage());
+				return;
+			}
+		}
+		
+		$this->_load(array('error'));
 	}
 
-	private function _check_consecutive_slashes()
+	private function _check($error)
 	{
-		if (strpos($this->config->request_url, '//') !== FALSE)
+		//Gestion des codes d'erreurs remontés par les Exceptions
+		if (is_numeric($error))
 		{
-			$this->profiler->log('Slashs concécutifs dans l\'URL', Profiler::ERROR);
+			if ((int)$error === NeoFrag::UNFOUND)
+			{
+				$this->_load(array('error'));
+			}
+			else if ((int)$error === NeoFrag::UNAUTHORIZED)
+			{
+				if ($this->user())
+				{
+					$this->_load(array('error', 'unauthorized'));
+				}
+				else
+				{
+					$this->_load(array('user', 'login', NeoFrag::UNAUTHORIZED));
+				}
+			}
+			else if ((int)$error === NeoFrag::UNCONNECTED)
+			{
+				$this->_load(array('user', 'login', NeoFrag::UNCONNECTED));
+			}
 		}
+		//Gestion des redirections demandées par les Exceptions
 		else
 		{
-			$this->_consecutive_slashes = TRUE;
+			call_user_func_array(array($this, '_load'), explode('/', $error));
 		}
-	}
-
-	private function _check_extension()
-	{
-		if (in_array($this->config->extension_url, array('html', 'json', 'xml', 'txt')) || is_asset())
-		{
-			$this->_extension = TRUE;
-		}
-		else
-		{
-			$this->profiler->log('Extension .html requise dans l\'URL', Profiler::ERROR);
-		}
-	}
-
-	public function profiler()
-	{
-		$output = '	<a href="#" data-profiler="router"><i class="icon-chevron-'.(($this->session('profiler', 'router')) ? 'down' : 'up').' pull-right"></i></a>
-					<h2>Router</h2>
-					<div class="profiler-block">
-						<table class="table table-striped">
-							<tbody>
-								<tr>
-									<td style="width: 200px;"><b>Characters a-z A-Z 0-9 - / .</b></td>
-									<td>'.($this->_invalid_characters ? '<i class="fa fa-check text-success" title="OK"></i>' : '<i class="fa fa-close text-danger" title="BAD"></i>').'</td>
-								</tr>
-								<tr>
-									<td style="width: 200px;"><b>Consecutive slashes //</b></td>
-									<td>'.($this->_consecutive_slashes ? '<i class="fa fa-check text-success" title="OK"></i>' : '<i class="fa fa-close text-danger" title="BAD"></i>').'</td>
-								</tr>
-								<tr>
-									<td style="width: 200px;"><b>Extension .'.(($this->config->request_url == 'sitemap.xml') ? 'xml' : 'html').'</b></td>
-									<td>'.($this->_extension ? '<i class="fa fa-check text-success" title="OK"></i>' : '<i class="fa fa-close text-danger" title="BAD"></i>').'</td>
-								</tr>
-								<tr>
-									<td style="width: 200px;"><b>URL</b></td>
-									<td>'.$this->config->request_url.'</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>';
-
-		return $output;
 	}
 }
 

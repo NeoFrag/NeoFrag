@@ -32,8 +32,8 @@ class Panel
 	{
 		$style = !empty($this->style) ? $this->style : 'panel-default';
 		
-		return '<div class="panel '.$style.'"'.(!is_null($id) ? ' data-original-style="'.$style.'"' : '').'>
-				'.(!empty($this->title) ? '<div class="panel-heading"><h3 class="panel-title">'.(!empty($this->url) ? '<a href="'.$this->url.'">' : '').(!empty($this->icon) ? icon($this->icon).' ' : '').$this->title.(!empty($this->url) ? '</a>' : '').'</h3></div>' : '').'
+		return '<div class="panel '.$style.'"'.($id !== NULL ? ' data-original-style="'.$style.'"' : '').'>
+				'.(!empty($this->title) ? '<div class="panel-heading"><h3 class="panel-title">'.(!empty($this->url) ? '<a href="'.url($this->url).'">' : '').(!empty($this->icon) ? icon($this->icon).' ' : '').$this->title.(!empty($this->url) ? '</a>' : '').'</h3></div>' : '').'
 				'.(!empty($this->form) ? '<form action="" method="post">' : '').'
 				'.($body = !empty($this->content) && (!isset($this->body) || $this->body) ? '<div class="panel-body">' : '').'
 				'.(!empty($this->content) ? $this->content : '').'

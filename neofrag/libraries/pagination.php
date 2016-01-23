@@ -28,7 +28,7 @@ class Pagination extends Library
 
 	public function get_data($data = array(), $page = '')
 	{
-		if (!$page && empty($data) && !empty($this->_data))
+		if ($page === '' && empty($data) && !empty($this->_data))
 		{
 			return $this->_data;
 		}
@@ -63,9 +63,9 @@ class Pagination extends Library
 		{
 			return $this->_data;
 		}
-		else if (($offset = ($this->_page - 1) * $this->_items_per_page) < $this->count() || !$page)
+		else if ($page === '' || ($offset = ($this->_page - 1) * $this->_items_per_page) < $this->count())
 		{
-			return array_slice($this->_data, $offset, $this->_items_per_page);
+			return array_slice($this->_data, isset($offset) ? $offset : 0, $this->_items_per_page);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ class Pagination extends Library
 	{
 		static $count;
 		
-		if (is_null($count))
+		if ($count === NULL)
 		{
 			$count = count($this->_data);
 		}

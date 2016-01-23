@@ -26,7 +26,7 @@ class Config extends Core
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->_configs['host']          = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
 		$this->_configs['base_url']      = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 		$this->_configs['request_url']   = $_SERVER['REQUEST_URI'] != $this->_configs['base_url'] ? substr($_SERVER['REQUEST_URI'], strlen($this->_configs['base_url'])) : 'index.html';
@@ -35,22 +35,22 @@ class Config extends Core
 
 		$ext = extension($url = !empty($_GET['request_url']) ? $_GET['request_url'] : $this->_configs['request_url'], $url);
 		$this->_configs['segments_url']  = explode('/', rtrim(substr($url, 0, - strlen($ext)), '.'));
-		
+
 		if ($this->_configs['segments_url'][0] == 'admin')
 		{
 			$this->_configs['admin_url'] = TRUE;
 		}
-		
+
 		if ((empty($this->_configs['admin_url']) && $this->_configs['segments_url'][0] == 'ajax') || (!empty($this->_configs['admin_url']) && isset($this->_configs['segments_url'][1]) && $this->_configs['segments_url'][1] == 'ajax'))
 		{
 			$this->_configs['ajax_url'] = TRUE;
 		}
-		
-		if (is_null($configs = NeoFrag::loader()->db->select('site, lang, name, value, type')->from('nf_settings')->get()))
+
+		if (($configs = $this->load->db->select('site', 'lang', 'name', 'value', 'type')->from('nf_settings')->get()) === NULL)
 		{
 			exit('Database is empty');
 		}
-		
+
 		foreach ($configs as $setting)
 		{
 			if ($setting['type'] == 'array')
@@ -75,37 +75,43 @@ class Config extends Core
 			}
 
 			$this->_settings[$setting['site']][$setting['lang']][$setting['name']] = $value;
-			
-			if (empty($site) && $setting['name'] == 'nf_domains' && in_string($_SERVER['HTTP_HOST'], $setting['value']))
-			{
-				$site = $value;
-			}
 		}
-		
+
 		$this->update('');
+
+		$nf_languages = $this->db	->select('code')
+									->from('nf_settings_languages')
+									->order_by('order')
+									->get();
+
+		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge(array($this->session('language')), preg_replace('/^(.+?)[;-].*/', '\1', explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'])))), $nf_languages), $nf_languages));
+
 		$this->update('default');
-		
-		if (!empty($site))
-		{
-			$this->update('default');
-		}
+
+		$this->update('default', 'fr');
+		//$this->update('default', array_shift($nf_languages));
 	}
-	
+
 	public function __get($name)
 	{
 		if (isset($this->_configs[$name]))
 		{
 			return $this->_configs[$name];
 		}
-		
-		return NULL;
+
+		return parent::__get($name);
 	}
-	
+
 	public function __set($name, $value)
 	{
 		$this->_configs[$name] = $value;
 	}
-	
+
+	public function __isset($name)
+	{
+		return isset($this->_configs[$name]);
+	}
+
 	public function __invoke($name, $value, $type = NULL)
 	{
 		if (isset($this->_configs[$name]))
@@ -114,7 +120,7 @@ class Config extends Core
 									->update('nf_settings', array(
 										'value' => $value
 									));
-			
+
 			if ($type)
 			{
 				NeoFrag::loader()->db	->where('name', $name)
@@ -131,7 +137,7 @@ class Config extends Core
 				'type'  => $type ?: 'string'
 			));
 		}
-		
+
 		$this->_configs[$name] = $value;
 
 		return $this;
@@ -150,33 +156,10 @@ class Config extends Core
 			}
 		}
 	}
-	
-	public function set_language()
+
+	public function debugbar()
 	{
-		$this->update($this->site, $this->nf_default_language ?: 'fr');
-
-		setlocale(LC_ALL, $this->load->lang('locale'));
-
-		if (!$this->ajax && is_asset())
-		{
-			asset($this->_configs['request_url']);
-		}
-	}
-
-	public function profiler()
-	{
-		if (empty($this->_configs))
-		{
-			return '';
-		}
-
-		ksort($this->_configs);
-
-		$output = '	<a href="#" data-profiler="config"><i class="icon-chevron-'.($this->session('profiler', 'config') ? 'down' : 'up').' pull-right"></i></a>
-					<h2>Config</h2>
-					<div class="profiler-block">'.NeoFrag::loader()->profiler->table($this->_configs).'</div>';
-
-		return $output;
+		return $this->debug->table($this->_configs);
 	}
 }
 

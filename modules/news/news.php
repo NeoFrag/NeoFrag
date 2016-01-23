@@ -60,6 +60,32 @@ class m_news extends Module
 			);
 		}
 	}
+	
+	public function settings()
+	{
+		$this	->load->library('form')
+				->add_rules(array(
+					'news_per_page' => array(
+						'label' => '{lang news_per_page}',
+						'value' => $this->config->news_per_page,
+						'type'  => 'number',
+						'rules' => 'required'
+					)
+				))
+				->add_submit($this('edit'))
+				->add_back('admin/addons.html#modules');
+
+		if ($this->form->is_valid($post))
+		{
+			$this->config('news_per_page', $post['news_per_page']);
+			
+			redirect_back('admin/addons.html#modules');
+		}
+
+		return new Panel(array(
+			'content' => $this->form->display()
+		));
+	}
 }
 
 /*

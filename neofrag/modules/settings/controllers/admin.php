@@ -20,31 +20,22 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_settings_c_admin extends Controller_Module
 {
+	public $administrable = FALSE;
+
 	public function index()
 	{
 		$this->title($this('configuration'));
 		
 		$modules = array();
-		foreach ($this->get_modules() as $module)
+		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->administrable)
+			if ($module->is_administrable())
 			{
 				$modules[$module->name] = $module->get_title();
 			}
 		}
 		
 		natsort($modules);
-
-		$langs = array();
-		foreach (preg_grep('/\.php$/', scandir('./neofrag/lang/')) as $file)
-		{
-			$lang = array();
-			include './neofrag/lang/'.$file;
-
-			$langs[substr($file, 0, -4)] = $lang['lang'];
-		}
-
-		natsort($langs);
 
 		$this->load->library('form')
 				->add_rules(array(
@@ -71,13 +62,6 @@ class m_settings_c_admin extends Controller_Module
 						'type'			=> 'select',
 						'rules'			=> 'required'
 					),
-					'default_language' => array(
-						'label'			=> $this('language'),
-						'values'		=> $langs,
-						'value'			=> $this->config->nf_default_language,
-						'type'			=> 'select',
-						'rules'			=> 'required'
-					),
 					'humans_txt' => array(
 						'label'			=> '<a href="http://humanstxt.org/">humans.txt</a>',
 						'type'			=> 'textarea',
@@ -97,7 +81,7 @@ class m_settings_c_admin extends Controller_Module
 						'label'			=> $this('debug_mode'),
 						'type'			=> 'radio',
 						'value'			=> $this->config->nf_debug,
-						'values'        => array($this('debug_disabled'), $this('debug_errors_only'), $this('debug_full'))
+						'values'        => array($this('debug_disabled'), $this('debug_admins_only'), $this('debug_always'))
 					)
 				))
 				->add_submit($this('save'))
@@ -122,20 +106,6 @@ class m_settings_c_admin extends Controller_Module
 			'title'   => $this('general_settings'),
 			'icon'    => 'fa-cogs',
 			'content' => $this->form->display()
-		));
-	}
-
-	public function components()
-	{
-		$this	->title($this('components_management'))
-				->icon('fa-puzzle-piece');
-		
-		return new Panel(array(
-			'title'   => $this('components_management'),
-			'icon'    => 'fa-puzzle-piece',
-			'style'   => 'panel-info',
-			'content' => $this('unavailable_feature'),
-			'size'    => 'col-md-12'
 		));
 	}
 
@@ -316,31 +286,6 @@ class m_settings_c_admin extends Controller_Module
 				, 'col-md-9'
 			)
 		);
-	}
-
-	public function themes()
-	{
-		$this	->title($this('themes'))
-				->icon('fa-tint');
-		
-		return new Panel(array(
-			'title'   => $this('list_installed_themes'),
-			'icon'    => 'fa-tint',
-			'content' => $this->load->view('themes', array(
-				'themes' => $this->get_themes()
-			)),
-			'footer'  => '<button class="btn btn-outline btn-info" data-toggle="modal" data-target=".modal-theme-install">'.icon('fa-download').' '.$this('install_theme_btn').'</button>',
-			'size'    => 'col-md-12'
-		));
-	}
-	
-	public function _theme_internal($theme, $controller)
-	{
-		$this	->title($theme->get_title())
-				->subtitle($this('theme_customize'))
-				->icon('fa-paint-brush');
-		
-		return $controller->index($theme);
 	}
 }
 

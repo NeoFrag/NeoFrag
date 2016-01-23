@@ -18,18 +18,23 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function button($url, $icon, $title = '', $color = 'default', $class = '', $data = array())
+function button($url, $icon, $title = '', $color = 'default', $data = array(), $small = TRUE, $tooltip = NULL)
 {
 	array_walk($data, function(&$value, $name){
 		$value = ' data-'.$name.'="'.$value.'"';
 	});
 	
-	$output = ' class="'.($class ? $class.' ' : '').'btn btn-outline btn-'.$color.' btn-xs"'.($title ? ' data-toggle="tooltip" title="'.$title.'"' : '').($data ? implode($data) : '').'>'.icon($icon);
+	$output = ' class="btn btn-outline btn-'.$color.($small ? ' btn-xs' : '').'"'.($title && ($tooltip || $small)? ' data-toggle="tooltip" title="'.$title.'"' : '').($data ? implode($data) : '').'>'.icon($icon);
+	
+	if ($title && ($tooltip === FALSE || $tooltip === NULL && !$small))
+	{
+		$output .= ' '.$title;
+	}
 	
 	return $url ? '<a href="'.url($url).'"'.$output.'</a>' : '<span'.$output.'</span>';
 }
 
-function button_sort($id, $url, $title = NULL)
+function button_sort($id, $url, $parent = 'table', $items = 'tr', $title = NULL)
 {
 	NeoFrag::loader()->js('neofrag.sortable');
 	
@@ -38,9 +43,11 @@ function button_sort($id, $url, $title = NULL)
 		$title = NeoFrag::loader()->lang('sort');
 	}
 
-	return button(NULL, 'fa-arrows-v', $title, 'link', 'btn-sortable', array(
+	return button(NULL, 'fa-arrows-v', $title, 'link btn-sortable', array(
 		'id'     => $id,
 		'update' => url($url),
+		'parent' => $parent,
+		'items'  => $items
 	));
 }
 
@@ -74,12 +81,12 @@ function button_delete($url, $title = NULL)
 		$title = NeoFrag::loader()->lang('remove');
 	}
 
-	return button($url, 'fa-remove', $title, 'danger', 'delete');
+	return button($url, 'fa-remove', $title, 'danger delete');
 }
 
 function button_add($url, $title, $icon = 'fa-plus')
 {
-	return '<a class="btn btn-outline btn-primary" href="'.url($url).'">'.icon($icon).' '.$title.'</a>';
+	return button($url, $icon, $title, 'primary', array(), FALSE);
 }
 
 /*

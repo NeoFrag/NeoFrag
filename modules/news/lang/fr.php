@@ -52,6 +52,7 @@ $lang['intro']                         = 'Introduction';
 $lang['list_news']                     = 'Liste des actualités';
 $lang['more_news_from_author']         = 'Autres actualités de l\'auteur';
 $lang['news']                          = 'Actualités';
+$lang['news_per_page']                 = 'Actualités par page';
 $lang['no_category']                   = 'Aucune catégorie';
 $lang['no_news']                       = 'Il n\'y a pas encore d\'actualité';
 $lang['no_news_from_author']           = 'L\'auteur n\'a pas publié d\'autre actualité';

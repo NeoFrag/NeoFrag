@@ -39,18 +39,11 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function delete($user_id, $username)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($this->model()->check_member($user_id, $username))
 		{
 			return array($user_id, $username);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cet utilisateur a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -68,10 +61,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function _groups_delete()
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($group = $this->groups->check_group(func_get_args()))
 		{
@@ -84,10 +74,6 @@ class m_members_c_admin_checker extends Controller_Module
 				throw new Exception(NeoFrag::UNFOUND);
 			}
 		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce groupe a déjà été supprimé.';
-		}
 
 		throw new Exception(NeoFrag::UNFOUND);
 	}
@@ -99,18 +85,11 @@ class m_members_c_admin_checker extends Controller_Module
 
 	public function _sessions_delete($session_id)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if ($session = $this->model()->check_session($session_id))
 		{
 			return array($session['session_id'], $session['username']);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Cette session a déjà été supprimée.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

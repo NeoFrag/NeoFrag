@@ -33,10 +33,9 @@ class m_live_editor_c_index extends Controller_Module
 		
 		$modules = array();
 		
-		foreach ($this->get_modules(TRUE) as $module)
+		foreach ($this->addons->get_modules() as $module)
 		{
-			//TODO
-			if (!in_array($module->name, array('access', 'admin', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks')))
+			if ($module->load->controller('index') && !in_array($module->name, array('live_editor', 'pages')))
 			{
 				$modules[$module->name] = $module->get_title();
 			}

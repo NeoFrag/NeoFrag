@@ -68,7 +68,7 @@ class m_search_c_index extends Controller_Module
 
 			if ($keywords)
 			{
-				foreach ($this->get_modules() as $module)
+				foreach ($this->addons->get_modules() as $module)
 				{
 					if (($search_controller = $module->load->controller('search')) && ($result = $search_controller->search($keywords, $not_keywords)))
 					{
@@ -145,7 +145,7 @@ class m_search_c_index extends Controller_Module
 							->get();
 
 		$this->subtitle($this->load->view('search', array(
-			'source' => utf8_htmlentities('['.trim_word(implode(', ', $source), ', ').']'),
+			'source' => utf8_htmlentities('['.implode(', ', $source).']'),
 			'value'  => utf8_htmlentities($value)
 		)));
 	}

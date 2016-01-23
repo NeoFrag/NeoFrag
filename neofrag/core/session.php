@@ -56,12 +56,6 @@ class Session extends Core
 							'host_name'     => $this->_host_name,
 							'last_activity' => now()
 						));
-
-			if (!is_null($time_zone = $this('session', 'time_zone')))
-			{
-				set_time_zone($time_zone);
-				$this->db->update_time_zone();
-			}
 		}
 		else if (!is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
@@ -221,7 +215,7 @@ class Session extends Core
 	{
 		$this->_user_id = $user_id;
 		
-		if (!is_null($user_id))
+		if ($user_id !== NULL)
 		{
 			$this->db->insert('nf_sessions_history', array(
 				'session_id' => $this->_session_id,
@@ -282,11 +276,11 @@ class Session extends Core
 	{
 		static $url;
 		
-		if (is_null($url))
+		if ($url === NULL)
 		{
 			$url = $this->config->request_url;
 			
-			if (preg_match('#('.($patern = implode('|', array(Module::$patterns['pages'], Module::$patterns['page']))).')\.html$#', $url, $match) && $match[1])
+			if (preg_match('#('.($patern = implode('|', array(self::$route_patterns['pages'], self::$route_patterns['page']))).')\.html$#', $url, $match) && $match[1])
 			{
 				$url = preg_replace('#'.$patern.'#', '', $url);
 			}
@@ -312,7 +306,7 @@ class Session extends Core
 				return FALSE;
 			}
 
-			if (!is_null($session['user_id']))
+			if ($session['user_id'] !== NULL)
 			{
 				$this->_user_id = (int)$session['user_id'];
 			}
@@ -333,20 +327,9 @@ class Session extends Core
 		return $this->_sessions;
 	}
 	
-	public function profiler()
+	public function debugbar()
 	{
-		if (!$this->_user_data)
-		{
-			return '';
-		}
-
-		ksort($this->_user_data);
-
-		$output = '	<a href="#" data-profiler="session"><i class="icon-chevron-'.(!empty($this->_user_data['profiler']['session']) ? 'down' : 'up').' pull-right"></i></a>
-					<h2>Session</h2>
-					<div class="profiler-block">'.$this->profiler->table($this->_user_data).'</div>';
-
-		return $output;
+		return $this->debug->table($this->_user_data);
 	}
 }
 

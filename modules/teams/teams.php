@@ -44,13 +44,13 @@ class m_teams extends Module
 	
 	public function groups()
 	{
-		$teams = $this->db	->select('t.team_id', 't.name', 'tl.title', 'GROUP_CONCAT(tu.user_id) AS users')
-							->from('nf_teams t')
-							->join('nf_teams_lang tl',  'tl.team_id = t.team_id')
-							->join('nf_teams_users tu', 'tu.team_id = t.team_id')
-							->where('tl.lang', $this->config->lang)
-							->group_by('t.team_id')
-							->get();
+		$teams = NeoFrag::loader()->db	->select('t.team_id', 't.name', 'tl.title', 'GROUP_CONCAT(tu.user_id) AS users')
+										->from('nf_teams t')
+										->join('nf_teams_lang tl',  'tl.team_id = t.team_id')
+										->join('nf_teams_users tu', 'tu.team_id = t.team_id')
+										->where('tl.lang', NeoFrag::loader()->config->lang)
+										->group_by('t.team_id')
+										->get();
 		
 		$groups = array();
 		

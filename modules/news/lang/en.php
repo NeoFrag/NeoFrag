@@ -52,6 +52,7 @@ $lang['intro']                         = 'Introduction';
 $lang['list_news']                     = 'News list';
 $lang['more_news_from_author']         = 'Other news from this author';
 $lang['news']                          = 'News';
+$lang['news_per_page']                 = 'News per page';
 $lang['no_category']                   = 'No category';
 $lang['no_news']                       = 'No more news';
 $lang['no_news_from_author']           = 'The author has not published other news';

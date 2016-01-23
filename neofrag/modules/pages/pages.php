@@ -38,14 +38,30 @@ class m_pages extends Module
 		'admin/{id}/{url_title*}' => '_edit'
 	);
 	
-	public function get_title()
+	public function get_title($new_title = NULL)
 	{
 		if (!empty($this->load->data['module_title']))
 		{
 			return $this->load->data['module_title'];
 		}
+
+		/* TODO
+			Bug dans la liste des modules quand un module est désactivé et que le module Page est activé
+			return parent::get_title($new_title);
+		*/
+
+		static $title;
+
+		if ($new_title !== NULL)
+		{
+			$title = $new_title;
+		}
+		else if ($title === NULL)
+		{
+			$title = $this->load->lang($this->title, NULL);
+		}
 		
-		return parent::get_title();
+		return $title;
 	}
 }
 

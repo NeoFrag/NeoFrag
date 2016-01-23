@@ -20,6 +20,10 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Core extends Library
 {
+	public function __construct()
+	{
+		$this->load = NeoFrag::loader();
+	}
 }
 
 /*

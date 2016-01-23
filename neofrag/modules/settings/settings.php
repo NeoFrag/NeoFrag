@@ -28,17 +28,8 @@ class m_settings extends Module
 	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
-	public $administrable = FALSE;
-	public $deactivatable = FALSE;
 	public $path          = __FILE__;
-	public $routes        = array(
-		'admin/ajax/themes/active'       => '_theme_activation',
-		'admin/ajax/themes/install'      => '_theme_installation',
-		'admin/ajax/themes/reset'        => '_theme_reset',
-		'admin/ajax/themes/delete'       => '_theme_delete',
-		'admin/ajax/themes/{url_title}'  => '_theme_internal',
-		'admin/themes/{url_title}'       => '_theme_internal'
-	);
+	public $routes        = array();
 }
 
 /*

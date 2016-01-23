@@ -18,84 +18,74 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Theme extends Translatable
+abstract class Theme extends Loadable
 {
-	public $title;
-	public $description;
-	public $link;
-	public $author;
-	public $licence;
-	public $version;
-	public $nf_version;
-	public $styles;
-	
+	static public $core = array(
+		'admin'   => FALSE,
+		'default' => TRUE
+	);
+
 	abstract public function styles_row();
 	abstract public function styles_widget();
 
-	public function __construct($theme_name)
+	public $styles;
+	
+	public function paths()
 	{
-		$this->load = new Loader(
-			array(
-				'assets' => array(
-					'./overrides/themes/'.$theme_name,
-					'./neofrag/themes/'.$theme_name,
-					'./themes/'.$theme_name
-				),
-				'controllers' => array(
-					'./overrides/themes/'.$theme_name.'/controllers',
-					'./neofrag/themes/'.$theme_name.'/controllers',
-					'./themes/'.$theme_name.'/controllers'
-				),
-				'forms' => array(
-					'./overrides/themes/'.$theme_name.'/forms',
-					'./neofrag/themes/'.$theme_name.'/forms',
-					'./themes/'.$theme_name.'/forms'
-				),
-				'helpers' => array(
-					'./overrides/themes/'.$theme_name.'/helpers',
-					'./neofrag/themes/'.$theme_name.'/helpers',
-					'./themes/'.$theme_name.'/helpers'
-				),
-				'lang' => array(
-					'./overrides/themes/'.$theme_name.'/lang',
-					'./neofrag/themes/'.$theme_name.'/lang',
-					'./themes/'.$theme_name.'/lang'
-				),
-				'libraries' => array(
-					'./overrides/themes/'.$theme_name.'/libraries',
-					'./neofrag/themes/'.$theme_name.'/libraries',
-					'./themes/'.$theme_name.'/libraries'
-				),
-				'models' => array(
-					'./overrides/themes/'.$theme_name.'/models',
-					'./neofrag/themes/'.$theme_name.'/models',
-					'./themes/'.$theme_name.'/models'
-				),
-				'views' => array(
-					'./overrides/themes/'.$theme_name.'/views',
-					'./neofrag/themes/'.$theme_name.'/views',
-					'./themes/'.$theme_name.'/overrides/views',
-					'./themes/'.$theme_name.'/views'
-				)
+		return array(
+			'assets' => array(
+				'overrides/themes/'.$this->name,
+				'neofrag/themes/'.$this->name,
+				'themes/'.$this->name
 			),
-			NeoFrag::loader()
+			'controllers' => array(
+				'overrides/themes/'.$this->name.'/controllers',
+				'neofrag/themes/'.$this->name.'/controllers',
+				'themes/'.$this->name.'/controllers'
+			),
+			'forms' => array(
+				'overrides/themes/'.$this->name.'/forms',
+				'neofrag/themes/'.$this->name.'/forms',
+				'themes/'.$this->name.'/forms'
+			),
+			'helpers' => array(
+				'overrides/themes/'.$this->name.'/helpers',
+				'neofrag/themes/'.$this->name.'/helpers',
+				'themes/'.$this->name.'/helpers'
+			),
+			'lang' => array(
+				'overrides/themes/'.$this->name.'/lang',
+				'neofrag/themes/'.$this->name.'/lang',
+				'themes/'.$this->name.'/lang'
+			),
+			'libraries' => array(
+				'overrides/themes/'.$this->name.'/libraries',
+				'neofrag/themes/'.$this->name.'/libraries',
+				'themes/'.$this->name.'/libraries'
+			),
+			'models' => array(
+				'overrides/themes/'.$this->name.'/models',
+				'neofrag/themes/'.$this->name.'/models',
+				'themes/'.$this->name.'/models'
+			),
+			'views' => array(
+				'overrides/themes/'.$this->name.'/views',
+				'neofrag/themes/'.$this->name.'/views',
+				'themes/'.$this->name.'/overrides/views',
+				'themes/'.$this->name.'/views'
+			)
 		);
-
-		$this->name = $theme_name;
-
-		$this->set_path();
 	}
-
-	public function get_title()
+	
+	public function load()
 	{
-		static $title;
-		
-		if (is_null($title))
+		if ($this->name != 'default')
 		{
-			$title = $this->load->lang($this->title, NULL);
+			array_unshift(NeoFrag::loader()->paths['assets'], 'themes/'.$this->name);
+			array_unshift(NeoFrag::loader()->paths['views'],  'themes/'.$this->name.'/overrides/views', 'themes/'.$this->name.'/views');
 		}
 		
-		return $title;
+		return $this;
 	}
 	
 	public function install($dispositions = array())
@@ -112,17 +102,11 @@ abstract class Theme extends Translatable
 				));
 			}
 		}
-		
-		$this->db->insert('nf_settings_addons', array(
-			'name'   => $this->name,
-			'type'   => 'theme',
-			'enable' => TRUE
-		));
 
-		return $this;
+		return parent::install();
 	}
 	
-	public function uninstall()
+	public function uninstall($remove = TRUE)
 	{
 		$widgets = array();
 		
@@ -146,11 +130,7 @@ abstract class Theme extends Translatable
 		$this->db	->where('widget_id', $widgets)
 					->delete('nf_widgets');
 		
-		$this->db	->where('name', $this->name)
-					->where('type', 'theme')
-					->delete('nf_settings_addons');
-		
-		return $this;
+		return parent::uninstall($remove);
 	}
 }
 

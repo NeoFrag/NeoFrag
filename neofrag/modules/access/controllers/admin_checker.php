@@ -24,7 +24,7 @@ class m_access_c_admin_checker extends Controller_Module
 	{
 		$modules = $objects = array();
 
-		foreach ($this->addons->get_modules(TRUE) as $module)
+		foreach ($this->addons->get_modules() as $module)
 		{
 			foreach ($module->get_access() as $type => $access)
 			{
@@ -68,7 +68,7 @@ class m_access_c_admin_checker extends Controller_Module
 
 	public function _edit($module_name, $access = '0-default')
 	{
-		$module = $this->load->module($module_name, FALSE);
+		$module = $this->load->module($module_name);
 		
 		list($id, $type) = explode('-', $access);
 		

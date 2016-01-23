@@ -25,8 +25,6 @@ class Captcha extends Library
 	
 	public function __construct($config = array())
 	{
-		parent::__construct();
-		
 		if (!empty($config['public_key']) && !empty($config['private_key']))
 		{
 			$this->_public_key  = $config['public_key'];

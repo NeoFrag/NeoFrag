@@ -28,15 +28,11 @@ class m_error extends Module
 	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
-	public $administrable = FALSE;
-	public $deactivatable = FALSE;
 	public $path          = __FILE__;
-
+	
 	public function load()
 	{
-		//TODO Wtf
-		/*NeoFrag::loader()->reset();
-		$this->router->reset();*/
+		$this->config->extension_url = 'html';
 	}
 }
 

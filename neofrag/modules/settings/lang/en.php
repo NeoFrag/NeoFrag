@@ -23,45 +23,23 @@ Translated by NeoFrag community, contributors are:
 FoxLey, eResnova
 **************************************************************************/
 
-$lang['activate']                     = 'Activate';
-$lang['already_installed_version']    = 'This version is already installed';
 $lang['closed']                       = 'closed';
 $lang['code_analytics']               = 'Analytics code';
-$lang['components_management']        = 'Manage Components';
 $lang['contact_email']                = 'Contact Email';
 $lang['customizing_maintenance_page'] = 'Customizing the maintenance page';
+$lang['debug_admins_only']            = 'Admins only';
+$lang['debug_always']                 = 'Always';
 $lang['debug_disabled']               = 'Disabled';
-$lang['debug_errors_only']            = 'Errors only';
-$lang['debug_full']                   = 'Complete';
 $lang['debug_mode']                   = 'Debug mode';
 $lang['default_page']                 = 'Home Page';
-$lang['error_theme_install']          = 'The theme could not be installed, check whether it is actually a theme';
 $lang['general_settings']             = 'General Preferences';
-$lang['install']                      = 'Install';
-$lang['install_in_progress']          = 'Installing theme...';
-$lang['install_theme']                = 'Installation / update theme';
-$lang['install_theme_btn']            = 'Install / update a theme';
-$lang['language']                     = 'Language';
-$lang['list_installed_themes']        = 'List of installed themes';
 $lang['logo']                         = 'Logo';
-$lang['not_newer_installed_version']  = 'A newer version of this theme is already installed';
 $lang['opened']                       = 'opened';
-$lang['personalize']                  = 'Customize';
 $lang['planned_opening']              = 'Planned opening';
-$lang['reinstall']                    = 'Reinstall';
-$lang['reinstall_to_default']         = 'Reinstall default';
 $lang['site_description']             = 'Site description';
 $lang['site_title']                   = 'Site Title';
 $lang['text_color']                   = 'Text color';
-$lang['theme_activation']             = 'Theme activation';
-$lang['theme_activation_message']     = 'Are you sure you want to activate the theme <b>\'+$(this).data(\'title\')+\'</b>?';
-$lang['theme_customize']              = 'Customizing theme';
-$lang['theme_deletion']               = 'Delete theme';
-$lang['theme_deletion_message']       = 'Are you sure you want to permanently delete the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>?';
-$lang['theme_reinstallation_message'] = 'Are you sure you want to reinstall the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>? < br / > all layouts and widgets configurations will be lost.';
-$lang['upload_zip_file']              = 'Download a .zip (max. %dMB) theme';
 $lang['website_status']               = 'Website status';
-$lang['zip_file_required']            = 'Please download a .zip theme';
 
 /*
 NeoFrag Alpha 0.1.3

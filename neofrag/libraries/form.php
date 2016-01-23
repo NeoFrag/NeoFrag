@@ -130,7 +130,7 @@ class Form extends Library
 					$v = utf8_htmlentities(trim($v));
 				});
 			}
-			else if (!is_null($value))
+			else if ($value !== NULL)
 			{
 				$value = utf8_htmlentities(trim($value));
 			}
@@ -320,7 +320,7 @@ class Form extends Library
 		{
 			list($title, $message) = $this->_confirm_deletion;
 
-			if ($this->config->ajax_url)
+			if ($this->router->ajax())
 			{
 				return '<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.NeoFrag::loader()->lang('close').'</span></button>
@@ -493,8 +493,6 @@ class Form extends Library
 
 	private function _display_text($var, $options, $post, $type = 'text')
 	{
-		$typeahead = (isset($options['values']) && is_array($options['values']) && $options['values']) ? ' data-provide="typeahead" data-source="'.utf8_htmlentities('['.trim_word(implode(', ', array_map(create_function('$a', 'return \'"\'.$a.\'"\';'), $options['values'])), ', ').']').'"' : '';
-
 		$classes = array();
 		
 		if (in_array($type, array('date', 'datetime', 'time')))
@@ -561,7 +559,7 @@ class Form extends Library
 			$value = ' value="'.addcslashes($this->_display_value($var, $options), '"').'"';
 		}
 		
-		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').$typeahead.(!empty($class) ? $class : '').(($type == 'password' || $typeahead) && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$this->load->lang($options['label'], NULL).'"' : '').' />';
+		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').(!empty($class) ? $class : '').($type == 'password' && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').($this->_fast_mode && !empty($options['label']) && $type != 'file' ? ' placeholder="'.$this->load->lang($options['label'], NULL).'"' : '').' />';
 
 		if ($type == 'file')
 		{

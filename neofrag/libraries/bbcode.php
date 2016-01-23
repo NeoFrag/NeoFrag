@@ -18,10 +18,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class TextEditor extends Library
+class BBCode extends Library
 {
-	public $name = 'editor';
-	
 	private $_bbcode = array(
 		'\[(b|bold|strong)\](.*?)\[/\1\]'                   => '<b>\2</b>',
 		'\[(i|italic)\](.*?)\[/\1\]'                        => '<i>\2</i>',

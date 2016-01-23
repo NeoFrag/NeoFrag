@@ -26,7 +26,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_read', $forum['category_id']))
 			{
-				if (!is_null($forum['url']))
+				if ($forum['url'] !== NULL)
 				{
 					header('Location: '.$forum['url']);
 					$this->model()->increment_redirect($forum_id);
@@ -71,7 +71,7 @@ class m_forum_c_checker extends Controller
 	
 	public function _new($forum_id, $title)
 	{
-		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && is_null($forum['url']))
+		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && $forum['url'] === NULL)
 		{
 			if ($this->access('forum', 'category_write', $forum['category_id']))
 			{
@@ -184,10 +184,7 @@ class m_forum_c_checker extends Controller
 	
 	public function _message_delete($message_id, $title)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		$message = $this->db	->select('m.user_id', 'f.forum_id', 'f.parent_id as category_id', 't.topic_id', 't.title', 't.message_id = m.message_id as is_topic')
 								->from('nf_forum_messages m')
@@ -202,16 +199,8 @@ class m_forum_c_checker extends Controller
 			{
 				return array($message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']);
 			}
-			else if ($this->config->ajax_url)
-			{
-				return '<h4 class="alert-heading">Erreur</h4>Vous ne pouvez pas supprimer ce message';
-			}
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
-		}
-		else if ($this->config->ajax_url)
-		{
-			return '<h4 class="alert-heading">Erreur</h4>Ce message a déjà été supprimé.';
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -227,7 +216,7 @@ class m_forum_c_checker extends Controller
 	
 	public function _mark_all_as_read($forum_id, $title)
 	{
-		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && is_null($forum['url']))
+		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && $forum['url'] === NULL)
 		{
 			if ($this->user() && $this->access('forum', 'category_read', $forum['category_id']))
 			{

@@ -108,7 +108,7 @@ class Tab extends Library
 			{
 				$languages = $this->db	->select('code', 'name', 'flag')
 										->from('nf_settings_languages')
-										->order_by('`order`')
+										->order_by('order')
 										->get();
 
 				foreach ($languages as $lang)

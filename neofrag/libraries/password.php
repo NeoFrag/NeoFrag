@@ -54,8 +54,6 @@ class Password extends Library
 
 	public function __construct($config)
 	{
-		parent::__construct();
-
 		$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$this->_salt  = $config['salt'];
 

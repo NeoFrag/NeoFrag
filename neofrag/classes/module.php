@@ -18,272 +18,95 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-abstract class Module extends Translatable
+abstract class Module extends Loadable
 {
-	static public $patterns = array(
-		'id'         => '([0-9]+?)',
-		'key_id'     => '([a-z0-9]+?)',
-		'url_title'  => '([a-z0-9-]+?)',
-		'url_title*' => '([a-z0-9-/]+?)',
-		'page'       => '((?:/?page/[0-9]+?)?)',
-		'pages'      => '((?:/?(?:all|page/[0-9]+?(?:/(?:10|25|50|100))?))?)'
+	static public $core = array(
+		'access'      => FALSE,
+		'addons'      => FALSE,
+		'admin'       => FALSE,
+		'comments'    => TRUE,
+		'error'       => FALSE,
+		'live_editor' => FALSE,
+		'members'     => TRUE, 
+		'pages'       => TRUE,
+		'search'      => TRUE,
+		'settings'    => FALSE,
+		'user'        => FALSE
 	);
-	
-	private $_module_name;
+
+	public $icon;
+	public $routes = array();
+
 	private $_output      = '';
 	private $_actions     = array();
 
-	public $title         = '';
-	public $description   = '';
-	public $icon          = '';
-	public $link          = '';
-	public $author        = '';
-	public $licence       = '';
-	public $version       = '';
-	public $nf_version    = '';
-	public $administrable = TRUE;
-	public $deactivatable = TRUE;
-	public $routes        = array();
-
-	public $controllers   = array();
-	public $segments      = array();
-
-	public function __construct($module_name)
+	public function paths()
 	{
-		if (NeoFrag::loader()->theme)
-		{
-			if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
+		return function(){
+			if (!empty(NeoFrag::loader()->theme))
 			{
-				unset($theme_name);
-			}
-		}
-		
-		$this->load = new Loader(
-			array(
-				'assets' => array(
-					'./assets',
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name : '',
-					'./overrides/modules/'.$module_name,
-					'./neofrag/modules/'.$module_name,
-					'./modules/'.$module_name
-				),
-				'controllers' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/controllers' : '',
-					'./overrides/modules/'.$module_name.'/controllers',
-					'./neofrag/modules/'.$module_name.'/controllers',
-					'./modules/'.$module_name.'/controllers'
-				),
-				'forms' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/forms' : '',
-					'./overrides/modules/'.$module_name.'/forms',
-					'./neofrag/modules/'.$module_name.'/forms',
-					'./modules/'.$module_name.'/forms'
-				),
-				'helpers' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/helpers' : '',
-					'./overrides/modules/'.$module_name.'/helpers',
-					'./neofrag/modules/'.$module_name.'/helpers',
-					'./modules/'.$module_name.'/helpers'
-				),
-				'lang' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/lang' : '',
-					'./overrides/modules/'.$module_name.'/lang',
-					'./neofrag/modules/'.$module_name.'/lang',
-					'./modules/'.$module_name.'/lang'
-				),
-				'libraries' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/libraries' : '',
-					'./overrides/modules/'.$module_name.'/libraries',
-					'./neofrag/modules/'.$module_name.'/libraries',
-					'./modules/'.$module_name.'/libraries'
-				),
-				'models' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/models' : '',
-					'./overrides/modules/'.$module_name.'/models',
-					'./neofrag/modules/'.$module_name.'/models',
-					'./modules/'.$module_name.'/models'
-				),
-				'views' => array(
-					!empty($theme_name) ? './themes/'.$theme_name.'/overrides/modules/'.$module_name.'/views' : '',
-					'./overrides/modules/'.$module_name.'/views',
-					'./neofrag/modules/'.$module_name.'/views',
-					'./modules/'.$module_name.'/views'
-				)
-			),
-			NeoFrag::loader()
-		);
-
-		$this->name = $module_name;
-
-		$this->set_path();
-	}
-
-	public function run($args = array())
-	{
-		if (!$this->access($this->name, 'module_access'))
-		{
-			$this->unset_module();
-
-			if ($this->user())
-			{
-				$this->load->module('error', 'unauthorized');
-			}
-			else
-			{
-				$this->load->module('user', 'login', NeoFrag::UNCONNECTED);
-			}
-
-			return;
-		}
-		
-		//Vérification des droits d'accés aux pages d'administration
-		if ($this->config->admin_url)
-		{
-			if ($this->user())
-			{
-				if (!$this->user('admin'))
+				if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
 				{
-					$this->config->admin_url = FALSE;
-					$this->unset_module();
-					$this->load->module('error', 'unauthorized');
-					return;
-				}
-			}
-			else
-			{
-				$this->config->admin_url = FALSE;
-				$this->unset_module();
-				$this->load->module('user', 'login', NeoFrag::UNCONNECTED);
-				return;
-			}
-		}
-
-		//Méthode par défault
-		if (empty($args))
-		{
-			$method = 'index';
-		}
-		//Méthode définie par routage
-		else if (!empty($this->routes))
-		{
-			$method = $this->get_method($args);
-		}
-		
-		//Routage automatique
-		if (!isset($method))
-		{
-			if ($args[0])
-			{
-				$method = str_replace('-', '_', $args[0]);
-				$args   = array_offset_left($args);
-			}
-			else
-			{
-				$this->unset_module();
-				$this->load->module('error');
-				return;
-			}
-		}
-
-		$ajax = $this->config->ajax_url;
-		
-		//Checker Controller
-		if (!is_null($checker = $this->load->controller(($this->config->admin_url ? 'admin_' : '').($ajax ? 'ajax_' : '').'checker')) && method_exists($checker, $method))
-		{
-			try
-			{
-				$args = call_user_func_array(array($checker, $method), $args);
-
-				if (!is_array($args) && !is_null($args))
-				{
-					$this->append_output($args);
-					return;
-				}
-			}
-			catch (Exception $error)
-			{
-				$this->_checker($error->getMessage());
-				return;
-			}
-		}
-
-		if ($this->_module_name == 'error')
-		{
-			$controller_name = 'index';
-		}
-		else if ($this->config->admin_url)
-		{
-			$controller_name = $ajax ? 'admin_ajax' : 'admin';
-		}
-		else if ($ajax)
-		{
-			$controller_name = 'ajax';
-		}
-		else
-		{
-			$controller_name = 'index';
-		}
-		
-		//Controller
-		if (!is_null($controller = $this->load->controller($controller_name)))
-		{
-			try
-			{
-				$this->add_data('module_title', $this->get_title());
-				$this->add_data('module_method', $method);
-				
-				if (($output = $controller->method($method, $args)) !== FALSE)
-				{
-					$this->segments = array($this->name, $method);
-					$this->append_output($output);
-					return;
-				}
-				
-				throw new Exception(NeoFrag::UNFOUND);
-			}
-			catch (Exception $error)
-			{
-				$this->_checker($error->getMessage());
-				return;
-			}
-		}
-
-		$this->unset_module();
-		$this->load->module('error');
-	}
-
-	private function _checker($error)
-	{
-		//Gestion des codes d'erreurs remontés par les Exceptions
-		if (is_numeric($error))
-		{
-			$this->unset_module();
-			
-			if ((int)$error === NeoFrag::UNFOUND)
-			{
-				$this->load->module('error');
-			}
-			else if ((int)$error === NeoFrag::UNAUTHORIZED)
-			{
-				if ($this->user())
-				{
-					$this->load->module('error', 'unauthorized');
+					unset($theme_name);
 				}
 				else
 				{
-					$this->load->module('user', 'login', NeoFrag::UNAUTHORIZED);
+					unset($this->load->update);
 				}
 			}
-			else if ((int)$error === NeoFrag::UNCONNECTED)
-			{
-				$this->load->module('user', 'login', NeoFrag::UNCONNECTED);
-			}
-		}
-		//Gestion des redirections demandées par les Exceptions
-		else
-		{
-			call_user_func_array(array($this->load, 'module'), explode('/', $error));
-		}
+
+			return array(
+				'assets' => array(
+					'assets',
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name : '',
+					'overrides/modules/'.$this->name,
+					'neofrag/modules/'.$this->name,
+					'modules/'.$this->name
+				),
+				'controllers' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/controllers' : '',
+					'overrides/modules/'.$this->name.'/controllers',
+					'neofrag/modules/'.$this->name.'/controllers',
+					'modules/'.$this->name.'/controllers'
+				),
+				'forms' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/forms' : '',
+					'overrides/modules/'.$this->name.'/forms',
+					'neofrag/modules/'.$this->name.'/forms',
+					'modules/'.$this->name.'/forms'
+				),
+				'helpers' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/helpers' : '',
+					'overrides/modules/'.$this->name.'/helpers',
+					'neofrag/modules/'.$this->name.'/helpers',
+					'modules/'.$this->name.'/helpers'
+				),
+				'lang' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/lang' : '',
+					'overrides/modules/'.$this->name.'/lang',
+					'neofrag/modules/'.$this->name.'/lang',
+					'modules/'.$this->name.'/lang'
+				),
+				'libraries' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/libraries' : '',
+					'overrides/modules/'.$this->name.'/libraries',
+					'neofrag/modules/'.$this->name.'/libraries',
+					'modules/'.$this->name.'/libraries'
+				),
+				'models' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/models' : '',
+					'overrides/modules/'.$this->name.'/models',
+					'neofrag/modules/'.$this->name.'/models',
+					'modules/'.$this->name.'/models'
+				),
+				'views' => array(
+					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/views' : '',
+					'overrides/modules/'.$this->name.'/views',
+					'neofrag/modules/'.$this->name.'/views',
+					'modules/'.$this->name.'/views'
+				)
+			);
+		};
 	}
 
 	public function append_output($output)
@@ -318,18 +141,6 @@ abstract class Module extends Translatable
 		return $this->_actions;
 	}
 
-	public function get_title()
-	{
-		static $title;
-		
-		if (is_null($title))
-		{
-			$title = $this->load->lang($this->title, NULL);
-		}
-		
-		return $title;
-	}
-	
 	public function get_method(&$args, $ignore_ajax = FALSE)
 	{
 		$url = '';
@@ -365,7 +176,7 @@ abstract class Module extends Translatable
 
 		foreach ($this->routes as $route => $function)
 		{
-			if (preg_match('#^'.str_replace(array_map(function($a){ return '{'.$a.'}'; }, array_keys(self::$patterns)) + array('#'), array_values(self::$patterns) + array('\#'), $route).'$#', $url, $matches))
+			if (preg_match('#^'.str_replace(array_map(function($a){ return '{'.$a.'}'; }, array_keys(self::$route_patterns)) + array('#'), array_values(self::$route_patterns) + array('\#'), $route).'$#', $url, $matches))
 			{
 				$args = array();
 				
@@ -400,7 +211,7 @@ abstract class Module extends Translatable
 			if ($type === NULL)
 			{
 				return $access;
-}
+			}
 			else if (isset($access[$type]))
 			{
 				return $access[$type];
@@ -408,6 +219,16 @@ abstract class Module extends Translatable
 		}
 
 		return array();
+	}
+
+	public function model($model = '')
+	{
+		return $this->load->model($model ?: $this->name);
+	}
+
+	public function is_administrable()
+	{
+		return ($controller = $this->load->controller('admin')) && (!isset($controller->administrable) || $controller->administrable);
 	}
 }
 

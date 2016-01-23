@@ -20,6 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_access_c_admin extends Controller_Module
 {
+	public $administrable = FALSE;
+
 	public function index($objects, $modules, $tab)
 	{
 		if (!$modules)
@@ -80,7 +82,7 @@ class m_access_c_admin extends Controller_Module
 					array(
 						'content' => array(
 							function($data, $loader) use ($module, $type){
-								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info', 'access-reset', array(
+								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', array(
 									'module' => $module->name,
 									'type'   => $type,
 									'id'     => $data['id']
@@ -114,7 +116,7 @@ class m_access_c_admin extends Controller_Module
 			new Row(
 				new Col(
 					new Panel(array(
-						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info', 'access-reset', array(
+						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info access-reset', array(
 							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id

@@ -132,6 +132,39 @@ class m_forum extends Module
 		);
 	}
 	
+	public function settings()
+	{
+		$this	->load->library('form')
+				->add_rules(array(
+					'topics_per_page' => array(
+						'label' => '{lang topics_per_page}',
+						'value' => $this->config->forum_topics_per_page,
+						'type'  => 'number',
+						'rules' => 'required'
+					),
+					'messages_per_page' => array(
+						'label' => '{lang messages_per_page}',
+						'value' => $this->config->forum_messages_per_page,
+						'type'  => 'number',
+						'rules' => 'required'
+					)
+				))
+				->add_submit($this('edit'))
+				->add_back('admin/addons.html#modules');
+
+		if ($this->form->is_valid($post))
+		{
+			$this	->config('forum_topics_per_page',   $post['topics_per_page'])
+					->config('forum_messages_per_page', $post['messages_per_page']);
+			
+			redirect_back('admin/addons.html#modules');
+		}
+
+		return new Panel(array(
+			'content' => $this->form->display()
+		));
+	}
+	
 	public function load()
 	{
 		if (!$this->config->admin_url && !$this->config->ajax_url)
