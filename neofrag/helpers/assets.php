@@ -33,7 +33,7 @@ function icon($icon)
 	return '';
 }
 
-function asset($file_path)
+function asset($file_path, $file_name = '')
 {
 	if (file_exists($file_path))
 	{
@@ -76,7 +76,7 @@ function asset($file_path)
 		
 		if ($ext == 'zip')
 		{
-			header('Content-Disposition: attachment; filename="'.basename($file_path).'"');
+			header('Content-Disposition: attachment; filename="'.basename($file_name ?: $file_path).'"');
 		}
 		
 		if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $date) || (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag))
