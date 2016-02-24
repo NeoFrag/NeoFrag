@@ -37,6 +37,16 @@ class m_pages extends Module
 		'admin{pages}'            => 'index',
 		'admin/{id}/{url_title*}' => '_edit'
 	);
+	
+	public function get_title()
+	{
+		if (!empty($this->load->data['module_title']))
+		{
+			return $this->load->data['module_title'];
+		}
+		
+		return parent::get_title();
+	}
 }
 
 /*

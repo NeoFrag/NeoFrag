@@ -32,7 +32,7 @@ class Breadcrumb extends Core
 		}
 		else
 		{
-			array_unshift($links, array($this->load->module->get_title(), $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker'));
+			array_unshift($links, array($this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->config->request_url : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker'));
 		}
 
 		return $links;
