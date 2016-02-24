@@ -643,9 +643,13 @@ class Form extends Library
 
 	private function _display_date($var, $options, $post)
 	{
-		if (!empty($options['value']))
+		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '0000-00-00')
 		{
 			$options['value'] = timetostr(NeoFrag::loader()->lang('date_short'), $options['value']);
+		}
+		else
+		{
+			$options['value'] = '';
 		}
 
 		return $this->_display_text($var, $options, $post, 'date');
@@ -653,9 +657,13 @@ class Form extends Library
 
 	private function _display_datetime($var, $options, $post)
 	{
-		if (!empty($options['value']))
+		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '0000-00-00 00:00:00')
 		{
 			$options['value'] = timetostr(NeoFrag::loader()->lang('date_time_short'), $options['value']);
+		}
+		else
+		{
+			$options['value'] = '';
 		}
 
 		return $this->_display_text($var, $options, $post, 'datetime');
@@ -663,9 +671,13 @@ class Form extends Library
 
 	private function _display_time($var, $options, $post)
 	{
-		if (!empty($options['value']))
+		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '00:00:00')
 		{
 			$options['value'] = timetostr(NeoFrag::loader()->lang('time_short'), $options['value']);
+		}
+		else
+		{
+			$options['value'] = '';
 		}
 
 		return $this->_display_text($var, $options, $post, 'time');

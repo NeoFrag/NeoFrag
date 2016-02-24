@@ -106,7 +106,7 @@ $rules = array(
 	),
 	'date_of_birth' => array(
 		'label' => '{lang birth_date}',
-		'value' => $date_of_birth && $date_of_birth != '0000-00-00' ? timetostr(i18n('date_short'), strtotime($date_of_birth)) : '',
+		'value' => $date_of_birth,
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
