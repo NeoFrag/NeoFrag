@@ -22,8 +22,7 @@ class t_default_c_admin extends Controller
 {
 	public function index($theme)
 	{
-		$this	->css('admin')
-				->js('admin')
+		$this	->js('admin')
 				->load->library('form')
 				->add_rules(array(
 					'background' => array(
@@ -104,7 +103,7 @@ class t_default_c_admin extends Controller
 					->config('default_background_position', $post['positionX'].' '.$post['positionY'])
 					->config('default_background_color', $post['color']);
 
-			refresh();
+			redirect('#background');
 		}
 		
 		return new Row(

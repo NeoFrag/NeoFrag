@@ -1,6 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
-	background-color: <?php echo $NeoFrag->config->nf_maintenance_background_color ?: '#000'; ?>;
+	background: <?php echo color2hex($NeoFrag->config->nf_maintenance_background_color) ?: '#000'; ?>;
+	color: <?php echo $color = color2hex($NeoFrag->config->nf_maintenance_text_color) ?: '#fff'; ?>;
 	overflow: hidden;
 }
 
@@ -38,7 +39,6 @@ p {
 }
 
 a {
-	color: #42dca3;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
@@ -47,7 +47,6 @@ a {
 a:hover,
 a:focus {
 	text-decoration: none;
-	color: #1d9b6c;
 }
 
 .navbar-custom {
@@ -55,7 +54,6 @@ a:focus {
 	border-bottom: 1px solid rgba(255,255,255,.3);
 	text-transform: uppercase;
 	font-family: 'Open Sans', sans-serif;
-	background-color: #000;
 }
 
 .navbar-custom .navbar-brand {
@@ -69,7 +67,7 @@ a:focus {
 .navbar-custom .navbar-brand .navbar-toggle {
 	padding: 4px 6px;
 	font-size: 16px;
-	color: #fff;
+	color: <?php echo $color; ?>;
 }
 
 .navbar-custom .navbar-brand .navbar-toggle:focus,
@@ -78,31 +76,14 @@ a:focus {
 }
 
 .navbar-custom a, .navbar-custom .navbar-brand {
-	color: #fff;
+	color: <?php echo $color; ?>;
 }
 
-.navbar-custom .nav li a:hover {
-	outline: 0;
-	color: rgba(255,255,255,.8);
-	background-color: transparent;
-}
-
+.navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a:active {
 	outline: 0;
-	background-color: transparent;
-}
-
-.navbar-custom .nav li.active {
-	outline: 0;
-}
-
-.navbar-custom .nav li.active a {
-	background-color: rgba(255,255,255,.3);
-}
-
-.navbar-custom .nav li.active a:hover {
-	color: #fff;
+	background: none;
 }
 
 img.logo {
@@ -140,9 +121,7 @@ img.logo {
 	height: auto;
 	padding: 100px 0;
 	text-align: center;
-	color: #fff;
 	background: url('<?php echo $NeoFrag->config->nf_maintenance_background ? path($NeoFrag->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg'); ?>') <?php echo $NeoFrag->config->nf_maintenance_background_repeat ?: 'no-repeat'; ?> <?php echo $NeoFrag->config->nf_maintenance_background_position ?: 'top center'; ?>;
-	background-color: #000;
 }
 
 .intro .intro-body {
@@ -178,7 +157,6 @@ img.logo {
 }
 
 footer {
-	color: #fff;
 	padding: 25px 0;
 	position: absolute;
 	bottom: 0;

@@ -136,6 +136,14 @@ h5.site-description {
 	font-size: 16px;
 }
 
+.module a.label, .popover a.label {
+	line-height: 2.3em;
+}
+
+.module .list-group .label {
+	line-height: 1.5em;
+}
+
 .table {
 	margin-bottom: 10px;
 }
@@ -239,6 +247,15 @@ a.btn-link.btn-light {
 
 a.btn-link.btn-light:hover {
 	color: #fff;
+}
+
+.input-group .btn {
+	font-size: 14px;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+	border-radius: 0;
+	padding: 13px 16px;
 }
 
 /* Navbar */

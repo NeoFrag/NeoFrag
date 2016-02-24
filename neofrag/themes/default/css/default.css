@@ -16,6 +16,10 @@ tr.navbar-inner:before, tr.navbar-inner:after {
 	text-align: center;
 }
 
+table.table td.v-align {
+	vertical-align: middle;
+}
+
 .img-flag {
 	margin-right: 5px;
 }

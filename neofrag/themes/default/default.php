@@ -91,10 +91,6 @@ class t_default extends Theme
 											'url'   => 'index.html'
 										),
 										array(
-											'title' => utf8_htmlentities($this('news')),
-											'url'   => 'news.html'
-										),
-										array(
 											'title' => utf8_htmlentities($this('forum')),
 											'url'   => 'forum.html'
 										),
@@ -103,21 +99,21 @@ class t_default extends Theme
 											'url'   => 'teams.html'
 										),
 										array(
-											'title' => utf8_htmlentities($this('members')),
-											'url'   => 'members.html'
+											'title' => utf8_htmlentities('Photos'),
+											'url'   => 'gallery.html'
 										),
 										array(
-											'title' => utf8_htmlentities($this('search')),
-											'url'   => 'search.html'
+											'title' => utf8_htmlentities('Partenaires'),
+											'url'   => 'partners.html'
 										),
 										array(
-											'title' => utf8_htmlentities($this('contact')),
-											'url'   => 'contact.html'
+											'title' => utf8_htmlentities('Palmarès'),
+											'url'   => 'awards.html'
 										)
 									)
 								))
 							))
-						)), 'col-md-8'
+						)), 'col-md-7'
 					),
 					new Col(
 						new Widget_View(array(
@@ -125,7 +121,7 @@ class t_default extends Theme
 								'widget' => 'user',
 								'type'   => 'index_mini'
 							))
-						)), 'col-md-4'
+						)), 'col-md-5'
 					)
 				, 'row-black'
 			);
@@ -165,10 +161,40 @@ class t_default extends Theme
 				new Col(
 						new Widget_View(array(
 							'widget_id' => $this->db->insert('nf_widgets', array(
-								'widget' => 'members',
-								'type'   => 'online'
+								'widget'   => 'navigation',
+								'type'     => 'index',
+								'settings' => serialize(array(
+									'display' => FALSE,
+									'links'   => array(
+										array(
+											'title' => utf8_htmlentities($this('news')),
+											'url'   => 'news.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('members')),
+											'url'   => 'members.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('search')),
+											'url'   => 'search.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('contact')),
+											'url'   => 'contact.html'
+										)
+									)
+								))
+							))
+						)),
+						new Widget_View(array(
+							'widget_id' => $this->db->insert('nf_widgets', array(
+								'widget' => 'partners',
+								'type'   => 'column',
+								'settings' => serialize(array(
+									'display_style' => 'light'
+								))
 							)),
-							'style'     => 'panel-red'
+							'style'     => 'panel-dark'
 						)),
 						new Widget_View(array(
 							'widget_id' => $this->db->insert('nf_widgets', array(
@@ -193,6 +219,13 @@ class t_default extends Theme
 								))
 							)),
 							'style'     => 'panel-default'
+						)),
+						new Widget_View(array(
+							'widget_id' => $this->db->insert('nf_widgets', array(
+								'widget' => 'members',
+								'type'   => 'online'
+							)),
+							'style'     => 'panel-red'
 						))
 				, 'col-md-4')
 			, 'row-light')
