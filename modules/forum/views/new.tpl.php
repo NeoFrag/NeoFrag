@@ -16,7 +16,7 @@
 					<?php else: ?>
 					<h4 class="no-margin"><i><?php echo i18n('guest'); ?></i></h4>
 					<?php endif; ?>
-					<?php if (!empty($data['topic_id']) && $data['user_id'] || empty($data['topic_id']) && $this->user()) echo '<p>'.icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.(!empty($data['topic_id']) ? $data['admin'] : i18n($NeoFrag->user('admin') ? 'admin' : 'member')).' '.i18n(empty($data['topic_id']) || $data['online'] ? 'online' : 'offline').'</p>'; ?>
+					<?php if (!empty($data['topic_id']) && $data['user_id'] || empty($data['topic_id']) && $this->user()) echo '<p>'.icon('fa-circle '.(empty($data['topic_id']) || $data['online'] ? 'text-green' : 'text-gray')).' '.i18n(!empty($data['topic_id']) ? $data['admin'] : $NeoFrag->user('admin') ? 'admin' : 'member').' '.i18n(empty($data['topic_id']) || $data['online'] ? 'online' : 'offline').'</p>'; ?>
 					<img class="img-avatar-forum" src="<?php echo !empty($data['topic_id']) ? $NeoFrag->user->avatar($data['avatar'], $data['sex']) : $NeoFrag->user->avatar(); ?>" title="<?php echo !empty($data['topic_id']) ? $data['username'] : $NeoFrag->user('username'); ?>" alt="" />
 				</td>
 				<td class="text-left col-md-9 col-sm-10">
