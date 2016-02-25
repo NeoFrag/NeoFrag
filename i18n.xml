@@ -149,18 +149,18 @@
     <Cell><Data ss:Type="String">neofrag/modules/admin/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">teams</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">%d Équipe|%d Équipes</Data><NamedCell
+    <Cell><Data ss:Type="String">Équipe|Équipes</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">%d team|%d teams</Data><NamedCell
+    <Cell><Data ss:Type="String">team|teams</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
     <Cell><Data ss:Type="String">neofrag/modules/admin/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">events</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">%d Événement|%d Événements</Data><NamedCell
+    <Cell><Data ss:Type="String">Événement|Événements</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">%d Event|%d Events</Data><NamedCell
+    <Cell><Data ss:Type="String">Event|Events</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -6822,7 +6822,7 @@
     <Cell><Data ss:Type="String">neofrag/lang/</Data></Cell>
     <Cell><Data ss:Type="String">loading</Data></Cell>
     <Cell><Data ss:Type="String">Chargement en cours...</Data></Cell>
-    <Cell><Data ss:Type="String">Loading…</Data></Cell>
+    <Cell><Data ss:Type="String">Loading...</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

@@ -74,7 +74,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => $this('events', $count = 0, $count),//TODO
+						'label'  => $this('events', $count = 0),//TODO
 						'icon'   => 'fa-calendar',
 						'color'  => 'bg-blue',
 						'count'  => $count,
@@ -85,7 +85,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				new Col(
 					new Panel_box(array(
-						'label'  => $this('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row(), $count),
+						'label'  => $this('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()),
 						'icon'   => 'fa-gamepad',
 						'color'  => 'bg-red',
 						'count'  => $count,
