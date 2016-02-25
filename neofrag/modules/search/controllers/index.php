@@ -22,36 +22,30 @@ class m_search_c_index extends Controller_Module
 {
 	public function index($search = '', $module_name = '', $page = '')
 	{
-		$this	->title('Rechercher');
+		$this	->title($this('search'))
+				->load->library('form')
+				->set_id('a86e16bac4c992732c3f7c6f1fdd159b')
+				->add_rules(array(
+					'keywords' => array(
+						'type'  => 'text',
+						'rules' => 'required'
+					)
+				));
 
-		$this->load	->library('form')
-					->add_rules(array(
-						'keywords' => array(
-							'type'          => 'text',
-							'rules'			=> 'required'
-						)
-					));
-
-		if ($keywords = post('keywords'))
+		if ($this->form->is_valid($post))
 		{
-			redirect('search/'.rawurlencode($keywords).'.html');
+			redirect('search/'.rawurlencode(utf8_html_entity_decode($post['keywords'])).'.html');
 		}
-		else if ($search)
-		{
-			$value = $search;
-		}
-		else
-		{
-			$value = '';
-		}
-
-		if ($value)
+		
+		$count = 0;
+		$row   = array();
+		
+		if ($search)
 		{
 			$keywords = $not_keywords = array();
 			$results  = array();
-			$count    = 0;
 
-			foreach (array_map($trim = create_function('$a', 'return trim($a, \';,."\\\'\');'), preg_split('/[\s;,.]*(-?"[^"]+")[\s;,.]*|[\s;,.]*(-?\'[^\']+\')[\s;,.]*|[\s;,.]+/', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $keyword)
+			foreach (array_map($trim = create_function('$a', 'return trim($a, \';,."\\\'\');'), preg_split('/[\s;,.]*(-?"[^"]+")[\s;,.]*|[\s;,.]*(-?\'[^\']+\')[\s;,.]*|[\s;,.]+/', $search, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $keyword)
 			{
 				if (substr($keyword, 0, 1) == '-')
 				{
@@ -68,86 +62,126 @@ class m_search_c_index extends Controller_Module
 
 			if ($keywords)
 			{
+				$queries = array(
+					array($not_keywords, 'NOT LIKE', 'AND'),
+					array($keywords,     'LIKE',     'OR')
+				);
+				
 				foreach ($this->addons->get_modules() as $module)
 				{
-					if (($search_controller = $module->load->controller('search')) && ($result = $search_controller->search($keywords, $not_keywords)))
+					if (($search_controller = $module->load->controller('search')) && ($columns = $search_controller->search()))
 					{
-						$results[$module->load->template->parse($search_controller->name, array(), $module->load)] = array($module, $search_controller, $result);
-						$count += count($result);
+						foreach ($queries as $query)
+						{
+							if ($query[0])
+							{
+								$args = array();
+								
+								foreach ($query[0] as $keyword)
+								{
+									foreach ($columns as $col)
+									{
+										array_push($args, $col.' '.$query[1],  '%'.$keyword.'%', $query[2]);
+									}
+								}
+
+								call_user_func_array(array($this->db, 'where'), $args);
+							}
+						}
+						
+						$result = $this->db->get();
+						
+						$results[] = array($module, $search_controller, $result, $c = count($result));
+						$count += $c;
 					}
 				}
 			}
 
-			ksort($results);
-
-			if ($count == 0)
+			if ($count)
 			{
-				echo $this->load->view('unfound');
-			}
-			else
-			{
-				if ($count == 1)
+				usort($results, function($a, $b){
+					return strnatcmp($a[0]->get_title(), $b[0]->get_title());
+				});
+				
+				$panels = array();
+				
+				foreach ($results as $result)
 				{
-					$this->add_data('search_count', '1 résultat trouvé');
-				}
-				else
-				{
-					$this->add_data('search_count', $count.' résultats trouvés');
-				}
+					$content = array();
+					$details = FALSE;
 
-				if (1 || count($results) > 1)
-				{
-					$modules = array();
-					foreach ($results as $title => $result)
+					if (($name = url_title($result[0]->name)) == $module_name)
 					{
-						if (($name = url_title($result[0]->name)) == $module_name)
+						foreach ($this->load->library('pagination')->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
-							$display = $result[0]->load->template->parse($result[1]->method('detail', array($result[2])), array(), $result[0]->load);
-							$details = TRUE;
-						}
-						else if (!$module_name)
-						{
-							$display = $result[0]->load->template->parse($result[1]->method('index', array($result[2])), array(), $result[0]->load);
-						}
-						else
-						{
-							$display = '';
+							$content[] = $result[1]->method('detail', array($data, $keywords));
 						}
 
-						$modules[] = array(
-							'name'    => $name,
-							'title'   => $title.' ('.count($result[2]).')',
-							'display' => $display
-						);
+						$details = TRUE;
 					}
-
-					echo $this->load->view('results', array(
-						'search'  => rawurlencode($value),
-						'modules' => $modules,
-						'details' => isset($details)
-					));
+					else if (!$module_name)
+					{
+						foreach (array_slice($result[2], 0, 3) as $data)
+						{
+							$content[] = $result[1]->method('index', array($data, $keywords));
+						}
+					}
+					
+					if ($content)
+					{
+						$panels[] = new Panel(array(
+							'title'   => icon($result[0]->icon).' '.$result[0]->get_title(),
+							'url'     => 'search/'.rawurlencode($search).'/'.$result[0]->name.'.html',
+							'content' => implode('<hr />', $content),
+							'footer'  => (!$details && $result[3] > 3) ? '<a href="'.url('search/'.rawurlencode($search).'/'.$result[0]->name.'.html').'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : ''
+						));
+					}
+					
+					if ($details && $pagination = $this->pagination->get_pagination())
+					{
+						$panels[] = new Panel(array(
+							'content' => $pagination,
+							'body'    => FALSE,
+							'style'   => 'panel-back'
+						));
+					}
 				}
-				else
+				
+				if (!$panels)
 				{
-
+					redirect('search/'.rawurlencode($search).'.html');
 				}
+
+				$row[] = new Row(
+					new Col(
+						new Panel(array(
+							'body'    => FALSE,
+							'content' => $this->load->view('results', array(
+								'keywords' => rawurlencode($search),
+								'results'  => $results,
+								'count'    => $count
+							))
+						)),
+						'col-md-3'
+					),
+					new Col($panels, 'col-md-9')
+				);
 			}
 		}
-		else
-		{
-			$value = '';
-			echo $this->load->view('index');
-		}
 
-		$source = $this->db ->select('CONCAT("\"", keyword, "\"")')
-							->from('nf_search_keywords')
-							->order_by('count DESC')
-							->get();
-
-		$this->subtitle($this->load->view('search', array(
-			'source' => utf8_htmlentities('['.implode(', ', $source).']'),
-			'value'  => utf8_htmlentities($value)
-		)));
+		return array_merge(array(
+			new Row(
+				new Col(
+					new Panel(array(
+						'title'   => $this('search'),
+						'icon'    => 'fa-search',
+						'content' => $this->load->view('index', array(
+							'results'  => (bool)$count,
+							'keywords' => $search
+						))
+					))
+				)
+			)), $row);
 	}
 }
 

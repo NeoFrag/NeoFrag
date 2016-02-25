@@ -18,23 +18,19 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_search extends Module
+class w_search extends Widget
 {
-	public $title         = '{lang search}';
-	public $description   = '';
-	public $icon          = 'fa-search';
-	public $link          = 'http://www.neofrag.com';
-	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version       = 'Alpha 0.1';
-	public $nf_version    = 'Alpha 0.1';
-	public $path          = __FILE__;
-	public $routes        = array(
-		'([^/]+?)(?:(/.+?){pages})?' => 'index'
-	);
+	public $title       = '{lang search}';
+	public $description = '';
+	public $link        = 'http://www.neofrag.com';
+	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
+	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
+	public $version     = 'Alpha 0.1';
+	public $nf_version  = 'Alpha 0.1';
+	public $path        = __FILE__;
 }
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/modules/search/search.php
+NeoFrag Alpha 0.1.4
+./neofrag/widgets/search/search.php
 */

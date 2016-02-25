@@ -49,10 +49,10 @@
  </Styles>
  <Worksheet ss:Name="NeoFrag CMS">
   <Names>
-   <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R720C8"
+   <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R725C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="720" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="725" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -5157,6 +5157,14 @@
     <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">search</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Rechercher</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">Search</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
+      ss:Name="_FilterDatabase"/></Cell>
+    <Cell><Data ss:Type="String">search...</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Rechercher...</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Search...</Data><NamedCell
@@ -6820,6 +6828,30 @@
     <Cell><Data ss:Type="String">news_per_page</Data></Cell>
     <Cell><Data ss:Type="String">Actualités par page</Data></Cell>
     <Cell><Data ss:Type="String">News per page</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/modules/search/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">no_results_for</Data></Cell>
+    <Cell><Data ss:Type="String">Aucun résultat trouvé pour &lt;b&gt;%s&lt;/b&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">No results found for &lt;b&gt;%s&lt;/b&gt;</Data></Cell>
+   </Row>
+   <Row ss:Height="30">
+    <Cell><Data ss:Type="String">neofrag/modules/search/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">search_for</Data></Cell>
+    <Cell><Data ss:Type="String">Rechercher un ou plusieurs termes sur notre site</Data></Cell>
+    <Cell><Data ss:Type="String">Search for one or more terms on our site</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/modules/search/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">all_results</Data></Cell>
+    <Cell><Data ss:Type="String">Tous les résultats</Data></Cell>
+    <Cell><Data ss:Type="String">All results</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/modules/search/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">see_all_results</Data></Cell>
+    <Cell><Data ss:Type="String">Voir l\'ensemble des résultats</Data></Cell>
+    <Cell><Data ss:Type="String">See all results</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

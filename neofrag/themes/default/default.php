@@ -58,17 +58,103 @@ class t_default extends Theme
 				->config('default_background_position',   'center top')
 				->config('default_background_color',      '#141d26');
 		
-		$dispositions['*']['{lang content}'] = array(
-			new Row(
+		$header = function(){
+			return new Row(
+				new Col(new Widget_View(array(
+					'widget_id' => $this->db->insert('nf_widgets', array(
+						'widget'   => 'header',
+						'type'     => 'index',
+						'settings' => serialize(array(
+							'align'             => 'text-center',
+							'title'             => '',
+							'description'       => '',
+							'color-title'       => '',
+							'color-description' => '#DC351E'
+						))
+					))
+				)), 'col-md-12')
+			, 'row-default');
+		};
+		
+		$navbar = function(){
+			return new Row(
+					new Col(
+						new Widget_View(array(
+							'widget_id' => $this->db->insert('nf_widgets', array(
+								'widget'   => 'navigation',
+								'type'     => 'index',
+								'settings' => serialize(array(
+									'display' => TRUE,
+									'links'   => array(
+										array(
+											'title' => utf8_htmlentities($this('home')),
+											'url'   => 'index.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('news')),
+											'url'   => 'news.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('forum')),
+											'url'   => 'forum.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('teams')),
+											'url'   => 'teams.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('members')),
+											'url'   => 'members.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('search')),
+											'url'   => 'search.html'
+										),
+										array(
+											'title' => utf8_htmlentities($this('contact')),
+											'url'   => 'contact.html'
+										)
+									)
+								))
+							))
+						)), 'col-md-8'
+					),
+					new Col(
+						new Widget_View(array(
+							'widget_id' => $this->db->insert('nf_widgets', array(
+								'widget' => 'user',
+								'type'   => 'index_mini'
+							))
+						)), 'col-md-4'
+					)
+				, 'row-black'
+			);
+		};
+		
+		$breadcrumb = function($search = TRUE){
+			return new Row(
 				new Col(
 					new Widget_View(array(
 						'widget_id' => $this->db->insert('nf_widgets', array(
 							'widget' => 'breadcrumb',
 							'type'   => 'index'
 						))
-					)), 'col-md-12'
-				), 'row-white'
-			),
+					)), 'col-md-8'
+				),
+				$search ? new Col(
+					new Widget_View(array(
+						'widget_id' => $this->db->insert('nf_widgets', array(
+							'widget' => 'search',
+							'type'   => 'index'
+						))
+					)), 'col-md-4'
+				) : NULL,
+				'row-white'
+			);
+		};
+		
+		$dispositions['*']['{lang content}'] = array(
+			$breadcrumb(),
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
@@ -147,68 +233,8 @@ class t_default extends Theme
 		$dispositions['*']['{lang post_content}'] = array();
 		
 		$dispositions['*']['{lang header}'] = array(
-			new Row(
-				new Col(new Widget_View(array(
-					'widget_id' => $this->db->insert('nf_widgets', array(
-						'widget'   => 'header',
-						'type'     => 'index',
-						'settings' => serialize(array(
-							'align'             => 'text-center',
-							'title'             => '',
-							'description'       => '',
-							'color-title'       => '',
-							'color-description' => '#DC351E'
-						))
-					))
-				)), 'col-md-12')
-			, 'row-default'),
-			new Row(
-				new Col(
-					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', $navigation = array(
-							'widget'   => 'navigation',
-							'type'     => 'index',
-							'settings' => serialize(array(
-								'display' => TRUE,
-								'links'   => array(
-									array(
-										'title' => utf8_htmlentities($this('home')),
-										'url'   => 'index.html'
-									),
-									array(
-										'title' => utf8_htmlentities($this('news')),
-										'url'   => 'news.html'
-									),
-									array(
-										'title' => utf8_htmlentities($this('forum')),
-										'url'   => 'forum.html'
-									),
-									array(
-										'title' => utf8_htmlentities($this('teams')),
-										'url'   => 'teams.html'
-									),
-									array(
-										'title' => utf8_htmlentities($this('members')),
-										'url'   => 'members.html'
-									),
-									array(
-										'title' => utf8_htmlentities($this('contact')),
-										'url'   => 'contact.html'
-									)
-								)
-							))
-						))
-					)), 'col-md-8'
-				),
-				new Col(
-					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', array(
-							'widget' => 'user',
-							'type'   => 'index_mini'
-						))
-					)), 'col-md-4'
-				)
-			, 'row-black')
+			$header(),
+			$navbar()
 		);
 
 		$dispositions['*']['{lang top}'] = array(
@@ -265,36 +291,8 @@ class t_default extends Theme
 		);
 		
 		$dispositions['/']['{lang header}'] = array(
-			new Row(
-				new Col(new Widget_View(array(
-					'widget_id' => $this->db->insert('nf_widgets', array(
-						'widget'   => 'header',
-						'type'     => 'index',
-						'settings' => serialize(array(
-							'align'             => 'text-center',
-							'title'             => '',
-							'description'       => '',
-							'color-title'       => '',
-							'color-description' => '#DC351E'
-						))
-					))
-				)), 'col-md-12')
-			, 'row-default'),
-			new Row(
-				new Col(
-					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', $navigation)
-					)), 'col-md-8'
-				),
-				new Col(
-					new Widget_View(array(
-						'widget_id' => $this->db->insert('nf_widgets', array(
-							'widget' => 'user',
-							'type'   => 'index_mini'
-						))
-					)), 'col-md-4'
-				)
-			, 'row-black'),
+			$header(),
+			$navbar(),
 			new Row(
 				new Col(new Widget_View(array(
 					'widget_id' => $this->db->insert('nf_widgets', array(
@@ -305,19 +303,10 @@ class t_default extends Theme
 			, 'row-default')
 		);
 		
-		foreach (array('forum/*', 'news/_news/*', 'user/*') as $page)
+		foreach (array('forum/*', 'news/_news/*', 'user/*', 'search/*') as $page)
 		{
 			$dispositions[$page]['{lang content}'] = array(
-				new Row(
-					new Col(
-						new Widget_View(array(
-							'widget_id' => $this->db->insert('nf_widgets', array(
-								'widget' => 'breadcrumb',
-								'type'   => 'index'
-							))
-						)), 'col-md-12'
-					), 'row-white'
-				),
+				$breadcrumb($page != 'search/*'),
 				new Row(
 					new Col(new Widget_View(array(
 						'widget_id' => $this->db->insert('nf_widgets', array(

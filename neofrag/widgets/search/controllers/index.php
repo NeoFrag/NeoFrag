@@ -18,15 +18,15 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_search_c_ajax extends Controller_Module
+class w_search_c_index extends Controller_Widget
 {
-	public function index()
+	public function index($config = array())
 	{
-		echo '{lang search_message}';
+		return $this->css('search')->load->view('index');
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/modules/search/controllers/ajax.php
+NeoFrag Alpha 0.1.4
+./neofrag/widgets/search/controllers/index.php
 */

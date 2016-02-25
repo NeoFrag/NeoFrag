@@ -1,25 +1,6 @@
-<div class="row-fluid">
-	<div class="pull-left" style="width:20%;">
-		<div class="navbar-inner" style="padding:5px; margin-right:10px;">
-			<ul class="nav nav-list">
-				<li<?php echo (preg_match('#search(/[^/]+?)?\.html#', $NeoFrag->config->request_url)) ? ' class="active"' : ''; ?>><a href="<?php echo url('search/'.$data['search'].'.html'); ?>">Tous</a></li>
-				<li class="divider"></li>
-				<?php foreach ($data['modules'] as $module): ?>
-					<li<?php echo (preg_match('#search/.+?/'.$module['name'].'.html#', $NeoFrag->config->request_url)) ? ' class="active"' : ''; ?>><a href="<?php echo url('search/'.$data['search'].'/'.$module['name'].'.html'); ?>"><?php echo $module['title']; ?></a></li>
-				<?php endforeach; ?>
-			</ul>
-		</div>
-	</div>
-	<div class="pull-right" style="width:80%;">
-		<?php foreach ($data['modules'] as $module):
-				if ($module['display']): ?>
-					<div class="row-fluid">
-						<?php if (!$data['details']): ?>
-							<h3><a href="<?php echo url('search/'.$data['search'].'/'.$module['name'].'.html'); ?>"><?php echo $module['title']; ?></a></h3>
-						<?php endif;
-						echo $module['display']; ?>
-					</div>
-		<?php 	endif;
-			endforeach; ?>
-	</div>
+<div class="list-group">
+	<a href="<?php echo url('search/'.$data['keywords'].'.html'); ?>" class="list-group-item<?php echo preg_match('#^search(/[^/]+?)?\.html$#', $NeoFrag->config->request_url) ? ' active' : ''; ?>"><?php echo i18n('all_results'); ?> <span class="badge"><?php echo $data['count']; ?></span></a>
+	<?php foreach ($data['results'] as $results): ?>
+		<a href="<?php echo url('search/'.$data['keywords'].'/'.$results[0]->name.'.html'); ?>" class="list-group-item<?php echo preg_match('#^search/.+?/'.$results[0]->name.'(/page/\d)?\.html$#', $NeoFrag->config->request_url) ? ' active' : ''; ?>"><?php echo icon($results[0]->icon).' '.$results[0]->get_title().'<span class="badge">'.$results[3].'</span>'; ?></a>
+	<?php endforeach; ?>
 </div>

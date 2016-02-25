@@ -18,34 +18,38 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class m_forum_c_search extends Controller
+class m_news_c_search extends Controller
 {
 	public function index($result, $keywords)
 	{
-		$result['message'] = highlight($result['message'], $keywords);
+		$result['introduction'] = highlight($result['introduction']."\r\r".$result['content'], $keywords);
 		return $this->load->view('search/index', $result);
 	}
 
 	public function detail($result, $keywords)
 	{
-		$result['message'] = highlight($result['message'], $keywords, 1024);
+		$result['introduction'] = highlight($result['introduction']."\r\r".$result['content'], $keywords, 1024);
 		return $this->load->view('search/index', $result);
 	}
 
 	public function search()
 	{
-		$this->db	->select('t.topic_id', 't.title as topic_title', 'm.message_id', 'm.message', 'm.date', 'u.user_id', 'u.username', 't.forum_id', 'f.title', 't.count_messages')
-					->from('nf_forum_messages m')
-					->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
-					->join('nf_forum          f',  't.forum_id = f.forum_id')
-					->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
-					->order_by('m.date DESC');
+		$this->db	->select('n.news_id', 'n.date', 'nl.title', 'nl.introduction', 'nl.content', 'u.user_id', 'u.username', 'c.category_id', 'cl.title as category')
+					->from('nf_news n')
+					->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
+					->join('nf_news_categories c',       'n.category_id = c.category_id')
+					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
+					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
+					->where('nl.lang', $this->config->lang)
+					->where('cl.lang', $this->config->lang)
+					->where('n.published', TRUE)
+					->order_by('n.date DESC');
 
-		return array('t.title', 'm.message');
+		return array('nl.title', 'nl.introduction', 'nl.content');
 	}
 }
 
 /*
-NeoFrag Alpha 0.1
-./modules/forum/controllers/search.php
+NeoFrag Alpha 0.1.4
+./modules/news/controllers/search.php
 */

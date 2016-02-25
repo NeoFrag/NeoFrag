@@ -99,31 +99,35 @@ function url_title($string)
 	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
 }
 
+function escape_html_tags($string, $callback)
+{
+	$offset = 0;
+	$string = '>'.$string;
+
+	while ($offset < strlen($string) && preg_match('_>([^<]+(</)?)_', $string, $match, PREG_OFFSET_CAPTURE, $offset))
+	{
+		$offset = $match[1][1];
+		
+		if (!isset($match[2]))
+		{
+			$replacement = $callback($match[1][0]);
+			$string      = substr_replace($string, $replacement, $offset, strlen($match[1][0]));
+			$offset     += strlen($replacement);
+		}
+		else
+		{
+			$offset += strlen($match[1][0]);
+		}
+	}
+	
+	return substr($string, 1);
+}
+
 function strtolink($string, $is_html = FALSE)
 {
 	if ($is_html)
 	{
-		$offset = 0;
-		$string = '>'.$string;
-
-		while ($offset < strlen($string) && preg_match('_>([^<]+(</)?)_', $string, $match, PREG_OFFSET_CAPTURE, $offset))
-		{
-			
-			$offset = $match[1][1];
-			
-			if (!isset($match[2]))
-			{
-				$replacement = strtolink($match[1][0]);
-				$string      = substr_replace($string, $replacement, $offset, strlen($match[1][0]));
-				$offset     += strlen($replacement);
-			}
-			else
-			{
-				$offset += strlen($match[1][0]);
-			}
-		}
-		
-		return substr($string, 1);
+		return escape_html_tags($string, 'strtolink');
 	}
 	
 	//regex by @diegoperini
@@ -141,8 +145,10 @@ function strtolink($string, $is_html = FALSE)
 				$users[$user['user_id']] = $user['username'];
 			}
 		}
+	
+		$username = !empty($match[3]) ? $match[3] : $match[2];
 		
-		return ($user_id = array_search($username = $match[3] ?: $match[2], $users)) !== FALSE ? NeoFrag::loader()->user->link($user_id, $username, '@') : $match[0];
+		return ($user_id = array_search($username, $users)) !== FALSE ? NeoFrag::loader()->user->link($user_id, $username, '@') : $match[0];
 	}, $string);
 }
 
@@ -230,6 +236,13 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 function bbcode($string)
 {
 	return nl2br(strtolink(NeoFrag::loader()->library('bbcode')->bbcode2html($string), TRUE));
+}
+
+function highlight($string, $keywords, $max_length = 256)
+{
+	$string = nl2br(preg_replace($patern = '/'.implode('|', array_map('preg_quote', $keywords)).'/i', '<mark>\0</mark>', htmlspecialchars(utf8_html_entity_decode(strip_tags(bbcode($string))), ENT_COMPAT, 'UTF-8')));
+	
+	return str_shortener(substr($string, strpos($string, '<mark>')), $max_length);
 }
 
 /*

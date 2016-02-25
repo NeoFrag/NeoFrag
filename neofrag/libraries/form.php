@@ -621,7 +621,7 @@ class Form extends Library
 											iconset: "fontawesome",
 											labelHeader: "'.NeoFrag::loader()->lang('pages').'",
 											labelFooter: "<div class=\"pull-right\">'.NeoFrag::loader()->lang('icons').'</div>",
-											searchText: "'.NeoFrag::loader()->lang('search').'",
+											searchText: "'.NeoFrag::loader()->lang('search...').'",
 											selectedClass: "btn-primary",
 											unselectedClass: ""
 										});');
