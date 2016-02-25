@@ -330,9 +330,10 @@ class m_forum_m_forum extends Model
 	
 	public function check_topic($topic_id, &$title)
 	{
-		$topic = $this->db	->select('t.title as topic_title', 't.forum_id', 'f.title', 'f.parent_id as category_id', 't.views', 't.status IN ("-2", "1") as announce', 't.status IN ("-2", "-1") as locked')
+		$topic = $this->db	->select('t.title as topic_title', 't.forum_id', 'f.title', 'IFNULL(f2.parent_id, f.parent_id) as category_id', 't.views', 't.status IN ("-2", "1") as announce', 't.status IN ("-2", "-1") as locked')
 							->from('nf_forum_topics t')
-							->join('nf_forum        f', 't.forum_id  = f.forum_id')
+							->join('nf_forum        f',  't.forum_id  = f.forum_id')
+							->join('nf_forum        f2', 'f2.forum_id = f.parent_id AND f.is_subforum = "1"')
 							->where('t.topic_id', $topic_id)
 							->row();
 
@@ -349,10 +350,11 @@ class m_forum_m_forum extends Model
 	
 	public function check_message($message_id, $title)
 	{
-		$message = $this->db	->select('t.topic_id', 't.title as topic_title', 't.message_id = m.message_id as is_topic', 'm.message', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 't.forum_id', 'f.title', 'f.parent_id as category_id', 't.status IN ("-2", "-1") as locked')
+		$message = $this->db	->select('t.topic_id', 't.title as topic_title', 't.message_id = m.message_id as is_topic', 'm.message', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 't.forum_id', 'f.title', 'IFNULL(f2.parent_id, f.parent_id) as category_id', 't.status IN ("-2", "-1") as locked')
 								->from('nf_forum_messages m')
-								->join('nf_forum_topics t',    'm.topic_id = t.topic_id')
-								->join('nf_forum        f',    't.forum_id = f.forum_id')
+								->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
+								->join('nf_forum          f',  't.forum_id = f.forum_id')
+								->join('nf_forum          f2', 'f2.forum_id = f.parent_id AND f.is_subforum = "1"')
 								->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
 								->join('nf_users_profiles up', 'u.user_id = up.user_id')
 								->join('nf_sessions       s',  'u.user_id = s.user_id')
