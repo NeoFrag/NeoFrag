@@ -34,7 +34,7 @@ foreach ($data['messages'] as $i => $message)
 			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
 		</a>
 		<?php else: ?>
-		<img class="media-object" src="<?php echo $NeoFrag->user->avatar(); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
+		<img class="media-object" src="<?php echo $NeoFrag->user->avatar(NULL); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
 		<?php endif; ?>
 	</div>
 <?php
