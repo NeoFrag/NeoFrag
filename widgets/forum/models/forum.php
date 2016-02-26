@@ -63,7 +63,11 @@ class w_forum_m_forum extends Model
 			}
 		}
 		
-		return $this->db->select('forum_id')->from('nf_forum')->where('is_subforum', FALSE)->where('parent_id', $categories)->get();
+		return $this->db->select('f.forum_id')
+						->from('nf_forum f')
+						->join('nf_forum f2', 'f2.forum_id = f.parent_id AND f.is_subforum = "1"')
+						->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
+						->get();
 	}
 }
 
