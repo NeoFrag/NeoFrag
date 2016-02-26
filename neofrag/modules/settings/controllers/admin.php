@@ -26,16 +26,35 @@ class m_settings_c_admin extends Controller_Module
 	{
 		$this->title($this('configuration'));
 		
-		$modules = array();
+		$modules = $pages = array();
+		
 		foreach ($this->addons->get_modules() as $module)
 		{
 			if ($module->is_administrable())
 			{
-				$modules[$module->name] = $module->get_title();
+				$modules[] = $module;
 			}
 		}
 		
-		natsort($modules);
+		usort($modules, function($a, $b){
+			return strnatcmp($a->get_title(), $b->get_title());
+		});
+		
+		foreach ($modules as $module)
+		{
+			$pages[$module->name] = $module->get_title();
+			
+			if ($module->name == 'pages')
+			{
+				foreach ($module->load->model()->get_pages() as $page)
+				{
+					if ($page['published'])
+					{
+						$pages['pages/'.$page['name']] = str_repeat('&nbsp;', 10).$page['title'];
+					}
+				}
+			}
+		}
 
 		$this->load->library('form')
 				->add_rules(array(
@@ -57,7 +76,7 @@ class m_settings_c_admin extends Controller_Module
 					),
 					'default_page' => array(
 						'label'			=> $this('default_page'),
-						'values'		=> $modules,
+						'values'		=> $pages,
 						'value'			=> $this->config->nf_default_page,
 						'type'			=> 'select',
 						'rules'			=> 'required'
