@@ -105,7 +105,9 @@ class m_gallery_c_admin_checker extends Controller_Module
 				$image_id,
 				$image['thumbnail_file_id'],
 				$image['title'],
-				$image['description']
+				$image['description'],
+				$image['gallery_id'],
+				$image['gallery_title']
 			);
 		}
 		else

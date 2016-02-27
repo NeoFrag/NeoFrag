@@ -434,7 +434,7 @@ class m_gallery_c_admin extends Controller_Module
 		exit;
 	}
 	
-	public function _image_edit($image_id, $thumbnail_file_id, $title, $description)
+	public function _image_edit($image_id, $thumbnail_file_id, $title, $description, $gallery_id, $gallery_title)
 	{
 		$this	->css('admin')
 				->js('dropzone')
@@ -450,7 +450,7 @@ class m_gallery_c_admin extends Controller_Module
 					'description' => $description
 				))
 				->add_submit($this('edit'))
-				->add_back();
+				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title).'.html');
 		
 		if ($this->form->is_valid($post))
 		{
@@ -476,7 +476,7 @@ class m_gallery_c_admin extends Controller_Module
 				new Panel(array(
 					'title'   => '<div class="pull-right">'.button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'),
 					'icon'    => 'fa-photo',
-					'content' => function($data, $loader) use ($image_id, $title, $description){
+					'content' => function($data, $loader) use ($image_id, $title, $description, $thumbnail_file_id){
 						return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
 					},
 					'size'    => 'col-md-4 col-lg-3'
