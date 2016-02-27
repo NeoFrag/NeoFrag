@@ -107,6 +107,11 @@ class m_settings_c_admin extends Controller_Module
 		{
 			foreach ($post as $var => $value)
 			{
+				if ($var == 'analytics')
+				{
+					$value = implode("\r\n", array_map('trim', explode("\r\n", trim(preg_replace('#&lt;script.*?&gt;(.*?)&lt;/script&gt;#is', '\1', $value)))));
+				}
+				
 				$this->config('nf_'.$var, $value);
 			}
 			
