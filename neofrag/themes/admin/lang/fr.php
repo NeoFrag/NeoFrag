@@ -28,7 +28,6 @@ $lang['back_front']    = 'Retour sur le site';
 $lang['ban']           = 'Bannissement';
 $lang['documentation'] = 'Documentation';
 $lang['downloads']     = 'Téléchargements';
-$lang['edit_account']  = 'Gérer mon compte';
 $lang['liveditor']     = 'Live Editor';
 $lang['security']      = 'Sécurité';
 $lang['support']       = 'Support';

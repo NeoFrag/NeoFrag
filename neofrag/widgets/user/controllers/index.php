@@ -40,14 +40,14 @@ class w_user_c_index extends Controller_Widget
 				'content' => $this->load->view('index', array(
 					'form_id' => '6e0fbe194d97aa8c83e9f9e6b5d07c66'
 				)),
-				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in').' '.$this('create_account').'</a>'
+				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this('create_account').'</a>'
 			));
 		}
 	}
 	
 	public function index_mini($config = array())
 	{
-		return $this->load->view('index_mini');
+		return $this->load->view('index_mini', $config);
 	}
 	
 	public function messages_inbox($config = array())

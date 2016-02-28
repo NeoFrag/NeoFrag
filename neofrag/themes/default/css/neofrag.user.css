@@ -60,3 +60,39 @@
 		position: static;
 	}
 }
+
+.module-user img.avatar {
+	border-radius: 50%;
+	margin-bottom: 15px;
+	max-height: 150px;
+	max-width: 150px;
+}
+
+.module-user table.inbox td {
+	vertical-align: middle;
+}
+
+.module-user .media.message .media-left > img {
+	max-height: 48px;
+	max-width: 48px;
+}
+
+.module-user table.inbox .media.message .media-body {
+	vertical-align: middle !important;
+}
+
+.module-user .activity-message-item {
+	padding: 15px 0;
+}
+
+.module-user .activity-message-item:first-child {
+	padding-top: 0;
+}
+
+.module-user .activity-message-item:last-child {
+	padding-bottom: 0;
+}
+
+.module-user .activity-message-item + .activity-message-item {
+	border-top: 1px solid #ebebeb;
+}

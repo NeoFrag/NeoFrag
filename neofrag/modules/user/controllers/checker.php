@@ -88,6 +88,79 @@ class m_user_c_checker extends Controller_Module
 			redirect('user.html');
 		}
 	}
+
+	private function _messages($page, $box)
+	{
+		if ($this->user())
+		{
+			return array($this->load->library('pagination')->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page));
+		}
+		else
+		{
+			redirect('user.html');
+		}
+	}
+
+	public function _messages_inbox($page = '')
+	{
+		return $this->_messages($page, 'inbox');
+	}
+
+	public function _messages_sent($page = '')
+	{
+		return $this->_messages($page, 'sent');
+	}
+
+	public function _messages_archives($page = '')
+	{
+		return $this->_messages($page, 'archives');
+	}
+
+	public function _messages_read($message_id, $title)
+	{
+		if (($message = $this->model('messages')->get_message($message_id, $title)) && $title == url_title($message['title']))
+		{
+			return array_merge($message, array($this->model('messages')->get_replies($message_id)));
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _messages_compose($user_id = NULL, $username = NULL)
+	{
+		if (!$this->user())
+		{
+			redirect('user.html');
+		}
+		else
+		{
+			if ($user_id && $username)
+			{
+				if (($user = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->where('deleted', FALSE)->row()) && $username == url_title($user))
+				{
+					$username = $user;
+				}
+				else
+				{
+					throw new Exception(NeoFrag::UNFOUND);
+				}
+			}
+
+			return array($username);
+		}
+	}
+
+	public function _messages_delete($message_id, $title)
+	{
+		$this->ajax();
+
+		if (($message = $this->model('messages')->get_message($message_id, $title)) && $title == url_title($message['title']))
+		{
+			return $message;
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
 }
 
 /*

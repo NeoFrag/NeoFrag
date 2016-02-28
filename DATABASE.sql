@@ -1007,12 +1007,12 @@ CREATE TABLE IF NOT EXISTS `nf_users_keys` (
 DROP TABLE IF EXISTS `nf_users_messages`;
 CREATE TABLE IF NOT EXISTS `nf_users_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `reply_id` int(11) unsigned NOT NULL,
   `title` varchar(100) NOT NULL,
-  `content` text NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_reply_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`message_id`),
-  KEY `user_id` (`user_id`)
+  KEY `reply_id` (`reply_id`),
+  KEY `last_reply_id` (`last_reply_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1025,7 +1025,8 @@ DROP TABLE IF EXISTS `nf_users_messages_recipients`;
 CREATE TABLE IF NOT EXISTS `nf_users_messages_recipients` (
   `user_id` int(11) unsigned NOT NULL,
   `message_id` int(11) unsigned NOT NULL,
-  `read` enum('0','1') NOT NULL DEFAULT '0',
+  `date` timestamp NULL DEFAULT NULL,
+  `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`message_id`),
   KEY `message_id` (`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1041,9 +1042,8 @@ CREATE TABLE IF NOT EXISTS `nf_users_messages_replies` (
   `reply_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `message_id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
-  `content` text NOT NULL,
+  `message` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `read` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`reply_id`),
   KEY `message_id` (`message_id`,`user_id`),
   KEY `user_id` (`user_id`)
@@ -1376,7 +1376,8 @@ ALTER TABLE `nf_users_keys`
 -- Contraintes pour la table `nf_users_messages`
 --
 ALTER TABLE `nf_users_messages`
-  ADD CONSTRAINT `nf_users_messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `nf_users_messages_ibfk_1` FOREIGN KEY (`reply_id`) REFERENCES `nf_users_messages_replies` (`reply_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_users_messages_ibfk_2` FOREIGN KEY (`last_reply_id`) REFERENCES `nf_users_messages_replies` (`reply_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Contraintes pour la table `nf_users_messages_recipients`

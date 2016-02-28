@@ -11,28 +11,24 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['admin_theme']   = 'Administration';
-$lang['back_front']    = 'Back on the site';
-$lang['ban']           = 'Bans';
-$lang['documentation'] = 'Documentation';
-$lang['downloads']     = 'Downloads';
-$lang['liveditor']     = 'Live Editor';
-$lang['security']      = 'Security';
-$lang['support']       = 'Support';
+class w_user_c_checker extends Controller_Module
+{
+	public function index_mini($settings = array())
+	{
+		return array(
+			'align' => !empty($settings['align']) && in_array($settings['align'], array('navbar-left', 'navbar-right')) ? $settings['align'] : 'navbar-right'
+		);
+	}
+}
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/themes/admin/lang/en.php
+NeoFrag Alpha 0.1.4
+./neofrag/widgets/user/controllers/checker.php
 */

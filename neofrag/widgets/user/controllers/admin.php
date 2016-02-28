@@ -18,21 +18,15 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['admin_theme']   = 'Administration';
-$lang['back_front']    = 'Back on the site';
-$lang['ban']           = 'Bans';
-$lang['documentation'] = 'Documentation';
-$lang['downloads']     = 'Downloads';
-$lang['liveditor']     = 'Live Editor';
-$lang['security']      = 'Security';
-$lang['support']       = 'Support';
+class w_user_c_admin extends Controller_Module
+{
+	public function index_mini($settings = array())
+	{
+		return $this->load->view('admin_mini', $settings);
+	}
+}
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/themes/admin/lang/en.php
+NeoFrag Alpha 0.1.4
+./neofrag/widgets/user/controllers/admin.php
 */

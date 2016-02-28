@@ -1,7 +1,13 @@
-<?php if (0 && $NeoFrag->user()): //TODO link compose ?>
-<div class="pull-right">
-	<a class="btn btn-default" href="<?php echo url('user/compose.html'); ?>"><?php echo icon('fa-envelope-o'); ?><span class="hidden-xs"> <?php echo i18n('send_pm'); ?></span></a>
-</div>
+<?php if ($NeoFrag->user()): ?>
+	<?php if ($NeoFrag->user('user_id') == $data['user_id']): ?>
+	<div class="pull-right">
+		<a class="btn btn-default" href="<?php echo url('user.html'); ?>"><?php echo icon('fa-cogs'); ?><span class="hidden-xs"> <?php echo i18n('manage_my_account'); ?></span></a>
+	</div>
+	<?php else: ?>
+	<div class="pull-right">
+		<a class="btn btn-default" href="<?php echo url('user/messages/compose/'.$data['user_id'].'/'.url_title($data['username']).'.html'); ?>"><?php echo icon('fa-envelope-o'); ?><span class="hidden-xs"> <?php echo i18n('send_pm'); ?></span></a>
+	</div>
+	<?php endif; ?>
 <?php endif; ?>
 <?php echo $loader->view('profile_mini', $data); ?>
 <br />
@@ -13,7 +19,7 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td class="col-lg-3 col-md-4 col-xs-5"><b><?php echo icon('fa-sign-in').' '.i18n('registration_date'); ?></b></td>
+			<td class="col-lg-3 col-md-4 col-xs-5"><b><?php echo icon('fa-sign-in  fa-rotate-90').' '.i18n('registration_date'); ?></b></td>
 			<td class="col-lg-9 col-md-8 col-xs-7"><?php echo time_span($data['registration_date']); ?></td>
 		</tr>
 		<?php if (!empty($data['last_activity_date']) && $data['last_activity_date'] != '0000-00-00 00:00:00'): ?>

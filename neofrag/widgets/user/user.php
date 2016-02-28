@@ -29,9 +29,8 @@ class w_user extends Widget
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $types       = array(
-		'index'          => '{lang member_area}',
-		'index_mini'     => '{lang member_area_mini}',
-		//'messages_inbox' => 'Messagerie privée'
+		'index'      => '{lang member_area}',
+		'index_mini' => '{lang member_area_mini}'
 	);
 }
 

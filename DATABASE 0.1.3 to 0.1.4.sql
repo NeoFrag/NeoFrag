@@ -4,3 +4,14 @@ ALTER TABLE `nf_settings_addons` CHANGE `enable` `is_enabled` ENUM('0','1') CHAR
 ALTER TABLE `nf_users` DROP `theme`;
 ALTER TABLE `nf_settings_languages` DROP COLUMN `language_id`, DROP COLUMN `domain_extension`, DROP INDEX `code`, DROP PRIMARY KEY, ADD PRIMARY KEY (`code`);
 INSERT INTO `nf_settings_addons` VALUES('search', 'widget', '1');
+ALTER TABLE `nf_users_messages` DROP FOREIGN KEY `nf_users_messages_ibfk_1`;
+ALTER TABLE `nf_users_messages` CHANGE `user_id` `reply_id` INT(11) UNSIGNED NOT NULL;
+ALTER TABLE `nf_users_messages` ADD `last_reply_id` INT UNSIGNED DEFAULT NULL AFTER `title`, ADD INDEX (`last_reply_id`);
+ALTER TABLE `nf_users_messages` ADD FOREIGN KEY (`reply_id`) REFERENCES `nf_users_messages_replies`(`reply_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `nf_users_messages` ADD FOREIGN KEY (`last_reply_id`) REFERENCES `nf_users_messages_replies`(`reply_id`) ON DELETE SET NULL ON UPDATE SET NULL;
+ALTER TABLE `nf_users_messages` DROP `content`, DROP `date`;
+ALTER TABLE `nf_users_messages_recipients` DROP `read`;
+ALTER TABLE `nf_users_messages_recipients` ADD `date` TIMESTAMP NULL DEFAULT NULL AFTER `message_id`;
+ALTER TABLE `nf_users_messages_recipients` ADD `deleted` ENUM('0','1') NOT NULL DEFAULT '0' AFTER `date`;
+ALTER TABLE `nf_users_messages_replies` CHANGE `content` `message` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE `nf_users_messages_replies` DROP `read`;

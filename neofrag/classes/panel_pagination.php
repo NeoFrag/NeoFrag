@@ -18,21 +18,18 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['admin_theme']   = 'Administration';
-$lang['back_front']    = 'Back on the site';
-$lang['ban']           = 'Bans';
-$lang['documentation'] = 'Documentation';
-$lang['downloads']     = 'Downloads';
-$lang['liveditor']     = 'Live Editor';
-$lang['security']      = 'Security';
-$lang['support']       = 'Support';
+class Panel_Pagination
+{
+	public function display()
+	{
+		if ($pagination = NeoFrag::loader()->module->pagination->get_pagination())
+		{
+			return '<div class="pull-right">'.$pagination.'</div>';
+		}
+	}
+}
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/themes/admin/lang/en.php
+NeoFrag Alpha 0.1.4
+./neofrag/classes/panel_pagination.php
 */

@@ -26,7 +26,6 @@ FoxLey, eResnova, creativewild
 $lang['active_sessions']        = 'Sessions actives';
 $lang['add_group']              = 'Ajouter un groupe';
 $lang['admin']                  = 'Admin';
-$lang['age']                    = '(%d an)|(%d ans)';
 $lang['arrival_date']           = 'Date d\'arrivée';
 $lang['ban']                    = 'Bannir';
 $lang['ban_title']              = 'Bannissement';

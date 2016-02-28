@@ -26,7 +26,6 @@ FoxLey, eResnova
 $lang['active_sessions']        = 'Active sessions';
 $lang['add_group']              = 'Add a group';
 $lang['admin']                  = 'Admin';
-$lang['age']                    = '(%d year)|(%d years)';
 $lang['arrival_date']           = 'First seen on';
 $lang['ban']                    = 'Ban';
 $lang['ban_title']              = 'Banishment';

@@ -26,21 +26,38 @@ class m_user_c_index extends Controller_Module
 		{
 			return $this->login();
 		}
-		
-		$this->title($this('member_area'));
-		
-		return new Panel(array(
-			'title'   => $this('member_area'),
-			'icon'    => 'fa-user',
-			'content' => $this->load->view('index'),
-			'footer'  => '<a class="btn btn-primary" href="'.url('user/edit.html').'">'.icon('fa-cogs').' '.$this('manage_my_account').'</a> <a class="btn btn-danger" href="'.url('user/logout.html').'">'.icon('fa-close').' '.$this('logout').'</a>'
-		));
+
+		$this	->title($this('member_area'))
+				->js('user')
+				->js('jquery.mCustomScrollbar.min')
+				->css('jquery.mCustomScrollbar.min');
+
+		return array(
+			new Row(
+				new Col(
+					$this->_panel_profile($user_profile),
+					new Panel(array(
+						'content' => $this->load->view('menu'),
+						'body'    => FALSE
+					))
+				),
+				new Col(
+					$this->_panel_infos(),
+					new Panel(array(
+						'content' => $this->load->view('index', $user_profile)
+					)),
+					$this->_panel_activities()
+				)
+			)
+		);
 	}
 
 	public function edit()
 	{
-		$this->title($this('manage_my_account'));
-		
+		$this	->title($this('manage_my_account'))
+				->icon('fa-cogs')
+				->breadcrumb();
+
 		$this->load->library('form')
 			->add_rules('user', array(
 				'username'      => $this->user('username'),
@@ -57,7 +74,7 @@ class m_user_c_index extends Controller_Module
 			))
 			->add_submit($this('save'))
 			->add_back('user.html');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->edit_user(	$post['username'],
@@ -71,7 +88,7 @@ class m_user_c_index extends Controller_Module
 										$post['website'],
 										$post['quote'],
 										$post['signature']);
-			
+
 			if ($post['password_new'] && $post['password_new'] != $post['password_old'])
 			{
 				$this->model()->update_password($post['password_new']);
@@ -80,20 +97,36 @@ class m_user_c_index extends Controller_Module
 							->where('session_id <>', $this->session->get_session_id())
 							->delete('nf_sessions');
 			}
-			
+
 			redirect_back('members/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html');
 		}
-		
-		return new Panel(array(
-			'title'           => $this('manage_my_account'),
-			'icon'            => 'fa-cogs',
-			'content'         => $this->form->display()
-		));
+
+		return array(
+			new Row(
+				new Col(
+					$this->_panel_profile(),
+					new Panel(array(
+						'content' => $this->load->view('menu'),
+						'body'    => FALSE
+					))
+				),
+				new Col(
+					new Panel(array(
+						'title'   => $this->load->data['module_title'],
+						'icon'    => $this->load->data['module_icon'],
+						'content' => $this->form->display(),
+						'size'    => 'col-md-8 col-lg-9'
+					))
+				)
+			)
+		);
 	}
 
 	public function sessions($sessions)
 	{
-		$this->title($this('sessions'));
+		$this	->title('Gérer mes sessions')
+				->icon('fa-globe')
+				->breadcrumb();
 		
 		$active_sessions = $this->load->library('table')
 			->add_columns(array(
@@ -180,17 +213,28 @@ class m_user_c_index extends Controller_Module
 			->no_data($this('no_historic_available'));
 		
 		return array(
-			new Panel(array(
-				'title'   => $this('my_active_sessions'),
-				'icon'    => 'fa-shield',
-				'content' => $active_sessions->display()
-			)),
-			new Panel(array(
-				'title'   => $this('sessions_historic'),
-				'icon'    => 'fa-power-off',
-				'content' => $sessions_history->display()
-			)),
-			new Button_back('user.html')
+			new Row(
+				new Col(
+					$this->_panel_profile(),
+					new Panel(array(
+						'content' => $this->load->view('menu'),
+						'body'    => FALSE
+					))
+				),
+				new Col(
+					new Panel(array(
+						'title'   => $this('my_active_sessions'),
+						'icon'    => 'fa-shield',
+						'content' => $active_sessions->display(),
+						'size'    => 'col-md-8 col-lg-9'
+					)),
+					new Panel(array(
+						'title'   => $this('sessions_historic'),
+						'icon'    => 'fa-power-off',
+						'content' => $sessions_history->display()
+					))
+				)
+			)
 		);
 	}
 	
@@ -372,7 +416,7 @@ class m_user_c_index extends Controller_Module
 			new Col(
 				new Panel(array(
 					'title'   => $this('login_title'),
-					'icon'    => 'fa-sign-out',
+					'icon'    => 'fa-sign-in',
 					'content' => $this->load->view('login', array(
 						'form_id' => $form_login->id
 					))
@@ -382,7 +426,7 @@ class m_user_c_index extends Controller_Module
 			new Col(
 				new Panel(array(
 					'title'   => $this('create_account_title'),
-					'icon'    => 'fa-sign-in',
+					'icon'    => 'fa-sign-in fa-rotate-90',
 					'content' => $this('create_account_message').$form_registration->display()
 				))
 				, 'col-md-6'
@@ -513,6 +557,246 @@ class m_user_c_index extends Controller_Module
 		{
 			redirect();
 		}
+	}
+
+	public function _messages($messages, $allow_delete = FALSE)
+	{
+		$this->breadcrumb();
+
+		return array(
+			new Row(
+				new Col(
+					$this->_panel_messages()
+				),
+				new Col(
+					new Panel(array(
+						'title'   => $this->load->data['module_title'],
+						'icon'    => $this->load->data['module_icon'],
+						'content' => !$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->load->view('messages/inbox', array(
+							'messages'     => $messages,
+							'allow_delete' => $allow_delete
+						)),
+						'body'    => FALSE,
+						'size'    => 'col-md-8 col-lg-9'
+					)),
+					new Panel_Pagination
+				)
+			)
+		);
+	}
+
+	public function _messages_inbox($messages)
+	{
+		return $this	->title('Boîte de réception')
+						->icon('fa-inbox')
+						->_messages($messages, TRUE);
+	}
+
+	public function _messages_sent($messages)
+	{
+		return $this	->title('Messages envoyés')
+						->icon('fa-send-o')
+						->_messages($messages);
+	}
+
+	public function _messages_archives($messages)
+	{
+		return $this	->title('Archives')
+						->icon('fa-archive')
+						->_messages($messages);
+	}
+
+	public function _messages_read($message_id, $title, $replies)
+	{
+		$this->load	->library('form')
+					->add_rules(array(
+						'message' => array(
+							'label' => 'Mon message',
+							'type'  => 'editor',
+							'rules' => 'required'
+						),
+					))
+					->add_submit('Envoyer');
+
+		if ($this->form->is_valid($post))
+		{
+			$this->model('messages')->reply($message_id, $post['message']);
+
+			redirect('user/messages/'.$message_id.'/'.url_title($title).'.html');
+		}
+
+		return array(
+			new Row(
+				new Col(
+					$this->_panel_messages()
+				),
+				new Col(
+					new Panel(array(
+						'title'   => $title,
+						'icon'    => 'fa-envelope-o',
+						'content' => $this->load->view('messages/replies', array(
+							'replies' => $replies
+						)),
+						'size'    => 'col-md-8 col-lg-9'
+					)),
+					new Panel(array(
+						'title'   => 'Répondre',
+						'icon'    => 'fa-reply',
+						'content' => $this->form->display()
+					))
+				)
+			)
+		);
+	}
+
+	public function _messages_compose($username)
+	{
+		$this	->title('Nouveau message')
+				->icon('fa-edit')
+				->breadcrumb()
+				->load->library('form')
+				->add_rules(array(
+					'title' => array(
+						'label' => 'Sujet du message',
+						'type'  => 'text',
+						'rules' => 'required'
+					),
+					'recipients' => array(
+						'label'       => 'Destinataires',
+						'value'       => $username,
+						'type'        => 'text',
+						'rules'       => 'required',
+						'description' => 'Séparez plusieurs destinataires par un <b>;</b> <small>(point virgule)</small>'
+					),
+					'message' => array(
+						'label' => 'Mon message',
+						'type'  => 'editor',
+						'rules' => 'required'
+					)
+				))
+				->add_submit('Envoyer');
+
+		if ($this->form->is_valid($post))
+		{
+			if ($message_id = $this->model('messages')->insert_message($post['recipients'], $post['title'], $post['message']))
+			{
+				redirect('user/messages/'.$message_id.'/'.url_title($post['title']).'.html');
+			}
+		}
+		
+		return array(
+			new Row(
+				new Col(
+					$this->_panel_messages()
+				),
+				new Col(
+					new Panel(array(
+						'title'   => $this->load->data['module_title'],
+						'icon'    => $this->load->data['module_icon'],
+						'content' => $this->form->display(),
+						'size'    => 'col-md-8 col-lg-9'
+					))
+				)
+			)
+		);
+	}
+	
+	public function _messages_delete($message_id, $title)
+	{
+		$this	->title($this('delete_message'))
+				->subtitle($title)
+				->load->library('form')
+				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
+
+		if ($this->form->is_valid())
+		{
+			$this->db	->where('user_id', $this->user('user_id'))
+						->where('message_id', $message_id)
+						->update('nf_users_messages_recipients', array(
+							'date'    => now(),
+							'deleted' => TRUE
+						));
+
+			return 'OK';
+		}
+
+		echo $this->form->display();
+	}
+	
+	public function _panel_profile(&$user_profile = NULL)
+	{
+		return new Panel(array(
+			'title'   => 'Mon profil',
+			'icon'    => 'fa-user',
+			'content' => $this->load->view('profile', $user_profile = $this->model()->get_member_profile($this->user('user_id'))),
+			'size'    => 'col-md-4 col-lg-3'
+		));
+	}
+	
+	public function _panel_infos($user_id = NULL)
+	{
+		if ($user_id === NULL)
+		{
+			$user_id = $this->user('user_id');
+			
+			$infos = array(
+				'registration_date'  => $this->user('registration_date'),
+				'last_activity_date' => $this->user('last_activity_date')
+			);
+		}
+		else
+		{
+			$infos = $this->db	->select('registration_date', 'last_activity_date')
+								->from('nf_users')
+								->where('user_id', $user_id)
+								->where('deleted', FALSE)
+								->row();
+		}
+		
+		$infos['groups'] = $this->groups->user_groups($user_id);
+
+		return new Panel(array(
+			'content' => $this->load->view('infos', $infos),
+			'size'    => 'col-md-8 col-lg-9'
+		));
+	}
+	
+	public function _panel_activities($user_id = NULL)
+	{
+		if ($user_id === NULL)
+		{
+			$user_id = $this->user('user_id');
+		}
+
+		$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
+									->from('nf_forum_messages m')
+									->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
+									->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
+									->join('nf_users_profiles up', 'u.user_id = up.user_id')
+									->where('m.user_id', $user_id)
+									->order_by('m.date DESC')
+									->limit(10)
+									->get();
+
+		return new Panel(array(
+			'title'   => 'Activité récente',
+			'content' => $this->load->view('activity', array(
+				'user_activity' => $user_activity
+			))
+		));
+	}
+	
+	private function _panel_messages()
+	{
+		return new Panel(array(
+			'title'        => 'Messagerie privée',
+			'icon'         => 'fa-envelope-o',
+			'content'      => $this->load->view('messages/menu'),
+			'body'         => FALSE,
+			'footer'       => '<a href="'.url('user.html').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>',
+			'footer_align' => 'left',
+			'size'         => 'col-md-4 col-lg-3'
+		));
 	}
 }
 

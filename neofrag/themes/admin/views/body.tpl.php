@@ -34,7 +34,7 @@
 								</button>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo url('user.html'); ?>"><?php echo icon('fa-user').i18n('my_account'); ?></a></li>
-									<li><a href="<?php echo url('user/edit.html'); ?>"><?php echo icon('fa-cogs').i18n('edit_account'); ?></a></li>
+									<li><a href="<?php echo url('user/edit.html'); ?>"><?php echo icon('fa-cogs').i18n('manage_my_account'); ?></a></li>
 									<li><a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($NeoFrag->user('username')).'.html'); ?>"><?php echo icon('fa-eye').i18n('view_my_profile'); ?></a></li>
 								</ul>
 							</div>

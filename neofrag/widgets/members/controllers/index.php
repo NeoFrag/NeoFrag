@@ -90,7 +90,7 @@ class w_members_c_index extends Controller_Widget
 		
 		if ($nb_admins)
 		{
-			$output[] = $this->load->view('online-modal', array(
+			$output[] = $this->load->view('online_modal', array(
 				'name'  => 'administrators',
 				'title' => $this('admins_online'),
 				'users' => $admins
@@ -99,7 +99,7 @@ class w_members_c_index extends Controller_Widget
 		
 		if ($nb_members)
 		{
-			$output[] = $this->load->view('online-modal', array(
+			$output[] = $this->load->view('online_modal', array(
 				'name'  => 'members',
 				'title' => $this('members_online'),
 				'users' => $members
@@ -111,8 +111,9 @@ class w_members_c_index extends Controller_Widget
 	
 	public function online_mini($config = array())
 	{
-		return $this->load->view('online-mini', array(
-			'members' => $this->session->current_sessions()
+		return $this->load->view('online_mini', array(
+			'members' => $this->session->current_sessions(),
+			'align'   => !empty($config['align']) ? $config['align'] : 'pull-right'
 		));
 	}
 }

@@ -760,6 +760,12 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 	margin-top: 21px;
 }
 
+.widget.widget-user > ul.navbar-nav > li > .label {
+	position: absolute;
+	top: 10px;
+	right: 5px;
+}
+
 .widget.widget-navigation > ul.navbar-nav > li > a, .widget.widget-user > ul.navbar-nav > li > a {
 	font-family: "Economica",sans-serif;
 	font-size: 15px;

@@ -23,15 +23,12 @@ Translated by NeoFrag community, contributors are:
 FoxLey, eResnova
 **************************************************************************/
 
-$lang['logout']             = 'Logout';
-$lang['lost_password']      = 'Lost password?';
-$lang['manage_account']     = 'Manage my account';
-$lang['member_area_mini']   = 'Space (mini) Member';
-$lang['pm_compose']         = 'Write';
-$lang['pm_inbox']           = 'Inbox';
-$lang['pm_no_new_messages'] = 'You have no new messages.';
-$lang['private_messages']   = 'Private messaging';
-$lang['welcome']            = 'Welcome <a href="'.url('user.html').'">'. NeoFrag::loader ()-> user('username').'</a>';
+$lang['logout']           = 'Logout';
+$lang['lost_password']    = 'Lost password?';
+$lang['member_area_mini'] = 'Space (mini) Member';
+$lang['pm_compose']       = 'Write';
+$lang['pm_inbox']         = 'Inbox';
+$lang['welcome']          = 'Welcome <a href="'.url('user.html').'">'. NeoFrag::loader ()-> user('username').'</a>';
 
 /*
 NeoFrag Alpha 0.1.3

@@ -123,8 +123,6 @@ class User extends Core
 				$this->_user_data['location']           = $user['location'];
 				$this->_user_data['website']            = $user['website'];
 				$this->_user_data['quote']              = $user['quote'];
-				
-				$this->_user_data['messages_unread']    = $this->db->select('COUNT(*)')->from('nf_users_messages_recipients')->where('user_id', $this('user_id'))->where('read', FALSE)->row();
 
 				$this->db	->where('user_id', $this->_user_data['user_id'])
 							->update('nf_users', array(
@@ -261,6 +259,25 @@ class User extends Core
 						->where('user_id', $this('user_id'))
 						->order_by('date DESC')
 						->get();
+	}
+	
+	public function get_messages()
+	{
+		static $count;
+		
+		if ($count === NULL)
+		{
+		 $count= $this->db	->select('COUNT(*)')
+							->from('nf_users_messages_recipients r')
+							->join('nf_users_messages            m',   'r.message_id = m.message_id',    'INNER')
+							->join('nf_users_messages_replies    mr',  'mr.reply_id  = m.last_reply_id', 'INNER')
+							->join('nf_users_messages_replies    mr2', 'mr2.reply_id  = m.reply_id',     'INNER')
+							->where('r.user_id', $this('user_id'))
+							->where('(r.date < mr.date OR (r.date IS NULL AND r.user_id <> mr2.user_id))')
+							->row();
+		}
+		
+		return $count;
 	}
 
 	public function check_http_authentification()

@@ -1,18 +1,34 @@
-<div class="media">
-	<div class="media-left">
-		<a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($NeoFrag->user('username')).'.html'); ?>">
-			<img style="width: 64px; height: 64px;" src="<?php echo $NeoFrag->user->avatar(); ?>" data-toggle="tooltip" title="<?php echo i18n('view_my_profile'); ?>" alt="" />
-		</a>
-	</div>
-	<div class="media-body">
-		<h4 class="media-heading"><?php echo $NeoFrag->user('first_name').' '.$NeoFrag->user('last_name').' <b>'.$NeoFrag->user('username').'</b>'; ?></h4>
-		<?php echo $NeoFrag->groups->user_groups($NeoFrag->user('user_id')); ?>
+<div class="row">
+	<div class="col-md-6">
+		<h4 class="no-margin"><b>Mes informations</b></h4>
 		<hr />
-		<dl class="dl-horizontal">
-			<dt><?php echo i18n('registration_date'); ?></dt>
-			<dd><?php echo time_span($NeoFrag->user('registration_date')); ?></dd>
-			<dt><?php echo i18n('last_activity'); ?></dt>
-			<dd><?php echo time_span($NeoFrag->user('last_activity_date')); ?>. <a href="<?php echo url('user/sessions.html'); ?>"><?php echo icon('fa-globe').' '.i18n('manage_my_sessions'); ?></a></dd>
-		</dl>
+		<?php if ($data['first_name'] || $data['last_name']): ?>
+		<p><?php echo ($data['sex'] == 'male' ? icon('fa-male') : icon('fa-female')).' '.$data['first_name'].' '.$data['last_name']; ?></p>
+		<?php endif; ?>
+
+		<?php if (!empty($data['date_of_birth']) && $data['date_of_birth'] != '0000-00-00'): ?>
+		<p><?php echo icon('fa-birthday-cake').' '.timetostr($NeoFrag->lang('date_short'), $data['date_of_birth']).' '.i18n('age', $age = date_diff(date_create($data['date_of_birth']), date_create('today'))->y, $age); ?></p>
+		<?php endif; ?>
+
+		<?php if ($data['location']): ?>
+		<p><?php echo icon('fa-map-marker').' '.$data['location']; ?></p>
+		<?php endif; ?>
+
+		<?php if ($data['website']): ?>
+		<p><?php echo icon('fa-globe'); ?> <a href="<?php echo $data['website']; ?>" target="_blank"><?php echo $data['website']; ?></a></p>
+		<?php endif; ?>
+
+		<?php if ($data['quote']): ?>
+		<p><?php echo icon('fa-quote-left'); ?> <i class="text-muted"><?php echo $data['quote']; ?></i></p>
+		<?php endif; ?>
+	</div>
+	<div class="col-md-6">
+		<h4 class="no-margin"><b>Messagerie</b></h4>
+		<hr />
+		<?php if ($messages = $this->user->get_messages()): ?>
+		<a href="<?php echo url('user/messages.html'); ?>" class="btn btn-info btn-block btn-lg">Vous avez <?php echo $messages > 0 ? $messages.' messages non lus !' : '1 message non lu !'; ?></a>
+		<?php else: ?>
+		Aucun nouveau message...
+		<?php endif; ?>
 	</div>
 </div>

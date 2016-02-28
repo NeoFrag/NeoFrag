@@ -138,6 +138,17 @@ class m_user_m_user extends Model
 						->where('key_id', $key_id)
 						->row();
 	}
+
+	public function get_member_profile($user_id)
+	{
+		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'up.first_name', 'up.last_name', 'up.signature', 'up.date_of_birth', 'up.location', 'up.website', 'up.quote', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
+						->from('nf_users u')
+						->join('nf_users_profiles up', 'u.user_id = up.user_id')
+						->join('nf_sessions       s',  'u.user_id = s.user_id')
+						->where('u.user_id', $user_id)
+						->where('u.deleted', FALSE)
+						->row();
+	}
 }
 
 /*
