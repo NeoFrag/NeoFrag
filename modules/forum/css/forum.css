@@ -31,3 +31,16 @@
 	position: absolute;
 	right: -15px;
 }
+
+.module.module-forum .forum-profile {
+	padding-top: 15px;
+	text-align: center;
+}
+
+.module.module-forum .forum-profile h4, .module.module-forum .forum-profile p {
+	margin: 0;
+}
+
+.module.module-forum .forum-groups {
+	margin-top: 10px;
+}

@@ -698,7 +698,7 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 .module-forum img.img-avatar-forum {
 	max-width: 140px;
 	max-height: 140px;
-	margin-bottom: 15px;
+	margin: 15px 0;
 	border-radius: 100%;
 }
 

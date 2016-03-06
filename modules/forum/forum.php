@@ -172,6 +172,42 @@ class m_forum extends Module
 			$this->css('forum');
 		}
 	}
+	
+	public function get_profile($user_id = NULL, &$data = array())
+	{
+		static $profiles = array();
+		
+		$user_id = (int)$user_id;
+		
+		if (!isset($profiles[$user_id]))
+		{
+			$profiles[$user_id] = $this->db	->select('u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
+											->from('nf_users u')
+											->join('nf_users_profiles up', 'u.user_id = up.user_id')
+											->join('nf_sessions       s',  'u.user_id = s.user_id')
+											->where('u.user_id', $user_id)
+											->where('u.deleted', FALSE)
+											->group_by('u.user_id')
+											->row();
+
+			if (empty($profiles[$user_id]))
+			{
+				$profiles[$user_id] = array();
+			}
+			else
+			{
+				$profiles[$user_id]['topics'] = $this->db	->select('COUNT(*)')
+															->from('nf_forum_topics t')
+															->join('nf_forum_messages m', 't.message_id = m.message_id')
+															->where('m.user_id', $user_id)
+															->row();
+				
+				$profiles[$user_id]['replies'] = $this->db->select('COUNT(*)')->from('nf_forum_messages')->where('user_id', $user_id)->row() - $profiles[$user_id]['topics'];
+			}
+		}
+		
+		return $this->load->view('profile', $data = $profiles[$user_id]);
+	}
 }
 
 /*

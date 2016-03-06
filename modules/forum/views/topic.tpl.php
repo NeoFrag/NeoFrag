@@ -12,11 +12,8 @@
 	</thead>
 	<tbody class="forum-content">
 		<tr>
-			<td class="col-md-3 text-center">
-				<br />
-				<h4 class="no-margin"><?php echo $data['user_id'] ? $NeoFrag->user->link($data['user_id'], $data['username']) : '<i>'.i18n('guest').'</i>'; ?></h4>
-				<?php if ($data['user_id']) echo '<p>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.i18n($data['admin'] ? 'admin' : 'member').' '.i18n($data['online'] ? 'online' : 'offline').'</p>'; ?>
-				<img class="img-avatar-forum" src="<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>" title="<?php echo $data['username']; ?>" alt="" />
+			<td class="col-md-3">
+				<?php echo $NeoFrag->module->get_profile($data['user_id'], $profile); ?>
 			</td>
 			<td class="text-left col-md-9">
 				<div class="padding-top">
@@ -30,9 +27,9 @@
 				</div>
 				<hr />
 				<?php echo bbcode($data['message']); ?>
-				<?php if (!empty($data['signature'])): ?>
+				<?php if (!empty($profile['signature'])): ?>
 				<hr />
-				<?php echo bbcode($data['signature']); ?>
+				<?php echo bbcode($profile['signature']); ?>
 				<?php endif; ?>
 			</td>
 		</tr>

@@ -485,7 +485,7 @@ class m_forum_c_index extends Controller_Module
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
-	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $username, $avatar, $sex, $online, $admin)
+	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $locked)
 	{
 		$this	->title($this($is_topic ? 'edit_topic' : 'edit_message'))
 				->_breadcrumb($category_id, $forum_id)
@@ -555,12 +555,7 @@ class m_forum_c_index extends Controller_Module
 				'is_topic' => $is_topic,
 				'title'    => $title,
 				'message'  => $message,
-				'user_id'  => $user_id,
-				'username' => $username,
-				'avatar'   => $avatar,
-				'sex'      => $sex,
-				'online'   => $online,
-				'admin'    => $admin
+				'user_id'  => $user_id
 			))
 		));
 		

@@ -13,11 +13,8 @@
 	<tbody class="forum-content">
 		<?php foreach ($data['messages'] as $message): ?>
 		<tr>
-			<td class="col-md-3 text-center">
-				<br />
-				<h4 class="no-margin"><?php echo $message['user_id'] ? $NeoFrag->user->link($message['user_id'], $message['username']) : '<i>'.i18n('guest').'</i>'; ?></h4>
-				<?php if ($message['user_id']) echo '<p>'.icon('fa-circle '.($message['online'] ? 'text-green' : 'text-gray')).' '.i18n($message['admin'] ? 'admin' : 'member').' '.i18n($message['online'] ? 'online' : 'offline').'</p>'; ?>
-				<img class="img-avatar-forum" src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" title="<?php echo $message['username']; ?>" alt="" />
+			<td class="col-md-3">
+				<?php echo $NeoFrag->module->get_profile($message['user_id'], $profile); ?>
 			</td>
 			<td class="text-left col-md-9">
 				<div class="padding-top">
@@ -31,9 +28,9 @@
 				</div>
 				<hr />
 				<?php echo $message['message'] !== NULL ? bbcode($message['message']) : i18n('message_deleted'); ?>
-				<?php if (!empty($message['signature'])): ?>
+				<?php if (!empty($profile['signature'])): ?>
 				<hr />
-				<?php echo bbcode($message['signature']); ?>
+				<?php echo bbcode($profile['signature']); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
