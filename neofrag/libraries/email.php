@@ -20,30 +20,31 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Email extends Library
 {
+	private $_settings;
 	private $_from;
-	private $_to;
+	private $_to = array();
 	private $_subject;
 	private $_view;
 	private $_data;
 	
-	public function __construct()
+	public function __construct($settings)
 	{
 		parent::__construct();
 		
-		$this->_from = '"'.$this->config->nf_name.'" <'.$this->config->nf_contact.'>';
+		$this->_settings = $settings;
 	}
 	
 	public function from($from)
 	{
 		$this->_from = $from;
-		
+
 		return $this;
 	}
 	
 	public function to($to)
 	{
-		$this->_to = $to.', ';
-		
+		$this->_to[] = strtolower($to);
+
 		return $this;
 	}
 	
@@ -69,38 +70,66 @@ class Email extends Library
 			return FALSE;
 		}
 		
-		if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')
-		{
-			ini_set('sendmail_from', $this->_from);
-		}
-			
-		$headers = array('From: '.$this->_from, 'Reply-to: '.$this->_from);
+		require 'lib/phpmailer/class.phpmailer.php';
 		
-		$this->config->base_url = 'http://'.$_SERVER['HTTP_HOST'].url();
+		$mail = new PHPMailer;
+		
+		if (!empty($this->_settings['smtp']))
+		{
+			require 'lib/phpmailer/class.smtp.php';
+			
+			$mail->isSMTP();
+			$mail->Host = $this->_settings['smtp'];
+			
+			if ($mail->SMTPAuth = !empty($this->_settings['username']) && !empty($this->_settings['password']))
+			{
+				$mail->Username = $this->_settings['username'];
+				$mail->Password = $this->_settings['password'];
+			}
+			
+			if (!empty($this->_settings['secure']))
+			{
+				$mail->SMTPSecure = $this->_settings['secure'];
+			}
+			
+			if (!empty($this->_settings['port']))
+			{
+				$mail->Port = $this->_settings['port'];
+			}
+		}
+		
+		if ($this->_from)
+		{
+			$mail->setFrom($this->_from);
+		}
+		else 
+		{
+			$mail->setFrom($this->config->nf_contact, $this->config->nf_name);
+		}
+		
+		$mail->CharSet = 'UTF-8';
+		$mail->Subject = $this->_subject;
+		$mail->isHTML(TRUE);
+		
+		foreach (array_unique($this->_to) as $to)
+		{
+			$mail->addAddress($to);
+		}
+		
+		$base_url = $this->config->base_url;
+		$this->config->base_url = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$base_url;
 
 		$this->template->parse_data($this->_data, $this->load);
 		
-		$message = $html = $this->load->view('emails/'.$this->_view, $this->_data);
-		$text            = $this->load->view('emails/'.$this->_view.'.txt', $this->_data);
+		$mail->Body    = $this->load->view('emails/'.$this->_view, $this->_data);
+		$mail->AltBody = $this->load->view('emails/'.$this->_view.'.txt', $this->_data);
 
-		if ($text)
-		{
-			$headers[] = 'MIME-Version: 1.0';
-			$headers[] = 'Content-Type: multipart/alternative;'."\n".' boundary="'.($boundary = '--------'.unique_id()).'"';
-			
-			$message  = '--'.$boundary."\n";
-			$message .= 'Content-Type: text/plain; charset=UTF-8; format=flowed'."\n\n";
-			$message .= str_replace('\r', '', $text)."\n\n";
-			
-			$message .= '--'.$boundary."\n";
-			$message .= 'Content-Type: text/html; charset=UTF-8;'."\n\n";
-			$message .= str_replace('\r', '', $html)."\n\n";
-		}
+		$result = $mail->send();
 
-		$result = mail(trim_word($this->_to, ', '), $this->config->nf_name.' :: '.$this->_subject, wordwrap($message, 70), implode("\r\n", $headers));
-		
 		$this->reset();
-		
+
+		$this->config->base_url = $base_url;
+
 		return $result;
 	}
 }
