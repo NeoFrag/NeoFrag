@@ -24,7 +24,7 @@ FoxLey, eResnova, creativewild
 **************************************************************************/
 
 $lang['bravo']              = 'Bravo ! Vous utilisez la toute première version du CMS NeoFrag';
-$lang['bravo2']             = 'Vous contribuez grandement à l\'évolution du projet, si vous avez des suggestions, des problèmes, ou simplement pour donner votre avis, n\'hésitez pas à vous connecter sur le <a href="//www.neofrag.com">forum NeoFrag</a>';
+$lang['bravo2']             = 'Vous contribuez grandement à l\'évolution du projet, si vous avez des suggestions, des problèmes, ou simplement pour donner votre avis, n\'hésitez pas à vous connecter sur le <a href="https://neofr.ag">forum NeoFrag</a>';
 $lang['comments']           = 'Commentaire|Commentaires';
 $lang['connected_users']    = 'Utilisateurs connectés';
 $lang['databases_server']   = 'Serveur de bases de données';

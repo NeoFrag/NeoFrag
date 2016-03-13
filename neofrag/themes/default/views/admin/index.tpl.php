@@ -16,7 +16,7 @@
 					<dt><?php echo i18n('authors'); ?></dt>
 					<dd><?php echo $data['theme']->author; ?></dd>
 					<dt><?php echo i18n('license'); ?></dt>
-					<dd><a href="http://www.neofrag.fr/license.html" target="_blank"><?php echo $data['theme']->licence; ?></a></dd>
+					<dd><a href="https://neofr.ag/license.html" target="_blank"><?php echo $data['theme']->licence; ?></a></dd>
 				</dl>
 			</div>
 		</div>

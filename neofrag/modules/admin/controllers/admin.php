@@ -121,7 +121,7 @@ class m_admin_c_admin extends Controller_Module
 				new Col(
 					new Widget_view(array('widget_id' => 1)),
 					new Panel(array(
-						'title'   => '<a href="//www.neofrag.com">'.$this('nf_news').'</a>',
+						'title'   => '<a href="https://neofr.ag">'.$this('nf_news').'</a>',
 						'icon'    => 'fa-newspaper-o',
 						'content' => $this->load->view('nf_news'),
 						'size'    => 'col-md-8'
@@ -181,12 +181,12 @@ class m_admin_c_admin extends Controller_Module
 						'title'   => $this('the_team'),
 						'content' => '	<div class="row">
 											<div class="col-md-6 text-center">
-												<p><img src="//www.neofrag.com/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
+												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Michaël BILCOT "FoxLey"</b></div>
 												<span class="text-muted">'.$this('web_developer').'</span>
 											</div>
 											<div class="col-md-6 text-center">
-												<p><img src="//www.neofrag.com/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
+												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Jérémy VALENTIN "eResnova"</b></div>
 												<span class="text-muted">'.$this('web_designer').'</span>
 											</div>

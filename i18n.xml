@@ -12,7 +12,7 @@
   <Created>2015-11-07T09:31:00Z</Created>
   <LastSaved>2015-11-08T17:22:45Z</LastSaved>
   <Company>NeoFrag CMS</Company>
-  <HyperlinkBase>http://www.neofrag.com</HyperlinkBase>
+  <HyperlinkBase>https://neofr.ag</HyperlinkBase>
   <Version>14.00</Version>
  </DocumentProperties>
  <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
@@ -272,9 +272,9 @@
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">powered_by_neofrag</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">[center]Propulsé par [url=http://www.neofrag.fr]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]</Data><NamedCell
+    <Cell><Data ss:Type="String">[center]Propulsé par [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">[center]Powered by [url=http://www.neofrag.fr]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]</Data><NamedCell
+    <Cell><Data ss:Type="String">[center]Powered by [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -6515,9 +6515,9 @@
     <Cell><Data ss:Type="String">neofrag/modules/admin/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">bravo2</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Vous contribuez grandement à l\'évolution du projet, si vous avez des suggestions, des problèmes, ou simplement pour donner votre avis, n\'hésitez pas à vous connecter sur le &lt;a href=&quot;//www.neofrag.com&quot;&gt;forum NeoFrag&lt;/a&gt;</Data><NamedCell
+    <Cell><Data ss:Type="String">Vous contribuez grandement à l\'évolution du projet, si vous avez des suggestions, des problèmes, ou simplement pour donner votre avis, n\'hésitez pas à vous connecter sur le &lt;a href=&quot;https://neofr.ag&quot;&gt;forum NeoFrag&lt;/a&gt;</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Your contribution is essencial to the evolution of the project, if you have any suggestions, problems, or simply wanto to give your opinion, do not hesitate to log on the &lt;a href=&quot;//www.neofrag.com&quot;&gt; NeoFrag forum&lt;/a&gt;.</Data><NamedCell
+    <Cell><Data ss:Type="String">Your contribution is essencial to the evolution of the project, if you have any suggestions, problems, or simply wanto to give your opinion, do not hesitate to log on the &lt;a href=&quot;https://neofr.ag&quot;&gt; NeoFrag forum&lt;/a&gt;.</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">

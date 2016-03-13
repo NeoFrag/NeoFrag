@@ -117,7 +117,7 @@ class Email extends Library
 		}
 		
 		$base_url = $this->config->base_url;
-		$this->config->base_url = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$base_url;
+		$this->config->base_url = $this->config->host.$base_url;
 
 		$this->template->parse_data($this->_data, $this->load);
 		

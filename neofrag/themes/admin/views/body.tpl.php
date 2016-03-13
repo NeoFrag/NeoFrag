@@ -8,10 +8,10 @@
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">
 				<li><a href="#" class="toggle-menu" data-toggle="sidebar"><?php echo icon('fa-bars'); ?></a></li>
-				<li><a href="//www.neofrag.com/support.html"><?php echo icon('fa-support'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('support'); ?></span></a></li>
-				<li><a href="//www.neofrag.com/forum.html"><?php echo icon('fa-comment'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('forum'); ?></span></a></li>
-				<li><a href="//www.neofrag.com/download.html"><?php echo icon('fa-download'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('downloads'); ?></span></a></li>
-				<li><a href="//www.neofrag.com/documentation.html"><?php echo icon('fa-list-alt'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('documentation'); ?></span></a></li>
+				<li><a href="https://neofr.ag/support.html"><?php echo icon('fa-support'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('support'); ?></span></a></li>
+				<li><a href="https://neofr.ag/forum.html"><?php echo icon('fa-comment'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('forum'); ?></span></a></li>
+				<li><a href="https://neofr.ag/download.html"><?php echo icon('fa-download'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('downloads'); ?></span></a></li>
+				<li><a href="https://neofr.ag/documentation.html"><?php echo icon('fa-list-alt'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('documentation'); ?></span></a></li>
 			</ul>
 			<a class="btn btn-default navbar-btn navbar-right" href="<?php echo url(); ?>"><?php echo icon('fa-sign-out'); ?><span class="hidden-xs hidden-sm"> <?php echo i18n('back_front'); ?></span></a>
 		</div>

@@ -4,7 +4,7 @@
 			var $icon = $(this);
 					
 			$.ajax({
-				url: '//www.neofrag.com/geolocalisation.json',
+				url: 'https://neofr.ag/geolocalisation.json',
 				type: 'POST',
 				data: 'ip_address='+$icon.attr('data-geolocalisation'),
 				dataType: 'json',

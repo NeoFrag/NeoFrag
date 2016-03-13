@@ -38,7 +38,7 @@ $lang['light_background']             = 'Fond gris clair';
 $lang['news']                         = 'Actualités';
 $lang['orange_background']            = 'Fond orange';
 $lang['post_content']                 = 'Post-contenu';
-$lang['powered_by_neofrag']           = '[center]Propulsé par [url=http://www.neofrag.fr]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]';
+$lang['powered_by_neofrag']           = '[center]Propulsé par [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]';
 $lang['pre_content']                  = 'Avant-contenu';
 $lang['red_widget']                   = 'Widget rouge';
 $lang['teams']                        = 'Équipes';

@@ -4,7 +4,7 @@
 			var $icon = $(this);
 					
 			$.ajax({
-				url: '//www.neofrag.com/user-agent.json',
+				url: 'https://neofr.ag/user-agent.json',
 				type: 'POST',
 				data: 'user_agent='+$icon.data('user-agent'),
 				dataType: 'json',
