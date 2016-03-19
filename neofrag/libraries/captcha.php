@@ -46,23 +46,16 @@ class Captcha extends Library
 	{
 		if ($response = post('g-recaptcha-response'))
 		{
-			$peer_key = version_compare(PHP_VERSION, '5.6.0', '<') ? 'CN_name' : 'peer_name';
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(array(
+				'secret'   => $this->_private_key,
+				'response' => $response,
+				'remoteip' => $_SERVER['REMOTE_ADDR']
+			)));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+			$result = json_decode(curl_exec($ch));
+			curl_close($ch);
 
-			$result = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify', FALSE, stream_context_create(array(
-				'http' => array(
-					'header'      => 'Content-type: application/x-www-form-urlencoded'."\r\n",
-					'method'      => 'POST',
-					'content'     => http_build_query(array(
-						'secret'   => $this->_private_key,
-						'response' => $response,
-						'remoteip' => $_SERVER['REMOTE_ADDR'],
-						'version'  => 'php_1.1.2'
-					), '', '&'),
-					'verify_peer' => TRUE,
-					$peer_key     => 'www.google.com'
-				)
-			))));
-			
 			return !empty($result->success);
 		}
 		
