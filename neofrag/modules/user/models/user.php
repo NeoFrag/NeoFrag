@@ -29,7 +29,7 @@ class m_user_m_user extends Model
 		$user = $this->db	->select('user_id', 'password', 'salt', 'last_activity_date')
 							->from('nf_users')
 							->where('deleted', FALSE)
-							->where('BINARY username', $login, 'OR', 'BINARY email', $login)
+							->where('username', $login, 'OR', 'email', $login)
 							->row();
 
 		if ($user)
@@ -64,32 +64,6 @@ class m_user_m_user extends Model
 		{
 			return FALSE;
 		}
-	}
-
-	public function get_users()
-	{
-		return $this->db->select('user_id', 'username', 'email', 'registration_date', 'last_activity_date')
-						->from('nf_users')
-						->where('deleted', FALSE)
-						->get();
-	}
-	
-	public function get_email_by_login($login, &$user_id, &$username)
-	{
-		$user = $this->db	->select('user_id', 'username', 'email')
-							->from('nf_users')
-							->where('BINARY username', $login, 'OR', 'BINARY email', $login)
-							->row();
-
-		if ($user)
-		{
-			$user_id  = $user['user_id'];
-			$username = $user['username'];
-
-			return $user['email'];
-		}
-
-		return FALSE;
 	}
 
 	public function edit_user($username, $email, $first_name, $last_name, $avatar, $date_of_birth, $sex, $location, $website, $quote, $signature)
@@ -163,14 +137,6 @@ class m_user_m_user extends Model
 						->from('nf_users_keys')
 						->where('key_id', $key_id)
 						->row();
-	}
-
-	public function delete_user($user_id)
-	{
-		$this->db	->where('user_id', (int)$user_id)
-					->update('nf_users', array(
-						'deleted' => TRUE
-					));
 	}
 }
 

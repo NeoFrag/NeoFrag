@@ -46,7 +46,7 @@ class User extends Core
 									->from('nf_users')
 									->where('last_activity_date <>', 0)
 									->where('deleted', FALSE)
-									->where('BINARY username', $login, 'OR', 'BINARY email', $login)
+									->where('username', $login, 'OR', 'email', $login)
 									->row();
 
 				if ($user)
