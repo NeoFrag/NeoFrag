@@ -100,6 +100,7 @@ class m_teams_m_teams extends Model
 					->update('nf_teams', array(
 						'image_id' => $image_id,
 						'icon_id'  => $icon_id,
+						'game_id'  => $game_id,
 						'name'     => url_title($title)
 					));
 
