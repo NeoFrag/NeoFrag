@@ -103,9 +103,9 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 			{
 				return array($widget['widget'], $widget['type'], $widget['settings'] ? unserialize($widget['settings']) : NULL);
 			}
-			else if (!empty($post['widget']) && !empty($post['type']))
+			else if (!empty($post['widget']) && isset($post['type']))
 			{
-				return array($post['widget'], $post['type']);
+				return array($post['widget'], $post['type'] ?: 'index');
 			}
 		}
 		

@@ -9,7 +9,7 @@
 				<div class="modal-content">\
 					<div class="modal-header">\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo i18n('close'); ?></span></button>\
-						<h4 class="modal-title">'+title+'</h4>\
+						<h4 class="modal-title"><?php echo icon('fa-paint-brush'); ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+$(styles).html()+'\
@@ -51,7 +51,10 @@ var modal_settings = function(title, settings, callback){
 		return;
 	}
 	
-	var load_settings = function(widget, type){
+	var load_settings = function(){
+		var widget = $('#live-editor-settings-widget').val();
+		var type   = $('#live-editor-settings-type').val();
+
 		if ($('#live-editor-settings').data('widget-id') && $('#live-editor-settings').data('original-widget') == widget && $('#live-editor-settings').data('original-type') == type){
 			var data = {
 				widget_id: $('#live-editor-settings').data('widget-id')
@@ -79,7 +82,7 @@ var modal_settings = function(title, settings, callback){
 				<div class="modal-content">\
 					<div class="modal-header">\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo i18n('close'); ?></span></button>\
-						<h4 class="modal-title">'+title+'</h4>\
+						<h4 class="modal-title"><?php echo icon('fa-cogs'); ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+settings+'\
@@ -122,14 +125,12 @@ var modal_settings = function(title, settings, callback){
 			$('#live-editor-settings-title').parents('.form-group:first').show();
 		}
 		
-		load_settings($(this).val(), $('#live-editor-settings-type').val());
+		load_settings();
 	});
 	
 	$modal.on('change', '#live-editor-settings-type', function(){
-		load_settings($('#live-editor-settings-widget').val(), $(this).val());
+		load_settings();
 	});
-	
-	$modal.find('#live-editor-settings-widget').trigger('change');
 	
 	$modal.find('#live-editor-settings-form').submit(function(){
 		$modal.find('.btn-info:first').trigger('click');
@@ -137,8 +138,10 @@ var modal_settings = function(title, settings, callback){
 	});
 	
 	if (!$modal.find('#live-editor-settings-type option[data-widget="'+$('#live-editor-settings-widget').val()+'"]').length){
-		$('#live-editor-settings-type').parents('.form-group:first').hide();
+		$('#live-editor-settings-type').val('index').parents('.form-group:first').hide();
 	}
+	
+	load_settings();
 	
 	$modal.modal();
 	
@@ -164,7 +167,7 @@ var modal_settings = function(title, settings, callback){
 				settings[this.name] = this.value || '';
 			}
 		});
-	
+
 		callback(settings);
 	});
 };
@@ -214,14 +217,14 @@ var modal_delete = function(message, callback){
 				<div class="modal-content">\
 					<div class="modal-header">\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo i18n('close'); ?></span></button>\
-						<h4 class="modal-title"><?php echo i18n('delete_confirmation'); ?></h4>\
+						<h4 class="modal-title"><?php echo icon('fa-trash-o').' '.i18n('delete_confirmation'); ?></h4>\
 					</div>\
 					<div class="modal-body">\
 						'+message+'\
 					</div>\
 					<div class="modal-footer">\
 						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo i18n('cancel'); ?></button>\
-						<button type="button" class="btn btn-danger"><?php echo i18n('remove'); ?></button>\
+						<button type="button" class="btn btn-danger"><?php echo icon('fa-trash-o'); ?> <?php echo i18n('remove'); ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -306,7 +309,7 @@ $(function(){
 							<div class="btn-group" role="group">\
 								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo i18n('design'); ?>"><?php echo icon('fa-paint-brush'); ?></button>' : '')+'\
 								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo i18n('configure'); ?>"><?php echo icon('fa-cogs'); ?></button>\
-								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo i18n('remove'); ?>"><?php echo icon('fa-close'); ?></button>\
+								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo i18n('remove'); ?>"><?php echo icon('fa-trash-o'); ?></button>\
 							</div>\
 						</div>\
 					</div>').prependTo(this).fadeTo('fast', 1);
