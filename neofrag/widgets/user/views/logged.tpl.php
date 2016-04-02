@@ -18,7 +18,7 @@
 		<?php if ($messages = $NeoFrag->user->get_messages()): ?><span class="label label-danger pull-right"><?php echo $messages; ?></span><?php endif; ?>
 		<?php echo icon('fa-envelope-o'); ?> <a href="<?php echo url('user/messages.html'); ?>">Messagerie</a>
 	</li>
-	<?php if ($NeoFrag->user('admin')): //TODO permission ?>
+	<?php if ($this->access->admin()): ?>
 	<li class="list-group-item">
 		<?php echo icon('fa-dashboard'); ?> <a href="<?php echo url('admin.html'); ?>"><?php echo i18n('administration'); ?></a>
 	</li>

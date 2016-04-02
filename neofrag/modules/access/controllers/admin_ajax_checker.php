@@ -71,9 +71,8 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 		if (list($module_name, $type, $id) = array_values(post_check('module', 'type', 'id')))
 		{
 			$module = $this->load->module($module_name);
-			$permissions = $module->get_access($type);
 			
-			if (empty($permissions['check']) || call_user_func($permissions['check'], $id))
+			if (($permissions = $module->get_permissions($type)) && (empty($permissions['check']) || call_user_func($permissions['check'], $id)))
 			{
 				return array($module_name, $type, $id);
 			}
@@ -87,9 +86,8 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 		if (list($action, $module_name, $type, $id) = array_values(post_check('action', 'module', 'type', 'id')))
 		{
 			$module = $this->load->module($module_name);
-			$permissions = $module->get_access($type);
 			
-			if (empty($permissions['check']) || call_user_func($permissions['check'], $id))
+			if (($permissions = $module->get_permissions($type)) && (empty($permissions['check']) || call_user_func($permissions['check'], $id)))
 			{
 				foreach ($permissions['access'] as $permissions)
 				{

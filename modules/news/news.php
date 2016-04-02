@@ -44,6 +44,58 @@ class m_news extends Module
 		'admin/categories/delete/{id}/{url_title}' => '_categories_delete'
 	);
 
+	public static function permissions()
+	{
+		return array(
+			'default' => array(
+				'access'  => array(
+					array(
+						'title'  => 'Actualités',
+						'icon'   => 'file-text-o',
+						'access' => array(
+							'add_news' => array(
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							),
+							'modify_news' => array(
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							),
+							'delete_news' => array(
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							)
+						)
+					),
+					array(
+						'title'  => 'Catégories',
+						'icon'   => 'fa-align-left',
+						'access' => array(
+							'add_news_category' => array(
+								'title' => 'Ajouter une catégorie',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							),
+							'modify_news_category' => array(
+								'title' => 'Modifier une catégorie',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							),
+							'delete_news_category' => array(
+								'title' => 'Supprimer une catégorie',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							)
+						)
+					)
+				)
+			)
+		);
+	}
+
 	public function comments($news_id)
 	{
 		$news = $this->db	->select('title')

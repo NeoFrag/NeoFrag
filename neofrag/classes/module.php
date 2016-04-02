@@ -197,19 +197,19 @@ abstract class Module extends Loadable
 		return $method;
 	}
 	
-	public function get_access($type = NULL)
+	public function get_permissions($type = NULL)
 	{
-		if (method_exists($this, 'access'))
+		if (method_exists($this, 'permissions'))
 		{
-			$access = $this::access();
+			$permissions = $this::permissions();
 			
 			if ($type === NULL)
 			{
-				return $access;
+				return $permissions;
 			}
-			else if (isset($access[$type]))
+			else if (isset($permissions[$type]))
 			{
-				return $access[$type];
+				return $permissions[$type];
 			}
 		}
 
@@ -220,10 +220,47 @@ abstract class Module extends Loadable
 	{
 		return $this->load->model($model ?: $this->name);
 	}
-
+	
 	public function is_administrable()
 	{
 		return ($controller = $this->load->controller('admin')) && (!isset($controller->administrable) || $controller->administrable);
+	}
+
+	public function is_authorized()
+	{
+		static $allowed;
+		
+		if ($allowed === NULL)
+		{
+			$allowed = FALSE;
+			
+			if ($controller = $this->load->controller('admin'))
+			{
+				if ($this->user('admin'))
+				{
+					$allowed = TRUE;
+				}
+				else if (isset($this->groups($this->user('user_id'))[1]))
+				{
+					if ($all_permissions = $this->get_permissions('default'))
+					{
+						foreach ($all_permissions['access'] as $a)
+						{
+							foreach ($a['access'] as $action => $access)
+							{
+								if (!empty($access['admin']) && $this->access($this->name, $action))
+								{
+									$allowed = TRUE;
+									break 2;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return $allowed;
 	}
 }
 

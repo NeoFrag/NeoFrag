@@ -51,7 +51,7 @@ class m_forum extends Module
 		'admin/ajax/categories/move'               => '_categories_move'
 	);
 
-	public static function access()
+	public static function permissions()
 	{
 		return array(
 			'category' => array(

@@ -34,7 +34,7 @@ class m_talks extends Module
 		'admin/{id}/{url_title*}' => '_edit'
 	);
 
-	public static function access()
+	public static function permissions()
 	{
 		return array(
 			'talk' => array(

@@ -35,12 +35,12 @@ class t_admin extends Theme
 		
 		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->is_administrable())
+			if ($module->is_administrable() && $module->is_authorized())
 			{
 				$content_submenu[] = array(
-					'title' => $module->get_title(),
-					'icon'  => $this->template->parse($module->icon),
-					'url'   => 'admin/'.$module->name.'.html'
+					'title'  => $module->get_title(),
+					'icon'   => $this->template->parse($module->icon),
+					'url'    => 'admin/'.$module->name.'.html'
 				);
 			}
 		}
@@ -69,19 +69,22 @@ class t_admin extends Theme
 						'icon'  => 'fa-cogs',
 						'url'   => array(
 							array(
-								'title' => $this('configuration'),
-								'icon'  => 'fa-wrench',
-								'url'   => 'admin/settings.html'
+								'title'  => $this('configuration'),
+								'icon'   => 'fa-wrench',
+								'url'    => 'admin/settings.html',
+								'access' => $this->user('admin')
 							),
 							array(
-								'title' => $this('maintenance'),
-								'icon'  => 'fa-power-off',
-								'url'   => 'admin/settings/maintenance.html'
+								'title'  => $this('maintenance'),
+								'icon'   => 'fa-power-off',
+								'url'    => 'admin/settings/maintenance.html',
+								'access' => $this->user('admin')
 							),
 							array(
-								'title' => $this('addons'),
-								'icon'  => 'fa-puzzle-piece',
-								'url'   => 'admin/addons.html'
+								'title'  => $this('addons'),
+								'icon'   => 'fa-puzzle-piece',
+								'url'    => 'admin/addons.html',
+								'access' => $this->user('admin')
 							)
 						)
 					),
@@ -90,14 +93,16 @@ class t_admin extends Theme
 						'icon'  => 'fa-users',
 						'url'   => array(
 							array(
-								'title' => $this('members'),
-								'icon'  => 'fa-users',
-								'url'   => 'admin/members.html'
+								'title'  => $this('members'),
+								'icon'   => 'fa-users',
+								'url'    => 'admin/members.html',
+								'access' => $this->user('admin')
 							),
 							array(
-								'title' => $this('sessions'),
-								'icon'  => 'fa-globe',
-								'url'   => 'admin/members/sessions.html'
+								'title'  => $this('sessions'),
+								'icon'   => 'fa-globe',
+								'url'    => 'admin/members/sessions.html',
+								'access' => $this->user('admin')
 							),
 							/*array(
 								'title' => 'Profil',
@@ -105,14 +110,16 @@ class t_admin extends Theme
 								'url'   => 'admin/user.html'
 							),*/
 							array(
-								'title' => $this('permissions'),
-								'icon'  => 'fa-unlock-alt',
-								'url'   => 'admin/access.html'
+								'title'  => $this('permissions'),
+								'icon'   => 'fa-unlock-alt',
+								'url'    => 'admin/access.html',
+								'access' => $this->user('admin')
 							),
 							array(
-								'title' => $this('ban'),
-								'icon'  => 'fa-bomb',
-								'url'   => 'admin/members/ban.html'
+								'title'  => $this('ban'),
+								'icon'   => 'fa-bomb',
+								'url'    => 'admin/members/ban.html',
+								'access' => $this->user('admin')
 							)
 						)
 					),
@@ -126,14 +133,16 @@ class t_admin extends Theme
 						'icon'  => 'fa-paint-brush',
 						'url'   => array(
 							array(
-								'title' => $this('themes'),
-								'icon'  => 'fa-tint',
-								'url'   => 'admin/addons.html#themes'
+								'title'  => $this('themes'),
+								'icon'   => 'fa-tint',
+								'url'    => 'admin/addons.html#themes',
+								'access' => $this->user('admin')
 							),
 							array(
 								'title' => $this('liveditor'),
 								'icon'  => 'fa-desktop',
-								'url'   => 'live-editor.html'
+								'url'   => 'live-editor.html',
+								'access' => $this->user('admin')
 							)
 						)
 					),
@@ -144,12 +153,14 @@ class t_admin extends Theme
 							array(
 								'title' => $this('notifications'),
 								'icon'  => 'fa-flag',
-								'url'   => 'admin/notifications.html'
+								'url'   => 'admin/notifications.html',
+								'access' => $this->user('admin')
 							),
 							array(
 								'title' => $this('database'),
 								'icon'  => 'fa-database',
-								'url'   => 'admin/database.html'
+								'url'   => 'admin/database.html',
+								'access' => $this->user('admin')
 							),
 							/*array(
 								'title' => 'Rapport d\'erreurs',
@@ -162,9 +173,10 @@ class t_admin extends Theme
 								'url'   => 'admin/logs.html'
 							),*/
 							array(
-								'title' => $this('server'),
-								'icon'  => 'fa-cogs',
-								'url'   => 'admin/phpinfo.html'
+								'title'  => $this('server'),
+								'icon'   => 'fa-cogs',
+								'url'    => 'admin/phpinfo.html',
+								'access' => $this->user('admin')
 							)
 						)
 					),
@@ -185,14 +197,13 @@ class t_admin extends Theme
 						)
 					),*/
 					array(
-						'title' => $this('about'),
-						'icon'  => 'fa-info',
-						'url'   => 'admin/about.html'
+						'title'  => $this('about'),
+						'icon'   => 'fa-info',
+						'url'    => 'admin/about.html',
+						'access' => $this->user('admin')
 					)
 				));
 
-		//TODO vérification de la licence pour afficher une alerte
-		
 		return parent::load();
 	}
 	

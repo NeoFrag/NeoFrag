@@ -2,7 +2,7 @@
 	<?php foreach ($this->addons->get_modules(TRUE) as $module): ?>
 	<?php
 		$settings      = method_exists($module, 'settings');
-		$access        = $module->get_access('default');
+		$access        = $module->get_permissions('default');
 		$deactivatable = $module->is_deactivatable();
 		$removable     = $module->is_removable();
 
@@ -26,7 +26,7 @@
 		</div>
 		<div class="item-action">
 			<?php if ($settings) echo button('admin/addons/module/'.$module->name.'.html', 'fa-wrench', 'Configurer', 'warning'); ?>
-			<?php if (0 && $access) echo button_access(); ?>
+			<?php if ($access) echo button_access($module->name); ?>
 			<?php if (0 && $removable) echo button_delete('admin/addons/delete/module/'.$module->name.'.html'); ?>
 		</div>
 	</div>

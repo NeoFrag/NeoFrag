@@ -26,7 +26,7 @@ class m_access_c_admin_checker extends Controller_Module
 
 		foreach ($this->addons->get_modules() as $module)
 		{
-			foreach ($module->get_access() as $type => $access)
+			foreach ($module->get_permissions() as $type => $access)
 			{
 				if (!empty($access['get_all']) && $get_all = call_user_func($access['get_all']))
 				{
@@ -69,12 +69,10 @@ class m_access_c_admin_checker extends Controller_Module
 	public function _edit($module_name, $access = '0-default')
 	{
 		$module = $this->load->module($module_name);
-		
+
 		list($id, $type) = explode('-', $access);
-		
-		$access = $module->get_access($type);
-		
-		if (empty($access['check']) || $title = call_user_func($access['check'], $id))
+
+		if (($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
 		{
 			return array($module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL);
 		}

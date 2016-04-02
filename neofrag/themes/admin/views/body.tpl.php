@@ -83,25 +83,31 @@
 
 			foreach ($link['url'] as $sublink)
 			{
-				$class = array();
-
-				if (!empty($sublink['pro']))
+				if (!isset($sublink['access']) || $sublink['access'])
 				{
-					$class[] = 'forbidden';
-				}
+					$class = array();
 
-				if ($actives && $actives[0] == $sublink['url'])
-				{
-					$active  = TRUE;
-					$class[] = 'active';
-				}
+					if (!empty($sublink['pro']))
+					{
+						$class[] = 'forbidden';
+					}
 
-				$submenu .= '<li><a'.(!empty($class) ? ' class="'.implode(' ', $class).'"' : '').' href="'.url($sublink['url']).'">'.icon($sublink['icon']).$sublink['title'].'</a></li>';
+					if ($actives && $actives[0] == $sublink['url'])
+					{
+						$active  = TRUE;
+						$class[] = 'active';
+					}
+
+					$submenu .= '<li><a'.(!empty($class) ? ' class="'.implode(' ', $class).'"' : '').' href="'.url($sublink['url']).'">'.icon($sublink['icon']).$sublink['title'].'</a></li>';
+				}
 			}
 
-			echo '<li'.($active ? ' class="active"' : '').'><a data-toggle="collapse" href="#menu_'.url_title($link['title']).'">'.icon($link['icon']).' <span class="hidden-xs">'.$link['title'].'</span><span class="fa arrow"></span></a><ul class="nav nav-second-level'.(!$active ? ' collapse' : '').'">'.$submenu.'</ul></li>';
+			if ($submenu)
+			{
+				echo '<li'.($active ? ' class="active"' : '').'><a data-toggle="collapse" href="#menu_'.url_title($link['title']).'">'.icon($link['icon']).' <span class="hidden-xs">'.$link['title'].'</span><span class="fa arrow"></span></a><ul class="nav nav-second-level'.(!$active ? ' collapse' : '').'">'.$submenu.'</ul></li>';
+			}
 		}
-		else
+		else if (!isset($link['access']) || $link['access'])
 		{
 			echo '<li><a'.($NeoFrag->config->request_url == $link['url'] ? ' class="active"' : '').' href="'.url($link['url']).'">'.icon($link['icon']).' <span class="hidden-xs">'.$link['title'].'</span></a></li>';
 		}
@@ -115,10 +121,10 @@
 			<div class="col-lg-12">
 				<h1 class="page-header"><?php echo $NeoFrag->output->data['module_title']; if (!empty($NeoFrag->output->data['module_subtitle'])) echo '<small>'.$NeoFrag->output->data['module_subtitle'].'</small>'; ?></h1>
 				<div class="page-actions pull-right">
-					<?php if ($data['module_method'] == 'index' && $NeoFrag->module->get_access('default')): ?>
-						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
+					<?php if ($data['module_method'] == 'index' && $NeoFrag->module->get_permissions('default') && $NeoFrag->module('access')->is_authorized()): ?>
+						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif; ?>
-					<?php if (method_exists($NeoFrag->module, 'settings')): ?>
+					<?php if (method_exists($NeoFrag->module, 'settings') && $NeoFrag->module('addons')->is_authorized()): ?>
 						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> <?php echo i18n('configuration'); ?></span></a>
 					<?php endif; ?>
 					<?php if (($help = $NeoFrag->module->load->controller('admin_help')) && method_exists($help, $data['module_method'])): ?>

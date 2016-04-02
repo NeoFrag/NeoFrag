@@ -67,6 +67,11 @@ abstract class Controller extends Translatable
 	{
 		return $this->load->object->load->model($model);
 	}
+
+	public function is_authorized($action)
+	{
+		return $this->access($this->load->object->name, $action);
+	}
 }
 
 /*

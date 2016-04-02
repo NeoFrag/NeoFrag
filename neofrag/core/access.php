@@ -191,7 +191,7 @@ class Access extends Core
 	public function init($module_name, $type = 'default', $id = 0)
 	{
 		$module = $this->load->module($module_name);
-		$access = $module->get_access($type);
+		$access = $module->get_permissions($type);
 		
 		if (!empty($access['init']))
 		{
@@ -238,6 +238,34 @@ class Access extends Core
 					->delete('nf_access_details');
 
 		return $this;
+	}
+	
+	public function admin()
+	{
+		static $allowed;
+		
+		if ($allowed === NULL)
+		{
+			$allowed = FALSE;
+			
+			if ($this->user('admin'))
+			{
+				$allowed = TRUE;
+			}
+			else if (isset($this->groups($this->user('user_id'))[1]))
+			{
+				foreach ($this->addons->get_modules() as $module)
+				{
+					if ($module->is_authorized())
+					{
+						$allowed = TRUE;
+						break;
+					}
+				}
+			}
+		}
+		
+		return $allowed;
 	}
 
 	private function _load_users($group_id)

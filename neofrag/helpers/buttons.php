@@ -51,14 +51,14 @@ function button_sort($id, $url, $parent = 'table', $items = 'tr', $title = NULL)
 	));
 }
 
-function button_access($id, $access, $module = NULL, $title = NULL)
+function button_access($id, $access = NULL, $module = NULL, $title = NULL)
 {
 	if ($title === NULL)
 	{
 		$title = NeoFrag::loader()->lang('permissions');
 	}
 
-	return button('admin/access/edit/'.($module ?: NeoFrag::loader()->module->name).'/'.$id.'-'.$access.'.html', 'fa-unlock-alt', $title, 'success');
+	return button('admin/access/edit/'.($access ? ($module ?: NeoFrag::loader()->module->name).'/'.$id.'-'.$access : $id).'.html', 'fa-unlock-alt', $title, 'success');
 }
 
 function button_edit($url, $title = NULL)
