@@ -38,10 +38,18 @@ class Breadcrumb extends Core
 		return $links;
 	}
 
-	public function __invoke($title, $link = '', $icon = '')
+	public function __invoke($title = '', $link = '', $icon = '')
 	{
-		$this->_links[] = array($title, $link ?: $this->config->request_url, $icon ?: $this->load->module->icon);
-		
+		if ($title === '')
+		{
+			$title = !empty($this->load->module->load->data['module_title']) ? $this->load->module->load->data['module_title'] : '';
+		}
+
+		if ($title !== '')
+		{
+			$this->_links[] = array($title, $link ?: $this->config->request_url, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon));
+		}
+
 		return $this;
 	}
 }

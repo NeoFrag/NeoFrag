@@ -125,7 +125,7 @@ class m_forum_c_index extends Controller_Module
 	{
 		$this	->title($this('new_topic'))
 				->_breadcrumb($category_id, $forum_id)
-				->breadcrumb($this('new_topic'))
+				->breadcrumb()
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
@@ -194,7 +194,7 @@ class m_forum_c_index extends Controller_Module
 	{
 		$this	->title($title)
 				->_breadcrumb($category_id, $forum_id)
-				->breadcrumb($title)
+				->breadcrumb()
 				->js('neofrag.delete');
 		
 		$last_message_read = NULL;
@@ -490,7 +490,7 @@ class m_forum_c_index extends Controller_Module
 		$this	->title($this($is_topic ? 'edit_topic' : 'edit_message'))
 				->_breadcrumb($category_id, $forum_id)
 				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title).'.html')
-				->breadcrumb($this($is_topic ? 'edit_topic' : 'edit_message'))
+				->breadcrumb()
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
