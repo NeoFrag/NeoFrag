@@ -26,7 +26,7 @@ class w_navigation_c_checker extends Controller_Widget
 		
 		foreach ($settings as $key => $values)
 		{
-			if (in_array($key, array('title', 'url')))
+			if (in_array($key, array('title', 'url', 'target')))
 			{
 				foreach ($values as $i => $value)
 				{

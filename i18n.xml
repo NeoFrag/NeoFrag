@@ -52,7 +52,7 @@
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R719C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="719" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="723" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -6794,6 +6794,30 @@
     <Cell><Data ss:Type="String">Voir l\'ensemble des résultats</Data></Cell>
     <Cell><Data ss:Type="String">See all results</Data></Cell>
    </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/widgets/navigation/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">move</Data></Cell>
+    <Cell><Data ss:Type="String">Ordonner</Data></Cell>
+    <Cell><Data ss:Type="String">Move</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/widgets/navigation/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">new_window</Data></Cell>
+    <Cell><Data ss:Type="String">Nouvelle fenêtre</Data></Cell>
+    <Cell><Data ss:Type="String">New window</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/widgets/navigation/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">same_window</Data></Cell>
+    <Cell><Data ss:Type="String">Même fenêtre</Data></Cell>
+    <Cell><Data ss:Type="String">Same window</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">neofrag/widgets/navigation/lang/</Data></Cell>
+    <Cell><Data ss:Type="String">target</Data></Cell>
+    <Cell><Data ss:Type="String">Cible</Data></Cell>
+    <Cell><Data ss:Type="String">Target</Data></Cell>
+   </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
@@ -6807,6 +6831,12 @@
     <VerticalResolution>600</VerticalResolution>
    </Print>
    <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1:R1048576</RangeSelection>
+    </Pane>
+   </Panes>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
    <AllowFormatCells/>
