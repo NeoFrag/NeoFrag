@@ -197,6 +197,8 @@ CREATE TABLE IF NOT EXISTS `nf_files` (
 --
 
 INSERT INTO `nf_files` VALUES(1, 1, 'Sans-titre-2.jpg', './upload/news/categories/ubfuejdfooirqya0pyltfeklja4ew4sn.jpg', '2015-05-29 22:34:16');
+INSERT INTO `nf_files` VALUES(2, 1, 'logo.png', 'upload/partners/zwvmsjijfljaka4rdblgvlype1lnbwaw.png', '2016-05-07 16:51:53');
+INSERT INTO `nf_files` VALUES(3, 1, 'logo_black.png', 'upload/partners/y4ofwq2ekppwnfpmnrmnafeivszlg5bd.png', '2016-05-07 16:51:53');
 
 -- --------------------------------------------------------
 
@@ -650,6 +652,57 @@ CREATE TABLE IF NOT EXISTS `nf_pages_lang` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_partners`
+--
+
+DROP TABLE IF EXISTS `nf_partners`;
+CREATE TABLE IF NOT EXISTS `nf_partners` (
+  `partner_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `logo_light` int(11) UNSIGNED DEFAULT NULL,
+  `logo_dark` int(11) UNSIGNED DEFAULT NULL,
+  `website` varchar(100) NOT NULL,
+  `facebook` varchar(100) NOT NULL,
+  `twitter` varchar(100) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `count` int(11) UNSIGNED NOT NULL,
+  `order` tinyint(6) UNSIGNED NOT NULL,
+  PRIMARY KEY (`partner_id`),
+  KEY `image_id` (`logo_light`),
+  KEY `logo_dark` (`logo_dark`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_partners`
+--
+
+INSERT INTO `nf_partners` VALUES(1, 'neofrag', 2, 3, 'https://neofr.ag', 'https://www.facebook.com/NeoFrag-CMS-345511868808600/', 'https://twitter.com/NeoFragCMS', '', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_partners_lang`
+--
+
+DROP TABLE IF EXISTS `nf_partners_lang`;
+CREATE TABLE IF NOT EXISTS `nf_partners_lang` (
+  `partner_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `lang` varchar(5) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`partner_id`),
+  KEY `lang` (`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_partners_lang`
+--
+
+INSERT INTO `nf_partners_lang` VALUES(1, 'fr', 'NeoFrag', 'NeoFrag est un CMS (syst&egrave;me de gestion de contenu) &agrave; la fois puissant, compact et performant, pour cr&eacute;er votre site web orient&eacute; e-Sport !\r\n\r\n[b]C''est enti&egrave;rement gratuit et personnalisable ![/b]\r\nPeu importe votre niveau dans le domaine du web, ce projet a pour but de vous proposer une solution cl&eacute;s en main pour cr&eacute;er votre site &agrave; l''aide d''interfaces modernes, personnalisables et &eacute;volutives pour correspondre &agrave; un maximum d''univers.');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_search_keywords`
 --
 
@@ -739,6 +792,7 @@ INSERT INTO `nf_settings` VALUES('default_background_attachment', '', '', 'scrol
 INSERT INTO `nf_settings` VALUES('default_background_color', '', '', '#141d26', 'string');
 INSERT INTO `nf_settings` VALUES('default_background_position', '', '', 'center top', 'string');
 INSERT INTO `nf_settings` VALUES('default_background_repeat', '', '', 'no-repeat', 'string');
+INSERT INTO `nf_settings` VALUES('partners_logo_display', '', '', 'logo_dark', 'string');
 
 -- --------------------------------------------------------
 
@@ -784,6 +838,8 @@ INSERT INTO `nf_settings_addons` VALUES('navigation', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('news', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('news', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('pages', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('partners', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('partners', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('search', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('search', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('settings', 'module', '1');
@@ -1350,6 +1406,20 @@ ALTER TABLE `nf_news_lang`
 ALTER TABLE `nf_pages_lang`
   ADD CONSTRAINT `nf_pages_lang_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `nf_pages` (`page_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_pages_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_partners`
+--
+ALTER TABLE `nf_partners`
+  ADD CONSTRAINT `nf_partners_ibfk_1` FOREIGN KEY (`logo_light`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `nf_partners_ibfk_2` FOREIGN KEY (`logo_dark`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Contraintes pour la table `nf_partners_lang`
+--
+ALTER TABLE `nf_partners_lang`
+  ADD CONSTRAINT `nf_partners_lang_ibfk_1` FOREIGN KEY (`partner_id`) REFERENCES `nf_partners` (`partner_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_partners_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_sessions`
