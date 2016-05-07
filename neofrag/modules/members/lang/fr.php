@@ -54,6 +54,6 @@ $lang['user']                   = 'Utilisateur';
 $lang['user_delete_message']    = 'Êtes-vous sûr(e) de vouloir supprimer le membre <b>%s</b> ?';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/members/lang/fr.php
 */

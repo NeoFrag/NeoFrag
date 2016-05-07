@@ -90,6 +90,6 @@ function button_add($url, $title, $icon = 'fa-plus')
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/helpers/buttons.php
 */

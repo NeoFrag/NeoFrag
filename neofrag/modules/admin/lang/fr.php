@@ -51,6 +51,6 @@ $lang['web_developer']      = 'Développeur web';
 $lang['web_server']         = 'Serveur web';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/admin/lang/fr.php
 */

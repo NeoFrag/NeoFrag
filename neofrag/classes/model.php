@@ -29,6 +29,6 @@ class Model extends Translatable
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/classes/model.php
 */

@@ -65,6 +65,6 @@ $lang['tag']                           = 'Tag %s';
 $lang['tags']                          = 'Keyword(s)';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./modules/news/lang/en.php
 */

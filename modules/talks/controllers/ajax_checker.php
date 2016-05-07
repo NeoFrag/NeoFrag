@@ -90,6 +90,6 @@ class m_talks_c_ajax_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./modules/talks/controllers/ajax_checker.php
 */

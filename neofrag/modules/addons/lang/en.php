@@ -33,6 +33,6 @@ $lang['upload_zip_file']             = 'Download a .zip (max. %dMB) theme';
 $lang['zip_file_required']           = 'Please download a .zip theme';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/addons/lang/en.php
 */

@@ -42,6 +42,6 @@ $lang['text_color']                   = 'Couleur du texte';
 $lang['website_status']               = 'Statut du site';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/settings/lang/fr.php
 */

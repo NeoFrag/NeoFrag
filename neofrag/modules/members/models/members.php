@@ -171,6 +171,6 @@ class m_members_m_members extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/members/models/members.php
 */

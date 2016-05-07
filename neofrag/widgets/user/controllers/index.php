@@ -76,6 +76,6 @@ class w_user_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/widgets/user/controllers/index.php
 */

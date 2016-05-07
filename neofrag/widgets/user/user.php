@@ -35,6 +35,6 @@ class w_user extends Widget
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/widgets/user/user.php
 */

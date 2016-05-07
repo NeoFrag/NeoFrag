@@ -97,6 +97,6 @@ $lang['views']                 = '<b>%d</b> vue|<b>%d</b> vues';
 $lang['write']                 = 'Écrire';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./modules/forum/lang/fr.php
 */

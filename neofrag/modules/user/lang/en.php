@@ -59,6 +59,6 @@ $lang['unknown']                             = 'None';
 $lang['username_description']                = 'You can login with your email address or even your screen name.';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/user/lang/en.php
 */

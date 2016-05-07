@@ -59,6 +59,6 @@ class BBCode extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.2
-./neofrag/libraries/text_editor.php
+NeoFrag Alpha 0.1.4
+./neofrag/libraries/bbcode.php
 */

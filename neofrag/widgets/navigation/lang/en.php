@@ -37,6 +37,6 @@ $lang['target']              = 'Target';
 $lang['vertical']            = 'Vertical';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/widgets/navigation/lang/en.php
 */

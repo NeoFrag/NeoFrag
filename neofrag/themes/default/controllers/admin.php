@@ -132,6 +132,6 @@ class t_default_c_admin extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/themes/default/controllers/admin.php
 */

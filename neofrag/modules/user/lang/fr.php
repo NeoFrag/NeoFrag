@@ -59,6 +59,6 @@ $lang['unknown']                             = 'Aucun';
 $lang['username_description']                = 'Vous pouvez vous identifier avec votre adresse mail ou bien votre pseudonyme';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/user/lang/fr.php
 */

@@ -52,6 +52,6 @@ function urltolink($url)
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.4
 ./neofrag/helpers/location.php
 */

@@ -1,5 +1,71 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.4](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4) (2016-05-07)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.3...alpha0.1.4)
+
+**Features**
+
+- Addons management
+- PHP 7 compatibility with MySQLi
+- Debugbar
+
+**Core**
+
+- [Col] Adding array support in Col constructor
+- [Breadcrumb] Add breadcrumb on pages module
+- [Breadcrumb] First arg is now optional (using module_title and module_icon)
+- [i18n] Minor adjustments
+
+**Libraries**
+
+- [Captcha] Using curl
+- [Email] Improving with PHPMailer lib
+- [Form] Fix value in date time inputs
+- [Form] Improving forms (number, phone, size and placeholder)
+
+**LiveEditor**
+
+- Minor adjustments
+
+**Modules**
+
+- [Awards] Add module
+- [Forum] Fix member type when edit message
+- [Forum] Fix subforums access error
+- [Forum] Improving user profile display
+- [Gallery] Fix picture preview and back link
+- [Games] Adding maps and modes
+- [Partners] Add module
+- [Search] Add new module
+- [Settings] Ability to choose a custom page as home page
+- [Settings] Remove script tags automatically
+- [Talks] Fix deleted user avatar
+- [Teams] Fix game when updating teams
+- [User] Add private messaging, user profile and widgets improved
+- [User] Case insensitive login check
+
+**Widgets**
+
+- [Forum] Add subforum messages
+- [Forum][Statistics] Fix announce counter
+- [Navigation] Settings improving
+
+**Fixes**
+
+- Add https support
+
+**Helpers**
+
+- [Assets] Add file_name param on asset()
+
+**Themes**
+
+- [Default] Minor adjustments
+
+**Security**
+
+- Global improving
+
 ## [Alpha 0.1.3](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.3) (2015-11-29)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.2...alpha0.1.3)
 

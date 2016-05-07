@@ -45,5 +45,5 @@ class m_partners_c_admin_checker extends Controller_Module
 
 /*
 NeoFrag Alpha 0.1.4
-./modules/teams/controllers/admin_checker.php
+./modules/partners/controllers/admin_checker.php
 */

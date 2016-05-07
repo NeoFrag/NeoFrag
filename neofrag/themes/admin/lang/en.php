@@ -33,6 +33,6 @@ $lang['security']      = 'Security';
 $lang['support']       = 'Support';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/themes/admin/lang/en.php
 */

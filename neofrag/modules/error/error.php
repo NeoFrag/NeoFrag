@@ -37,6 +37,6 @@ class m_error extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/error/error.php
 */

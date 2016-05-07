@@ -207,6 +207,6 @@ class t_admin extends Theme
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/themes/admin/admin.php
 */

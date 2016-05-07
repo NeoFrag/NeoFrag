@@ -47,6 +47,6 @@ class m_games extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./modules/games/games.php
 */

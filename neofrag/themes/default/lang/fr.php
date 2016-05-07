@@ -52,6 +52,6 @@ $lang['white_background']             = 'Fond blanc';
 $lang['white_widget']                 = 'Widget blanc';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/themes/default/lang/fr.php
 */

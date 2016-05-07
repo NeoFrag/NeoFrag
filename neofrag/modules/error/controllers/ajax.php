@@ -34,6 +34,6 @@ class m_error_c_ajax extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
-./neofrag/modules/error/controllers/index.php
+NeoFrag Alpha 0.1.4
+./neofrag/modules/error/controllers/ajax.php
 */

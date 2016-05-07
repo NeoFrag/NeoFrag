@@ -32,6 +32,6 @@ class m_live_editor extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/live_editor/live_editor.php
 */

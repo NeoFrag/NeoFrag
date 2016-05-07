@@ -118,6 +118,6 @@ $rules = array(
 );
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4
 ./neofrag/modules/members/forms/members.php
 */
