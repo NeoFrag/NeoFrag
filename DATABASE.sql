@@ -485,6 +485,38 @@ CREATE TABLE IF NOT EXISTS `nf_games_lang` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_games_maps`
+--
+
+DROP TABLE IF EXISTS `nf_games_maps`;
+CREATE TABLE IF NOT EXISTS `nf_games_maps` (
+  `map_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `game_id` int(11) UNSIGNED NOT NULL,
+  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  PRIMARY KEY (`map_id`),
+  KEY `game_id` (`game_id`),
+  KEY `image_id` (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_games_modes`
+--
+
+DROP TABLE IF EXISTS `nf_games_modes`;
+CREATE TABLE IF NOT EXISTS `nf_games_modes` (
+  `mode_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `game_id` int(11) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL,
+  PRIMARY KEY (`mode_id`),
+  KEY `game_id` (`game_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_groups`
 --
 
@@ -1370,6 +1402,19 @@ ALTER TABLE `nf_games_lang`
 ALTER TABLE `nf_groups_lang`
   ADD CONSTRAINT `nf_groups_lang_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `nf_groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_groups_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_games_maps`
+--
+ALTER TABLE `nf_games_maps`
+  ADD CONSTRAINT `nf_games_maps_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `nf_games` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_games_maps_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Contraintes pour la table `nf_games_modes`
+--
+ALTER TABLE `nf_games_modes`
+  ADD CONSTRAINT `nf_games_modes_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `nf_games` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_news`

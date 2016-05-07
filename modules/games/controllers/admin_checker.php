@@ -22,15 +22,14 @@ class m_games_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array(array());
-		//return array($this->load->library('pagination')->get_data($this->model('maps')->get_maps(), $page));
+		return array($this->load->library('pagination')->get_data($this->model('maps')->get_maps(), $page));
 	}
 
-	public function _edit($game_id, $name, $tab = 'default')
+	public function _edit($game_id, $name, $page = '')
 	{
-		if ($game = $this->model()->check_game($game_id, $name, $tab))
+		if ($game = $this->model()->check_game($game_id, $name, 'default'))
 		{
-			return $game + array($tab);
+			return array_merge($game, array($this->load->library('pagination')->get_data($this->model('maps')->get_maps($game_id), $page)));
 		}
 		else
 		{
@@ -45,6 +44,75 @@ class m_games_c_admin_checker extends Controller_Module
 		if ($game = $this->model()->check_game($game_id, $name))
 		{
 			return array($game['game_id'], $game['title']);
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _maps_add($game_id = NULL, $title = NULL)
+	{
+		if ($game_id === NULL && $title === NULL)
+		{
+			return array();
+		}
+		
+		if ($game = $this->model()->check_game($game_id, $title))
+		{
+			return array($game_id, $game['name']);
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _maps_edit($map_id, $title)
+	{
+		if ($map = $this->model('maps')->check_map($map_id, $title))
+		{
+			return $map;
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _maps_delete($map_id, $title)
+	{
+		$this->ajax();
+
+		if ($map = $this->model('maps')->check_map($map_id, $title))
+		{
+			return array($map_id, $map['title']);
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _modes_add($game_id, $title)
+	{
+		if ($game = $this->model()->check_game($game_id, $title))
+		{
+			return array($game_id, $game['name']);
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _modes_edit($mode_id, $title)
+	{
+		if ($mode = $this->model('modes')->check_mode($mode_id, $title))
+		{
+			return $mode;
+		}
+
+		throw new Exception(NeoFrag::UNFOUND);
+	}
+
+	public function _modes_delete($mode_id, $title)
+	{
+		$this->ajax();
+
+		if ($mode = $this->model('modes')->check_mode($mode_id, $title))
+		{
+			return array($mode_id, $mode['title']);
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

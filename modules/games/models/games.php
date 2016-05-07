@@ -27,7 +27,7 @@ class m_games_m_games extends Model
 			$lang = $this->config->lang;
 		}
 		
-		return $this->db->select('g.game_id', 'g.parent_id', 'g.image_id', 'g.icon_id', 'gl.title')
+		return $this->db->select('g.game_id', 'g.parent_id', 'g.image_id', 'g.icon_id', 'gl.title', 'g.name')
 						->from('nf_games g')
 						->join('nf_games_lang gl', 'g.game_id = gl.game_id')
 						->where('g.game_id', $game_id)
@@ -48,19 +48,26 @@ class m_games_m_games extends Model
 						->get();
 	}
 	
-	public function get_games_list($game_id = NULL)
+	public function get_games_list($all = FALSE, $game_id = NULL)
 	{
 		$list = array();
 
 		foreach ($this->get_games() as $game)
 		{
-			if (empty($game['parent_id']) && (!$game_id || $game_id != $game['game_id']))
+			if ($game_id == $game['game_id'] || ($game_id && $game_id == $game['parent_id']))
+			{
+				continue;
+			}
+			
+			if (empty($game['parent_id']))
 			{
 				$list[$game['game_id']] = $game['title'];
 			}
+			else if ($all)
+			{
+				$list['g'.$game['game_id']] = str_repeat('&nbsp;', 10).$game['title'];
+			}
 		}
-
-		natsort($list);
 
 		return $list;
 	}
@@ -79,6 +86,8 @@ class m_games_m_games extends Model
 			'lang'      => $this->config->lang,
 			'title'     => $title
 		));
+		
+		return $game_id;
 	}
 
 	public function edit_game($game_id, $title, $parent_id, $image_id, $icon_id)
