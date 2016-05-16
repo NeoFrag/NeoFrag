@@ -197,6 +197,8 @@ class m_forum_c_index extends Controller_Module
 				->breadcrumb()
 				->js('neofrag.delete');
 		
+		$this->js('bbcode');
+		
 		$last_message_read = NULL;
 		
 		$is_last_page = $nb_messages <= $this->pagination->get_items_per_page() || $this->pagination->get_page() == ceil($nb_messages / $this->pagination->get_items_per_page());

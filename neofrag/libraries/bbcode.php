@@ -39,7 +39,9 @@ class BBCode extends Library
 		'\[(left|center|right)\](.*?)\[/\1\]'               => '<div style="text-align: \1;">\2</div>',
 		'\[quote\](.*?)\[/quote\]'                          => '<blockquote>\1</blockquote>',
 		'\[code\](.*?)\[/code\]'                            => '<code>\1</code>',
-		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>'
+		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>',
+		'\[spoiler\](.*?)\[/spoiler\]'                      => '<div class="panel panel-default"><div class="panel-heading"><button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">Spoiler</button></div><div class="panel-collapse collapse out"><div class="panel-body"><p>\1</p></div></div></div>',
+		'\[hide=(.*?)\](.*?)\[/hide\]'                        => '<div class="panel panel-default"><div class="panel-heading"><button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">\1</button></div><div class="panel-collapse collapse out"><div class="panel-body"><p>\2</p></div></div></div>'
 	);
 
 	public function bbcode2html($output)
