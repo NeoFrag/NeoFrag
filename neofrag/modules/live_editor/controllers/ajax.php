@@ -181,11 +181,11 @@ class m_live_editor_c_ajax extends Controller_Module
 	public function widget_settings($widget_id = 0, $widget = '', $type = 'index', $title = '', $settings = '')
 	{
 		$this->model()->get_widgets($widgets, $types);
-		
+
 		return $this->load->view('widget', array(
 			'widget_id' => $widget_id,
 			'title'     => $title,
-			'widget'    => $widget,
+			'widget'    => $widget ?: array_keys($widgets)[0],
 			'widgets'   => $widgets,
 			'type'      => $type,
 			'types'     => $types

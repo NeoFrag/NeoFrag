@@ -50,7 +50,7 @@ var modal_settings = function(title, settings, callback){
 	if ($('body').find('.live-editor-modal').length){
 		return;
 	}
-	
+
 	var load_settings = function(){
 		var widget = $('#live-editor-settings-widget').val();
 		var type   = $('#live-editor-settings-type').val();
@@ -94,7 +94,7 @@ var modal_settings = function(title, settings, callback){
 				</div>\
 			</div>\
 		</div>').appendTo('body');
-	
+
 	$modal.on('change', '#live-editor-settings-widget', function(){
 		var $widgets = $(this), count = 0;
 		
@@ -124,6 +124,10 @@ var modal_settings = function(title, settings, callback){
 		else {
 			$('#live-editor-settings-title').parents('.form-group:first').show();
 		}
+	
+		if (!$modal.find('#live-editor-settings-type option[data-widget="'+$('#live-editor-settings-widget').val()+'"]').length){
+			$('#live-editor-settings-type').val('index').parents('.form-group:first').hide();
+		}
 		
 		load_settings();
 	});
@@ -136,13 +140,7 @@ var modal_settings = function(title, settings, callback){
 		$modal.find('.btn-info:first').trigger('click');
 		return false;
 	});
-	
-	if (!$modal.find('#live-editor-settings-type option[data-widget="'+$('#live-editor-settings-widget').val()+'"]').length){
-		$('#live-editor-settings-type').val('index').parents('.form-group:first').hide();
-	}
-	
-	load_settings();
-	
+
 	$modal.modal();
 	
 	$modal.on('hidden.bs.modal', function(){
@@ -154,7 +152,13 @@ var modal_settings = function(title, settings, callback){
 		
 		$modal.modal('hide');
 		
-		var settings = {};
+		var settings = {
+			title: '',
+			settings: null
+		};
+		
+		settings.settings = null;
+		
 		$.each($('#live-editor-settings-form').serializeArray(), function(){
 			if (settings[this.name] !== undefined){
 				if (!settings[this.name].push){
@@ -573,7 +577,7 @@ $(function(){
 					}).always(function(){
 						$('.live-editor-save').hide();
 					});
-				}, true);
+				});
 			});
 		});
 		
