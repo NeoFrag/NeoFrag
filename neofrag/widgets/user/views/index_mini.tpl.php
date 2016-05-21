@@ -7,7 +7,7 @@
 			<a href="<?php echo url('user/messages.html'); ?>"><?php echo icon('fa-envelope-o'); ?></a>
 		</li>
 		<?php if ($NeoFrag->user('admin') == TRUE): ?>
-			<li data-toggle="tooltip" title="Adminsitration"><a href="<?php echo url('admin.html'); ?>"><?php echo icon('fa-dashboard'); ?></a></li>
+			<li data-toggle="tooltip" title="Administration"><a href="<?php echo url('admin.html'); ?>"><?php echo icon('fa-dashboard'); ?></a></li>
 		<?php endif; ?>
 		<li data-toggle="tooltip" title="Déconnexion"><a href="<?php echo url('user/logout.html'); ?>"><?php echo icon('fa-close'); ?></a></li>
 	<?php else: ?>
