@@ -103,6 +103,11 @@ class m_live_editor_m_live_editor extends Model
 	{
 		foreach ($this->addons->get_widgets() as $widget)
 		{
+			if ($widget->name == 'error')
+			{
+				continue;
+			}
+
 			$widgets[$widget->name] = $widget->get_title();
 			
 			if (!empty($widget->types))
