@@ -11,12 +11,12 @@ $(function(){
 		var $first = $talks.find('[data-message-id]:last');
 		var data = {
 			talk_id:    $talks.data('talk-id'),
-			message_id: $first.data('message-id')
+			message_id: $first.length ? $first.data('message-id') : 0
 		};
 
 		if (olders){
 			$.extend(data, {
-				position: $first.data('position')
+				position: $first.length ? $first.data('position') : 0
 			});
 		}
 		

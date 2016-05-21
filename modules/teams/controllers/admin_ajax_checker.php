@@ -22,7 +22,7 @@ class m_teams_c_admin_ajax_checker extends Controller
 {
 	public function sort()
 	{
-		if (($check = $this->_check('id', 'position')) && $this->db->select('1')->from('nf_teams')->where('team_id', $check['id'])->row())
+		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_teams')->where('team_id', $check['id'])->row())
 		{
 			return $check;
 		}
@@ -32,20 +32,12 @@ class m_teams_c_admin_ajax_checker extends Controller
 
 	public function _roles_sort()
 	{
-		if (($check = $this->_check('id', 'position')) && $this->db->select('1')->from('nf_teams_roles')->where('role_id', $check['id'])->row())
+		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_teams_roles')->where('role_id', $check['id'])->row())
 		{
 			return $check;
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
-	}
-	
-	private function _check()
-	{
-		if (!array_diff(func_get_args(), array_keys($args = array_intersect_key(post(), array_flip(func_get_args())))))
-		{
-			return $args;
-		}
 	}
 }
 

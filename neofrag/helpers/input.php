@@ -18,9 +18,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function post($var = '')
+function post($var = NULL)
 {
-	if ($var == '')
+	if ($var === NULL)
 	{
 		return $_POST;
 	}
@@ -31,6 +31,26 @@ function post($var = '')
 	}
 
 	return NULL;
+}
+
+function post_check($args)
+{
+	$post = post();
+	$data = array();
+
+	foreach (is_array($args) ? $args : func_get_args() as $var)
+	{
+		if (isset($post[$var]))
+		{
+			$data[$var] = $post[$var];
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	return $data;
 }
 
 /*

@@ -22,14 +22,14 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 {
 	public function index()
 	{
-		return $this->_check_actions('action', 'module', 'type', 'id');
+		return $this->_check_actions();
 	}
 	
 	public function update()
 	{
 		$this->extension('json');
 		
-		list($action, $title, $icon, $module_name, $id) = $this->_check_actions('action', 'module', 'type', 'id');
+		list($action, $title, $icon, $module_name, $id) = $this->_check_actions();
 		
 		if ($groups = post('groups'))
 		{
@@ -63,15 +63,13 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 	
 	public function users()
 	{
-		return $this->_check_actions('action', 'module', 'type', 'id');
+		return $this->_check_actions();
 	}
 	
 	public function reset()
 	{
-		if (!array_diff($post = array('module', 'type', 'id'), array_keys($values = array_intersect_key(post(), $args = array_flip($post)))))
+		if (list($module_name, $type, $id) = array_values(post_check('module', 'type', 'id')))
 		{
-			list($module_name, $type, $id) = array_values(array_merge($args, $values));
-			
 			$module = $this->load->module($module_name);
 			$permissions = $module->get_access($type);
 			
@@ -86,10 +84,8 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 	
 	private function _check_actions()
 	{
-		if (!array_diff(func_get_args(), array_keys($values = array_intersect_key(post(), $args = array_flip(func_get_args())))))
+		if (list($action, $module_name, $type, $id) = array_values(post_check('action', 'module', 'type', 'id')))
 		{
-			list($action, $module_name, $type, $id) = array_values(array_merge($args, $values));
-			
 			$module = $this->load->module($module_name);
 			$permissions = $module->get_access($type);
 			

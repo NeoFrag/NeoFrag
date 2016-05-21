@@ -66,20 +66,12 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	
 	public function _language_sort()
 	{
-		if (($check = $this->_check('id', 'position')) && $this->db->select('1')->from('nf_settings_languages')->where('code', $check['id'])->row())
+		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_settings_languages')->where('code', $check['id'])->row())
 		{
 			return $check;
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
-	}
-	
-	private function _check()
-	{
-		if (!array_diff(func_get_args(), array_keys($args = array_intersect_key(post(), array_flip(func_get_args())))))
-		{
-			return $args;
-		}
 	}
 }
 

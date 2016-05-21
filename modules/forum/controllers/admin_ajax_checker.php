@@ -22,7 +22,7 @@ class m_forum_c_admin_ajax_checker extends Controller
 {
 	public function _categories_move()
 	{
-		if (($check = $this->_check('category_id', 'position')) && $this->db->select('1')->from('nf_forum_categories')->where('category_id', $check['category_id'])->row())
+		if (($check = post_check('category_id', 'position')) && $this->db->select('1')->from('nf_forum_categories')->where('category_id', $check['category_id'])->row())
 		{
 			return $check;
 		}
@@ -32,7 +32,7 @@ class m_forum_c_admin_ajax_checker extends Controller
 	
 	public function move()
 	{
-		if (	($check = $this->_check('parent_id', 'forum_id', 'position')) &&
+		if (	($check = post_check('parent_id', 'forum_id', 'position')) &&
 				!is_array($is_subforum = $this->db->select('is_subforum')->from('nf_forum')->where('forum_id', $check['forum_id'])->row()) &&
 				(
 					($is_subforum  && $this->db->select('1')->from('nf_forum')->where('forum_id', $check['parent_id'])->where('is_subforum', FALSE)->row()) ||
@@ -44,14 +44,6 @@ class m_forum_c_admin_ajax_checker extends Controller
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
-	}
-	
-	private function _check()
-	{
-		if (!array_diff(array_keys($args = array_intersect_key(post(), array_flip(func_get_args()))), func_get_args()))
-		{
-			return $args;
-		}
 	}
 }
 

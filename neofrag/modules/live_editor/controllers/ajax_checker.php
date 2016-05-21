@@ -157,16 +157,15 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 	
 	private function _check_disposition()
 	{
-		if ($this->user('admin') && !array_diff(array_keys($args = array_intersect_key(post(), array_flip(func_get_args()))), func_get_args()))
+		if ($this->user('admin') && $check = post_check(func_get_args()))
 		{
-			$args = array_merge(array_flip(func_get_args()), $args);
-			array_splice($args, 1, 0, array($this->model()->get_disposition($args['disposition_id'], $theme, $page, $zone)));
+			array_splice($check, 1, 0, array($this->model()->get_disposition($check['disposition_id'], $theme, $page, $zone)));
 			
-			$args[] = $theme;
-			$args[] = $page;
-			$args[] = $zone;
+			$check[] = $theme;
+			$check[] = $page;
+			$check[] = $zone;
 			
-			return array_values($args);
+			return array_values($check);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
