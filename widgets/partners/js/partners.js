@@ -1,6 +1,6 @@
 $(function(){
 	var resize_slider = function() {
-		$('.sponsor-item img.logo').each(function() {
+		$('.partners-item img.logo').each(function() {
 			$(this).animate({
 				'max-width':$(this).parent().parent().outerWidth() - 20 + 'px',
 				'max-height':$(this).parent().parent().outerHeight() - 30 + 'px',
@@ -18,7 +18,7 @@ $(function(){
 		resize_slider();
 	});
 
-	$('.column-sponsors img.logo').each(function() {
+	$('.column-partners img.logo').each(function() {
 		$(this).animate({'max-width':$(this).parent().parent().outerWidth() - 20 + 'px'}, 500);
 
 		$(this).stop(true, true).delay(100).animate({
@@ -26,7 +26,7 @@ $(function(){
 		});
 	});
 
-	$('.sponsor-item img.logo, .column-sponsors img.logo').hover(
+	$('.sponsor-item img.logo, .column-partners img.logo').hover(
 		function() {
 			$(this).animate({opacity: 1});
 		}, function() {
