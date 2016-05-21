@@ -130,7 +130,7 @@ class Groups extends Core
 		uasort($this->_groups, function($a, $b){
 			if ($a['auto'] == 'neofrag' && $b['auto'] == 'neofrag')
 			{
-				return strnatcmp($a['title'], $b['title']);
+				return str_nat($a['title'], $b['title']);
 			}
 			else if ($a['auto'] == 'neofrag')
 			{
@@ -140,12 +140,12 @@ class Groups extends Core
 			{
 				return 1;
 			}
-			else if (($cmp = strnatcmp($a['auto'], $b['auto'])) != 0)
+			else if (($cmp = str_nat($a['auto'], $b['auto'])) != 0)
 			{
 				return $cmp;
 			}
 			
-			return strnatcmp($a['title'], $b['title']);
+			return str_nat($a['title'], $b['title']);
 		});
 	}
 	

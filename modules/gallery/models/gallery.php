@@ -237,7 +237,7 @@ class m_gallery_m_gallery extends Model
 			$list[$category['category_id']] = $category['title'];
 		}
 
-		natsort($list);
+		array_natsort($list);
 
 		return $list;
 	}

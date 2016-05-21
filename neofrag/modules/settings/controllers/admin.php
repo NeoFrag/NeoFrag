@@ -36,8 +36,8 @@ class m_settings_c_admin extends Controller_Module
 			}
 		}
 		
-		usort($modules, function($a, $b){
-			return strnatcmp($a->get_title(), $b->get_title());
+		array_natsort($modules, function($a){
+			return $a->get_title();
 		});
 		
 		foreach ($modules as $module)

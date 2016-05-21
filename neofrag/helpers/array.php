@@ -40,6 +40,13 @@ function array_offset_right($array, $length = 1)
 	return array_slice($array, 0, -$length);
 }
 
+function array_natsort(&$array, $data = NULL)
+{
+	uasort($array, function($a, $b) use ($data){
+		return str_nat($a, $b, $data);
+	});
+}
+
 /*
 NeoFrag Alpha 0.1
 ./neofrag/helpers/array.php

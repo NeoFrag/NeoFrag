@@ -67,8 +67,8 @@ class Addons extends Core
 				}
 			}
 
-			uasort($list[$type][(int)$get_all], function($a, $b){
-				return strnatcasecmp(url_title($a->get_title()), url_title($b->get_title()));
+			array_natsort($list[$type][(int)$get_all], function($a){
+				return $a->get_title();
 			});
 		}
 
@@ -101,8 +101,8 @@ class Addons extends Core
 				}
 			}
 			
-			uasort($list, function($a, $b){
-				return strnatcasecmp(url_title($a->get_title()), url_title($b->get_title()));
+			array_natsort($list, function($a){
+				return $a->get_title();
 			});
 		}
 

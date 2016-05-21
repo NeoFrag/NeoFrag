@@ -99,6 +99,18 @@ function url_title($string)
 	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
 }
 
+function str_nat($a, $b, $data = NULL)
+{
+	if ($data === NULL || !is_callable($data))
+	{
+		$data = function($a){
+			return $a;
+		};
+	}
+	
+	return strnatcasecmp(url_title($data($a)), url_title($data($b)));
+}
+
 function escape_html_tags($string, $callback)
 {
 	$offset = 0;

@@ -139,7 +139,7 @@ class m_awards_m_awards extends Model
 			$list[$team['team_id']] = $team['title'];
 		}
 
-		natsort($list);
+		array_natsort($list);
 
 		return $list;
 	}

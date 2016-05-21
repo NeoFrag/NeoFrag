@@ -99,8 +99,8 @@ class m_search_c_index extends Controller_Module
 
 			if ($count)
 			{
-				usort($results, function($a, $b){
-					return strnatcmp($a[0]->get_title(), $b[0]->get_title());
+				array_natsort($results, function($a){
+					return $a[0]->get_title();
 				});
 				
 				$panels = array();

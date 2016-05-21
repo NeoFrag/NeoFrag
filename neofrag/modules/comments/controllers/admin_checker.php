@@ -35,7 +35,9 @@ class m_comments_c_admin_checker extends Controller
 			}
 		}
 
-		uasort($modules, create_function('$a, $b', 'return strnatcmp($a[\'title\'], $b[\'title\']);'));
+		array_natsort($modules, function($a){
+			return $a['title'];
+		});
 
 		return array($this->load->library('pagination')->get_data($comments, $page), $modules, $tab);
 	}

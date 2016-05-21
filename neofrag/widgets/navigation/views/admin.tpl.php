@@ -45,9 +45,7 @@
 								}
 							}
 							
-							uasort($modules, function($a, $b){
-								return strnatcasecmp(url_title($a), url_title($b));
-							});
+							array_natsort($modules);
 							
 							$modules = array_merge(array(
 								'index' => NeoFrag::loader()->lang('home')

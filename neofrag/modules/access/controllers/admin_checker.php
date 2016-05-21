@@ -36,8 +36,8 @@ class m_access_c_admin_checker extends Controller_Module
 			}
 		}
 
-		uasort($modules, function($a, $b){
-			return strnatcmp($a[0]->get_title(), $b[0]->get_title());
+		array_natsort($modules, function($a){
+			return $a[0]->get_title();
 		});
 
 		foreach ($modules as $module_name => $module)
