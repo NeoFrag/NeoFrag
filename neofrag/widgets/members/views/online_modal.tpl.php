@@ -9,9 +9,7 @@
 				<?php foreach ($data['users'] as $user): ?>
 				<div class="media">
 					<div class="media-left">
-						<a href="<?php echo url('members/'.$user['user_id'].'/'.url_title($user['username']).'.html'); ?>">
-							<img src="<?php echo $NeoFrag->user->avatar($user['avatar'], $user['sex']); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
-						</a>
+						<?php echo $NeoFrag->user->avatar($user['avatar'], $user['sex'], $user['user_id'], $user['username']); ?>
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading"><?php echo $NeoFrag->user->link($user['user_id'], $user['username']); ?></h4>

@@ -22,7 +22,7 @@
 				<li class="sidebar-user">
 					<div class="row">
 						<div class="col-md-3 col-xs-12">
-							<img class="img-circle" src="<?php echo $NeoFrag->user->avatar(); ?>" alt="" />
+							<?php echo $NeoFrag->user->avatar($NeoFrag->user('avatar'), $NeoFrag->user('sex')); ?>
 						</div>
 						<div class="col-md-9 col-xs-12">
 							<span class="user-name"><b><?php echo $NeoFrag->user('username'); ?></b></span>

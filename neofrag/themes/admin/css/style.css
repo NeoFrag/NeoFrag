@@ -352,9 +352,9 @@ li.sidebar-user ul.dropdown-menu > li > a i.fa {
 	color: #fff;
 }
 
-.sidebar-user img.img-circle {
-	max-height: 50px;
-	max-width: 50px;
+.sidebar-user .avatar {
+	height: 50px;
+	width: 50px;
 }
 
 .sidebar ul li.sidebar-user span.alert-badge {
@@ -497,10 +497,6 @@ li.sidebar-user ul.dropdown-menu > li > a i.fa {
 
 .wysibb .wysibb-text {
 	padding: 10px;
-}
-
-.widget.widget-talks .panel .panel-body .media img {
-	border-radius: 100%;
 }
 
 .widget.widget-talks .panel .panel-footer span.input-group-btn .btn {
@@ -719,7 +715,7 @@ ul.nav.nav-tabs > li > a i.fa {
 }
 
 @media (max-width: 992px) {
-	.sidebar-user img.img-circle {
+	.sidebar-user .avatar {
 		max-height: 80px;
 		max-width: 80px;
 	}
@@ -771,7 +767,7 @@ ul.nav.nav-tabs > li > a i.fa {
 	.sidebar ul li.sidebar-user {
 		padding: 12px;
 	}
-	.sidebar ul li.sidebar-user img.img-circle,
+	.sidebar ul li.sidebar-user .avatar,
 	.sidebar ul li.sidebar-user span.user-name,
 	.sidebar ul li.sidebar-user i.fa.fa-angle-down,
 	ul#side-menu.nav > li > a > span.fa.arrow {

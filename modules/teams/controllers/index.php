@@ -69,7 +69,7 @@ class m_teams_c_index extends Controller_Module
 				->add_columns(array(
 					array(
 						'content' => function($data){
-							return '<img class="img-avatar-members" style="max-height: 40px; max-width: 40px;" src="'.NeoFrag::loader()->user->avatar($data['avatar'], $data['sex']).'" title="'.$data['username'].'" alt="" />';
+							return NeoFrag::loader()->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
 						},
 						'size'    => TRUE
 					),

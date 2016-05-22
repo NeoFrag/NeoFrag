@@ -1,7 +1,7 @@
 <?php if ($NeoFrag->user()): ?>
 <div class="media">
 	<div class="media-left">
-		<a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($NeoFrag->user('username').'.html')); ?>"><img class="media-object" style="width: 64px; height: 64px;" src="<?php echo $NeoFrag->user->avatar(); ?>" data-toggle="tooltip" title="<?php echo $NeoFrag->user('username'); ?>" alt="" /></a>
+		<?php echo $NeoFrag->user->avatar(); ?>
 	</div>
 	<div class="media-body">
 		<form action="" method="post">

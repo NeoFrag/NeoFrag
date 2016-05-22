@@ -1,6 +1,6 @@
 <ul class="list-unstyled text-center">
 	<li>
-		<img src="<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>" class="avatar" />
+		<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>
 	</li>
 	<li>
 		<h4 class="no-margin"><b><?php echo $NeoFrag->user->link($data['user_id'], $data['username']) ?></b></h4>

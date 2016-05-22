@@ -93,6 +93,8 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
+			$this->css('inbox');
+
 			return array($this->load->library('pagination')->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page));
 		}
 		else

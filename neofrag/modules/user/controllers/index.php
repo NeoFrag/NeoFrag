@@ -29,8 +29,8 @@ class m_user_c_index extends Controller_Module
 
 		$this	->title($this('member_area'))
 				->js('user')
-				->js('jquery.mCustomScrollbar.min')
-				->css('jquery.mCustomScrollbar.min');
+				->css('jquery.mCustomScrollbar.min')
+				->js('jquery.mCustomScrollbar.min');
 
 		return array(
 			new Row(
@@ -725,6 +725,8 @@ class m_user_c_index extends Controller_Module
 	
 	public function _panel_profile(&$user_profile = NULL)
 	{
+		$this->css('profile');
+
 		return new Panel(array(
 			'title'   => 'Mon profil',
 			'icon'    => 'fa-user',
@@ -763,6 +765,8 @@ class m_user_c_index extends Controller_Module
 	
 	public function _panel_activities($user_id = NULL)
 	{
+		$this->css('activities');
+
 		if ($user_id === NULL)
 		{
 			$user_id = $this->user('user_id');

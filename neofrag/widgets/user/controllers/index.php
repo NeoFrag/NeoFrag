@@ -24,6 +24,8 @@ class w_user_c_index extends Controller_Widget
 	{
 		if ($this->user())
 		{
+			$this->css('user');
+
 			return new Panel(array(
 				'title'   => $this('member_area'),
 				'content' => $this->load->view('logged', array(

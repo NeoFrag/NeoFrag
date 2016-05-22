@@ -308,15 +308,21 @@ class User extends Core
 		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('members/'.$user_id.'/'.url_title($username).'.html').'">'.$prefix.$username.'</a>';
 	}
 	
-	public function avatar($avatar = 0, $sex = '')
+	public function avatar($avatar = 0, $sex = '', $user_id = NULL, $username = '')
 	{
-		if ($this->_user_data && $avatar === 0)
+		if ($this->_user_data && !func_num_args())
 		{
-			$avatar = $this('avatar');
-			$sex    = $this('sex');
+			$avatar   = $this('avatar');
+			$sex      = $this('sex');
+			$user_id  = $this('user_id');
+			$username = $this('username');
 		}
 
-		return !empty($avatar) ? path($avatar) : image($sex == 'female' ? 'default_avatar_female.jpg' : 'default_avatar_male.jpg');
+		return $this->load->view('avatar', array(
+			'user_id'  => $user_id,
+			'username' => $username,
+			'avatar'   => !empty($avatar) ? path($avatar) : image($sex == 'female' ? 'default_avatar_female.jpg' : 'default_avatar_male.jpg')
+		));
 	}
 }
 

@@ -1,7 +1,7 @@
 <div class="panel-body text-center">
 	<h4 class="no-margin"><?php echo i18n('welcome'); ?></h4>
 	<br />
-	<a href="<?php echo url('user.html'); ?>"><img src="<?php echo $NeoFrag->user->avatar(); ?>" style="max-width: 150px;" alt="" /></a>
+	<?php echo $NeoFrag->user->avatar(); ?>
 </div>
 <ul class="list-group">
 	<li class="list-group-item">

@@ -668,10 +668,6 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 	margin-top: 15px;
 }
 
-.module-news .panel-body .media .media-body img, .module-news .panel-body img {
-	border-radius: 0;
-}
-
 .module-forum thead.forum-heading > tr > th {
 	padding: 15px 10px;
 }
@@ -712,13 +708,6 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 	margin: 0 10px;
 }
 
-.module-forum img.img-avatar-forum {
-	max-width: 140px;
-	max-height: 140px;
-	margin: 15px 0;
-	border-radius: 100%;
-}
-
 .module-members table.table i.fa {
 	display: inline-block;
 	min-width: 15px;
@@ -732,19 +721,11 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 	margin-right: -5px;
 }
 
-.img-avatar-members {
-	border-radius: 100%;
-}
-
 .input-group-addon {
 	border-radius: 0;
 }
 
 /* WIDGETS */
-
-.widget .media img, .panel .media img, .widget.widget-user .panel-body img {
-	border-radius: 100%;
-}
 
 .widget-news .media .media-body i.fa.fa-comment-o {
 	margin-left: 5px;

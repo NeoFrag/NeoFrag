@@ -1,8 +1,6 @@
 <div id="comment-<?php echo $data['comment_id']; ?>" class="media<?php if ($data['parent_id'] !== NULL) echo ' comments-child'; ?>">
 	<div class="media-left">
-		<a href="<?php echo url('members/'.$data['user_id'].'/'.url_title($data['username']).'.html'); ?>">
-			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>" style="max-width: 64px; max-height: 64px;" alt="" />
-		</a>
+		<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']); ?>
 	</div>
 	<div class="media-body">
 		<?php

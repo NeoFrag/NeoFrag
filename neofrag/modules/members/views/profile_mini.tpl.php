@@ -1,6 +1,6 @@
-<div class="media">
+<div class="media popover-user">
 	<div class="media-left">
-		<img class="img-avatar-members-profil" style="max-height: 80px; max-width: 80px;" src="<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>" title="<?php echo $data['username']; ?>" alt="" />
+		<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']); ?>
 	</div>
 	<div class="media-body">
 		<h4 class="media-heading"><?php echo $data['first_name'].' '.$data['last_name']; ?> <b><?php echo $data['username']; ?></b></h4>

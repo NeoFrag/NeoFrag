@@ -37,6 +37,12 @@
 	text-align: center;
 }
 
+.module.module-forum .forum-profile .avatar {
+	margin: 15px auto;
+	height: 140px;
+	width: 140px;
+}
+
 .module.module-forum .forum-profile h4, .module.module-forum .forum-profile p {
 	margin: 0;
 }

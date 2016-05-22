@@ -55,7 +55,6 @@ class t_admin extends Theme
 				->css('sb-admin-2')
 				->css('font-awesome.min')
 				->css('style')
-				->css('neofrag.user')
 				->js('metisMenu.min')
 				->js('neofrag.navigation')
 				->js('slideout.min')

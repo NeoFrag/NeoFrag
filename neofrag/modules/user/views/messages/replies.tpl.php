@@ -2,7 +2,7 @@
 <?php if ($i) echo '<hr />'; ?>
 <div class="media message">
 	<div class="media-left">
-		<img src="<?php echo $NeoFrag->user->avatar($reply['avatar'], $reply['sex']); ?>" />
+		<?php echo $NeoFrag->user->avatar($reply['avatar'], $reply['sex'], $reply['user_id'], $reply['username']); ?>
 	</div>
 	<div class="media-body">
 		<small class="pull-right text-muted"><?php echo time_span($reply['date']); ?></small>

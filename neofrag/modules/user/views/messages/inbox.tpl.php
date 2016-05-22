@@ -5,7 +5,7 @@
 			<td class="col-md-10">
 				<div class="media message">
 					<div class="media-left">
-						<img src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" alt="" />
+						<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
 					</div>
 					<div class="media-body">
 						<small class="pull-right text-muted"><?php echo time_span($message['date']); ?></small>

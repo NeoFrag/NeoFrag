@@ -30,11 +30,9 @@ foreach ($data['messages'] as $i => $message)
 ?>
 	<div class="media-<?php echo $media; ?>">
 		<?php if ($message['user_id']): ?>
-		<a href="<?php echo url('members/'.$message['user_id'].'/'.url_title($message['username']).'.html'); ?>">
-			<img class="media-object" src="<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex']); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
-		</a>
+			<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
 		<?php else: ?>
-		<img class="media-object" src="<?php echo $NeoFrag->user->avatar(NULL); ?>" style="max-width: 40px; max-height: 40px;" alt="" />
+			<?php echo $NeoFrag->user->avatar(NULL); ?>
 		<?php endif; ?>
 	</div>
 <?php
