@@ -26,7 +26,14 @@ class Config extends Core
 	public function __construct()
 	{
 		parent::__construct();
-
+		
+		$this->reset();
+	}
+	
+	public function reset()
+	{
+		$this->_configs = $this->_settings = array();
+		
 		$this->_configs['host']          = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
 		$this->_configs['base_url']      = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 		$this->_configs['request_url']   = $_SERVER['REQUEST_URI'] != $this->_configs['base_url'] ? substr($_SERVER['REQUEST_URI'], strlen($this->_configs['base_url'])) : 'index.html';

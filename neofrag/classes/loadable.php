@@ -106,7 +106,11 @@ abstract class Loadable extends Translatable
 	
 	public function reset()
 	{
-		return $this->uninstall(FALSE)->install();
+		$this->uninstall(FALSE);
+		$this->config->reset();
+		$this->install();
+		
+		return $this;
 	}
 }
 
