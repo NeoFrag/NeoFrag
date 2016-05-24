@@ -157,7 +157,7 @@ class m_forum_c_index extends Controller_Module
 													$post['message'],
 													!empty($post['announce']) && in_array('on', $post['announce']));
 
-			add_alert('Succes', 'Sujet ajouté');
+			notify('Sujet ajouté');
 
 			redirect('forum/topic/'.$topic_id.'/'.url_title($post['title']).'.html');
 		}
@@ -366,7 +366,7 @@ class m_forum_c_index extends Controller_Module
 			{
 				$message_id = $this->model()->add_message($topic_id, $post['message']);
 
-				//add_alert('success', $this('add_reply_success'));
+				//notify('success', $this('add_reply_success'));
 			
 				$page = '';
 			
@@ -408,7 +408,7 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', array(
 						'status' => (string)($is_announce ? ($is_locked ? -1 : 0) : ($is_locked ? -2 : 1))
 					));
-		//add_alert('success', $this('toggle_announce_topic'));
+		//notify('success', $this('toggle_announce_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
@@ -418,7 +418,7 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', array(
 						'status' => (string)($is_locked ? ($is_announce ? 1 : 0) : ($is_announce ? -2 : -1))
 					));
-		//add_alert('success', $this('toggle_lock_topic'));
+		//notify('success', $this('toggle_lock_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
@@ -479,7 +479,7 @@ class m_forum_c_index extends Controller_Module
 							'last_message_id' => $last_message_id
 						));
 			
-			//add_alert('success', ....);
+			//notify('success', ....);
 		}
 
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
@@ -527,7 +527,7 @@ class m_forum_c_index extends Controller_Module
 							'message' => $post['message']
 						));
 
-			//add_alert('success', $this('edit_message_success'));
+			//notify('success', $this('edit_message_success'));
 
 			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title).'.html');
 		}
@@ -635,7 +635,7 @@ class m_forum_c_index extends Controller_Module
 	public function mark_all_as_read()
 	{
 		$this->model()->mark_all_as_read();
-		//add_alert('success', $this('marked_as_read'));
+		//notify('success', $this('marked_as_read'));
 		redirect('forum.html');
 	}
 	
@@ -646,7 +646,7 @@ class m_forum_c_index extends Controller_Module
 			$this->model()->mark_all_as_read($id);
 		}
 		
-		//add_alert('success', $this('forum_marked_as_read', $title));
+		//notify('success', $this('forum_marked_as_read', $title));
 		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
 	}
 	

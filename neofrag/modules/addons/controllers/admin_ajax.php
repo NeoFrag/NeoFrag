@@ -33,24 +33,24 @@ class m_addons_c_admin_ajax extends Controller_Module
 		throw new Exception(NeoFrag::UNFOUND);
 	}
 
-	public function active($type, $name)
+	public function active($type, $object)
 	{
 		$this->extension('json');
 
-		$is_enabled = $this->db	->select('is_enabled')
+		$is_enabled = !$this->db->select('is_enabled')
 								->from('nf_settings_addons')
-								->where('name', $name)
+								->where('name', $object->name)
 								->where('type', $type)
 								->row();
 
-		$this->db	->where('name', $name)
+		$this->db	->where('name', $object->name)
 					->where('type', $type)
 					->update('nf_settings_addons', array(
-						'is_enabled' => !$is_enabled
+						'is_enabled' => $is_enabled
 					));
 
 		return json_encode(array(
-			'success' => TRUE
+			'success' => 'Le '.$type.' '.$object->get_title().' est '.($is_enabled ? 'activé' : 'désactivé')
 		));
 	}
 	
@@ -77,9 +77,9 @@ class m_addons_c_admin_ajax extends Controller_Module
 					else if (zip_entry_open($zip, $zip_entry, 'r'))
 					{
 						file_put_contents($tmp.'/'.$entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-						
-						zip_entry_close($zip_entry);
 					}
+
+					zip_entry_close($zip_entry);
 				}
 
 				zip_close($zip);
@@ -88,9 +88,22 @@ class m_addons_c_admin_ajax extends Controller_Module
 					return !in_array($a, array('.', '..')) && is_dir($tmp.'/'.$a);
 				});
 				
+				function get_version($version)
+				{
+					return preg_replace('/[^\d.]/', '', $version);
+				}
+				
+				function parse_version($content, $value)
+				{
+					if (preg_match('/\$'.$value.'[ \t]*?=[ \t]*?([\'"])(.+?)\1;/', $content, $match))
+					{
+						return get_version($match[2]);
+					}
+				}
+				
 				function install_addon($dir, $types = NULL)
 				{
-					if (!$types)
+					if ($types === NULL)
 					{
 						$types = array('Module', 'Widget', 'Theme');
 					}
@@ -106,53 +119,78 @@ class m_addons_c_admin_ajax extends Controller_Module
 							preg_match('/class ('.implode('|', array_map(function($a){ return strtolower(substr($a, 0, 1)); }, $types)).')_('.$match[1].') extends ('.implode('|', $types).')/', $content = php_strip_whitespace($file), $match) &&
 							$match[1] == strtolower(substr($match[3], 0, 1)))
 						{
-							function get_version($version)
-							{
-								return preg_replace('/[^\d.]/', '', $version);
-							}
-							
-							function parse_version($content, $value)
-							{
-								if (preg_match('/\$'.$value.'[ \t]*?=[ \t]*?([\'"])(.+?)\1;/', $content, $match))
-								{
-									return get_version($match[2]);
-								}
-							}
-							
-							$addons     = NeoFrag::loader()->addons->{'get_'.($folder = ($type = strtolower($match[3])).'s')}(TRUE);
 							$version    = parse_version($content, 'version');
 							$nf_version = parse_version($content, 'nf_version');
 							
 							if (!empty($version) && !empty($nf_version))
 							{
-								if (isset($addons[$name = strtolower($match[2])]) && ($cmp = version_compare($version, get_version($addons[$name]->version))) !== 1)
+								$type = strtolower($match[3]);
+
+								$addon = NeoFrag::loader()->$type($name = strtolower($match[2]), TRUE);
+
+								if ($addon)
 								{
-									return $cmp === 0 ? 'already_installed_version' : 'not_newer_installed_version';
+									$update = TRUE;
+									
+									if (($cmp = version_compare($version, get_version($addon->version))) === 0)
+									{
+										return array(
+											'warning' => 'Le '.$type.' '.$addon->get_title().' est déjà installé en version '.$version
+										);
+									}
+									else if ($cmp === -1)
+									{
+										return array(
+											'danger' => 'Le '.$type.' '.$addon->get_title().' est déjà installé avec une version supérieure'
+										);
+									}
 								}
-								
-								if (($cmp = version_compare($nf_version, get_version(NEOFRAG_VERSION))) !== -1)
+
+								if (($cmp = version_compare($nf_version, get_version(NEOFRAG_VERSION))) !== 1)
 								{
-									copy_all($dir, $folder.'/'.$name);
+									copy_all($dir, $type.'s/'.$name);
 
 									if ($addon = NeoFrag::loader()->$type($name, TRUE))
 									{
 										$addon->reset();
-										return TRUE;
+										
+										return array(
+											'success' => 'Le '.$type.' '.$addon->get_title().' a été '.(empty($update) ? 'installé' : 'mis-à-jour')
+										);
 									}
+
+									return array(
+										'danger' => 'Le '.$type.' '.($addon ? $addon->get_title() : $name).' n\'a pas pu être '.(empty($update) ? 'installé' : 'mis-à-jour')
+									);
 								}
+								
+								return array(
+									'danger' => 'Le '.$type.' '.($addon ? $addon->get_title() : $name).' nécessite la version '.$nf_version.' de NeoFrag, veuillez mettre jour votre site'
+								);
 							}
 							
-							return;
+							return array(
+								'danger' => 'Le composant ne peut pas être installé, veuillez vérifier la présence des numéros de version'
+							);
 						}
 					}
+					
+					return array(
+						'danger' => 'Le composant ne peut pas être installé, veuillez vérifier son contenu'
+					);
 				}
 
 				$types   = array('modules', 'widgets', 'themes');
-				$results = array();
+
+				$results = array(
+					'danger'  => array(),
+					'success' => array(),
+					'warning' => array()
+				);
 
 				if (count($folders) == 1 && !in_array($folder = current($folders), $types))
 				{
-					$results[] = install_addon($tmp.'/'.$folder);
+					$results = array_merge_recursive($results, install_addon($tmp.'/'.$folder));
 				}
 				else
 				{
@@ -162,22 +200,24 @@ class m_addons_c_admin_ajax extends Controller_Module
 						{
 							if (!in_array($dir, array('.', '..')) && is_dir($dir = $tmp.'/'.$folder.'/'.$dir))
 							{
-								$results[] = install_addon($dir, substr(ucfirst($folder), 0, -1));
+								$results = array_merge_recursive($results, install_addon($dir, substr(ucfirst($folder), 0, -1)));
 							}
 						}
 					}
 				}
 
 				rmdir_all($tmp);
-				
-				return json_encode(array(
-					'success' => TRUE
-				));
+
+				return json_encode(array_filter($results));
 			}
+			
+			return json_encode(array(
+				'danger' => array('Erreur de transfert vers le serveur')
+			));
 		}
 		
 		return json_encode(array(
-			'error' => $this('zip_file_required')
+			'danger' => array($this('zip_file_required'))
 		));
 	}
 	
@@ -236,19 +276,24 @@ class m_addons_c_admin_ajax extends Controller_Module
 		);
 	}*/
 
-	public function _theme_activation($name)
+	public function _theme_activation($theme)
 	{
-		$this->config('nf_default_theme', $name);
+		$this	->extension('json')
+				->config('nf_default_theme', $theme->name);
 		
-		return $name;
+		return json_encode(array(
+			'success' => 'Le thème '.$theme->get_title().' a été activé'
+		));
 	}
 
-	public function _theme_reset($name)
+	public function _theme_reset($theme)
 	{
-		if ($theme = $this->load->theme($name))
-		{
-			$theme->reset();
-		}
+		$theme	->extension('json')
+				->reset();
+		
+		return json_encode(array(
+			'success' => 'Le thème '.$theme->get_title().' a été réinstallé par défaut'
+		));
 	}
 
 	public function _theme_settings($controller)

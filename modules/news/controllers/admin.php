@@ -177,7 +177,7 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										in_array('on', $post['published']));
 
-			//add_alert('success', $this('add_news_success_message'));
+			notify($this('add_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
@@ -219,7 +219,7 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										$this->config->lang);
 
-			//add_alert('success', $this('edit_news_success_message'));
+			notify($this('edit_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
@@ -262,7 +262,7 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 
-			//add_alert('success', $this('add_category_success_message'));
+			notify($this('add_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}
@@ -293,7 +293,7 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 		
-			//add_alert('success', $this('edit_category_success_message'));
+			notify($this('edit_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}

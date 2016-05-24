@@ -87,7 +87,7 @@ class m_pages_c_admin extends Controller_Module
 										$post['subtitle'],
 										$post['content']);
 
-			//add_alert('success', $this('add_success_message'));
+			notify($this('add_success_message'));
 
 			redirect_back('admin/pages.html');
 		}
@@ -123,7 +123,7 @@ class m_pages_c_admin extends Controller_Module
 										$post['content'],
 										$this->config->lang);
 		
-			//add_alert('success', $this('edit_success_message'));
+			notify($this('edit_success_message'));
 
 			redirect_back('admin/pages.html');
 		}

@@ -167,7 +167,7 @@ class m_awards_c_admin extends Controller_Module
 										$post['description'],
 										$post['image']);
 
-			//add_alert('success', $this('add_award_success_message'));
+			notify('Palmarès ajouté avec succès');
 
 			redirect_back('admin/awards.html');
 		}
@@ -215,7 +215,7 @@ class m_awards_c_admin extends Controller_Module
 										$post['description'],
 										$post['image']);
 
-			//add_alert('success', $this('edit_news_success_message'));
+			notify('Palmarès édité avec succès');
 
 			redirect_back('admin/awards.html');
 		}

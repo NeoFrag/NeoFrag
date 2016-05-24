@@ -83,7 +83,7 @@ class m_talks_c_admin extends Controller_Module
 		{
 			$this->model()->add_talk($post['title']);
 			
-			//add_alert('success', $this('add_success_message'));
+			notify($this('add_success_message'));
 
 			redirect_back('admin/talks.html');
 		}
@@ -109,7 +109,7 @@ class m_talks_c_admin extends Controller_Module
 		{	
 			$this->model()->edit_talk($talk_id, $post['title']);
 		
-			//add_alert('success', $this('edit_success_message'));
+			notify($this('edit_success_message'));
 
 			redirect_back('admin/talks.html');
 		}

@@ -90,7 +90,7 @@ class m_partners_c_admin extends Controller_Module
 										$post['twitter'],
 										$post['code']);
 
-			//add_alert('success', $this('add_partner_success_message'));
+			notify('Partenaire ajouté avec succès');
 
 			redirect('admin/partners.html');
 		}
@@ -131,7 +131,7 @@ class m_partners_c_admin extends Controller_Module
 											$post['twitter'],
 											$post['code']);
 
-			//add_alert('success', $this('edit_partner_success_message'));
+			notify('Partenaire modifié avec succès');
 
 			redirect_back('admin/partners.html');
 		}

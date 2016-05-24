@@ -85,7 +85,7 @@ class m_games_c_admin extends Controller_Module
 												$post['image'],
 												$post['icon']);
 
-			//add_alert('success', $this('game_success_message'));
+			notify($this('game_success_message'));
 			redirect('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
 		}
 
@@ -144,7 +144,7 @@ class m_games_c_admin extends Controller_Module
 										$post['image'],
 										$post['icon']);
 		
-			//add_alert('success', $this('edit_game_message'));
+			notify($this('edit_game_message'));
 
 			redirect_back('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
 		}

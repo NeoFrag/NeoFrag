@@ -18,20 +18,33 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function add_alert($header, $message = '', $type = 'error')
+function notify($message, $type = 'success')
 {
 	if (!in_array($type, array('error', 'success', 'info')))
 	{
-		$type = 'error';
+		$type = 'success';
 	}
 
-	NeoFrag::loader()->session->add('alerts', array(
-		'message' => ($header ? '<h4 class="alert-heading">'.$header.'</h4>' : '').$message,
+	NeoFrag::loader()->session->add('notifications', array(
+		'message' => $message,
 		'type'    => $type
 	));
 }
 
+function notifications()
+{
+	if ($notifications = NeoFrag::loader()->session('notifications'))
+	{
+		foreach ($notifications as $notification)
+		{
+			NeoFrag::loader()->js_load('notify(\''.$notification['message'].'\', \''.$notification['type'].'\');');
+		}
+
+		NeoFrag::loader()->session->destroy('notifications');
+	}
+}
+
 /*
-NeoFrag Alpha 0.1
-./neofrag/helpers/alert.php
+NeoFrag Alpha 0.1.4.1
+./neofrag/helpers/notify.php
 */

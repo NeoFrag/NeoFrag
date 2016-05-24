@@ -30,15 +30,15 @@ $(function(){
 		return $(this).hasClass('active') ? false : load_addons($(this));
 	});
 
-	var hashchange = function(){
+	var hashChange = function(){
 		var $addon = $('[data-addon="'+(window.location.hash.replace('#', ''))+'"]');
 		
 		load_addons($addon.length ? $addon : $('[data-addon]:first'));
 	};
 	
-	$(window).on('hashchange', hashchange);
+	$(window).on('hashChange', hashChange);
 	
-	hashchange();
+	hashChange();
 	
 	//Activate / Desactivate
 	$('body').on('click', '.item-status-switch > a', function(){
@@ -51,7 +51,8 @@ $(function(){
 			},
 			success: function(data){
 				if (typeof data.success != 'undefined'){
-					hashchange();
+					notify(data.success);
+					hashChange();
 				}
 			}
 		});
@@ -87,9 +88,11 @@ $(function(){
 			processData: false,
 			data: formData,
 			success: function(data){
-				if (typeof data.success != 'undefined'){
-					hashchange();
-				}
+				$.each(data, function(type, message){
+					notify(message, type);
+				});
+				
+				hashChange();
 			}
 		});
 		
@@ -117,12 +120,16 @@ $(function(){
 	//Activation
 	$('body').on('click', '.thumbnail', function(){
 		if (!$(this).hasClass('panel-primary')){
-			modal_theme('<?php echo i18n('theme_activation'); ?>', '<?php echo i18n('theme_activation_message'); ?>', '<button type="button" class="btn btn-info" data-theme="'+$(this).data('theme')+'"><?php echo i18n('activate'); ?></button>', function(){
-				$.post('<?php echo url('admin/ajax/addons/theme/active.html'); ?>', {theme: $(this).data('theme')}, function(data){
+			var theme_name = $(this).data('theme');
+
+			modal_theme('<?php echo i18n('theme_activation'); ?>', '<?php echo i18n('theme_activation_message'); ?>', '<button type="button" class="btn btn-info" data-theme="'+theme_name+'"><?php echo i18n('activate'); ?></button>', function(){
+				$.post('<?php echo url('admin/ajax/addons/theme/active.json'); ?>', {theme: theme_name}, function(data){
 					$('.thumbnail .btn-danger.disabled').removeClass('disabled');
 					$('.thumbnail.panel-primary').removeClass('panel-primary');
-					$('.thumbnail[data-theme="'+data+'"]').addClass('panel-primary').find('.btn-danger').addClass('disabled');
+					$('.thumbnail[data-theme="'+theme_name+'"]').addClass('panel-primary').find('.btn-danger').addClass('disabled');
 					$('.modal-theme-activation').modal('hide');
+
+					notify(data.success);
 				});
 			});
 		}
@@ -139,7 +146,9 @@ $(function(){
 	$('body').on('click', '.thumbnail .btn-warning', function(e){
 		e.stopPropagation();
 		modal_theme('<?php echo i18n('reinstall_to_default'); ?>', '<?php echo i18n('theme_reinstallation_message'); ?>', '<button type="button" class="btn btn-warning" data-theme="'+$(this).parents('.thumbnail:first').data('theme')+'"><?php echo i18n('reinstall'); ?></button>', function(){
-			$.post('<?php echo url('admin/ajax/addons/theme/reset.html'); ?>', {theme: $(this).data('theme')});
+			$.post('<?php echo url('admin/ajax/addons/theme/reset.json'); ?>', {theme: $(this).data('theme')}, function(data){
+				notify(data.success);
+			});
 		});
 	});
 });

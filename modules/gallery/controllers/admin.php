@@ -163,7 +163,7 @@ class m_gallery_c_admin extends Controller_Module
 														$post['description'],
 														in_array('on', $post['published']));
 
-			//add_alert('success', $this('album_added'));
+			notify($this('album_added'));
 			
 			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']).'.html');
 		}
@@ -289,7 +289,7 @@ class m_gallery_c_admin extends Controller_Module
 											$post['description'],
 											$this->config->lang);
 
-			//add_alert('success', $this('album_edited'));
+			notify($this('album_edited'));
 
 			redirect_back('admin/gallery.html');
 		}
@@ -300,7 +300,7 @@ class m_gallery_c_admin extends Controller_Module
 										$post['title'],
 										$post['description']);
 										
-			//add_alert('success', $this('image_added'));
+			notify($this('image_added'));
 
 			refresh();
 		}
@@ -364,7 +364,7 @@ class m_gallery_c_admin extends Controller_Module
 											$post['image'],
 											$post['icon']);
 
-			//add_alert('success', $this('category_added'));
+			notify($this('category_added'));
 
 			redirect_back('admin/gallery.html');
 		}
@@ -395,7 +395,7 @@ class m_gallery_c_admin extends Controller_Module
 											$post['image'],
 											$post['icon']);
 		
-			//add_alert('success', $this('category_edited'));
+			notify($this('category_edited'));
 
 			redirect_back('admin/gallery.html');
 		}
@@ -458,7 +458,7 @@ class m_gallery_c_admin extends Controller_Module
 										$post['title'],
 										$post['description']);
 		
-			//add_alert('success', $this('image_edited'));
+			notify($this('image_edited'));
 
 			redirect_back();
 		}

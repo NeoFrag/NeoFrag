@@ -68,7 +68,7 @@ class m_forum_c_admin extends Controller_Module
 										$post['description'],
 										$post['url']);
 
-			//add_alert('success', $this('add_forum_success'));
+			notify($this('add_forum_success'));
 
 			redirect_back('admin/forum.html');
 		}
@@ -128,7 +128,7 @@ class m_forum_c_admin extends Controller_Module
 							->delete('nf_forum_url');
 			}
 
-			//add_alert('success', $this('edit_forum_success'));
+			notify($this('edit_forum_success'));
 
 			redirect_back('admin/forum.html');
 		}
@@ -169,7 +169,7 @@ class m_forum_c_admin extends Controller_Module
 		{
 			$this->model()->add_category($post['title']);
 
-			//add_alert('success', $this('add_category_success'));
+			notify($this('add_category_success'));
 
 			redirect_back('admin/forum.html');
 		}
@@ -196,7 +196,7 @@ class m_forum_c_admin extends Controller_Module
 		{
 			$this->model()->edit_category($category_id, $post['title']);
 		
-			//add_alert('success', $this('edit_category_success'));
+			notify($this('edit_category_success'));
 
 			redirect_back('admin/forum.html');
 		}

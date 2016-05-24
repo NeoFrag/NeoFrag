@@ -252,7 +252,7 @@ class m_members_c_admin extends Controller_Module
 				$post['signature']
 			);
 			
-			//add_alert('succes', 'membre édité');
+			notify('Membre édité');
 
 			redirect_back('admin/members.html');
 		}
@@ -263,7 +263,7 @@ class m_members_c_admin extends Controller_Module
 				$post['groups']
 			);
 
-			//add_alert('succes', 'groupes du membre édités');
+			notify('Groupes du membre édités');
 
 			redirect_back('admin/members.html');
 		}
@@ -357,7 +357,7 @@ class m_members_c_admin extends Controller_Module
 				$this->config->lang
 			);
 
-			//add_alert('success', $this('group_added'));
+			notify($this('group_added'));
 
 			redirect_back('admin/members.html');
 		}
@@ -407,7 +407,7 @@ class m_members_c_admin extends Controller_Module
 				));
 			}
 
-			//add_alert('success', $this('group_edited'));
+			notify($this('group_edited'));
 
 			redirect_back('admin/members.html');
 		}

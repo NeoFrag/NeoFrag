@@ -71,6 +71,8 @@ class Output extends Core
 				$this->data['module_title'] = icon(!empty($this->data['module_icon']) ? $this->data['module_icon'] : $this->load->module->icon).' '.$this->data['module_title'];
 			}
 
+			notifications();
+
 			$this->data['body'] = $this->load->theme->load->view('body', $this->data);
 
 			if (NeoFrag::live_editor())

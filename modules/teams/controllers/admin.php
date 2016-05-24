@@ -138,7 +138,7 @@ class m_teams_c_admin extends Controller_Module
 													$post['icon'],
 													$post['description']);
 
-			//add_alert('success', $this('add_team_success_message'));
+			notify($this('add_team_success_message'));
 
 			redirect('admin/teams/'.$team_id.'/'.url_title($post['title']).'.html');
 		}
@@ -205,7 +205,7 @@ class m_teams_c_admin extends Controller_Module
 										$post['icon'],
 										$post['description']);
 
-			//add_alert('success', $this('edit_team_success_message'));
+			notify($this('edit_team_success_message'));
 
 			redirect_back('admin/teams.html');
 		}
@@ -299,7 +299,7 @@ class m_teams_c_admin extends Controller_Module
 		{
 			$this->model('roles')->add_role($post['title']);
 
-			//add_alert('success', $this('add_role_success_message'));
+			notify($this('add_role_success_message'));
 
 			redirect_back('admin/teams.html');
 		}
@@ -325,7 +325,7 @@ class m_teams_c_admin extends Controller_Module
 		{
 			$this->model('roles')->edit_role($role_id, $post['title']);
 		
-			//add_alert('success', $this('edit_role_success_message'));
+			notify($this('edit_role_success_message'));
 
 			redirect_back('admin/teams.html');
 		}
