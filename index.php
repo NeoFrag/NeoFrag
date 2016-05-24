@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function check_file($dir)
+function check_file($dir, $force = FALSE)
 {
 	if ($dir === '')
 	{
@@ -27,7 +27,7 @@ function check_file($dir)
 
 	static $cache;
 
-	if (!isset($cache[$dir]))
+	if (!isset($cache[$dir]) || $force)
 	{
 		$dirs = explode('/', $dir);
 
@@ -35,7 +35,7 @@ function check_file($dir)
 
 		foreach (array_keys($dirs) as $i)
 		{
-			if (!isset($cache[$path = implode('/', array_slice($dirs, 0, $i + 1))]))
+			if (!isset($cache[$path = implode('/', array_slice($dirs, 0, $i + 1))]) || $force)
 			{
 				$cache[$path] = $exists ? file_exists($path) : FALSE;
 			}

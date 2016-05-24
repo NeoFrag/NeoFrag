@@ -101,7 +101,7 @@ class Loader extends Core
 
 		while (list(, $dir) = each($this->paths[$type.'s']))
 		{
-			if (!check_file($path = $dir.'/'.$filename.'.php'))
+			if (!check_file($path = $dir.'/'.$filename.'.php', $force))
 			{
 				continue;
 			}
