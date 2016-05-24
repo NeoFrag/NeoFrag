@@ -134,7 +134,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 								{
 									copy_all($dir, $folder.'/'.$name);
 
-									if ($addon = NeoFrag::loader()->$type($name))
+									if ($addon = NeoFrag::loader()->$type($name, TRUE))
 									{
 										$addon->reset();
 										return TRUE;

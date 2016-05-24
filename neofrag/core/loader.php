@@ -61,9 +61,9 @@ class Loader extends Core
 		});
 	}
 
-	public function theme($name)
+	public function theme($name, $force = FALSE)
 	{
-		return $this->_load($name, 'theme', 't_'.$name, NeoFrag::loader()->themes, $name.'/'.$name);
+		return $this->_load($name, 'theme', 't_'.$name, NeoFrag::loader()->themes, $name.'/'.$name, $force);
 	}
 
 	public function widget($name, $force = FALSE)
