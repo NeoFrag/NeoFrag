@@ -42,6 +42,6 @@ class m_teams_c_admin_ajax_checker extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.4.1
 ./modules/teams/controllers/admin_ajax_checker.php
 */

@@ -1,5 +1,41 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.4.1](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4.1) (2016-05-26)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4...alpha0.1.4.1)
+
+**Features**
+- Notifications
+
+**Core**
+
+- [Config] Add reset method to reload settings after deletions
+- [User] Avatar function standardization
+
+**Helpers**
+
+- [Array] Add array_natsort function
+- [Input] Add post_check function
+
+**Libraries**
+
+- [BBCode] Fix Youtube HTTPS and add img-responsive
+
+**LiveEditor**
+
+- Error widget removed from selector
+- Fix input height
+- Fix widget adding and editing
+
+**Modules**
+
+- [Addons] Fix install new addon
+- [Gallery] Fix ajax picture ulpoad
+- [User] Fix forum access on recent activities
+
+**Widgets**
+- [Partners] Fix css class
+- [User] Fix typo
+
 ## [Alpha 0.1.4](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4) (2016-05-07)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.3...alpha0.1.4)
 

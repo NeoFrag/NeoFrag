@@ -166,6 +166,6 @@ class m_user_c_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./neofrag/modules/user/controllers/checker.php
 */

@@ -171,6 +171,6 @@ class Config extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./neofrag/core/config.php
 */

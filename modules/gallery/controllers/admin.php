@@ -494,6 +494,6 @@ class m_gallery_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./modules/gallery/controllers/admin.php
 */

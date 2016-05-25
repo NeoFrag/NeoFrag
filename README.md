@@ -13,10 +13,10 @@ NeoFrag est un CMS qui vous offre des fonctionnalités évoluées pour la gestio
 
 ## Présentation
 
-NeoFrag CMS est un projet imaginé en 2011, qui a vu ça première version Alpha 0.1 lancée en juin 2015. Pour en savoir plus et rester informé de l'avancement du projet, rendez-nous visite sur le site officiel [NeoFrag CMS](http://www.neofrag.fr).
+NeoFrag CMS est un projet imaginé en 2011, qui a vu ça première version Alpha 0.1 lancée en juin 2015. Pour en savoir plus et rester informé de l'avancement du projet, rendez-nous visite sur le site officiel [NeoFrag CMS](https://neofr.ag).
 
 - Sa rapidité d'exécution permet le chargement des pages en un éclair ! NeoFrag est un CMS petit, mais puissant.
-- De nombreux contenus additionnels seront disponibles sur le site officiel [NeoFrag CMS](http://www.neofrag.fr), thèmes graphiques, modules et widgets pourront être installés automatiquement via l'interface de gestion de votre site.
+- De nombreux contenus additionnels seront disponibles sur le site officiel [NeoFrag CMS](https://neofr.ag), thèmes graphiques, modules et widgets pourront être installés automatiquement via l'interface de gestion de votre site.
 - L'architecture innovante de NeoFrag CMS vous permettra de mettre à jour automatiquement et simplement votre site. Gestion évoluée des permissions des utilisateurs via des groupes.
 - Une documentation technique et de nombreux tutoriels vidéo seront mis à disposition pour que les développeurs chevronnés ainsi que les utilisateurs débutants puissent prendre en main aisément NeoFrag CMS.
 - Bénéficiez d'un outil intuitif vous permettant de changer le contenu et la disposition des pages en direct sur votre site. Déplacez une rubrique d'un simple click et appréciez le résultat en live !
@@ -26,7 +26,7 @@ NeoFrag CMS est un projet imaginé en 2011, qui a vu ça première version Alpha
 
 NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner.
 
-- PHP 5.4 ou supérieur (avec les extensions gd2, json, mbstring et zip)
+- PHP 5.4 ou supérieur (avec les extensions curl, gd, json, mbstring, mysql or mysqli with mysqlnd, xml et zip)
 - Module Apache rewrite_module activé
 
 ## :fr: Installation
@@ -35,7 +35,7 @@ NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner
 - Créer une base de données MySQL et importer le fichier DATABASE.sql
 - Éditer le fichier de configuration de la base de données ./config/db.php
 - Connectez-vous sur votre site web avec comme identifiant: admin et mot de passe: admin123
-- Profitez de [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1.4 !
+- Profitez de [NeoFrag CMS](https://neofr.ag) Alpha 0.1.4.1 !
 
 ## :uk: Installation
 
@@ -43,13 +43,13 @@ NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner
 - Create a MySQL database and import DATABASE.sql
 - Edit database config file in ./config/db.php
 - Connect on your website and login with username: admin and password: admin123
-- Let's enjoy [NeoFrag CMS](http://www.neofrag.fr) Alpha 0.1.4
+- Let's enjoy [NeoFrag CMS](https://neofr.ag) Alpha 0.1.4.1
 
 ## Contribuer
 
-Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visite sur le site [NeoFrag CMS](http://www.neofrag.fr) pour en apprendre d'avantage sur le fonctionnement du CMS.
+Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visite sur le site [NeoFrag CMS](https://neofr.ag) pour en apprendre d'avantage sur le fonctionnement du CMS.
 
-- Signalez-nous les bugs que vous remarquez sur [notre forum](http://www.neofrag.fr) ou via [Github](https://github.com/NeoFragCMS/neofrag-cms/issues).
+- Signalez-nous les bugs que vous remarquez sur [notre forum](https://neofr.ag) ou via [Github](https://github.com/NeoFragCMS/neofrag-cms/issues).
 - Suivez [@NeoFragCMS](https://twitter.com/NeoFragCMS) sur Twitter
 
 Copyright © 2015 Michaël BILCOT & Jérémy VALENTIN

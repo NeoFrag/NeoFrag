@@ -63,6 +63,6 @@ class m_gallery extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.4.1
 ./modules/gallery/gallery.php
 */

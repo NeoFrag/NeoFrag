@@ -52,7 +52,7 @@ ob_start();
 define('NEOFRAG_CMS',     dirname(__FILE__));
 define('NEOFRAG_MEMORY',  memory_get_peak_usage());
 define('NEOFRAG_TIME',    microtime(TRUE));
-define('NEOFRAG_VERSION', 'Alpha 0.1.4');
+define('NEOFRAG_VERSION', 'Alpha 0.1.4.1');
 
 ini_set('default_charset', 'UTF8');
 ini_set('mbstring.func_overload', 7);
@@ -184,6 +184,6 @@ $NeoFrag	->router->exec()
 			->output->display();
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./index.php
 */

@@ -115,6 +115,6 @@ abstract class Loadable extends Translatable
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./neofrag/classes/loadable.php
 */

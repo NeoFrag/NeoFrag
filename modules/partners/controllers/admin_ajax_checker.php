@@ -32,6 +32,6 @@ class m_partners_c_admin_ajax_checker extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.1
 ./modules/partners/controllers/admin_ajax_checker.php
 */
