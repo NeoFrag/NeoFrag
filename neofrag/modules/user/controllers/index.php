@@ -772,15 +772,28 @@ class m_user_c_index extends Controller_Module
 			$user_id = $this->user('user_id');
 		}
 
-		$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
-									->from('nf_forum_messages m')
-									->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
-									->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
-									->join('nf_users_profiles up', 'u.user_id = up.user_id')
-									->where('m.user_id', $user_id)
-									->order_by('m.date DESC')
-									->limit(10)
-									->get();
+		$user_activity = array();
+
+		//TODO
+		if ($forum = $this->load->module('forum'))
+		{
+			$categories = array_filter($this->db->select('category_id')->from('nf_forum_categories')->get(), function($a){
+				return $this->access('forum', 'category_read', $a);
+			});
+
+			$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
+										->from('nf_forum_messages m')
+										->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
+										->join('nf_forum          f',  't.forum_id = f.forum_id')
+										->join('nf_forum          f2', 'f.parent_id = f2.forum_id AND f.is_subforum = "1"')
+										->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
+										->join('nf_users_profiles up', 'u.user_id = up.user_id')
+										->where('m.user_id', $user_id)
+										->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
+										->order_by('m.date DESC')
+										->limit(10)
+										->get();
+		}
 
 		return new Panel(array(
 			'title'   => 'Activité récente',
