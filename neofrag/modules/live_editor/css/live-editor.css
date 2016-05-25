@@ -329,7 +329,6 @@ body {
 @media (min-width: 768px) {
 	.live-editor-modal .modal-content .form-control {
 		border-radius: 0;
-		height: 36px;
 		padding: 7px 13px;
 	}
 
