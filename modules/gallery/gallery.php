@@ -40,7 +40,7 @@ class m_gallery extends Module
 		'admin/categories/add'                     => '_categories_add',
 		'admin/categories/{id}/{url_title}'        => '_categories_edit',
 		'admin/categories/delete/{id}/{url_title}' => '_categories_delete',
-		'admin/image/add/{id}/{url_title}'         => '_image_add',
+		'admin/ajax/image/add/{id}/{url_title}'    => '_image_add',
 		'admin/image/{id}/{url_title}'             => '_image_edit',
 		'admin/image/delete/{id}/{url_title}'      => '_image_delete'
 	);

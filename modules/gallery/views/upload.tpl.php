@@ -12,7 +12,7 @@
 					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
 				</div>
 			</div>
-			<form action="<?php echo url('admin/gallery/image/add/'.$data['gallery_id'].'/'.$data['name'].'.html'); ?>" method="post" class="dropzone" id="gallery-dropzone" role="form">
+			<form action="<?php echo url('admin/ajax/gallery/image/add/'.$data['gallery_id'].'/'.$data['name'].'.html'); ?>" method="post" class="dropzone" id="gallery-dropzone" role="form">
 				<div class="pull-right label-dropzone">
 					<span class="label label-info" style="padding: 4px 5px;" data-toggle="tooltip" title="<?php echo i18n('click_select_images'); ?>">&nbsp;<?php echo icon('fa-info'); ?>&nbsp;</span>
 				</div>

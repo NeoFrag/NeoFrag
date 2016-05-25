@@ -78,17 +78,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 
 		throw new Exception(NeoFrag::UNFOUND);
 	}
-	
-	public function _image_add($gallery_id, $name)
-	{
-		if ($gallery = $this->model()->check_gallery($gallery_id, $name, 'default'))
-		{
-			return array($gallery['gallery_id']);
-		}
 
-		throw new Exception(NeoFrag::UNFOUND);
-	}
-	
 	public function _image_edit($image_id, $name)
 	{
 		if ($image = $this->model()->check_image($image_id, $name))
