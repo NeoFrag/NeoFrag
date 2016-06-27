@@ -145,6 +145,8 @@ var modal_settings = function(title, settings, callback){
 		load_settings();
 	});
 	
+	$('#live-editor-settings-type').trigger('change');
+
 	$modal.find('#live-editor-settings-form').submit(function(){
 		$modal.find('.btn-info:first').trigger('click');
 		return false;
