@@ -119,9 +119,18 @@ var modal_settings = function(title, settings, callback){
 		}
 		
 		if ($(this).val() == 'module'){
-			$('#live-editor-settings-title').parents('.form-group:first').hide();
+			$('#live-editor-settings-title').data('value', $('#live-editor-settings-title').val());
+			$('#live-editor-settings-title').val('').parents('.form-group:first').hide();
 		}
 		else {
+			if (!$('#live-editor-settings-title').val()){
+				var value = $('#live-editor-settings-title').data('value');
+				
+				if (value){
+					$('#live-editor-settings-title').val(value);
+				}
+			}
+			
 			$('#live-editor-settings-title').parents('.form-group:first').show();
 		}
 	
@@ -152,10 +161,7 @@ var modal_settings = function(title, settings, callback){
 		
 		$modal.modal('hide');
 		
-		var settings = {
-			title: '',
-			settings: null
-		};
+		var settings = {};
 		
 		settings.settings = null;
 		
@@ -171,6 +177,10 @@ var modal_settings = function(title, settings, callback){
 				settings[this.name] = this.value || '';
 			}
 		});
+		
+		if (typeof settings.title == 'undefined'){
+			settings.title = '';
+		}
 
 		callback(settings);
 	});
