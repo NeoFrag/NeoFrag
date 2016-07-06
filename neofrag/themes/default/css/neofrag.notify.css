@@ -1,0 +1,46 @@
+.alert[data-notify] {
+	color: #fff;
+	opacity: .9;
+}
+
+.alert[data-notify]:hover {
+	opacity: 1;
+}
+
+.alert[data-notify] span[data-notify="message"] {
+	padding: 0 10px;
+}
+
+.alert[data-notify] button.close[data-notify="dismiss"] {
+	margin-right: 10px;
+}
+
+.alert[data-notify].alert-default {
+	background-color: #616161;
+	border-color: #616161;
+}
+
+.alert[data-notify].alert-primary {
+	background-color: #0c6dc1;
+	border-color: #0c6dc1;
+}
+
+.alert[data-notify].alert-success {
+	background-color: #7EB62E;
+	border-color: #7EB62E;
+}
+
+.alert[data-notify].alert-info {
+	background-color: #2FA9F6;
+	border-color: #2FA9F6;
+}
+
+.alert[data-notify].alert-warning {
+	background-color: #F6CA2F;
+	border-color: #F6CA2F;
+}
+
+.alert[data-notify].alert-danger {
+	background-color: #F64B2F;
+	border-color: #F64B2F;
+}

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function notify($message, $type = 'success')
 {
-	if (!in_array($type, array('error', 'success', 'info')))
+	if (!in_array($type, array_keys(get_colors())))
 	{
 		$type = 'success';
 	}

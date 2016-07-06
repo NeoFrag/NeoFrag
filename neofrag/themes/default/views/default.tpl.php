@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="<?php echo css('font-awesome.min.css'); ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('font-awesome-override.css'); ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('default.css'); ?>" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo css('neofrag.notify.css'); ?>" type="text/css" media="screen" />
 <?php echo $data['css']; ?>
 <script type="text/javascript" src="<?php echo js('jquery-1.11.2.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo js('jquery-ui.min.js'); ?>"></script>
