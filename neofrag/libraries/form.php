@@ -38,7 +38,8 @@ class Form extends Library
 		'textarea',
 		'editor',
 		'colorpicker',
-		'iconpicker'
+		'iconpicker',
+		'legend'
 	);
 	
 	private $_buttons          = array();
@@ -401,9 +402,9 @@ class Form extends Library
 
 			if ($display = $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL))
 			{
-				$output .= '<div class="form-group'.((isset($this->_errors[$var])) ? ' has-error' : '').'">';
+				$output .= '<div class="form-group'.(isset($this->_errors[$var]) ? ' has-error' : '').($options['type'] == 'legend' ? ' legend' : '').'">';
 				
-				if ($this->_fast_mode)
+				if ($this->_fast_mode || $type == 'legend')
 				{
 					$output .= $display;
 				}
@@ -855,6 +856,11 @@ class Form extends Library
 				->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});');
 
 		return $this->_display_textarea($var, $options, $post, TRUE);
+	}
+	
+	private function _display_legend($var, $options, $post)
+	{
+		return $output = '<div class="form-legend">'.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '').'</div>';
 	}
 	
 	private function _has_upload()

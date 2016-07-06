@@ -16,6 +16,20 @@ tr.navbar-inner:before, tr.navbar-inner:after {
 	text-align: center;
 }
 
+.form-legend {
+	text-transform: uppercase;
+	font-size: 13px;
+	font-weight: 700;
+	color: #A6ACB3;
+	letter-spacing: 1px;
+	padding: 0 30px;
+	margin: 10px 0 0 0;
+}
+
+.form-group + .form-group.legend {
+	margin-top: 25px;
+}
+
 table.table td.v-align {
 	vertical-align: middle;
 }
