@@ -1,6 +1,6 @@
 $(function(){
 	var resize_slider = function() {
-		$('.partners-item img.logo').each(function() {
+		$('.partner-item img.logo').each(function() {
 			$(this).animate({
 				'max-width':$(this).parent().parent().outerWidth() - 20 + 'px',
 				'max-height':$(this).parent().parent().outerHeight() - 30 + 'px',
@@ -26,7 +26,7 @@ $(function(){
 		});
 	});
 
-	$('.sponsor-item img.logo, .column-partners img.logo').hover(
+	$('.partner-item img.logo, .column-partners img.logo').hover(
 		function() {
 			$(this).animate({opacity: 1});
 		}, function() {
