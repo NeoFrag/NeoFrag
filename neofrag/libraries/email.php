@@ -20,18 +20,12 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Email extends Library
 {
-	private $_settings;
 	private $_from;
 	private $_to = array();
 	private $_subject;
 	private $_view;
 	private $_data;
-	
-	public function __construct($settings)
-	{
-		$this->_settings = $settings;
-	}
-	
+
 	public function from($from)
 	{
 		$this->_from = $from;
@@ -72,27 +66,27 @@ class Email extends Library
 		
 		$mail = new PHPMailer;
 		
-		if (!empty($this->_settings['smtp']))
+		if ($this->config->nf_email_smtp)
 		{
 			require 'lib/phpmailer/class.smtp.php';
 			
 			$mail->isSMTP();
-			$mail->Host = $this->_settings['smtp'];
+			$mail->Host = $this->config->nf_email_smtp;
 			
-			if ($mail->SMTPAuth = !empty($this->_settings['username']) && !empty($this->_settings['password']))
+			if ($mail->SMTPAuth = $this->config->nf_email_username && $this->config->nf_email_password)
 			{
-				$mail->Username = $this->_settings['username'];
-				$mail->Password = $this->_settings['password'];
+				$mail->Username = $this->config->nf_email_username;
+				$mail->Password = $this->config->nf_email_password;
 			}
 			
-			if (!empty($this->_settings['secure']))
+			if ($this->config->nf_email_secure)
 			{
-				$mail->SMTPSecure = $this->_settings['secure'];
+				$mail->SMTPSecure = $this->config->nf_email_secure;
 			}
 			
-			if (!empty($this->_settings['port']))
+			if ($this->config->nf_email_port)
 			{
-				$mail->Port = $this->_settings['port'];
+				$mail->Port = $this->config->nf_email_port;
 			}
 		}
 		

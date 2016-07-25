@@ -284,51 +284,62 @@ class m_user_c_index extends Controller_Module
 			->add_submit($this('login'))
 			->display_required(FALSE)
 			->save();
-		
+
+		$rules = array(
+			'username' => array(
+				'label' => $this('username'),
+				'icon'  => 'fa-user',
+				'rules' => 'required',
+				'check' => function($value){
+					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
+					{
+						return i18n('username_unavailable');
+					}
+				}
+			),
+			'password' => array(
+				'label' => $this('password'),
+				'icon'  => 'fa-lock',
+				'type'  => 'password',
+				'rules' => 'required'
+			),
+			'password_confirm' => array(
+				'label' => $this('password_confirmation'),
+				'icon'  => 'fa-lock',
+				'type'  => 'password',
+				'rules' => 'required',
+				'check' => function($value, $post){
+					if ($post['password'] != $value)
+					{
+						return i18n('password_not_match');
+					}
+				}
+			),
+			'email' => array(
+				'label' => $this('email'),
+				'type'  => 'email',
+				'rules' => 'required',
+				'check' => function($value){
+					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
+					{
+						return i18n('email_unavailable');
+					}
+				}
+			)
+		);
+
+		if (!empty($this->config->nf_registration_charte))
+		{
+			$rules['registration_charte'] = array(
+				'type'   => 'checkbox',
+				'values' => array('on' => 'En vous inscrivant, vous reconnaissez avoir pris connaissance de <a href="#modalCharte" role="dialog" data-toggle="modal" data-target="#modalCharte"">notre règlement</a> et de l\'accepter.'),
+				'rules'  => 'required'
+			);
+		}
+
 		$form_registration = $this
 			->form
-			->add_rules(array(
-				'username' => array(
-					'label' => $this('username'),
-					'icon'  => 'fa-user',
-					'rules' => 'required',
-					'check' => function($value){
-						if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
-						{
-							return i18n('username_unavailable');
-						}
-					}
-				),
-				'password' => array(
-					'label' => $this('password'),
-					'icon'  => 'fa-lock',
-					'type'  => 'password',
-					'rules' => 'required'
-				),
-				'password_confirm' => array(
-					'label' => $this('password_confirmation'),
-					'icon'  => 'fa-lock',
-					'type'  => 'password',
-					'rules' => 'required',
-					'check' => function($value, $post){
-						if ($post['password'] != $value)
-						{
-							return i18n('password_not_match');
-						}
-					}
-				),
-				'email' => array(
-					'label' => $this('email'),
-					'type'  => 'email',
-					'rules' => 'required',
-					'check' => function($value){
-						if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
-						{
-							return i18n('email_unavailable');
-						}
-					}
-				)
-			))
+			->add_rules($rules)
 			->add_captcha()
 			->add_submit($this('create_account'))
 			->fast_mode()
@@ -400,14 +411,21 @@ class m_user_c_index extends Controller_Module
 				);
 			}
 		}
-		else if ($form_registration->is_valid($post))
+		else if ($form_registration->is_valid($post) && $this->config->nf_registration_status == 0)
 		{
-			$this->user->login($this->db->insert('nf_users', array(
+			$user_id = $this->db->insert('nf_users', array(
 				'username' => $post['username'],
 				'password' => $this->load->library('password')->encrypt($post['password'].($salt = unique_id())),
 				'salt'     => $salt,
 				'email'    => $post['email']
-			)));
+			));
+
+			if ($this->config->nf_welcome && $this->config->nf_welcome_user_id && $this->config->nf_welcome_title && $this->config->nf_welcome_content)
+			{
+				$this->model('messages')->insert_message($post['username'], $this->config->nf_welcome_title, str_replace('[pseudo]', '@'.$post['username'], $this->config->nf_welcome_content), TRUE);
+			}
+
+			$this->user->login($user_id);
 
 			refresh();
 		}
@@ -427,7 +445,7 @@ class m_user_c_index extends Controller_Module
 				new Panel(array(
 					'title'   => $this('create_account_title'),
 					'icon'    => 'fa-sign-in fa-rotate-90',
-					'content' => $this('create_account_message').$form_registration->display()
+					'content' => $this->config->nf_registration_status == 0 ? $this('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->load->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>'
 				))
 				, 'col-md-6'
 			)

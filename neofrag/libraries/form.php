@@ -427,7 +427,7 @@ class Form extends Library
 		if ($this->_display_captcha)
 		{
 			NeoFrag::loader()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang.'&_=');
-			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-md-offset-3 col-md-9').'"><div class="g-recaptcha" data-sitekey="'.$this->captcha->get_public_key().'"></div></div></div>';
+			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-md-offset-3 col-md-9').'">'.$this->captcha->display().'</div></div>';
 		}
 
 		if ($this->_display_required)

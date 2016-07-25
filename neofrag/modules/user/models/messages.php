@@ -152,7 +152,7 @@ class m_user_m_messages extends Model
 					));
 	}
 
-	public function insert_message($recipients, $title, $message)
+	public function insert_message($recipients, $title, $message, $auto = FALSE)
 	{
 		$recipients = array_diff(array_unique(array_map(function($a){
 			return (int)$this->db->select('user_id')->from('nf_users')->where('deleted', FALSE)->where('username', $a)->row();
@@ -167,7 +167,7 @@ class m_user_m_messages extends Model
 
 			$reply_id = $this->db	->insert('nf_users_messages_replies', array(
 										'message_id' => $message_id,
-										'user_id'  => $this->user('user_id'),
+										'user_id'  => $author_id = $auto ? $this->config->nf_welcome_user_id : $this->user('user_id'),
 										'message'  => $message
 									));
 		
@@ -177,14 +177,14 @@ class m_user_m_messages extends Model
 							'last_reply_id' => $reply_id
 						));
 
-			$recipients[] = $this->user('user_id');
+			$recipients[] = $author_id;
 
 			foreach ($recipients as $recipient)
 			{
 				$this->db->insert('nf_users_messages_recipients', array(
 					'user_id'    => $recipient,
 					'message_id' => $message_id,
-					'date'       => $recipient == $this->user('user_id') ? now() : NULL
+					'date'       => $recipient == $author_id ? now() : NULL
 				));
 			}
 

@@ -825,6 +825,35 @@ INSERT INTO `nf_settings` VALUES('default_background_color', '', '', '#141d26', 
 INSERT INTO `nf_settings` VALUES('default_background_position', '', '', 'center top', 'string');
 INSERT INTO `nf_settings` VALUES('default_background_repeat', '', '', 'no-repeat', 'string');
 INSERT INTO `nf_settings` VALUES('partners_logo_display', '', '', 'logo_dark', 'string');
+INSERT INTO `nf_settings` VALUES('nf_captcha_private_key', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_captcha_public_key', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_email_password', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_email_port', '', '', '25', 'int');
+INSERT INTO `nf_settings` VALUES('nf_email_secure', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_email_smtp', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_email_username', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_registration_charte', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_registration_status', '', '', '0', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_behance', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_deviantart', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_dribble', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_facebook', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_flickr', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_github', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_google', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_instagram', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_steam', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_twitch', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_twitter', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_social_youtube', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_team_biographie', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_team_creation', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_team_name', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_team_type', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_welcome', '', '', '0', 'bool');
+INSERT INTO `nf_settings` VALUES('nf_welcome_content', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_welcome_title', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('nf_welcome_user_id', '', '', '0', 'int');
 
 -- --------------------------------------------------------
 

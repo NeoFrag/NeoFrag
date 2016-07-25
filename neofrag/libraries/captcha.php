@@ -20,26 +20,9 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Captcha extends Library
 {
-	private $_public_key;
-	private $_private_key;
-	
-	public function __construct($config = array())
-	{
-		if (!empty($config['public_key']) && !empty($config['private_key']))
-		{
-			$this->_public_key  = $config['public_key'];
-			$this->_private_key = $config['private_key'];
-		}
-	}
-	
-	public function get_public_key()
-	{
-		return $this->_public_key;
-	}
-	
 	public function is_ok()
 	{
-		return !empty($this->_public_key) && !empty($this->_private_key);
+		return $this->config->nf_captcha_public_key && $this->config->nf_captcha_private_key;
 	}
 	
 	public function is_valid()
@@ -48,7 +31,7 @@ class Captcha extends Library
 		{
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(array(
-				'secret'   => $this->_private_key,
+				'secret'   => $this->config->nf_captcha_private_key,
 				'response' => $response,
 				'remoteip' => $_SERVER['REMOTE_ADDR']
 			)));
@@ -60,6 +43,11 @@ class Captcha extends Library
 		}
 		
 		return FALSE;
+	}
+	
+	public function display()
+	{
+		return '<div class="g-recaptcha" data-sitekey="'.$this->config->nf_captcha_public_key.'"></div>';
 	}
 }
 
