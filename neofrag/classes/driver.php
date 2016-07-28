@@ -83,7 +83,11 @@ abstract class Driver
 	
 	protected function build_sql()
 	{
-		if (!empty($this->insert) && !empty($this->values))
+		if (!empty($this->query))
+		{
+			$this->sql = $this->query;
+		}
+		else if (!empty($this->insert) && !empty($this->values))
 		{
 			$this->sql = 'INSERT INTO '.$this->insert.' ('.implode(', ', array_map('static::escape_keywords', array_keys($this->values))).') VALUES ('.implode(', ', array_map(function($a){
 				return $this->bind($a);

@@ -76,7 +76,7 @@ class Db extends Core
 		}
 	}
 
-	private function _request($callback)
+	private function _request($callback = NULL)
 	{
 		$driver = $this->_driver;
 
@@ -84,7 +84,7 @@ class Db extends Core
 		
 		$this->_request = array();
 		
-		if (empty($request->error))
+		if ($callback && empty($request->error))
 		{
 			return $request->$callback();
 		}
@@ -268,6 +268,13 @@ class Db extends Core
 		}
 
 		return $row;
+	}
+	
+	public function query($query)
+	{
+		$this->_request['query'] = $query;
+		$this->_request();
+		return $this;
 	}
 
 	public function debugbar(&$output = '')
