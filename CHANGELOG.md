@@ -1,9 +1,42 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.4.2](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4.2) (2016-07-30)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4.1...alpha0.1.4.2)
+
+**Core**
+
+- [Db] Adding query method
+- [Groups] Use colors from color helper
+
+**Helper**
+
+- [Notify] Fix color classes
+
+**Library**
+
+- [Form] Add legend type
+
+**LiveEditor**
+
+- Fix widget settings loading
+- Fix widget title updating
+
+**Module**
+
+- [Addons] Fix theme reset function
+- [Addons] Minor adjustments
+- [Forum] Fix forum visibility on search
+- [Settings] Global improving of settings panel
+
+**Widget**
+
+- [Partners] Fix css class
+
 ## [Alpha 0.1.4.1](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4.1) (2016-05-26)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4...alpha0.1.4.1)
 
 **Features**
+
 - Notifications
 
 **Core**
@@ -33,6 +66,7 @@
 - [User] Fix forum access on recent activities
 
 **Widgets**
+
 - [Partners] Fix css class
 - [User] Fix typo
 

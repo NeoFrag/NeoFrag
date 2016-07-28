@@ -255,6 +255,6 @@ class Groups extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.4.1
+NeoFrag Alpha 0.1.4.2
 ./neofrag/core/groups.php
 */

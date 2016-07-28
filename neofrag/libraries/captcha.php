@@ -52,6 +52,6 @@ class Captcha extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.4.2
 ./neofrag/libraries/captcha.php
 */
