@@ -63,12 +63,10 @@ $(function(){
 	//Install
 	$('input[type="file"].install').change(function(){
 		if ($(this).val()){
-			$('#install-input-label i.fa:first').removeClass('fa-upload').addClass('fa-check text-green');
 			$('#install-input-label span.legend').html('Archive sélectionnée');
 			$('.btn.install').removeClass('disabled');
 		}
 		else{
-			$('#install-input-label i.fa:first').removeClass('fa-check text-green').addClass('fa-upload');
 			$('#install-input-label span.legend').html('Choisissez votre archive');
 			$('.btn.install').addClass('disabled');
 		}
@@ -78,7 +76,8 @@ $(function(){
 		var formData = new FormData();
 		formData.append('file', $('input[type="file"].install')[0].files[0]);
 		
-		$('input[type="file"].install').val('').trigger('change');
+		$('.btn.install').data('title', $('.btn.install').html());
+		$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse'); ?> Veuillez patienter')
 		
 		$.ajax({
 			url: '<?php echo url('admin/ajax/addons/install.json'); ?>',
@@ -91,6 +90,10 @@ $(function(){
 				$.each(data, function(type, message){
 					notify(message, type);
 				});
+				
+				$('input[type="file"].install').val('').trigger('change');
+
+				$('.btn.install').html($('.btn.install').data('title'));
 				
 				hashChange();
 			}
