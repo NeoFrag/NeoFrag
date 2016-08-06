@@ -58,7 +58,7 @@ class m_settings_c_admin extends Controller_Module
 			}
 		}
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'name' => array(
 						'label'  => $this('site_title'),
@@ -165,7 +165,7 @@ class m_settings_c_admin extends Controller_Module
 
 		array_natsort($list_users);
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					array(
 						'label'   => 'Inscription',
@@ -260,7 +260,7 @@ class m_settings_c_admin extends Controller_Module
 				->subtitle('Notre structure')
 				->icon('fa-users');
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'team_name' => array(
 						'label'       => 'Nom de l\'équipe',
@@ -340,7 +340,7 @@ class m_settings_c_admin extends Controller_Module
 				->subtitle('Réseaux sociaux')
 				->icon('fa-globe');
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'social_facebook' => array(
 						'label' => 'Facebook',
@@ -455,7 +455,7 @@ class m_settings_c_admin extends Controller_Module
 				->subtitle('Sécurité anti-bots')
 				->icon('fa-shield');
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'captcha_public_key' => array(
 						'label' => 'Clé publique Google',
@@ -508,7 +508,7 @@ class m_settings_c_admin extends Controller_Module
 				->subtitle('Serveur e-mail')
 				->icon('fa-envelope-o');
 
-		$this->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'email_smtp' => array(
 						'label'  => 'Serveur SMTP',
@@ -581,7 +581,7 @@ class m_settings_c_admin extends Controller_Module
 				->css('maintenance')
 				->js('maintenance');
 				
-		$form_opening = $this->load->library('form')
+		$form_opening = $this->form
 			->add_rules(array(
 				'opening' => array(
 					'type'  => 'datetime',

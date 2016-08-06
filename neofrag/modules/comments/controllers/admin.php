@@ -22,8 +22,7 @@ class m_comments_c_admin extends Controller_Module
 {
 	public function index($comments, $modules, $tab)
 	{
-		$this	->load->library('tab')
-				->add_tab('default', $this('all_comments'), '_tab_index', $comments);
+		$this->tab->add_tab('default', $this('all_comments'), '_tab_index', $comments);
 
 		foreach ($modules as $module_name => $module)
 		{
@@ -38,8 +37,7 @@ class m_comments_c_admin extends Controller_Module
 	
 	public function _tab_index($comments, $title = NULL)
 	{
-		$this	->subtitle($title === NULL ? $this('all_comments') : $title)
-				->load->library('table');
+		$this->subtitle($title === NULL ? $this('all_comments') : $title);
 		
 		if ($title === NULL)
 		{
@@ -76,7 +74,7 @@ class m_comments_c_admin extends Controller_Module
 			array(
 				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this('number_comments').'"></i>',
 				'content' => function($data){
-					return NeoFrag::loader()->library('comments')->admin_comments($data['module'], $data['module_id'], FALSE);
+					return NeoFrag::loader()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
 				'size'    => TRUE
 			),

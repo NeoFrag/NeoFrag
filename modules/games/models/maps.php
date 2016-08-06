@@ -75,7 +75,7 @@ class m_games_m_maps extends Model
 
 	public function delete_map($map_id)
 	{
-		$this->load->library('file')->delete($this->db->select('image_id')->from('nf_games_maps')->where('map_id', $map_id)->row());
+		$this->file->delete($this->db->select('image_id')->from('nf_games_maps')->where('map_id', $map_id)->row());
 
 		$this->db	->where('map_id', $map_id)
 					->delete('nf_games_maps');

@@ -65,7 +65,7 @@ class m_teams_c_index extends Controller_Module
 	public function _team($team_id, $name, $title, $image_id, $icon_id, $description, $game_id, $game, $game_icon)
 	{
 		$this	->title($title)
-				->load->library('table')
+				->table
 				->add_columns(array(
 					array(
 						'content' => function($data){

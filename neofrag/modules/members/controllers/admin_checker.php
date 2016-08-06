@@ -22,7 +22,7 @@ class m_members_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_members(), $page));
+		return array($this->pagination->get_data($this->model()->get_members(), $page));
 	}
 
 	public function _edit($user_id, $username)
@@ -80,7 +80,7 @@ class m_members_c_admin_checker extends Controller_Module
 	
 	public function _sessions($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_sessions(), $page));
+		return array($this->pagination->get_data($this->model()->get_sessions(), $page));
 	}
 
 	public function _sessions_delete($session_id)

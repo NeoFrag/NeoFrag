@@ -247,7 +247,7 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 
 function bbcode($string)
 {
-	return nl2br(strtolink(NeoFrag::loader()->library('bbcode')->bbcode2html($string), TRUE));
+	return nl2br(strtolink(NeoFrag::loader()->bbcode->bbcode2html($string), TRUE));
 }
 
 function highlight($string, $keywords, $max_length = 256)

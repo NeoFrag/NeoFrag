@@ -22,8 +22,6 @@ class m_gallery_c_admin extends Controller_Module
 {
 	public function index($gallery)
 	{
-		$this->load->library('table');
-		
 		$gallery = $this->table
 						->add_columns(array(
 							array(
@@ -148,7 +146,7 @@ class m_gallery_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_album'))
-				->load->library('form')
+				->form
 				->add_rules('album', array(
 					'categories' => $this->model()->get_categories_list(),
 				))
@@ -184,7 +182,7 @@ class m_gallery_c_admin extends Controller_Module
 				->js('preview');
 		
 		$form_album = $this	->subtitle($title)
-							->load->library('form')
+							->form
 							->add_rules('album', array(
 								'title'       => $title,
 								'category_id' => $category_id,
@@ -225,59 +223,59 @@ class m_gallery_c_admin extends Controller_Module
 							->add_submit($this('add_image'))
 							->save();
 							
-		$gallery_table = $this->load->library('table')
-									->add_columns(array(
-										array(
-											'content' => function($data, $loader){
-												return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+		$gallery_table = $this	->table
+								->add_columns(array(
+									array(
+										'content' => function($data, $loader){
+											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+										},
+										'size'    => TRUE
+									),
+									array(
+										'title'   => $this('title'),
+										'content' => function($data){
+											return $data['title'];
+										},
+										'align'   => 'left',
+										'sort'    => function($data){
+											return $data['title'];
+										},
+										'search'  => function($data){
+											return $data['title'];
+										}
+									),
+									array(
+										'title'   => $this('date'),
+										'content' => function($data){
+											return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+										},
+										'align'   => 'left',
+										'sort'    => function($data){
+											return $data['date'];
+										},
+										'search'  => function($data){
+											return $data['date'];
+										}
+									),
+									array(
+										'content' => array(
+											function($data, $loader){
+												return button('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html', 'fa-eye', $loader->lang('see_image'));
 											},
-											'size'    => TRUE
-										),
-										array(
-											'title'   => $this('title'),
-											'content' => function($data){
-												return $data['title'];
+											function($data){
+												return button_edit('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
 											},
-											'align'   => 'left',
-											'sort'    => function($data){
-												return $data['title'];
-											},
-											'search'  => function($data){
-												return $data['title'];
+											function($data){
+												return button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
 											}
 										),
-										array(
-											'title'   => $this('date'),
-											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
-											},
-											'align'   => 'left',
-											'sort'    => function($data){
-												return $data['date'];
-											},
-											'search'  => function($data){
-												return $data['date'];
-											}
-										),
-										array(
-											'content' => array(
-												function($data, $loader){
-													return button('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html', 'fa-eye', $loader->lang('see_image'));
-												},
-												function($data){
-													return button_edit('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
-												},
-												function($data){
-													return button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
-												}
-											),
-											'align'   => 'right',
-											'size'    => TRUE
-										)
-									))
-									->data($images = $this->model()->get_images($gallery_id))
-									->no_data($this('no_images'))
-									->save();
+										'align'   => 'right',
+										'size'    => TRUE
+									)
+								))
+								->data($images = $this->model()->get_images($gallery_id))
+								->no_data($this('no_images'))
+								->save();
 		
 		if ($form_album->is_valid($post))
 		{
@@ -337,7 +335,7 @@ class m_gallery_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_album_title'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_album_message', $title));
 
 		if ($this->form->is_valid())
@@ -353,7 +351,7 @@ class m_gallery_c_admin extends Controller_Module
 	public function _categories_add()
 	{
 		$this	->subtitle($this('add_category'))
-				->load->library('form')
+				->form
 				->add_rules('categories')
 				->add_back('admin/gallery.html')
 				->add_submit($this('add'));
@@ -379,7 +377,7 @@ class m_gallery_c_admin extends Controller_Module
 	public function _categories_edit($category_id, $name, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this('category_', $title))
-				->load->library('form')
+				->form
 				->add_rules('categories', array(
 					'title' => $title,
 					'image' => $image_id,
@@ -411,7 +409,7 @@ class m_gallery_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_category_title'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_category_message', $title));
 				
 		if ($this->form->is_valid())
@@ -432,7 +430,7 @@ class m_gallery_c_admin extends Controller_Module
 				->js('preview');
 		
 		$this	->subtitle($this('image_', $title))
-				->load->library('form')
+				->form
 				->add_rules('image', array(
 					'image_id'    => $image_id,
 					'image'       => $thumbnail_file_id,
@@ -479,7 +477,7 @@ class m_gallery_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_image_title'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_image_message', $title));
 				
 		if ($this->form->is_valid())

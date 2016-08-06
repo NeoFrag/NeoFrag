@@ -51,7 +51,7 @@ class User extends Core
 
 				if ($user)
 				{
-					if (!$user['salt'] && $this->load->library('password')->is_valid($password, $user['password'], FALSE))
+					if (!$user['salt'] && $this->password->is_valid($password, $user['password'], FALSE))
 					{
 						$this->db	->where('user_id', (int)$user['user_id'])
 									->update('nf_users', array(
@@ -60,7 +60,7 @@ class User extends Core
 									));
 					}
 					
-					if ($this->load->library('password')->is_valid($password.$user['salt'], $user['password']))
+					if ($this->password->is_valid($password.$user['salt'], $user['password']))
 					{
 						$this->login((int)$user['user_id'], FALSE);
 
@@ -152,8 +152,7 @@ class User extends Core
 				if (!$this->config->ajax_header)
 				{
 					$form_login = $this
-						->load
-						->library('form')
+						->form
 						->set_id('dd74f62896869c798933e29305aa9473')
 						->add_rules(array(
 							'login' => array(
@@ -169,7 +168,7 @@ class User extends Core
 					{
 						$user_id = $this->load->module('user')->model()->check_login($post['login'], $hash, $salt);
 
-						if ($user_id > 0 && $this->load->library('password')->is_valid($post['password'].$salt, $hash, (bool)$salt))
+						if ($user_id > 0 && $this->password->is_valid($post['password'].$salt, $hash, (bool)$salt))
 						{
 							$this->login($user_id, FALSE);
 							refresh();

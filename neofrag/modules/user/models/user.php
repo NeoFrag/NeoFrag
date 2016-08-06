@@ -105,7 +105,7 @@ class m_user_m_user extends Model
 	{
 		$this->db	->where('user_id', $this->user('user_id'))
 					->update('nf_users', array(
-						'password' => $this->load->library('password')->encrypt($password.($salt = unique_id())),
+						'password' => $this->password->encrypt($password.($salt = unique_id())),
 						'salt'     => $salt
 					));
 

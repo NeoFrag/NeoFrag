@@ -119,7 +119,7 @@ class m_awards_c_index extends Controller_Module
 				)),
 				'body'    => FALSE
 			)),
-			$this->load->library('comments')->display('awards', $award_id),
+			$this->comments->display('awards', $award_id),
 			new Button_back()
 		);
 	}

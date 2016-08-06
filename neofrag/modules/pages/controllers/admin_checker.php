@@ -22,7 +22,7 @@ class m_pages_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_pages(), $page));
+		return array($this->pagination->get_data($this->model()->get_pages(), $page));
 	}
 	
 	public function _edit($page_id, $title, $tab = 'default')

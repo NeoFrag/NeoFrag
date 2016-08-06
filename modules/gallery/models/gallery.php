@@ -117,7 +117,7 @@ class m_gallery_m_gallery extends Model
 	
 	public function delete_gallery($gallery_id)
 	{
-		$this->load->library('file')->delete($this->db->select('image_id')->from('nf_gallery')->where('gallery_id', $gallery_id)->row());
+		$this->file->delete($this->db->select('image_id')->from('nf_gallery')->where('gallery_id', $gallery_id)->row());
 		
 		foreach ($this->db->select('image_id')->from('nf_gallery_images')->where('gallery_id', $gallery_id)->get() as $image_id)
 		{
@@ -197,7 +197,7 @@ class m_gallery_m_gallery extends Model
 	
 	public function delete_image($image_id)
 	{
-		$this->load->library('file')->delete($this->db->select('file_id', 'thumbnail_file_id', 'original_file_id')->from('nf_gallery_images')->where('image_id', $image_id)->row());
+		$this->file->delete($this->db->select('file_id', 'thumbnail_file_id', 'original_file_id')->from('nf_gallery_images')->where('image_id', $image_id)->row());
 	}
 	
 	public function check_category($category_id, $name, $lang = 'default')
@@ -275,7 +275,7 @@ class m_gallery_m_gallery extends Model
 	
 	public function delete_category($category_id)
 	{
-		$this->load->library('file')->delete($this->db->select('image_id')->from('nf_gallery_categories')->where('category_id', $category_id)->row());
+		$this->file->delete($this->db->select('image_id')->from('nf_gallery_categories')->where('category_id', $category_id)->row());
 		
 		foreach ($this->db->select('gallery_id')->from('nf_gallery')->where('category_id', $category_id)->get() as $gallery_id)
 		{

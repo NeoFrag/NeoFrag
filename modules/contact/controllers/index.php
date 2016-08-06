@@ -45,7 +45,7 @@ class m_contact_c_index extends Controller_Module
 		);
 		
 		$this->title($this('contact_us'))
-				->load->library('form')
+				->form
 				->display_required(FALSE)
 				->add_rules($rules)
 				->add_captcha()
@@ -54,16 +54,16 @@ class m_contact_c_index extends Controller_Module
 		
 		if ($this->form->is_valid($post))
 		{
-			$this->load->library('email')
-				->from($this->user() ? $this->user('email') : $post['email'])
-				->to($this->config->nf_contact)
-				->subject($this('contact').' :: '.$post['subject'])
-				->message('default', array(
-					'content' => function() use ($post){
-						return bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '');
-					}
-				))
-				->send();
+			$this	->email
+					->from($this->user() ? $this->user('email') : $post['email'])
+					->to($this->config->nf_contact)
+					->subject($this('contact').' :: '.$post['subject'])
+					->message('default', array(
+						'content' => function() use ($post){
+							return bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '');
+						}
+					))
+					->send();
 			
 			redirect();
 		}

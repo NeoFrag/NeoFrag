@@ -172,7 +172,7 @@ foreach (array('array', 'assets', 'buttons', 'color', 'file', 'geolocalisation',
 
 foreach(array('debug', 'template', 'db', 'config', 'access', 'addons', 'session', 'user', 'groups', 'breadcrumb', 'router', 'output') as $library)
 {
-	$NeoFrag->library($library, 'core');
+	$NeoFrag->{'core_'.$library};
 
 	if ($library == 'config' && is_asset())
 	{

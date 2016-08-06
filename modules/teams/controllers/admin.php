@@ -22,8 +22,7 @@ class m_teams_c_admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->subtitle($this('list_teams'))
-				->load->library('table');
+		$this->subtitle($this('list_teams'));
 
 		$teams = $this	->table
 						->add_columns(array(
@@ -123,7 +122,7 @@ class m_teams_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_team'))
-				->load->library('form')
+				->form
 				->add_rules('teams', array(
 					'games' => $this->model()->get_games_list()
 				))
@@ -164,7 +163,7 @@ class m_teams_c_admin extends Controller_Module
 		
 		$form_team = $this	->title($this('edit_team'))
 							->subtitle($title)
-							->load->library('form')
+							->form
 							->add_rules('teams', array(
 								'title'        => $title,
 								'game_id'      => $game_id,
@@ -220,7 +219,7 @@ class m_teams_c_admin extends Controller_Module
 			refresh();
 		}
 		
-		$this	->load->library('table')
+		$this	->table
 				->add_columns(array(
 					array(
 						'content' => function($data){
@@ -274,7 +273,7 @@ class m_teams_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_team'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_team_message', $title));
 
 		if ($this->form->is_valid())
@@ -290,7 +289,7 @@ class m_teams_c_admin extends Controller_Module
 	public function _roles_add()
 	{
 		$this	->subtitle($this('add_role'))
-				->load->library('form')
+				->form
 				->add_rules('roles')
 				->add_back('admin/teams.html')
 				->add_submit($this('add'));
@@ -314,7 +313,7 @@ class m_teams_c_admin extends Controller_Module
 	public function _roles_edit($role_id, $title)
 	{
 		$this	->subtitle($this('role_', $title))
-				->load->library('form')
+				->form
 				->add_rules('roles', array(
 					'title' => $title
 				))
@@ -341,7 +340,7 @@ class m_teams_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_role'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_role_message', $title));
 				
 		if ($this->form->is_valid())
@@ -358,7 +357,7 @@ class m_teams_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_player'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_player_message', $username));
 				
 		if ($this->form->is_valid())

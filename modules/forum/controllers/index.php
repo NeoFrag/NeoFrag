@@ -130,7 +130,7 @@ class m_forum_c_index extends Controller_Module
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
 				->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-				->load->library('form')
+				->form
 				->add_rules(array(
 					'title' => array(
 						'rules' => 'required'
@@ -353,7 +353,7 @@ class m_forum_c_index extends Controller_Module
 					->js('jquery.wysibb.min')
 					->js('jquery.wysibb.fr')
 					->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-					->load->library('form')
+					->form
 					->add_rules(array(
 						'message' => array(
 							'type'  => 'editor',
@@ -434,7 +434,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 		
-		$this->load	->library('form')
+		$this->load	->form
 					->set_id('3a27fa5555e6f34491793733f32169db')
 					->add_rules(array(
 						'forum_id' => array(
@@ -495,7 +495,7 @@ class m_forum_c_index extends Controller_Module
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
 				->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-				->load->library('form')
+				->form
 				->add_rules(array(
 					'message' => array(
 						'type'  => 'editor',
@@ -566,7 +566,7 @@ class m_forum_c_index extends Controller_Module
 	{
 		$this	->title($this($is_topic ? 'delete_topic' : 'delete_message'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $is_topic ? $this('topic_confirmation', $title) : $this('message_confirmation'));
 
 		if ($this->form->is_valid())

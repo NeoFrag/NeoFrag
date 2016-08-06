@@ -22,7 +22,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_gallery(), $page));
+		return array($this->pagination->get_data($this->model()->get_gallery(), $page));
 	}
 	
 	public function _edit($gallery_id, $title)

@@ -74,7 +74,7 @@ class Form extends Library
 	{
 		if (!$this->user())
 		{
-			$this->_display_captcha = $this->load->library('captcha')->is_ok();
+			$this->_display_captcha = $this->captcha->is_ok();
 		}
 
 		return $this;
@@ -172,7 +172,7 @@ class Form extends Library
 			{
 				$files = $_FILES[$this->id];
 				
-				$this->load->library('file');
+				$this->file;
 				
 				foreach ($this->_rules as $var => $options)
 				{

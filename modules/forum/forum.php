@@ -134,7 +134,7 @@ class m_forum extends Module
 	
 	public function settings()
 	{
-		$this	->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'topics_per_page' => array(
 						'label' => '{lang topics_per_page}',

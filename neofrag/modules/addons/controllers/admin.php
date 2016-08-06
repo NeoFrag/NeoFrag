@@ -93,7 +93,7 @@ class m_addons_c_admin extends Controller_Module
 	{
 		$this	->title('Confirmation de suppression')
 				->subtitle($module->get_title())
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
 
 		if ($this->form->is_valid())
@@ -118,7 +118,7 @@ class m_addons_c_admin extends Controller_Module
 	{
 		$this	->title('Confirmation de suppression')
 				->subtitle($theme->get_title())
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
 
 		if ($this->form->is_valid())

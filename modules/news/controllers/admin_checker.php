@@ -22,7 +22,7 @@ class m_news_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_news(), $page));
+		return array($this->pagination->get_data($this->model()->get_news(), $page));
 	}
 
 	public function _edit($news_id, $title, $tab = 'default')

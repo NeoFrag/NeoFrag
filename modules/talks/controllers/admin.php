@@ -22,7 +22,7 @@ class m_talks_c_admin extends Controller_Module
 {
 	public function index($talks)
 	{
-		$this	->load->library('table')
+		$this	->table
 				->add_columns(array(
 					array(
 						'title'   => $this('talks'),
@@ -74,7 +74,7 @@ class m_talks_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_talk'))
-				->load->library('form')
+				->form
 				->add_rules('talks')
 				->add_submit($this('add'))
 				->add_back('admin/talks.html');
@@ -98,7 +98,7 @@ class m_talks_c_admin extends Controller_Module
 	public function _edit($talk_id, $title)
 	{
 		$this	->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('talks', array(
 					'title' => $title
 				))
@@ -125,7 +125,7 @@ class m_talks_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_talk_title'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_talk', $title));
 
 		if ($this->form->is_valid())

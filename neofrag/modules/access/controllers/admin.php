@@ -33,8 +33,7 @@ class m_access_c_admin extends Controller_Module
 			));
 		}
 		
-		$this	->js('access')
-				->load->library('tab');
+		$this->js('access');
 
 		foreach ($modules as $module_name => $module)
 		{
@@ -50,7 +49,7 @@ class m_access_c_admin extends Controller_Module
 	public function _tab_index($objects, $title, $module, $type, $all_access)
 	{
 		$this	->subtitle($title)
-				->load->library('table')
+				->table
 				->add_columns(array(
 					array(
 						'title'   => $this('name'),

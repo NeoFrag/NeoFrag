@@ -95,89 +95,89 @@ class m_access_c_admin_ajax extends Controller_Module
 	
 	public function users($action, $title, $icon, $module_name, $id)
 	{
-		$this->load->library('table')
-			->add_columns(array(
-				array(
-					'title'   => $this('member'),
-					'content' => function($data){
-						return NeoFrag::loader()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
-					},
-					'sort'    => function($data){
-						return $data['username'];
-					},
-					'search'  => function($data){
-						return $data['username'];
-					}
-				),
-				array(
-					'title'   => $this('groups'),
-					'content' => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id']);
-					},
-					'sort'    => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
-					},
-					'search'  => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
-					}
-				),
-				array(
-					'content' => function($data, $loader){
-						$output = '';
-						
-						if ($data['active'] === NULL)
-						{
-							$output = '<div data-toggle="tooltip" title="'.$loader->lang('ambiguity').'">'.icon('fa-warning text-danger').'</div>';
+		$this	->table
+				->add_columns(array(
+						array(
+						'title'   => $this('member'),
+						'content' => function($data){
+							return NeoFrag::loader()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
+						},
+						'sort'    => function($data){
+							return $data['username'];
+						},
+						'search'  => function($data){
+							return $data['username'];
 						}
-						else if (is_int($data['active']))
-						{
-							$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$loader->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
+					),
+					array(
+						'title'   => $this('groups'),
+						'content' => function($data){
+							return NeoFrag::loader()->groups->user_groups($data['user_id']);
+						},
+						'sort'    => function($data){
+							return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+						},
+						'search'  => function($data){
+							return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
 						}
-						
-						return '<td class="access-status">'.$output.'</td>';
-					},
-					'sort'    => function($data){
-						return $data['active'] === NULL;
-					},
-					'size'    => TRUE,
-					'td'      => FALSE
-				),
-				array(
-					'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
-					'content' => function($data, $loader){
-						return $loader->view('radio', array(
-							'class'  => 'success',
-							'active' => $data['active']
-						));
-					},
-					'td'      => FALSE
-				),
-				array(
-					'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
-					'content' => function($data, $loader){
-						static $admins;
-						
-						if ($admins === NULL)
-						{
-							$admins = NeoFrag::loader()->groups()['admins']['users'];
-						}
-						
-						return in_array($data['user_id'], $admins) ? '<td></td>' : $loader->view('radio', array(
-							'class'  => 'danger',
-							'active' => !$data['active'] && $data['active'] !== NULL
-						));
-					},
-					'td'      => FALSE
-				)
-			))
-			->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
-			->preprocessing(function($row) use ($module_name, $action, $id){
-				$row['active'] = NeoFrag::loader()->access($module_name, $action, $id, NULL, $row['user_id']);
-				return $row;
-			})
-			->sort_by(3, SORT_DESC)
-			->sort_by(2, SORT_ASC)
-			->sort_by(1, SORT_ASC);
+					),
+					array(
+						'content' => function($data, $loader){
+							$output = '';
+							
+							if ($data['active'] === NULL)
+							{
+								$output = '<div data-toggle="tooltip" title="'.$loader->lang('ambiguity').'">'.icon('fa-warning text-danger').'</div>';
+							}
+							else if (is_int($data['active']))
+							{
+								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$loader->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
+							}
+							
+							return '<td class="access-status">'.$output.'</td>';
+						},
+						'sort'    => function($data){
+							return $data['active'] === NULL;
+						},
+						'size'    => TRUE,
+						'td'      => FALSE
+					),
+					array(
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
+						'content' => function($data, $loader){
+							return $loader->view('radio', array(
+								'class'  => 'success',
+								'active' => $data['active']
+							));
+						},
+						'td'      => FALSE
+					),
+					array(
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
+						'content' => function($data, $loader){
+							static $admins;
+							
+							if ($admins === NULL)
+							{
+								$admins = NeoFrag::loader()->groups()['admins']['users'];
+							}
+							
+							return in_array($data['user_id'], $admins) ? '<td></td>' : $loader->view('radio', array(
+								'class'  => 'danger',
+								'active' => !$data['active'] && $data['active'] !== NULL
+							));
+						},
+						'td'      => FALSE
+					)
+				))
+				->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
+				->preprocessing(function($row) use ($module_name, $action, $id){
+					$row['active'] = NeoFrag::loader()->access($module_name, $action, $id, NULL, $row['user_id']);
+					return $row;
+				})
+				->sort_by(3, SORT_DESC)
+				->sort_by(2, SORT_ASC)
+				->sort_by(1, SORT_ASC);
 
 		return $this->load->view('users', array(
 			'title' => $title,

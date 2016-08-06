@@ -81,6 +81,54 @@ abstract class NeoFrag
 		{
 			return NeoFrag::loader()->libraries[$name];
 		}
+		else
+		{
+			$type = 'libraries';
+			
+			if (preg_match('/^core_(.+)/', $name, $match))
+			{
+				$name = $match[1];
+				$type = 'core';
+			}
+			
+			foreach ($loader->paths[$type] as $dir)
+			{
+				if (!check_file($path = $dir.'/'.$name.'.php'))
+				{
+					continue;
+				}
+
+				require_once $path;
+
+				foreach ($loader->paths['config'] as $dir)
+				{
+					if (check_file($path = $dir.'/'.$name.'.php'))
+					{
+						include $path;
+					}
+				}
+
+				$class = u2ucc($name);
+
+				if (isset($$name))
+				{
+					$library = load($class, $$name);
+				}
+				else
+				{
+					$library = load($class);
+				}
+
+				if (!isset($library->load))
+				{
+					$library->load = $loader;
+				}
+
+				array_unshift($loader->paths['views'], 'overrides/views/'.$name, 'neofrag/views/'.$name);
+
+				return $loader->libraries[$library->name = $name] = $library->set_id();
+			}
+		}
 	}
 
 	public function __call($name, $args)

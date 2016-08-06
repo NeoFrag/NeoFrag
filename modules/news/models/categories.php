@@ -95,7 +95,7 @@ class m_news_m_categories extends Model
 	
 	public function delete_category($category_id)
 	{
-		$this->load->library('file')->delete(array_merge(
+		$this->file->delete(array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_news_categories')->where('category_id', $category_id)->row()),
 			$this->db->select('image_id')->from('nf_news')->where('category_id', $category_id)->get()
 		));

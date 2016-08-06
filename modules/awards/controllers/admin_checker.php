@@ -22,7 +22,7 @@ class m_awards_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model()->get_awards(), $page));
+		return array($this->pagination->get_data($this->model()->get_awards(), $page));
 	}
 
 	public function _edit($award_id, $name)

@@ -39,7 +39,7 @@ class m_partners extends Module
 
 	public function settings()
 	{
-		$this	->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'partners_logo_display' => array(
 						'label'       => 'Logo',

@@ -63,7 +63,7 @@ class m_news extends Module
 	
 	public function settings()
 	{
-		$this	->load->library('form')
+		$this	->form
 				->add_rules(array(
 					'news_per_page' => array(
 						'label' => '{lang news_per_page}',

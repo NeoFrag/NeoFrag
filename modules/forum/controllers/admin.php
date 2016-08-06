@@ -54,7 +54,7 @@ class m_forum_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_forum'))
-				->load->library('form')
+				->form
 				->add_rules('forum', array(
 					'categories' => $this->model()->get_categories_list(),
 				))
@@ -84,7 +84,7 @@ class m_forum_c_admin extends Controller_Module
 	{
 		$this	->title($this('edit_forum'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('forum', array(
 					'title'        => $title,
 					'description'  => $description,
@@ -144,7 +144,7 @@ class m_forum_c_admin extends Controller_Module
 	{
 		$this	->title($this('remove_forum'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('forum_confirmation', $title));
 
 		if ($this->form->is_valid())
@@ -160,7 +160,7 @@ class m_forum_c_admin extends Controller_Module
 	public function _categories_add()
 	{
 		$this	->subtitle($this('add_category'))
-				->load->library('form')
+				->form
 				->add_rules('categories')
 				->add_back('admin/forum.html')
 				->add_submit($this('add'));
@@ -185,7 +185,7 @@ class m_forum_c_admin extends Controller_Module
 	{
 		$this	->title($this('edit_category'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('categories', array(
 					'title' => $title
 				))
@@ -212,7 +212,7 @@ class m_forum_c_admin extends Controller_Module
 	{
 		$this	->title($this('remove_category'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('category_confirmation', $title));
 				
 		if ($this->form->is_valid())

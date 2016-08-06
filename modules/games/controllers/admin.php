@@ -22,7 +22,7 @@ class m_games_c_admin extends Controller_Module
 {
 	public function index($maps)
 	{
-		$games = $this	->load->library('table')
+		$games = $this	->table
 						->add_columns(array(
 							array(
 								'content' => function($data){
@@ -71,7 +71,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title($this('games_maps'))
 				->subtitle($this('add_game'))
-				->load->library('form')
+				->form
 				->add_rules('games', array(
 					'games' => $this->model()->get_games_list(),
 				))
@@ -100,7 +100,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title($this('games_maps'))
 				->subtitle($this('edit_game'))
-				->load->library('form')
+				->form
 				->add_rules('games', array(
 					'games'     => $this->model()->get_games_list(FALSE, $game_id),
 					'title'     => $title,
@@ -111,7 +111,7 @@ class m_games_c_admin extends Controller_Module
 				->add_submit($this('edit'))
 				->add_back('admin/games.html');
 
-		$modes = $this	->load->library('table')
+		$modes = $this	->table
 						->add_columns(array(
 							array(
 								'title'   => 'Titre',
@@ -175,7 +175,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_game'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_game_message', $title));
 
 		if ($this->form->is_valid())
@@ -191,7 +191,7 @@ class m_games_c_admin extends Controller_Module
 	public function _maps_add($game_id = NULL, $game = NULL)
 	{
 		$this	->subtitle('Nouvelle carte')
-				->load->library('form')
+				->form
 				->add_rules('maps', array(
 					'games'   => $this->model()->get_games_list(TRUE),
 					'game_id' => $game_id
@@ -219,7 +219,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title('Éditer la carte')
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('maps', array(
 					'games'    => $this->model()->get_games_list(TRUE),
 					'game_id'  => $game_id,
@@ -250,7 +250,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title('Suppression d\'une carte')
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer la carte <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
@@ -266,7 +266,7 @@ class m_games_c_admin extends Controller_Module
 	public function _modes_add($game_id, $game)
 	{
 		$this	->subtitle('Nouveau mode')
-				->load->library('form')
+				->form
 				->add_rules('modes')
 				->add_submit($this('add'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
@@ -289,7 +289,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title('Éditer le mode')
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('modes', array(
 					'title' => $title
 				))
@@ -314,7 +314,7 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->title('Suppression d\'un mode')
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le mode <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
@@ -329,7 +329,7 @@ class m_games_c_admin extends Controller_Module
 	
 	private function _panel_maps($maps, $game_id = NULL, $title = NULL)
 	{
-		$maps = $this	->load->library('table')
+		$maps = $this	->table
 						->add_columns(array_filter(array(
 							array(
 								'title'   => 'Titre',

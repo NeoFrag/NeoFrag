@@ -22,9 +22,8 @@ class m_news_c_admin extends Controller_Module
 {
 	public function index($news)
 	{
-		$this	->title($this('news'))
-				->load->library('table');
-			
+		$this->title($this('news'));
+
 		$news = $this	->table
 						->add_columns(array(
 							array(
@@ -84,7 +83,7 @@ class m_news_c_admin extends Controller_Module
 							array(
 								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.i18n('comments').'"></i>',
 								'content' => function($data){
-									return NeoFrag::loader()->library('comments')->admin_comments('news', $data['news_id']);
+									return NeoFrag::loader()->comments->admin_comments('news', $data['news_id']);
 								},
 								'size'    => TRUE
 							),
@@ -160,7 +159,7 @@ class m_news_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_news'))
-				->load->library('form')
+				->form
 				->add_rules('news', array(
 					'categories' => $this->model('categories')->get_categories_list(),
 				))
@@ -193,7 +192,7 @@ class m_news_c_admin extends Controller_Module
 	{
 		$this	->title($this('edit_news'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('news', array(
 					'title'        => $title,
 					'category_id'  => $category_id,
@@ -235,7 +234,7 @@ class m_news_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_news'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_news_message', $title));
 
 		if ($this->form->is_valid())
@@ -251,7 +250,7 @@ class m_news_c_admin extends Controller_Module
 	public function _categories_add()
 	{
 		$this	->subtitle($this('add_category'))
-				->load->library('form')
+				->form
 				->add_rules('categories')
 				->add_back('admin/news.html')
 				->add_submit($this('add'));
@@ -277,7 +276,7 @@ class m_news_c_admin extends Controller_Module
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this('category_', $title))
-				->load->library('form')
+				->form
 				->add_rules('categories', array(
 					'title' => $title,
 					'image' => $image_id,
@@ -309,7 +308,7 @@ class m_news_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_category'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_category_message', $title));
 				
 		if ($this->form->is_valid())

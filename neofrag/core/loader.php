@@ -143,52 +143,6 @@ class Loader extends Core
 		return $object;
 	}
 
-	public function library($name, $type = 'libraries')
-	{
-		if (isset($this->$name))
-		{
-			return $this->$name;
-		}
-
-		foreach ($this->paths[$type] as $dir)
-		{
-			if (!check_file($path = $dir.'/'.$name.'.php'))
-			{
-				continue;
-			}
-
-			require_once $path;
-
-			foreach ($this->paths['config'] as $dir)
-			{
-				if (check_file($path = $dir.'/'.$name.'.php'))
-				{
-					include $path;
-				}
-			}
-
-			$class = u2ucc($name);
-
-			if (isset($$name))
-			{
-				$library = load($class, $$name);
-			}
-			else
-			{
-				$library = load($class);
-			}
-
-			if (!isset($library->load))
-			{
-				$library->load = $this;
-			}
-
-			array_unshift($this->paths['views'], 'overrides/views/'.$name, 'neofrag/views/'.$name);
-
-			return $this->libraries[$library->name = $name] = $library->set_id();
-		}
-	}
-
 	public function helper($name)
 	{
 		foreach ($this->paths['helpers'] as $dir)

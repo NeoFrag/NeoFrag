@@ -22,8 +22,7 @@ class m_awards_c_admin extends Controller_Module
 {
 	public function index($awards)
 	{
-		$this->load	->library('table')
-					->css('awards');
+		$this->css('awards');
 
 		$awards = $this	->table
 						->add_columns(array(
@@ -146,7 +145,7 @@ class m_awards_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle('Ajouter un palmarès')
-				->load->library('form')
+				->form
 				->add_rules('awards', array(
 					'teams' => $this->model()->get_teams_list(),
 					'games' => $this->model()->get_games_list(),
@@ -182,7 +181,7 @@ class m_awards_c_admin extends Controller_Module
 	public function _edit($award_id, $team_id, $date, $location, $name, $platform, $game_id, $ranking, $participants, $description, $image_id, $team_name, $team_title, $game_name, $game_title)
 	{
 		$this	->subtitle('Équipe '.$team_title)
-				->load->library('form')
+				->form
 				->add_rules('awards', array(
 					'award_id'     => $award_id,
 					'date'         => $date,
@@ -231,7 +230,7 @@ class m_awards_c_admin extends Controller_Module
 	{
 		$this	->title('Palmarès')
 				->subtitle($name)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
 
 		if ($this->form->is_valid())

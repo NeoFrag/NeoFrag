@@ -58,7 +58,7 @@ class m_user_c_index extends Controller_Module
 				->icon('fa-cogs')
 				->breadcrumb();
 
-		$this->load->library('form')
+		$this->form
 			->add_rules('user', array(
 				'username'      => $this->user('username'),
 				'email'         => $this->user('email'),
@@ -128,7 +128,7 @@ class m_user_c_index extends Controller_Module
 				->icon('fa-globe')
 				->breadcrumb();
 		
-		$active_sessions = $this->load->library('table')
+		$active_sessions = $this->table
 			->add_columns(array(
 				array(
 					'content' => function($data){
@@ -241,7 +241,7 @@ class m_user_c_index extends Controller_Module
 	public function _session_delete($session_id)
 	{
 		$this	->title($this('delete_confirmation'))
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('session_delete_message'));
 
 		if ($this->form->is_valid())
@@ -259,31 +259,29 @@ class m_user_c_index extends Controller_Module
 	{
 		$this->title($this('login'));
 
-		$form_login = $this
-			->load
-			->library('form')
-			->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
-			->add_rules(array(
-				'login' => array(
-					'label'       => $this('username'),
-					'description' => $this('username_description'),
-					'type'        => 'text',
-					'rules'       => 'required|max(50)'
-				),
-				'password' => array(
-					'label' => $this('password'),
-					'type'  => 'password'
-				),
-				'remember_me' => array(
-					'type'   => 'checkbox',
-					'values' => array('on' => $this('remember_me'))
-				),
-				'redirect' => array(
-				)
-			))
-			->add_submit($this('login'))
-			->display_required(FALSE)
-			->save();
+		$form_login = $this	->form
+							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
+							->add_rules(array(
+								'login' => array(
+									'label'       => $this('username'),
+									'description' => $this('username_description'),
+									'type'        => 'text',
+									'rules'       => 'required|max(50)'
+								),
+								'password' => array(
+									'label' => $this('password'),
+									'type'  => 'password'
+								),
+								'remember_me' => array(
+									'type'   => 'checkbox',
+									'values' => array('on' => $this('remember_me'))
+								),
+								'redirect' => array(
+								)
+							))
+							->add_submit($this('login'))
+							->display_required(FALSE)
+							->save();
 
 		$rules = array(
 			'username' => array(
@@ -375,7 +373,7 @@ class m_user_c_index extends Controller_Module
 				//TODO
 				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="'.url('user/activate.html').'" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
 			}
-			else if ($user_id > 0 && $this->load->library('password')->is_valid($password.$salt, $hash, (bool)$salt))
+			else if ($user_id > 0 && $this->password->is_valid($password.$salt, $hash, (bool)$salt))
 			{
 				if (!$salt)
 				{
@@ -415,7 +413,7 @@ class m_user_c_index extends Controller_Module
 		{
 			$user_id = $this->db->insert('nf_users', array(
 				'username' => $post['username'],
-				'password' => $this->load->library('password')->encrypt($post['password'].($salt = unique_id())),
+				'password' => $this->password->encrypt($post['password'].($salt = unique_id())),
 				'salt'     => $salt,
 				'email'    => $post['email']
 			));
@@ -458,27 +456,27 @@ class m_user_c_index extends Controller_Module
 	{
 		$this->title($this('forgot_password'));
 		
-		$this->load	->library('form')
-					->add_rules(array(
-						'email' => array(
-							'label' => $this('email'),
-							'type'  => 'email',
-							'rules' => 'required',
-							'check' => function($value){
-								if (!NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
-								{
-									return i18n('email_not_found');
-								}
+		$this	->form
+				->add_rules(array(
+					'email' => array(
+						'label' => $this('email'),
+						'type'  => 'email',
+						'rules' => 'required',
+						'check' => function($value){
+							if (!NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
+							{
+								return i18n('email_not_found');
 							}
-						)
-					))
-					->add_submit($this('save'))
-					->add_back('user.html')
-					->fast_mode();
+						}
+					)
+				))
+				->add_submit($this('save'))
+				->add_back('user.html')
+				->fast_mode();
 
 		if ($this->form->is_valid($post))
 		{
-			$this->load->library('email')
+			$this->email
 				->to($post['email'])
 				->subject($this('forgot_password'))
 				->message('default', array(
@@ -502,35 +500,35 @@ class m_user_c_index extends Controller_Module
 	public function _lost_password($key_id, $user_id)
 	{
 		$this->title($this('password_reset'));
-		
-		$this->load	->library('form')
-					->add_rules(array(
-						'password' => array(
-							'label' => $this('new_password'),
-							'icon'  => 'fa-lock',
-							'type'  => 'password',
-							'rules' => 'required'
-						),
-						'password_confirm' => array(
-							'label' => $this('password_confirmation'),
-							'icon'  => 'fa-lock',
-							'type'  => 'password',
-							'rules' => 'required',
-							'check' => function($value, $post){
-								if ($post['password'] != $value)
-								{
-									return i18n('password_not_match');
-								}
+	
+		$this	->form
+				->add_rules(array(
+					'password' => array(
+						'label' => $this('new_password'),
+						'icon'  => 'fa-lock',
+						'type'  => 'password',
+						'rules' => 'required'
+					),
+					'password_confirm' => array(
+						'label' => $this('password_confirmation'),
+						'icon'  => 'fa-lock',
+						'type'  => 'password',
+						'rules' => 'required',
+						'check' => function($value, $post){
+							if ($post['password'] != $value)
+							{
+								return i18n('password_not_match');
 							}
-						)
-					))
-					->add_submit($this('save'))
-					->add_back('user.html')
-					->fast_mode();
+						}
+					)
+				))
+				->add_submit($this('save'))
+				->add_back('user.html')
+				->fast_mode();
 
 		if ($this->form->is_valid($post))
 		{
-			$this->load->library('email')
+			$this->email
 				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
 				->subject($this('password_reset_confirmation_email'))
 				->message('default', array(
@@ -626,15 +624,15 @@ class m_user_c_index extends Controller_Module
 
 	public function _messages_read($message_id, $title, $replies)
 	{
-		$this->load	->library('form')
-					->add_rules(array(
-						'message' => array(
-							'label' => 'Mon message',
-							'type'  => 'editor',
-							'rules' => 'required'
-						),
-					))
-					->add_submit('Envoyer');
+		$this	->form
+				->add_rules(array(
+					'message' => array(
+						'label' => 'Mon message',
+						'type'  => 'editor',
+						'rules' => 'required'
+					),
+				))
+				->add_submit('Envoyer');
 
 		if ($this->form->is_valid($post))
 		{
@@ -672,7 +670,7 @@ class m_user_c_index extends Controller_Module
 		$this	->title('Nouveau message')
 				->icon('fa-edit')
 				->breadcrumb()
-				->load->library('form')
+				->form
 				->add_rules(array(
 					'title' => array(
 						'label' => 'Sujet du message',
@@ -723,7 +721,7 @@ class m_user_c_index extends Controller_Module
 	{
 		$this	->title($this('delete_message'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())

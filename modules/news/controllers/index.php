@@ -149,12 +149,12 @@ class m_news_c_index extends Controller_Module
 						, 'col-md-6'
 					)
 				),
-				$this->load->library('comments')->display('news', $news_id)
+				$this->comments->display('news', $news_id)
 			);
 		}
 		else
 		{
-			return array($news, $this->load->library('comments')->display('news', $news_id));
+			return array($news, $this->comments->display('news', $news_id));
 		}
 	}
 }

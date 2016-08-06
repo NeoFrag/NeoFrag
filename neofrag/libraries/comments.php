@@ -54,7 +54,7 @@ class Comments extends Library
 	{
 		$this	->css('neofrag.comments')
 				->js('neofrag.comments')
-				->load->library('form')
+				->form
 				->add_rules(array(
 					'comment_id' => array(
 					),

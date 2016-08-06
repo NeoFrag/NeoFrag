@@ -22,7 +22,7 @@ class m_pages_c_admin extends Controller_Module
 {
 	public function index($pages)
 	{
-		$this	->load->library('table')
+		$this	->table
 				->add_columns(array(
 					array(
 						'content' => function($data, $loader){
@@ -74,7 +74,7 @@ class m_pages_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this('add_pages'))
-				->load->library('form')
+				->form
 				->add_rules('pages')
 				->add_submit($this('add'))
 				->add_back('admin/pages.html');
@@ -102,7 +102,7 @@ class m_pages_c_admin extends Controller_Module
 	public function _edit($page_id, $name, $published, $title, $subtitle, $content, $tab)
 	{
 		$this	->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('pages', array(
 					'title'          => $title,
 					'subtitle'       => $subtitle,
@@ -139,7 +139,7 @@ class m_pages_c_admin extends Controller_Module
 	{
 		$this	->title($this('delete_page'))
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_page_message', $title));
 
 		if ($this->form->is_valid())

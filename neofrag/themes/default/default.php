@@ -378,7 +378,7 @@ class t_default extends Theme
 	
 	public function uninstall($remove = TRUE)
 	{
-		$this->load->library('file')->delete($this->config->default_background);
+		$this->file->delete($this->config->default_background);
 		$this->db->where('name LIKE', 'default_%')->delete('nf_settings');
 		return parent::uninstall($remove);
 	}

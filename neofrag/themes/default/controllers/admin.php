@@ -23,7 +23,7 @@ class t_default_c_admin extends Controller
 	public function index($theme)
 	{
 		$this	->js('admin')
-				->load->library('form')
+				->form
 				->add_rules(array(
 					'background' => array(
 						'label'  => $this('background'),

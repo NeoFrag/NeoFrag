@@ -28,7 +28,7 @@ class m_admin_c_admin extends Controller_Module
 			->title($this('dashboard'))
 			->js('jquery.knob')
 			->js_load('$(\'.knob\').knob();')
-			->load->library('table')
+			->table
 			->add_columns(array(
 				array(
 					'content' => function($data){

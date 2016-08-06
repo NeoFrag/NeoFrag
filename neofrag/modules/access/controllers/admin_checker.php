@@ -63,7 +63,7 @@ class m_access_c_admin_checker extends Controller_Module
 			}
 		}
 
-		return array($this->load->library('pagination')->get_data($objects, $page), $modules, $tab);
+		return array($this->pagination->get_data($objects, $page), $modules, $tab);
 	}
 
 	public function _edit($module_name, $access = '0-default')

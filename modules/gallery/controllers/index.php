@@ -176,7 +176,7 @@ class m_gallery_c_index extends Controller_Module
 					new Panel($panel)
 				)
 			),
-			$this->load->library('comments')->display('gallery', $image_id),
+			$this->comments->display('gallery', $image_id),
 			new Button_back()
 		);
 	}

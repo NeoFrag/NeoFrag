@@ -23,7 +23,7 @@ class m_members_c_index extends Controller_Module
 	public function index($members)
 	{
 		$this	->title($this('member_list'))
-				->load->library('table')
+				->table
 				->add_columns(array(
 					array(
 						'content' => function($data){

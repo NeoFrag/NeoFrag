@@ -32,7 +32,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
-			return array($this->load->library('pagination')->get_data($this->user->get_sessions_history(), $page));
+			return array($this->pagination->get_data($this->user->get_sessions_history(), $page));
 		}
 		
 		throw new Exception(NeoFrag::UNCONNECTED);
@@ -95,7 +95,7 @@ class m_user_c_checker extends Controller_Module
 		{
 			$this->css('inbox');
 
-			return array($this->load->library('pagination')->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page));
+			return array($this->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page));
 		}
 		else
 		{

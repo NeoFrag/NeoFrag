@@ -25,7 +25,7 @@ class m_members_c_admin extends Controller_Module
 	public function index($members)
 	{
 		$table_groups = $this
-			->load->library('table')
+			->table
 			->add_columns(array(
 				array(
 					'content' => function($data){
@@ -157,7 +157,7 @@ class m_members_c_admin extends Controller_Module
 			->title($this('edit_member'))
 			->subtitle($username)
 			->css('groups')
-			->load->library('form')
+			->form
 			->add_rules('members', array(
 				'username'      => $username,
 				'email'         => $email,
@@ -191,7 +191,7 @@ class m_members_c_admin extends Controller_Module
 		$activities = '';
 			
 		$sessions = $this
-			->load->library('table')
+			->table
 			->add_columns(array(
 				array(
 					'content' => function($data){
@@ -308,7 +308,7 @@ class m_members_c_admin extends Controller_Module
 	public function delete($user_id, $username)
 	{
 		$this	->title($this('delete_confirmation'))
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('user_delete_message', $username));
 
 		if ($this->form->is_valid())
@@ -343,7 +343,7 @@ class m_members_c_admin extends Controller_Module
 	{
 		$this	->title($this('groups'))
 				->subtitle($this('add'))
-				->load->library('form')
+				->form
 				->add_rules('groups')
 				->add_back('admin/members.html')
 				->add_submit($this('add'));
@@ -374,7 +374,7 @@ class m_members_c_admin extends Controller_Module
 	{
 		$this	->title($this('groups'))
 				->subtitle($this('edit'))
-				->load->library('form')
+				->form
 				->add_rules('groups', array(
 					'title' => $title,
 					'color' => $color,
@@ -423,7 +423,7 @@ class m_members_c_admin extends Controller_Module
 	public function _groups_delete($group_id, $title)
 	{
 		$this	->title($this('delete_confirmation'))
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('group_delete_message', $title));
 
 		if ($this->form->is_valid())
@@ -444,7 +444,7 @@ class m_members_c_admin extends Controller_Module
 		$this	->title($this('sessions'))
 				->subtitle($this('list_active_sessions'))
 				->icon('fa-globe')
-				->load->library('table')
+				->table
 				->preprocessing(function($row){
 					$user_data = unserialize($row['user_data']);
 					
@@ -563,7 +563,7 @@ class m_members_c_admin extends Controller_Module
 	public function _sessions_delete($session_id, $username)
 	{
 		$this	->title($this('delete_confirmation'))
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), $this('session_delete_message', $username));
 
 		if ($this->form->is_valid())

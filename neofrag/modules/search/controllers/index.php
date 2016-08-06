@@ -23,7 +23,7 @@ class m_search_c_index extends Controller_Module
 	public function index($search = '', $module_name = '', $page = '')
 	{
 		$this	->title($this('search'))
-				->load->library('form')
+				->form
 				->set_id('a86e16bac4c992732c3f7c6f1fdd159b')
 				->add_rules(array(
 					'keywords' => array(
@@ -112,7 +112,7 @@ class m_search_c_index extends Controller_Module
 
 					if (($name = url_title($result[0]->name)) == $module_name)
 					{
-						foreach ($this->load->library('pagination')->fix_items_per_page(10)->get_data($result[2], $page) as $data)
+						foreach ($this->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
 							$content[] = $result[1]->method('detail', array($data, $keywords));
 						}

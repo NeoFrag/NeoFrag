@@ -54,7 +54,7 @@ class m_forum_c_checker extends Controller
 						$forum['category_id'],
 						$forum['subforums'] ? $this->model()->get_forums($forum_id) : array(),
 						$announces,
-						$this->load->library('pagination')->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
+						$this->pagination->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
 					);
 				}
 			}
@@ -106,7 +106,7 @@ class m_forum_c_checker extends Controller
 					$topic['announce'],
 					$topic['locked'],
 					array_shift($messages),
-					$this->load->library('pagination')->fix_items_per_page($this->config->forum_messages_per_page)->get_data($messages, $page)
+					$this->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($messages, $page)
 				);
 			}
 			else

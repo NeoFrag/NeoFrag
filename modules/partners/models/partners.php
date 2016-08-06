@@ -84,7 +84,7 @@ class m_partners_m_partners extends Model
 
 	public function delete_partner($partner_id)
 	{
-		$this->load->library('file')->delete($this->db->select('logo_light', 'logo_dark')->from('nf_partners')->where('partner_id', $partner_id)->row());
+		$this->file->delete($this->db->select('logo_light', 'logo_dark')->from('nf_partners')->where('partner_id', $partner_id)->row());
 
 		$this->db	->where('partner_id', $partner_id)
 					->delete('nf_partners');

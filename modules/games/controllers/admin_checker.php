@@ -22,14 +22,14 @@ class m_games_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->load->library('pagination')->get_data($this->model('maps')->get_maps(), $page));
+		return array($this->pagination->get_data($this->model('maps')->get_maps(), $page));
 	}
 
 	public function _edit($game_id, $name, $page = '')
 	{
 		if ($game = $this->model()->check_game($game_id, $name, 'default'))
 		{
-			return array_merge($game, array($this->load->library('pagination')->get_data($this->model('maps')->get_maps($game_id), $page)));
+			return array_merge($game, array($this->pagination->get_data($this->model('maps')->get_maps($game_id), $page)));
 		}
 		else
 		{

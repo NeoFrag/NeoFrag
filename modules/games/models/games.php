@@ -117,7 +117,7 @@ class m_games_m_games extends Model
 			$files[] = $game['icon_id'];
 		}
 		
-		$this->load->library('file')->delete(array_merge(
+		$this->file->delete(array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_games')->where('game_id', $game_id)->row()),
 			array_filter($files)
 		));

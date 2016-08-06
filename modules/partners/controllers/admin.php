@@ -22,46 +22,46 @@ class m_partners_c_admin extends Controller_Module
 {
 	public function index()
 	{
-		$this->load	->library('table')
-					->add_columns(array(
-						array(
-							'content' => function($data){
-								return button_sort($data['partner_id'], 'admin/ajax/partners/sort.html');
+		$this	->table
+				->add_columns(array(
+					array(
+						'content' => function($data){
+							return button_sort($data['partner_id'], 'admin/ajax/partners/sort.html');
+						},
+						'size'    => TRUE
+					),
+					array(
+						'title'   => 'Nom',
+						'content' => function($data){
+							return $data['title'];
+						}
+					),
+					array(
+						'title'   => 'Site internet',
+						'content' => function($data){
+							return '<a href="'.$data['website'].'" target="_blank">'.$data['website'].'</a>';
+						}
+					),
+					array(
+						'title'   => '<span data-toggle="tooltip" title="Visites">'.icon('fa-line-chart').'</span>',
+						'content' => function($data){
+							return $data['count'];
+						}
+					),
+					array(
+						'content' => array(
+							function($data){
+								return button_edit('admin/partners/'.$data['partner_id'].'/'.$data['name'].'.html');
 							},
-							'size'    => TRUE
-						),
-						array(
-							'title'   => 'Nom',
-							'content' => function($data){
-								return $data['title'];
+							function($data){
+								return button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name'].'.html');
 							}
 						),
-						array(
-							'title'   => 'Site internet',
-							'content' => function($data){
-								return '<a href="'.$data['website'].'" target="_blank">'.$data['website'].'</a>';
-							}
-						),
-						array(
-							'title'   => '<span data-toggle="tooltip" title="Visites">'.icon('fa-line-chart').'</span>',
-							'content' => function($data){
-								return $data['count'];
-							}
-						),
-						array(
-							'content' => array(
-								function($data){
-									return button_edit('admin/partners/'.$data['partner_id'].'/'.$data['name'].'.html');
-								},
-								function($data){
-									return button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name'].'.html');
-								}
-							),
-							'size'    => TRUE
-						)
-					))
-					->data($this->model()->get_partners())
-					->no_data('Aucun partenaire');
+						'size'    => TRUE
+					)
+				))
+				->data($this->model()->get_partners())
+				->no_data('Aucun partenaire');
 
 		return new Panel(array(
 			'title'   => 'Liste des partenaires',
@@ -74,7 +74,7 @@ class m_partners_c_admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle('Ajouter un partenaire')
-				->load->library('form')
+				->form
 				->add_rules('partners')
 				->add_submit($this('add'))
 				->add_back('admin/partners.html');
@@ -105,7 +105,7 @@ class m_partners_c_admin extends Controller_Module
 	public function _edit($partner_id, $name, $logo_light, $logo_dark, $website, $facebook, $twitter, $count, $code, $title, $description)
 	{
 		$this	->subtitle($title)
-				->load->library('form')
+				->form
 				->add_rules('partners', array(
 					'title'       => $title,
 					'logo_light'  => $logo_light,
@@ -147,7 +147,7 @@ class m_partners_c_admin extends Controller_Module
 	{
 		$this	->title('Supprimer le partenaire')
 				->subtitle($title)
-				->load->library('form')
+				->form
 				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())

@@ -39,7 +39,7 @@ class m_comments_c_admin_checker extends Controller
 			return $a['title'];
 		});
 
-		return array($this->load->library('pagination')->get_data($comments, $page), $modules, $tab);
+		return array($this->pagination->get_data($comments, $page), $modules, $tab);
 	}
 }
 
