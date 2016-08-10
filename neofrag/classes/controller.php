@@ -67,18 +67,6 @@ abstract class Controller extends Translatable
 	{
 		return $this->load->object->load->model($model);
 	}
-
-	public function extension($extension)
-	{
-		if ($this->config->extension_url != $extension)
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
-
-		$this->config->extension_url = $extension;
-
-		return $this;
-	}
 }
 
 /*

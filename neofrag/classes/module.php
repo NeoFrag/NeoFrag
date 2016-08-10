@@ -123,12 +123,7 @@ abstract class Module extends Loadable
 
 	public function get_output()
 	{
-		if (!is_string($this->_output))
-		{
-			$this->_output = display($this->_output);
-		}
-		
-		return $this->_output;
+		return ob_get_clean().($this->config->extension_url == 'json' ? (is_string($this->_output) ? $this->_output : json_encode($this->_output)) : display($this->_output));
 	}
 
 	public function add_action($url, $title, $icon = '')

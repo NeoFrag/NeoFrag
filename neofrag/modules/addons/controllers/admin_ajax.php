@@ -49,9 +49,9 @@ class m_addons_c_admin_ajax extends Controller_Module
 						'is_enabled' => $is_enabled
 					));
 
-		return json_encode(array(
+		return array(
 			'success' => 'Le '.$type.' '.$object->get_title().' est '.($is_enabled ? 'activé' : 'désactivé')
-		));
+		);
 	}
 	
 	public function install()
@@ -208,17 +208,17 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 				rmdir_all($tmp);
 
-				return json_encode(array_filter($results));
+				return array_filter($results);
 			}
 			
-			return json_encode(array(
+			return array(
 				'danger' => array('Erreur de transfert vers le serveur')
-			));
+			);
 		}
 		
-		return json_encode(array(
+		return array(
 			'danger' => array($this('zip_file_required'))
-		));
+		);
 	}
 	
 	private function _modules_list()
@@ -281,20 +281,19 @@ class m_addons_c_admin_ajax extends Controller_Module
 		$this	->extension('json')
 				->config('nf_default_theme', $theme->name);
 		
-		return json_encode(array(
+		return array(
 			'success' => 'Le thème '.$theme->get_title().' a été activé'
-		));
+		);
 	}
 
 	public function _theme_reset($theme)
 	{
-		$this->extension('json');
+		$theme	->extension('json')
+				->reset();
 		
-		$theme->reset();
-		
-		return json_encode(array(
+		return array(
 			'success' => 'Le thème '.$theme->get_title().' a été réinstallé par défaut'
-		));
+		);
 	}
 
 	public function _theme_settings($controller)

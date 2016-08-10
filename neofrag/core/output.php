@@ -35,7 +35,7 @@ class Output extends Core
 		}
 		else if ($this->router->ajax())
 		{
-			$output = ob_get_clean().$this->load->module->get_output();
+			$output = $this->load->module->get_output();
 		}
 		else
 		{
@@ -45,7 +45,7 @@ class Output extends Core
 
 			$this->template->parse_data($this->data, $this->load->module->load);
 
-			$this->data['module'] = ob_get_clean().$this->load->module->get_output();
+			$this->data['module'] = $this->load->module->get_output();
 			
 			if ($this->config->admin_url)
 			{
@@ -101,7 +101,6 @@ class Output extends Core
 		else if ($this->config->extension_url == 'xml')
 		{
 			header('Content-Type: application/xml; charset=UTF-8');
-
 			$output = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".$output;
 		}
 		else if ($this->config->extension_url == 'txt')

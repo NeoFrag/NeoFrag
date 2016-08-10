@@ -69,7 +69,9 @@ class Router extends Core
 	
 	public function ajax()
 	{
-		return $this->config->ajax_url || ($this->config->ajax_header && $this->config->ajax_allowed);
+		return 	$this->config->ajax_url ||
+				($this->config->ajax_header && $this->config->ajax_allowed) ||
+				$this->config->extension_allowed;
 	}
 
 	private function _load($segments)
@@ -166,7 +168,9 @@ class Router extends Core
 				$module->add_data('module_title', $module->get_title());
 				$module->add_data('module_method', $method);
 				
-				if (($output = $controller->method($method, $segments)) !== FALSE && (empty($ajax_error) || $this->config->ajax_allowed))
+				if (	($output = $controller->method($method, $segments)) !== FALSE &&
+						(empty($ajax_error) || $this->config->ajax_allowed) &&
+						($this->config->extension_url == 'html' || $this->config->extension_allowed))
 				{
 					$module->segments = array($module->name, $method);
 					$module->append_output($output);

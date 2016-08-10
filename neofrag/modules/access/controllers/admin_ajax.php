@@ -90,7 +90,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		$output['count']     = $this->access->count($module_name, $action, $id, $ambiguous);
 		$output['ambiguous'] = $ambiguous;
 		
-		return json_encode($output);
+		return $output;
 	}
 	
 	public function users($action, $title, $icon, $module_name, $id)
