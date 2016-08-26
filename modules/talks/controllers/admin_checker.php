@@ -31,10 +31,6 @@ class m_talks_c_admin_checker extends Controller_Module
 		{
 			return $talk;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function delete($talk_id, $title)
@@ -45,8 +41,6 @@ class m_talks_c_admin_checker extends Controller_Module
 		{
 			return $talk;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

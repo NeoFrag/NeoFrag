@@ -31,10 +31,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return array_merge($game, [$this->pagination->get_data($this->model('maps')->get_maps($game_id), $page)]);
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function delete($game_id, $name)
@@ -45,8 +41,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [$game['game_id'], $game['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _maps_add($game_id = NULL, $title = NULL)
@@ -60,8 +54,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [$game_id, $game['name']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _maps_edit($map_id, $title)
@@ -70,8 +62,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return $map;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _maps_delete($map_id, $title)
@@ -82,8 +72,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [$map_id, $map['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _modes_add($game_id, $title)
@@ -92,8 +80,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [$game_id, $game['name']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _modes_edit($mode_id, $title)
@@ -102,8 +88,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return $mode;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _modes_delete($mode_id, $title)
@@ -114,8 +98,6 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [$mode_id, $mode['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

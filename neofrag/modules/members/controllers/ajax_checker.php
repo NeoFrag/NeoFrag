@@ -26,8 +26,6 @@ class m_members_c_ajax_checker extends Controller_Module
 		{
 			return [$user_id, $username];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

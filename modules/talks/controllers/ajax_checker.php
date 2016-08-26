@@ -31,8 +31,6 @@ class m_talks_c_ajax_checker extends Controller_Module
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function older()
@@ -46,8 +44,6 @@ class m_talks_c_ajax_checker extends Controller_Module
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function add_message()
@@ -61,8 +57,6 @@ class m_talks_c_ajax_checker extends Controller_Module
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function delete($message_id)
@@ -83,8 +77,6 @@ class m_talks_c_ajax_checker extends Controller_Module
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

@@ -32,8 +32,6 @@ class m_partners_c_checker extends Controller_Module
 			header('Location: '.$partner['website']);
 			exit;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

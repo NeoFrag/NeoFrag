@@ -47,8 +47,6 @@ class m_awards_c_admin_checker extends Controller_Module
 				$award['game_title']
 			];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function delete($award_id, $name)
@@ -59,8 +57,6 @@ class m_awards_c_admin_checker extends Controller_Module
 		{
 			return [$award['award_id'], $award['name']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

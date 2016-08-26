@@ -31,10 +31,6 @@ class m_members_c_admin_checker extends Controller_Module
 		{
 			return $members;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function delete($user_id, $username)
@@ -45,8 +41,6 @@ class m_members_c_admin_checker extends Controller_Module
 		{
 			return [$user_id, $username];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _groups_edit()
@@ -55,8 +49,6 @@ class m_members_c_admin_checker extends Controller_Module
 		{
 			return [$group['id'], $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _groups_delete()
@@ -69,13 +61,7 @@ class m_members_c_admin_checker extends Controller_Module
 			{
 				return [$group['id'], $group['title']];
 			}
-			else
-			{
-				throw new Exception(NeoFrag::UNFOUND);
-			}
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _sessions($page = '')
@@ -91,8 +77,6 @@ class m_members_c_admin_checker extends Controller_Module
 		{
 			return [$session['session_id'], $session['username']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

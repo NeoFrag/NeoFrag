@@ -76,8 +76,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 				return $args;
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function widget_move()
@@ -108,8 +106,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 				return [$post['widget'], $post['type'] ?: 'index'];
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function widget_settings()
@@ -125,8 +121,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 				return $widget;
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function widget_update()
@@ -146,8 +140,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 				return array_merge([$disposition_id, $disposition, $row_id, $col_id, $widget_id], array_values($widget));
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function widget_delete()
@@ -167,8 +159,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 			
 			return array_values($check);
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

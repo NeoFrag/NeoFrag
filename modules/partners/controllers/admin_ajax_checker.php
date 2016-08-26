@@ -26,8 +26,6 @@ class m_partners_c_admin_ajax_checker extends Controller
 		{
 			return $check;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

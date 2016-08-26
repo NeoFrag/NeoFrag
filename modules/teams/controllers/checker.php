@@ -26,10 +26,6 @@ class m_teams_c_checker extends Controller_Module
 		{
 			return $team;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 }
 

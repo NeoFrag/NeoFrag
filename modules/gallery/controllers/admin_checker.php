@@ -31,10 +31,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		{
 			return $gallery;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function delete($gallery_id, $title)
@@ -48,8 +44,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		{
 			return [$gallery['gallery_id'], $gallery['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _categories_edit($category_id, $name)
@@ -57,10 +51,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
 		{
 			return $category;
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -75,8 +65,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		{
 			return [$category_id, $category['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _image_edit($image_id, $name)
@@ -92,10 +80,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 				$image['gallery_title']
 			];
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function _image_delete($image_id, $name)
@@ -106,8 +90,6 @@ class m_gallery_c_admin_checker extends Controller_Module
 		{
 			return [$image_id, $image['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

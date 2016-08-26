@@ -31,10 +31,6 @@ class m_pages_c_admin_checker extends Controller_Module
 		{
 			return $page + [$tab];
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function delete($page_id, $title)
@@ -45,8 +41,6 @@ class m_pages_c_admin_checker extends Controller_Module
 		{
 			return [$page['page_id'], $page['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

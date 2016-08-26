@@ -57,8 +57,6 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 		{
 			return [$module_name, $action, $id, [], $user, $title, $icon];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function users()
@@ -77,8 +75,6 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 				return [$module_name, $type, $id];
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	private function _check_actions()
@@ -98,8 +94,6 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 				}
 			}
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

@@ -26,8 +26,6 @@ class m_teams_c_admin_ajax_checker extends Controller
 		{
 			return $check;
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _roles_sort()
@@ -36,8 +34,6 @@ class m_teams_c_admin_ajax_checker extends Controller
 		{
 			return $check;
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

@@ -31,6 +31,8 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
+		
+		return [];
 	}
 
 	public function _edit($news_id, $title, $tab = 'default')
@@ -44,8 +46,6 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			return $news + [$tab];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function delete($news_id, $title)
@@ -61,8 +61,6 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			return [$news['news_id'], $news['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _categories_add()
@@ -71,6 +69,8 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
+		
+		return [];
 	}
 
 	public function _categories_edit($category_id, $name)
@@ -83,10 +83,6 @@ class m_news_c_admin_checker extends Controller_Module
 		if ($category = $this->model('categories')->check_category($category_id, $name, 'default'))
 		{
 			return $category;
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -103,8 +99,6 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			return [$category_id, $category['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

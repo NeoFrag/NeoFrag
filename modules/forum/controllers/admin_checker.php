@@ -26,10 +26,6 @@ class m_forum_c_admin_checker extends Controller
 		{
 			return $forum;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function delete($forum_id, $title)
@@ -40,8 +36,6 @@ class m_forum_c_admin_checker extends Controller
 		{
 			return [$forum_id, $title];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _categories_edit($category_id, $name)
@@ -49,10 +43,6 @@ class m_forum_c_admin_checker extends Controller
 		if ($category = $this->model()->check_category($category_id, $name))
 		{
 			return $category;
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -64,8 +54,6 @@ class m_forum_c_admin_checker extends Controller
 		{
 			return $category;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

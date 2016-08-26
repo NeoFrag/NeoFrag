@@ -26,6 +26,8 @@ class m_user_c_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNCONNECTED);
 		}
+		
+		return [];
 	}
 	
 	public function sessions($page = '')
@@ -50,8 +52,6 @@ class m_user_c_checker extends Controller_Module
 		{
 			return [$session_id];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function login($error = 0)
@@ -75,10 +75,6 @@ class m_user_c_checker extends Controller_Module
 		{
 			return [$key_id, (int)$user_id];
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function logout()
@@ -87,6 +83,8 @@ class m_user_c_checker extends Controller_Module
 		{
 			redirect('user.html');
 		}
+		
+		return [];
 	}
 
 	private function _messages($page, $box)
@@ -124,8 +122,6 @@ class m_user_c_checker extends Controller_Module
 		{
 			return array_merge($message, [$this->model('messages')->get_replies($message_id)]);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _messages_compose($user_id = NULL, $username = NULL)
@@ -160,8 +156,6 @@ class m_user_c_checker extends Controller_Module
 		{
 			return $message;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

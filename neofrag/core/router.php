@@ -116,9 +116,11 @@ class Router extends Core
 		{
 			try
 			{
-				$segments = call_user_func_array([$checker, $method], $segments);
-
-				if (!is_array($segments) && $segments !== NULL)
+				if (($segments = call_user_func_array([$checker, $method], $segments)) === NULL)
+				{
+					throw new Exception(NeoFrag::UNFOUND);
+				}
+				else if (!is_array($segments))
 				{
 					$module->append_output($segments);
 					return;
@@ -181,8 +183,6 @@ class Router extends Core
 					$module->append_output($output);
 					return;
 				}
-				
-				throw new Exception(NeoFrag::UNFOUND);
 			}
 			catch (Exception $error)
 			{

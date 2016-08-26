@@ -31,8 +31,6 @@ class m_members_c_checker extends Controller_Module
 		{
 			return [$user_id, $username];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _group()
@@ -44,8 +42,6 @@ class m_members_c_checker extends Controller_Module
 		{
 			return [$group['title'], $this->pagination->get_data($this->model()->get_members($group['users']), $page)];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

@@ -36,10 +36,6 @@ class m_news_c_checker extends Controller_Module
 		{
 			return [$category['title'], $this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news('category', $category_id), $page)];
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function _news($news_id, $title)
@@ -47,10 +43,6 @@ class m_news_c_checker extends Controller_Module
 		if ($news = $this->model()->check_news($news_id, $title))
 		{
 			return $news;
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 }

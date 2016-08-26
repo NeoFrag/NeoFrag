@@ -29,8 +29,6 @@ class m_addons_c_admin_ajax extends Controller_Module
 				'size' => 'col-md-8 col-lg-9'
 			], $this->$addon())));
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function active($type, $object)

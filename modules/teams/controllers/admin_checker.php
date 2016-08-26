@@ -26,10 +26,6 @@ class m_teams_c_admin_checker extends Controller_Module
 		{
 			return $team;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function delete($team_id, $name)
@@ -40,8 +36,6 @@ class m_teams_c_admin_checker extends Controller_Module
 		{
 			return [$team['team_id'], $team['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _roles_edit($role_id, $name)
@@ -49,10 +43,6 @@ class m_teams_c_admin_checker extends Controller_Module
 		if ($role = $this->model('roles')->check_role($role_id, $name))
 		{
 			return $role;
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -64,21 +54,16 @@ class m_teams_c_admin_checker extends Controller_Module
 		{
 			return $role;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _players_delete($team_id, $name, $user_id)
 	{
 		$this->ajax();
-		
 
 		if (($team = $this->model()->check_team($team_id, $name)) && $user = $this->db->select('u.user_id', 'u.username')->from('nf_teams_users tu')->join('nf_users u', 'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')->where('tu.team_id', $team['team_id'])->where('tu.user_id', $user_id)->row())
 		{
 			return array_merge([$team['team_id']], $user);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

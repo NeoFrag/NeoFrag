@@ -33,10 +33,6 @@ class m_forum_c_ajax_checker extends Controller
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 }
 

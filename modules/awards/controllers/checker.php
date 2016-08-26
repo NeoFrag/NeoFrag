@@ -42,8 +42,6 @@ class m_awards_c_checker extends Controller_Module
 				$award['game_title']
 			];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

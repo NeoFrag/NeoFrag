@@ -26,8 +26,6 @@ class m_gallery_c_admin_ajax_checker extends Controller_Module
 		{
 			return [$gallery['gallery_id']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

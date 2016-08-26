@@ -26,8 +26,6 @@ class m_partners_c_admin_checker extends Controller_Module
 		{
 			return $partner;
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function delete($partner_id, $name)
@@ -38,8 +36,6 @@ class m_partners_c_admin_checker extends Controller_Module
 		{
 			return [$partner['partner_id'], $partner['title']];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

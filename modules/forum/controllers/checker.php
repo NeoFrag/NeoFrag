@@ -63,10 +63,6 @@ class m_forum_c_checker extends Controller
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function _new($forum_id, $title)
@@ -81,10 +77,6 @@ class m_forum_c_checker extends Controller
 			{
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -114,10 +106,6 @@ class m_forum_c_checker extends Controller
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function _topic_announce($topic_id, $title, $permission = 'category_announce')
@@ -132,10 +120,6 @@ class m_forum_c_checker extends Controller
 			{
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -157,10 +141,6 @@ class m_forum_c_checker extends Controller
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 	
 	public function _message_edit($message_id, $title)
@@ -175,10 +155,6 @@ class m_forum_c_checker extends Controller
 			{
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
-		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
 		}
 	}
 	
@@ -202,8 +178,6 @@ class m_forum_c_checker extends Controller
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function mark_all_as_read()
@@ -212,6 +186,8 @@ class m_forum_c_checker extends Controller
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
+
+		return [];
 	}
 	
 	public function _mark_all_as_read($forum_id, $title)
@@ -227,11 +203,8 @@ class m_forum_c_checker extends Controller
 				throw new Exception(NeoFrag::UNAUTHORIZED);
 			}
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
-	}}
+	}
+}
 
 /*
 NeoFrag Alpha 0.1.4

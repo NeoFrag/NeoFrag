@@ -26,10 +26,6 @@ class m_pages_c_checker extends Controller_Module
 		{
 			return $content;
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 }
 

@@ -76,8 +76,6 @@ class m_access_c_admin_checker extends Controller_Module
 		{
 			return [$module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

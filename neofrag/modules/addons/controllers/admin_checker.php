@@ -26,23 +26,16 @@ class m_addons_c_admin_checker extends Controller_Module
 		{
 			return [$module];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _module_delete($name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if (($module = $this->load->module($name)) && $module->is_removable())
 		{
 			return [$module];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _theme_settings($name)
@@ -51,23 +44,16 @@ class m_addons_c_admin_checker extends Controller_Module
 		{
 			return [$theme, $controller];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _theme_delete($name)
 	{
-		if ($this->config->ajax_header)
-		{
-			$this->ajax();
-		}
+		$this->ajax();
 
 		if (($theme = $this->load->theme($name)) && $theme->is_removable())
 		{
 			return [$theme];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

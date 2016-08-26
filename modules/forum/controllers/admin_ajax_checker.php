@@ -26,8 +26,6 @@ class m_forum_c_admin_ajax_checker extends Controller
 		{
 			return $check;
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function move()
@@ -42,8 +40,6 @@ class m_forum_c_admin_ajax_checker extends Controller
 		{
 			return array_merge($check, [$is_subforum]);
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 

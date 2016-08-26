@@ -28,8 +28,6 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 		{
 			return [$post['type'], $object];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _theme_activation()
@@ -48,8 +46,6 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 		{
 			return [$controller];
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	private function _check_theme()
@@ -60,8 +56,6 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 		{
 			return $theme;
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 	
 	public function _language_sort()
@@ -70,8 +64,6 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 		{
 			return $check;
 		}
-		
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 }
 
