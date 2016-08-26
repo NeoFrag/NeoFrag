@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_module_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
 		$this->title($this->output->data['module_title']);
 		echo $this->output->data['module'];

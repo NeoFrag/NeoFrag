@@ -26,11 +26,11 @@ class m_access_c_admin extends Controller_Module
 	{
 		if (!$modules)
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('permissions'),
 				'icon'    => 'fa-unlock-alt',
 				'content' => $this('no_permission')
-			));
+			]);
 		}
 		
 		$this->js('access');
@@ -41,51 +41,51 @@ class m_access_c_admin extends Controller_Module
 			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), '_tab_index', $objects, $module->get_title(), $module, $type, $access);
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'content' => $this->tab->display($tab)
-		));
+		]);
 	}
 	
 	public function _tab_index($objects, $title, $module, $type, $all_access)
 	{
 		$this	->subtitle($title)
 				->table
-				->add_columns(array(
-					array(
+				->add_columns([
+					[
 						'title'   => $this('name'),
 						'content' => function($data){
 							return $data['title'];
 						}
-					)
-				));
+					]
+				]);
 
 		foreach ($all_access['access'] as $a)
 		{
 			foreach ($a['access'] as $action => $access)
 			{
 				$this	->table
-						->add_columns(array(
-							array(
+						->add_columns([
+							[
 								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->load->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
 								'content' => function($data) use ($module, $action){
 									return NeoFrag::loader()->access->count($module->name, $action, $data['id']);
 								},
 								'class'   => 'col-md-1'
-							)
-						));
+							]
+						]);
 			}
 		}
 		
 		$this	->table
-				->add_columns(array(
-					array(
-						'content' => array(
+				->add_columns([
+					[
+						'content' => [
 							function($data, $loader) use ($module, $type){
-								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', array(
+								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', [
 									'module' => $module->name,
 									'type'   => $type,
 									'id'     => $data['id']
-								));
+								]);
 							},
 							/*function(){
 								return button('#', 'fa-copy', 'Glissez pour copier', 'primary');
@@ -93,9 +93,9 @@ class m_access_c_admin extends Controller_Module
 							function($data, $loader) use ($module, $type){
 								return button_access($data['id'], $type, $module->name, $loader->lang('edit'));
 							}
-						)
-					)
-				))
+						]
+					]
+				])
 				->data($objects);
 
 		echo $this->table->display();
@@ -111,29 +111,29 @@ class m_access_c_admin extends Controller_Module
 				->css('neofrag.table')
 				->js('neofrag.table');
 		
-		return array(
+		return [
 			new Row(
 				new Col(
-					new Panel(array(
-						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info access-reset', array(
+					new Panel([
+						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info access-reset', [
 							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id
-						)).'</div>',
+						]).'</div>',
 						'icon'    => 'fa-unlock-alt',
-						'content' => $this->load->view('index', array(
+						'content' => $this->load->view('index', [
 							'loader' => $module->load,
 							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id,
 							'access' => $access
-						)),
+						]),
 						'size'    => 'col-md-12 col-lg-5'
-					))
+					])
 				)
 			),
 			new Button_back()
-		);
+		];
 	}
 }
 

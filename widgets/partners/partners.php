@@ -28,10 +28,10 @@ class w_partners extends Widget
 	public $version     = 'Alpha 0.1.4';
 	public $nf_version  = 'Alpha 0.1.4';
 	public $path        = __FILE__;
-	public $types       = array(
+	public $types       = [
 		'index'  => 'Affichage horizontal en slider',
 		'column' => 'Affichage simple en colonne'
-	);
+	];
 }
 
 /*

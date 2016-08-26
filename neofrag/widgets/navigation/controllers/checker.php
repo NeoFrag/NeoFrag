@@ -20,13 +20,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_navigation_c_checker extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
-		$links = array();
+		$links = [];
 		
 		foreach ($settings as $key => $values)
 		{
-			if (in_array($key, array('title', 'url', 'target')))
+			if (in_array($key, ['title', 'url', 'target']))
 			{
 				foreach ($values as $i => $value)
 				{
@@ -35,10 +35,10 @@ class w_navigation_c_checker extends Controller_Widget
 			}
 		}
 		
-		return array(
+		return [
 			'links'   => $links,
 			'display' => (bool)$settings['display']
-		);
+		];
 	}
 }
 

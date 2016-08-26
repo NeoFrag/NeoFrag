@@ -43,7 +43,7 @@ class m_partners_m_partners extends Model
 
 	public function add_partner($title, $logo_light, $logo_dark, $description, $website, $facebook, $twitter, $code)
 	{
-		$partner_id = $this->db->insert('nf_partners', array(
+		$partner_id = $this->db->insert('nf_partners', [
 			'name'       => url_title($title),
 			'logo_light' => $logo_light,
 			'logo_dark'  => $logo_dark,
@@ -51,20 +51,20 @@ class m_partners_m_partners extends Model
 			'facebook'   => $facebook,
 			'twitter'    => $twitter,
 			'code'       => $code
-		));
+		]);
 
-		$this->db->insert('nf_partners_lang', array(
+		$this->db->insert('nf_partners_lang', [
 			'partner_id'  => $partner_id,
 			'lang'        => $this->config->lang,
 			'title'       => $title,
 			'description' => $description
-		));
+		]);
 	}
 
 	public function edit_partner($partner_id, $title, $logo_light, $logo_dark, $description, $website, $facebook, $twitter, $code)
 	{
 		$this->db	->where('partner_id', $partner_id)
-					->update('nf_partners', array(
+					->update('nf_partners', [
 						'name'       => url_title($title),
 						'logo_light' => $logo_light,
 						'logo_dark'  => $logo_dark,
@@ -72,14 +72,14 @@ class m_partners_m_partners extends Model
 						'facebook'   => $facebook,
 						'twitter'    => $twitter,
 						'code'       => $code
-					));
+					]);
 
 		$this->db	->where('partner_id', $partner_id)
 					->where('lang', $this->config->lang)
-					->update('nf_partners_lang', array(
+					->update('nf_partners_lang', [
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 	}
 
 	public function delete_partner($partner_id)

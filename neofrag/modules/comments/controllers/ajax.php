@@ -36,9 +36,9 @@ class m_comments_c_ajax extends Controller_Module
 			else
 			{
 				$this->db	->where('comment_id', $comment_id)
-							->update('nf_comments', array(
+							->update('nf_comments', [
 								'content' => NULL
-							));
+							]);
 			}
 
 			return 'OK';

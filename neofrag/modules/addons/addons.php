@@ -29,7 +29,7 @@ class m_addons extends Module
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
 	public $path          = __FILE__;
-	public $routes        = array(
+	public $routes        = [
 		//Modules
 		'admin/module/{url_title}'        => '_module_settings',
 		'admin/delete/module/{url_title}' => '_module_delete',
@@ -43,7 +43,7 @@ class m_addons extends Module
 
 		//Languages
 		'admin/ajax/language/sort'        => '_language_sort'
-	);
+	];
 }
 
 /*

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_talks_c_index extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		if (!$this->access('talks', 'read', $settings['talk_id']))
 		{
@@ -32,11 +32,11 @@ class w_talks_c_index extends Controller_Widget
 				->js('jquery.mCustomScrollbar.min')
 				->css('jquery.mCustomScrollbar.min');
 		
-		$params = array(
-			'content' => '<div data-talk-id="'.$settings['talk_id'].'">'.$this->load->view('index', array(
+		$params = [
+			'content' => '<div data-talk-id="'.$settings['talk_id'].'">'.$this->load->view('index', [
 				'messages' => $this->model()->get_messages($settings['talk_id'])
-			)).'</div>'
-		);
+			]).'</div>'
+		];
 		
 		if ($this->access('talks', 'write', $settings['talk_id']))
 		{

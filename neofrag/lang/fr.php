@@ -215,13 +215,13 @@ $lang['yesterday_at']                   = 'Hier, à %s';
 $lang['your_response']                  = 'Votre réponse';
 $lang['zone']                           = 'Zone #%d';
 
-$lang['locale'] = array(
+$lang['locale'] = [
 	'fr_FR.UTF8',
 	'fr.UTF8',
 	'fr_FR.UTF-8',
 	'fr.UTF-8',
 	'French_France.1252'
-);
+];
 
 if (!function_exists('date2sql'))
 {

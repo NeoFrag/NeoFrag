@@ -22,7 +22,7 @@ class m_talks_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_talks(), $page));
+		return [$this->pagination->get_data($this->model()->get_talks(), $page)];
 	}
 	
 	public function _edit($talk_id, $title)

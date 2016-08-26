@@ -30,9 +30,9 @@ class m_comments_c_admin extends Controller_Module
 			$this->tab->add_tab($module_name, icon($icon).' '.$title, '_tab_index', $comments, $title);
 		}
 								
-		return new Panel(array(
+		return new Panel([
 			'content' => $this->tab->display($tab)
-		));
+		]);
 	}
 	
 	public function _tab_index($comments, $title = NULL)
@@ -41,8 +41,8 @@ class m_comments_c_admin extends Controller_Module
 		
 		if ($title === NULL)
 		{
-			$this->table->add_columns(array(
-				array(
+			$this->table->add_columns([
+				[
 					'title'   => $this('module'),
 					'content' => function($data){
 						return '<a href="'.url('admin/comments/'.$data['module'].'.html').'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
@@ -54,12 +54,12 @@ class m_comments_c_admin extends Controller_Module
 					'search'  => function($data){
 						return $data['module_title'];
 					}
-				)
-			));
+				]
+			]);
 		}
 	
-		echo $this->table->add_columns(array(
-			array(
+		echo $this->table->add_columns([
+			[
 				'title'   => $this('name'),
 				'content' => function($data){
 					return $data['title'];
@@ -70,21 +70,21 @@ class m_comments_c_admin extends Controller_Module
 				'search'  => function($data){
 					return $data['title'];
 				}
-			),
-			array(
+			],
+			[
 				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this('number_comments').'"></i>',
 				'content' => function($data){
 					return NeoFrag::loader()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
 				'size'    => TRUE
-			),
-			array(
+			],
+			[
 				'content' => function($data, $loader){
 					return button($data['url'], 'fa-eye', $loader->lang('see_comments'), 'info');
 				},
 				'size'    => TRUE
-			)
-		))
+			]
+		])
 		->data($comments)
 		->no_data($this('no_comments'))
 		->sort_by(1)

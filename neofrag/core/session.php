@@ -23,7 +23,7 @@ class Session extends Core
 	private $_ip_address;
 	private $_host_name;
 	private $_session_id;
-	private $_user_data = array();
+	private $_user_data = [];
 	private $_user_id   = NULL;
 	private	$_sessions;
 
@@ -50,12 +50,12 @@ class Session extends Core
 			}
 
 			$this->db	->where('session_id', $cookie)
-						->update('nf_sessions', array(
+						->update('nf_sessions', [
 							'session_id'    => $this->_session_id,
 							'ip_address'    => $this->_ip_address,
 							'host_name'     => $this->_host_name,
 							'last_activity' => now()
-						));
+						]);
 		}
 		else if (!is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
@@ -65,18 +65,18 @@ class Session extends Core
 			
 			if ($crawler !== FALSE)
 			{
-				$this->db->insert('nf_crawlers', array(
+				$this->db->insert('nf_crawlers', [
 					'name' => $crawler,
 					'path' => $this->config->request_url
-				));
+				]);
 			}
 
-			$this->db->insert('nf_sessions', array(
+			$this->db->insert('nf_sessions', [
 				'session_id' => $this->_session_id,
 				'ip_address' => $this->_ip_address,
 				'host_name'  => $this->_host_name,
 				'is_crawler' => $crawler !== FALSE
-			));
+			]);
 			
 			$this->_user_data['session']['date']       = time();
 			$this->_user_data['session']['javascript'] = FALSE;
@@ -91,9 +91,9 @@ class Session extends Core
 	{
 		if (!is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
-			if (in_array($this->_get_url(), array('index.html', 'admin.html')) || empty($_SERVER['HTTP_REFERER']))
+			if (in_array($this->_get_url(), ['index.html', 'admin.html']) || empty($_SERVER['HTTP_REFERER']))
 			{
-				$this->_user_data['session']['history'] = array($this->_get_url());
+				$this->_user_data['session']['history'] = [$this->_get_url()];
 			}
 			else if (empty($this->_user_data['session']['history']) || end($this->_user_data['session']['history']) != $this->_get_url())
 			{
@@ -116,7 +116,7 @@ class Session extends Core
 		$args  = func_get_args();
 		$count = func_num_args();
 
-		if ($count == 1 && in_array($args[0], array('session_id', 'user_id', 'ip_address', 'host_name')))
+		if ($count == 1 && in_array($args[0], ['session_id', 'user_id', 'ip_address', 'host_name']))
 		{
 			$var = '_'.$args[0];
 			return $this->$var;
@@ -140,10 +140,10 @@ class Session extends Core
 	public function save()
 	{
 		$this->db	->where('session_id', $this->_session_id)
-					->update('nf_sessions', array(
+					->update('nf_sessions', [
 						'user_data' => !empty($this->_user_data) ? serialize($this->_user_data) : '',
 						'user_id'   => $this->_user_id
-					));
+					]);
 
 		return $this;
 	}
@@ -217,7 +217,7 @@ class Session extends Core
 		
 		if ($user_id !== NULL)
 		{
-			$this->db->insert('nf_sessions_history', array(
+			$this->db->insert('nf_sessions_history', [
 				'session_id' => $this->_session_id,
 				'user_id'    => $user_id,
 				'ip_address' => $this->_ip_address,
@@ -225,7 +225,7 @@ class Session extends Core
 				'referer'    => $this->_user_data['session']['referer'],
 				'user_agent' => $this->_user_data['session']['user_agent'],
 				'date'       => now()
-			));
+			]);
 		}
 
 		return $this;
@@ -254,9 +254,9 @@ class Session extends Core
 	public function remember_me($remember_me)
 	{
 		$this->db	->where('session_id', $this->_session_id)
-					->update('nf_sessions', array(
+					->update('nf_sessions', [
 						'remember_me' => $remember_me
-					));
+					]);
 
 		return $this;
 	}
@@ -264,10 +264,10 @@ class Session extends Core
 	public function disconnect($session_id)
 	{
 		$this->db	->where('session_id', $session_id)
-					->update('nf_sessions', array(
+					->update('nf_sessions', [
 						'user_id'     => NULL,
 						'remember_me' => FALSE
-					));
+					]);
 
 		return $this;
 	}
@@ -280,7 +280,7 @@ class Session extends Core
 		{
 			$url = $this->config->request_url;
 			
-			if (preg_match('#('.($patern = implode('|', array(self::$route_patterns['pages'], self::$route_patterns['page']))).')\.html$#', $url, $match) && $match[1])
+			if (preg_match('#('.($patern = implode('|', [self::$route_patterns['pages'], self::$route_patterns['page']])).')\.html$#', $url, $match) && $match[1])
 			{
 				$url = preg_replace('#'.$patern.'#', '', $url);
 			}

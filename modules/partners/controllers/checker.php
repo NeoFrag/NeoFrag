@@ -25,9 +25,9 @@ class m_partners_c_checker extends Controller_Module
 		if ($partner = $this->model()->check_partner($partner_id, $name))
 		{
 			$this->db	->where('partner_id', $partner_id)
-						->update('nf_partners', array(
+						->update('nf_partners', [
 							'count' => $partner['count'] + 1
-						));
+						]);
 
 			header('Location: '.$partner['website']);
 			exit;

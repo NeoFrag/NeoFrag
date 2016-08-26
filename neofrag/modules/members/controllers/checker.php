@@ -22,14 +22,14 @@ class m_members_c_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_members(), $page));
+		return [$this->pagination->get_data($this->model()->get_members(), $page)];
 	}
 
 	public function _member($user_id, $username)
 	{
 		if ($this->model()->check_member($user_id, $username))
 		{
-			return array($user_id, $username);
+			return [$user_id, $username];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -42,7 +42,7 @@ class m_members_c_checker extends Controller_Module
 		
 		if ($group = $this->groups->check_group($args))
 		{
-			return array($group['title'], $this->pagination->get_data($this->model()->get_members($group['users']), $page));
+			return [$group['title'], $this->pagination->get_data($this->model()->get_members($group['users']), $page)];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

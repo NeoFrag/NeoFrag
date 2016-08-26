@@ -22,7 +22,7 @@ class m_settings_c_ajax extends Controller_Module
 {
 	public function pagination()
 	{
-		if (in_array($items_per_page = post('items_per_page'), array(0, 10, 25, 50, 100)))
+		if (in_array($items_per_page = post('items_per_page'), [0, 10, 25, 50, 100]))
 		{
 			if (($table_id = post('table_id')))
 			{
@@ -53,9 +53,9 @@ class m_settings_c_ajax extends Controller_Module
 		if ($this->user())
 		{
 			$this->db	->where('user_id', $this->_user_data['user_id'])
-						->update('nf_users', array(
+						->update('nf_users', [
 							'language' => post('language')
-						));
+						]);
 		}
 		else
 		{

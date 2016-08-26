@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 abstract class Controller_Widget extends Controller
 {
-	abstract public function index($config = array());
+	abstract public function index($config = []);
 
 	public function title($title)
 	{

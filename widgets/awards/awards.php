@@ -28,11 +28,11 @@ class w_awards extends Widget
 	public $version     = '1.0';
 	public $nf_version  = 'Alpha 0.1.4';
 	public $path        = __FILE__;
-	public $types       = array(
+	public $types       = [
 		'index'     => 'Derniers palmarès',
 		'best_team' => 'Équipe la plus récompensée',
 		'best_game' => 'Jeu le plus récompensé'
-	);
+	];
 }
 
 /*

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_slider_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
 		echo $this->load->view('index');
 	}

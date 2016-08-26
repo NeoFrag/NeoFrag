@@ -27,7 +27,7 @@ function user_agent($user_agent)
 function is_crawler()
 {
 	//https://github.com/JayBizzle/Crawler-Detect
-	$crawlers = array(
+	$crawlers = [
 		'007ac9 Crawler',
 		'008/',
 		'360Spider',
@@ -425,9 +425,9 @@ function is_crawler()
 		'Zealbot',
 		'zspider',
 		'ZyBorg'
-	);
+	];
 	
-	$headers = array(
+	$headers = [
 		'HTTP_USER_AGENT',
 		'HTTP_X_OPERAMINI_PHONE_UA',
 		'HTTP_X_DEVICE_USER_AGENT',
@@ -436,7 +436,7 @@ function is_crawler()
 		'HTTP_X_BOLT_PHONE_UA',
 		'HTTP_DEVICE_STOCK_UA',
 		'HTTP_X_UCBROWSER_DEVICE_UA',
-	);
+	];
 	
 	static $pattern;
 

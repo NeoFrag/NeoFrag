@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 abstract class Driver
 {
 	static protected $db;
-	static protected $keywords = array('read', 'order');
+	static protected $keywords = ['read', 'order'];
 
 	static public function query($request)
 	{
@@ -71,7 +71,7 @@ abstract class Driver
 	abstract public function last_id();
 	abstract public function affected_rows();
 
-	public $bind = array();
+	public $bind = [];
 	
 	public function __construct($request)
 	{
@@ -107,7 +107,7 @@ abstract class Driver
 			}
 			else if (!empty($this->update) && !empty($this->set))
 			{
-				$sets = array();
+				$sets = [];
 				
 				if (is_array($this->set))
 				{

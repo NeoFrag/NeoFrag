@@ -73,9 +73,9 @@ class m_talks_m_talks extends Model
 	
 	public function add_talk($title)
 	{
-		$talk_id = $this->db->insert('nf_talks', array(
+		$talk_id = $this->db->insert('nf_talks', [
 			'name' => $title
-		));
+		]);
 		
 		$this->access->init('talks', 'talks', $talk_id);
 	}
@@ -83,9 +83,9 @@ class m_talks_m_talks extends Model
 	public function edit_talk($talk_id, $title)
 	{
 		$this->db	->where('talk_id', $talk_id)
-					->update('nf_talks', array(
+					->update('nf_talks', [
 						'name' => $title
-					));
+					]);
 	}
 	
 	public function delete_talk($talk_id)

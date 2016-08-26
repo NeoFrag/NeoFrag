@@ -18,14 +18,14 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
+$rules = [
+	'title' => [
 		'label' => '{lang title}',
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.3

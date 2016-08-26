@@ -22,29 +22,29 @@ class m_talks_c_ajax extends Controller_Module
 {
 	public function index($talk_id, $message_id)
 	{
-		echo $this->load->view('index', array(
+		echo $this->load->view('index', [
 			'messages' => $this->model()->get_messages($talk_id, $message_id)
-		));
+		]);
 	}
 	
 	public function older($talk_id, $message_id, $position)
 	{
-		echo $this->load->view('index', array(
+		echo $this->load->view('index', [
 			'position' => $position,
 			'user_id'  => $this->db->select('user_id')->from('nf_talks_messages')->where('message_id', $message_id)->row(),
 			'messages' => $this->model()->get_messages($talk_id, $message_id, TRUE)
-		));
+		]);
 	}
 	
 	public function add_message($talk_id, $message)
 	{
 		if ($message = trim($message))
 		{
-			$this->db->insert('nf_talks_messages', array(
+			$this->db->insert('nf_talks_messages', [
 				'talk_id' => $talk_id,
 				'user_id' => $this->user('user_id'),
 				'message' => utf8_htmlentities($message)
-			));
+			]);
 		}
 	}
 	
@@ -64,9 +64,9 @@ class m_talks_c_ajax extends Controller_Module
 			else
 			{
 				$this->db	->where('message_id', $message_id)
-							->update('nf_talks_messages', array(
+							->update('nf_talks_messages', [
 								'message' => NULL
-							));
+							]);
 			}
 
 			return 'OK';

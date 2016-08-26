@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_news_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
 		$news = array_filter($this->model()->get_news(), function($a){
 			return $a['published'];
@@ -28,44 +28,44 @@ class w_news_c_index extends Controller_Widget
 		
 		if (!empty($news))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'        => $this('recent_news'),
-				'content'      => $this->load->view('index', array(
+				'content'      => $this->load->view('index', [
 					'news'     => array_slice($news, 0, 3)
-				)),
+				]),
 				'footer'       => '<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>',
 				'footer_align' => 'right'
-			));
+			]);
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('recent_news'),
 				'content' => $this('no_news')
-			));
+			]);
 		}
 	}
 	
-	public function categories($config = array())
+	public function categories($config = [])
 	{
 		$categories = $this->model('categories')->get_categories();
 		
 		if (!empty($categories))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('categories'),
-				'content' => $this->load->view('categories', array(
+				'content' => $this->load->view('categories', [
 					'categories' => $categories
-				)),
+				]),
 				'body'    => FALSE
-			));
+			]);
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('categories'),
 				'content' => $this('no_category')
-			));
+			]);
 		}
 	}
 }

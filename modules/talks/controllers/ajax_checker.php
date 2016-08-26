@@ -78,7 +78,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 		{
 			if ($this->access('talks', 'delete', $message['talk_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
 			{
-				return array($message_id, $message['talk_id']);
+				return [$message_id, $message['talk_id']];
 			}
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);

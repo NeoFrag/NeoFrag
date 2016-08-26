@@ -18,34 +18,34 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'game_id' => array(
+$rules = [
+	'game_id' => [
 		'label'  => 'Jeu',
 		'value'  => $game_id,
 		'values' => $games,
 		'type'   => 'select',
 		'rules'  => 'required'
-	),
-	'title' => array(
+	],
+	'title' => [
 		'label' => 'Nom de la carte',
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'
-	),
-	'image' => array(
+	],
+	'image' => [
 		'label' => 'Image',
 		'value' => $image_id,
 		'upload'=> 'games/maps',
 		'type'  => 'file',
 		'info'  => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
-			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
 				return i18n('select_image_file');
 			}
 		}
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.4

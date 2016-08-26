@@ -20,11 +20,11 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_user_c_checker extends Controller_Module
 {
-	public function index_mini($settings = array())
+	public function index_mini($settings = [])
 	{
-		return array(
-			'align' => !empty($settings['align']) && in_array($settings['align'], array('navbar-left', 'navbar-right')) ? $settings['align'] : 'navbar-right'
-		);
+		return [
+			'align' => !empty($settings['align']) && in_array($settings['align'], ['navbar-left', 'navbar-right']) ? $settings['align'] : 'navbar-right'
+		];
 	}
 }
 

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Driver_mysqli extends Driver
 {
-	static private $_stmt = array();
+	static private $_stmt = [];
 
 	static public function connect($hostname, $username, $password, $database)
 	{
@@ -62,7 +62,7 @@ class Driver_mysqli extends Driver
 					$bind[$i] = &$bind[$i];
 				}
 				
-				call_user_func_array(array($this->stmt, 'bind_param'), $bind);
+				call_user_func_array([$this->stmt, 'bind_param'], $bind);
 			}
 
 			if (!$this->stmt->execute())
@@ -80,7 +80,7 @@ class Driver_mysqli extends Driver
 	{
 		if (empty($this->bind))
 		{
-			$this->bind = array('');
+			$this->bind = [''];
 		}
 
 		if ($value === NULL)
@@ -115,7 +115,7 @@ class Driver_mysqli extends Driver
 	{
 		$result = $this->stmt->get_result();
 		
-		$return = $result->fetch_all(MYSQLI_ASSOC) ?: array();
+		$return = $result->fetch_all(MYSQLI_ASSOC) ?: [];
 		
 		$result->free();
 		
@@ -126,7 +126,7 @@ class Driver_mysqli extends Driver
 	{
 		$result = $this->stmt->get_result();
 		
-		$return = $result->fetch_assoc() ?: array();
+		$return = $result->fetch_assoc() ?: [];
 		
 		$result->free();
 		

@@ -24,7 +24,7 @@ class m_awards_c_checker extends Controller_Module
 	{
 		if ($award = $this->model()->check_awards($award_id, $name))
 		{
-			return array(
+			return [
 				$award['award_id'],
 				$award['team_id'],
 				$award['date'],
@@ -40,7 +40,7 @@ class m_awards_c_checker extends Controller_Module
 				$award['team_title'],
 				$award['game_name'],
 				$award['game_title']
-			);
+			];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

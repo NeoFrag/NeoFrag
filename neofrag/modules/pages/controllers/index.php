@@ -24,11 +24,11 @@ class m_pages_c_index extends Controller_Module
 	{
 		$this->title($title);
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $title.($subtitle ? ' <small>'.$subtitle.'</small>' : ''),
 			'icon'    => 'fa-file-text-o',
 			'content' => bbcode($content)
-		));
+		]);
 	}
 }
 

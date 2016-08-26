@@ -24,9 +24,9 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	{
 		$post = post();
 
-		if (!empty($post['type']) && in_array($post['type'], array('module', 'widget')) && !empty($post['name']) && ($object = $this->load->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
+		if (!empty($post['type']) && in_array($post['type'], ['module', 'widget']) && !empty($post['name']) && ($object = $this->load->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
 		{
-			return array($post['type'], $object);
+			return [$post['type'], $object];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -34,19 +34,19 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 
 	public function _theme_activation()
 	{
-		return array($this->_check_theme());
+		return [$this->_check_theme()];
 	}
 
 	public function _theme_reset()
 	{
-		return array($this->_check_theme());
+		return [$this->_check_theme()];
 	}
 
 	public function _theme_settings($theme_name)
 	{
 		if (($theme = $this->load->theme($theme_name)) && ($controller = $theme->load->controller('admin_ajax')) !== NULL && method_exists($controller, 'index'))
 		{
-			return array($controller);
+			return [$controller];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

@@ -47,7 +47,7 @@ class m_forum_c_search extends Controller
 					->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
 					->order_by('m.date DESC');
 
-		return array('t.title', 'm.message');
+		return ['t.title', 'm.message'];
 	}
 }
 

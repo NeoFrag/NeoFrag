@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_header_c_index extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		echo $this->load->view('index', $settings);
 	}

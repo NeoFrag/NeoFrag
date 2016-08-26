@@ -23,8 +23,8 @@ class m_talks_c_admin extends Controller_Module
 	public function index($talks)
 	{
 		$this	->table
-				->add_columns(array(
-					array(
+				->add_columns([
+					[
 						'title'   => $this('talks'),
 						'content' => function($data){
 							return $data['name'];
@@ -35,9 +35,9 @@ class m_talks_c_admin extends Controller_Module
 						'search'  => function($data){
 							return $data['name'];
 						}
-					),
-					array(
-						'content' => array(
+					],
+					[
+						'content' => [
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
@@ -56,19 +56,19 @@ class m_talks_c_admin extends Controller_Module
 									return button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
 								}
 							}
-						),
+						],
 						'size'    => TRUE
-					)
-				))
+					]
+				])
 				->data($talks)
 				->no_data($this('no_talks'));
 						
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('talks_list'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->table->display(),
 			'footer'  => button_add('admin/talks/add.html', $this('create_talk'))
-		));
+		]);
 	}
 	
 	public function add()
@@ -88,20 +88,20 @@ class m_talks_c_admin extends Controller_Module
 			redirect_back('admin/talks.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_talk'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function _edit($talk_id, $title)
 	{
 		$this	->subtitle($title)
 				->form
-				->add_rules('talks', array(
+				->add_rules('talks', [
 					'title' => $title
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/talks.html');
 		
@@ -114,11 +114,11 @@ class m_talks_c_admin extends Controller_Module
 			redirect_back('admin/talks.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_talk'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function delete($talk_id, $title)

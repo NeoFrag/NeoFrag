@@ -22,14 +22,14 @@ class m_awards_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_awards(), $page));
+		return [$this->pagination->get_data($this->model()->get_awards(), $page)];
 	}
 
 	public function _edit($award_id, $name)
 	{
 		if ($award = $this->model()->check_awards($award_id, $name))
 		{
-			return array(
+			return [
 				$award['award_id'],
 				$award['team_id'],
 				$award['date'],
@@ -45,7 +45,7 @@ class m_awards_c_admin_checker extends Controller_Module
 				$award['team_title'],
 				$award['game_name'],
 				$award['game_title']
-			);
+			];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -57,7 +57,7 @@ class m_awards_c_admin_checker extends Controller_Module
 
 		if ($award = $this->model()->check_awards($award_id, $name))
 		{
-			return array($award['award_id'], $award['name']);
+			return [$award['award_id'], $award['name']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

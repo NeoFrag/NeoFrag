@@ -22,7 +22,7 @@ abstract class Translatable extends NeoFrag
 {
 	public function __invoke()
 	{
-		return call_user_func_array(array($this->load, 'lang'), func_get_args());
+		return call_user_func_array([$this->load, 'lang'], func_get_args());
 	}
 }
 

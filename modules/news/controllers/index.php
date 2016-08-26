@@ -22,18 +22,18 @@ class m_news_c_index extends Controller_Module
 {
 	public function index($news)
 	{
-		$panels = array();
+		$panels = [];
 		
 		foreach ($news as $news)
 		{
 			$news['introduction'] = bbcode($news['introduction']);
 			
-			$panel = array(
+			$panel = [
 				'title'   => $news['title'],
 				'url'     => 'news/'.$news['news_id'].'/'.url_title($news['title']).'.html',
 				'icon'    => 'fa-file-text-o',
 				'content' => $this->load->view('index', $news)
-			);
+			];
 			
 			if ($news['content'])
 			{
@@ -45,12 +45,12 @@ class m_news_c_index extends Controller_Module
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => $this('news'),
 				'icon'    => 'fa-file-text-o',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">'.$this('no_news_published').'</div>'
-			));
+			]);
 		}
 		else if ($pagination = $this->pagination->get_pagination())
 		{
@@ -76,9 +76,9 @@ class m_news_c_index extends Controller_Module
 	{
 		$news = $this->index($news);
 		
-		array_unshift($news, new Panel(array(
-			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', $this('show_more'), 'danger pull-right', array(), FALSE, TRUE).'</h2>'
-		)));
+		array_unshift($news, new Panel([
+			'content' => '<h2 class="no-margin">'.$filter.button('news.html', 'fa-close', $this('show_more'), 'danger pull-right', [], FALSE, TRUE).'</h2>'
+		]));
 
 		return $news;
 	}
@@ -87,10 +87,10 @@ class m_news_c_index extends Controller_Module
 	{
 		$this->title($title);
 		
-		$news = new Panel(array(
+		$news = new Panel([
 			'title'   => $title,
 			'icon'    => 'fa-file-text-o',
-			'content' => $this->load->view('index', array(
+			'content' => $this->load->view('index', [
 				'news_id'        => $news_id,
 				'category_id'    => $category_id,
 				'user_id'        => $user_id,
@@ -109,12 +109,12 @@ class m_news_c_index extends Controller_Module
 				'username'       => $username,
 				'avatar'         => $avatar,
 				'sex'            => $sex
-			))
-		));
+			])
+		]);
 		
 		if ($user_id)
 		{
-			return array(
+			return [
 				new Row(
 					new Col(
 						$news
@@ -122,10 +122,10 @@ class m_news_c_index extends Controller_Module
 				),
 				new Row(
 					new Col(
-						new Panel(array(
+						new Panel([
 							'title'   => $this('about_the_author'),
 							'icon'    => 'fa-user',
-							'content' => $this->load->view('author', array(
+							'content' => $this->load->view('author', [
 								'user_id'  => $user_id,
 								'username' => $username,
 								'avatar'   => $avatar,
@@ -133,28 +133,28 @@ class m_news_c_index extends Controller_Module
 								'admin'    => $admin,
 								'online'   => $online,
 								'quote'    => $quote
-							))
-						))
+							])
+						])
 						, 'col-md-6'
 					),
 					new Col(
-						new Panel(array(
+						new Panel([
 							'title'   => $this('more_news_from_author'),
 							'icon'    => 'fa-file-text-o',
-							'content' => $this->load->view('author_news', array(
+							'content' => $this->load->view('author_news', [
 								'news' => $this->model()->get_news_by_user($user_id, $news_id)
-							)),
+							]),
 							'body'    => FALSE
-						))
+						])
 						, 'col-md-6'
 					)
 				),
 				$this->comments->display('news', $news_id)
-			);
+			];
 		}
 		else
 		{
-			return array($news, $this->comments->display('news', $news_id));
+			return [$news, $this->comments->display('news', $news_id)];
 		}
 	}
 }

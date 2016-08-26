@@ -22,7 +22,7 @@ class m_access_c_admin_ajax extends Controller_Module
 {
 	public function index($action, $title, $icon, $module_name, $id)
 	{
-		$groups = array();
+		$groups = [];
 		
 		foreach (array_keys($this->groups()) as $group_id)
 		{
@@ -40,19 +40,19 @@ class m_access_c_admin_ajax extends Controller_Module
 			}
 		}
 		
-		return new Col(new Panel(array(
+		return new Col(new Panel([
 			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.button('#', 'fa-users', $this('users'), 'info access-users').'</span>'.$title,
 			'icon'    => $icon,
-			'content' => $this->load->view('details', array(
+			'content' => $this->load->view('details', [
 				'groups' => $groups
-			)),
+			]),
 			'body'    => FALSE
-		)), 'col-md-12 col-lg-7');
+		]), 'col-md-12 col-lg-7');
 	}
 	
 	public function update($module_name, $action, $id, $groups, $user, $title, $icon)
 	{
-		$output = array();
+		$output = [];
 		
 		if ($groups)
 		{
@@ -96,8 +96,8 @@ class m_access_c_admin_ajax extends Controller_Module
 	public function users($action, $title, $icon, $module_name, $id)
 	{
 		$this	->table
-				->add_columns(array(
-						array(
+				->add_columns([
+						[
 						'title'   => $this('member'),
 						'content' => function($data){
 							return NeoFrag::loader()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
@@ -108,8 +108,8 @@ class m_access_c_admin_ajax extends Controller_Module
 						'search'  => function($data){
 							return $data['username'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('groups'),
 						'content' => function($data){
 							return NeoFrag::loader()->groups->user_groups($data['user_id']);
@@ -120,8 +120,8 @@ class m_access_c_admin_ajax extends Controller_Module
 						'search'  => function($data){
 							return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
 						}
-					),
-					array(
+					],
+					[
 						'content' => function($data, $loader){
 							$output = '';
 							
@@ -141,18 +141,18 @@ class m_access_c_admin_ajax extends Controller_Module
 						},
 						'size'    => TRUE,
 						'td'      => FALSE
-					),
-					array(
+					],
+					[
 						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
 						'content' => function($data, $loader){
-							return $loader->view('radio', array(
+							return $loader->view('radio', [
 								'class'  => 'success',
 								'active' => $data['active']
-							));
+							]);
 						},
 						'td'      => FALSE
-					),
-					array(
+					],
+					[
 						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
 						'content' => function($data, $loader){
 							static $admins;
@@ -162,14 +162,14 @@ class m_access_c_admin_ajax extends Controller_Module
 								$admins = NeoFrag::loader()->groups()['admins']['users'];
 							}
 							
-							return in_array($data['user_id'], $admins) ? '<td></td>' : $loader->view('radio', array(
+							return in_array($data['user_id'], $admins) ? '<td></td>' : $loader->view('radio', [
 								'class'  => 'danger',
 								'active' => !$data['active'] && $data['active'] !== NULL
-							));
+							]);
 						},
 						'td'      => FALSE
-					)
-				))
+					]
+				])
 				->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
 				->preprocessing(function($row) use ($module_name, $action, $id){
 					$row['active'] = NeoFrag::loader()->access($module_name, $action, $id, NULL, $row['user_id']);
@@ -179,11 +179,11 @@ class m_access_c_admin_ajax extends Controller_Module
 				->sort_by(2, SORT_ASC)
 				->sort_by(1, SORT_ASC);
 
-		return $this->load->view('users', array(
+		return $this->load->view('users', [
 			'title' => $title,
 			'icon'  => $icon,
 			'users' => $this->table->display()
-		));
+		]);
 	}
 	
 	public function reset($module, $type, $id)

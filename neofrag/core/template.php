@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Template extends Core
 {
-	public function parse($content, $data = array(), $loader = NULL, $parse_php = TRUE)
+	public function parse($content, $data = [], $loader = NULL, $parse_php = TRUE)
 	{
 		if (!$loader)
 		{

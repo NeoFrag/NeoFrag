@@ -28,10 +28,10 @@ class w_html extends Widget
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $types       = array(
+	public $types       = [
 		'index' => '{lang free_content}',
 		'html'  => '{lang html_code}'
-	);
+	];
 }
 
 /*

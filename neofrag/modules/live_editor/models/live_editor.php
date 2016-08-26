@@ -37,9 +37,9 @@ class m_live_editor_m_live_editor extends Model
 	public function set_disposition($disposition_id, $disposition)
 	{
 		$this->db	->where('disposition_id', $disposition_id)
-					->update('nf_dispositions', array(
+					->update('nf_dispositions', [
 						'disposition' => serialize($disposition)
-					));
+					]);
 	}
 	
 	public function delete_disposition($rows)

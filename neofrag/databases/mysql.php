@@ -89,7 +89,7 @@ class Driver_mysql extends Driver
 
 	public function get()
 	{
-		$return = array();
+		$return = [];
 		
 		while ($data = mysql_fetch_array($this->result, MYSQL_ASSOC))
 		{

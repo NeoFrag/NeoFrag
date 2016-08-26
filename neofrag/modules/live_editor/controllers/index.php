@@ -31,11 +31,11 @@ class m_live_editor_c_index extends Controller_Module
 									->where('theme', $theme)
 									->get();
 		
-		$modules = array();
+		$modules = [];
 		
 		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->load->controller('index') && !in_array($module->name, array('live_editor', 'pages')))
+			if ($module->load->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
 			{
 				$modules[$module->name] = $module->get_title();
 			}
@@ -43,15 +43,15 @@ class m_live_editor_c_index extends Controller_Module
 		
 		natcasesort($modules);
 		
-		$modules = array_merge(array(
+		$modules = array_merge([
 			'index' => NeoFrag::loader()->lang('home')
-		), $modules);
+		], $modules);
 
-		echo $this->load->view('index', array(
+		echo $this->load->view('index', [
 			'modules'       => $modules,
 			'styles_row'    => NeoFrag::loader()->theme->styles_row(),
 			'styles_widget' => NeoFrag::loader()->theme->styles_widget()
-		));
+		]);
 	}
 }
 

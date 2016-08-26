@@ -26,22 +26,22 @@ class m_partners_c_index extends Controller_Module
 
 		if (!empty($partners))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => 'Nos partenaires',
 				'icon'    => 'fa-star-o',
-				'content' => $this->load->view('index', array(
+				'content' => $this->load->view('index', [
 					'partners' => $partners
-				))
-			));
+				])
+			]);
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => 'Nos partenaires',
 				'icon'    => 'fa-star-o',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">Aucun partenaire</div>'
-			));
+			]);
 		}
 	}
 }

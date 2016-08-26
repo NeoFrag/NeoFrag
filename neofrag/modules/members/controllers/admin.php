@@ -26,8 +26,8 @@ class m_members_c_admin extends Controller_Module
 	{
 		$table_groups = $this
 			->table
-			->add_columns(array(
-				array(
+			->add_columns([
+				[
 					'content' => function($data){
 						return NeoFrag::loader()->groups->display($data['data_id']);
 					},
@@ -37,9 +37,9 @@ class m_members_c_admin extends Controller_Module
 					'sort'    => function($data){
 						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
 					}
-				),
-				array(
-					'content' => array(
+				],
+				[
+					'content' => [
 						function($data){
 							return button_edit('admin/members/groups/edit/'.$data['url'].'.html');
 						},
@@ -49,17 +49,17 @@ class m_members_c_admin extends Controller_Module
 								return button_delete('admin/members/groups/delete/'.$data['url'].'.html');
 							}
 						}
-					)
-				)
-			))
+					]
+				]
+			])
 			->data($this->groups())
 			->pagination(FALSE)
 			->save();
 
 		$table_users = $this
 			->table
-			->add_columns(array(
-				array(
+			->add_columns([
+				[
 					'title'   => $this('member'),
 					'content' => function($data){
 						return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
@@ -70,8 +70,8 @@ class m_members_c_admin extends Controller_Module
 					'search'  => function($data){
 						return $data['username'];
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('email'),
 					'content' => function($data){
 						return '<a href="mailto:'.$data['email'].'">'.$data['email'].'</a>';
@@ -82,8 +82,8 @@ class m_members_c_admin extends Controller_Module
 					'search'  => function($data){
 						return $data['email'];
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('groups'),
 					'content' => function($data){
 						return NeoFrag::loader()->groups->user_groups($data['user_id']);
@@ -94,8 +94,8 @@ class m_members_c_admin extends Controller_Module
 					'search'  => function($data){
 						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('registration_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
@@ -103,8 +103,8 @@ class m_members_c_admin extends Controller_Module
 					'sort'    => function($data){
 						return $data['registration_date'];
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
@@ -112,9 +112,9 @@ class m_members_c_admin extends Controller_Module
 					'sort'    => function($data){
 						return $data['last_activity_date'];
 					}
-				),
-				array(
-					'content' => array(
+				],
+				[
+					'content' => [
 						function($data, $loader){
 							return button('admin/members/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html', 'fa-ban', $loader->lang('ban'), 'warning');
 						},
@@ -124,29 +124,29 @@ class m_members_c_admin extends Controller_Module
 						function($data){
 							return button_delete('admin/members/delete/'.$data['user_id'].'/'.url_title($data['username']).'.html');
 						}
-					)
-				)
-			))
+					]
+				]
+			])
 			->data($members)
 			->save();
 		
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('groups'),
 					'icon'    => 'fa-users',
 					'content' => $table_groups->display(),
 					'footer'  => button_add('admin/members/groups/add.html', $this('add_group')),
 					'size'    => 'col-md-12 col-lg-3'
-				))
+				])
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('members'),
 					'icon'    => 'fa-users',
 					'content' => $table_users->display(),
 					'size'    => 'col-md-12 col-lg-9'
-				))
+				])
 			)
 		);
 	}
@@ -158,7 +158,7 @@ class m_members_c_admin extends Controller_Module
 			->subtitle($username)
 			->css('groups')
 			->form
-			->add_rules('members', array(
+			->add_rules('members', [
 				'username'      => $username,
 				'email'         => $email,
 				'first_name'    => $first_name,
@@ -170,67 +170,67 @@ class m_members_c_admin extends Controller_Module
 				'location'      => $location,
 				'website'       => $website,
 				'quote'         => $quote
-			))
+			])
 			->add_submit($this('edit'))
 			->add_back('admin/members.html')
 			->save();
 			
 		$form_groups = $this
 			->form
-			->add_rules(array(
-				'groups' => array(
+			->add_rules([
+				'groups' => [
 					'type'   => 'checkbox',
 					'values' => array_filter($this->groups(), function($group){
 						return !$group['auto'] || $group['auto'] == 'neofrag' || $group['users'] !== NULL;
 					}),
 					'rules'  => 'required'
-				)
-			))
+				]
+			])
 			->save();
 			
 		$activities = '';
 			
 		$sessions = $this
 			->table
-			->add_columns(array(
-				array(
+			->add_columns([
+				[
 					'content' => function($data){
 						return '<div style="text-align: center;">'.user_agent($data['user_agent']).'</div>';
 					},
 					'size'    => '56px'
-				),
-				array(
+				],
+				[
 					'title'   => $this('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('referer'),
 					'content' => function($data, $loader){
 						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('none');
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('arrival_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
-				),
-				array(
-					'content' => array(
+				],
+				[
+					'content' => [
 						function($data){
 							return button_delete('admin/members/sessions/delete/'.$data['session_id'].'.html');
 						}
-					)
-				)
-			))
+					]
+				]
+			])
 			->data($this->user->get_sessions($member_id))
 			->no_data($this('no_session'))
 			->display();
@@ -270,37 +270,37 @@ class m_members_c_admin extends Controller_Module
 		
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('edit_member'),
 					'icon'    => 'fa-user',
 					'content' => $form_member->display(),
 					'size'    => 'col-md-12 col-lg-7'
-				))
+				])
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('groups'),
 					'icon'    => 'fa-users',
-					'content' => $this->load->view('groups', array(
+					'content' => $this->load->view('groups', [
 						'user_id' => $member_id,
 						'form_id' => $form_groups->id
-					)),
+					]),
 					'footer'  => '<button class="btn btn-outline btn-primary">'.icon('fa-check').' '.$this('save').'</button>',
 					'form'    => TRUE,
 					'size'    => 'col-md-12 col-lg-5'
-				)),
+				]),
 				/*new Panel(array(
 					'title'   => 'Dernières activités',
 					'icon'    => 'fa-history',
 					'content' => $activities,
 					'size'    => 'col-md-12 col-lg-5'
 				)),*/
-				new Panel(array(
+				new Panel([
 					'title'   => $this('active_sessions'),
 					'icon'    => 'fa-globe',
 					'content' => $sessions,
 					'size'    => 'col-md-12 col-lg-5'
-				))
+				])
 			)
 		);
 	}
@@ -314,7 +314,7 @@ class m_members_c_admin extends Controller_Module
 		if ($this->form->is_valid())
 		{
 			$this->db	->where('user_id', $user_id)
-						->update('nf_users', array('deleted' => TRUE));
+						->update('nf_users', ['deleted' => TRUE]);
 
 			$this->db	->where('user_id', $user_id)
 						->delete('nf_sessions');
@@ -330,13 +330,13 @@ class m_members_c_admin extends Controller_Module
 		$this	->title($this('ban_title'))
 				->icon('fa-bomb');
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('ban_title'),
 			'icon'    => 'fa-bomb',
 			'style'   => 'panel-info',
 			'content' => $this('unavailable_feature'),
 			'size'    => 'col-md-12'
-		));
+		]);
 	}
 	
 	public function _groups_add()
@@ -362,12 +362,12 @@ class m_members_c_admin extends Controller_Module
 			redirect_back('admin/members.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_group'),
 			'icon'    => 'fa-users',
 			'content' => $this->form->display(),
 			'size'    => 'col-md-12'
-		));
+		]);
 	}
 	
 	public function _groups_edit($group_id, $name, $title, $color, $icon, $auto)
@@ -375,12 +375,12 @@ class m_members_c_admin extends Controller_Module
 		$this	->title($this('groups'))
 				->subtitle($this('edit'))
 				->form
-				->add_rules('groups', array(
+				->add_rules('groups', [
 					'title' => $title,
 					'color' => $color,
 					'icon'  => $icon,
 					'auto'  => $auto
-				))
+				])
 				->add_back('admin/members.html')
 				->add_submit($this('edit'));
 
@@ -399,12 +399,12 @@ class m_members_c_admin extends Controller_Module
 			}
 			else
 			{
-				$this->db->insert('nf_groups', array(
+				$this->db->insert('nf_groups', [
 					'name'  => $name,
 					'color' => $post['color'],
 					'icon'  => $post['icon'],
 					'auto'  => TRUE
-				));
+				]);
 			}
 
 			notify($this('group_edited'));
@@ -412,12 +412,12 @@ class m_members_c_admin extends Controller_Module
 			redirect_back('admin/members.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_group_title'),
 			'icon'    => 'fa-users',
 			'content' => $this->form->display(),
 			'size'    => 'col-md-12'
-		));
+		]);
 	}
 
 	public function _groups_delete($group_id, $title)
@@ -457,15 +457,15 @@ class m_members_c_admin extends Controller_Module
 					
 					return $row;
 				})
-				->add_columns(array(
-					array(
+				->add_columns([
+					[
 						'content' => function($data){
 							return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
 						},
 						'size'    => TRUE,
 						'align'   => 'center'
-					),
-					array(
+					],
+					[
 						'title'   => $this('user'),
 						'content' => function($data, $loader){
 							return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : '<i>'.$loader->lang('guest').'</i>';
@@ -476,8 +476,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'  => function($data, $loader){
 							return $data['user_id'] ? $data['username'] : $loader->lang('guest');
 						}
-					),
-					array(
+					],
+					[
 						'content' => function($data){
 							return user_agent($data['user_agent']);
 						},
@@ -489,8 +489,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'    => function($data){
 							return $data['user_agent'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('ip_address'),
 						'content' => function($data){
 							return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
@@ -501,8 +501,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'    => function($data){
 							return $data['ip_address'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('referer'),
 						'content' => function($data, $loader){
 							return $data['referer'] ? urltolink($data['referer']) : $loader->lang('none');
@@ -513,8 +513,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'    => function($data){
 							return $data['user_agent'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('arrival_date'),
 						'content' => function($data){
 							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
@@ -522,8 +522,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'    => function($data){
 							return $data['date'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('last_activity'),
 						'content' => function($data){
 							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
@@ -531,8 +531,8 @@ class m_members_c_admin extends Controller_Module
 						'sort'    => function($data){
 							return $data['last_activity'];
 						}
-					),
-					array(
+					],
+					[
 						'title'   => $this('history'),
 						'content' => function($data, $loader){
 							$links = implode('<br />', array_map(function($a){
@@ -541,23 +541,23 @@ class m_members_c_admin extends Controller_Module
 
 							return '<span data-toggle="popover" title="'.$loader->lang('last_pages_visited').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
 						}
-					),
-					array(
-						'content' => array(function($data){
+					],
+					[
+						'content' => [function($data){
 							if ($data['user_id'] && $data['session_id'] != NeoFrag::loader()->session('session_id'))
 							{
 								return button_delete('admin/members/sessions/delete/'.$data['session_id'].'.html');
 							}
-						})
-					)
-				))
+						}]
+					]
+				])
 				->data($sessions);
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('sessions'),
 			'icon'    => 'fa-globe',
 			'content' => $this->table->display()
-		));
+		]);
 	}
 	
 	public function _sessions_delete($session_id, $username)

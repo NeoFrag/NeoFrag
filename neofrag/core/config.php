@@ -20,8 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Config extends Core
 {
-	private $_settings = array();
-	private $_configs  = array();
+	private $_settings = [];
+	private $_configs  = [];
 
 	public function __construct()
 	{
@@ -32,7 +32,7 @@ class Config extends Core
 	
 	public function reset()
 	{
-		$this->_configs = $this->_settings = array();
+		$this->_configs = $this->_settings = [];
 		
 		$this->_configs['host']          = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
 		$this->_configs['base_url']      = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
@@ -91,7 +91,7 @@ class Config extends Core
 									->order_by('order')
 									->get();
 
-		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge(array($this->session('language')), preg_replace('/^(.+?)[;-].*/', '\1', explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'])))), $nf_languages), $nf_languages));
+		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge([$this->session('language')], preg_replace('/^(.+?)[;-].*/', '\1', explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'])))), $nf_languages), $nf_languages));
 
 		$this->update('default');
 
@@ -124,25 +124,25 @@ class Config extends Core
 		if (isset($this->_configs[$name]))
 		{
 			NeoFrag::loader()->db	->where('name', $name)
-									->update('nf_settings', array(
+									->update('nf_settings', [
 										'value' => $value
-									));
+									]);
 
 			if ($type)
 			{
 				NeoFrag::loader()->db	->where('name', $name)
-										->update('nf_settings', array(
+										->update('nf_settings', [
 											'type' => $type
-										));
+										]);
 			}
 		}
 		else
 		{
-			NeoFrag::loader()->db->insert('nf_settings', array(
+			NeoFrag::loader()->db->insert('nf_settings', [
 				'name'  => $name,
 				'value' => $value,
 				'type'  => $type ?: 'string'
-			));
+			]);
 		}
 
 		$this->_configs[$name] = $value;

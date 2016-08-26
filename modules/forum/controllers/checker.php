@@ -34,7 +34,7 @@ class m_forum_c_checker extends Controller
 				}
 				else
 				{
-					$announces = $messages = array();
+					$announces = $messages = [];
 					
 					foreach ($this->model()->get_topics($forum_id) as $topic)
 					{
@@ -48,14 +48,14 @@ class m_forum_c_checker extends Controller
 						}
 					}
 					
-					return array(
+					return [
 						$forum_id,
 						$title,
 						$forum['category_id'],
-						$forum['subforums'] ? $this->model()->get_forums($forum_id) : array(),
+						$forum['subforums'] ? $this->model()->get_forums($forum_id) : [],
 						$announces,
 						$this->pagination->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
-					);
+					];
 				}
 			}
 			else
@@ -75,7 +75,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_write', $forum['category_id']))
 			{
-				return array($forum_id, $title, $forum['category_id']);
+				return [$forum_id, $title, $forum['category_id']];
 			}
 			else
 			{
@@ -94,7 +94,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_read', $topic['category_id']))
 			{
-				return array(
+				return [
 					$topic_id,
 					$title,
 					$topic['forum_id'],
@@ -107,7 +107,7 @@ class m_forum_c_checker extends Controller
 					$topic['locked'],
 					array_shift($messages),
 					$this->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($messages, $page)
-				);
+				];
 			}
 			else
 			{
@@ -126,7 +126,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', $permission, $topic['category_id']))
 			{
-				return array($topic_id, $topic['topic_title'], $topic['announce'], $topic['locked']);
+				return [$topic_id, $topic['topic_title'], $topic['announce'], $topic['locked']];
 			}
 			else
 			{
@@ -150,7 +150,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_move', $topic['category_id']))
 			{
-				return array($topic_id, $topic['topic_title'], $topic['forum_id']);
+				return [$topic_id, $topic['topic_title'], $topic['forum_id']];
 			}
 			else
 			{
@@ -197,7 +197,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
 			{
-				return array($message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']);
+				return [$message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']];
 			}
 			
 			throw new Exception(NeoFrag::UNAUTHORIZED);
@@ -220,7 +220,7 @@ class m_forum_c_checker extends Controller
 		{
 			if ($this->user() && $this->access('forum', 'category_read', $forum['category_id']))
 			{
-				return array($forum_id, $title);
+				return [$forum_id, $title];
 			}
 			else
 			{

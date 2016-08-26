@@ -20,14 +20,14 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_error_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('error'),
 			'style'   => 'panel-danger',
 			'icon'    => 'fa-warning',
 			'content' => $this('widget_error')
-		));
+		]);
 	}
 }
 

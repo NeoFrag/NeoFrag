@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 abstract class Module extends Loadable
 {
-	static public $core = array(
+	static public $core = [
 		'access'      => FALSE,
 		'addons'      => FALSE,
 		'admin'       => FALSE,
@@ -32,20 +32,20 @@ abstract class Module extends Loadable
 		'search'      => TRUE,
 		'settings'    => FALSE,
 		'user'        => FALSE
-	);
+	];
 
 	public $icon;
-	public $routes = array();
+	public $routes = [];
 
 	private $_output      = '';
-	private $_actions     = array();
+	private $_actions     = [];
 
 	public function paths()
 	{
 		return function(){
 			if (!empty(NeoFrag::loader()->theme))
 			{
-				if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
+				if (in_array($theme_name = NeoFrag::loader()->theme->name, ['default', 'admin']))
 				{
 					unset($theme_name);
 				}
@@ -55,57 +55,57 @@ abstract class Module extends Loadable
 				}
 			}
 
-			return array(
-				'assets' => array(
+			return [
+				'assets' => [
 					'assets',
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name : '',
 					'overrides/modules/'.$this->name,
 					'neofrag/modules/'.$this->name,
 					'modules/'.$this->name
-				),
-				'controllers' => array(
+				],
+				'controllers' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/controllers' : '',
 					'overrides/modules/'.$this->name.'/controllers',
 					'neofrag/modules/'.$this->name.'/controllers',
 					'modules/'.$this->name.'/controllers'
-				),
-				'forms' => array(
+				],
+				'forms' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/forms' : '',
 					'overrides/modules/'.$this->name.'/forms',
 					'neofrag/modules/'.$this->name.'/forms',
 					'modules/'.$this->name.'/forms'
-				),
-				'helpers' => array(
+				],
+				'helpers' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/helpers' : '',
 					'overrides/modules/'.$this->name.'/helpers',
 					'neofrag/modules/'.$this->name.'/helpers',
 					'modules/'.$this->name.'/helpers'
-				),
-				'lang' => array(
+				],
+				'lang' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/lang' : '',
 					'overrides/modules/'.$this->name.'/lang',
 					'neofrag/modules/'.$this->name.'/lang',
 					'modules/'.$this->name.'/lang'
-				),
-				'libraries' => array(
+				],
+				'libraries' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/libraries' : '',
 					'overrides/modules/'.$this->name.'/libraries',
 					'neofrag/modules/'.$this->name.'/libraries',
 					'modules/'.$this->name.'/libraries'
-				),
-				'models' => array(
+				],
+				'models' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/models' : '',
 					'overrides/modules/'.$this->name.'/models',
 					'neofrag/modules/'.$this->name.'/models',
 					'modules/'.$this->name.'/models'
-				),
-				'views' => array(
+				],
+				'views' => [
 					!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/modules/'.$this->name.'/views' : '',
 					'overrides/modules/'.$this->name.'/views',
 					'neofrag/modules/'.$this->name.'/views',
 					'modules/'.$this->name.'/views'
-				)
-			);
+				]
+			];
 		};
 	}
 
@@ -128,7 +128,7 @@ abstract class Module extends Loadable
 
 	public function add_action($url, $title, $icon = '')
 	{
-		$this->_actions[] = array($url, $title, $icon);
+		$this->_actions[] = [$url, $title, $icon];
 	}
 
 	public function get_actions()
@@ -171,9 +171,9 @@ abstract class Module extends Loadable
 
 		foreach ($this->routes as $route => $function)
 		{
-			if (preg_match('#^'.str_replace(array_map(function($a){ return '{'.$a.'}'; }, array_keys(self::$route_patterns)) + array('#'), array_values(self::$route_patterns) + array('\#'), $route).'$#', $url, $matches))
+			if (preg_match('#^'.str_replace(array_map(function($a){ return '{'.$a.'}'; }, array_keys(self::$route_patterns)) + ['#'], array_values(self::$route_patterns) + ['\#'], $route).'$#', $url, $matches))
 			{
-				$args = array();
+				$args = [];
 				
 				if (in_string('{url_title*}', $route))
 				{
@@ -213,7 +213,7 @@ abstract class Module extends Loadable
 			}
 		}
 
-		return array();
+		return [];
 	}
 
 	public function model($model = '')

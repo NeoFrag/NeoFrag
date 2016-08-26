@@ -37,7 +37,7 @@ function display($objects, $id = NULL)
 	
 	if (!is_array($objects))
 	{
-		$objects = array($objects);
+		$objects = [$objects];
 	}
 	
 	foreach ($objects as $i => $object)
@@ -57,7 +57,7 @@ function display($objects, $id = NULL)
 
 function output($type)
 {
-	if (in_array($type, array('css', 'js', 'js_load')) && !empty(NeoFrag::loader()->{$type}))
+	if (in_array($type, ['css', 'js', 'js_load']) && !empty(NeoFrag::loader()->{$type}))
 	{
 		if ($type == 'css')
 		{

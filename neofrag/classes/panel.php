@@ -38,7 +38,7 @@ class Panel
 				'.($body = !empty($this->content) && (!isset($this->body) || $this->body) ? '<div class="panel-body">' : '').'
 				'.(!empty($this->content) ? $this->content : '').'
 				'.($body ? '</div>' : '').'
-				'.(!empty($this->footer) ? '<div class="panel-footer text-'.(!empty($this->footer_align) && in_array($this->footer_align, array('left', 'right')) ? $this->footer_align : 'center').'">'.$this->footer.'</div>' : '').'
+				'.(!empty($this->footer) ? '<div class="panel-footer text-'.(!empty($this->footer_align) && in_array($this->footer_align, ['left', 'right']) ? $this->footer_align : 'center').'">'.$this->footer.'</div>' : '').'
 				'.(!empty($this->form) ? '</form>' : '').'
 			</div>';
 	}

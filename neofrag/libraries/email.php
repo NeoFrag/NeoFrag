@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 class Email extends Library
 {
 	private $_from;
-	private $_to = array();
+	private $_to = [];
 	private $_subject;
 	private $_view;
 	private $_data;
@@ -47,7 +47,7 @@ class Email extends Library
 		return $this;
 	}
 	
-	public function message($view, $data = array())
+	public function message($view, $data = [])
 	{
 		$this->_view = $view;
 		$this->_data = $data;

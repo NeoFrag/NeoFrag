@@ -45,7 +45,7 @@ class m_news_c_search extends Controller
 					->where('n.published', TRUE)
 					->order_by('n.date DESC');
 
-		return array('nl.title', 'nl.introduction', 'nl.content');
+		return ['nl.title', 'nl.introduction', 'nl.content'];
 	}
 }
 

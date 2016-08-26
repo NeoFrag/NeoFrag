@@ -32,24 +32,24 @@ class m_user_c_index extends Controller_Module
 				->css('jquery.mCustomScrollbar.min')
 				->js('jquery.mCustomScrollbar.min');
 
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_profile($user_profile),
-					new Panel(array(
+					new Panel([
 						'content' => $this->load->view('menu'),
 						'body'    => FALSE
-					))
+					])
 				),
 				new Col(
 					$this->_panel_infos(),
-					new Panel(array(
+					new Panel([
 						'content' => $this->load->view('index', $user_profile)
-					)),
+					]),
 					$this->_panel_activities()
 				)
 			)
-		);
+		];
 	}
 
 	public function edit()
@@ -59,7 +59,7 @@ class m_user_c_index extends Controller_Module
 				->breadcrumb();
 
 		$this->form
-			->add_rules('user', array(
+			->add_rules('user', [
 				'username'      => $this->user('username'),
 				'email'         => $this->user('email'),
 				'first_name'    => $this->user('first_name'),
@@ -71,7 +71,7 @@ class m_user_c_index extends Controller_Module
 				'location'      => $this->user('location'),
 				'website'       => $this->user('website'),
 				'quote'         => $this->user('quote')
-			))
+			])
 			->add_submit($this('save'))
 			->add_back('user.html');
 
@@ -101,25 +101,25 @@ class m_user_c_index extends Controller_Module
 			redirect_back('members/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html');
 		}
 
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_profile(),
-					new Panel(array(
+					new Panel([
 						'content' => $this->load->view('menu'),
 						'body'    => FALSE
-					))
+					])
 				),
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this->load->data['module_title'],
 						'icon'    => $this->load->data['module_icon'],
 						'content' => $this->form->display(),
 						'size'    => 'col-md-8 col-lg-9'
-					))
+					])
 				)
 			)
-		);
+		];
 	}
 
 	public function sessions($sessions)
@@ -129,113 +129,113 @@ class m_user_c_index extends Controller_Module
 				->breadcrumb();
 		
 		$active_sessions = $this->table
-			->add_columns(array(
-				array(
+			->add_columns([
+				[
 					'content' => function($data){
 						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.i18n('persistent_connection').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.i18n('nonpersistent_connection').'"></i>';
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
-				),
-				array(
+				],
+				[
 					'content' => function($data){
 						return user_agent($data['user_agent']);
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
-				),
-				array(
+				],
+				[
 					'title'   => $this('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('reference'),
 					'content' => function($data, $loader){
 						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
-				),
-				array(
-					'content' => array(function($data){
+				],
+				[
+					'content' => [function($data){
 						if ($data['session_id'] != NeoFrag::loader()->session('session_id'))
 						{
 							return button_delete('user/sessions/delete/'.$data['session_id'].'.html');
 						}
-					})
-				)
-			))
+					}]
+				]
+			])
 			->pagination(FALSE)
 			->data($this->user->get_sessions())
 			->save();
 		
 		$sessions_history = $this->table
-			->add_columns(array(
-				array(
+			->add_columns([
+				[
 					'content' => function($data){
 						return user_agent($data['user_agent']);
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
-				),
-				array(
+				],
+				[
 					'title'   => $this('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('reference'),
 					'content' => function($data, $loader){
 						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
 					}
-				),
-				array(
+				],
+				[
 					'title'   => $this('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
-				)
-			))
+				]
+			])
 			->data($sessions)
 			->no_data($this('no_historic_available'));
 		
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_profile(),
-					new Panel(array(
+					new Panel([
 						'content' => $this->load->view('menu'),
 						'body'    => FALSE
-					))
+					])
 				),
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this('my_active_sessions'),
 						'icon'    => 'fa-shield',
 						'content' => $active_sessions->display(),
 						'size'    => 'col-md-8 col-lg-9'
-					)),
-					new Panel(array(
+					]),
+					new Panel([
 						'title'   => $this('sessions_historic'),
 						'icon'    => 'fa-power-off',
 						'content' => $sessions_history->display()
-					))
+					])
 				)
 			)
-		);
+		];
 	}
 	
 	public function _session_delete($session_id)
@@ -261,30 +261,30 @@ class m_user_c_index extends Controller_Module
 
 		$form_login = $this	->form
 							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
-							->add_rules(array(
-								'login' => array(
+							->add_rules([
+								'login' => [
 									'label'       => $this('username'),
 									'description' => $this('username_description'),
 									'type'        => 'text',
 									'rules'       => 'required|max(50)'
-								),
-								'password' => array(
+								],
+								'password' => [
 									'label' => $this('password'),
 									'type'  => 'password'
-								),
-								'remember_me' => array(
+								],
+								'remember_me' => [
 									'type'   => 'checkbox',
-									'values' => array('on' => $this('remember_me'))
-								),
-								'redirect' => array(
-								)
-							))
+									'values' => ['on' => $this('remember_me')]
+								],
+								'redirect' => [
+								]
+							])
 							->add_submit($this('login'))
 							->display_required(FALSE)
 							->save();
 
-		$rules = array(
-			'username' => array(
+		$rules = [
+			'username' => [
 				'label' => $this('username'),
 				'icon'  => 'fa-user',
 				'rules' => 'required',
@@ -294,14 +294,14 @@ class m_user_c_index extends Controller_Module
 						return i18n('username_unavailable');
 					}
 				}
-			),
-			'password' => array(
+			],
+			'password' => [
 				'label' => $this('password'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
 				'rules' => 'required'
-			),
-			'password_confirm' => array(
+			],
+			'password_confirm' => [
 				'label' => $this('password_confirmation'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
@@ -312,8 +312,8 @@ class m_user_c_index extends Controller_Module
 						return i18n('password_not_match');
 					}
 				}
-			),
-			'email' => array(
+			],
+			'email' => [
 				'label' => $this('email'),
 				'type'  => 'email',
 				'rules' => 'required',
@@ -323,16 +323,16 @@ class m_user_c_index extends Controller_Module
 						return i18n('email_unavailable');
 					}
 				}
-			)
-		);
+			]
+		];
 
 		if (!empty($this->config->nf_registration_charte))
 		{
-			$rules['registration_charte'] = array(
+			$rules['registration_charte'] = [
 				'type'   => 'checkbox',
-				'values' => array('on' => 'En vous inscrivant, vous reconnaissez avoir pris connaissance de <a href="#modalCharte" role="dialog" data-toggle="modal" data-target="#modalCharte"">notre règlement</a> et de l\'accepter.'),
+				'values' => ['on' => 'En vous inscrivant, vous reconnaissez avoir pris connaissance de <a href="#modalCharte" role="dialog" data-toggle="modal" data-target="#modalCharte"">notre règlement</a> et de l\'accepter.'],
 				'rules'  => 'required'
-			);
+			];
 		}
 
 		$form_registration = $this
@@ -343,19 +343,19 @@ class m_user_c_index extends Controller_Module
 			->fast_mode()
 			->save();
 
-		$rows = array();
+		$rows = [];
 		
-		if (in_array($error, array(NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED)))
+		if (in_array($error, [NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED]))
 		{
 			header('HTTP/1.0 401 Unauthorized');
 			
 			$rows[] = new Row(new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('login_required'),
 					'icon'    => 'fa-warning',
 					'style'   => 'panel-danger',
 					'content' => $this('login_required_message')
-				))
+				])
 				, 'col-md-12'
 			));
 		}
@@ -378,10 +378,10 @@ class m_user_c_index extends Controller_Module
 				if (!$salt)
 				{
 					$this->db	->where('user_id', user_id)
-								->update('nf_users', array(
+								->update('nf_users', [
 									'password' => $this->password->encrypt($password.($salt = unique_id())),
 									'salt'     => $salt
-								));
+								]);
 				}
 				
 				$this->user->login($user_id, $remember_me);
@@ -398,12 +398,12 @@ class m_user_c_index extends Controller_Module
 			else
 			{
 				$rows[] = new Row(new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this('invalid_login'),
 						'icon'    => 'fa-warning',
 						'style'   => 'panel-danger',
 						'content' => $this('invalid_login_message')
-						)
+						]
 					, 'col-md-12'
 				))
 				);
@@ -411,12 +411,12 @@ class m_user_c_index extends Controller_Module
 		}
 		else if ($form_registration->is_valid($post) && $this->config->nf_registration_status == 0)
 		{
-			$user_id = $this->db->insert('nf_users', array(
+			$user_id = $this->db->insert('nf_users', [
 				'username' => $post['username'],
 				'password' => $this->password->encrypt($post['password'].($salt = unique_id())),
 				'salt'     => $salt,
 				'email'    => $post['email']
-			));
+			]);
 
 			if ($this->config->nf_welcome && $this->config->nf_welcome_user_id && $this->config->nf_welcome_title && $this->config->nf_welcome_content)
 			{
@@ -430,21 +430,21 @@ class m_user_c_index extends Controller_Module
 		
 		$rows[] = new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('login_title'),
 					'icon'    => 'fa-sign-in',
-					'content' => $this->load->view('login', array(
+					'content' => $this->load->view('login', [
 						'form_id' => $form_login->id
-					))
-				))
+					])
+				])
 				, 'col-md-6'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('create_account_title'),
 					'icon'    => 'fa-sign-in fa-rotate-90',
 					'content' => $this->config->nf_registration_status == 0 ? $this('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->load->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>'
-				))
+				])
 				, 'col-md-6'
 			)
 		);
@@ -457,8 +457,8 @@ class m_user_c_index extends Controller_Module
 		$this->title($this('forgot_password'));
 		
 		$this	->form
-				->add_rules(array(
-					'email' => array(
+				->add_rules([
+					'email' => [
 						'label' => $this('email'),
 						'type'  => 'email',
 						'rules' => 'required',
@@ -468,8 +468,8 @@ class m_user_c_index extends Controller_Module
 								return i18n('email_not_found');
 							}
 						}
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->add_back('user.html')
 				->fast_mode();
@@ -479,22 +479,22 @@ class m_user_c_index extends Controller_Module
 			$this->email
 				->to($post['email'])
 				->subject($this('forgot_password'))
-				->message('default', array(
+				->message('default', [
 					'content' => function($data){
 						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.$this('password_reset').'</a>';
 					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
-				))
+				])
 				->send();
 			
 			redirect_back('user.html');
 		}
 					
-		return new Panel(array(
+		return new Panel([
 				'title'   => $this('forgot_password'),
 				'icon'    => 'fa-unlock-alt',
 				'content' => $this->form->display()
-			));
+			]);
 	}
 	
 	public function _lost_password($key_id, $user_id)
@@ -502,14 +502,14 @@ class m_user_c_index extends Controller_Module
 		$this->title($this('password_reset'));
 	
 		$this	->form
-				->add_rules(array(
-					'password' => array(
+				->add_rules([
+					'password' => [
 						'label' => $this('new_password'),
 						'icon'  => 'fa-lock',
 						'type'  => 'password',
 						'rules' => 'required'
-					),
-					'password_confirm' => array(
+					],
+					'password_confirm' => [
 						'label' => $this('password_confirmation'),
 						'icon'  => 'fa-lock',
 						'type'  => 'password',
@@ -520,8 +520,8 @@ class m_user_c_index extends Controller_Module
 								return i18n('password_not_match');
 							}
 						}
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->add_back('user.html')
 				->fast_mode();
@@ -531,9 +531,9 @@ class m_user_c_index extends Controller_Module
 			$this->email
 				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
 				->subject($this('password_reset_confirmation_email'))
-				->message('default', array(
+				->message('default', [
 					'content' => $this('password_reset_confirmation_message')
-				))
+				])
 				->send();
 
 			$this->user->login($user_id);
@@ -553,11 +553,11 @@ class m_user_c_index extends Controller_Module
 			redirect_back('user.html');
 		}
 					
-		return new Panel(array(
+		return new Panel([
 				'title'   => $this('password_reset'),
 				'icon'    => 'fa-lock',
 				'content' => $this->form->display()
-			));
+			]);
 	}
 
 	public function logout()
@@ -579,26 +579,26 @@ class m_user_c_index extends Controller_Module
 	{
 		$this->breadcrumb();
 
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_messages()
 				),
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this->load->data['module_title'],
 						'icon'    => $this->load->data['module_icon'],
-						'content' => !$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->load->view('messages/inbox', array(
+						'content' => !$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->load->view('messages/inbox', [
 							'messages'     => $messages,
 							'allow_delete' => $allow_delete
-						)),
+						]),
 						'body'    => FALSE,
 						'size'    => 'col-md-8 col-lg-9'
-					)),
+					]),
 					new Panel_Pagination
 				)
 			)
-		);
+		];
 	}
 
 	public function _messages_inbox($messages)
@@ -625,13 +625,13 @@ class m_user_c_index extends Controller_Module
 	public function _messages_read($message_id, $title, $replies)
 	{
 		$this	->form
-				->add_rules(array(
-					'message' => array(
+				->add_rules([
+					'message' => [
 						'label' => 'Mon message',
 						'type'  => 'editor',
 						'rules' => 'required'
-					),
-				))
+					],
+				])
 				->add_submit('Envoyer');
 
 		if ($this->form->is_valid($post))
@@ -641,28 +641,28 @@ class m_user_c_index extends Controller_Module
 			redirect('user/messages/'.$message_id.'/'.url_title($title).'.html');
 		}
 
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_messages()
 				),
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $title,
 						'icon'    => 'fa-envelope-o',
-						'content' => $this->load->view('messages/replies', array(
+						'content' => $this->load->view('messages/replies', [
 							'replies' => $replies
-						)),
+						]),
 						'size'    => 'col-md-8 col-lg-9'
-					)),
-					new Panel(array(
+					]),
+					new Panel([
 						'title'   => 'Répondre',
 						'icon'    => 'fa-reply',
 						'content' => $this->form->display()
-					))
+					])
 				)
 			)
-		);
+		];
 	}
 
 	public function _messages_compose($username)
@@ -671,25 +671,25 @@ class m_user_c_index extends Controller_Module
 				->icon('fa-edit')
 				->breadcrumb()
 				->form
-				->add_rules(array(
-					'title' => array(
+				->add_rules([
+					'title' => [
 						'label' => 'Sujet du message',
 						'type'  => 'text',
 						'rules' => 'required'
-					),
-					'recipients' => array(
+					],
+					'recipients' => [
 						'label'       => 'Destinataires',
 						'value'       => $username,
 						'type'        => 'text',
 						'rules'       => 'required',
 						'description' => 'Séparez plusieurs destinataires par un <b>;</b> <small>(point virgule)</small>'
-					),
-					'message' => array(
+					],
+					'message' => [
 						'label' => 'Mon message',
 						'type'  => 'editor',
 						'rules' => 'required'
-					)
-				))
+					]
+				])
 				->add_submit('Envoyer');
 
 		if ($this->form->is_valid($post))
@@ -700,21 +700,21 @@ class m_user_c_index extends Controller_Module
 			}
 		}
 		
-		return array(
+		return [
 			new Row(
 				new Col(
 					$this->_panel_messages()
 				),
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this->load->data['module_title'],
 						'icon'    => $this->load->data['module_icon'],
 						'content' => $this->form->display(),
 						'size'    => 'col-md-8 col-lg-9'
-					))
+					])
 				)
 			)
-		);
+		];
 	}
 	
 	public function _messages_delete($message_id, $title)
@@ -728,10 +728,10 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->db	->where('user_id', $this->user('user_id'))
 						->where('message_id', $message_id)
-						->update('nf_users_messages_recipients', array(
+						->update('nf_users_messages_recipients', [
 							'date'    => now(),
 							'deleted' => TRUE
-						));
+						]);
 
 			return 'OK';
 		}
@@ -743,12 +743,12 @@ class m_user_c_index extends Controller_Module
 	{
 		$this->css('profile');
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Mon profil',
 			'icon'    => 'fa-user',
 			'content' => $this->load->view('profile', $user_profile = $this->model()->get_member_profile($this->user('user_id'))),
 			'size'    => 'col-md-4 col-lg-3'
-		));
+		]);
 	}
 	
 	public function _panel_infos($user_id = NULL)
@@ -757,10 +757,10 @@ class m_user_c_index extends Controller_Module
 		{
 			$user_id = $this->user('user_id');
 			
-			$infos = array(
+			$infos = [
 				'registration_date'  => $this->user('registration_date'),
 				'last_activity_date' => $this->user('last_activity_date')
-			);
+			];
 		}
 		else
 		{
@@ -773,10 +773,10 @@ class m_user_c_index extends Controller_Module
 		
 		$infos['groups'] = $this->groups->user_groups($user_id);
 
-		return new Panel(array(
+		return new Panel([
 			'content' => $this->load->view('infos', $infos),
 			'size'    => 'col-md-8 col-lg-9'
-		));
+		]);
 	}
 	
 	public function _panel_activities($user_id = NULL)
@@ -788,7 +788,7 @@ class m_user_c_index extends Controller_Module
 			$user_id = $this->user('user_id');
 		}
 
-		$user_activity = array();
+		$user_activity = [];
 
 		//TODO
 		if ($forum = $this->load->module('forum'))
@@ -811,17 +811,17 @@ class m_user_c_index extends Controller_Module
 										->get();
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Activité récente',
-			'content' => $this->load->view('activity', array(
+			'content' => $this->load->view('activity', [
 				'user_activity' => $user_activity
-			))
-		));
+			])
+		]);
 	}
 	
 	private function _panel_messages()
 	{
-		return new Panel(array(
+		return new Panel([
 			'title'        => 'Messagerie privée',
 			'icon'         => 'fa-envelope-o',
 			'content'      => $this->load->view('messages/menu'),
@@ -829,7 +829,7 @@ class m_user_c_index extends Controller_Module
 			'footer'       => '<a href="'.url('user.html').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>',
 			'footer_align' => 'left',
 			'size'         => 'col-md-4 col-lg-3'
-		));
+		]);
 	}
 }
 

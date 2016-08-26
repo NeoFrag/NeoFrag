@@ -29,7 +29,7 @@ class m_members extends Module
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
 	public $path          = __FILE__;
-	public $routes        = array(
+	public $routes        = [
 		//Index
 		'{pages}'                                         => 'index',
 		'{id}/{url_title}'                                => '_member',
@@ -50,7 +50,7 @@ class m_members extends Module
 		'admin/groups/delete/{id}/{url_title}'            => '_groups_delete',
 		'admin/sessions{pages}'                           => '_sessions',
 		'admin/sessions/delete/{url_title}'               => '_sessions_delete'
-	);
+	];
 }
 
 /*

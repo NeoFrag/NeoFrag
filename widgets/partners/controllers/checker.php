@@ -20,21 +20,21 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_partners_c_checker extends Controller
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
-		return array(
-			'display_style'  => in_array($settings['display_style'], array('light', 'dark')) ? $settings['display_style'] : 'light',
+		return [
+			'display_style'  => in_array($settings['display_style'], ['light', 'dark']) ? $settings['display_style'] : 'light',
 			'display_number' => (int)$settings['display_number'],
 			'display_height' => (int)$settings['display_height'] ?: '140',
 			'id'             => $settings['id']
-		);
+		];
 	}
 
-	public function column($settings = array())
+	public function column($settings = [])
 	{
-		return array(
-			'display_style' => in_array($settings['display_style'], array('light', 'dark')) ? $settings['display_style'] : 'light'
-		);
+		return [
+			'display_style' => in_array($settings['display_style'], ['light', 'dark']) ? $settings['display_style'] : 'light'
+		];
 	}
 }
 

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_breadcrumb_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
 		$count = count($links = $this->breadcrumb->get_links());
 		

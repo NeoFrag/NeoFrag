@@ -42,14 +42,14 @@ class Widget_View
 		
 		$widget = $widgets[$this->widget_id];
 		
-		$output   = array();
+		$output   = [];
 		
 		if (!$instance = NeoFrag::loader()->widget($widget['widget']))
 		{
 			return;
 		}
 		
-		$result = $instance->get_output($widget['type'], is_array($settings = unserialize($widget['settings'])) ? $settings : array());
+		$result = $instance->get_output($widget['type'], is_array($settings = unserialize($widget['settings'])) ? $settings : []);
 		
 		foreach ($result as $result)
 		{

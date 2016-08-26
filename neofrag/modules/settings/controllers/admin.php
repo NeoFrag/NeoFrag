@@ -28,7 +28,7 @@ class m_settings_c_admin extends Controller_Module
 				->subtitle($this('general_settings'))
 				->icon('fa-cog');
 		
-		$modules = $pages = array();
+		$modules = $pages = [];
 		
 		foreach ($this->addons->get_modules() as $module)
 		{
@@ -59,52 +59,52 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		$this	->form
-				->add_rules(array(
-					'name' => array(
+				->add_rules([
+					'name' => [
 						'label'  => $this('site_title'),
 						'value'  => $this->config->nf_name,
 						'rules'  => 'required'
-					),
-					'description' => array(
+					],
+					'description' => [
 						'label'  => $this('site_description'),
 						'value'  => $this->config->nf_description,
 						'rules'  => 'required'
-					),
-					'contact' => array(
+					],
+					'contact' => [
 						'label'  => $this('contact_email'),
 						'value'  => $this->config->nf_contact,
 						'type'   => 'email',
 						'rules'  => 'required'
-					),
-					'default_page' => array(
+					],
+					'default_page' => [
 						'label'  => $this('default_page'),
 						'values' => $pages,
 						'value'  => $this->config->nf_default_page,
 						'type'   => 'select',
 						'rules'  => 'required'
-					),
-					'humans_txt' => array(
+					],
+					'humans_txt' => [
 						'label'  => '<a href="http://humanstxt.org/">humans.txt</a>',
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_humans_txt
-					),
-					'robots_txt' => array(
+					],
+					'robots_txt' => [
 						'label'  => '<a href="http://www.robotstxt.org//">robots.txt</a>',
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_robots_txt
-					),
-					'analytics' => array(
+					],
+					'analytics' => [
 						'label'  => $this('code_analytics'),
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_analytics
-					),
-					'debug' => array(
+					],
+					'debug' => [
 						'label'  => $this('debug_mode'),
 						'type'   => 'radio',
 						'value'  => $this->config->nf_debug,
-						'values' => array($this('debug_disabled'), $this('debug_admins_only'), $this('debug_always'))
-					)
-				))
+						'values' => [$this('debug_disabled'), $this('debug_admins_only'), $this('debug_always')]
+					]
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -127,18 +127,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('general_settings'),
 					'icon'    => 'fa-cog',
 					'content' => $this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -156,7 +156,7 @@ class m_settings_c_admin extends Controller_Module
 							->order_by('username')
 							->get();
 
-		$list_users = array();
+		$list_users = [];
 
 		foreach ($users as $user)
 		{
@@ -166,55 +166,55 @@ class m_settings_c_admin extends Controller_Module
 		array_natsort($list_users);
 
 		$this	->form
-				->add_rules(array(
-					array(
+				->add_rules([
+					[
 						'label'   => 'Inscription',
 						'type'    => 'legend'
-					),
-					'registration_status' => array(
+					],
+					'registration_status' => [
 						'label'   => 'Statut',
 						'type'    => 'radio',
 						'value'   => $this->config->nf_registration_status,
-						'values'  => array('Ouvertes', 'Fermées')
-					),
+						'values'  => ['Ouvertes', 'Fermées']
+					],
 					/*'registration_validation' => array(
 						'label'   => 'Validation',
 						'type'    => 'radio',
 						'value'   => $this->config->nf_registration_validation,
 						'values'  => array('Automatique', 'Confirmation par e-mail')
 					),*/
-					'registration_charte' => array(
+					'registration_charte' => [
 						'label'   => 'Règlement',
 						'value'   => $this->config->nf_registration_charte,
 						'type'    => 'editor'
-					),
-					array(
+					],
+					[
 						'label'   => 'Message de bienvenue',
 						'type'    => 'legend'
-					),
-					'welcome' => array(
+					],
+					'welcome' => [
 						'type'    => 'checkbox',
-						'checked' => array('on' => $this->config->nf_welcome),
-						'values'  => array('on' => 'Envoyer un message privé aux nouveaux membres')
-					),
-					'welcome_user_id' => array(
+						'checked' => ['on' => $this->config->nf_welcome],
+						'values'  => ['on' => 'Envoyer un message privé aux nouveaux membres']
+					],
+					'welcome_user_id' => [
 						'label'   => 'Auteur du message',
 						'values'  => $list_users,
 						'value'   => $this->config->nf_welcome_user_id,
 						'type'    => 'select',
 						'size'    => 'col-md-5'
-					),
-					'welcome_title' => array(
+					],
+					'welcome_title' => [
 						'label'   => 'Titre du message',
 						'value'   => $this->config->nf_welcome_title,
 						'type'    => 'text'
-					),
-					'welcome_content' => array(
+					],
+					'welcome_content' => [
 						'label'   => 'Message de bienvenue',
 						'value'   => $this->config->nf_welcome_content,
 						'type'    => 'editor'
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -237,18 +237,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Gestions des inscriptions',
 					'icon'    => 'fa-sign-in fa-rotate-90',
 					'content' => $this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -261,45 +261,45 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-users');
 
 		$this	->form
-				->add_rules(array(
-					'team_name' => array(
+				->add_rules([
+					'team_name' => [
 						'label'       => 'Nom de l\'équipe',
 						'value'       => $this->config->nf_team_name,
 						'type'        => 'text'
-					),
-					'team_logo' => array(
+					],
+					'team_logo' => [
 						'label'       => 'Logo',
 						'value'       => $this->config->nf_team_logo,
 						'type'        => 'file',
 						'upload'      => 'logos',
 						'info'        => ' d\'image (max. '.(file_upload_max_size() / 1024 / 1024).' Mo)',
 						'check'       => function($filename, $ext){
-							if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+							if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 							{
 								return 'Veuiller choisir un fichier d\'image';
 							}
 						},
 						'description' => 'Le logo pourra être affiché dans le widget type <b>header</b> <i>(en remplacement du titre et slogan)</i>.'
-					),
-					'team_type' => array(
+					],
+					'team_type' => [
 						'label'       => 'Type de structure',
 						'value'       => $this->config->nf_team_type,
 						'type'        => 'text',
 						'size'        => 'col-md-4',
 						'description' => '<b>Exemple:</b> Association, entreprise, marque, etc...'
-					),
-					'team_creation' => array(
+					],
+					'team_creation' => [
 						'label'       => 'Date de création',
 						'value'       => $this->config->nf_team_creation,
 						'type'        => 'date',
 						'size'        => 'col-md-4'
-					),
-					'team_biographie' => array(
+					],
+					'team_biographie' => [
 						'label'       => 'Biographie',
 						'value'       => $this->config->nf_team_biographie,
 						'type'        => 'textarea'
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -317,18 +317,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Notre structure',
 					'icon'    => 'fa-users',
 					'content' => $this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -341,80 +341,80 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-globe');
 
 		$this	->form
-				->add_rules(array(
-					'social_facebook' => array(
+				->add_rules([
+					'social_facebook' => [
 						'label' => 'Facebook',
 						'icon'  => 'fa-facebook',
 						'value' => $this->config->nf_social_facebook,
 						'type'  => 'url'
-					),
-					'social_twitter' => array(
+					],
+					'social_twitter' => [
 						'label' => 'Twitter',
 						'icon'  => 'fa-twitter',
 						'value' => $this->config->nf_social_twitter,
 						'type'  => 'url'
-					),
-					'social_google' => array(
+					],
+					'social_google' => [
 						'label' => 'Google+',
 						'icon'  => 'fa-google-plus',
 						'value' => $this->config->nf_social_google,
 						'type'  => 'url'
-					),
-					'social_steam' => array(
+					],
+					'social_steam' => [
 						'label' => 'Page Steam',
 						'icon'  => 'fa-steam',
 						'value' => $this->config->nf_social_steam,
 						'type'  => 'url'
-					),
-					'social_twitch' => array(
+					],
+					'social_twitch' => [
 						'label' => 'Twitch',
 						'icon'  => 'fa-twitch',
 						'value' => $this->config->nf_social_twitch,
 						'type'  => 'url'
-					),
-					'social_dribble' => array(
+					],
+					'social_dribble' => [
 						'label' => 'Dribbble',
 						'icon'  => 'fa-dribbble',
 						'value' => $this->config->nf_social_dribble,
 						'type'  => 'url'
-					),
-					'social_behance' => array(
+					],
+					'social_behance' => [
 						'label' => 'Behance',
 						'icon'  => 'fa-behance',
 						'value' => $this->config->nf_social_behance,
 						'type'  => 'url'
-					),
-					'social_deviantart' => array(
+					],
+					'social_deviantart' => [
 						'label' => 'DeviantArt',
 						'icon'  => 'fa-deviantart',
 						'value' => $this->config->nf_social_deviantart,
 						'type'  => 'url'
-					),
-					'social_flickr' => array(
+					],
+					'social_flickr' => [
 						'label' => 'Flickr',
 						'icon'  => 'fa-flickr',
 						'value' => $this->config->nf_social_flickr,
 						'type'  => 'url'
-					),
-					'social_github' => array(
+					],
+					'social_github' => [
 						'label' => 'Github',
 						'icon'  => 'fa-github',
 						'value' => $this->config->nf_social_github,
 						'type'  => 'url'
-					),
-					'social_instagram' => array(
+					],
+					'social_instagram' => [
 						'label' => 'Instagram',
 						'icon'  => 'fa-instagram',
 						'value' => $this->config->nf_social_instagram,
 						'type'  => 'url'
-					),
-					'social_youtube' => array(
+					],
+					'social_youtube' => [
 						'label' => 'Youtube',
 						'icon'  => 'fa-youtube',
 						'value' => $this->config->nf_social_youtube,
 						'type'  => 'url'
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -432,18 +432,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Réseaux sociaux',
 					'icon'    => 'fa-globe',
 					'content' => $this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -456,18 +456,18 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-shield');
 
 		$this	->form
-				->add_rules(array(
-					'captcha_public_key' => array(
+				->add_rules([
+					'captcha_public_key' => [
 						'label' => 'Clé publique Google',
 						'value' => $this->config->nf_captcha_public_key,
 						'type'  => 'text'
-					),
-					'captcha_private_key' => array(
+					],
+					'captcha_private_key' => [
 						'label' => 'Clé privée Google',
 						'value' => $this->config->nf_captcha_private_key,
 						'type'  => 'text'
-					)
-				))
+					]
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -485,18 +485,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Configuration de Google reCAPTCHA',
 					'icon'    => 'fa-shield',
 					'content' => '<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -509,37 +509,37 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-envelope-o');
 
 		$this	->form
-				->add_rules(array(
-					'email_smtp' => array(
+				->add_rules([
+					'email_smtp' => [
 						'label'  => 'Serveur SMTP',
 						'value'  => $this->config->nf_email_smtp,
 						'type'   => 'text'
-					),
-					'email_username' => array(
+					],
+					'email_username' => [
 						'label'  => 'Utilisateur',
 						'value'  => $this->config->nf_email_username,
 						'type'   => 'text',
 						'size'   => 'col-md-5'
-					),
-					'email_password' => array(
+					],
+					'email_password' => [
 						'label'  => 'Mot de passe',
 						'value'  => $this->config->nf_email_password,
 						'type'   => 'password',
 						'size'   => 'col-md-5'
-					),
-					'email_secure' => array(
+					],
+					'email_secure' => [
 						'label'  => 'Sécurité',
 						'type'   => 'radio',
 						'value'  => $this->config->nf_email_secure,
-						'values' => array('SSL', 'TLS')
-					),
-					'email_port' => array(
+						'values' => ['SSL', 'TLS']
+					],
+					'email_port' => [
 						'label'  => 'Port',
 						'value'  => $this->config->nf_email_port,
 						'type'   => 'number',
 						'size'   => 'col-md-2'
-					),
-				))
+					],
+				])
 				->add_submit($this('save'))
 				->display_required(FALSE);
 
@@ -557,18 +557,18 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'body'    => FALSE,
 					'content' => $this->load->view('menu')
-				)),
+				]),
 				'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Serveur e-mail',
 					'icon'    => 'fa-envelope-o',
 					'content' => $this->form->display()
-				)),
+				]),
 				'col-md-9'
 			)
 		);
@@ -582,125 +582,125 @@ class m_settings_c_admin extends Controller_Module
 				->js('maintenance');
 				
 		$form_opening = $this->form
-			->add_rules(array(
-				'opening' => array(
+			->add_rules([
+				'opening' => [
 					'type'  => 'datetime',
 					'value' => $this->config->nf_maintenance_opening
-				)
-			))
+				]
+			])
 			->fast_mode()
 			->add_submit($this('save'))
 			->save();
 
 		$form_maintenance = $this->form
-			->add_rules(array(
-				'title' => array(
+			->add_rules([
+				'title' => [
 					'label' => $this('title'),
 					'type'  => 'text',
 					'value' => $this->config->nf_maintenance_title
-				),
-				'content' => array(
+				],
+				'content' => [
 					'label' => $this('content'),
 					'type'  => 'editor',
 					'value' => $this->config->nf_maintenance_content
-				),
-				'logo' => array(
+				],
+				'logo' => [
 					'label'  => $this('logo'),
 					'value'  => $this->config->nf_maintenance_logo,
 					'type'   => 'file',
 					'upload' => 'maintenance',
 					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
-						if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
 							return i18n('select_image_file');
 						}
 					}
-				),
-				'background' => array(
+				],
+				'background' => [
 					'label'  => $this('background'),
 					'value'  => $this->config->nf_maintenance_background,
 					'type'   => 'file',
 					'upload' => 'maintenance',
 					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
-						if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
 							return i18n('select_image_file');
 						}
 					}
-				),
-				'repeat' => array(
+				],
+				'repeat' => [
 					'label'  => $this('background_repeat'),
 					'value'  => $this->config->nf_maintenance_background_repeat,
-					'values' => array(
+					'values' => [
 						'no-repeat' => $this('no'),
 						'repeat-x'  => $this('horizontally'),
 						'repeat-y'  => $this('vertically'),
 						'repeat'    => $this('both')
-					),
+					],
 					'type'   => 'radio'
-				),
-				'positionX' => array(
+				],
+				'positionX' => [
 					'label'  => $this('position'),
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[0] : '',
-					'values' => array(
+					'values' => [
 						'left'   => $this('left'),
 						'center' => $this('center'),
 						'right'  => $this('right')
-					),
+					],
 					'type'   => 'radio'
-				),
-				'positionY' => array(
+				],
+				'positionY' => [
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[1] : '',
-					'values' => array(
+					'values' => [
 						'top'    => $this('top'),
 						'center' => $this('middle'),
 						'bottom' => $this('bottom')
-					),
+					],
 					'type'   => 'radio'
-				),
-				'background_color' => array(
+				],
+				'background_color' => [
 					'label' => $this('background_color'),
 					'value' => $this->config->nf_maintenance_background_color,
 					'type'  => 'colorpicker'
-				),
-				'text_color' => array(
+				],
+				'text_color' => [
 					'label' => $this('text_color'),
 					'value' => $this->config->nf_maintenance_text_color,
 					'type'  => 'colorpicker'
-				),
-				'facebook' => array(
+				],
+				'facebook' => [
 					'label' => 'Facebook',
 					'icon'  => 'fa-facebook',
 					'value' => $this->config->nf_maintenance_facebook,
 					'type'  => 'url'
-				),
-				'twitter' => array(
+				],
+				'twitter' => [
 					'label' => 'Twitter',
 					'icon'  => 'fa-twitter',
 					'value' => $this->config->nf_maintenance_twitter,
 					'type'  => 'url'
-				),
-				'google' => array(
+				],
+				'google' => [
 					'label' => 'Google+',
 					'icon'  => 'fa-google-plus',
 					'value' => $this->config->{'nf_maintenance_google-plus'},
 					'type'  => 'url'
-				),
-				'steam' => array(
+				],
+				'steam' => [
 					'label' => 'Steam',
 					'icon'  => 'fa-steam',
 					'value' => $this->config->nf_maintenance_steam,
 					'type'  => 'url'
-				),
-				'twitch' => array(
+				],
+				'twitch' => [
 					'label' => 'Twitch',
 					'icon'  => 'fa-twitch',
 					'value' => $this->config->nf_maintenance_twitch,
 					'type'  => 'url'
-				)
-			))
+				]
+			])
 			->add_submit($this('save'))
 			->save();
 			
@@ -730,24 +730,24 @@ class m_settings_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('website_status'),
 					'icon'    => 'fa-power-off',
 					'content' => $this->load->view('maintenance')
-				)),
-				new Panel(array(
+				]),
+				new Panel([
 					'title'   => $this('planned_opening'),
 					'icon'    => 'fa-clock-o',
 					'content' => $form_opening->display()
-				))
+				])
 				, 'col-md-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('customizing_maintenance_page'),
 					'icon'    => 'fa-paint-brush',
 					'content' => $form_maintenance->display()
-				))
+				])
 				, 'col-md-9'
 			)
 		);

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class User extends Core
 {
-	private $_user_data = array();
+	private $_user_data = [];
 
 	public function __construct()
 	{
@@ -54,10 +54,10 @@ class User extends Core
 					if (!$user['salt'] && $this->password->is_valid($password, $user['password'], FALSE))
 					{
 						$this->db	->where('user_id', (int)$user['user_id'])
-									->update('nf_users', array(
+									->update('nf_users', [
 										'password' => $user['password'] = $this->password->encrypt($password.($salt = unique_id())),
 										'salt'     => $user['salt'] = $salt,
-									));
+									]);
 					}
 					
 					if ($this->password->is_valid($password.$user['salt'], $user['password']))
@@ -125,9 +125,9 @@ class User extends Core
 				$this->_user_data['quote']              = $user['quote'];
 
 				$this->db	->where('user_id', $this->_user_data['user_id'])
-							->update('nf_users', array(
+							->update('nf_users', [
 								'last_activity_date' => now()
-							));
+							]);
 			}
 		}
 
@@ -154,14 +154,14 @@ class User extends Core
 					$form_login = $this
 						->form
 						->set_id('dd74f62896869c798933e29305aa9473')
-						->add_rules(array(
-							'login' => array(
+						->add_rules([
+							'login' => [
 								'rules' => 'required'
-							),
-							'password' => array(
+							],
+							'password' => [
 								'type'  => 'password'
-							)
-						))
+							]
+						])
 						->save();
 
 					if ($form_login->is_valid($post))
@@ -183,16 +183,16 @@ class User extends Core
 							->js('jquery.countdown')
 							->js('maintenance');
 					
-					echo $theme->load->view('default', array(
-						'body'       => $theme->load->view('maintenance', array(
+					echo $theme->load->view('default', [
+						'body'       => $theme->load->view('maintenance', [
 							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')
-						)).$this->debug->output(),
+						]).$this->debug->output(),
 						'lang'       => $this->config->lang,
 						'css'        => output('css'),
 						'js'         => output('js'),
 						'js_load'    => output('js_load'),
 						'page_title' => $page_title.' :: '.$this->config->nf_name
-					));
+					]);
 				}
 				
 				exit;
@@ -223,7 +223,7 @@ class User extends Core
 						->set_user_id(NULL)
 						->destroy();
 
-		$this->_user_data = array();
+		$this->_user_data = [];
 	}
 
 	public function get_sessions($user_id = NULL)
@@ -317,11 +317,11 @@ class User extends Core
 			$username = $this('username');
 		}
 
-		return $this->load->view('avatar', array(
+		return $this->load->view('avatar', [
 			'user_id'  => $user_id,
 			'username' => $username,
 			'avatar'   => !empty($avatar) ? path($avatar) : image($sex == 'female' ? 'default_avatar_female.jpg' : 'default_avatar_male.jpg')
-		));
+		]);
 	}
 }
 

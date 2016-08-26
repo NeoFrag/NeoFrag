@@ -40,7 +40,7 @@ class m_forum_c_admin_ajax_checker extends Controller
 				)
 			)
 		{
-			return array_merge($check, array($is_subforum));
+			return array_merge($check, [$is_subforum]);
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

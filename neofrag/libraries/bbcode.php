@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class BBCode extends Library
 {
-	private $_bbcode = array(
+	private $_bbcode = [
 		'\[(b|bold|strong)\](.*?)\[/\1\]'                   => '<b>\2</b>',
 		'\[(i|italic)\](.*?)\[/\1\]'                        => '<i>\2</i>',
 		'\[(u|underline)\](.*?)\[/\1\]'                     => '<u>\2</u>',
@@ -40,7 +40,7 @@ class BBCode extends Library
 		'\[quote\](.*?)\[/quote\]'                          => '<blockquote>\1</blockquote>',
 		'\[code\](.*?)\[/code\]'                            => '<code>\1</code>',
 		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>'
-	);
+	];
 
 	public function bbcode2html($output)
 	{

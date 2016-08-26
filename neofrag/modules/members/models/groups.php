@@ -22,36 +22,36 @@ class m_members_m_groups extends Model
 {
 	public function add_group($title, $color, $icon, $lang)
 	{
-		$group_id = $this->db->insert('nf_groups', array(
+		$group_id = $this->db->insert('nf_groups', [
 			'name'  => url_title($title),
 			'color' => $color,
 			'icon'  => $icon,
 			'auto'  => FALSE
-		));
+		]);
 		
-		$this->db->insert('nf_groups_lang', array(
+		$this->db->insert('nf_groups_lang', [
 			'group_id' => $group_id,
 			'lang'     => $lang,
 			'title'    => $title
-		));
+		]);
 	}
 	
 	public function edit_group($group_id, $title, $color, $icon, $lang, $auto)
 	{
-		$group = array(
+		$group = [
 			'color' => $color,
 			'icon'  => $icon
-		);
+		];
 		
 		if (!$auto)
 		{
 			$group['name'] = url_title($title);
 			
 			$this->db	->where('group_id', $group_id)
-						->update('nf_groups_lang', array(
+						->update('nf_groups_lang', [
 				'lang'  => $lang,
 				'title' => $title
-			));
+			]);
 		}
 		
 		$this->db	->where('group_id', $group_id)

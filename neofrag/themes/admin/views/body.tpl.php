@@ -54,7 +54,7 @@
 					</div>
 				</li>
 <?php
-	$actives  = array();
+	$actives  = [];
 
 	foreach ($data['menu'] as $link)
 	{
@@ -85,7 +85,7 @@
 			{
 				if (!isset($sublink['access']) || $sublink['access'])
 				{
-					$class = array();
+					$class = [];
 
 					if (!empty($sublink['pro']))
 					{

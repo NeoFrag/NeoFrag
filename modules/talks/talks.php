@@ -29,62 +29,62 @@ class m_talks extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		'admin{pages}'            => 'index',
 		'admin/{id}/{url_title*}' => '_edit'
-	);
+	];
 
 	public static function permissions()
 	{
-		return array(
-			'talk' => array(
+		return [
+			'talk' => [
 				'get_all' => function(){
 					return NeoFrag::loader()->db->select('talk_id', 'CONCAT_WS(" ", "{lang talks}", name)')->from('nf_talks')->where('talk_id >', 1)->get();
 				},
 				'check'   => function($talk_id){
-					if ($talk_id > 1 && ($talk = NeoFrag::loader()->db->select('name')->from('nf_talks')->where('talk_id', $talk_id)->row()) !== array())
+					if ($talk_id > 1 && ($talk = NeoFrag::loader()->db->select('name')->from('nf_talks')->where('talk_id', $talk_id)->row()) !== [])
 					{
 						return '{lang talks} '.$talk;
 					}
 				},
-				'init'    => array(
-					'read'   => array(
-					),
-					'write'  => array(
-						array('visitors', FALSE)
-					),
-					'delete' => array(
-						array('admins', TRUE)
-					)
-				),
-				'access'  => array(
-					array(
+				'init'    => [
+					'read'   => [
+					],
+					'write'  => [
+						['visitors', FALSE]
+					],
+					'delete' => [
+						['admins', TRUE]
+					]
+				],
+				'access'  => [
+					[
 						'title'  => '{lang talks}',
 						'icon'   => 'fa-comment-o',
-						'access' => array(
-							'read' => array(
+						'access' => [
+							'read' => [
 								'title' => '{lang read}',
 								'icon'  => 'fa-eye'
-							),
-							'write' => array(
+							],
+							'write' => [
 								'title' => '{lang write}',
 								'icon'  => 'fa-reply'
-							)
-						)
-					),
-					array(
+							]
+						]
+					],
+					[
 						'title'  => '{lang moderation}',
 						'icon'   => 'fa-user',
-						'access' => array(
-							'delete' => array(
+						'access' => [
+							'delete' => [
 								'title' => '{lang delete_message}',
 								'icon'  => 'fa-trash-o'
-							)
-						)
-					)
-				)
-			)
-		);
+							]
+						]
+					]
+				]
+			]
+		];
 	}
 }
 

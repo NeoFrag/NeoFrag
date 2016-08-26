@@ -62,18 +62,18 @@ class m_pages_m_pages extends Model
 	
 	public function add_page($name, $title, $published, $subtitle, $content)
 	{
-		$page_id = $this->db->insert('nf_pages', array(
+		$page_id = $this->db->insert('nf_pages', [
 			'name'           => $name ?: url_title($title),
 			'published'      => $published
-		));
+		]);
 
-		$this->db->insert('nf_pages_lang', array(
+		$this->db->insert('nf_pages_lang', [
 			'page_id'        => $page_id,
 			'lang'           => $this->config->lang,
 			'title'          => $title,
 			'subtitle'       => $subtitle,
 			'content'        => $content
-		));
+		]);
 	}
 
 	public function edit_page($page_id, $name, $title, $published, $subtitle, $content, $lang)
@@ -87,33 +87,33 @@ class m_pages_m_pages extends Model
 		{
 			$this->db	->where('page_id', $page_id)
 						->where('lang', $lang)
-						->update('nf_pages_lang', array(
+						->update('nf_pages_lang', [
 							'title'    => $title,
 							'subtitle' => $subtitle,
 							'content'  => $content
-						));
+						]);
 						
 			$this->db	->where('page_id', $page_id)
-						->update('nf_pages', array(
+						->update('nf_pages', [
 							'name'           => $name ?: url_title($title),
 							'published'      => $published
-						));
+						]);
 		}
 		else
 		{
-			$this->db	->insert('nf_pages_lang', array(
+			$this->db	->insert('nf_pages_lang', [
 							'page_id'  => $page_id,
 							'lang'     => $lang,
 							'title'    => $title,
 							'subtitle' => $subtitle,
 							'content'  => $content
-						));
+						]);
 
 			$this->db	->where('page_id', $page_id)
-						->update('nf_pages', array(
+						->update('nf_pages', [
 							'name'           => $name ?: url_title($title),
 							'published'      => $published
-						));
+						]);
 		}
 	}
 	

@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_members_c_index extends Controller_Widget
 {
-	public function index($config = array())
+	public function index($config = [])
 	{
 		$members = $this->db->select('user_id', 'username', 'registration_date')
 							->from('nf_users')
@@ -31,28 +31,28 @@ class w_members_c_index extends Controller_Widget
 		
 		if (!empty($members))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'        => $this('last_members'),
-				'content'      => $this->load->view('index', array(
+				'content'      => $this->load->view('index', [
 					'members'  => $members
-				)),
+				]),
 				'body'         => FALSE,
 				'footer'       => '<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>',
 				'footer_align' => 'right'
-			));
+			]);
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('last_members'),
 				'content' => $this('no_members')
-			));
+			]);
 		}
 	}
 	
-	public function online($config = array())
+	public function online($config = [])
 	{
-		$admins = $members = array();
+		$admins = $members = [];
 		$nb_admins = $nb_members = 0;
 		
 		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
@@ -77,44 +77,44 @@ class w_members_c_index extends Controller_Widget
 			}
 		}
 
-		$output = array(new Panel(array(
+		$output = [new Panel([
 			'title'   => $this('whos_online'),
-			'content' => $this->load->view('online', array(
+			'content' => $this->load->view('online', [
 				'administrators' => $admins,
 				'members'        => $members,
 				'nb_admins'      => $nb_admins,
 				'nb_members'     => $nb_members,
 				'nb_visitors'    => $this->session->current_sessions() - $nb_admins - $nb_members
-			))
-		)));
+			])
+		])];
 		
 		if ($nb_admins)
 		{
-			$output[] = $this->load->view('online_modal', array(
+			$output[] = $this->load->view('online_modal', [
 				'name'  => 'administrators',
 				'title' => $this('admins_online'),
 				'users' => $admins
-			));
+			]);
 		}
 		
 		if ($nb_members)
 		{
-			$output[] = $this->load->view('online_modal', array(
+			$output[] = $this->load->view('online_modal', [
 				'name'  => 'members',
 				'title' => $this('members_online'),
 				'users' => $members
-			));
+			]);
 		}
 		
 		return $output;
 	}
 	
-	public function online_mini($config = array())
+	public function online_mini($config = [])
 	{
-		return $this->load->view('online_mini', array(
+		return $this->load->view('online_mini', [
 			'members' => $this->session->current_sessions(),
 			'align'   => !empty($config['align']) ? $config['align'] : 'pull-right'
-		));
+		]);
 	}
 }
 

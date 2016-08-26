@@ -38,7 +38,7 @@ class m_forum_c_admin_checker extends Controller
 
 		if ($this->model()->check_forum($forum_id, $title))
 		{
-			return array($forum_id, $title);
+			return [$forum_id, $title];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

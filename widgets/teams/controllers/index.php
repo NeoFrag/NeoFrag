@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_teams_c_index extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		$this->css('teams');
 		
@@ -30,22 +30,22 @@ class w_teams_c_index extends Controller_Widget
 		
 		if (!empty($teams))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'        => $this('ours_teams'),
-				'content'      => $this->load->view('index', array(
+				'content'      => $this->load->view('index', [
 					'teams'    => $teams
-				)),
+				]),
 				'body'         => FALSE,
 				'footer'       => '<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_all_teams').'</a>',
 				'footer_align' => 'right'
-			));
+			]);
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => $this('ours_teams'),
 				'content' => $this('no_team')
-			));
+			]);
 		}
 	}
 }

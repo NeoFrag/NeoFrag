@@ -26,15 +26,15 @@ class m_error_c_index extends Controller_Module
 
 		$this->title($this->load->object->get_title($this('unfound')));
 
-		return array(
-			new Panel(array(
+		return [
+			new Panel([
 				'title'   => $this('unfound'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
 				'content' => $this('page_unfound')
-			)),
+			]),
 			new Button_back()
-		);
+		];
 	}
 
 	public function unauthorized()
@@ -43,15 +43,15 @@ class m_error_c_index extends Controller_Module
 
 		$this->title($this->load->object->get_title($this('unauthorized')));
 
-		return array(
-			new Panel(array(
+		return [
+			new Panel([
 				'title'   => $this('unauthorized'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger',
 				'content' => $this('required_permissions')
-			)),
+			]),
 			new Button_back()
-		);
+		];
 	}
 }
 

@@ -53,7 +53,7 @@ class w_forum_m_forum extends Model
 	
 	public function _get_forum()
 	{
-		$categories = array();
+		$categories = [];
 		
 		foreach ($this->db->select('category_id')->from('nf_forum_categories')->get() as $category_id)
 		{

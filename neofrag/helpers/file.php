@@ -33,7 +33,7 @@ function extension($file, &$path = NULL)
 
 function get_mime_by_extension($extension)
 {
-	$mimes = array(
+	$mimes = [
 		'bmp'   => 'image/bmp',
 		'css'   => 'text/css',
 		'eot'   => 'application/vnd.ms-fontobject"',
@@ -51,7 +51,7 @@ function get_mime_by_extension($extension)
 		'woff'  => 'application/x-font-woff',
 		'woff2' => 'application/font-woff2',
 		'zip'   => 'application/zip'
-	);
+	];
 
 	return $mimes[$extension];
 }
@@ -165,7 +165,7 @@ function rmdir_all($directory)
 {
 	foreach (scandir($directory = rtrim($directory, '/')) as $dir)
 	{
-		if (!in_array($dir, array('.', '..')))
+		if (!in_array($dir, ['.', '..']))
 		{
 			if (is_dir($dir = $directory.'/'.$dir))
 			{
@@ -192,7 +192,7 @@ function copy_all($src, $dst)
 
 	while (($file = readdir($dir)) !== FALSE)
 	{
-		if (!in_array($file, array('.', '..')))
+		if (!in_array($file, ['.', '..']))
 		{
 			if (is_dir($src.'/'.$file))
 			{

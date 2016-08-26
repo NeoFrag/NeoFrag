@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function is_asset($extension = NULL)
 {
-	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url), array('png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip'));
+	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url), ['png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip']);
 }
 
 function icon($icon)
@@ -59,11 +59,11 @@ function asset($file_path, $file_name = '')
 
 	if (isset($content))
 	{
-		if (in_array($ext = extension($file_path), array('css', 'js')))
+		if (in_array($ext = extension($file_path), ['css', 'js']))
 		{
-			$data = array(
+			$data = [
 				'lang' => NeoFrag::loader()->config->lang
-			);
+			];
 
 			$content = NeoFrag::loader()->template->parse($content, $data);
 		}
@@ -94,11 +94,11 @@ function asset($file_path, $file_name = '')
 	}
 }
 
-function path($file, $file_type = '', $paths = array())
+function path($file, $file_type = '', $paths = [])
 {
 	if (func_num_args() == 1)
 	{
-		static $paths = array();
+		static $paths = [];
 		
 		if (!isset($paths[$file]))
 		{
@@ -122,7 +122,7 @@ function path($file, $file_type = '', $paths = array())
 			$paths = NeoFrag::loader()->paths['assets'];
 		}
 
-		if (!in_array($file_type, array('images', 'css', 'js')))
+		if (!in_array($file_type, ['images', 'css', 'js']))
 		{
 			return url($file_type.'/'.$file);
 		}

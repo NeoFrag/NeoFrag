@@ -22,7 +22,7 @@ class m_access_c_admin_checker extends Controller_Module
 {
 	public function index($tab = '', $page = '')
 	{
-		$modules = $objects = array();
+		$modules = $objects = [];
 
 		foreach ($this->addons->get_modules() as $module)
 		{
@@ -30,7 +30,7 @@ class m_access_c_admin_checker extends Controller_Module
 			{
 				if (!empty($access['get_all']) && $get_all = call_user_func($access['get_all']))
 				{
-					$modules[$module->name] = array($module, $module->icon, $type, $access);
+					$modules[$module->name] = [$module, $module->icon, $type, $access];
 					$objects[$module->name] = $get_all;
 				}
 			}
@@ -50,10 +50,10 @@ class m_access_c_admin_checker extends Controller_Module
 				{
 					list($id, $title) = array_values($object);
 					
-					$object = array(
+					$object = [
 						'id'     => $id,
 						'title'  => $module[0]->load->lang($title, NULL)
-					);
+					];
 					
 					unset($object);
 				}
@@ -63,7 +63,7 @@ class m_access_c_admin_checker extends Controller_Module
 			}
 		}
 
-		return array($this->pagination->get_data($objects, $page), $modules, $tab);
+		return [$this->pagination->get_data($objects, $page), $modules, $tab];
 	}
 
 	public function _edit($module_name, $access = '0-default')
@@ -74,7 +74,7 @@ class m_access_c_admin_checker extends Controller_Module
 
 		if (($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
 		{
-			return array($module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL);
+			return [$module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

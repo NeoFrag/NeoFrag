@@ -22,27 +22,27 @@ class m_contact_c_index extends Controller_Module
 {
 	public function index()
 	{
-		$rules = array();
+		$rules = [];
 		
 		if (!$this->user())
 		{
-			$rules['email'] = array(
+			$rules['email'] = [
 				'label' => $this('email'),
 				'type'  => 'email',
 				'rules' => 'required'
-			);
+			];
 		}
 		
-		$rules['subject'] = array(
+		$rules['subject'] = [
 			'label' => $this('subject'),
 			'rules' => 'required'
-		);
+		];
 		
-		$rules['message'] = array(
+		$rules['message'] = [
 			'label' => $this('message'),
 			'type'  => 'editor',
 			'rules' => 'required'
-		);
+		];
 		
 		$this->title($this('contact_us'))
 				->form
@@ -58,21 +58,21 @@ class m_contact_c_index extends Controller_Module
 					->from($this->user() ? $this->user('email') : $post['email'])
 					->to($this->config->nf_contact)
 					->subject($this('contact').' :: '.$post['subject'])
-					->message('default', array(
+					->message('default', [
 						'content' => function() use ($post){
 							return bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '');
 						}
-					))
+					])
 					->send();
 			
 			redirect();
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('contact_us'),
 			'icon'    => 'fa-envelope-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 }
 

@@ -28,7 +28,7 @@ class m_user extends Module
 	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
-	public $routes        = array(
+	public $routes        = [
 		'sessions{pages}'                        => 'sessions',
 		'sessions/delete/{key_id}'               => '_session_delete',
 		'messages{pages}'                        => '_messages_inbox',
@@ -38,7 +38,7 @@ class m_user extends Module
 		'messages/compose(?:/{id}/{url_title})?' => '_messages_compose',
 		'messages/delete/{id}/{url_title}'       => '_messages_delete',
 		'lost-password/{key_id}'                 => '_lost_password'
-	);
+	];
 	public $path          = __FILE__;
 }
 

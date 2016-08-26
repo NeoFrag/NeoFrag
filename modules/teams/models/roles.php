@@ -47,17 +47,17 @@ class m_teams_m_roles extends Model
 	
 	public function add_role($title)
 	{
-		$this->db->insert('nf_teams_roles', array(
+		$this->db->insert('nf_teams_roles', [
 			'title' => $title
-		));
+		]);
 	}
 
 	public function edit_role($role_id, $title)
 	{
 		$this->db	->where('role_id', $role_id)
-					->update('nf_teams_roles', array(
+					->update('nf_teams_roles', [
 						'title' => $title
-					));
+					]);
 	}
 	
 	public function delete_role($role_id)

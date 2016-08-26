@@ -29,7 +29,7 @@ class m_forum extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Index
 		'{id}/{url_title}{page}'                   => '_forum',
 		'new/{id}/{url_title}'                     => '_new',
@@ -49,106 +49,106 @@ class m_forum extends Module
 		'admin/categories/{id}/{url_title}'        => '_categories_edit',
 		'admin/categories/delete/{id}/{url_title}' => '_categories_delete',
 		'admin/ajax/categories/move'               => '_categories_move'
-	);
+	];
 
 	public static function permissions()
 	{
-		return array(
-			'category' => array(
+		return [
+			'category' => [
 				'get_all' => function(){
 					return NeoFrag::loader()->db->select('category_id', 'CONCAT_WS(" ", "{lang category}", title)')->from('nf_forum_categories')->get();
 				},
 				'check'   => function($category_id){
-					if (($category = NeoFrag::loader()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== array())
+					if (($category = NeoFrag::loader()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== [])
 					{
 						return '{lang category} '.$category;
 					}
 				},
-				'init'    => array(
-					'category_read'     => array(
-					),
-					'category_write'    => array(
-						array('visitors', FALSE)
-					),
-					'category_modify'   => array(
-						array('admins', TRUE)
-					),
-					'category_delete'   => array(
-						array('admins', TRUE)
-					),
-					'category_announce' => array(
-						array('admins', TRUE)
-					),
-					'category_lock'     => array(
-						array('admins', TRUE)
-					),
-					'category_move'     => array(
-						array('admins', TRUE)
-					)
-				),
-				'access'  => array(
-					array(
+				'init'    => [
+					'category_read'     => [
+					],
+					'category_write'    => [
+						['visitors', FALSE]
+					],
+					'category_modify'   => [
+						['admins', TRUE]
+					],
+					'category_delete'   => [
+						['admins', TRUE]
+					],
+					'category_announce' => [
+						['admins', TRUE]
+					],
+					'category_lock'     => [
+						['admins', TRUE]
+					],
+					'category_move'     => [
+						['admins', TRUE]
+					]
+				],
+				'access'  => [
+					[
 						'title'  => '{lang category}',
 						'icon'   => 'fa-navicon',
-						'access' => array(
-							'category_read' => array(
+						'access' => [
+							'category_read' => [
 								'title' => '{lang read}',
 								'icon'  => 'fa-eye'
-							),
-							'category_write' => array(
+							],
+							'category_write' => [
 								'title' => '{lang write}',
 								'icon'  => 'fa-reply'
-							)
-						)
-					),
-					array(
+							]
+						]
+					],
+					[
 						'title'  => '{lang moderation}',
 						'icon'   => 'fa-user',
-						'access' => array(
-							'category_modify' => array(
+						'access' => [
+							'category_modify' => [
 								'title' => '{lang edit_topic_message}',
 								'icon'  => 'fa-edit'
-							),
-							'category_delete' => array(
+							],
+							'category_delete' => [
 								'title' => '{lang remove_topic_message}',
 								'icon'  => 'fa-trash-o'
-							),
-							'category_announce' => array(
+							],
+							'category_announce' => [
 								'title' => '{lang set_topic_announce}',
 								'icon'  => 'fa-flag'
-							),
-							'category_lock' => array(
+							],
+							'category_lock' => [
 								'title' => '{lang lock_a_topic}',
 								'icon'  => 'fa-lock'
-							),
-							'category_move' => array(
+							],
+							'category_move' => [
 								'title' => 'Déplacer un sujet',
 								'icon'  => 'fa-reply fa-flip-horizontal'
-							)
-						)
-					)
-				)
-			)
-		);
+							]
+						]
+					]
+				]
+			]
+		];
 	}
 	
 	public function settings()
 	{
 		$this	->form
-				->add_rules(array(
-					'topics_per_page' => array(
+				->add_rules([
+					'topics_per_page' => [
 						'label' => '{lang topics_per_page}',
 						'value' => $this->config->forum_topics_per_page,
 						'type'  => 'number',
 						'rules' => 'required'
-					),
-					'messages_per_page' => array(
+					],
+					'messages_per_page' => [
 						'label' => '{lang messages_per_page}',
 						'value' => $this->config->forum_messages_per_page,
 						'type'  => 'number',
 						'rules' => 'required'
-					)
-				))
+					]
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/addons.html#modules');
 
@@ -160,9 +160,9 @@ class m_forum extends Module
 			redirect_back('admin/addons.html#modules');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function load()
@@ -173,9 +173,9 @@ class m_forum extends Module
 		}
 	}
 	
-	public function get_profile($user_id = NULL, &$data = array())
+	public function get_profile($user_id = NULL, &$data = [])
 	{
-		static $profiles = array();
+		static $profiles = [];
 		
 		$user_id = (int)$user_id;
 		
@@ -192,7 +192,7 @@ class m_forum extends Module
 
 			if (empty($profiles[$user_id]))
 			{
-				$profiles[$user_id] = array();
+				$profiles[$user_id] = [];
 			}
 			else
 			{

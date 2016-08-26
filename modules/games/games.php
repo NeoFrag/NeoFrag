@@ -29,7 +29,7 @@ class m_games extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Admin
 		'admin{pages}'                  => 'index',
 		'admin/{id}/{url_title}{pages}' => '_edit',
@@ -43,7 +43,7 @@ class m_games extends Module
 		'admin/modes/add/{id}/{url_title}'    => '_modes_add',
 		'admin/modes/edit/{id}/{url_title}'   => '_modes_edit',
 		'admin/modes/delete/{id}/{url_title}' => '_modes_delete'
-	);
+	];
 }
 
 /*

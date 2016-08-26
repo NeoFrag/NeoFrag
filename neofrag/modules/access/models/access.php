@@ -24,21 +24,21 @@ class m_access_m_access extends Model
 	{
 		if (!($access_id = $this->db->select('access_id')->from('nf_access')->where('module', $module)->where('action', $action)->where('id', $id)->row()))
 		{
-			$access_id = $this->db->insert('nf_access', array(
+			$access_id = $this->db->insert('nf_access', [
 				'module' => $module,
 				'action' => $action,
 				'id'     => $id
-			));
+			]);
 		}
 		
 		foreach ((array)$entities as $entity)
 		{
-			$this->db->insert('nf_access_details', array(
+			$this->db->insert('nf_access_details', [
 				'access_id'  => $access_id,
 				'entity'     => $entity,
 				'type'       => $type,
 				'authorized' => $authorized
-			));
+			]);
 		}
 		
 		return $this;

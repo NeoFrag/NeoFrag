@@ -23,13 +23,13 @@ class m_comments_c_admin_checker extends Controller
 	public function index($tab = 'default', $page = '')
 	{
 		$comments = $this->model()->get_comments();
-		$modules  = array();
+		$modules  = [];
 
 		foreach ($comments as $i => $comment)
 		{
-			$modules[$comment['module']] = array($comment['module_title'], $comment['icon']);
+			$modules[$comment['module']] = [$comment['module_title'], $comment['icon']];
 
-			if (!in_array($tab, array('default', $comment['module'])))
+			if (!in_array($tab, ['default', $comment['module']]))
 			{
 				unset($comments[$i]);
 			}
@@ -39,7 +39,7 @@ class m_comments_c_admin_checker extends Controller
 			return $a['title'];
 		});
 
-		return array($this->pagination->get_data($comments, $page), $modules, $tab);
+		return [$this->pagination->get_data($comments, $page), $modules, $tab];
 	}
 }
 

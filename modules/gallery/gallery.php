@@ -29,7 +29,7 @@ class m_gallery extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Index
 		'{id}/{url_title}'                         => '_category',
 		'album/{id}/{url_title}{page}'             => '_gallery',
@@ -43,7 +43,7 @@ class m_gallery extends Module
 		'admin/ajax/image/add/{id}/{url_title}'    => '_image_add',
 		'admin/image/{id}/{url_title}'             => '_image_edit',
 		'admin/image/delete/{id}/{url_title}'      => '_image_delete'
-	);
+	];
 	
 	public function comments($image_id)
 	{
@@ -54,10 +54,10 @@ class m_gallery extends Module
 
 		if ($image)
 		{
-			return array(
+			return [
 				'title' => $image,
 				'url'   => 'gallery/image/'.$image_id.'/'.url_title($image).'.html'
-			);
+			];
 		}
 	}
 }

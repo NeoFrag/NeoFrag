@@ -18,41 +18,41 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
+$rules = [
+	'title' => [
 		'label'         => 'Titre',
 		'value'         => $title,
 		'type'          => 'text',
 		'rules'			=> 'required'
-	),
-	'game' => array(
+	],
+	'game' => [
 		'label'         => '{lang game}',
 		'value'         => $game_id,
 		'values'        => $games,
 		'type'          => 'select',
 		'rules'			=> 'required'
-	),
-	'image' => array(
+	],
+	'image' => [
 		'label'       => '{lang image}',
 		'value'       => $image_id,
 		'type'        => 'file',
 		'upload'      => 'teams',
 		'info'        => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
-			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
 				return i18n('select_image_file');
 			}
 		}
-	),
-	'icon' => array(
+	],
+	'icon' => [
 		'label'       => '{lang icon}',
 		'value'       => $icon_id,
 		'upload'      => 'teams/icons',
 		'type'        => 'file',
 		'info'        => i18n('file_icon', 16, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
-			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
 				return i18n('select_image_file');
 			}
@@ -71,13 +71,13 @@ $rules = array(
 		'post_upload' => function($filename){
 			image_resize($filename, 16, 16);
 		}
-	),
-	'description' => array(
+	],
+	'description' => [
 		'label' => '{lang description}',
 		'value' => $description,
 		'type'  => 'editor'
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.3

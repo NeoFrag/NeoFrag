@@ -24,18 +24,18 @@ class m_gallery_c_index extends Controller_Module
 	{
 		$this->css('gallery');
 		
-		$panels = array();
+		$panels = [];
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panel = array(
+			$panel = [
 				'title'   => '<a href="'.url('gallery/'.$category['category_id'].'/'.$category['name'].'.html').'">'.$category['title'].'</a>',
-				'content' => $this->load->view('index', array(
+				'content' => $this->load->view('index', [
 					'category_image' => $category['image_id'],
 					'gallery'        => $this->model()->get_gallery($category['category_id'])
-				)),
+				]),
 				'body'    => FALSE
-			);
+			];
 			
 			if ($category['icon_id'])
 			{
@@ -51,12 +51,12 @@ class m_gallery_c_index extends Controller_Module
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => $this('gallery'),
 				'icon'    => 'fa-photo',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">'.$this('no_category_message').'</div>'
-			));
+			]);
 		}
 
 		return $panels;
@@ -66,16 +66,16 @@ class m_gallery_c_index extends Controller_Module
 	{
 		$this->css('gallery');
 		
-		$panels = array();
+		$panels = [];
 		
-		$panel = array(
+		$panel = [
 			'title'   => '<a href="'.url('gallery/'.$category_id.'/'.$name.'.html').'">'.$title.'</a>',
-			'content' => $this->load->view('index', array(
+			'content' => $this->load->view('index', [
 				'category_image' => $image_id,
 				'gallery'        => $this->model()->get_gallery($category_id)
-			)),
+			]),
 			'body'    => FALSE
-		);
+		];
 		
 		if ($icon_id)
 		{
@@ -97,10 +97,10 @@ class m_gallery_c_index extends Controller_Module
 				->js('gallery')
 				->js('modal-carousel');
 		
-		$panels = array(new Panel(array(
+		$panels = [new Panel([
 			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title,
 			'icon'    => 'fa-photo',
-			'content' => $this->load->view('gallery', array(
+			'content' => $this->load->view('gallery', [
 				'title'           => $title,
 				'description'     => $description,
 				'image_id'        => $image_id,
@@ -108,18 +108,18 @@ class m_gallery_c_index extends Controller_Module
 				'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
 				'total_images'    => count($carousel_images),
 				'pagination'      => $this->pagination->get_pagination()
-			)),
+			]),
 			'body' => FALSE
-		)));
+		])];
 		
 		if (empty($images))
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => $this('photos'),
 				'icon'    => 'fa-photo',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this('no_images_message').'</h4></div>'
-			));
+			]);
 		}
 
 		return $panels;
@@ -150,19 +150,19 @@ class m_gallery_c_index extends Controller_Module
 			);
 		}
 		
-		$panel = array(
+		$panel = [
 			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title,
 			'icon'    => 'fa-photo',
-			'content' => $this->load->view('image', array(
+			'content' => $this->load->view('image', [
 				'image_id'          => $image_id,
 				'file_id'           => $file_id,
 				'thumbnail_file_id' => $thumbnail_file_id,
 				'title'             => $title,
 				'description'       => $description,
 				'vignettes'         => $vignettes
-			)),
+			]),
 			'body' => FALSE
-		);
+		];
 		
 		if (!empty($description))
 		{
@@ -170,7 +170,7 @@ class m_gallery_c_index extends Controller_Module
 			$panel['footer_align'] = 'left';
 		}
 		
-		return array(
+		return [
 			new Row(
 				new Col(
 					new Panel($panel)
@@ -178,7 +178,7 @@ class m_gallery_c_index extends Controller_Module
 			),
 			$this->comments->display('gallery', $image_id),
 			new Button_back()
-		);
+		];
 	}
 }
 

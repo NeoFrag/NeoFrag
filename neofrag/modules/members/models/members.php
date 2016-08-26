@@ -33,7 +33,7 @@ class m_members_m_members extends Model
 		{
 			$username = $user['username'];
 			
-			return array(
+			return [
 				$user_id,
 				$user['username'],
 				$user['email'],
@@ -47,7 +47,7 @@ class m_members_m_members extends Model
 				$user['location'],
 				$user['website'],
 				$user['quote']
-			);
+			];
 		}
 		else
 		{
@@ -68,12 +68,12 @@ class m_members_m_members extends Model
 	public function edit_member($user_id, $username, $email, $first_name, $last_name, $avatar, $date_of_birth, $sex, $location, $website, $quote, $signature)
 	{
 		$this->db	->where('user_id', $user_id)
-					->update('nf_users', array(
+					->update('nf_users', [
 						'username' => $username,
 						'email'    => $email
-					));
+					]);
 		
-		$data = array(
+		$data = [
 			'first_name'    => $first_name,
 			'last_name'     => $last_name,
 			'avatar'        => $avatar,
@@ -83,7 +83,7 @@ class m_members_m_members extends Model
 			'website'       => $website,
 			'quote'         => $quote,
 			'signature'     => $signature
-		);
+		];
 		
 		if ($this->db->select('1')->from('nf_users_profiles')->where('user_id', $user_id)->row())
 		{
@@ -92,9 +92,9 @@ class m_members_m_members extends Model
 		}
 		else
 		{
-			$this->db->insert('nf_users_profiles', array_merge($data, array(
+			$this->db->insert('nf_users_profiles', array_merge($data, [
 				'user_id' => $user_id
-			)));
+			]));
 		}
 	}
 	
@@ -104,16 +104,16 @@ class m_members_m_members extends Model
 					->delete('nf_users_groups');
 		
 		$this->db	->where('user_id', $user_id)
-					->update('nf_users', array(
+					->update('nf_users', [
 						'admin' => FALSE
-					));
+					]);
 		
 		if (in_array('admins', $groups))
 		{
 			$this->db	->where('user_id', $user_id)
-						->update('nf_users', array(
+						->update('nf_users', [
 							'admin' => TRUE
-						));
+						]);
 		}
 		
 		foreach ($groups as $group_id)
@@ -123,10 +123,10 @@ class m_members_m_members extends Model
 				continue;
 			}
 			
-			$this->db->insert('nf_users_groups', array(
+			$this->db->insert('nf_users_groups', [
 				'user_id'  => $user_id,
 				'group_id' => $group_id
-			));
+			]);
 		}
 	}
 	

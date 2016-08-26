@@ -24,7 +24,7 @@ class m_members_c_ajax_checker extends Controller_Module
 	{
 		if ($this->model()->check_member($user_id, $username))
 		{
-			return array($user_id, $username);
+			return [$user_id, $username];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

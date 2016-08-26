@@ -132,7 +132,7 @@ class m_awards_m_awards extends Model
 
 	public function get_teams_list()
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->get_teams() as $team)
 		{
@@ -188,7 +188,7 @@ class m_awards_m_awards extends Model
 
 	public function get_games_list()
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang)->get() as $game)
 		{
@@ -200,7 +200,7 @@ class m_awards_m_awards extends Model
 
 	public function add_awards($date, $team_id, $game_id, $platform, $location, $name, $ranking, $participants, $description, $image_id)
 	{
-		$this->db->insert('nf_awards', array(
+		$this->db->insert('nf_awards', [
 			'team_id'      => $team_id,
 			'date'         => $date,
 			'location'     => $location,
@@ -211,13 +211,13 @@ class m_awards_m_awards extends Model
 			'participants' => $participants,
 			'description'  => $description,
 			'image_id'     => $image_id
-		));
+		]);
 	}
 
 	public function edit_awards($award_id, $date, $team_id, $game_id, $platform, $location, $name, $ranking, $participants, $description, $image_id)
 	{
 		$this->db	->where('award_id', $award_id)
-					->update('nf_awards', array(
+					->update('nf_awards', [
 						'team_id'      => $team_id,
 						'date'         => $date,
 						'location'     => $location,
@@ -228,7 +228,7 @@ class m_awards_m_awards extends Model
 						'participants' => $participants,
 						'description'  => $description,
 						'image_id'     => $image_id
-					));
+					]);
 	}
 
 	public function delete_awards($award_id)

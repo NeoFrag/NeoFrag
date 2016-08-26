@@ -5,7 +5,7 @@ $languages = $NeoFrag->db	->select('code', 'name', 'flag')
 
 if (!empty($languages))
 {
-	$tmp     = array();
+	$tmp     = [];
 	$current = '';
 
 	foreach ($languages as $lang)
@@ -15,10 +15,10 @@ if (!empty($languages))
 			$current = $lang['name'];
 		}
 
-		$tmp[$lang['name']] = array(
+		$tmp[$lang['name']] = [
 			'code' => $lang['code'],
 			'flag' => $lang['flag']
-		);
+		];
 	}
 
 	ksort($tmp);
@@ -27,7 +27,7 @@ if (!empty($languages))
 
 	echo '<ul>';
 
-	foreach (array_merge(array($current => $tmp[$current]), $languages) as $name => $lang)
+	foreach (array_merge([$current => $tmp[$current]], $languages) as $name => $lang)
 	{
 		echo '<li data-lang="'.$lang['code'].'"><img src="'.image('flags/'.$lang['flag'])." alt="" />'.$name.'</li>';
 	}

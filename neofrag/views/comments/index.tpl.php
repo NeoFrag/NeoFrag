@@ -4,7 +4,7 @@
 	</div>
 	<div class="media-body">
 		<?php
-			$actions = array();
+			$actions = [];
 			
 			if ($NeoFrag->user() && $data['parent_id'] == NULL)
 			{

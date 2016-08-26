@@ -20,13 +20,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Router extends Core
 {
-	public $segments = array();
+	public $segments = [];
 
 	public function exec()
 	{
-		$segments = array('error');
+		$segments = ['error'];
 
-		if ((in_array($this->config->extension_url, array('html', 'json', 'xml', 'txt')) || is_asset()) && !in_string('//', $this->config->request_url))
+		if ((in_array($this->config->extension_url, ['html', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->config->request_url))
 		{
 			$segments = $this->config->segments_url;
 			
@@ -51,11 +51,11 @@ class Router extends Core
 				
 				if ($this->user())
 				{
-					$segments = array('error', 'unauthorized');
+					$segments = ['error', 'unauthorized'];
 				}
 				else
 				{
-					$segments = array('user', 'login', NeoFrag::UNCONNECTED);
+					$segments = ['user', 'login', NeoFrag::UNCONNECTED];
 				}
 			}
 		}
@@ -78,7 +78,7 @@ class Router extends Core
 	{
 		if (!$module = $this->load->module = $this->load->module(!in_string('_', $segments[0]) ? str_replace('-', '_', $segments[0]) : 'error'))
 		{
-			return $this->_load($segments[0] != 'pages' ? array_merge(array($this->config->admin_url ? 'admin' : 'pages'), $segments) : array('error'));
+			return $this->_load($segments[0] != 'pages' ? array_merge([$this->config->admin_url ? 'admin' : 'pages'], $segments) : ['error']);
 		}
 
 		array_shift($segments);
@@ -95,7 +95,7 @@ class Router extends Core
 		}
 		else if (strpos($segments[0], '_') === 0)
 		{
-			return $this->_load(array('error'));
+			return $this->_load(['error']);
 		}
 		//Méthode définie par routage
 		else if (!empty($module->routes))
@@ -109,14 +109,14 @@ class Router extends Core
 			$method = str_replace('-', '_', array_shift($segments));
 		}
 		
-		$this->segments = array_merge(array($module->name, $method), $segments);
+		$this->segments = array_merge([$module->name, $method], $segments);
 		
 		//Checker Controller
 		if (($checker = $module->load->controller(($this->config->admin_url ? 'admin_' : '').($this->config->ajax_url ? 'ajax_' : '').'checker')) && method_exists($checker, $method))
 		{
 			try
 			{
-				$segments = call_user_func_array(array($checker, $method), $segments);
+				$segments = call_user_func_array([$checker, $method], $segments);
 
 				if (!is_array($segments) && $segments !== NULL)
 				{
@@ -131,13 +131,13 @@ class Router extends Core
 			}
 		}
 		
-		$controller_name = array();
+		$controller_name = [];
 		
 		if ($module->name != 'error')
 		{
 			if (($ajax_error = $this->config->ajax_header && !$this->config->ajax_url && !$this->config->ajax_allowed) && !post('table_id'))
 			{
-				return $this->_load(array('error'));
+				return $this->_load(['error']);
 			}
 			
 			if ($this->config->admin_url)
@@ -165,7 +165,7 @@ class Router extends Core
 		{
 			if ($module->name != 'error' && $module->name != 'admin' && $this->config->admin_url && !$module->is_authorized())
 			{
-				return $this->_load(array('error', 'unauthorized'));
+				return $this->_load(['error', 'unauthorized']);
 			}
 
 			try
@@ -177,7 +177,7 @@ class Router extends Core
 						(empty($ajax_error) || $this->config->ajax_allowed) &&
 						($this->config->extension_url == 'html' || $this->config->extension_allowed))
 				{
-					$module->segments = array($module->name, $method);
+					$module->segments = [$module->name, $method];
 					$module->append_output($output);
 					return;
 				}
@@ -191,7 +191,7 @@ class Router extends Core
 			}
 		}
 		
-		$this->_load(array('error'));
+		$this->_load(['error']);
 	}
 
 	private function _check($error)
@@ -201,28 +201,28 @@ class Router extends Core
 		{
 			if ((int)$error === NeoFrag::UNFOUND)
 			{
-				$this->_load(array('error'));
+				$this->_load(['error']);
 			}
 			else if ((int)$error === NeoFrag::UNAUTHORIZED)
 			{
 				if ($this->user())
 				{
-					$this->_load(array('error', 'unauthorized'));
+					$this->_load(['error', 'unauthorized']);
 				}
 				else
 				{
-					$this->_load(array('user', 'login', NeoFrag::UNAUTHORIZED));
+					$this->_load(['user', 'login', NeoFrag::UNAUTHORIZED]);
 				}
 			}
 			else if ((int)$error === NeoFrag::UNCONNECTED)
 			{
-				$this->_load(array('user', 'login', NeoFrag::UNCONNECTED));
+				$this->_load(['user', 'login', NeoFrag::UNCONNECTED]);
 			}
 		}
 		//Gestion des redirections demandées par les Exceptions
 		else
 		{
-			call_user_func_array(array($this, '_load'), explode('/', $error));
+			call_user_func_array([$this, '_load'], explode('/', $error));
 		}
 	}
 }

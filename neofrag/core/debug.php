@@ -27,14 +27,14 @@ class Debug extends Core
 	const DEPRECATED = 4;
 	const STRICT     = 5;
 
-	private $_log      = array();
-	private $_timeline = array();
+	private $_log      = [];
+	private $_timeline = [];
 
 	public function __construct()
 	{
 		parent::__construct();
 
-		set_error_handler(array($this, 'error_handler'));
+		set_error_handler([$this, 'error_handler']);
 
 		$this->log('URL http://'.$_SERVER['HTTP_HOST'].rawurldecode($_SERVER['REQUEST_URI']), self::INFO);
 		$this->log('IP '.((isset($_SERVER['HTTP_X_REAL_IP'])) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR']), self::INFO);
@@ -65,24 +65,24 @@ class Debug extends Core
 	public function log($error, $type = self::INFO, $trace = 0)
 	{
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $trace + 1);
-		$this->_log[] = array($error, $type, relative_path($backtrace[$trace]['file']), $backtrace[$trace]['line']);
+		$this->_log[] = [$error, $type, relative_path($backtrace[$trace]['file']), $backtrace[$trace]['line']];
 	}
 
 	public function error_handler($errno, $errstr, $errfile, $errline)
 	{
-		if (in_array($errno, array(E_USER_ERROR, E_RECOVERABLE_ERROR)))
+		if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR]))
 		{
 			$error = self::ERROR;
 		}
-		else if (in_array($errno, array(E_USER_WARNING, E_WARNING)))
+		else if (in_array($errno, [E_USER_WARNING, E_WARNING]))
 		{
 			$error = self::WARNING;
 		}
-		else if (in_array($errno, array(E_USER_NOTICE, E_NOTICE)))
+		else if (in_array($errno, [E_USER_NOTICE, E_NOTICE]))
 		{
 			$error = self::NOTICE;
 		}
-		else if (in_array($errno, array(E_DEPRECATED)))
+		else if (in_array($errno, [E_DEPRECATED]))
 		{
 			$error = self::DEPRECATED;
 		}
@@ -101,7 +101,7 @@ class Debug extends Core
 			$errfile = relative_path($errfile);
 		}
 
-		$this->_log[] = array($errstr, $error, $errfile, $errline);
+		$this->_log[] = [$errstr, $error, $errfile, $errline];
 
 		return TRUE;
 	}
@@ -139,7 +139,7 @@ class Debug extends Core
 		}
 		else
 		{
-			return utf8_htmlentities(str_replace(array("\n", "\r"), '', $data));
+			return utf8_htmlentities(str_replace(["\n", "\r"], '', $data));
 		}
 	}
 	
@@ -195,7 +195,7 @@ class Debug extends Core
 		}
 		else
 		{
-			$this->_timeline[] = array($output, $start, $end);
+			$this->_timeline[] = [$output, $start, $end];
 			return $this;
 		}
 	}
@@ -215,18 +215,18 @@ class Debug extends Core
 						->js('neofrag.debugbar')
 						->js('jquery.mCustomScrollbar.min');
 
-			return $this->load->view('debugbar', array(
-				'tabs' => $tabs = array(
-					'console'  => array($this->debug->debugbar($console),              'Console',  'fa-terminal',    $console),
-					'database' => array($this->db->debugbar($database),                'Database', 'fa-database',    $database),
-					'loader'   => array(NeoFrag::loader()->debugbar('NeoFrag Loader'), 'Loader',   'fa-puzzle-piece'),
-					'timeline' => array($this->debug->timeline(),                      'Timeline', 'fa-clock-o'),
-					'settings' => array($this->config->debugbar(),                     'Settings', 'fa-cogs'),
-					'session'  => array($this->session->debugbar(),                    'Session',  'fa-flag'),
-					'server'   => array($this->debug->table($_SERVER),                 'Server',   'fa-server')
-				),
+			return $this->load->view('debugbar', [
+				'tabs' => $tabs = [
+					'console'  => [$this->debug->debugbar($console),              'Console',  'fa-terminal',    $console],
+					'database' => [$this->db->debugbar($database),                'Database', 'fa-database',    $database],
+					'loader'   => [NeoFrag::loader()->debugbar('NeoFrag Loader'), 'Loader',   'fa-puzzle-piece'],
+					'timeline' => [$this->debug->timeline(),                      'Timeline', 'fa-clock-o'],
+					'settings' => [$this->config->debugbar(),                     'Settings', 'fa-cogs'],
+					'session'  => [$this->session->debugbar(),                    'Session',  'fa-flag'],
+					'server'   => [$this->debug->table($_SERVER),                 'Server',   'fa-server']
+				],
 				'active' => ($tab = $this->session('debugbar', 'tab')) && isset($tabs[$tab]) ? $tab : NULL
-			));
+			]);
 		}
 	}
 

@@ -22,7 +22,7 @@ class m_members_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_members(), $page));
+		return [$this->pagination->get_data($this->model()->get_members(), $page)];
 	}
 
 	public function _edit($user_id, $username)
@@ -43,7 +43,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 		if ($this->model()->check_member($user_id, $username))
 		{
-			return array($user_id, $username);
+			return [$user_id, $username];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -53,7 +53,7 @@ class m_members_c_admin_checker extends Controller_Module
 	{
 		if ($group = $this->groups->check_group(func_get_args()))
 		{
-			return array($group['id'], $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']);
+			return [$group['id'], $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -67,7 +67,7 @@ class m_members_c_admin_checker extends Controller_Module
 		{
 			if (!$group['auto'])
 			{
-				return array($group['id'], $group['title']);
+				return [$group['id'], $group['title']];
 			}
 			else
 			{
@@ -80,7 +80,7 @@ class m_members_c_admin_checker extends Controller_Module
 	
 	public function _sessions($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_sessions(), $page));
+		return [$this->pagination->get_data($this->model()->get_sessions(), $page)];
 	}
 
 	public function _sessions_delete($session_id)
@@ -89,7 +89,7 @@ class m_members_c_admin_checker extends Controller_Module
 
 		if ($session = $this->model()->check_session($session_id))
 		{
-			return array($session['session_id'], $session['username']);
+			return [$session['session_id'], $session['username']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

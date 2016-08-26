@@ -37,17 +37,17 @@ function statistics($name, $value = NULL, $callback = NULL)
 			if ($callback === NULL || call_user_func($callback, $value, $statistics[$name]))
 			{
 				NeoFrag::loader()->db	->where('name', $name)
-										->update('nf_statistics', array(
+										->update('nf_statistics', [
 											'value' => $value
-										));
+										]);
 			}
 		}
 		else
 		{
-			NeoFrag::loader()->db->insert('nf_statistics', array(
+			NeoFrag::loader()->db->insert('nf_statistics', [
 				'name'  => $name,
 				'value' => $value
-			));
+			]);
 		}
 	}
 	else

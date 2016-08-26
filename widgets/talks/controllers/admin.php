@@ -20,12 +20,12 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_talks_c_admin extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
-		return $this->load->view('admin', array(
+		return $this->load->view('admin', [
 			'talks'    => $this->db->select('talk_id', 'name')->from('nf_talks')->get(),
 			'settings' => $settings
-		));
+		]);
 	}
 }
 

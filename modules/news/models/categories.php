@@ -50,7 +50,7 @@ class m_news_m_categories extends Model
 
 	public function get_categories_list()
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->get_categories() as $category)
 		{
@@ -64,33 +64,33 @@ class m_news_m_categories extends Model
 	
 	public function add_category($title, $image, $icon)
 	{
-		$category_id = $this->db->insert('nf_news_categories', array(
+		$category_id = $this->db->insert('nf_news_categories', [
 			'name'        => url_title($title),
 			'image_id'    => $image,
 			'icon_id'     => $icon
-		));
+		]);
 
-		$this->db->insert('nf_news_categories_lang', array(
+		$this->db->insert('nf_news_categories_lang', [
 			'category_id' => $category_id,
 			'lang'        => $this->config->lang,
 			'title'       => $title
-		));
+		]);
 	}
 
 	public function edit_category($category_id, $title, $image_id, $icon_id)
 	{
 		$this->db	->where('category_id', $category_id)
-					->update('nf_news_categories', array(
+					->update('nf_news_categories', [
 						'image_id' => $image_id,
 						'icon_id'  => $icon_id,
 						'name'     => url_title($title)
-					));
+					]);
 
 		$this->db	->where('category_id', $category_id)
 					->where('lang', $this->config->lang)
-					->update('nf_news_categories_lang', array(
+					->update('nf_news_categories_lang', [
 						'title'        => $title
-					));
+					]);
 	}
 	
 	public function delete_category($category_id)

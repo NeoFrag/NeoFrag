@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'username' => array(
+$rules = [
+	'username' => [
 		'label' => '{lang username}',
 		'value' => $username,
 		'rules' => 'required',
@@ -29,8 +29,8 @@ $rules = array(
 				return i18n('username_unavailable');
 			}
 		}
-	),
-	'password_old' => array(
+	],
+	'password_old' => [
 		'label' => '{lang current_password}',
 		'icon'  => 'fa-lock',
 		'type'  => 'password',
@@ -40,13 +40,13 @@ $rules = array(
 				return i18n('invalid_password');
 			}
 		}
-	),
-	'password_new' => array(
+	],
+	'password_new' => [
 		'label' => '{lang new_password}',
 		'icon'  => 'fa-lock',
 		'type'  => 'password'
-	),
-	'password_confirm' => array(
+	],
+	'password_confirm' => [
 		'label' => '{lang password_confirmation}',
 		'icon'  => 'fa-lock',
 		'type'  => 'password',
@@ -56,8 +56,8 @@ $rules = array(
 				return '{password_not_match}';
 			}
 		}
-	),
-	'email' => array(
+	],
+	'email' => [
 		'label' => '{lang email}',
 		'value' => $email,
 		'type'  => 'email',
@@ -68,23 +68,23 @@ $rules = array(
 				return i18n('email_unavailable');
 			}
 		}
-	),
-	'first_name' => array(
+	],
+	'first_name' => [
 		'label' => '{lang first_name}',
 		'value' => $first_name,
-	),
-	'last_name' => array(
+	],
+	'last_name' => [
 		'label' => '{lang last_name}',
 		'value' => $last_name,
-	),
-	'avatar' => array(
+	],
+	'avatar' => [
 		'label'       => '{lang avatar}',
 		'value'       => $avatar,
 		'upload'      => 'members',
 		'type'        => 'file',
 		'info'        => i18n('file_icon', 250, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
-			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
 				return i18n('select_image_file');
 			}
@@ -103,8 +103,8 @@ $rules = array(
 		'post_upload' => function($filename){
 			image_resize($filename, 250, 250);
 		}
-	),
-	'date_of_birth' => array(
+	],
+	'date_of_birth' => [
 		'label' => '{lang birth_date}',
 		'value' => $date_of_birth,
 		'type'  => 'date',
@@ -114,35 +114,35 @@ $rules = array(
 				return i18n('invalid_birth_date');
 			}
 		}
-	),
-	'sex' => array(
+	],
+	'sex' => [
 		'label'  => '{lang gender}',
 		'value'  => $sex,
-		'values' => array(
+		'values' => [
 			'female' => icon('fa-female').' {lang female}',
 			'male'   => icon('fa-male').' {lang male}'
-		),
+		],
 		'type'   => 'radio'
-	),
-	'location' => array(
+	],
+	'location' => [
 		'label' => '{lang location}',
 		'value' => $location
-	),
-	'website' => array(
+	],
+	'website' => [
 		'label' => '{lang website}',
 		'value' => $website,
 		'type'  => 'url'
-	),
-	'quote' => array(
+	],
+	'quote' => [
 		'label'  => '{lang quote}',
 		'value' => $quote
-	),
-	'signature' => array(
+	],
+	'signature' => [
 		'label' => '{lang signature}',
 		'value' => $signature,
 		'type'  => 'editor'
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.4

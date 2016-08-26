@@ -20,11 +20,11 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Db extends Core
 {
-	private $_request   = array();
+	private $_request   = [];
 	private $_connected = FALSE;
 	private $_driver;
 
-	public  $requests   = array();
+	public  $requests   = [];
 
 	public function __construct($config)
 	{
@@ -82,7 +82,7 @@ class Db extends Core
 
 		$request = $this->requests[] = $driver::query($this->_request);
 		
-		$this->_request = array();
+		$this->_request = [];
 		
 		if ($callback && empty($request->error))
 		{
@@ -110,15 +110,15 @@ class Db extends Core
 
 	public function where($name, $value = NULL, $operator = 'AND')
 	{
-		if (func_num_args() > 3 && in_array(func_num_args() % 3, array(0, 2)))
+		if (func_num_args() > 3 && in_array(func_num_args() % 3, [0, 2]))
 		{
-			$args = array();
+			$args = [];
 			
 			foreach (func_get_args() as $i => $arg)
 			{
 				if ($i % 3 == 0)
 				{
-					$args[] = array($arg);
+					$args[] = [$arg];
 				}
 				else
 				{
@@ -127,20 +127,20 @@ class Db extends Core
 			}
 			
 			$this->_request['where'][] = array_map(function($a){
-				return (object)array(
+				return (object)[
 					'name'     => $a[0],
 					'value'    => $a[1],
 					'operator' => !empty($a[2]) ? $a[2] : 'AND'
-				);
+				];
 			}, $args);
 		}
 		else
 		{
-			$where = (object)array(
+			$where = (object)[
 				'name'     => $name,
 				'value'    => $value,
 				'operator' => $operator
-			);
+			];
 			
 			if (func_num_args() == 1)
 			{

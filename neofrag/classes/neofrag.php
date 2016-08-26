@@ -30,14 +30,14 @@ abstract class NeoFrag
 	const COLS         = 8;
 	const WIDGETS      = 16;
 
-	static public $route_patterns = array(
+	static public $route_patterns = [
 		'id'         => '([0-9]+?)',
 		'key_id'     => '([a-z0-9]+?)',
 		'url_title'  => '([a-z0-9-]+?)',
 		'url_title*' => '([a-z0-9-/]+?)',
 		'page'       => '((?:/?page/[0-9]+?)?)',
 		'pages'      => '((?:/?(?:all|page/[0-9]+?(?:/(?:10|25|50|100))?))?)'
-	);
+	];
 
 	static public function loader()
 	{
@@ -173,14 +173,14 @@ abstract class NeoFrag
 	public function css($file, $media = 'screen')
 	{
 		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		NeoFrag::loader()->css[] = array($file, $media, $loader->paths);
+		NeoFrag::loader()->css[] = [$file, $media, $loader->paths];
 		return $this;
 	}
 
 	public function js($file)
 	{
 		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		NeoFrag::loader()->js[] = array($file, $loader->paths);
+		NeoFrag::loader()->js[] = [$file, $loader->paths];
 		return $this;
 	}
 

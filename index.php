@@ -101,8 +101,8 @@ function load($name)
 	
 	if ($debug)
 	{
-		$object->memory = array($memory, memory_get_usage());
-		$object->time   = array($time, microtime(TRUE));
+		$object->memory = [$memory, memory_get_usage()];
+		$object->time   = [$time, microtime(TRUE)];
 
 		if ($override)
 		{
@@ -113,64 +113,64 @@ function load($name)
 	return $object;
 }
 
-$NeoFrag = load('loader', array(
-	'assets' => array(
+$NeoFrag = load('loader', [
+	'assets' => [
 		'assets',
 		'overrides/themes/default',
 		'neofrag/themes/default'
-	),
-	'config' => array(
+	],
+	'config' => [
 		'overrides/config',
 		'neofrag/config',
 		'config'
-	),
-	'core' => array(
+	],
+	'core' => [
 		'overrides/core',
 		'neofrag/core'
-	),
-	'helpers' => array(
+	],
+	'helpers' => [
 		'overrides/helpers',
 		'neofrag/helpers'
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'overrides/lang',
 		'neofrag/lang'
-	),
-	'libraries' => array(
+	],
+	'libraries' => [
 		'overrides/libraries',
 		'neofrag/libraries',
-	),
-	'modules' => array(
+	],
+	'modules' => [
 		'overrides/modules',
 		'neofrag/modules',
 		'modules'
-	),
-	'themes' => array(
+	],
+	'themes' => [
 		'overrides/themes',
 		'neofrag/themes',
 		'themes'
-	),
-	'views' => array(
+	],
+	'views' => [
 		'overrides/themes/default/views',
 		'neofrag/themes/default/views'
-	),
-	'widgets' => array(
+	],
+	'widgets' => [
 		'overrides/widgets',
 		'neofrag/widgets',
 		'widgets'
-	)
-));
+	]
+]);
 
-$NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoFrag->js = $NeoFrag->js_load = array();
+$NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoFrag->js = $NeoFrag->js_load = [];
 
 $NeoFrag->module = $NeoFrag->theme = NULL;
 
-foreach (array('array', 'assets', 'buttons', 'color', 'file', 'geolocalisation', 'i18n', 'input', 'location', 'notify', 'output', 'statistics', 'string', 'time', 'user_agent') as $helper)
+foreach (['array', 'assets', 'buttons', 'color', 'file', 'geolocalisation', 'i18n', 'input', 'location', 'notify', 'output', 'statistics', 'string', 'time', 'user_agent'] as $helper)
 {
 	$NeoFrag->helper($helper);
 }
 
-foreach(array('debug', 'template', 'db', 'config', 'access', 'addons', 'session', 'user', 'groups', 'breadcrumb', 'router', 'output') as $library)
+foreach(['debug', 'template', 'db', 'config', 'access', 'addons', 'session', 'user', 'groups', 'breadcrumb', 'router', 'output'] as $library)
 {
 	$NeoFrag->{'core_'.$library};
 

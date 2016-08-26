@@ -18,24 +18,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
+$rules = [
+	'title' => [
 		'label' => '{lang name}',
 		'value' => $title,
 		'rules' => 'required'.(!empty($auto) ? '|disabled' : '')
-	),
-	'color' => array(
+	],
+	'color' => [
 		'label' => '{lang color}',
 		'value' => $color,
 		'type'  => 'colorpicker'
-	),
-	'icon' => array(
+	],
+	'icon' => [
 		'label'   => '{lang icon}',
 		'value'   => $icon,
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.3

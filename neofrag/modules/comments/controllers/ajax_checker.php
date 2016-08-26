@@ -30,7 +30,7 @@ class m_comments_c_ajax_checker extends Controller_Module
 		
 		if ($comment && ($this->user('admin') || ($this->user() && $comment['user_id'] == $this->user('user_id'))))
 		{
-			return array($comment_id, $comment['module_id'], $comment['module']);
+			return [$comment_id, $comment['module_id'], $comment['module']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

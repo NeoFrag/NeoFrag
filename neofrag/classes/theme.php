@@ -20,10 +20,10 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 abstract class Theme extends Loadable
 {
-	static public $core = array(
+	static public $core = [
 		'admin'   => FALSE,
 		'default' => TRUE
-	);
+	];
 
 	abstract public function styles_row();
 	abstract public function styles_widget();
@@ -32,49 +32,49 @@ abstract class Theme extends Loadable
 	
 	public function paths()
 	{
-		return array(
-			'assets' => array(
+		return [
+			'assets' => [
 				'overrides/themes/'.$this->name,
 				'neofrag/themes/'.$this->name,
 				'themes/'.$this->name
-			),
-			'controllers' => array(
+			],
+			'controllers' => [
 				'overrides/themes/'.$this->name.'/controllers',
 				'neofrag/themes/'.$this->name.'/controllers',
 				'themes/'.$this->name.'/controllers'
-			),
-			'forms' => array(
+			],
+			'forms' => [
 				'overrides/themes/'.$this->name.'/forms',
 				'neofrag/themes/'.$this->name.'/forms',
 				'themes/'.$this->name.'/forms'
-			),
-			'helpers' => array(
+			],
+			'helpers' => [
 				'overrides/themes/'.$this->name.'/helpers',
 				'neofrag/themes/'.$this->name.'/helpers',
 				'themes/'.$this->name.'/helpers'
-			),
-			'lang' => array(
+			],
+			'lang' => [
 				'overrides/themes/'.$this->name.'/lang',
 				'neofrag/themes/'.$this->name.'/lang',
 				'themes/'.$this->name.'/lang'
-			),
-			'libraries' => array(
+			],
+			'libraries' => [
 				'overrides/themes/'.$this->name.'/libraries',
 				'neofrag/themes/'.$this->name.'/libraries',
 				'themes/'.$this->name.'/libraries'
-			),
-			'models' => array(
+			],
+			'models' => [
 				'overrides/themes/'.$this->name.'/models',
 				'neofrag/themes/'.$this->name.'/models',
 				'themes/'.$this->name.'/models'
-			),
-			'views' => array(
+			],
+			'views' => [
 				'overrides/themes/'.$this->name.'/views',
 				'neofrag/themes/'.$this->name.'/views',
 				'themes/'.$this->name.'/overrides/views',
 				'themes/'.$this->name.'/views'
-			)
-		);
+			]
+		];
 	}
 	
 	public function load()
@@ -88,18 +88,18 @@ abstract class Theme extends Loadable
 		return $this;
 	}
 	
-	public function install($dispositions = array())
+	public function install($dispositions = [])
 	{
 		foreach ($dispositions as $page => $dispositions)
 		{
 			foreach ($dispositions as $zone => $disposition)
 			{
-				$this->db->insert('nf_dispositions', array(
+				$this->db->insert('nf_dispositions', [
 					'theme'       => $this->name,
 					'page'        => $page,
 					'zone'        => array_search($zone, $this->zones),
 					'disposition' => serialize($disposition)
-				));
+				]);
 			}
 		}
 
@@ -108,7 +108,7 @@ abstract class Theme extends Loadable
 	
 	public function uninstall($remove = TRUE)
 	{
-		$widgets = array();
+		$widgets = [];
 		
 		foreach ($this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get() as $disposition)
 		{

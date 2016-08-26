@@ -24,7 +24,7 @@ class m_addons_c_admin_checker extends Controller_Module
 	{
 		if (($module = $this->load->module($name)) && method_exists($module, 'settings'))
 		{
-			return array($module);
+			return [$module];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -39,7 +39,7 @@ class m_addons_c_admin_checker extends Controller_Module
 
 		if (($module = $this->load->module($name)) && $module->is_removable())
 		{
-			return array($module);
+			return [$module];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -49,7 +49,7 @@ class m_addons_c_admin_checker extends Controller_Module
 	{
 		if (($theme = $this->load->theme($name)) && ($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
 		{
-			return array($theme, $controller);
+			return [$theme, $controller];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -64,7 +64,7 @@ class m_addons_c_admin_checker extends Controller_Module
 
 		if (($theme = $this->load->theme($name)) && $theme->is_removable())
 		{
-			return array($theme);
+			return [$theme];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);

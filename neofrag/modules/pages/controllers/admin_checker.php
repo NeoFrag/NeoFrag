@@ -22,14 +22,14 @@ class m_pages_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_pages(), $page));
+		return [$this->pagination->get_data($this->model()->get_pages(), $page)];
 	}
 	
 	public function _edit($page_id, $title, $tab = 'default')
 	{
 		if ($page = $this->model()->check_page($page_id, $title, $tab, TRUE))
 		{
-			return $page + array($tab);
+			return $page + [$tab];
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class m_pages_c_admin_checker extends Controller_Module
 
 		if ($page = $this->model()->check_page($page_id, $title, 'default', TRUE))
 		{
-			return array($page['page_id'], $page['title']);
+			return [$page['page_id'], $page['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

@@ -18,19 +18,19 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
+$rules = [
+	'title' => [
 		'label'         => '{lang page_title}',
 		'value'         => $title,
 		'type'          => 'text',
 		'rules'         => 'required'
-	),
-	'subtitle' => array(
+	],
+	'subtitle' => [
 		'label'         => '{lang subtitle}',
 		'value'         => $subtitle,
 		'type'          => 'text'
-	),
-	'name' => array(
+	],
+	'name' => [
 		'label'         => '{lang access_path}',
 		'value'         => $name,
 		'type'          => 'text',
@@ -47,18 +47,18 @@ $rules = array(
 				return i18n('access_path_already_used');
 			}
 		}
-	),
-	'content' => array(
+	],
+	'content' => [
 		'label'			=> '{lang content}',
 		'value'			=> $content,
 		'type'			=> 'editor'
-	),
-	'published' => array(
+	],
+	'published' => [
 		'type'			=> 'checkbox',
-		'checked'		=> array('on' => $published),
-		'values'        => array('on' => '{lang publish_now}')
-	)
-);
+		'checked'		=> ['on' => $published],
+		'values'        => ['on' => '{lang publish_now}']
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.3

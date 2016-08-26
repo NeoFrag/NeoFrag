@@ -25,12 +25,12 @@ class m_search_c_index extends Controller_Module
 		$this	->title($this('search'))
 				->form
 				->set_id('a86e16bac4c992732c3f7c6f1fdd159b')
-				->add_rules(array(
-					'keywords' => array(
+				->add_rules([
+					'keywords' => [
 						'type'  => 'text',
 						'rules' => 'required'
-					)
-				));
+					]
+				]);
 
 		if ($this->form->is_valid($post))
 		{
@@ -38,12 +38,12 @@ class m_search_c_index extends Controller_Module
 		}
 		
 		$count = 0;
-		$row   = array();
+		$row   = [];
 		
 		if ($search)
 		{
-			$keywords = $not_keywords = array();
-			$results  = array();
+			$keywords = $not_keywords = [];
+			$results  = [];
 
 			foreach (array_map($trim = create_function('$a', 'return trim($a, \';,."\\\'\');'), preg_split('/[\s;,.]*(-?"[^"]+")[\s;,.]*|[\s;,.]*(-?\'[^\']+\')[\s;,.]*|[\s;,.]+/', $search, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $keyword)
 			{
@@ -62,10 +62,10 @@ class m_search_c_index extends Controller_Module
 
 			if ($keywords)
 			{
-				$queries = array(
-					array($not_keywords, 'NOT LIKE', 'AND'),
-					array($keywords,     'LIKE',     'OR')
-				);
+				$queries = [
+					[$not_keywords, 'NOT LIKE', 'AND'],
+					[$keywords,     'LIKE',     'OR']
+				];
 				
 				foreach ($this->addons->get_modules() as $module)
 				{
@@ -75,7 +75,7 @@ class m_search_c_index extends Controller_Module
 						{
 							if ($query[0])
 							{
-								$args = array();
+								$args = [];
 								
 								foreach ($query[0] as $keyword)
 								{
@@ -85,13 +85,13 @@ class m_search_c_index extends Controller_Module
 									}
 								}
 
-								call_user_func_array(array($this->db, 'where'), $args);
+								call_user_func_array([$this->db, 'where'], $args);
 							}
 						}
 						
 						$result = $this->db->get();
 						
-						$results[] = array($module, $search_controller, $result, $c = count($result));
+						$results[] = [$module, $search_controller, $result, $c = count($result)];
 						$count += $c;
 					}
 				}
@@ -103,18 +103,18 @@ class m_search_c_index extends Controller_Module
 					return $a[0]->get_title();
 				});
 				
-				$panels = array();
+				$panels = [];
 				
 				foreach ($results as $result)
 				{
-					$content = array();
+					$content = [];
 					$details = FALSE;
 
 					if (($name = url_title($result[0]->name)) == $module_name)
 					{
 						foreach ($this->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
-							$content[] = $result[1]->method('detail', array($data, $keywords));
+							$content[] = $result[1]->method('detail', [$data, $keywords]);
 						}
 
 						$details = TRUE;
@@ -123,27 +123,27 @@ class m_search_c_index extends Controller_Module
 					{
 						foreach (array_slice($result[2], 0, 3) as $data)
 						{
-							$content[] = $result[1]->method('index', array($data, $keywords));
+							$content[] = $result[1]->method('index', [$data, $keywords]);
 						}
 					}
 					
 					if ($content)
 					{
-						$panels[] = new Panel(array(
+						$panels[] = new Panel([
 							'title'   => icon($result[0]->icon).' '.$result[0]->get_title(),
 							'url'     => 'search/'.rawurlencode($search).'/'.$result[0]->name.'.html',
 							'content' => implode('<hr />', $content),
 							'footer'  => (!$details && $result[3] > 3) ? '<a href="'.url('search/'.rawurlencode($search).'/'.$result[0]->name.'.html').'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : ''
-						));
+						]);
 					}
 					
 					if ($details && $pagination = $this->pagination->get_pagination())
 					{
-						$panels[] = new Panel(array(
+						$panels[] = new Panel([
 							'content' => $pagination,
 							'body'    => FALSE,
 							'style'   => 'panel-back'
-						));
+						]);
 					}
 				}
 				
@@ -154,14 +154,14 @@ class m_search_c_index extends Controller_Module
 
 				$row[] = new Row(
 					new Col(
-						new Panel(array(
+						new Panel([
 							'body'    => FALSE,
-							'content' => $this->load->view('results', array(
+							'content' => $this->load->view('results', [
 								'keywords' => rawurlencode($search),
 								'results'  => $results,
 								'count'    => $count
-							))
-						)),
+							])
+						]),
 						'col-md-3'
 					),
 					new Col($panels, 'col-md-9')
@@ -169,19 +169,19 @@ class m_search_c_index extends Controller_Module
 			}
 		}
 
-		return array_merge(array(
+		return array_merge([
 			new Row(
 				new Col(
-					new Panel(array(
+					new Panel([
 						'title'   => $this('search'),
 						'icon'    => 'fa-search',
-						'content' => $this->load->view('index', array(
+						'content' => $this->load->view('index', [
 							'results'  => (bool)$count,
 							'keywords' => $search
-						))
-					))
+						])
+					])
 				)
-			)), $row);
+			)], $row);
 	}
 }
 

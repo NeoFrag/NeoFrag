@@ -29,7 +29,7 @@ class m_teams extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Index
 		'{id}/{url_title}'                           => '_team',
 
@@ -40,7 +40,7 @@ class m_teams extends Module
 		'admin/roles/delete/{id}/{url_title}'        => '_roles_delete',
 		'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
 		'admin/ajax/roles/sort'                      => '_roles_sort'
-	);
+	];
 	
 	public function groups()
 	{
@@ -52,15 +52,15 @@ class m_teams extends Module
 										->group_by('t.team_id')
 										->get();
 		
-		$groups = array();
+		$groups = [];
 		
 		foreach ($teams as $team)
 		{
-			$groups[$team['team_id']] = array(
+			$groups[$team['team_id']] = [
 				'name'  => $team['name'],
 				'title' => $team['title'],
 				'users' => array_map('intval', explode(',', $team['users']))
-			);
+			];
 		}
 		
 		return $groups;

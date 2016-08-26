@@ -15,8 +15,8 @@
 			<?php foreach ($data['groups'] as $group_id => $active): ?>
 			<tr data-group="<?php echo $group_id; ?>">
 				<td><?php echo $NeoFrag->groups->display($group_id); ?></td>
-				<?php echo $loader->view('radio', array('class' => 'success', 'active' => $active)); ?>
-				<?php if ($group_id == 'admins') echo '<td></td>'; else echo $loader->view('radio', array('class' => 'danger', 'active' => !$active)); ?></td>
+				<?php echo $loader->view('radio', ['class' => 'success', 'active' => $active]); ?>
+				<?php if ($group_id == 'admins') echo '<td></td>'; else echo $loader->view('radio', ['class' => 'danger', 'active' => !$active]); ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

@@ -24,67 +24,67 @@ class t_default_c_admin extends Controller
 	{
 		$this	->js('admin')
 				->form
-				->add_rules(array(
-					'background' => array(
+				->add_rules([
+					'background' => [
 						'label'  => $this('background'),
 						'value'  => $this->config->{'default_background'},
 						'type'   => 'file',
 						'upload' => 'themes/default/backgrounds',
 						'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 						'check'  => function($filename, $ext){
-							if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+							if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 							{
 								return i18n('select_image_file');
 							}
 						}
-					),
-					'repeat' => array(
+					],
+					'repeat' => [
 						'label'  => $this('background_repeat'),
 						'value'  => $this->config->{'default_background_repeat'},
-						'values' => array(
+						'values' => [
 							'no-repeat' => $this('no'),
 							'repeat-x'  => $this('horizontally'),
 							'repeat-y'  => $this('vertically'),
 							'repeat'    => $this('both')
-						),
+						],
 						'type'   => 'radio',
 						'rules'  => 'required'
-					),
-					'positionX' => array(
+					],
+					'positionX' => [
 						'label'  => $this('position'),
 						'value'  => explode(' ', $this->config->{'default_background_position'})[0],
-						'values' => array(
+						'values' => [
 							'left'   => $this('left'),
 							'center' => $this('center'),
 							'right'  => $this('right')
-						),
+						],
 						'type'   => 'radio',
 						'rules'  => 'required'
-					),
-					'positionY' => array(
+					],
+					'positionY' => [
 						'value'  => explode(' ', $this->config->{'default_background_position'})[1],
-						'values' => array(
+						'values' => [
 							'top'    => $this('top'),
 							'center' => $this('middle'),
 							'bottom' => $this('bottom')
-						),
+						],
 						'type'   => 'radio',
 						'rules'  => 'required'
-					),
-					'fixed' => array(
+					],
+					'fixed' => [
 						'value'  => $this->config->{'default_background_attachment'},
-						'values' => array(
+						'values' => [
 							'on'  => $this('background_fixed')
-						),
+						],
 						'type'   => 'checkbox'
-					),
-					'color' => array(
+					],
+					'color' => [
 						'label' => $this('background_color'),
 						'value' => $this->config->{'default_background_color'},
 						'type'  => 'colorpicker',
 						'rules' => 'required'
-					)
-				))
+					]
+				])
 				->add_submit($this('save'));
 
 		if ($this->form->is_valid($post))
@@ -108,23 +108,23 @@ class t_default_c_admin extends Controller
 		
 		return new Row(
 			new Col(
-				new Panel(array(
-					'content' => $this->load->view('admin/menu', array(
+				new Panel([
+					'content' => $this->load->view('admin/menu', [
 						'theme_name' => $theme->name
-					)),
+					]),
 					'body'    => FALSE
-				))
+				])
 				, 'col-md-4 col-lg-3'
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('dashboard'),
 					'icon'    => 'fa-cog',
-					'content' => $this->load->view('admin/index', array(
+					'content' => $this->load->view('admin/index', [
 						'theme'           => $theme,
 						'form_background' => $this->form->display()
-					))
-				))
+					])
+				])
 				, 'col-md-8 col-lg-9'
 			)
 		);

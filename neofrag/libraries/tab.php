@@ -20,18 +20,18 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Tab extends Library
 {
-	private $_tabs         = array();
+	private $_tabs         = [];
 	private $_url_position = 'end';
 	private $_default_tab  = 'default';
 
-	public function add_tab($url, $name, $function, $args = array())
+	public function add_tab($url, $name, $function, $args = [])
 	{
-		$this->_tabs[] = array(
+		$this->_tabs[] = [
 			'url'      => $url,
 			'name'     => $name,
 			'function' => $function,
 			'args'     => $args ? array_offset_left(func_get_args(), 3) : $args
-		);
+		];
 
 		return $this;
 	}
@@ -44,18 +44,18 @@ class Tab extends Library
 	 
 	public function add_translation_tabs($function)
 	{
-		$this->_tabs[] = array(
+		$this->_tabs[] = [
 			'name'     => 'translations',
 			'function' => $function,
 			'args'     => array_offset_left(func_get_args())
-		);
+		];
 
 		return $this;
 	}
 
 	public function url_position($position)
 	{
-		if (in_array($position, array('beginning', 'end')))
+		if (in_array($position, ['beginning', 'end']))
 		{
 			$this->_url_position = $position;
 		}
@@ -75,10 +75,10 @@ class Tab extends Library
 		$module_name = $this->config->segments_url[0];
 		$base_url = implode('/', in_array($index, $segments = array_offset_left($this->config->segments_url)) ? ($this->_url_position == 'end' ? array_offset_right($segments) : array_offset_left($segments)) : $segments);
 
-		$tabs = array(
-			'panes'    => array(),
-			'sections' => array()
-		);
+		$tabs = [
+			'panes'    => [],
+			'sections' => []
+		];
 
 		$i = 0;
 		foreach ($this->_tabs as $tab)
@@ -87,19 +87,19 @@ class Tab extends Library
 			{
 				$tab['url'] = url_title($tab['url']);
 
-				$tabs['sections'][] = array(
+				$tabs['sections'][] = [
 					'active' => $tab['url'] == $index,
 					'url'    => ($tab['url'] == $this->_default_tab) ? '' : $tab['url'],
 					'name'   => $tab['name']
-				);
+				];
 
 				if ($tab['url'] == $index)
 				{
-					$tabs['panes'][] = array(
+					$tabs['panes'][] = [
 						'args'     => $tab['args'],
 						'id'       => $tab['url'],
 						'function' => $tab['function']
-					);
+					];
 				}
 
 				$i++;
@@ -127,19 +127,19 @@ class Tab extends Library
 						}
 					}
 
-					$tabs['sections'][] = array(
+					$tabs['sections'][] = [
 						'active' => $lang['code'] == $code,
 						'url'    => ($i == 0) ? '' : $lang['code'],
 						'name'   => '<img src="'.image('flags/'.$lang['flag']).'" alt="" />'.$lang['name']
-					);
+					];
 
 					if ($lang['code'] == $index)
 					{
-						$tabs['panes'][] = array(
-							'args'     => array_merge($tab['args'], array($index)),
+						$tabs['panes'][] = [
+							'args'     => array_merge($tab['args'], [$index]),
 							'id'       => $lang['code'],
 							'function' => $tab['function']
-						);
+						];
 					}
 
 					$i++;

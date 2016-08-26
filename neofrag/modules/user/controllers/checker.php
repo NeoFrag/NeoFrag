@@ -32,7 +32,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
-			return array($this->pagination->get_data($this->user->get_sessions_history(), $page));
+			return [$this->pagination->get_data($this->user->get_sessions_history(), $page)];
 		}
 		
 		throw new Exception(NeoFrag::UNCONNECTED);
@@ -48,7 +48,7 @@ class m_user_c_checker extends Controller_Module
 		}
 		else if ($this->db->select('1')->from('nf_sessions')->where('user_id', $this->user('user_id'))->where('session_id', $session_id)->row())
 		{
-			return array($session_id);
+			return [$session_id];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -61,7 +61,7 @@ class m_user_c_checker extends Controller_Module
 			redirect('user.html');
 		}
 		
-		return array($error);
+		return [$error];
 	}
 
 	public function _lost_password($key_id)
@@ -73,7 +73,7 @@ class m_user_c_checker extends Controller_Module
 
 		if ($user_id = $this->model()->check_key($key_id))
 		{
-			return array($key_id, (int)$user_id);
+			return [$key_id, (int)$user_id];
 		}
 		else
 		{
@@ -95,7 +95,7 @@ class m_user_c_checker extends Controller_Module
 		{
 			$this->css('inbox');
 
-			return array($this->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page));
+			return [$this->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page)];
 		}
 		else
 		{
@@ -122,7 +122,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if (($message = $this->model('messages')->get_message($message_id, $title)) && $title == url_title($message['title']))
 		{
-			return array_merge($message, array($this->model('messages')->get_replies($message_id)));
+			return array_merge($message, [$this->model('messages')->get_replies($message_id)]);
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -148,7 +148,7 @@ class m_user_c_checker extends Controller_Module
 				}
 			}
 
-			return array($username);
+			return [$username];
 		}
 	}
 

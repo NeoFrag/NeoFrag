@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Groups extends Core
 {
-	private $_groups = array();
+	private $_groups = [];
 	
 	public function __construct()
 	{
@@ -28,29 +28,29 @@ class Groups extends Core
 		
 		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
 		
-		$this->_groups = array(
-			'admins' => array(
+		$this->_groups = [
+			'admins' => [
 				'name'  => 'admins',
 				'title' => NeoFrag::loader()->lang('group_admins'),
 				'icon'  => 'fa-rocket',
 				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
 				'auto'  => 'neofrag'
-			),
-			'members' => array(
+			],
+			'members' => [
 				'name'  => 'members',
 				'title' => NeoFrag::loader()->lang('group_members'),
 				'icon'  => 'fa-user',
 				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
 				'auto'  => 'neofrag'
-			),
-			'visitors' => array(
+			],
+			'visitors' => [
 				'name'  => 'visitors',
 				'title' => NeoFrag::loader()->lang('group_visitors'),
 				'icon'  => '',
 				'users' => NULL,
 				'auto'  => 'neofrag'
-			)
-		);
+			]
+		];
 		
 		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
 							->from('nf_groups g')
@@ -82,15 +82,15 @@ class Groups extends Core
 			}
 			else
 			{
-				$this->_groups[url_title($group['group_id'])] = array(
+				$this->_groups[url_title($group['group_id'])] = [
 					'id'    => $group['group_id'],
 					'name'  => $group['name'],
 					'title' => $group['title'],
 					'color' => $group['color'],
 					'icon'  => $group['icon'],
-					'users' => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : array(),
+					'users' => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : [],
 					'auto'  => FALSE
-				);
+				];
 			}
 		}
 		
@@ -153,7 +153,7 @@ class Groups extends Core
 	{
 		if (func_num_args() == 1)
 		{
-			$groups = array();
+			$groups = [];
 			
 			foreach ($this->_groups as $group_id => $group)
 			{
@@ -165,7 +165,7 @@ class Groups extends Core
 			
 			$groups = array_unique($groups);
 			
-			return $groups ?: array('visitors');
+			return $groups ?: ['visitors'];
 		}
 		else
 		{
@@ -175,7 +175,7 @@ class Groups extends Core
 
 	public function user_groups($user_id, $label = TRUE)
 	{
-		$groups = array();
+		$groups = [];
 		
 		foreach ($this->_groups as $group_id => $group)
 		{
@@ -212,7 +212,7 @@ class Groups extends Core
 		
 		if ($n == 1)
 		{
-			return $this->_groups[$args[0]] + array('unique_id' => $args[0]);
+			return $this->_groups[$args[0]] + ['unique_id' => $args[0]];
 		}
 		
 		if ($n == 3)
@@ -227,7 +227,7 @@ class Groups extends Core
 		
 		if (isset($this->_groups[$group_id]) && $name == $this->_groups[$group_id]['name'])
 		{
-			return $this->_groups[$group_id] + array('unique_id' => $group_id);
+			return $this->_groups[$group_id] + ['unique_id' => $group_id];
 		}
 		
 		return FALSE;

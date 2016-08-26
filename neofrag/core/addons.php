@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Addons extends Core
 {
-	private $_addons = array();
+	private $_addons = [];
 	
 	public function __construct()
 	{
@@ -31,7 +31,7 @@ class Addons extends Core
 			$this->_addons[$addon['type']][$addon['name']] = (bool)$addon['is_enabled'];
 		}
 		
-		foreach (array('module', 'widget') as $type)
+		foreach (['module', 'widget'] as $type)
 		{
 			foreach ($type::$core as $name => $deactivatable)
 			{
@@ -55,7 +55,7 @@ class Addons extends Core
 	
 	private function _get_addons($get_all, $type)
 	{
-		static $list = array();
+		static $list = [];
 		
 		if (!isset($list[$type][(int)$get_all]))
 		{
@@ -91,7 +91,7 @@ class Addons extends Core
 		
 		if ($list === NULL)
 		{
-			$list = array();
+			$list = [];
 
 			foreach (array_keys($this->_addons['theme']) as $name)
 			{

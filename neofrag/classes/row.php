@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 class Row
 {
 	public $style;
-	public $cols = array();
+	public $cols = [];
 	
 	public function __construct()
 	{
@@ -59,7 +59,7 @@ class Row
 						</div>';
 		}
 		
-		$cols = array();
+		$cols = [];
 		foreach ($this->cols as $i => $col)
 		{
 			$cols[] = $col->display($id !== NULL ? $i : NULL);

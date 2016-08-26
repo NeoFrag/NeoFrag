@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-function button($url, $icon, $title = '', $color = 'default', $data = array(), $small = TRUE, $tooltip = NULL)
+function button($url, $icon, $title = '', $color = 'default', $data = [], $small = TRUE, $tooltip = NULL)
 {
 	array_walk($data, function(&$value, $name){
 		$value = ' data-'.$name.'="'.$value.'"';
@@ -43,12 +43,12 @@ function button_sort($id, $url, $parent = 'table', $items = 'tr', $title = NULL)
 		$title = NeoFrag::loader()->lang('sort');
 	}
 
-	return button(NULL, 'fa-arrows-v', $title, 'link btn-sortable', array(
+	return button(NULL, 'fa-arrows-v', $title, 'link btn-sortable', [
 		'id'     => $id,
 		'update' => url($url),
 		'parent' => $parent,
 		'items'  => $items
-	));
+	]);
 }
 
 function button_access($id, $access = NULL, $module = NULL, $title = NULL)
@@ -86,7 +86,7 @@ function button_delete($url, $title = NULL)
 
 function button_add($url, $title, $icon = 'fa-plus')
 {
-	return button($url, $icon, $title, 'primary', array(), FALSE);
+	return button($url, $icon, $title, 'primary', [], FALSE);
 }
 
 /*

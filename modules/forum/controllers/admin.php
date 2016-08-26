@@ -28,24 +28,24 @@ class m_forum_c_admin extends Controller_Module
 				->add_action('admin/forum/categories/add.html', $this('add_category'), 'fa-plus')
 				->add_action('admin/forum/add.html',            $this('add_forum'),    'fa-plus');
 		
-		$panels = array();
+		$panels = [];
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'content' => $this->load->view('index', $category),
 				'body'    => FALSE
-			));
+			]);
 		}
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => $this('forum'),
 				'icon'    => 'fa-comments',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">'.$this('no_forum').'</div>'
-			));
+			]);
 		}
 
 		return '<div id="forums-list">'.display($panels).'</div>';
@@ -55,9 +55,9 @@ class m_forum_c_admin extends Controller_Module
 	{
 		$this	->subtitle($this('add_forum'))
 				->form
-				->add_rules('forum', array(
+				->add_rules('forum', [
 					'categories' => $this->model()->get_categories_list(),
-				))
+				])
 				->add_submit($this('add'))
 				->add_back('admin/forum.html');
 
@@ -73,11 +73,11 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_forum'),
 			'icon'    => 'fa-comments',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function _edit($forum_id, $title, $description, $parent_id, $is_subforum, $url)
@@ -85,41 +85,41 @@ class m_forum_c_admin extends Controller_Module
 		$this	->title($this('edit_forum'))
 				->subtitle($title)
 				->form
-				->add_rules('forum', array(
+				->add_rules('forum', [
 					'title'        => $title,
 					'description'  => $description,
 					'category_id'  => ($is_subforum ? 'f' : '').$parent_id,
 					'categories'   => $this->model()->get_categories_list($forum_id),
 					'url'          => $url
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/forum.html');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->db	->where('forum_id', $forum_id)
-						->update('nf_forum', array(
+						->update('nf_forum', [
 							'title'       => $post['title'],
 							'parent_id'   => $this->model()->get_parent_id($post['category'], $is_subforum),
 							'is_subforum' => $is_subforum,
 							'description' => $post['description']
-						));
+						]);
 
 			if ($post['url'])
 			{
 				if ($url)
 				{
 					$this->db	->where('forum_id', $forum_id)
-								->update('nf_forum_url', array(
+								->update('nf_forum_url', [
 									'url' => $post['url']
-								));
+								]);
 				}
 				else
 				{
-					$this->db->insert('nf_forum_url', array(
+					$this->db->insert('nf_forum_url', [
 						'forum_id' => $forum_id,
 						'url'      => $post['url']
-					));
+					]);
 				}
 			}
 			else if ($url)
@@ -133,11 +133,11 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_forum'),
 			'icon'    => 'fa-comments',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function delete($forum_id, $title)
@@ -174,11 +174,11 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_category'),
 			'icon'    => 'fa-comments',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _categories_edit($category_id, $title)
@@ -186,9 +186,9 @@ class m_forum_c_admin extends Controller_Module
 		$this	->title($this('edit_category'))
 				->subtitle($title)
 				->form
-				->add_rules('categories', array(
+				->add_rules('categories', [
 					'title' => $title
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/forum.html');
 		
@@ -201,11 +201,11 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_category'),
 			'icon'    => 'fa-comments',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _categories_delete($category_id, $title)

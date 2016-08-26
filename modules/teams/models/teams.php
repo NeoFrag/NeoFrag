@@ -38,7 +38,7 @@ class m_teams_m_teams extends Model
 	
 	public function get_games_list()
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang)->get() as $game)
 		{
@@ -77,19 +77,19 @@ class m_teams_m_teams extends Model
 
 	public function add_team($title, $game_id, $image_id, $icon_id, $description)
 	{
-		$team_id = $this->db->insert('nf_teams', array(
+		$team_id = $this->db->insert('nf_teams', [
 								'game_id'  => $game_id,
 								'image_id' => $image_id,
 								'icon_id'  => $icon_id,
 								'name'     => url_title($title)
-							));
+							]);
 
-		$this->db	->insert('nf_teams_lang', array(
+		$this->db	->insert('nf_teams_lang', [
 						'team_id'     => $team_id,
 						'lang'        => $this->config->lang,
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 					
 		return $team_id;
 	}
@@ -97,19 +97,19 @@ class m_teams_m_teams extends Model
 	public function edit_team($team_id, $title, $game_id, $image_id, $icon_id, $description)
 	{
 		$this->db	->where('team_id', $team_id)
-					->update('nf_teams', array(
+					->update('nf_teams', [
 						'image_id' => $image_id,
 						'icon_id'  => $icon_id,
 						'game_id'  => $game_id,
 						'name'     => url_title($title)
-					));
+					]);
 
 		$this->db	->where('team_id', $team_id)
 					->where('lang', $this->config->lang)
-					->update('nf_teams_lang', array(
+					->update('nf_teams_lang', [
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 	}
 
 	public function delete_team($team_id)

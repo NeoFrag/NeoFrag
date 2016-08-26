@@ -56,21 +56,21 @@ class m_games_m_maps extends Model
 	
 	public function add_map($game_id, $title, $image)
 	{
-		return $this->db->insert('nf_games_maps', array(
+		return $this->db->insert('nf_games_maps', [
 			'game_id'  => $game_id,
 			'title'    => $title,
 			'image_id' => $image
-		));
+		]);
 	}
 	
 	public function edit_map($map_id, $game_id, $title, $image)
 	{
 		$this->db	->where('map_id', $map_id)
-					->update('nf_games_maps', array(
+					->update('nf_games_maps', [
 						'game_id'  => $game_id,
 						'title'    => $title,
 						'image_id' => $image
-					));
+					]);
 	}
 
 	public function delete_map($map_id)

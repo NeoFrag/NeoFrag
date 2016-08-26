@@ -20,8 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Access extends Core
 {
-	private $_access = array();
-	private $_users  = array();
+	private $_access = [];
+	private $_users  = [];
 	
 	public function __construct()
 	{
@@ -31,7 +31,7 @@ class Access extends Core
 	
 	public function reload()
 	{
-		$this->_access = array();
+		$this->_access = [];
 		
 		foreach ($this->db	->select('ad.entity', 'ad.type', 'ad.authorized', 'a.action', 'a.id', 'a.module')
 							->from('nf_access a')
@@ -41,11 +41,11 @@ class Access extends Core
 		{
 			if ($access['entity'])
 			{
-				$this->_access[$access['module']][$access['action']][$access['id']][] = array(
+				$this->_access[$access['module']][$access['action']][$access['id']][] = [
 					'entity'     => $access['entity'],
 					'type'       => $access['type'],
 					'authorized' => (bool)$access['authorized'],
-				);
+				];
 			}
 			else
 			{
@@ -82,9 +82,9 @@ class Access extends Core
 			}
 		}
 		
-		$user_groups = $user_id || $this->user() ? $this->groups($user_id ?: $this->user('user_id')) : array('visitors');
+		$user_groups = $user_id || $this->user() ? $this->groups($user_id ?: $this->user('user_id')) : ['visitors'];
 		$default     = array_sum($authorized) ? $authorized[0] > $authorized[1] : TRUE;
-		$groups      = array();
+		$groups      = [];
 		
 		foreach ($access as $permission)
 		{
@@ -127,7 +127,7 @@ class Access extends Core
 		}
 		else
 		{
-			$groups = array('visitors' => isset($groups['visitors']) ? $groups['visitors'] : $default);
+			$groups = ['visitors' => isset($groups['visitors']) ? $groups['visitors'] : $default];
 		}
 		
 		foreach (array_keys($groups) as $group)
@@ -163,7 +163,7 @@ class Access extends Core
 			$count[(int)$access]++;
 		}
 		
-		$output = array();
+		$output = [];
 		
 		if ($ambiguous)
 		{
@@ -197,22 +197,22 @@ class Access extends Core
 		{
 			foreach ($access['init'] as $action => $groups)
 			{
-				$access_id = $this->db->insert('nf_access', array(
+				$access_id = $this->db->insert('nf_access', [
 					'module' => $module_name,
 					'action' => $action,
 					'id'     => $id
-				));
+				]);
 				
 				foreach ($groups as $group)
 				{
 					list($entity, $authorized) = $group;
 					
-					$this->db->insert('nf_access_details', array(
+					$this->db->insert('nf_access_details', [
 						'access_id'  => $access_id,
 						'entity'     => $entity,
 						'type'       => 'group',
 						'authorized' => $authorized
-					));
+					]);
 				}
 			}
 			

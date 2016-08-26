@@ -29,30 +29,30 @@ class m_partners extends Module
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1.4';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Index
 		'{id}/{url_title}'        => '_partner',
 
 		//Admin
 		'admin/{id}/{url_title*}' => '_edit'
-	);
+	];
 
 	public function settings()
 	{
 		$this	->form
-				->add_rules(array(
-					'partners_logo_display' => array(
+				->add_rules([
+					'partners_logo_display' => [
 						'label'       => 'Logo',
 						'value'       => $this->config->partners_logo_display,
-						'values'      => array(
+						'values'      => [
 							'logo_dark'  => 'Foncé',
 							'logo_light' => 'Clair'
-						),
+						],
 						'type'        => 'radio',
 						'description' => 'Utilisez les logos clairs s\'ils sont affichés sur un fond foncé',
 						'size'        => 'col-md-4'
-					)
-				))
+					]
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/addons.html#modules');
 
@@ -63,9 +63,9 @@ class m_partners extends Module
 			redirect_back('admin/addons.html#modules');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'content' => $this->form->display()
-		));
+		]);
 	}
 }
 

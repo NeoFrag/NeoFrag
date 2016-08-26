@@ -43,11 +43,11 @@ class File extends Library
 				$this->_unlink($file_id);
 				
 				$this->db	->where('file_id', $file_id)
-							->update('nf_files', array(
+							->update('nf_files', [
 								'user_id' => $this->user() ? $this->user('user_id') : NULL,
 								'path'    => $filename,
 								'name'    => $var ? $files['name'][$var] : $files['name']
-							));
+							]);
 				
 				return $file_id;
 			}
@@ -62,11 +62,11 @@ class File extends Library
 	
 	public function add($path, $name)
 	{
-		return $this->db->insert('nf_files', array(
+		return $this->db->insert('nf_files', [
 			'user_id' => $this->user() ? $this->user('user_id') : NULL,
 			'path'    => $path,
 			'name'    => $name
-		));
+		]);
 	}
 	
 	public function delete($files)

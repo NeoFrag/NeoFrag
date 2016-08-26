@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_partners_c_index extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		$this->js('partners');
 		
@@ -30,8 +30,8 @@ class w_partners_c_index extends Controller_Widget
 		{
 			$total_partners = count($partners);
 
-			return new Panel(array(
-				'content' => $this->load->view('index', array(
+			return new Panel([
+				'content' => $this->load->view('index', [
 					'partners'       => $partners,
 					'total_partners' => $total_partners,
 					'total_slides'   => ceil($total_partners / $settings['display_number']),
@@ -39,13 +39,13 @@ class w_partners_c_index extends Controller_Widget
 					'display_number' => $settings['display_number'],
 					'display_height' => $settings['display_height'],
 					'id'             => $settings['id']
-				)),
+				]),
 				'body'    => FALSE
-			));
+			]);
 		}
 	}
 
-	public function column($settings = array())
+	public function column($settings = [])
 	{
 		$this	->css('partners')
 				->js('partners');
@@ -54,13 +54,13 @@ class w_partners_c_index extends Controller_Widget
 
 		if (!empty($partners))
 		{
-			return new Panel(array(
+			return new Panel([
 				'title'   => 'Partenaires',
-				'content' => $this->load->view('column', array(
+				'content' => $this->load->view('column', [
 					'partners'      => $partners,
 					'display_style' => $settings['display_style']
-				))
-			));
+				])
+			]);
 		}
 	}
 }

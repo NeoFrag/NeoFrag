@@ -25,10 +25,10 @@ function notify($message, $type = 'success')
 		$type = 'success';
 	}
 
-	NeoFrag::loader()->session->add('notifications', array(
+	NeoFrag::loader()->session->add('notifications', [
 		'message' => $message,
 		'type'    => $type
-	));
+	]);
 }
 
 function notifications()

@@ -22,15 +22,15 @@ class m_teams_c_index extends Controller_Module
 {
 	public function index()
 	{
-		$panels = array();
+		$panels = [];
 		
 		foreach ($this->model()->get_teams() as $team)
 		{
-			$panel = array(
+			$panel = [
 				'title'  => '<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'">'.$team['title'].'</a>',
 				'footer' => icon('fa-users').' '.$this('player', $team['users'], $team['users']),
 				'body'   => FALSE
-			);
+			];
 			
 			if ($team['image_id'])
 			{
@@ -51,12 +51,12 @@ class m_teams_c_index extends Controller_Module
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => $this('teams'),
 				'icon'    => 'fa-gamepad',
 				'style'   => 'panel-info',
 				'content' => '<div class="text-center">'.$this('no_team_yet').'</div>'
-			));
+			]);
 		}
 
 		return $panels;
@@ -66,43 +66,43 @@ class m_teams_c_index extends Controller_Module
 	{
 		$this	->title($title)
 				->table
-				->add_columns(array(
-					array(
+				->add_columns([
+					[
 						'content' => function($data){
 							return NeoFrag::loader()->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
 						},
 						'size'    => TRUE
-					),
-					array(
+					],
+					[
 						'content' => function($data, $loader){
 							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$loader->lang($data['admin'] ? 'admin' : 'member').' '.$loader->lang($data['online'] ? 'online' : 'offline').'</small>';
 						},
-					),
-					array(
+					],
+					[
 						'content' => function($data){
 							return $data['title'];
 						},
-					)
-				))
+					]
+				])
 				->data($this->model()->get_players($team_id))
 				->no_data($this('no_players_on_team'));
 		
-		$panel = array(
+		$panel = [
 			'title' => '	<div class="pull-right">
 								<span class="label label-default">'.$game.'</span>
 							</div>
 							<a href="'.url('teams/'.$team_id.'/'.$name.'.html').'">'.$title.'</a>',
 			'body'  => FALSE
-		);
+		];
 		
-		$panel['content'] = $this->load->view('index', array(
+		$panel['content'] = $this->load->view('index', [
 			'team_id'     => $team_id,
 			'name'        => $name,
 			'title'       => $title,
 			'image_id'    => $image_id,
 			'description' => bbcode($description),
 			'users'       => $this->table->display()
-		));
+		]);
 		
 		if ($icon_id || $game_icon)
 		{
@@ -113,10 +113,10 @@ class m_teams_c_index extends Controller_Module
 			$panel['icon'] = 'fa-gamepad';
 		}
 		
-		return array(
+		return [
 			new Panel($panel),
 			new Button_back('teams.html')
-		);
+		];
 	}
 }
 

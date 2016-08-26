@@ -50,7 +50,7 @@ class m_games_m_games extends Model
 	
 	public function get_games_list($all = FALSE, $game_id = NULL)
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->get_games() as $game)
 		{
@@ -74,18 +74,18 @@ class m_games_m_games extends Model
 
 	public function add_game($title, $parent_id, $image_id, $icon_id)
 	{
-		$game_id = $this->db->insert('nf_games', array(
+		$game_id = $this->db->insert('nf_games', [
 			'name'      => url_title($title),
 			'parent_id' => $parent_id ?: NULL,
 			'image_id'  => $image_id,
 			'icon_id'   => $icon_id
-		));
+		]);
 
-		$this->db->insert('nf_games_lang', array(
+		$this->db->insert('nf_games_lang', [
 			'game_id'   => $game_id,
 			'lang'      => $this->config->lang,
 			'title'     => $title
-		));
+		]);
 		
 		return $game_id;
 	}
@@ -93,23 +93,23 @@ class m_games_m_games extends Model
 	public function edit_game($game_id, $title, $parent_id, $image_id, $icon_id)
 	{
 		$this->db	->where('game_id', $game_id)
-					->update('nf_games', array(
+					->update('nf_games', [
 						'parent_id' => $parent_id ?: NULL,
 						'image_id'  => $image_id,
 						'icon_id'   => $icon_id,
 						'name'      => url_title($title)
-					));
+					]);
 
 		$this->db	->where('game_id', $game_id)
 					->where('lang', $this->config->lang)
-					->update('nf_games_lang', array(
+					->update('nf_games_lang', [
 						'title'     => $title
-					));
+					]);
 	}
 
 	public function delete_game($game_id)
 	{
-		$files = array();
+		$files = [];
 		
 		foreach ($this->db->select('image_id', 'icon_id')->from('nf_games')->where('parent_id', $game_id)->get() as $game)
 		{

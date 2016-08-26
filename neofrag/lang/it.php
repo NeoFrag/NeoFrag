@@ -27,13 +27,13 @@ $lang['lang']                = 'Italiano';
 
 $lang['unfound_translation'] = '{0}Traduction introuvable : %s|{1}Erreur de pluralisation %s';
 
-$lang['locale'] = array(
+$lang['locale'] = [
 	'it_IT.UTF8',
 	'it.UTF8',
 	'it_IT.UTF-8',
 	'it.UTF-8',
 	'Italian_Italy.1252'
-);
+];
 
 if (!function_exists('date2sql'))
 {

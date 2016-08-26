@@ -20,26 +20,26 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_partners_c_admin extends Controller
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		if (empty($settings['id']))
 		{
 			$settings['id'] = unique_id();
 		}
 
-		return $this->load->view('admin_index', array(
+		return $this->load->view('admin_index', [
 			'display_style'  => $settings['display_style'],
 			'display_number' => $settings['display_number'],
 			'display_height' => $settings['display_height'],
 			'id'             => $settings['id']
-		));
+		]);
 	}
 
-	public function column($settings = array())
+	public function column($settings = [])
 	{
-		return $this->load->view('admin_column', array(
+		return $this->load->view('admin_column', [
 			'display_style'  => $settings['display_style']
-		));
+		]);
 	}
 }
 

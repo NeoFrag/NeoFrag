@@ -60,7 +60,7 @@ function in_string($needle, $haystack, $strict = TRUE)
 
 function url_title($string)
 {
-	static $strings = array();
+	static $strings = [];
 	
 	if (isset($strings[$string]))
 	{
@@ -71,7 +71,7 @@ function url_title($string)
 	
 	if ($a === NULL)
 	{
-		$chars = array(
+		$chars = [
 			'a'  => 'ÀÁÂÃÄÅÆàáâãäå',
 			'ae' => 'æ',
 			'c'  => 'Çç',
@@ -83,9 +83,9 @@ function url_title($string)
 			'u'  => 'ÙÚÛÜùúûü',
 			'y'  => 'Ýýÿ',
 			'-'  => '_ '
-		);
+		];
 
-		$a = $b = array();
+		$a = $b = [];
 		foreach ($chars as $key => $value)
 		{
 			foreach (preg_split('/(?<!^)(?!$)/u', $value) as $char)
@@ -164,7 +164,7 @@ function strtolink($string, $is_html = FALSE)
 	}, $string);
 }
 
-function unique_id($list = array())
+function unique_id($list = [])
 {
 	do
 	{

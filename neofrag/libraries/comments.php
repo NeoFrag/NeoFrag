@@ -55,13 +55,13 @@ class Comments extends Library
 		$this	->css('neofrag.comments')
 				->js('neofrag.comments')
 				->form
-				->add_rules(array(
-					'comment_id' => array(
-					),
-					'comment' => array(
+				->add_rules([
+					'comment_id' => [
+					],
+					'comment' => [
 						'rules' => 'required'
-					)
-				));
+					]
+				]);
 		
 		if ($this->form->is_valid($post))
 		{
@@ -72,13 +72,13 @@ class Comments extends Library
 				$parent_id = $post['comment_id'];
 			}
 			
-			$comment_id = $this->db->insert('nf_comments', array(
+			$comment_id = $this->db->insert('nf_comments', [
 				'parent_id' => $parent_id,
 				'user_id'   => $this->user('user_id'),
 				'module_id' => $module_id,
 				'module'    => $module_name,
 				'content'   => $post['comment']
-			));
+			]);
 			
 			redirect($this->config->request_url.'#comment-'.$comment_id);
 		}
@@ -101,24 +101,24 @@ class Comments extends Library
 		
 		$count = count($comments);
 		
-		$panels = array();
+		$panels = [];
 		
 		if ($errors = $this->form->get_errors())
 		{
-			$panels[] = new Panel(array(
+			$panels[] = new Panel([
 				'title'   => '<a name="comments"></a>'.NeoFrag::loader()->lang('message_needed'),
 				'icon'    => 'fa-warning',
 				'style'   => 'panel-danger'
-			));
+			]);
 		}
 		
-		$panels[] = new Panel(array(
+		$panels[] = new Panel([
 			'title'   => '<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count),
 			'icon'    => 'fa-comments-o',
-			'content' => $output.$this->load->view('new', array(
+			'content' => $output.$this->load->view('new', [
 				'form_id' => $this->form->id
-			))
-		));
+			])
+		]);
 		
 		return display($panels);
 	}

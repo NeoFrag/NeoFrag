@@ -22,7 +22,7 @@ class m_news_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_news(), $page));
+		return [$this->pagination->get_data($this->model()->get_news(), $page)];
 	}
 	
 	public function _add()
@@ -42,7 +42,7 @@ class m_news_c_admin_checker extends Controller_Module
 		
 		if ($news = $this->model()->check_news($news_id, $title, $tab))
 		{
-			return $news + array($tab);
+			return $news + [$tab];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -59,7 +59,7 @@ class m_news_c_admin_checker extends Controller_Module
 
 		if ($news = $this->model()->check_news($news_id, $title))
 		{
-			return array($news['news_id'], $news['title']);
+			return [$news['news_id'], $news['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -101,7 +101,7 @@ class m_news_c_admin_checker extends Controller_Module
 
 		if ($category = $this->model('categories')->check_category($category_id, $name, 'default'))
 		{
-			return array($category_id, $category['title']);
+			return [$category_id, $category['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

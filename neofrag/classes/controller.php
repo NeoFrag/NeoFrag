@@ -27,7 +27,7 @@ abstract class Controller extends Translatable
 		$this->name = $name;
 	}
 
-	public function method($name, $args = array())
+	public function method($name, $args = [])
 	{
 		if (method_exists($this, $name))
 		{
@@ -35,16 +35,16 @@ abstract class Controller extends Translatable
 			{
 				if ($args === NULL)
 				{
-					$args = array();
+					$args = [];
 				}
 				else
 				{
-					$args = array($args);
+					$args = [$args];
 				}
 			}
 
 			ob_start();
-			$result = call_user_func_array(array($this, $name), $args);
+			$result = call_user_func_array([$this, $name], $args);
 			$output = ob_get_clean();
 			
 			if (!empty($result))

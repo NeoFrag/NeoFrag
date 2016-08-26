@@ -29,14 +29,14 @@ class m_awards extends Module
 	public $version     = '1.0';
 	public $nf_version  = 'Alpha 0.1.4';
 	public $path        = __FILE__;
-	public $routes      = array(
+	public $routes      = [
 		//Index
 		'{id}/{url_title}'             => '_award',
 		'{url_title}/{id}/{url_title}' => '_filter',
 		//Admin
 		'admin{pages}'                 => 'index',
 		'admin/{id}/{url_title*}'      => '_edit'
-	);
+	];
 
 	public function comments($award_id)
 	{
@@ -47,10 +47,10 @@ class m_awards extends Module
 
 		if ($award)
 		{
-			return array(
+			return [
 				'title' => $award,
 				'url'   => 'awards/'.$award_id.'/'.url_title($award).'.html'
-			);
+			];
 		}
 	}
 }

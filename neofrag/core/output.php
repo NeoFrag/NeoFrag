@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Output extends Core
 {
-	public $data = array();
+	public $data = [];
 
 	public function display()
 	{
@@ -127,7 +127,7 @@ class Output extends Core
 						->where('theme', $this->load->theme->name)
 						->order_by('page DESC');
 
-			$pages = array('page', '*', 'OR');
+			$pages = ['page', '*', 'OR'];
 
 			if ($this->config->segments_url[0] == 'index')
 			{
@@ -145,7 +145,7 @@ class Output extends Core
 				}
 			}
 
-			call_user_func_array(array($this->db, 'where'), $pages);
+			call_user_func_array([$this->db, 'where'], $pages);
 			
 			foreach ($this->db->get() as $disposition)
 			{

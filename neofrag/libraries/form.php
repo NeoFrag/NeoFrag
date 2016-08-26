@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Form extends Library
 {
-	static private $types = array(
+	static private $types = [
 		'text',
 		'password',
 		'email',
@@ -40,17 +40,17 @@ class Form extends Library
 		'colorpicker',
 		'iconpicker',
 		'legend'
-	);
+	];
 	
-	private $_buttons          = array();
-	private $_confirm_deletion = array();
-	private $_errors           = array();
-	private $_rules            = array();
+	private $_buttons          = [];
+	private $_confirm_deletion = [];
+	private $_errors           = [];
+	private $_rules            = [];
 	private $_display_required = TRUE;
 	private $_fast_mode        = FALSE;
 	private $_display_captcha  = FALSE;
 	
-	public function add_rules($rules, $values = array())
+	public function add_rules($rules, $values = [])
 	{
 		if (!is_array($rules))
 		{
@@ -82,27 +82,27 @@ class Form extends Library
 
 	public function add_back($url)
 	{
-		array_unshift($this->_buttons, array(
+		array_unshift($this->_buttons, [
 			'label'  => NeoFrag::loader()->lang('back'),
 			'action' => $this->session->get_back() ?: $url
-		));
+		]);
 
 		return $this;
 	}
 
 	public function add_submit($label)
 	{
-		$this->_buttons[] = array(
+		$this->_buttons[] = [
 			'type'  => 'submit',
 			'label' => $label,
-		);
+		];
 
 		return $this;
 	}
 
 	public function confirm_deletion($title, $message = '')
 	{
-		$this->_confirm_deletion = array($title, $message);
+		$this->_confirm_deletion = [$title, $message];
 		return $this;
 	}
 
@@ -130,7 +130,7 @@ class Form extends Library
 
 		if ($this->_confirm_deletion)
 		{
-			return $post === array('delete');
+			return $post === ['delete'];
 		}
 
 		foreach ($post as $key => &$value)
@@ -193,7 +193,7 @@ class Form extends Library
 							}
 							else if (isset($options['post_upload']) && is_callable($options['post_upload']))
 							{
-								call_user_func_array($options['post_upload'], array($filename));
+								call_user_func_array($options['post_upload'], [$filename]);
 							}
 						}
 						
@@ -218,7 +218,7 @@ class Form extends Library
 
 	private function _check_text($post, $var, $options)
 	{
-		if (!in_array($post[$var], array('', NULL)) &&
+		if (!in_array($post[$var], ['', NULL]) &&
 			!empty($options['values']) &&
 			is_array($options['values']) &&
 			is_array($post[$var]) &&
@@ -235,7 +235,7 @@ class Form extends Library
 				!in_array('disabled', $options['rules']) &&
 				(
 					($is_file && empty($_FILES[$this->id]['tmp_name'][$var])) ||
-					(!$is_file && in_array($post[$var], array('', NULL)))
+					(!$is_file && in_array($post[$var], ['', NULL]))
 				)
 			)
 		{
@@ -251,14 +251,14 @@ class Form extends Library
 		{
 			if (!empty($options['type']) && $options['type'] == 'file')
 			{
-				$error = !empty($_FILES[$this->id]['tmp_name'][$var]) ? call_user_func_array($options['check'], array($_FILES[$this->id]['tmp_name'][$var], extension($_FILES[$this->id]['name'][$var]))) : TRUE;
+				$error = !empty($_FILES[$this->id]['tmp_name'][$var]) ? call_user_func_array($options['check'], [$_FILES[$this->id]['tmp_name'][$var], extension($_FILES[$this->id]['name'][$var])]) : TRUE;
 			}
 			else
 			{
-				$error = call_user_func_array($options['check'], array($post[$var], $post));
+				$error = call_user_func_array($options['check'], [$post[$var], $post]);
 			}
 			
-			if (!in_array($error, array(TRUE, NULL), TRUE))
+			if (!in_array($error, [TRUE, NULL], TRUE))
 			{
 				return $error;
 			}
@@ -410,7 +410,7 @@ class Form extends Library
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($type, array('radio', 'checkbox')) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
+					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
 
 					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
 					{
@@ -513,7 +513,7 @@ class Form extends Library
 	
 	private function _display_popover($var, $options, &$icons = '')
 	{
-		$popover = $icons = array();
+		$popover = $icons = [];
 		
 		if (!empty($options['description']))
 		{
@@ -535,11 +535,11 @@ class Form extends Library
 
 	private function _display_text($var, $options, $post, $type = 'text')
 	{
-		$classes = array();
+		$classes = [];
 		
-		if (in_array($type, array('date', 'datetime', 'time')))
+		if (in_array($type, ['date', 'datetime', 'time']))
 		{
-			$types = array('date' => 'L', 'datetime' => 'L LT', 'time' => 'LT');
+			$types = ['date' => 'L', 'datetime' => 'L LT', 'time' => 'LT'];
 			
 			NeoFrag::loader()	->css('bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/moment.min')

@@ -28,10 +28,10 @@ class w_user extends Widget
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $types       = array(
+	public $types       = [
 		'index'      => '{lang member_area}',
 		'index_mini' => '{lang member_area_mini}'
-	);
+	];
 }
 
 /*

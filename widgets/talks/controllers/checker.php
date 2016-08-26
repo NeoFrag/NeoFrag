@@ -20,13 +20,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_talks_c_checker extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		$talks = $this->db->select('talk_id')->from('nf_talks')->get();
 		
-		return array(
+		return [
 			'talk_id' => in_array($settings['talk_id'], $talks) ? $settings['talk_id'] : current($talks)
-		);
+		];
 	}
 }
 

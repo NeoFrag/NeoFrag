@@ -22,14 +22,14 @@ class m_games_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model('maps')->get_maps(), $page));
+		return [$this->pagination->get_data($this->model('maps')->get_maps(), $page)];
 	}
 
 	public function _edit($game_id, $name, $page = '')
 	{
 		if ($game = $this->model()->check_game($game_id, $name, 'default'))
 		{
-			return array_merge($game, array($this->pagination->get_data($this->model('maps')->get_maps($game_id), $page)));
+			return array_merge($game, [$this->pagination->get_data($this->model('maps')->get_maps($game_id), $page)]);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class m_games_c_admin_checker extends Controller_Module
 
 		if ($game = $this->model()->check_game($game_id, $name))
 		{
-			return array($game['game_id'], $game['title']);
+			return [$game['game_id'], $game['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -53,12 +53,12 @@ class m_games_c_admin_checker extends Controller_Module
 	{
 		if ($game_id === NULL && $title === NULL)
 		{
-			return array();
+			return [];
 		}
 		
 		if ($game = $this->model()->check_game($game_id, $title))
 		{
-			return array($game_id, $game['name']);
+			return [$game_id, $game['name']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -80,7 +80,7 @@ class m_games_c_admin_checker extends Controller_Module
 
 		if ($map = $this->model('maps')->check_map($map_id, $title))
 		{
-			return array($map_id, $map['title']);
+			return [$map_id, $map['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -90,7 +90,7 @@ class m_games_c_admin_checker extends Controller_Module
 	{
 		if ($game = $this->model()->check_game($game_id, $title))
 		{
-			return array($game_id, $game['name']);
+			return [$game_id, $game['name']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -112,7 +112,7 @@ class m_games_c_admin_checker extends Controller_Module
 
 		if ($mode = $this->model('modes')->check_mode($mode_id, $title))
 		{
-			return array($mode_id, $mode['title']);
+			return [$mode_id, $mode['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

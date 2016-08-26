@@ -23,8 +23,8 @@ class m_games_c_admin extends Controller_Module
 	public function index($maps)
 	{
 		$games = $this	->table
-						->add_columns(array(
-							array(
+						->add_columns([
+							[
 								'content' => function($data){
 									$output = '<img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'];
 									return $data['parent_id'] ? '<span style="padding-left: 35px;">'.$output.'</span>' : $output;
@@ -32,19 +32,19 @@ class m_games_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['title'];
 								}
-							),
-							array(
-								'content' => array(
+							],
+							[
+								'content' => [
 									function($data){
 										return button_edit('admin/games/'.$data['game_id'].'/'.$data['name'].'.html');
 									},
 									function($data){
 										return button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name'].'.html');
 									}
-								),
+								],
 								'size'    => TRUE
-							)
-						))
+							]
+						])
 						->data($this->model()->get_games())
 						->no_data($this('no_games'))
 						->pagination(FALSE)
@@ -52,13 +52,13 @@ class m_games_c_admin extends Controller_Module
 		
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('game_list'),
 					'icon'    => 'fa-gamepad',
 					'content' => $games,
 					'footer'  => button_add('admin/games/add.html', $this('add_game')),
 					'size'    => 'col-md-12 col-lg-4'
-				))
+				])
 			),
 			new Col(
 				$this->_panel_maps($maps),
@@ -72,9 +72,9 @@ class m_games_c_admin extends Controller_Module
 		$this	->title($this('games_maps'))
 				->subtitle($this('add_game'))
 				->form
-				->add_rules('games', array(
+				->add_rules('games', [
 					'games' => $this->model()->get_games_list(),
-				))
+				])
 				->add_submit($this('add'))
 				->add_back('admin/games.html');
 
@@ -89,11 +89,11 @@ class m_games_c_admin extends Controller_Module
 			redirect('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('new_game'),
 			'icon'    => 'fa-gamepad',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _edit($game_id, $parent_id, $image_id, $icon_id, $title, $game_name, $maps)
@@ -101,36 +101,36 @@ class m_games_c_admin extends Controller_Module
 		$this	->title($this('games_maps'))
 				->subtitle($this('edit_game'))
 				->form
-				->add_rules('games', array(
+				->add_rules('games', [
 					'games'     => $this->model()->get_games_list(FALSE, $game_id),
 					'title'     => $title,
 					'parent_id' => $parent_id,
 					'image_id'  => $image_id,
 					'icon_id'   => $icon_id
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/games.html');
 
 		$modes = $this	->table
-						->add_columns(array(
-							array(
+						->add_columns([
+							[
 								'title'   => 'Titre',
 								'content' => function($data){
 									return $data['title'];
 								}
-							),
-							array(
-								'content' => array(
+							],
+							[
+								'content' => [
 									function($data){
 										return button_edit('admin/games/modes/edit/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
 									},
 									function($data){
 										return button_delete('admin/games/modes/delete/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
 									}
-								),
+								],
 								'size'    => TRUE
-							)
-						))
+							]
+						])
 						->data($this->model('modes')->get_modes($game_id))
 						->no_data('Aucun mode')
 						->pagination(FALSE)
@@ -151,20 +151,20 @@ class m_games_c_admin extends Controller_Module
 		
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('edit_game_title', $title),
 					'icon'    => 'fa-gamepad',
 					'content' => $this->form->display(),
 					'size'    => 'col-md-7'
-				))
+				])
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => 'Modes',
 					'icon'    => 'fa-cog',
 					'content' => $modes,
 					'footer'  => button_add('admin/games/modes/add/'.$game_id.'/'.url_title($title).'.html',  'Ajouter un mode')
-				)),
+				]),
 				$this->_panel_maps($maps, $game_id, $title),
 				'col-md-5'
 			)
@@ -192,10 +192,10 @@ class m_games_c_admin extends Controller_Module
 	{
 		$this	->subtitle('Nouvelle carte')
 				->form
-				->add_rules('maps', array(
+				->add_rules('maps', [
 					'games'   => $this->model()->get_games_list(TRUE),
 					'game_id' => $game_id
-				))
+				])
 				->add_submit($this('add'))
 				->add_back('admin/games.html');
 
@@ -208,11 +208,11 @@ class m_games_c_admin extends Controller_Module
 			redirect_back('admin/games/'.$game_id.'/'.($game ?: $this->db->select('name')->from('nf_games')->where('game_id', $game_id)->row()).'.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Nouvelle carte',
 			'icon'    => 'fa-map-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _maps_edit($map_id, $game_id, $image_id, $title, $game)
@@ -220,12 +220,12 @@ class m_games_c_admin extends Controller_Module
 		$this	->title('Éditer la carte')
 				->subtitle($title)
 				->form
-				->add_rules('maps', array(
+				->add_rules('maps', [
 					'games'    => $this->model()->get_games_list(TRUE),
 					'game_id'  => $game_id,
 					'title'    => $title,
 					'image_id' => $image_id
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
 
@@ -239,11 +239,11 @@ class m_games_c_admin extends Controller_Module
 			redirect_back($back);
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Éditer la carte',
 			'icon'    => 'fa-map-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _maps_delete($map_id, $title)
@@ -278,11 +278,11 @@ class m_games_c_admin extends Controller_Module
 			redirect_back($back);
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Nouveau mode',
 			'icon'    => 'fa-cog',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _modes_edit($mode_id, $game_id, $title, $game)
@@ -290,9 +290,9 @@ class m_games_c_admin extends Controller_Module
 		$this	->title('Éditer le mode')
 				->subtitle($title)
 				->form
-				->add_rules('modes', array(
+				->add_rules('modes', [
 					'title' => $title
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
 
@@ -303,11 +303,11 @@ class m_games_c_admin extends Controller_Module
 			redirect_back($back);
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Éditer le mode',
 			'icon'    => 'fa-cog',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _modes_delete($mode_id, $title)
@@ -330,41 +330,41 @@ class m_games_c_admin extends Controller_Module
 	private function _panel_maps($maps, $game_id = NULL, $title = NULL)
 	{
 		$maps = $this	->table
-						->add_columns(array_filter(array(
-							array(
+						->add_columns(array_filter([
+							[
 								'title'   => 'Titre',
 								'content' => function($data){
 									return $data['title'];
 								}
-							),
-							$game_id ? NULL : array(
+							],
+							$game_id ? NULL : [
 								'title'   => 'Jeu',
 								'content' => function($data){
 									return ($data['icon_id'] ? '<img src="'.path($data['icon_id']).'" alt="" /> ' : '').'<a href="'.url('admin/games/'.$data['game_id'].'/'.$data['name'].'.html').'">'.$data['game_title'].'</a>';
 								}
-							),
-							array(
-								'content' => array(
+							],
+							[
+								'content' => [
 									function($data){
 										return button_edit('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']).'.html');
 									},
 									function($data){
 										return button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']).'.html');
 									}
-								),
+								],
 								'size'    => TRUE
-							)
-						)))
+							]
+						]))
 						->data($maps)
 						->no_data('Aucune carte')
 						->display();
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Cartes',
 			'icon'    => 'fa-map-o',
 			'content' => $maps,
 			'footer'  => button_add('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : '').'.html',  'Ajouter une carte')
-		));
+		]);
 	}
 }
 

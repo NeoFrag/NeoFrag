@@ -26,7 +26,7 @@ class Pagination extends Library
 	private $_overload       = TRUE;
 	private $_fixed          = FALSE;
 
-	public function get_data($data = array(), $page = '')
+	public function get_data($data = [], $page = '')
 	{
 		if ($page === '' && empty($data) && !empty($this->_data))
 		{
@@ -57,7 +57,7 @@ class Pagination extends Library
 		
 		if (empty($this->_data))
 		{
-			return array();
+			return [];
 		}
 		else if ($this->_items_per_page == 0)
 		{
@@ -97,7 +97,7 @@ class Pagination extends Library
 	
 	public function display($base_url, $nb_pages, $size = 'sm', $items_per_page = 0, $fixed = TRUE, $current_page = 0)
 	{
-		if (!in_array($size, array('xs', 'sm', 'lg')))
+		if (!in_array($size, ['xs', 'sm', 'lg']))
 		{
 			$size = 'sm';
 		}
@@ -113,23 +113,23 @@ class Pagination extends Library
 		{
 			if ($current_page >= 5 && $nb_pages - $current_page >= 5)
 			{
-				$range = array_merge(array(1, 2, '...'), range($current_page - 1, $current_page + 1), array('...'), array_offset_left($range, -2));
+				$range = array_merge([1, 2, '...'], range($current_page - 1, $current_page + 1), ['...'], array_offset_left($range, -2));
 			}
 			else if ($current_page > 1 && $current_page < 5)
 			{
-				$range = array_merge(range(1, $current_page + 1), array('...'), array_offset_left($range, -2));
+				$range = array_merge(range(1, $current_page + 1), ['...'], array_offset_left($range, -2));
 			}
 			else if ($current_page < $nb_pages && $nb_pages - $current_page < 5)
 			{
-				$range = array_merge(range(1, 2), array('...'), array_offset_left($range, $current_page - 2));
+				$range = array_merge(range(1, 2), ['...'], array_offset_left($range, $current_page - 2));
 			}
 			else
 			{
-				$range = array_merge(array(1, 2, '...'), array_offset_left($range, -2));
+				$range = array_merge([1, 2, '...'], array_offset_left($range, -2));
 			}
 		}
 
-		$buttons = array();
+		$buttons = [];
 
 		foreach ($range as $p)
 		{
@@ -158,7 +158,7 @@ class Pagination extends Library
 
 	public function set_items_per_page($items_per_page)
 	{
-		if ($this->_overload && in_array($items_per_page, array(0, 10, 25, 50, 100)))
+		if ($this->_overload && in_array($items_per_page, [0, 10, 25, 50, 100]))
 		{
 			$this->_items_per_page = $items_per_page;
 		}

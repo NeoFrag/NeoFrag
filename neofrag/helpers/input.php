@@ -36,7 +36,7 @@ function post($var = NULL)
 function post_check($args)
 {
 	$post = post();
-	$data = array();
+	$data = [];
 
 	foreach (is_array($args) ? $args : func_get_args() as $var)
 	{

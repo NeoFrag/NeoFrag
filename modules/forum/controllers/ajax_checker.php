@@ -26,7 +26,7 @@ class m_forum_c_ajax_checker extends Controller
 		{
 			if ($this->access('forum', 'category_move', $topic['category_id']))
 			{
-				return array($topic_id, $topic['topic_title'], $topic['forum_id']);
+				return [$topic_id, $topic['topic_title'], $topic['forum_id']];
 			}
 			else
 			{

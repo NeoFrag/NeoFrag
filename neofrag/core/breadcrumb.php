@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Breadcrumb extends Core
 {
-	private $_links = array();
+	private $_links = [];
 	
 	public function get_links()
 	{
@@ -28,11 +28,11 @@ class Breadcrumb extends Core
 		
 		if (empty($links) && $this->config->segments_url[0] == 'index')
 		{
-			array_unshift($links, array($this->load->lang('home'), '', 'fa-map-marker'));
+			array_unshift($links, [$this->load->lang('home'), '', 'fa-map-marker']);
 		}
 		else
 		{
-			array_unshift($links, array($this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->config->request_url : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker'));
+			array_unshift($links, [$this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->config->request_url : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker']);
 		}
 
 		return $links;
@@ -47,7 +47,7 @@ class Breadcrumb extends Core
 
 		if ($title !== '')
 		{
-			$this->_links[] = array($title, $link ?: $this->config->request_url, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon));
+			$this->_links[] = [$title, $link ?: $this->config->request_url, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon)];
 		}
 
 		return $this;

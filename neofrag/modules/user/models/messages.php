@@ -22,7 +22,7 @@ class m_user_m_messages extends Model
 {
 	public function get_messages_inbox($box = 'inbox')
 	{
-		$inbox = array();
+		$inbox = [];
 		
 		if ($box == 'inbox' || $box == 'archives')
 		{
@@ -119,9 +119,9 @@ class m_user_m_messages extends Model
 	{
 		$this->db	->where('message_id', $message_id)
 					->where('user_id', $this->user('user_id'))
-					->update('nf_users_messages_recipients', array(
+					->update('nf_users_messages_recipients', [
 						'date' => now()
-					));
+					]);
 
 		return $this->db->select('mr.reply_id', 'mr.message_id', 'mr.message', 'UNIX_TIMESTAMP(mr.date) as date', 'mr.user_id', 'u.username', 'up.avatar', 'up.sex')
 						->from('nf_users_messages_replies mr')
@@ -135,57 +135,57 @@ class m_user_m_messages extends Model
 
 	public function reply($message_id, $message)
 	{
-		$reply_id = $this->db->insert('nf_users_messages_replies', array(
+		$reply_id = $this->db->insert('nf_users_messages_replies', [
 			'message_id' => $message_id,
 			'user_id'    => $this->user('user_id'),
 			'message'    => $message
-		));
+		]);
 
 		$this->db	->where('message_id', $message_id)
-					->update('nf_users_messages', array(
+					->update('nf_users_messages', [
 						'last_reply_id' => $reply_id
-					));
+					]);
 
 		$this->db	->where('message_id', $message_id)
-					->update('nf_users_messages_recipients', array(
+					->update('nf_users_messages_recipients', [
 						'deleted' => FALSE
-					));
+					]);
 	}
 
 	public function insert_message($recipients, $title, $message, $auto = FALSE)
 	{
 		$recipients = array_diff(array_unique(array_map(function($a){
 			return (int)$this->db->select('user_id')->from('nf_users')->where('deleted', FALSE)->where('username', $a)->row();
-		}, explode(';', $recipients)), SORT_NUMERIC), array($user_id = $this->user('user_id')));
+		}, explode(';', $recipients)), SORT_NUMERIC), [$user_id = $this->user('user_id')]);
 
 		if ($recipients)
 		{
 			$message_id = $this->db	->ignore_foreign_keys()
-									->insert('nf_users_messages', array(
+									->insert('nf_users_messages', [
 										'title' => $title
-									));
+									]);
 
-			$reply_id = $this->db	->insert('nf_users_messages_replies', array(
+			$reply_id = $this->db	->insert('nf_users_messages_replies', [
 										'message_id' => $message_id,
 										'user_id'  => $author_id = $auto ? $this->config->nf_welcome_user_id : $this->user('user_id'),
 										'message'  => $message
-									));
+									]);
 		
 			$this->db	->where('message_id', $message_id)
-						->update('nf_users_messages', array(
+						->update('nf_users_messages', [
 							'reply_id'      => $reply_id,
 							'last_reply_id' => $reply_id
-						));
+						]);
 
 			$recipients[] = $author_id;
 
 			foreach ($recipients as $recipient)
 			{
-				$this->db->insert('nf_users_messages_recipients', array(
+				$this->db->insert('nf_users_messages_recipients', [
 					'user_id'    => $recipient,
 					'message_id' => $message_id,
 					'date'       => $recipient == $author_id ? now() : NULL
-				));
+				]);
 			}
 
 			return $message_id;

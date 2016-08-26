@@ -45,7 +45,7 @@ abstract class Loadable extends Translatable
 
 	public function __isset($name)
 	{
-		return !in_array($name, array('load', 'override')) ? parent::__isset($name) : FALSE;
+		return !in_array($name, ['load', 'override']) ? parent::__isset($name) : FALSE;
 	}
 
 	public function is_deactivatable()
@@ -81,11 +81,11 @@ abstract class Loadable extends Translatable
 	
 	public function install()
 	{
-		$this->db->insert('nf_settings_addons', array(
+		$this->db->insert('nf_settings_addons', [
 			'name'       => $this->name,
 			'type'       => $this->type,
 			'is_enabled' => TRUE
-		));
+		]);
 
 		return $this;
 	}

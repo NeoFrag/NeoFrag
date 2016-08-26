@@ -22,7 +22,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->get_data($this->model()->get_gallery(), $page));
+		return [$this->pagination->get_data($this->model()->get_gallery(), $page)];
 	}
 	
 	public function _edit($gallery_id, $title)
@@ -46,7 +46,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 
 		if ($gallery = $this->model()->check_gallery($gallery_id, $title, 'default'))
 		{
-			return array($gallery['gallery_id'], $gallery['title']);
+			return [$gallery['gallery_id'], $gallery['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -73,7 +73,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
 		{
-			return array($category_id, $category['title']);
+			return [$category_id, $category['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);
@@ -83,14 +83,14 @@ class m_gallery_c_admin_checker extends Controller_Module
 	{
 		if ($image = $this->model()->check_image($image_id, $name))
 		{
-			return array(
+			return [
 				$image_id,
 				$image['thumbnail_file_id'],
 				$image['title'],
 				$image['description'],
 				$image['gallery_id'],
 				$image['gallery_title']
-			);
+			];
 		}
 		else
 		{
@@ -104,7 +104,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 
 		if ($image = $this->model()->check_image($image_id, $name))
 		{
-			return array($image_id, $image['title']);
+			return [$image_id, $image['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

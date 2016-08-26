@@ -13,7 +13,7 @@
 		<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
 			<ul class="nav navbar-nav">
 				<?php
-					foreach (array('facebook' => 'Facebook', 'twitter' => 'Twitter', 'google-plus' => 'Google+', 'steam' => 'Steam', 'twitch' => 'Twitch') as $name => $title)
+					foreach (['facebook' => 'Facebook', 'twitter' => 'Twitter', 'google-plus' => 'Google+', 'steam' => 'Steam', 'twitch' => 'Twitch'] as $name => $title)
 					{
 						if ($url = $NeoFrag->config->{'nf_maintenance_'.$name})
 						{

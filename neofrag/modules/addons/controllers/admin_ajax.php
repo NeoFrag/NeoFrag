@@ -24,10 +24,10 @@ class m_addons_c_admin_ajax extends Controller_Module
 	{
 		if (method_exists($this, $addon = '_'.post('addon').'_list'))
 		{
-			return new Col(new Panel(array_merge(array(
+			return new Col(new Panel(array_merge([
 				'body' => FALSE,
 				'size' => 'col-md-8 col-lg-9'
-			), $this->$addon())));
+			], $this->$addon())));
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -45,13 +45,13 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 		$this->db	->where('name', $object->name)
 					->where('type', $type)
-					->update('nf_settings_addons', array(
+					->update('nf_settings_addons', [
 						'is_enabled' => $is_enabled
-					));
+					]);
 
-		return array(
+		return [
 			'success' => 'Le '.$type.' '.$object->get_title().' est '.($is_enabled ? 'activé' : 'désactivé')
-		);
+		];
 	}
 	
 	public function install()
@@ -85,7 +85,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 				zip_close($zip);
 				
 				$folders = array_filter(scandir($tmp), function($a) use ($tmp){
-					return !in_array($a, array('.', '..')) && is_dir($tmp.'/'.$a);
+					return !in_array($a, ['.', '..']) && is_dir($tmp.'/'.$a);
 				});
 				
 				function get_version($version)
@@ -105,7 +105,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 				{
 					if ($types === NULL)
 					{
-						$types = array('Module', 'Widget', 'Theme');
+						$types = ['Module', 'Widget', 'Theme'];
 					}
 					else if (!is_array($types))
 					{
@@ -134,15 +134,15 @@ class m_addons_c_admin_ajax extends Controller_Module
 									
 									if (($cmp = version_compare($version, get_version($addon->version))) === 0)
 									{
-										return array(
+										return [
 											'warning' => 'Le '.$type.' '.$addon->get_title().' est déjà installé en version '.$version
-										);
+										];
 									}
 									else if ($cmp === -1)
 									{
-										return array(
+										return [
 											'danger' => 'Le '.$type.' '.$addon->get_title().' est déjà installé avec une version supérieure'
-										);
+										];
 									}
 								}
 
@@ -154,39 +154,39 @@ class m_addons_c_admin_ajax extends Controller_Module
 									{
 										$addon->reset();
 										
-										return array(
+										return [
 											'success' => 'Le '.$type.' '.$addon->get_title().' a été '.(empty($update) ? 'installé' : 'mis-à-jour')
-										);
+										];
 									}
 
-									return array(
+									return [
 										'danger' => 'Le '.$type.' '.($addon ? $addon->get_title() : $name).' n\'a pas pu être '.(empty($update) ? 'installé' : 'mis-à-jour')
-									);
+									];
 								}
 								
-								return array(
+								return [
 									'danger' => 'Le '.$type.' '.($addon ? $addon->get_title() : $name).' nécessite la version '.$nf_version.' de NeoFrag, veuillez mettre jour votre site'
-								);
+								];
 							}
 							
-							return array(
+							return [
 								'danger' => 'Le composant ne peut pas être installé, veuillez vérifier la présence des numéros de version'
-							);
+							];
 						}
 					}
 					
-					return array(
+					return [
 						'danger' => 'Le composant ne peut pas être installé, veuillez vérifier son contenu'
-					);
+					];
 				}
 
-				$types   = array('modules', 'widgets', 'themes');
+				$types   = ['modules', 'widgets', 'themes'];
 
-				$results = array(
-					'danger'  => array(),
-					'success' => array(),
-					'warning' => array()
-				);
+				$results = [
+					'danger'  => [],
+					'success' => [],
+					'warning' => []
+				];
 
 				if (count($folders) == 1 && !in_array($folder = current($folders), $types))
 				{
@@ -198,7 +198,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 					{
 						foreach (scandir($tmp.'/'.$folder) as $dir)
 						{
-							if (!in_array($dir, array('.', '..')) && is_dir($dir = $tmp.'/'.$folder.'/'.$dir))
+							if (!in_array($dir, ['.', '..']) && is_dir($dir = $tmp.'/'.$folder.'/'.$dir))
 							{
 								$results = array_merge_recursive($results, install_addon($dir, substr(ucfirst($folder), 0, -1)));
 							}
@@ -211,53 +211,53 @@ class m_addons_c_admin_ajax extends Controller_Module
 				return array_filter($results);
 			}
 			
-			return array(
-				'danger' => array('Erreur de transfert vers le serveur')
-			);
+			return [
+				'danger' => ['Erreur de transfert vers le serveur']
+			];
 		}
 		
-		return array(
-			'danger' => array($this('zip_file_required'))
-		);
+		return [
+			'danger' => [$this('zip_file_required')]
+		];
 	}
 	
 	private function _modules_list()
 	{
-		return array(
+		return [
 			'title'   => 'Liste des modules',
 			'icon'    => 'fa-edit',
 			'content' => $this->load->view('modules')
-		);
+		];
 	}
 	
 	private function _themes_list()
 	{
-		return array(
+		return [
 			'title'   => 'Liste des thèmes',
 			'icon'    => 'fa-tint',
 			'body'    => TRUE,
 			'content' => $this->load->view('themes')
-		);
+		];
 	}
 	
 	private function _widgets_list()
 	{
-		return array(
+		return [
 			'title' => 'Liste des widgets',
 			'icon'  => 'fa-cubes',
 			'content' => $this->load->view('widgets')
-		);
+		];
 	}
 	
 	private function _languages_list()
 	{
-		return array(
+		return [
 			'title'   => 'Liste des langues',
 			'icon'    => 'fa-book',
-			'content' => $this->load->view('languages', array(
+			'content' => $this->load->view('languages', [
 				'languages' => $this->addons->get_languages()
-			))
-		);
+			])
+		];
 	}
 	
 	/*private function _smileys_list()
@@ -281,9 +281,9 @@ class m_addons_c_admin_ajax extends Controller_Module
 		$this	->extension('json')
 				->config('nf_default_theme', $theme->name);
 		
-		return array(
+		return [
 			'success' => 'Le thème '.$theme->get_title().' a été activé'
-		);
+		];
 	}
 
 	public function _theme_reset($theme)
@@ -291,9 +291,9 @@ class m_addons_c_admin_ajax extends Controller_Module
 		$theme	->extension('json')
 				->reset();
 		
-		return array(
+		return [
 			'success' => 'Le thème '.$theme->get_title().' a été réinstallé par défaut'
-		);
+		];
 	}
 
 	public function _theme_settings($controller)
@@ -303,19 +303,19 @@ class m_addons_c_admin_ajax extends Controller_Module
 	
 	public function _language_sort($language, $position)
 	{
-		$languages = array();
+		$languages = [];
 		
 		foreach ($this->db->select('code')->from('nf_settings_languages')->where('code !=', $language)->order_by('order')->get() as $code)
 		{
 			$languages[] = $code;
 		}
 		
-		foreach (array_merge(array_slice($languages, 0, $position, TRUE), array($language), array_slice($languages, $position, NULL, TRUE)) as $order => $code)
+		foreach (array_merge(array_slice($languages, 0, $position, TRUE), [$language], array_slice($languages, $position, NULL, TRUE)) as $order => $code)
 		{
 			$this->db	->where('code', $code)
-						->update('nf_settings_languages', array(
+						->update('nf_settings_languages', [
 							'order' => $order
-						));
+						]);
 		}
 	}
 }

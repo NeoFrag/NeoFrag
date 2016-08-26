@@ -27,13 +27,13 @@ $lang['lang']                = 'Deutsch';
 
 $lang['unfound_translation'] = '{0}Traduction introuvable : %s|{1}Erreur de pluralisation %s';
 
-$lang['locale'] = array(
+$lang['locale'] = [
 	'de_DE.UTF8',
 	'de.UTF8',
 	'de_DE.UTF-8',
 	'de.UTF-8',
 	'German_Germany.1252'
-);
+];
 
 if (!function_exists('date2sql'))
 {

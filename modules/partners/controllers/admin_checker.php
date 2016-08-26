@@ -36,7 +36,7 @@ class m_partners_c_admin_checker extends Controller_Module
 
 		if ($partner = $this->model()->check_partner($partner_id, $name))
 		{
-			return array($partner['partner_id'], $partner['title']);
+			return [$partner['partner_id'], $partner['title']];
 		}
 
 		throw new Exception(NeoFrag::UNFOUND);

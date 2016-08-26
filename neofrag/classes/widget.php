@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 abstract class Widget extends Loadable
 {
-	static public $core = array(
+	static public $core = [
 		'breadcrumb' => TRUE,
 		'error'      => FALSE,
 		'html'       => TRUE,
@@ -28,20 +28,20 @@ abstract class Widget extends Loadable
 		'module'     => FALSE,
 		'navigation' => TRUE,
 		'user'       => TRUE
-	);
+	];
 
 	public function paths()
 	{
 		if (!empty(NeoFrag::loader()->theme))
 		{
-			if (in_array($theme_name = NeoFrag::loader()->theme->name, array('default', 'admin')))
+			if (in_array($theme_name = NeoFrag::loader()->theme->name, ['default', 'admin']))
 			{
 				unset($theme_name);
 			}
 		}
 
-		return array(
-			'assets' => array(
+		return [
+			'assets' => [
 				'assets',
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name : '',
 				'overrides/widgets/'.$this->name,
@@ -51,14 +51,14 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name,
 				'neofrag/modules/'.$this->name,
 				'modules/'.$this->name
-			),
-			'controllers' => array(
+			],
+			'controllers' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/controllers' : '',
 				'overrides/widgets/'.$this->name.'/controllers',
 				'neofrag/widgets/'.$this->name.'/controllers',
 				'widgets/'.$this->name.'/controllers'
-			),
-			'helpers' => array(
+			],
+			'helpers' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/helpers' : '',
 				'overrides/widgets/'.$this->name.'/helpers',
 				'neofrag/widgets/'.$this->name.'/helpers',
@@ -67,8 +67,8 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name.'/helpers',
 				'neofrag/modules/'.$this->name.'/helpers',
 				'modules/'.$this->name.'/helpers'
-			),
-			'lang' => array(
+			],
+			'lang' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/lang' : '',
 				'overrides/widgets/'.$this->name.'/lang',
 				'neofrag/widgets/'.$this->name.'/lang',
@@ -77,8 +77,8 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name.'/lang',
 				'neofrag/modules/'.$this->name.'/lang',
 				'modules/'.$this->name.'/lang'
-			),
-			'libraries' => array(
+			],
+			'libraries' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/libraries' : '',
 				'overrides/widgets/'.$this->name.'/libraries',
 				'neofrag/widgets/'.$this->name.'/libraries',
@@ -87,8 +87,8 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name.'/libraries',
 				'neofrag/modules/'.$this->name.'/libraries',
 				'modules/'.$this->name.'/libraries'
-			),
-			'models' => array(
+			],
+			'models' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/models' : '',
 				'overrides/widgets/'.$this->name.'/models',
 				'neofrag/widgets/'.$this->name.'/models',
@@ -97,8 +97,8 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name.'/models',
 				'neofrag/modules/'.$this->name.'/models',
 				'modules/'.$this->name.'/models'
-			),
-			'views' => array(
+			],
+			'views' => [
 				!empty($theme_name) ? 'themes/'.$theme_name.'/overrides/widgets/'.$this->name.'/views' : '',
 				'overrides/widgets/'.$this->name.'/views',
 				'neofrag/widgets/'.$this->name.'/views',
@@ -107,22 +107,22 @@ abstract class Widget extends Loadable
 				'overrides/modules/'.$this->name.'/views',
 				'neofrag/modules/'.$this->name.'/views',
 				'modules/'.$this->name.'/views'
-			)
-		);
+			]
+		];
 	}
 
 	public function is_removable()
 	{
-		return !in_array($this->name, array('access', 'addons', 'admin', 'comments', 'error', 'live_editor', 'members', 'pages', 'search', 'settings', 'user'));
+		return !in_array($this->name, ['access', 'addons', 'admin', 'comments', 'error', 'live_editor', 'members', 'pages', 'search', 'settings', 'user']);
 	}
 
-	public function get_output($type, $settings = array())
+	public function get_output($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('index')) && ($output = $controller->method($type, array($settings))) !== FALSE)
+		if (($controller = $this->load->controller('index')) && ($output = $controller->method($type, [$settings])) !== FALSE)
 		{
 			if (!is_array($output))
 			{
-				$output = array($output);
+				$output = [$output];
 			}
 			
 			return $output;
@@ -131,13 +131,13 @@ abstract class Widget extends Loadable
 		return $this->load->widget('error')->get_output('index');
 	}
 
-	public function get_admin($type, $settings = array())
+	public function get_admin($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('admin')) && ($output = $controller->method($type, array($settings))) !== FALSE)
+		if (($controller = $this->load->controller('admin')) && ($output = $controller->method($type, [$settings])) !== FALSE)
 		{
 			if (!is_array($output))
 			{
-				$output = array($output);
+				$output = [$output];
 			}
 			
 			return $output;
@@ -146,9 +146,9 @@ abstract class Widget extends Loadable
 		return '';
 	}
 
-	public function get_settings($type, $settings = array())
+	public function get_settings($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('checker')) && ($output = $controller->method($type, array($settings))) !== FALSE)
+		if (($controller = $this->load->controller('checker')) && ($output = $controller->method($type, [$settings])) !== FALSE)
 		{
 			return serialize($output);
 		}

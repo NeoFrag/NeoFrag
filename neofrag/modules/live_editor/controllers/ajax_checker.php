@@ -101,11 +101,11 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 																	->where('widget_id', $post['widget_id'])
 																	->row())
 			{
-				return array($widget['widget'], $widget['type'], $widget['settings'] ? unserialize($widget['settings']) : NULL);
+				return [$widget['widget'], $widget['type'], $widget['settings'] ? unserialize($widget['settings']) : NULL];
 			}
 			else if (!empty($post['widget']) && isset($post['type']))
 			{
-				return array($post['widget'], $post['type'] ?: 'index');
+				return [$post['widget'], $post['type'] ?: 'index'];
 			}
 		}
 		
@@ -118,7 +118,7 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 		{
 			if ($widget_id == -1)
 			{
-				return array();
+				return [];
 			}
 			else if ($widget = $this->model()->check_widget($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->widget_id))
 			{
@@ -143,7 +143,7 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 				$widget['type']     = $type;
 				$widget['settings'] = $settings;
 				
-				return array_merge(array($disposition_id, $disposition, $row_id, $col_id, $widget_id), array_values($widget));
+				return array_merge([$disposition_id, $disposition, $row_id, $col_id, $widget_id], array_values($widget));
 			}
 		}
 		
@@ -159,7 +159,7 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 	{
 		if ($this->user('admin') && $check = post_check(func_get_args()))
 		{
-			array_splice($check, 1, 0, array($this->model()->get_disposition($check['disposition_id'], $theme, $page, $zone)));
+			array_splice($check, 1, 0, [$this->model()->get_disposition($check['disposition_id'], $theme, $page, $zone)]);
 			
 			$check[] = $theme;
 			$check[] = $page;

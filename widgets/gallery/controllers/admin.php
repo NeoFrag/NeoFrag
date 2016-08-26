@@ -20,28 +20,28 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_gallery_c_admin extends Controller
 {
-	public function albums($settings = array())
+	public function albums($settings = [])
 	{
-		return $this->load->view('admin_gallery', array(
+		return $this->load->view('admin_gallery', [
 			'category_id' => $settings['category_id'],
 			'categories'  => $this->model()->get_categories(),
-		));
+		]);
 	}
 	
-	public function image($settings = array())
+	public function image($settings = [])
 	{
-		return $this->load->view('admin_image', array(
+		return $this->load->view('admin_image', [
 			'gallery_id' => $settings['gallery_id'],
 			'gallery'    => $this->model()->get_gallery(),
-		));
+		]);
 	}
 	
-	public function slider($settings = array())
+	public function slider($settings = [])
 	{
-		return $this->load->view('admin_slider', array(
+		return $this->load->view('admin_slider', [
 			'gallery_id' => $settings['gallery_id'],
 			'gallery'    => $this->model()->get_gallery(),
-		));
+		]);
 	}
 }
 

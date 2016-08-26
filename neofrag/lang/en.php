@@ -215,7 +215,7 @@ $lang['yesterday_at']                   = 'Yesterday at %s';
 $lang['your_response']                  = 'Your reply';
 $lang['zone']                           = 'Zone #%d';
 
-$lang['locale'] = array(
+$lang['locale'] = [
 	'en_GB.UTF8',
 	'en_US.UTF8',
 	'en.UTF8',
@@ -223,7 +223,7 @@ $lang['locale'] = array(
 	'en_US.UTF-8',
 	'en.UTF-8',
 	'English_Australia.1252'
-);
+];
 
 if (!function_exists('date2sql'))
 {

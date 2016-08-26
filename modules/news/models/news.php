@@ -108,40 +108,40 @@ class m_news_m_news extends Model
 
 	public function add_news($title, $category_id, $image_id, $introduction, $content, $tags, $published)
 	{
-		$news_id = $this->db->insert('nf_news', array(
+		$news_id = $this->db->insert('nf_news', [
 								'category_id' => $category_id,
 								'user_id'     => $this->user('user_id'),
 								'image_id'    => $image_id,
 								'published'   => $published
-							));
+							]);
 
-		$this->db	->insert('nf_news_lang', array(
+		$this->db	->insert('nf_news_lang', [
 						'news_id'      => $news_id,
 						'lang'         => $this->config->lang,
 						'title'        => $title,
 						'introduction' => $introduction,
 						'content'      => $content,
 						'tags'         => $this->_tags($tags)
-					));
+					]);
 	}
 
 	public function edit_news($news_id, $category_id, $image_id, $published, $title, $introduction, $content, $tags, $lang)
 	{
 		$this->db	->where('news_id', $news_id)
-					->update('nf_news', array(
+					->update('nf_news', [
 						'category_id' => $category_id,
 						'image_id'    => $image_id,
 						'published'   => $published
-					));
+					]);
 
 		$this->db	->where('news_id', $news_id)
 					->where('lang', $lang)
-					->update('nf_news_lang', array(
+					->update('nf_news_lang', [
 						'title'        => $title,
 						'introduction' => $introduction,
 						'content'      => $content,
 						'tags'         => $this->_tags($tags)
-					));
+					]);
 	}
 
 	public function delete_news($news_id)

@@ -25,8 +25,8 @@ class m_news_c_admin extends Controller_Module
 		$this->title($this('news'));
 
 		$news = $this	->table
-						->add_columns(array(
-							array(
+						->add_columns([
+							[
 								'content' => function($data, $loader){
 									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$loader->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$loader->lang('awaiting_publication').'" style="color: #535353;"></i>';
 								},
@@ -34,8 +34,8 @@ class m_news_c_admin extends Controller_Module
 									return $data['published'];
 								},
 								'size'    => TRUE
-							),
-							array(
+							],
+							[
 								'title'   => $this('title'),
 								'content' => function($data){
 									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
@@ -46,8 +46,8 @@ class m_news_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['title'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => $this('category'),
 								'content' => function($data){
 									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
@@ -58,8 +58,8 @@ class m_news_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['category_title'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => $this('author'),
 								'content' => function($data){
 									return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : i18n('guest');
@@ -70,8 +70,8 @@ class m_news_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['username'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => $this('date'),
 								'content' => function($data){
 									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
@@ -79,34 +79,34 @@ class m_news_c_admin extends Controller_Module
 								'sort'    => function($data){
 									return $data['date'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.i18n('comments').'"></i>',
 								'content' => function($data){
 									return NeoFrag::loader()->comments->admin_comments('news', $data['news_id']);
 								},
 								'size'    => TRUE
-							),
-							array(
-								'content' => array(
+							],
+							[
+								'content' => [
 									function($data){
 										return $this->is_authorized('modify_news') ? button_edit('admin/news/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
 									},
 									function($data){
 										return $this->is_authorized('delete_news') ? button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
 									}
-								),
+								],
 								'size'    => TRUE
-							)
-						))
+							]
+						])
 						->sort_by(5, SORT_DESC, SORT_NUMERIC)
 						->data($news)
 						->no_data($this('no_news'))
 						->display();
 			
 		$categories = $this	->table
-							->add_columns(array(
-								array(
+							->add_columns([
+								[
 									'content' => function($data){
 										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
 									},
@@ -116,19 +116,19 @@ class m_news_c_admin extends Controller_Module
 									'sort'    => function($data){
 										return $data['title'];
 									}
-								),
-								array(
-									'content' => array(
+								],
+								[
+									'content' => [
 										function($data){
 											return $this->is_authorized('modify_news_category') ? button_edit('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
 										},
 										function($data){
 											return $this->is_authorized('delete_news_category') ? button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
 										}
-									),
+									],
 									'size'    => TRUE
-								)
-							))
+								]
+							])
 							->pagination(FALSE)
 							->data($this->model('categories')->get_categories())
 							->no_data($this('no_category'))
@@ -136,22 +136,22 @@ class m_news_c_admin extends Controller_Module
 
 		return new Row(
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('categories'),
 					'icon'    => 'fa-align-left',
 					'content' => $categories,
 					'footer'  => $this->is_authorized('add_news_category') ? button_add('admin/news/categories/add.html', $this('create_category')) : NULL,
 					'size'    => 'col-md-12 col-lg-3'
-				))
+				])
 			),
 			new Col(
-				new Panel(array(
+				new Panel([
 					'title'   => $this('list_news'),
 					'icon'    => 'fa-file-text-o',
 					'content' => $news,
 					'footer'  => $this->is_authorized('add_news') ? button_add('admin/news/add.html', $this('add_news')) : NULL,
 					'size'    => 'col-md-12 col-lg-9'
-				))
+				])
 			)
 		);
 	}
@@ -160,9 +160,9 @@ class m_news_c_admin extends Controller_Module
 	{
 		$this	->subtitle($this('add_news'))
 				->form
-				->add_rules('news', array(
+				->add_rules('news', [
 					'categories' => $this->model('categories')->get_categories_list(),
-				))
+				])
 				->add_submit($this('add'))
 				->add_back('admin/news.html');
 
@@ -181,11 +181,11 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_news'),
 			'icon'    => 'fa-file-text-o',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function _edit($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $news_image, $category_image, $category_icon)
@@ -193,7 +193,7 @@ class m_news_c_admin extends Controller_Module
 		$this	->title($this('edit_news'))
 				->subtitle($title)
 				->form
-				->add_rules('news', array(
+				->add_rules('news', [
 					'title'        => $title,
 					'category_id'  => $category_id,
 					'categories'   => $this->model('categories')->get_categories_list(),
@@ -202,7 +202,7 @@ class m_news_c_admin extends Controller_Module
 					'content'      => $content,
 					'tags'         => $tags,
 					'published'    => $published
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/news.html');
 
@@ -223,11 +223,11 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_news'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function delete($news_id, $title)
@@ -266,22 +266,22 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_category'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this('category_', $title))
 				->form
-				->add_rules('categories', array(
+				->add_rules('categories', [
 					'title' => $title,
 					'image' => $image_id,
 					'icon'  => $icon_id
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/news.html');
 		
@@ -297,11 +297,11 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_category'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function _categories_delete($category_id, $title)

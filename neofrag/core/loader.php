@@ -20,14 +20,14 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Loader extends Core
 {
-	public $libraries   = array();
-	public $helpers     = array();
-	public $controllers = array();
-	public $models      = array();
-	public $views       = array();
-	public $forms       = array();
-	public $langs       = array();
-	public $data        = array();
+	public $libraries   = [];
+	public $helpers     = [];
+	public $controllers = [];
+	public $models      = [];
+	public $views       = [];
+	public $forms       = [];
+	public $langs       = [];
+	public $data        = [];
 	public $object;
 
 	public function __construct($paths, $object = NULL)
@@ -152,7 +152,7 @@ class Loader extends Core
 				continue;
 			}
 
-			$this->helpers[] = array($path, $name);
+			$this->helpers[] = [$path, $name];
 
 			include_once $path;
 
@@ -187,7 +187,7 @@ class Loader extends Core
 		return $model;
 	}
 
-	public function view($name, $data = array())
+	public function view($name, $data = [])
 	{
 		foreach ($this->paths['views'] as $dir)
 		{
@@ -197,7 +197,7 @@ class Loader extends Core
 
 				if ($this->debug->is_enabled())
 				{
-					$this->views[] = array($path, $name.'.tpl.php', $data);
+					$this->views[] = [$path, $name.'.tpl.php', $data];
 				}
 
 				return $this->template->load($path, $data, $this);
@@ -216,7 +216,7 @@ class Loader extends Core
 			
 			if ($this->debug->is_enabled())
 			{
-				$this->forms[$dir] = array($path, $form.'.php', $values);
+				$this->forms[$dir] = [$path, $form.'.php', $values];
 			}
 
 			foreach ($values as $var => $value)
@@ -269,7 +269,7 @@ class Loader extends Core
 				}
 				else
 				{
-					$lang = array();
+					$lang = [];
 
 					include $path;
 
@@ -315,18 +315,18 @@ class Loader extends Core
 						<li>
 							'.$output;
 
-		foreach (array(
-			array($this->modules,     'Modules',     'default', function($a){ return $a->debug('default'); }),
-			array($this->themes,      'Themes',      'primary', function($a){ return $a->debug('primary'); }),
-			array($this->widgets,     'Widgets',     'success', function($a){ return $a->debug('success'); }),
-			array($this->libraries,   'Libraries',   'info',    function($a){ return $a->debug('info'); }),
-			array($this->helpers,     'Helpers',     'warning', function($a){ return '<span class="label label-warning">'.$a[1].'</span>'; }),
-			array($this->controllers, 'Controllers', 'danger',  function($a){ return $a->debug('danger'); }),
-			array($this->models,      'Models',      'default', function($a){ return $a->debug('default'); }),
-			array($this->views,       'Views',       'primary', function($a){ return '<span class="label label-primary">'.$a[1].'</span>'; }),
-			array($this->forms,       'Forms',       'success', function($a){ return '<span class="label label-success">'.$a[1].'</span>'; }),
-			array($this->langs,       'Locales',     'info',    function($a, $b){ return '<span class="label label-info">'.$b.'</span>'; })
-		) as $vars)
+		foreach ([
+			[$this->modules,     'Modules',     'default', function($a){ return $a->debug('default'); }],
+			[$this->themes,      'Themes',      'primary', function($a){ return $a->debug('primary'); }],
+			[$this->widgets,     'Widgets',     'success', function($a){ return $a->debug('success'); }],
+			[$this->libraries,   'Libraries',   'info',    function($a){ return $a->debug('info'); }],
+			[$this->helpers,     'Helpers',     'warning', function($a){ return '<span class="label label-warning">'.$a[1].'</span>'; }],
+			[$this->controllers, 'Controllers', 'danger',  function($a){ return $a->debug('danger'); }],
+			[$this->models,      'Models',      'default', function($a){ return $a->debug('default'); }],
+			[$this->views,       'Views',       'primary', function($a){ return '<span class="label label-primary">'.$a[1].'</span>'; }],
+			[$this->forms,       'Forms',       'success', function($a){ return '<span class="label label-success">'.$a[1].'</span>'; }],
+			[$this->langs,       'Locales',     'info',    function($a, $b){ return '<span class="label label-info">'.$b.'</span>'; }]
+		] as $vars)
 		{
 			list($objects, $name, $class, $callback) = $vars;
 

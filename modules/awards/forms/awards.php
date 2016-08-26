@@ -18,20 +18,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'name' => array(
+$rules = [
+	'name' => [
 		'label' => 'Titre de l\'événement',
 		'value' => $name,
 		'type'  => 'text',
 		'rules' => 'required'
-	),
-	'location' => array(
+	],
+	'location' => [
 		'label' => 'Lieu',
 		'icon'  => 'fa-map-marker',
 		'value' => $location,
 		'type'  => 'text'
-	),
-	'date' => array(
+	],
+	'date' => [
 		'label' => 'Date',
 		'value' => $date && $date != '0000-00-00' ? timetostr(i18n('date_short'), strtotime($date)) : '',
 		'type'  => 'date',
@@ -43,28 +43,28 @@ $rules = array(
 		},
 		'size'  => 'col-md-3',
 		'rules' => 'required'
-	),
-	'team' => array(
+	],
+	'team' => [
 		'label'  => 'Équipe',
 		'value'  => $team_id,
 		'values' => $teams,
 		'type'   => 'select',
 		'size'   => 'col-md-4',
 		'rules'  => 'required'
-	),
-	'game' => array(
+	],
+	'game' => [
 		'label'  => 'Jeu',
 		'value'  => $game_id,
 		'values' => $games,
 		'type'   => 'select',
 		'size'   => 'col-md-4',
 		'rules'  => 'required'
-	),
-	'platform' => array(
+	],
+	'platform' => [
 		'label'  => 'Plateforme',
 		'icon'   => 'fa-tv',
 		'value'  => $platform,
-		'values' => array(
+		'values' => [
 			'PC'       => 'PC',
 			'PS3'      => 'PS3',
 			'PS4'      => 'PS4',
@@ -72,46 +72,46 @@ $rules = array(
 			'Wii U'    => 'Wii U',
 			'Xbox 360' => 'Xbox 360',
 			'Xbox One' => 'Xbox One',
-		),
+		],
 		'type'   => 'select',
 		'size'   => 'col-md-2',
 		'rules'  => 'required'
-	),
-	'ranking' => array(
+	],
+	'ranking' => [
 		'label' => 'Classement',
 		'icon'  => 'fa-trophy',
 		'value' => $ranking,
 		'type'  => 'number',
 		'size'  => 'col-md-2',
 		'rules' => 'required'
-	),
-	'participants' => array(
+	],
+	'participants' => [
 		'label' => 'Nombre d\'équipes',
 		'icon'  => 'fa-users',
 		'value' => $participants,
 		'type'  => 'number',
 		'size'  => 'col-md-2',
 		'rules' => 'required'
-	),
-	'description' => array(
+	],
+	'description' => [
 		'label' => 'Commentaire',
 		'value' => $description,
 		'type'  => 'editor'
-	),
-	'image' => array(
+	],
+	'image' => [
 		'label'  => 'Image',
 		'value'  => $image,
 		'type'   => 'file',
 		'upload' => 'awards',
 		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
-			if (!in_array($ext, array('gif', 'jpeg', 'jpg', 'png')))
+			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
 				return i18n('select_image_file');
 			}
 		}
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.4

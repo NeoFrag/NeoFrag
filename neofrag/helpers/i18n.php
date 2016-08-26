@@ -22,7 +22,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 function i18n()
 {
 	global $loader;
-	return call_user_func_array(array($loader ?: NeoFrag::loader(), 'lang'), func_get_args());
+	return call_user_func_array([$loader ?: NeoFrag::loader(), 'lang'], func_get_args());
 }
 
 //Pluralization

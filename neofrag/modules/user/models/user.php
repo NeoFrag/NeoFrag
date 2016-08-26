@@ -69,12 +69,12 @@ class m_user_m_user extends Model
 	public function edit_user($username, $email, $first_name, $last_name, $avatar, $date_of_birth, $sex, $location, $website, $quote, $signature)
 	{
 		$this->db	->where('user_id', $this->user('user_id'))
-					->update('nf_users', array(
+					->update('nf_users', [
 						'username' => $username,
 						'email'    => $email
-					));
+					]);
 		
-		$data = array(
+		$data = [
 			'first_name'    => $first_name,
 			'last_name'     => $last_name,
 			'avatar'        => $avatar,
@@ -84,7 +84,7 @@ class m_user_m_user extends Model
 			'website'       => $website,
 			'quote'         => $quote,
 			'signature'     => $signature
-		);
+		];
 		
 		if ($this->db->select('1')->from('nf_users_profiles')->where('user_id', $this->user('user_id'))->row())
 		{
@@ -93,9 +93,9 @@ class m_user_m_user extends Model
 		}
 		else
 		{
-			$this->db->insert('nf_users_profiles', array_merge($data, array(
+			$this->db->insert('nf_users_profiles', array_merge($data, [
 				'user_id' => $this->user('user_id')
-			)));
+			]));
 		}
 		
 		return $this;
@@ -104,21 +104,21 @@ class m_user_m_user extends Model
 	public function update_password($password)
 	{
 		$this->db	->where('user_id', $this->user('user_id'))
-					->update('nf_users', array(
+					->update('nf_users', [
 						'password' => $this->password->encrypt($password.($salt = unique_id())),
 						'salt'     => $salt
-					));
+					]);
 
 		return $this;
 	}
 
 	public function add_key($user_id)
 	{
-		$this->db->insert('nf_users_keys', array(
+		$this->db->insert('nf_users_keys', [
 			'key_id'     => $key_id = unique_id($this->db->select('key_id')->from('nf_users_keys')->get()),
 			'user_id'    => $user_id,
 			'session_id' => $this->session('session_id')
-		));
+		]);
 
 		return $key_id;
 	}

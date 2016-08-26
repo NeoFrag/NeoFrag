@@ -50,18 +50,18 @@ class m_games_m_modes extends Model
 
 	public function add_mode($game_id, $title)
 	{
-		return $this->db->insert('nf_games_modes', array(
+		return $this->db->insert('nf_games_modes', [
 			'game_id' => $game_id,
 			'title'   => $title
-		));
+		]);
 	}
 	
 	public function edit_mode($mode_id, $title)
 	{
 		$this->db	->where('mode_id', $mode_id)
-					->update('nf_games_modes', array(
+					->update('nf_games_modes', [
 						'title'    => $title
-					));
+					]);
 	}
 
 	public function delete_mode($mode_id)

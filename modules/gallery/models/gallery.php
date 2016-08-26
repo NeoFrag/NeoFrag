@@ -80,19 +80,19 @@ class m_gallery_m_gallery extends Model
 	
 	public function add_gallery($title, $category_id, $image_id, $description, $published)
 	{
-		$gallery_id = 	$this->db->insert('nf_gallery', array(
+		$gallery_id = 	$this->db->insert('nf_gallery', [
 							'category_id' => $category_id,
 							'image_id'    => $image_id,
 							'name'        => url_title($title),
 							'published'   => $published
-						));
+						]);
 
-		$this->db	->insert('nf_gallery_lang', array(
+		$this->db	->insert('nf_gallery_lang', [
 						'gallery_id'  => $gallery_id,
 						'lang'        => $this->config->lang,
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 					
 		return $gallery_id;
 	}
@@ -100,19 +100,19 @@ class m_gallery_m_gallery extends Model
 	public function edit_gallery($gallery_id, $category_id, $image_id, $published, $title, $description, $lang)
 	{
 		$this->db	->where('gallery_id', $gallery_id)
-					->update('nf_gallery', array(
+					->update('nf_gallery', [
 						'category_id' => $category_id,
 						'image_id'    => $image_id,
 						'name'        => url_title($title),
 						'published'   => $published
-					));
+					]);
 
 		$this->db	->where('gallery_id', $gallery_id)
 					->where('lang', $lang)
-					->update('nf_gallery_lang', array(
+					->update('nf_gallery_lang', [
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 	}
 	
 	public function delete_gallery($gallery_id)
@@ -176,23 +176,23 @@ class m_gallery_m_gallery extends Model
 		
 		$title = empty($title) ? $file['name'] : $title;
 		
-		$this->db->insert('nf_gallery_images', array(
+		$this->db->insert('nf_gallery_images', [
 			'thumbnail_file_id' => $this->file->add($thumbnail, $title),
 			'original_file_id'  => $this->file->add($original, $title),
 			'file_id'           => $file_id,
 			'gallery_id'        => $gallery_id,
 			'title'             => $title,
 			'description'       => $description
-		));
+		]);
 	}
 	
 	public function edit_image($image_id, $title, $description)
 	{
 		$this->db	->where('image_id', $image_id)
-					->update('nf_gallery_images', array(
+					->update('nf_gallery_images', [
 						'title'       => $title,
 						'description' => $description
-					));
+					]);
 	}
 	
 	public function delete_image($image_id)
@@ -230,7 +230,7 @@ class m_gallery_m_gallery extends Model
 
 	public function get_categories_list()
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($this->get_categories() as $category)
 		{
@@ -244,33 +244,33 @@ class m_gallery_m_gallery extends Model
 	
 	public function add_category($title, $image, $icon)
 	{
-		$category_id = $this->db->insert('nf_gallery_categories', array(
+		$category_id = $this->db->insert('nf_gallery_categories', [
 			'name'        => url_title($title),
 			'image_id'    => $image,
 			'icon_id'     => $icon
-		));
+		]);
 
-		$this->db->insert('nf_gallery_categories_lang', array(
+		$this->db->insert('nf_gallery_categories_lang', [
 			'category_id' => $category_id,
 			'lang'        => $this->config->lang,
 			'title'       => $title
-		));
+		]);
 	}
 
 	public function edit_category($category_id, $title, $image_id, $icon_id)
 	{
 		$this->db	->where('category_id', $category_id)
-					->update('nf_gallery_categories', array(
+					->update('nf_gallery_categories', [
 						'image_id' => $image_id,
 						'icon_id'  => $icon_id,
 						'name'     => url_title($title)
-					));
+					]);
 
 		$this->db	->where('category_id', $category_id)
 					->where('lang', $this->config->lang)
-					->update('nf_gallery_categories_lang', array(
+					->update('nf_gallery_categories_lang', [
 						'title' => $title
-					));
+					]);
 	}
 	
 	public function delete_category($category_id)

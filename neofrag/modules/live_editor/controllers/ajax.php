@@ -38,7 +38,7 @@ class m_live_editor_c_ajax extends Controller_Module
 		
 		if (!empty($url[0]) && ($module = $this->load->module($url[0])) && !empty($module->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
 		{
-			$url = array($url[0], $method, '*');
+			$url = [$url[0], $method, '*'];
 		}
 		
 		$url = implode('/', $url);
@@ -59,12 +59,12 @@ class m_live_editor_c_ajax extends Controller_Module
 				}
 			}
 			
-			return Zone::display($this->db->insert('nf_dispositions', array(
+			return Zone::display($this->db->insert('nf_dispositions', [
 				'theme'       => $theme,
 				'page'        => $url,
 				'zone'        => $zone,
 				'disposition' => serialize($disposition)
-			)), $disposition, $url, $zone, TRUE);
+			]), $disposition, $url, $zone, TRUE);
 		}
 		else
 		{
@@ -96,7 +96,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	{
 		$row = $disposition[$row_id];
 		unset($disposition[$row_id]);
-		$this->model()->set_disposition($disposition_id, array_slice($disposition, 0, $position, TRUE) + array($row_id => $row) + array_slice($disposition, $position, NULL, TRUE));
+		$this->model()->set_disposition($disposition_id, array_slice($disposition, 0, $position, TRUE) + [$row_id => $row] + array_slice($disposition, $position, NULL, TRUE));
 	}
 	
 	public function row_style($disposition_id, $disposition, $row_id, $style)
@@ -124,7 +124,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	{
 		$col = $disposition[$row_id]->cols[$col_id];
 		unset($disposition[$row_id]->cols[$col_id]);
-		$disposition[$row_id]->cols = array_slice($disposition[$row_id]->cols, 0, $position, TRUE) + array($col_id => $col) + array_slice($disposition[$row_id]->cols, $position, NULL, TRUE);
+		$disposition[$row_id]->cols = array_slice($disposition[$row_id]->cols, 0, $position, TRUE) + [$col_id => $col] + array_slice($disposition[$row_id]->cols, $position, NULL, TRUE);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
@@ -143,16 +143,16 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function widget_add($disposition_id, $disposition, $row_id, $col_id, $title, $widget_name, $type, $settings)
 	{
-		$widget_id = $this->db	->insert('nf_widgets', array(
+		$widget_id = $this->db	->insert('nf_widgets', [
 									'title'    => $title ? utf8_htmlentities($title) : NULL,
 									'widget'   => $widget_name,
 									'type'     => $type,
 									'settings' => $this->load->widget($widget_name)->get_settings($type, $settings)
-								));
+								]);
 		
-		$widget = $disposition[$row_id]->cols[$col_id]->widgets[] = new Widget_View(array(
+		$widget = $disposition[$row_id]->cols[$col_id]->widgets[] = new Widget_View([
 			'widget_id' => $widget_id
-		));
+		]);
 		
 		$this->model()->set_disposition($disposition_id, $disposition);
 		
@@ -163,7 +163,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	{
 		$widget = $disposition[$row_id]->cols[$col_id]->widgets[$widget_id];
 		unset($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]);
-		$disposition[$row_id]->cols[$col_id]->widgets = array_slice($disposition[$row_id]->cols[$col_id]->widgets, 0, $position, TRUE) + array($widget_id => $widget) + array_slice($disposition[$row_id]->cols[$col_id]->widgets, $position, NULL, TRUE);
+		$disposition[$row_id]->cols[$col_id]->widgets = array_slice($disposition[$row_id]->cols[$col_id]->widgets, 0, $position, TRUE) + [$widget_id => $widget] + array_slice($disposition[$row_id]->cols[$col_id]->widgets, $position, NULL, TRUE);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
@@ -182,14 +182,14 @@ class m_live_editor_c_ajax extends Controller_Module
 	{
 		$this->model()->get_widgets($widgets, $types);
 
-		return $this->load->view('widget', array(
+		return $this->load->view('widget', [
 			'widget_id' => $widget_id,
 			'title'     => $title,
 			'widget'    => $widget ?: array_keys($widgets)[0],
 			'widgets'   => $widgets,
 			'type'      => $type,
 			'types'     => $types
-		));
+		]);
 	}
 	
 	public function widget_update($disposition_id, $disposition, $row_id, $col_id, $widget_id, $id, $widget, $type, $title, $settings)
@@ -197,12 +197,12 @@ class m_live_editor_c_ajax extends Controller_Module
 		$settings = $this->load->widget($widget)->get_settings($type, $settings);
 		
 		$this->db	->where('widget_id', $id)
-					->update('nf_widgets', array(
+					->update('nf_widgets', [
 						'title'    => $title ? utf8_htmlentities($title) : NULL,
 						'widget'   => $widget,
 						'type'     => $type,
 						'settings' => $settings,
-					));
+					]);
 
 		return $disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->display($widget_id);
 	}

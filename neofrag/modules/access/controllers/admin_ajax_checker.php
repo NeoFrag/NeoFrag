@@ -51,11 +51,11 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 			
 			$groups['admins'] = TRUE;
 			
-			return array($module_name, $action, $id, $groups, array(), $title, $icon);
+			return [$module_name, $action, $id, $groups, [], $title, $icon];
 		}
 		else if ($user = post('user'))
 		{
-			return array($module_name, $action, $id, array(), $user, $title, $icon);
+			return [$module_name, $action, $id, [], $user, $title, $icon];
 		}
 		
 		throw new Exception(NeoFrag::UNFOUND);
@@ -74,7 +74,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 			
 			if (($permissions = $module->get_permissions($type)) && (empty($permissions['check']) || call_user_func($permissions['check'], $id)))
 			{
-				return array($module_name, $type, $id);
+				return [$module_name, $type, $id];
 			}
 		}
 		
@@ -93,7 +93,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 				{
 					if (isset($permissions['access'][$action]))
 					{
-						return array($action, $module->load->lang($permissions['access'][$action]['title'], NULL), $permissions['access'][$action]['icon'], $module_name, $id);
+						return [$action, $module->load->lang($permissions['access'][$action]['title'], NULL), $permissions['access'][$action]['icon'], $module_name, $id];
 					}
 				}
 			}

@@ -25,8 +25,8 @@ class m_awards_c_admin extends Controller_Module
 		$this->css('awards');
 
 		$awards = $this	->table
-						->add_columns(array(
-							array(
+						->add_columns([
+							[
 								'title'   => 'Titre',
 								'content' => function($data){
 									return $data['name'];
@@ -37,8 +37,8 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['name'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => 'Lieu',
 								'content' => function($data){
 									return $data['location'] ? icon('fa-map-marker').$data['location'] : '';
@@ -49,8 +49,8 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['location'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => 'Date',
 								'content' => function($data){
 									return timetostr(NeoFrag::loader()->lang('date_short'), $data['date']);
@@ -61,8 +61,8 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['date'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => 'Équipe',
 								'content' => function($data){
 									return $data['team_title'];
@@ -73,8 +73,8 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['team_title'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => 'Jeu',
 								'content' => function($data){
 									return $data['game_title'];
@@ -85,8 +85,8 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['game_title'];
 								}
-							),
-							array(
+							],
+							[
 								'title'   => '<span data-toggle="tooltip" title="Classement">'.icon('fa-trophy').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
@@ -107,8 +107,8 @@ class m_awards_c_admin extends Controller_Module
 										return $data['ranking'].'<small>ème</small>';
 									}
 								}
-							),
-							array(
+							],
+							[
 								'title'   => '<span data-toggle="tooltip" title="Plateforme">'.icon('fa-tv').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
@@ -117,39 +117,39 @@ class m_awards_c_admin extends Controller_Module
 								'search'  => function($data){
 									return $data['platform'];
 								}
-							),
-							array(
-								'content' => array(
+							],
+							[
+								'content' => [
 									function($data){
 										return button_edit('admin/awards/'.$data['award_id'].'/'.url_title($data['name']).'.html');
 									},
 									function($data){
 										return button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']).'.html');
 									}
-								),
+								],
 								'size'    => TRUE
-							)
-						))
+							]
+						])
 						->data($awards)
 						->no_data('Aucun palmarès')
 						->display();
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Liste des palmarès',
 			'icon'    => 'fa-trophy',
 			'content' => $awards,
 			'footer'  => button_add('admin/awards/add.html', 'Ajouter un palmarès')
-		));
+		]);
 	}
 
 	public function add()
 	{
 		$this	->subtitle('Ajouter un palmarès')
 				->form
-				->add_rules('awards', array(
+				->add_rules('awards', [
 					'teams' => $this->model()->get_teams_list(),
 					'games' => $this->model()->get_games_list(),
-				))
+				])
 				->add_submit($this('add'))
 				->add_back('admin/awards.html');
 
@@ -171,18 +171,18 @@ class m_awards_c_admin extends Controller_Module
 			redirect_back('admin/awards.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Nouveau palmarès',
 			'icon'    => 'fa-trophy',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function _edit($award_id, $team_id, $date, $location, $name, $platform, $game_id, $ranking, $participants, $description, $image_id, $team_name, $team_title, $game_name, $game_title)
 	{
 		$this	->subtitle('Équipe '.$team_title)
 				->form
-				->add_rules('awards', array(
+				->add_rules('awards', [
 					'award_id'     => $award_id,
 					'date'         => $date,
 					'team_id'      => $team_id,
@@ -196,7 +196,7 @@ class m_awards_c_admin extends Controller_Module
 					'participants' => $participants,
 					'description'  => $description,
 					'image'        => $image_id
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/awards.html');
 
@@ -219,11 +219,11 @@ class m_awards_c_admin extends Controller_Module
 			redirect_back('admin/awards.html');
 		}
 
-		return new Panel(array(
+		return new Panel([
 			'title'   => 'Édition du palmarès',
 			'icon'    => 'fa-trophy',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function delete($award_id, $name)

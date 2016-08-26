@@ -10,7 +10,7 @@
 					<label for="settings-display_number" class="col-sm-5 control-label">Nombre de partenaires par slider</label>
 					<div class="col-sm-2">
 						<select class="form-control" name="settings[display_number]" id="settings-display_number">
-						<?php foreach (array(1, 2, 3, 4, 6) as $i): ?>
+						<?php foreach ([1, 2, 3, 4, 6] as $i): ?>
 							<option<?php if ($data['display_number'] == $i) echo ' selected="selected"'; ?>><?php echo $i; ?></option>
 						<?php endforeach ?>
 						</select>

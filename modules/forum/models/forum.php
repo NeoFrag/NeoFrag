@@ -22,7 +22,7 @@ class m_forum_m_forum extends Model
 {
 	public function get_categories_list($forum_id = NULL)
 	{
-		$categories = array();
+		$categories = [];
 		
 		foreach ($this->db	->select('c.category_id', 'c.title', 'f.forum_id', 'f.title as forum_title')
 							->from('nf_forum_categories c')
@@ -46,7 +46,7 @@ class m_forum_m_forum extends Model
 	
 	public function get_categories()
 	{
-		$categories = array();
+		$categories = [];
 		$forums     = $this->get_forums();
 		$count_read = $i = 0;
 		
@@ -57,7 +57,7 @@ class m_forum_m_forum extends Model
 		{
 			if ($this->access('forum', 'category_read', $category['category_id']))
 			{
-				$category['forums'] = array();
+				$category['forums'] = [];
 				
 				foreach ($forums as $forum)
 				{
@@ -84,7 +84,7 @@ class m_forum_m_forum extends Model
 	
 	public function get_forums_tree()
 	{
-		$tree = array();
+		$tree = [];
 		
 		foreach ($this->db	->select('category_id', 'title')
 							->from('nf_forum_categories')
@@ -93,7 +93,7 @@ class m_forum_m_forum extends Model
 		{
 			if ($this->access('forum', 'category_read', $category['category_id']))
 			{
-				$forums = array();
+				$forums = [];
 				
 				foreach ($this->db	->select('f.forum_id', 'f.title')
 									->from('nf_forum f')
@@ -104,7 +104,7 @@ class m_forum_m_forum extends Model
 									->order_by('f.order', 'f.forum_id')
 									->get() as $forum)
 				{
-					$subforums = array();
+					$subforums = [];
 					
 					foreach ($this->db	->select('f.forum_id', 'f.title')
 										->from('nf_forum f')
@@ -118,18 +118,18 @@ class m_forum_m_forum extends Model
 						$subforums[$subforum['forum_id']] = $subforum['title'];
 					}
 
-					$forums[$forum['forum_id']] = array(
+					$forums[$forum['forum_id']] = [
 						'title'     => $forum['title'],
 						'subforums' => $subforums
-					);
+					];
 				}
 				
 				if ($forums)
 				{
-					$tree[$category['category_id']] = array(
+					$tree[$category['category_id']] = [
 						'title'  => $category['title'],
 						'forums' => $forums
-					);
+					];
 				}
 			}
 		}
@@ -184,7 +184,7 @@ class m_forum_m_forum extends Model
 				{
 					if ($subforum['last_message_id'] > $forum['last_message_id'])
 					{
-						foreach (array('last_message_id', 'user_id', 'username', 'topic_id', 'last_title', 'last_message_date', 'last_count_messages') as $var)
+						foreach (['last_message_id', 'user_id', 'username', 'topic_id', 'last_title', 'last_message_date', 'last_count_messages'] as $var)
 						{
 							$forum[$var] = $subforum[$var];
 						}
@@ -193,7 +193,7 @@ class m_forum_m_forum extends Model
 			}
 			else
 			{
-				$forum['subforums'] = array();
+				$forum['subforums'] = [];
 			}
 			
 			$forum['has_unread'] = $forum['url'] ? FALSE : $this->_has_unread($forum);
@@ -234,10 +234,10 @@ class m_forum_m_forum extends Model
 			$forum_read = $this->db	->select('MAX(UNIX_TIMESTAMP(date))')
 									->from('nf_forum_read')
 									->where('user_id', $this->user('user_id'))
-									->where('forum_id', array(0, $forum_id))
+									->where('forum_id', [0, $forum_id])
 									->row();
 		
-			$topics_read = array();
+			$topics_read = [];
 			
 			foreach ($this->db->select('t.topic_id', 'r.date')
 									->from('nf_forum_topics_read r')
@@ -367,35 +367,35 @@ class m_forum_m_forum extends Model
 	public function add_topic($forum_id, $title, $message, $announce)
 	{
 		$topic_id = $this->db	->ignore_foreign_keys()
-								->insert('nf_forum_topics', array(
+								->insert('nf_forum_topics', [
 									'forum_id' => (int)$forum_id,
 									'title'    => $title,
 									'status'   => $announce
-								));
+								]);
 		
-		$message_id = $this->db	->insert('nf_forum_messages', array(
+		$message_id = $this->db	->insert('nf_forum_messages', [
 									'topic_id' => $topic_id,
 									'user_id'  => $this->user('user_id'),
 									'message'  => $message
-								));
+								]);
 
 		$count_topics = $this->db->select('count_topics')->from('nf_forum')->where('forum_id', $forum_id)->row();
 		
 		$this->db	->where('forum_id', $forum_id)
-					->update('nf_forum', array(
+					->update('nf_forum', [
 						'last_message_id' => $message_id,
 						'count_topics'    => $count_topics + 1
-					));
+					]);
 
 		$this->db	->where('topic_id', $topic_id)
-					->update('nf_forum_topics', array(
+					->update('nf_forum_topics', [
 						'message_id' => $message_id
-					));
+					]);
 		
-		$this->db	->insert('nf_forum_topics_read', array(
+		$this->db	->insert('nf_forum_topics_read', [
 						'topic_id' => $topic_id,
 						'user_id'  => $this->user('user_id')
-					));
+					]);
 
 		$this->get_topics($forum_id);
 
@@ -407,32 +407,32 @@ class m_forum_m_forum extends Model
 		$topic = $this->db->select('count_messages', 'forum_id')->from('nf_forum_topics')->where('topic_id', $topic_id)->row();
 		$count_messages = $this->db->select('count_messages')->from('nf_forum')->where('forum_id', $topic['forum_id'])->row();
 		
-		$message_id = $this->db->insert('nf_forum_messages', array(
+		$message_id = $this->db->insert('nf_forum_messages', [
 			'topic_id' => (int)$topic_id,
 			'user_id'  => $this->user('user_id'),
 			'message'  => $message
-		));
+		]);
 		
 		$this->db	->where('forum_id', $topic['forum_id'])
-					->update('nf_forum', array(
+					->update('nf_forum', [
 						'last_message_id' => $message_id,
 						'count_messages' => $count_messages + 1
-					));
+					]);
 
 		$this->db	->where('topic_id', $topic_id)
-					->update('nf_forum_topics', array(
+					->update('nf_forum_topics', [
 						'last_message_id' => $message_id,
 						'count_messages'  => $topic['count_messages'] + 1
-					));
+					]);
 		
 		$this->db	->where('user_id', $this->user('user_id'))
 					->where('topic_id', $topic_id)
 					->delete('nf_forum_topics_read');
 		
-		$this->db	->insert('nf_forum_topics_read', array(
+		$this->db	->insert('nf_forum_topics_read', [
 						'topic_id' => $topic_id,
 						'user_id'  => $this->user('user_id')
-					));
+					]);
 					
 		$this->get_topics($topic['forum_id']);
 		
@@ -441,9 +441,9 @@ class m_forum_m_forum extends Model
 	
 	public function add_category($title)
 	{
-		$category_id = $this->db->insert('nf_forum_categories', array(
+		$category_id = $this->db->insert('nf_forum_categories', [
 			'title' => $title
-		));
+		]);
 		
 		$this->access->init('forum', 'category', $category_id);
 		
@@ -452,19 +452,19 @@ class m_forum_m_forum extends Model
 	
 	public function add_forum($title, $category_id, $description, $url)
 	{
-		$forum_id = $this->db->insert('nf_forum', array(
+		$forum_id = $this->db->insert('nf_forum', [
 			'title'       => $title,
 			'parent_id'   => $this->get_parent_id($category_id, $is_subforum),
 			'is_subforum' => $is_subforum,
 			'description' => $description
-		));
+		]);
 		
 		if ($url)
 		{
-			$this->db->insert('nf_forum_url', array(
+			$this->db->insert('nf_forum_url', [
 				'forum_id' => $forum_id,
 				'url'      => $url
-			));
+			]);
 		}
 		
 		return $forum_id;
@@ -473,9 +473,9 @@ class m_forum_m_forum extends Model
 	public function edit_category($category_id, $title)
 	{
 		$this->db	->where('category_id', $category_id)
-					->update('nf_forum_categories', array(
+					->update('nf_forum_categories', [
 						'title' => $title
-					));
+					]);
 	}
 	
 	public function delete_category($category_id)
@@ -532,10 +532,10 @@ class m_forum_m_forum extends Model
 						->delete('nf_forum_read');
 		}
 		
-		$this->db->insert('nf_forum_read', array(
+		$this->db->insert('nf_forum_read', [
 			'user_id'  => $this->user('user_id'),
 			'forum_id' => $forum_id,
-		));
+		]);
 	}
 	
 	public function increment_redirect($forum_id)
@@ -589,7 +589,7 @@ class m_forum_m_forum extends Model
 		
 		if ($forum_reads === NULL)
 		{
-			$forum_reads = array();
+			$forum_reads = [];
 			
 			foreach ($this->db	->select('forum_id', 'date')
 								->from('nf_forum_read')
@@ -619,7 +619,7 @@ class m_forum_m_forum extends Model
 			}
 		}
 		
-		$dates = array();
+		$dates = [];
 		
 		if (isset($forum_reads[0]))
 		{

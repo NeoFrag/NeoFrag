@@ -22,19 +22,19 @@ class m_news_c_checker extends Controller_Module
 {
 	public function index($page = '')
 	{
-		return array($this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news(), $page));
+		return [$this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news(), $page)];
 	}
 
 	public function _tag($tag, $page = '')
 	{
-		return array($tag, $this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news('tag', $tag), $page));
+		return [$tag, $this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news('tag', $tag), $page)];
 	}
 
 	public function _category($category_id, $name, $page = '')
 	{
 		if ($category = $this->model('categories')->check_category($category_id, $name))
 		{
-			return array($category['title'], $this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news('category', $category_id), $page));
+			return [$category['title'], $this->pagination->fix_items_per_page($this->config->news_per_page)->get_data($this->model()->get_news('category', $category_id), $page)];
 		}
 		else
 		{

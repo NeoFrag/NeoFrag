@@ -34,12 +34,12 @@
 						</div>
 						<div id="type-module" class="panel-collapse collapse" role="tabpanel">
 							<?php
-							$modules = array();
+							$modules = [];
 	
 							foreach ($this->addons->get_modules(TRUE) as $module)
 							{
 								//TODO
-								if (!in_array($module->name, array('access', 'admin', 'addons', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks')))
+								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks']))
 								{
 									$modules[$module->name] = $module->get_title();
 								}
@@ -47,9 +47,9 @@
 							
 							array_natsort($modules);
 							
-							$modules = array_merge(array(
+							$modules = array_merge([
 								'index' => NeoFrag::loader()->lang('home')
-							), $modules);
+							], $modules);
 							?>
 							<div class="list-group">
 								<?php foreach ($modules as $name => $title): ?>

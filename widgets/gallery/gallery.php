@@ -28,12 +28,12 @@ class w_gallery extends Widget
 	public $version     = 'Alpha 0.1';
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
-	public $types       = array(
+	public $types       = [
 		'index'  => '{lang categories_list}',
 		'albums' => '{lang albums_from_category}',
 		'image'  => '{lang random_picture}',
 		'slider' => '{lang album_slide}'
-	);
+	];
 }
 
 /*

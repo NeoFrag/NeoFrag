@@ -23,8 +23,8 @@ class m_pages_c_admin extends Controller_Module
 	public function index($pages)
 	{
 		$this	->table
-				->add_columns(array(
-					array(
+				->add_columns([
+					[
 						'content' => function($data, $loader){
 							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$loader->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$loader->lang('awaiting_publication').'" style="color: #535353;"></i>';
 						},
@@ -32,8 +32,8 @@ class m_pages_c_admin extends Controller_Module
 							return $data['published'];
 						},
 						'size'    => TRUE
-					),
-					array(
+					],
+					[
 						'title'   => $this('page_title'),
 						'content' => function($data){
 							return $data['published'] ? '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
@@ -44,9 +44,9 @@ class m_pages_c_admin extends Controller_Module
 						'search'  => function($data){
 							return $data['title'];
 						}
-					),
-					array(
-						'content' => array(
+					],
+					[
+						'content' => [
 							function($data, $loader){
 								return $data['published'] ? button($data['name'].'.html', 'fa-eye', $loader->lang('view_page')) : '';
 							},
@@ -56,19 +56,19 @@ class m_pages_c_admin extends Controller_Module
 							function($data){
 								return button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']).'.html');
 							}
-						),
+						],
 						'size'    => TRUE
-					)
-				))
+					]
+				])
 				->data($pages)
 				->no_data($this('no_pages'));
 						
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('list_pages'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->table->display(),
 			'footer'  => button_add('admin/pages/add.html', $this('create_page'))
-		));
+		]);
 	}
 	
 	public function add()
@@ -92,24 +92,24 @@ class m_pages_c_admin extends Controller_Module
 			redirect_back('admin/pages.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('add_pages'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 
 	public function _edit($page_id, $name, $published, $title, $subtitle, $content, $tab)
 	{
 		$this	->subtitle($title)
 				->form
-				->add_rules('pages', array(
+				->add_rules('pages', [
 					'title'          => $title,
 					'subtitle'       => $subtitle,
 					'name'           => $name,
 					'content'        => $content,
 					'published'      => $published
-				))
+				])
 				->add_submit($this('edit'))
 				->add_back('admin/pages.html');
 		
@@ -128,11 +128,11 @@ class m_pages_c_admin extends Controller_Module
 			redirect_back('admin/pages.html');
 		}
 		
-		return new Panel(array(
+		return new Panel([
 			'title'   => $this('edit_page'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->form->display()
-		));
+		]);
 	}
 	
 	public function delete($page_id, $title)

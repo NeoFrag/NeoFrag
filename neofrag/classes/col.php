@@ -22,7 +22,7 @@ class Col
 {
 	private $_size = 'col-md-12';
 	
-	public  $widgets = array();
+	public  $widgets = [];
 	
 	public function __construct()
 	{

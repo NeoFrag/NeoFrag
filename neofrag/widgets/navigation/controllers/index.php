@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class w_navigation_c_index extends Controller_Widget
 {
-	public function index($settings = array())
+	public function index($settings = [])
 	{
 		if ($settings['display'])
 		{
@@ -28,10 +28,10 @@ class w_navigation_c_index extends Controller_Widget
 		}
 		else
 		{
-			return new Panel(array(
+			return new Panel([
 				'content' => $this->load->view('horizontal', $settings),
 				'body'    => FALSE
-			));
+			]);
 		}
 	}
 }

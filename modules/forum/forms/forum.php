@@ -18,31 +18,31 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-$rules = array(
-	'title' => array(
+$rules = [
+	'title' => [
 		'label' => '{lang title}',
 		'value' => $title,
 		'type'  => 'text',
 		'rules' => 'required'
-	),
-	'category' => array(
+	],
+	'category' => [
 		'label'  => '{lang category}',
 		'value'  => $category_id,
 		'values' => $categories,
 		'type'   => 'select',
 		'rules'  => 'required'
-	),
-	'description' => array(
+	],
+	'description' => [
 		'label' => '{lang description}',
 		'value' => $description,
 		'type'  => 'text'
-	),
-	'url' => array(
+	],
+	'url' => [
 		'label' => '{lang redirect}',
 		'value' => $url,
 		'type'  => 'url'
-	)
-);
+	]
+];
 
 /*
 NeoFrag Alpha 0.1.3

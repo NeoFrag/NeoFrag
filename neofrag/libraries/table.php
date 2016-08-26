@@ -22,23 +22,23 @@ class Table extends Library
 {
 	private $_ajax          = FALSE;
 	private $_pagination    = TRUE;
-	private $_columns       = array();
-	private $_data          = array();
-	private $_sortings      = array();
-	private $_preprocessing = array();
+	private $_columns       = [];
+	private $_data          = [];
+	private $_sortings      = [];
+	private $_preprocessing = [];
 	private $_no_data       = '';
-	private $_words         = array();
+	private $_words         = [];
 
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
-		$this->_columns[] = array(
+		$this->_columns[] = [
 			'title'   => $title,
 			'content' => $content,
 			'size'    => $size,
 			'search'  => $search,
 			'sort'    => $sort,
 			'align'   => $align
-		);
+		];
 
 		return $this;
 	}
@@ -51,14 +51,14 @@ class Table extends Library
 
 	public function sort_by($column_id, $order = SORT_ASC, $type = SORT_REGULAR)
 	{
-		if (is_integer($column_id) && in_array($order, array(SORT_ASC, SORT_DESC, -1)) && in_array($type, array(SORT_REGULAR, SORT_NUMERIC, SORT_STRING)))
+		if (is_integer($column_id) && in_array($order, [SORT_ASC, SORT_DESC, -1]) && in_array($type, [SORT_REGULAR, SORT_NUMERIC, SORT_STRING]))
 		{
 			if (isset($this->_sortings[$column_id - 1]))
 			{
 				unset($this->_sortings[$column_id - 1]);
 			}
 
-			$this->_sortings[$column_id - 1] = array($order, $type);
+			$this->_sortings[$column_id - 1] = [$order, $type];
 		}
 
 		return $this;
@@ -127,7 +127,7 @@ class Table extends Library
 		{
 			list($column_id, $order) = json_decode($sort);
 			
-			if (in_array($order, array('asc', 'desc', 'none')))
+			if (in_array($order, ['asc', 'desc', 'none']))
 			{
 				if ($order == 'asc')
 				{
@@ -154,7 +154,7 @@ class Table extends Library
 
 							if ($order != -1 || isset($this->_sortings[$column_id]))
 							{
-								$this->session->set('table', $this->id, 'sort', $i, array($column_id, $order));
+								$this->session->set('table', $this->id, 'sort', $i, [$column_id, $order]);
 							}
 							else
 							{
@@ -166,7 +166,7 @@ class Table extends Library
 
 				if (!$added)
 				{
-					$this->session->add('table', $this->id, 'sort', array($column_id, $order));
+					$this->session->add('table', $this->id, 'sort', [$column_id, $order]);
 				}
 
 				$this->sort_by($column_id, $order);
@@ -193,13 +193,13 @@ class Table extends Library
 		{
 			if ($search)
 			{
-				$results = array();
+				$results = [];
 				$words   = explode(' ', trim($search));
 
 				foreach ($this->_data as $data_id => $data)
 				{
 					$found = 0;
-					$data  = array_merge(array('data_id' => $data_id), $data);
+					$data  = array_merge(['data_id' => $data_id], $data);
 
 					foreach ($this->_columns as $value)
 					{
@@ -240,11 +240,11 @@ class Table extends Library
 				$this->session->destroy('table', $this->id, 'search');
 			}
 
-			$words = array();
+			$words = [];
 
 			foreach ($this->_data as $data_id => $data)
 			{
-				$data = array_merge(array('data_id' => $data_id), $data);
+				$data = array_merge(['data_id' => $data_id], $data);
 				
 				foreach ($this->_columns as $value)
 				{
@@ -277,7 +277,7 @@ class Table extends Library
 			//Gestion des tris
 			if (!empty($this->_sortings))
 			{
-				$sortings = array();
+				$sortings = [];
 				foreach ($this->_sortings as $column => $order)
 				{
 					if (!isset($this->_columns[$column]) || !isset($this->_columns[$column]['sort']) || $order[0] == -1)
@@ -285,10 +285,10 @@ class Table extends Library
 						continue;
 					}
 
-					$tmp = array();
+					$tmp = [];
 					foreach ($this->_data as $data_id => $data)
 					{
-						$data = array_merge(array('data_id' => $data_id), $data);
+						$data = array_merge(['data_id' => $data_id], $data);
 						$tmp[] = $this->template->parse($this->_columns[$column]['sort'], $data, $this->load);
 					}
 
@@ -296,7 +296,7 @@ class Table extends Library
 					$sortings   = array_merge($sortings, $order);
 				}
 
-				$data = array();
+				$data = [];
 				
 				foreach ($this->_data as $key => $value)
 				{
@@ -307,7 +307,7 @@ class Table extends Library
 
 				call_user_func_array('array_multisort', $sortings);
 				
-				$this->_data = array();
+				$this->_data = [];
 				
 				foreach ($data as $key => $value)
 				{
@@ -353,7 +353,7 @@ class Table extends Library
 				foreach ($this->_columns as $th)
 				{
 					$width = isset($th['size']) ? $th['size'] : FALSE;
-					$class = array();
+					$class = [];
 					$sort  = '';
 					
 					if ($width === TRUE)
@@ -383,7 +383,7 @@ class Table extends Library
 						}
 					}
 					
-					if (!empty($th['align']) && in_array($th['align'], array('left', 'center', 'right')))
+					if (!empty($th['align']) && in_array($th['align'], ['left', 'center', 'right']))
 					{
 						$class[] = 'text-'.$th['align'];
 					}
@@ -403,7 +403,7 @@ class Table extends Library
 
 			foreach ($this->_data as $data_id => $data)
 			{
-				$data = array_merge(array('data_id' => $data_id), $data);
+				$data = array_merge(['data_id' => $data_id], $data);
 
 				$output .= '<tr>';
 
@@ -411,7 +411,7 @@ class Table extends Library
 				{
 					if (is_array($value['content']))
 					{
-						$actions = array();
+						$actions = [];
 						
 						foreach ($value['content'] as $val)
 						{
@@ -426,7 +426,7 @@ class Table extends Library
 
 						if (!isset($value['td']) || $value['td'])
 						{
-							$classes = array();
+							$classes = [];
 							
 							if (isset($value['size']) && $value['size'] === TRUE)
 							{
@@ -438,7 +438,7 @@ class Table extends Library
 								$classes[] = $value['class'];
 							}
 							
-							if (!empty($value['align']) && in_array($value['align'], array('left', 'center', 'right')))
+							if (!empty($value['align']) && in_array($value['align'], ['left', 'center', 'right']))
 							{
 								$classes[] = 'text-'.$value['align'];
 							}
@@ -497,7 +497,7 @@ class Table extends Library
 	public function get_output($output, $data)
 	{
 		$this->config->extension_url = 'json';
-		return json_encode(array('search' => array_values(array_unique($this->_words)), 'content' => $this->template->parse($output, $data)));
+		return json_encode(['search' => array_values(array_unique($this->_words)), 'content' => $this->template->parse($output, $data)]);
 	}
 
 	private function _is_searchable()
