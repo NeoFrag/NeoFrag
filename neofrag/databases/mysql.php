@@ -33,10 +33,13 @@ class Driver_mysql extends Driver
 		{
 			mysql_set_charset('UTF8');
 
+			mysql_query('SET time_zone = "+00:00"');
+			mysql_query('SET time_zone = "'.date_create(mysql_fetch_row(mysql_query('SELECT NOW()'))[0])->diff(date_create())->format('%R%H:%I').'"');
+
 			return TRUE;
 		}
 	}
-	
+
 	static public function get_info()
 	{
 		$server  = 'MySQL';
@@ -80,7 +83,7 @@ class Driver_mysql extends Driver
 	{
 		return mysql_query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
 	}
-
+	
 	static public function fetch($results, $type = 'assoc')
 	{
 		return mysql_fetch_assoc($results);
