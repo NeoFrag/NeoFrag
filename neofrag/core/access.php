@@ -136,7 +136,7 @@ class Access extends Core
 			{
 				if ($group != $group2)
 				{
-					if (array_intersect($this->_load_users($group2), $this->_load_users($group)) == $this->_load_users($group2))
+					if (($this->_load_users($group2) != $this->_load_users($group) || $groups[$group] == $groups[$group2]) && array_intersect($this->_load_users($group2), $this->_load_users($group)) == $this->_load_users($group2))
 					{
 						unset($groups[$group]);
 						continue 2;
@@ -279,7 +279,7 @@ class Access extends Core
 				$this->_users['admins'] = $this->groups()['admins']['users'];
 			}
 			
-			$this->_users[$group_id] = array_diff($this->_users[$group_id], $this->_users['admins']);
+			$this->_users[$group_id] = array_values(array_diff($this->_users[$group_id], $this->_users['admins']));
 		}
 		
 		return $this->_users[$group_id];
