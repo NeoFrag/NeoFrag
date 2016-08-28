@@ -157,6 +157,14 @@ class m_user_c_checker extends Controller_Module
 			return $message;
 		}
 	}
+
+	public function _member($user_id, $username)
+	{
+		if ($user = $this->model()->check_user($user_id, $username))
+		{
+			return $user;
+		}
+	}
 }
 
 /*

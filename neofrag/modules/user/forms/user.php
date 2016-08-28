@@ -29,34 +29,43 @@ $rules = [
 				return i18n('username_unavailable');
 			}
 		}
-	],
-	'password_old' => [
-		'label' => '{lang current_password}',
-		'icon'  => 'fa-lock',
-		'type'  => 'password',
-		'check' => function($value, $post){
-			if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag::loader()->password->is_valid($value.($salt = NeoFrag::loader()->user('salt')), NeoFrag::loader()->user('password'), (bool)$salt))
-			{
-				return i18n('invalid_password');
+	]
+];
+
+if (!NeoFrag::loader()->config->admin_url)
+{
+	$rules = array_merge($rules, [
+		'password_old' => [
+			'label' => '{lang current_password}',
+			'icon'  => 'fa-lock',
+			'type'  => 'password',
+			'check' => function($value, $post){
+				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag::loader()->password->is_valid($value.($salt = NeoFrag::loader()->user('salt')), NeoFrag::loader()->user('password'), (bool)$salt))
+				{
+					return i18n('invalid_password');
+				}
 			}
-		}
-	],
-	'password_new' => [
-		'label' => '{lang new_password}',
-		'icon'  => 'fa-lock',
-		'type'  => 'password'
-	],
-	'password_confirm' => [
-		'label' => '{lang password_confirmation}',
-		'icon'  => 'fa-lock',
-		'type'  => 'password',
-		'check' => function($value, $post){
-			if ($post['password_new'] != $value)
-			{
-				return '{password_not_match}';
+		],
+		'password_new' => [
+			'label' => '{lang new_password}',
+			'icon'  => 'fa-lock',
+			'type'  => 'password'
+		],
+		'password_confirm' => [
+			'label' => '{lang password_confirmation}',
+			'icon'  => 'fa-lock',
+			'type'  => 'password',
+			'check' => function($value, $post){
+				if ($post['password_new'] != $value)
+				{
+					return '{password_not_match}';
+				}
 			}
-		}
-	],
+		]
+	]);
+}
+
+$rules = array_merge($rules, [
 	'email' => [
 		'label' => '{lang email}',
 		'value' => $email,
@@ -142,7 +151,7 @@ $rules = [
 		'value' => $signature,
 		'type'  => 'editor'
 	]
-];
+]);
 
 /*
 NeoFrag Alpha 0.1.4

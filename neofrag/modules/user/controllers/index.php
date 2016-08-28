@@ -98,7 +98,7 @@ class m_user_c_index extends Controller_Module
 							->delete('nf_sessions');
 			}
 
-			redirect_back('members/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html');
+			redirect_back('user/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html');
 		}
 
 		return [
@@ -738,7 +738,21 @@ class m_user_c_index extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
+	public function _member($user_id, $username)
+	{
+		$this->title($username);
+		
+		return [
+			new Panel([
+				'title'   => $username,
+				'icon'    => 'fa-user',
+				'content' => $this->load->view('profile_public', $this->model()->get_user_profile($user_id)),
+			]),
+			new Button_back($this->load->module('members') ? 'members.html' : '')
+		];
+	}
+
 	public function _panel_profile(&$user_profile = NULL)
 	{
 		$this->css('profile');
@@ -746,7 +760,7 @@ class m_user_c_index extends Controller_Module
 		return new Panel([
 			'title'   => 'Mon profil',
 			'icon'    => 'fa-user',
-			'content' => $this->load->view('profile', $user_profile = $this->model()->get_member_profile($this->user('user_id'))),
+			'content' => $this->load->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))),
 			'size'    => 'col-md-4 col-lg-3'
 		]);
 	}
@@ -778,7 +792,7 @@ class m_user_c_index extends Controller_Module
 			'size'    => 'col-md-8 col-lg-9'
 		]);
 	}
-	
+
 	public function _panel_activities($user_id = NULL)
 	{
 		$this->css('activities');

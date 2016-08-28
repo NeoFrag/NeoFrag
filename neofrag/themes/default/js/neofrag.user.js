@@ -20,7 +20,7 @@
 			else {
 				$this.on('remove', function(){
 					$this.popover('hide');
-				}).data('ajax', $.get('<?php echo url('ajax/members/'); ?>'+user_id+'/'+username+'.html', function(data){
+				}).data('ajax', $.get('<?php echo url('ajax/user/'); ?>'+user_id+'/'+username+'.html', function(data){
 					$('<div data-user-id="'+user_id+'"/>')	.hide()
 															.addClass('user-profile-cache')
 															.html(data)

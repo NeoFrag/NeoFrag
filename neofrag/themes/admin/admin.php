@@ -93,15 +93,15 @@ class t_admin extends Theme
 						'icon'  => 'fa-users',
 						'url'   => [
 							[
-								'title'  => $this('members'),
+								'title'  => 'Membres / Groupes',
 								'icon'   => 'fa-users',
-								'url'    => 'admin/members.html',
+								'url'    => 'admin/user.html',
 								'access' => $this->user('admin')
 							],
 							[
 								'title'  => $this('sessions'),
 								'icon'   => 'fa-globe',
-								'url'    => 'admin/members/sessions.html',
+								'url'    => 'admin/user/sessions.html',
 								'access' => $this->user('admin')
 							],
 							/*array(
@@ -118,7 +118,7 @@ class t_admin extends Theme
 							[
 								'title'  => $this('ban'),
 								'icon'   => 'fa-bomb',
-								'url'    => 'admin/members/ban.html',
+								'url'    => 'admin/user/ban.html',
 								'access' => $this->user('admin')
 							]
 						]

@@ -304,7 +304,7 @@ class User extends Core
 			$username = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->row();
 		}
 
-		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('members/'.$user_id.'/'.url_title($username).'.html').'">'.$prefix.$username.'</a>';
+		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('user/'.$user_id.'/'.url_title($username).'.html').'">'.$prefix.$username.'</a>';
 	}
 	
 	public function avatar($avatar = 0, $sex = '', $user_id = NULL, $username = '')

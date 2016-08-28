@@ -173,6 +173,7 @@ class Router extends Core
 			try
 			{
 				$module->add_data('module_title', $module->get_title());
+				$module->add_data('module_icon', $module->icon);
 				$module->add_data('module_method', $method);
 				
 				if (	($output = $controller->method($method, $segments)) !== FALSE &&

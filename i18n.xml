@@ -173,7 +173,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">total_online_users</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -651,14 +651,14 @@
     <Cell><Data ss:Type="String">Admin</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">admin</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Admin</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Admin</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">admin</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Admin|Admins</Data><NamedCell
@@ -677,7 +677,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">admins_online</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -806,7 +806,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">add_group</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1066,7 +1066,7 @@
     <Cell><Data ss:Type="String">None</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">none</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Aucun</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
@@ -1113,7 +1113,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">no_members</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1289,7 +1289,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">no_session</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1358,14 +1358,14 @@
     <Cell><Data ss:Type="String">Banner</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">ban</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Bannir</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Ban</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">ban_title</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -1826,7 +1826,7 @@
     <Cell><Data ss:Type="String">Contact</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">send_pm</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Contacter</Data><NamedCell
@@ -1962,7 +1962,7 @@
     <Cell><Data ss:Type="String">Date</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">arrival_date</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2040,7 +2040,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">last_pages_visited</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2050,7 +2050,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">last_members</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2392,7 +2392,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">edit_group_title</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2482,7 +2482,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">edit_member</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2512,7 +2512,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">email</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Email</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
@@ -2884,7 +2884,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">session_delete_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2904,7 +2904,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">group_delete_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -2934,7 +2934,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">user_delete_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3249,14 +3249,14 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">modules/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">group</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Groupe</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Group</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">group_added</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3286,7 +3286,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">group_edited</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3327,7 +3327,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">history</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Historique</Data><NamedCell
@@ -3396,7 +3396,7 @@
     <Cell><Data ss:Type="String">offline</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">offline</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">hors ligne</Data><NamedCell
@@ -3529,7 +3529,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row ss:Height="30">
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">modules/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">no_members</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -3696,7 +3696,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">registration_date</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4114,9 +4114,9 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">modules/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">member_list</Data><NamedCell
+    <Cell><Data ss:Type="String">members_list</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Liste des membres</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4124,7 +4124,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">members_list</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4154,7 +4154,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">list_active_sessions</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -4240,7 +4240,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">member</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Membre|Membres</Data><NamedCell
@@ -4283,7 +4283,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">members_online</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5020,7 +5020,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">member_profile_title</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5078,7 +5078,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">whos_online</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5088,7 +5088,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">whos_online_mini</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5419,7 +5419,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">active_sessions</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
@@ -5473,7 +5473,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">referer</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Site référent</Data><NamedCell
@@ -6107,7 +6107,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">neofrag/modules/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">user</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Utilisateur</Data><NamedCell
@@ -6275,7 +6275,7 @@
     <Cell><Data ss:Type="String">Visitor</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/widgets/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">widgets/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">guest</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Visiteur|Visiteurs</Data><NamedCell
@@ -6372,7 +6372,7 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/members/lang/</Data><NamedCell
+    <Cell><Data ss:Type="String">modules/members/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">show_all_members</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>

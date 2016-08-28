@@ -708,14 +708,6 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 	margin: 0 10px;
 }
 
-.module-members table.table i.fa {
-	display: inline-block;
-	min-width: 15px;
-	margin-right: 5px;
-	text-align: center;
-	color: #898584;
-}
-
 .module > .row {
 	margin-left: -5px;
 	margin-right: -5px;

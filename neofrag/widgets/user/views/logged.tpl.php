@@ -12,7 +12,7 @@
 		<?php echo icon('fa-cogs'); ?> <a href="<?php echo url('user/edit.html'); ?>"><?php echo i18n('manage_my_account'); ?></a>
 	</li>
 	<li class="list-group-item">
-		<?php echo icon('fa-eye'); ?> <a href="<?php echo url('members/'.$NeoFrag->user('user_id').'/'.url_title($data['username']).'.html'); ?>"><?php echo i18n('view_my_profile'); ?></a>
+		<?php echo icon('fa-eye'); ?> <a href="<?php echo url('user/'.$NeoFrag->user('user_id').'/'.url_title($data['username']).'.html'); ?>"><?php echo i18n('view_my_profile'); ?></a>
 	</li>
 	<li class="list-group-item">
 		<?php if ($messages = $NeoFrag->user->get_messages()): ?><span class="label label-danger pull-right"><?php echo $messages; ?></span><?php endif; ?>
