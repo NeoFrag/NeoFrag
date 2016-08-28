@@ -64,10 +64,19 @@ class Db extends Core
 			require_once $path;
 
 			$driver = $this->_driver = 'Driver_'.$config['driver'];
-			
-			if ($this->_connected = $driver::connect($config['hostname'], $config['username'], $config['password'], $config['database']))
+
+			if ($connect = $driver::connect($config['hostname'], $config['username'], $config['password'], $config['database']))
 			{
-				$this->debug->log('DB '.$config['hostname'].' '.$config['database'].' ('.$config['driver'].')');
+				if (is_string($connect))
+				{
+					$config['driver'] = $connect;
+					return $this->_connect($config);
+				}
+				else
+				{
+					$this->_connected = TRUE;
+					$this->debug->log('DB '.$config['hostname'].' '.$config['database'].' ('.$config['driver'].')');
+				}
 			}
 		}
 		else

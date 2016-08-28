@@ -22,6 +22,11 @@ class Driver_mysql extends Driver
 {
 	static public function connect($hostname, $username, $password, $database)
 	{
+		if (function_exists('mysqli_connect'))
+		{
+			return 'mysqli';
+		}
+
 		self::$db = @mysql_connect($hostname, $username, $password);
 
 		if (self::$db !== FALSE && mysql_select_db($database, self::$db))
