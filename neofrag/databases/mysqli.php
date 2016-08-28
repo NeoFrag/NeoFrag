@@ -65,15 +65,13 @@ class Driver_mysqli extends Driver
 				call_user_func_array([$this->stmt, 'bind_param'], $bind);
 			}
 
-			if (!$this->stmt->execute())
+			if ($this->stmt->execute())
 			{
-				$this->error = $this->stmt->error;
+				return;
 			}
 		}
-		else
-		{
-			$this->error = self::$db->error;
-		}
+
+		$this->error = self::$db->error;
 	}
 
 	protected function bind($value)
@@ -113,24 +111,33 @@ class Driver_mysqli extends Driver
 
 	public function get()
 	{
-		$result = $this->stmt->get_result();
-		
-		$return = $result->fetch_all(MYSQLI_ASSOC) ?: [];
-		
-		$result->free();
-		
-		return $return;
+		return $this->_get_results(function(&$row){
+			$results = [];
+
+			while ($this->stmt->fetch())
+			{
+				$results[] = self::_get_result($row);
+			}
+
+			return $results;
+		});
 	}
 
 	public function row()
 	{
-		$result = $this->stmt->get_result();
-		
-		$return = $result->fetch_assoc() ?: [];
-		
-		$result->free();
-		
-		return $return;
+		return $this->_get_results(function(&$row){
+			if ($this->stmt->fetch())
+			{
+				return $row;
+			}
+		});
+	}
+
+	public function results()
+	{
+		return $this->_get_results(function(&$row){
+			return [$row, $this->stmt];
+		}, FALSE);
 	}
 
 	public function last_id()
@@ -141,6 +148,35 @@ class Driver_mysqli extends Driver
 	public function affected_rows()
 	{
 		return $this->stmt->affected_rows;
+	}
+
+	static private function _get_result($row)
+	{
+		return array_map(function($a){
+			return $a;
+		}, $row);
+	}
+
+	private function _get_results($callback, $free_results = TRUE)
+	{
+		$result = $params = [];
+		$md = $this->stmt->result_metadata();
+
+		while ($field = $md->fetch_field())
+		{
+			$params[] = &$result[$field->name];
+		}
+
+		call_user_func_array([$this->stmt, 'bind_result'], $params);
+
+		$return = $callback($result);
+
+		if ($free_results)
+		{
+			$this->stmt->free_result();
+		}
+
+		return $return ?: [];
 	}
 }
 

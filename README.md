@@ -26,7 +26,7 @@ NeoFrag CMS est un projet imaginé en 2011, qui a vu ça première version Alpha
 
 NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner.
 
-- PHP 5.4 ou supérieur (avec les extensions curl, gd, json, mbstring, mysql or mysqli with mysqlnd, xml et zip)
+- PHP 5.4 ou supérieur (avec les extensions curl, gd, json, mbstring, mysql ou mysqli, xml et zip)
 - Module Apache rewrite_module activé
 
 ## :fr: Installation
