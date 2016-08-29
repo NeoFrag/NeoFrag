@@ -200,38 +200,6 @@ class m_admin_c_admin extends Controller_Module
 		];
 	}
 
-	public function phpinfo()
-	{
-		$this	->title($this('server'))
-				->subtitle('PHP '.phpversion())
-				->css('phpinfo');
-		
-		$extensions = get_loaded_extensions();
-		natcasesort($extensions);
-
-		ob_start();
-		phpinfo();
-
-		$output = [new Panel([
-			'content' => $this->load->view('phpinfo', [
-				'extensions' => $extensions
-			])
-		])];
-		
-		if (preg_match_all('#(?:<h2>(.*?)</h2>.*?)?<table.*?>(.*?)</table>#s', ob_get_clean(), $matches, PREG_SET_ORDER))
-		{
-			foreach (array_offset_left($matches) as $match)
-			{
-				$output[] = new Panel([
-					'title'   => $match[1],
-					'content' => '<table class="table table-hover table-striped">'.$match[2].'</table>'
-				]);
-			}
-		}
-		
-		return $output;
-	}
-	
 	public function notifications()
 	{
 		$this	->title($this('notifications'))

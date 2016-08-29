@@ -1,0 +1,17 @@
+#modal-phpinfo .extensions {
+	padding: 0;
+}
+
+#modal-phpinfo .extensions li {
+	float: left;
+	list-style: none;
+	width: 20%;
+}
+
+#modal-phpinfo .table {
+	table-layout: fixed;
+}
+
+#modal-phpinfo .v {
+	word-wrap: break-word;
+}

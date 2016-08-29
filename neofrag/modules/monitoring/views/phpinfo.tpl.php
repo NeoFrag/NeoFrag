@@ -1,15 +1,19 @@
 <table class="table table-hover table-stripped">
 	<tr>
-		<td width="20%"><?php echo i18n('operatig_system'); ?></td>
+		<td width="20%"><?php echo i18n('operating_system'); ?></td>
 		<td><?php echo php_uname(); ?></td>
 	</tr>
 	<tr>
+		<td width="20%">Serveur PHP</td>
+		<td><?php echo $data['php_server']; ?></td>
+	</tr>
+	<tr>
 		<td><?php echo i18n('web_server'); ?></td>
-		<td><?php echo preg_match('#(.+?)/(.+?) #', $_SERVER['SERVER_SOFTWARE'], $match) ? $match[1].' '.$match[2] : $_SERVER['SERVER_SOFTWARE']; ?></td>
+		<td><?php echo $data['web_server']; ?></td>
 	</tr>
 	<tr>
 		<td><?php echo i18n('databases_server'); ?></td>
-		<td><?php echo $NeoFrag->db->get_info(); ?></td>
+		<td><?php echo $data['databases_server']; ?></td>
 	</tr>
 	<tr>
 		<td><?php echo i18n('loaded_extensions'); ?></td>

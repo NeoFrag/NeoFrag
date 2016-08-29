@@ -21,3 +21,5 @@ ALTER TABLE `nf_users` CHANGE `last_activity_date` `last_activity_date` TIMESTAM
 ALTER TABLE `nf_users_messages` CHANGE `reply_id` `reply_id` INT(11) UNSIGNED NULL DEFAULT NULL;
 INSERT IGNORE INTO `nf_settings` VALUES('nf_version_css', '', '', '0', 'int');
 INSERT IGNORE INTO `nf_settings_addons` VALUES('statistics', 'module', '1');
+INSERT IGNORE INTO `nf_settings_addons` VALUES('monitoring', 'module', '1');
+INSERT IGNORE INTO `nf_settings` VALUES('nf_monitoring_last_check', '', '', '0', 'int');

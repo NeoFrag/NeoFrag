@@ -49,6 +49,12 @@ class t_admin extends Theme
 			return $a['title'];
 		});
 
+		if (file_exists($file = 'cache/monitoring/version.json') && version_compare(version_format($version = json_decode(file_get_contents($file))->neofrag->version), version_format(NEOFRAG_VERSION), '>'))
+		{
+			$this->add_data('update', $version);
+			$this->js('neofrag.update');
+		}
+
 		$this	->css('font.open-sans.300.400.600.700.800')
 				->css('font.roboto.100.300.400.500.700.900')
 				->css('font.signika-negative.400.600')
@@ -147,38 +153,10 @@ class t_admin extends Theme
 						]
 					],
 					[
-						'title' => $this('security'),
-						'icon'  => 'fa-shield',
-						'url'   => [
-							[
-								'title' => $this('notifications'),
-								'icon'  => 'fa-flag',
-								'url'   => 'admin/notifications.html',
-								'access' => $this->user('admin')
-							],
-							[
-								'title' => $this('database'),
-								'icon'  => 'fa-database',
-								'url'   => 'admin/database.html',
-								'access' => $this->user('admin')
-							],
-							/*array(
-								'title' => 'Rapport d\'erreurs',
-								'icon'  => 'fa-exclamation-triangle',
-								'url'   => 'admin/logs.html'
-							),
-							array(
-								'title' => 'Analyse des fichiers',
-								'icon'  => 'icons/exclamation-shield.png',
-								'url'   => 'admin/logs.html'
-							),*/
-							[
-								'title'  => $this('server'),
-								'icon'   => 'fa-cogs',
-								'url'    => 'admin/phpinfo.html',
-								'access' => $this->user('admin')
-							]
-						]
+						'title'  => 'Monitoring'.$this->load->module('monitoring')->display(),
+						'icon'   => 'fa-heartbeat',
+						'url'    => 'admin/monitoring.html',
+						'access' => $this->user('admin')
 					],
 					[
 						'title'  => 'Statistiques',

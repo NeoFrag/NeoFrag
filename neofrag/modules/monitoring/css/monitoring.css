@@ -1,0 +1,144 @@
+.panel-monitoring {
+	margin-bottom: 0;
+}
+
+.panel-monitoring .status-legend {
+	background-color: rgba(0,0,0,.05);
+	padding: 15px;
+}
+
+.panel-monitoring .status-legend h3 {
+	font-weight: 700;
+	margin: 0;
+}
+
+span.monitoring-icon-status {
+	border: 3px solid #DFE5EA;
+	border-radius: 50%;
+	color: #fff;
+	display: inline-block;
+	margin: 20px auto;
+	font-size: 53px;
+	padding: 14px 16px;
+	opacity: .8;
+}
+
+.beat-slow {
+	animation: beat .75s infinite alternate;
+}
+
+.beat-medium {
+	animation: beat .5s infinite alternate;
+}
+
+.beat-fast {
+	animation: beat .2s infinite alternate;
+}
+
+@keyframes beat {
+	to {
+		opacity: 1;
+		transform: scale(1.20);
+	}
+}
+
+.monitoring-legend {
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.monitoring-legend h3 {
+	font-weight: 700;
+	margin-top: 1px;
+	margin-bottom: 2px;
+}
+
+.panel-storage .panel-body {
+	padding-top: 40px;
+	padding-bottom: 21px;
+}
+
+.panel-storage .monitoring-storage-title {
+	font-weight: 700;
+	margin-bottom: 0;
+}
+
+.panel-storage .monitoring-storage-title small {
+	color: #49525F;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.panel-storage .knob-storage {
+	position: absolute;
+	top: -25px;
+	left: 0;
+	right: 0;
+}
+
+.panel-storage .panel-body .row + .row {
+	margin-top: 20px;
+}
+
+.panel-notifications .panel-body {
+	padding: 4px 6px;
+}
+
+.panel-notifications .table-notifications tr > td {
+	border-top: none;
+}
+
+.panel-notifications .table-notifications span.label {
+	padding: 3px 6px;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.panel-infos .panel-body .table:last-child {
+	margin: 0;
+}
+
+#tree {
+	min-height: 200px;
+}
+
+.treeview .list-group {
+	margin: 0;
+}
+
+.treeview .list-group .list-group-item {
+	border-right: 0;
+	border-left: 0;
+	border-radius: 0;
+}
+
+.treeview .list-group .list-group-item:first-child {
+	border-top: 0;
+}
+
+.treeview .list-group .list-group-item:last-child {
+	border-bottom: 0;
+}
+
+.treeview .list-group .list-group-item.node-selected span.icon.fa-file-o,
+.treeview .list-group .list-group-item.node-selected span.icon.expand-icon {
+	color: #fff;
+}
+
+span.icon.fa-file-o {
+	color: #9e9e9e;
+}
+
+span.icon.expand-icon {
+	color: #f0ad4e;
+}
+
+.treeview .list-group .list-group-item span.badge {
+	background-color: #42546a;
+	border-radius: 2px;
+	font-size: 9px;
+	padding: 5px 9px;
+	text-transform: uppercase;
+}

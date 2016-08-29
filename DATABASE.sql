@@ -854,6 +854,7 @@ INSERT INTO `nf_settings` VALUES('nf_welcome_content', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_welcome_title', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_welcome_user_id', '', '', '0', 'int');
 INSERT INTO `nf_settings` VALUES('nf_version_css', '', '', '0', 'int');
+INSERT INTO `nf_settings` VALUES('nf_monitoring_last_check', '', '', '0', 'int');
 
 -- --------------------------------------------------------
 
@@ -895,6 +896,7 @@ INSERT INTO `nf_settings_addons` VALUES('live_editor', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('members', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('members', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('module', 'widget', '1');
+INSERT INTO `nf_settings_addons` VALUES('monitoring', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('navigation', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('news', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('news', 'widget', '1');

@@ -87,10 +87,15 @@ class Output extends Core
 				$this->data['body'] .= $this->debug->display();
 			}
 
+			if (!$this->router->ajax() && $this->user('admin') && $this->config->request_url != 'admin/monitoring.html' && $this->load->module('monitoring')->need_checking())
+			{
+				$this->js_load('$.post(\''.url('admin/ajax/monitoring.json').'\', {refresh: false});');
+			}
+
 			$this->data['css']     = output('css');
 			$this->data['js']      = output('js');
 			$this->data['js_load'] = output('js_load');
-			
+
 			$output = $this->load->theme->load->view('default', $this->data);
 		}
 

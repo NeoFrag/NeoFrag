@@ -174,7 +174,7 @@ foreach(['debug', 'template', 'db', 'config', 'access', 'addons', 'session', 'us
 {
 	$NeoFrag->{'core_'.$library};
 
-	if ($library == 'config' && is_asset())
+	if ($library == 'config' && is_asset() && !preg_match('#^backups/#', $NeoFrag->config->request_url))
 	{
 		asset($NeoFrag->config->request_url);
 	}

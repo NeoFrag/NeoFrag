@@ -27,11 +27,9 @@ $lang['bravo']              = 'Bravo! You are using the very first version of th
 $lang['bravo2']             = 'Your contribution is essencial to the evolution of the project, if you have any suggestions, problems, or simply wanto to give your opinion, do not hesitate to log on the <a href="https://neofr.ag"> NeoFrag forum</a>.';
 $lang['comments']           = 'Comment|Comments';
 $lang['connected_users']    = 'Users connected';
-$lang['databases_server']   = 'Database server';
 $lang['events']             = 'Event|Events';
 $lang['last_registrations'] = 'Recent entries';
 $lang['lgpl_license']       = 'LGPL v3 license';
-$lang['loaded_extensions']  = 'Loaded extensions';
 $lang['manage_comments']    = 'Manage comments';
 $lang['manage_events']      = 'Manage calendar';
 $lang['manage_forum']       = 'Manage forum';
@@ -42,15 +40,13 @@ $lang['members']            = 'Membre|Member';
 $lang['messages']           = 'Message|Messages';
 $lang['news']               = 'News';
 $lang['nf_news']            = 'News NeoFrag CMS';
-$lang['operatig_system']    = 'Operating System';
 $lang['teams']              = 'team|teams';
 $lang['the_team']           = 'Team';
 $lang['view_all_sessions']  = 'See all active sessions';
 $lang['web_designer']       = 'Web designer';
 $lang['web_developer']      = 'Web developer';
-$lang['web_server']         = 'Web server';
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/admin/lang/en.php
 */
