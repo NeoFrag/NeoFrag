@@ -905,6 +905,7 @@ INSERT INTO `nf_settings_addons` VALUES('search', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('search', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('settings', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('slider', 'widget', '1');
+INSERT INTO `nf_settings_addons` VALUES('statistics', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('talks', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('talks', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('teams', 'module', '1');

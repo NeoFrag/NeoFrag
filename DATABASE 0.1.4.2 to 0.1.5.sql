@@ -20,3 +20,4 @@ ALTER TABLE `nf_teams_roles` CHANGE `order` `order` SMALLINT(6) UNSIGNED NOT NUL
 ALTER TABLE `nf_users` CHANGE `last_activity_date` `last_activity_date` TIMESTAMP NULL DEFAULT NULL;
 ALTER TABLE `nf_users_messages` CHANGE `reply_id` `reply_id` INT(11) UNSIGNED NULL DEFAULT NULL;
 INSERT IGNORE INTO `nf_settings` VALUES('nf_version_css', '', '', '0', 'int');
+INSERT IGNORE INTO `nf_settings_addons` VALUES('statistics', 'module', '1');

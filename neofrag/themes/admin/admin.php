@@ -180,22 +180,12 @@ class t_admin extends Theme
 							]
 						]
 					],
-					/*array(
-						'title' => 'Statistiques',
-						'icon'  => 'fa-signal',
-						'url'   => array(
-							array(
-								'title' => 'Visites',
-								'icon'  => 'icons/chart-pie-separate.png',
-								'url'   => 'admin/statistics.html'
-							),
-							array(
-								'title' => 'Performances',
-								'icon'  => 'icons/application-monitor.png',
-								'url'   => 'admin/statistics/performance.html'
-							)
-						)
-					),*/
+					[
+						'title'  => 'Statistiques',
+						'icon'   => 'fa-bar-chart',
+						'url'    => 'admin/statistics.html',
+						'access' => $this->user('admin')
+					],
 					[
 						'title'  => $this('about'),
 						'icon'   => 'fa-info',
