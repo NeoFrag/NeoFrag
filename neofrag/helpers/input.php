@@ -33,12 +33,28 @@ function post($var = NULL)
 	return NULL;
 }
 
-function post_check($args)
+function post_check($args, $post = NULL)
 {
-	$post = post();
+	if (is_array($args))
+	{
+		if ($post === NULL)
+		{
+			$post = post();
+		}
+		else if (!is_array($post))
+		{
+			$post = post($post);
+		}
+	}
+	else
+	{
+		$args = func_get_args();
+		$post = post();
+	}
+
 	$data = [];
 
-	foreach (is_array($args) ? $args : func_get_args() as $var)
+	foreach ($args as $var)
 	{
 		if (isset($post[$var]))
 		{
