@@ -34,7 +34,7 @@ class m_user_m_user extends Model
 
 		if ($user)
 		{
-			if ($user['last_activity_date'] == '0000-00-00 00:00:00')
+			if ($user['last_activity_date'] == NULL)
 			{
 				return -1;
 			}

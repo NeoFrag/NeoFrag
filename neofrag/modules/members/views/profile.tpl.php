@@ -22,7 +22,7 @@
 			<td class="col-lg-3 col-md-4 col-xs-5"><b><?php echo icon('fa-sign-in  fa-rotate-90').' '.i18n('registration_date'); ?></b></td>
 			<td class="col-lg-9 col-md-8 col-xs-7"><?php echo time_span($data['registration_date']); ?></td>
 		</tr>
-		<?php if (!empty($data['last_activity_date']) && $data['last_activity_date'] != '0000-00-00 00:00:00'): ?>
+		<?php if (!empty($data['last_activity_date']) && $data['last_activity_date'] != NULL): ?>
 		<tr>
 			<td class="col-lg-3 col-md-4 col-xs-5"><b><?php echo icon('fa-history').' '.i18n('last_activity'); ?></b></td>
 			<td class="col-lg-9 col-md-8 col-xs-7"><?php echo time_span($data['last_activity_date']); ?></td>

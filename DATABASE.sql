@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `nf_access`;
 CREATE TABLE IF NOT EXISTS `nf_access` (
-  `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `id` int(11) unsigned NOT NULL,
+  `access_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL,
   `module` varchar(100) NOT NULL,
   `action` varchar(100) NOT NULL,
   PRIMARY KEY (`access_id`),
@@ -61,7 +61,7 @@ INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_move');
 
 DROP TABLE IF EXISTS `nf_access_details`;
 CREATE TABLE IF NOT EXISTS `nf_access_details` (
-  `access_id` int(11) unsigned NOT NULL,
+  `access_id` int(11) UNSIGNED NOT NULL,
   `entity` varchar(100) NOT NULL,
   `type` enum('group','user') NOT NULL DEFAULT 'group',
   `authorized` enum('0','1') NOT NULL DEFAULT '0',
@@ -90,9 +90,9 @@ INSERT INTO `nf_access_details` VALUES(10, 'admins', 'group', '1');
 DROP TABLE IF EXISTS `nf_awards`;
 CREATE TABLE IF NOT EXISTS `nf_awards` (
   `award_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `team_id` int(11) UNSIGNED DEFAULT NULL,
+  `team_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `game_id` int(11) UNSIGNED NOT NULL,
-  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   `date` date NOT NULL,
@@ -114,13 +114,13 @@ CREATE TABLE IF NOT EXISTS `nf_awards` (
 
 DROP TABLE IF EXISTS `nf_comments`;
 CREATE TABLE IF NOT EXISTS `nf_comments` (
-  `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) unsigned DEFAULT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `module_id` int(11) unsigned NOT NULL,
+  `comment_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `module_id` int(11) UNSIGNED NOT NULL,
   `module` varchar(100) NOT NULL,
-  `content` text,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `content` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`comment_id`),
   KEY `parent_id` (`parent_id`),
   KEY `user_id` (`user_id`),
@@ -148,10 +148,10 @@ CREATE TABLE IF NOT EXISTS `nf_crawlers` (
 
 DROP TABLE IF EXISTS `nf_dispositions`;
 CREATE TABLE IF NOT EXISTS `nf_dispositions` (
-  `disposition_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `disposition_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `theme` varchar(100) NOT NULL,
   `page` varchar(100) NOT NULL,
-  `zone` int(11) unsigned NOT NULL,
+  `zone` int(11) UNSIGNED NOT NULL,
   `disposition` text NOT NULL,
   PRIMARY KEY (`disposition_id`),
   UNIQUE KEY `theme` (`theme`,`page`,`zone`)
@@ -182,11 +182,11 @@ INSERT INTO `nf_dispositions` VALUES(12, 'default', 'search/*', 0, 'a:2:{i:0;O:3
 
 DROP TABLE IF EXISTS `nf_files`;
 CREATE TABLE IF NOT EXISTS `nf_files` (
-  `file_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned DEFAULT NULL,
+  `file_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `path` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`file_id`),
   UNIQUE KEY `path` (`path`),
   KEY `user_id` (`user_id`)
@@ -208,15 +208,15 @@ INSERT INTO `nf_files` VALUES(3, 1, 'logo_black.png', 'upload/partners/y4ofwq2ek
 
 DROP TABLE IF EXISTS `nf_forum`;
 CREATE TABLE IF NOT EXISTS `nf_forum` (
-  `forum_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) unsigned NOT NULL,
+  `forum_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) UNSIGNED NOT NULL,
   `is_subforum` enum('0','1') NOT NULL DEFAULT '0',
   `title` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL,
-  `count_topics` int(11) unsigned NOT NULL DEFAULT '0',
-  `count_messages` int(11) unsigned NOT NULL DEFAULT '0',
-  `last_message_id` int(11) unsigned DEFAULT NULL,
+  `order` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
+  `count_topics` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `count_messages` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `last_message_id` int(11) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`forum_id`),
   KEY `last_message_id` (`last_message_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -235,9 +235,9 @@ INSERT INTO `nf_forum` VALUES(1, 1, '0', 'Discussions g&eacute;n&eacute;rales', 
 
 DROP TABLE IF EXISTS `nf_forum_categories`;
 CREATE TABLE IF NOT EXISTS `nf_forum_categories` (
-  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL,
+  `order` smallint(6) UNSIGNED NOT NULL NULL DEFAULT '0',
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -255,10 +255,10 @@ INSERT INTO `nf_forum_categories` VALUES(1, 'G&eacute;n&eacute;ral', 0);
 
 DROP TABLE IF EXISTS `nf_forum_messages`;
 CREATE TABLE IF NOT EXISTS `nf_forum_messages` (
-  `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `topic_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned DEFAULT NULL,
-  `message` text,
+  `message_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `topic_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `message` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`message_id`),
   KEY `topic_id` (`topic_id`),
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `nf_forum_messages` (
 
 DROP TABLE IF EXISTS `nf_forum_polls`;
 CREATE TABLE IF NOT EXISTS `nf_forum_polls` (
-  `topic_id` int(11) unsigned NOT NULL,
+  `topic_id` int(11) UNSIGNED NOT NULL,
   `question` varchar(100) NOT NULL,
   `answers` text NOT NULL,
   `is_multiple_choice` enum('0','1') NOT NULL DEFAULT '0'
@@ -287,8 +287,8 @@ CREATE TABLE IF NOT EXISTS `nf_forum_polls` (
 
 DROP TABLE IF EXISTS `nf_forum_read`;
 CREATE TABLE IF NOT EXISTS `nf_forum_read` (
-  `user_id` int(11) unsigned NOT NULL,
-  `forum_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `forum_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`,`forum_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -301,14 +301,14 @@ CREATE TABLE IF NOT EXISTS `nf_forum_read` (
 
 DROP TABLE IF EXISTS `nf_forum_topics`;
 CREATE TABLE IF NOT EXISTS `nf_forum_topics` (
-  `topic_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `forum_id` int(11) unsigned NOT NULL,
-  `message_id` int(11) unsigned NOT NULL,
+  `topic_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `forum_id` int(11) UNSIGNED NOT NULL,
+  `message_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `title` varchar(100) NOT NULL,
   `status` enum('-2','-1','0','1') NOT NULL DEFAULT '0',
-  `views` int(11) unsigned NOT NULL,
-  `count_messages` int(11) unsigned NOT NULL,
-  `last_message_id` int(11) unsigned DEFAULT NULL,
+  `views` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `count_messages` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `last_message_id` int(11) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `last_message_id` (`last_message_id`),
   KEY `forum_id` (`forum_id`),
@@ -323,8 +323,8 @@ CREATE TABLE IF NOT EXISTS `nf_forum_topics` (
 
 DROP TABLE IF EXISTS `nf_forum_topics_read`;
 CREATE TABLE IF NOT EXISTS `nf_forum_topics_read` (
-  `topic_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `topic_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`topic_id`,`user_id`),
   KEY `user_id` (`user_id`)
@@ -338,8 +338,8 @@ CREATE TABLE IF NOT EXISTS `nf_forum_topics_read` (
 
 DROP TABLE IF EXISTS `nf_forum_track`;
 CREATE TABLE IF NOT EXISTS `nf_forum_track` (
-  `topic_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `topic_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`topic_id`,`user_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -352,9 +352,9 @@ CREATE TABLE IF NOT EXISTS `nf_forum_track` (
 
 DROP TABLE IF EXISTS `nf_forum_url`;
 CREATE TABLE IF NOT EXISTS `nf_forum_url` (
-  `forum_id` int(11) unsigned NOT NULL,
+  `forum_id` int(11) UNSIGNED NOT NULL,
   `url` varchar(100) NOT NULL,
-  `redirects` int(11) unsigned NOT NULL,
+  `redirects` int(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`forum_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -366,9 +366,9 @@ CREATE TABLE IF NOT EXISTS `nf_forum_url` (
 
 DROP TABLE IF EXISTS `nf_gallery`;
 CREATE TABLE IF NOT EXISTS `nf_gallery` (
-  `gallery_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) unsigned NOT NULL,
-  `image_id` int(11) unsigned DEFAULT NULL,
+  `gallery_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) UNSIGNED NOT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `published` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`gallery_id`),
@@ -384,9 +384,9 @@ CREATE TABLE IF NOT EXISTS `nf_gallery` (
 
 DROP TABLE IF EXISTS `nf_gallery_categories`;
 CREATE TABLE IF NOT EXISTS `nf_gallery_categories` (
-  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `image_id` int(11) unsigned DEFAULT NULL,
-  `icon_id` int(11) unsigned DEFAULT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `icon_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`),
   KEY `image_id` (`image_id`),
@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_categories` (
 
 DROP TABLE IF EXISTS `nf_gallery_categories_lang`;
 CREATE TABLE IF NOT EXISTS `nf_gallery_categories_lang` (
-  `category_id` int(11) unsigned NOT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`,`lang`),
@@ -416,15 +416,15 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_categories_lang` (
 
 DROP TABLE IF EXISTS `nf_gallery_images`;
 CREATE TABLE IF NOT EXISTS `nf_gallery_images` (
-  `image_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `thumbnail_file_id` int(11) unsigned NOT NULL,
-  `original_file_id` int(11) unsigned NOT NULL,
-  `file_id` int(11) unsigned NOT NULL,
-  `gallery_id` int(11) unsigned NOT NULL,
+  `image_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `thumbnail_file_id` int(11) UNSIGNED NOT NULL,
+  `original_file_id` int(11) UNSIGNED NOT NULL,
+  `file_id` int(11) UNSIGNED NOT NULL,
+  `gallery_id` int(11) UNSIGNED NOT NULL,
   `title` varchar(100) NOT NULL,
-  `description` text,
+  `description` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `views` int(11) unsigned NOT NULL,
+  `views` int(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`image_id`),
   KEY `file_id` (`file_id`),
   KEY `gallery_id` (`gallery_id`),
@@ -440,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_images` (
 
 DROP TABLE IF EXISTS `nf_gallery_lang`;
 CREATE TABLE IF NOT EXISTS `nf_gallery_lang` (
-  `gallery_id` int(11) unsigned NOT NULL,
+  `gallery_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
@@ -456,10 +456,10 @@ CREATE TABLE IF NOT EXISTS `nf_gallery_lang` (
 
 DROP TABLE IF EXISTS `nf_games`;
 CREATE TABLE IF NOT EXISTS `nf_games` (
-  `game_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) unsigned DEFAULT NULL,
-  `image_id` int(11) unsigned DEFAULT NULL,
-  `icon_id` int(11) unsigned DEFAULT NULL,
+  `game_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `icon_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`game_id`),
   KEY `image_id` (`image_id`),
@@ -475,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `nf_games` (
 
 DROP TABLE IF EXISTS `nf_games_lang`;
 CREATE TABLE IF NOT EXISTS `nf_games_lang` (
-  `game_id` int(11) unsigned NOT NULL,
+  `game_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`game_id`,`lang`),
@@ -492,7 +492,7 @@ DROP TABLE IF EXISTS `nf_games_maps`;
 CREATE TABLE IF NOT EXISTS `nf_games_maps` (
   `map_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `game_id` int(11) UNSIGNED NOT NULL,
-  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`map_id`),
   KEY `game_id` (`game_id`),
@@ -522,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `nf_games_modes` (
 
 DROP TABLE IF EXISTS `nf_groups`;
 CREATE TABLE IF NOT EXISTS `nf_groups` (
-  `group_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `color` varchar(20) NOT NULL,
   `icon` varchar(20) NOT NULL,
@@ -546,7 +546,7 @@ INSERT INTO `nf_groups` VALUES(3, 'visitors', 'info', '', '1');
 
 DROP TABLE IF EXISTS `nf_groups_lang`;
 CREATE TABLE IF NOT EXISTS `nf_groups_lang` (
-  `group_id` int(11) unsigned NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`group_id`,`lang`),
@@ -561,13 +561,13 @@ CREATE TABLE IF NOT EXISTS `nf_groups_lang` (
 
 DROP TABLE IF EXISTS `nf_news`;
 CREATE TABLE IF NOT EXISTS `nf_news` (
-  `news_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `image_id` int(11) unsigned DEFAULT NULL,
+  `news_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `published` enum('0','1') NOT NULL DEFAULT '0',
-  `views` int(11) unsigned NOT NULL,
+  `views` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `vote` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`news_id`),
   KEY `category_id` (`category_id`),
@@ -589,9 +589,9 @@ INSERT INTO `nf_news` VALUES(1, 1, 1, NULL, CURRENT_TIMESTAMP, '1', 0, '0');
 
 DROP TABLE IF EXISTS `nf_news_categories`;
 CREATE TABLE IF NOT EXISTS `nf_news_categories` (
-  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `image_id` int(11) unsigned DEFAULT NULL,
-  `icon_id` int(11) unsigned DEFAULT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `icon_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`),
   KEY `image_id` (`image_id`),
@@ -612,7 +612,7 @@ INSERT INTO `nf_news_categories` VALUES(1, 1, NULL, 'general');
 
 DROP TABLE IF EXISTS `nf_news_categories_lang`;
 CREATE TABLE IF NOT EXISTS `nf_news_categories_lang` (
-  `category_id` int(11) unsigned NOT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`,`lang`),
@@ -633,7 +633,7 @@ INSERT INTO `nf_news_categories_lang` VALUES(1, 'fr', 'G&eacute;n&eacute;ral');
 
 DROP TABLE IF EXISTS `nf_news_lang`;
 CREATE TABLE IF NOT EXISTS `nf_news_lang` (
-  `news_id` int(11) unsigned NOT NULL,
+  `news_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   `introduction` text NOT NULL,
@@ -657,7 +657,7 @@ INSERT INTO `nf_news_lang` VALUES(1, 'fr', 'Bienvenue sur votre site NeoFrag Alp
 
 DROP TABLE IF EXISTS `nf_pages`;
 CREATE TABLE IF NOT EXISTS `nf_pages` (
-  `page_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `page_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `published` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`page_id`),
@@ -672,7 +672,7 @@ CREATE TABLE IF NOT EXISTS `nf_pages` (
 
 DROP TABLE IF EXISTS `nf_pages_lang`;
 CREATE TABLE IF NOT EXISTS `nf_pages_lang` (
-  `page_id` int(11) unsigned NOT NULL,
+  `page_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   `subtitle` varchar(100) NOT NULL,
@@ -691,14 +691,14 @@ DROP TABLE IF EXISTS `nf_partners`;
 CREATE TABLE IF NOT EXISTS `nf_partners` (
   `partner_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `logo_light` int(11) UNSIGNED DEFAULT NULL,
-  `logo_dark` int(11) UNSIGNED DEFAULT NULL,
+  `logo_light` int(11) UNSIGNED NULL DEFAULT NULL,
+  `logo_dark` int(11) UNSIGNED NULL DEFAULT NULL,
   `website` varchar(100) NOT NULL,
   `facebook` varchar(100) NOT NULL,
   `twitter` varchar(100) NOT NULL,
   `code` varchar(50) NOT NULL,
-  `count` int(11) UNSIGNED NOT NULL,
-  `order` tinyint(6) UNSIGNED NOT NULL,
+  `count` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `order` tinyint(6) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`partner_id`),
   KEY `image_id` (`logo_light`),
   KEY `logo_dark` (`logo_dark`)
@@ -741,7 +741,7 @@ INSERT INTO `nf_partners_lang` VALUES(1, 'fr', 'NeoFrag', 'NeoFrag est un CMS (s
 DROP TABLE IF EXISTS `nf_search_keywords`;
 CREATE TABLE IF NOT EXISTS `nf_search_keywords` (
   `keyword` varchar(100) NOT NULL,
-  `count` int(11) unsigned NOT NULL,
+  `count` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`keyword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -756,7 +756,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions` (
   `session_id` varchar(32) NOT NULL,
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
-  `user_id` int(11) unsigned DEFAULT NULL,
+  `user_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `is_crawler` enum('0','1') NOT NULL DEFAULT '0',
   `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_data` text NOT NULL,
@@ -773,9 +773,9 @@ CREATE TABLE IF NOT EXISTS `nf_sessions` (
 
 DROP TABLE IF EXISTS `nf_sessions_history`;
 CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `session_id` varchar(32) DEFAULT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `session_id` varchar(32) NULL DEFAULT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
   `referer` varchar(100) NOT NULL,
@@ -923,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `nf_settings_languages` (
   `code` varchar(5) NOT NULL,
   `name` varchar(100) NOT NULL,
   `flag` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL,
+  `order` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -946,8 +946,8 @@ INSERT INTO `nf_settings_languages` VALUES('pt', 'Português', 'pt.png', 6);
 
 DROP TABLE IF EXISTS `nf_settings_smileys`;
 CREATE TABLE IF NOT EXISTS `nf_settings_smileys` (
-  `smiley_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `file_id` int(11) unsigned NOT NULL,
+  `smiley_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `file_id` int(11) UNSIGNED NOT NULL,
   `code` varchar(15) NOT NULL,
   PRIMARY KEY (`smiley_id`),
   UNIQUE KEY `code` (`code`)
@@ -980,7 +980,7 @@ INSERT INTO `nf_statistics` VALUES('nf_sessions_max_simultaneous', '0');
 
 DROP TABLE IF EXISTS `nf_talks`;
 CREATE TABLE IF NOT EXISTS `nf_talks` (
-  `talk_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `talk_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`talk_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
@@ -1000,10 +1000,10 @@ INSERT INTO `nf_talks` VALUES(2, 'public');
 
 DROP TABLE IF EXISTS `nf_talks_messages`;
 CREATE TABLE IF NOT EXISTS `nf_talks_messages` (
-  `message_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `talk_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned DEFAULT NULL,
-  `message` text,
+  `message_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `talk_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NULL DEFAULT NULL,
+  `message` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`message_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
@@ -1022,12 +1022,12 @@ INSERT INTO `nf_talks_messages` VALUES(1, 2, 1, 'Bienvenue sur votre nouveau sit
 
 DROP TABLE IF EXISTS `nf_teams`;
 CREATE TABLE IF NOT EXISTS `nf_teams` (
-  `team_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `game_id` int(11) unsigned NOT NULL,
-  `image_id` int(11) unsigned DEFAULT NULL,
-  `icon_id` int(11) unsigned DEFAULT NULL,
+  `team_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `game_id` int(11) UNSIGNED NOT NULL,
+  `image_id` int(11) UNSIGNED NULL DEFAULT NULL,
+  `icon_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `name` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL,
+  `order` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`team_id`),
   KEY `activity_id` (`game_id`),
   KEY `image_id` (`image_id`),
@@ -1042,7 +1042,7 @@ CREATE TABLE IF NOT EXISTS `nf_teams` (
 
 DROP TABLE IF EXISTS `nf_teams_lang`;
 CREATE TABLE IF NOT EXISTS `nf_teams_lang` (
-  `team_id` int(11) unsigned NOT NULL,
+  `team_id` int(11) UNSIGNED NOT NULL,
   `lang` varchar(5) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
@@ -1058,9 +1058,9 @@ CREATE TABLE IF NOT EXISTS `nf_teams_lang` (
 
 DROP TABLE IF EXISTS `nf_teams_roles`;
 CREATE TABLE IF NOT EXISTS `nf_teams_roles` (
-  `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL,
+  `order` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1072,9 +1072,9 @@ CREATE TABLE IF NOT EXISTS `nf_teams_roles` (
 
 DROP TABLE IF EXISTS `nf_teams_users`;
 CREATE TABLE IF NOT EXISTS `nf_teams_users` (
-  `team_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `role_id` int(10) unsigned DEFAULT NULL,
+  `team_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`team_id`,`user_id`),
   KEY `user_id` (`user_id`),
   KEY `role_id` (`role_id`)
@@ -1088,15 +1088,15 @@ CREATE TABLE IF NOT EXISTS `nf_teams_users` (
 
 DROP TABLE IF EXISTS `nf_users`;
 CREATE TABLE IF NOT EXISTS `nf_users` (
-  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` varchar(34) NOT NULL,
   `salt` varchar(32) NOT NULL,
   `email` varchar(100) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_activity_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_activity_date` timestamp NULL DEFAULT NULL,
   `admin` enum('0','1') NOT NULL DEFAULT '0',
-  `language` varchar(5) DEFAULT NULL,
+  `language` varchar(5) NULL DEFAULT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
@@ -1119,8 +1119,8 @@ INSERT INTO `nf_users` VALUES(1, 'admin', '$H$92EwygSmbdXunbIvoo/V91MWcnHqzX/', 
 
 DROP TABLE IF EXISTS `nf_users_groups`;
 CREATE TABLE IF NOT EXISTS `nf_users_groups` (
-  `user_id` int(11) unsigned NOT NULL,
-  `group_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `group_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`,`group_id`),
   KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1134,7 +1134,7 @@ CREATE TABLE IF NOT EXISTS `nf_users_groups` (
 DROP TABLE IF EXISTS `nf_users_keys`;
 CREATE TABLE IF NOT EXISTS `nf_users_keys` (
   `key_id` varchar(32) NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`key_id`),
@@ -1150,10 +1150,10 @@ CREATE TABLE IF NOT EXISTS `nf_users_keys` (
 
 DROP TABLE IF EXISTS `nf_users_messages`;
 CREATE TABLE IF NOT EXISTS `nf_users_messages` (
-  `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `reply_id` int(11) unsigned NOT NULL,
+  `message_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `reply_id` int(11) UNSIGNED NULL DEFAULT NULL,
   `title` varchar(100) NOT NULL,
-  `last_reply_id` int(11) unsigned DEFAULT NULL,
+  `last_reply_id` int(11) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `reply_id` (`reply_id`),
   KEY `last_reply_id` (`last_reply_id`)
@@ -1167,8 +1167,8 @@ CREATE TABLE IF NOT EXISTS `nf_users_messages` (
 
 DROP TABLE IF EXISTS `nf_users_messages_recipients`;
 CREATE TABLE IF NOT EXISTS `nf_users_messages_recipients` (
-  `user_id` int(11) unsigned NOT NULL,
-  `message_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `message_id` int(11) UNSIGNED NOT NULL,
   `date` timestamp NULL DEFAULT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`message_id`),
@@ -1183,9 +1183,9 @@ CREATE TABLE IF NOT EXISTS `nf_users_messages_recipients` (
 
 DROP TABLE IF EXISTS `nf_users_messages_replies`;
 CREATE TABLE IF NOT EXISTS `nf_users_messages_replies` (
-  `reply_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `message_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `reply_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `message_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `message` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`reply_id`),
@@ -1201,13 +1201,13 @@ CREATE TABLE IF NOT EXISTS `nf_users_messages_replies` (
 
 DROP TABLE IF EXISTS `nf_users_profiles`;
 CREATE TABLE IF NOT EXISTS `nf_users_profiles` (
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
-  `avatar` int(11) unsigned DEFAULT NULL,
+  `avatar` int(11) UNSIGNED NULL DEFAULT NULL,
   `signature` text NOT NULL,
   `date_of_birth` date NOT NULL,
-  `sex` enum('male','female') DEFAULT NULL,
+  `sex` enum('male','female') NULL DEFAULT NULL,
   `location` varchar(100) NOT NULL,
   `quote` varchar(100) NOT NULL,
   `website` varchar(100) NOT NULL,
@@ -1223,9 +1223,9 @@ CREATE TABLE IF NOT EXISTS `nf_users_profiles` (
 
 DROP TABLE IF EXISTS `nf_votes`;
 CREATE TABLE IF NOT EXISTS `nf_votes` (
-  `module_id` int(11) unsigned NOT NULL,
+  `module_id` int(11) UNSIGNED NOT NULL,
   `module` varchar(100) NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `note` tinyint(4) NOT NULL,
   PRIMARY KEY (`module_id`,`module`,`user_id`),
   KEY `module` (`module`),
@@ -1240,10 +1240,10 @@ CREATE TABLE IF NOT EXISTS `nf_votes` (
 
 DROP TABLE IF EXISTS `nf_widgets`;
 CREATE TABLE IF NOT EXISTS `nf_widgets` (
-  `widget_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `widget_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `widget` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
-  `title` varchar(100) DEFAULT NULL,
+  `title` varchar(100) NULL DEFAULT NULL,
   `settings` text,
   PRIMARY KEY (`widget_id`),
   KEY `widget_name` (`widget`)

@@ -722,7 +722,7 @@ class Form extends Library
 
 	private function _display_datetime($var, $options, $post)
 	{
-		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '0000-00-00 00:00:00')
+		if (isset($options['value']) && $options['value'] !== '')
 		{
 			$options['value'] = timetostr(NeoFrag::loader()->lang('date_time_short'), $options['value']);
 		}

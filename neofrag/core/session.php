@@ -25,7 +25,7 @@ class Session extends Core
 	private $_session_id;
 	private $_user_data = [];
 	private $_user_id   = NULL;
-	private	$_sessions;
+	private $_sessions;
 
 	public function __construct()
 	{
@@ -75,7 +75,8 @@ class Session extends Core
 				'session_id' => $this->_session_id,
 				'ip_address' => $this->_ip_address,
 				'host_name'  => $this->_host_name,
-				'is_crawler' => $crawler !== FALSE
+				'is_crawler' => $crawler !== FALSE,
+				'user_data'  => ''
 			]);
 			
 			$this->_user_data['session']['date']       = time();
@@ -223,8 +224,7 @@ class Session extends Core
 				'ip_address' => $this->_ip_address,
 				'host_name'  => $this->_host_name,
 				'referer'    => $this->_user_data['session']['referer'],
-				'user_agent' => $this->_user_data['session']['user_agent'],
-				'date'       => now()
+				'user_agent' => $this->_user_data['session']['user_agent']
 			]);
 		}
 
