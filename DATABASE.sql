@@ -782,7 +782,6 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   `user_agent` varchar(100) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `session_id` (`session_id`,`user_id`,`ip_address`,`host_name`,`referer`,`user_agent`,`date`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
