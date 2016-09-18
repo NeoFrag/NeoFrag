@@ -61,8 +61,13 @@ function output($type)
 	{
 		if ($type == 'css')
 		{
-			$output = array_map(function($a){
-				return '<link rel="stylesheet" href="'.path($a[0].'.css', 'css', $a[2]['assets']).'" type="text/css" media="'.$a[1].'" />';
+			if ($v = (int)NeoFrag::loader()->config->nf_version_css)
+			{
+				$v = '?v='.$v;
+			}
+
+			$output = array_map(function($a) use ($v){
+				return '<link rel="stylesheet" href="'.path($a[0].'.css', 'css', $a[2]['assets']).($v ?: '').'" type="text/css" media="'.$a[1].'" />';
 			}, NeoFrag::loader()->css);
 		}
 		else if ($type == 'js')

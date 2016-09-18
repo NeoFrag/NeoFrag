@@ -723,7 +723,8 @@ class m_settings_c_admin extends Controller_Module
 					->config('nf_maintenance_twitter',             $post['twitter'])
 					->config('nf_maintenance_google-plus',         $post['google'])
 					->config('nf_maintenance_steam',               $post['steam'])
-					->config('nf_maintenance_twitch',              $post['twitch']);
+					->config('nf_maintenance_twitch',              $post['twitch'])
+					->config('nf_version_css',                     time());
 
 			refresh();
 		}

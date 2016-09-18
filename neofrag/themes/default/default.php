@@ -55,7 +55,8 @@ class t_default extends Theme
 		$this	->config('default_background_repeat',     'no-repeat')
 				->config('default_background_attachment', 'scroll')
 				->config('default_background_position',   'center top')
-				->config('default_background_color',      '#141d26');
+				->config('default_background_color',      '#141d26')
+				->config('nf_version_css',                time());
 		
 		$header = function(){
 			return new Row(

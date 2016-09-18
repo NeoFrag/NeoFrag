@@ -853,6 +853,7 @@ INSERT INTO `nf_settings` VALUES('nf_welcome', '', '', '0', 'bool');
 INSERT INTO `nf_settings` VALUES('nf_welcome_content', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_welcome_title', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_welcome_user_id', '', '', '0', 'int');
+INSERT INTO `nf_settings` VALUES('nf_version_css', '', '', '0', 'int');
 
 -- --------------------------------------------------------
 
