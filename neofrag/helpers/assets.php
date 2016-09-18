@@ -82,15 +82,14 @@ function asset($file_path, $file_name = '')
 		if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $date) || (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag))
 		{
 			header('HTTP/1.1 304 Not Modified');
+			exit;
 		}
 		else
 		{
 			header('HTTP/1.1 200 OK');
-
-			echo $content;
+			header('Content-Length: '.strlen($content));
+			exit($content);
 		}
-
-		exit;
 	}
 }
 
