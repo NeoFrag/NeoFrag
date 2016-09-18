@@ -115,7 +115,7 @@ class Loader extends Core
 			{
 				while (list(, $dir) = each($this->paths[$type.'s']))
 				{
-					if (!check_file($o_path = $dir.'/'.$filename.'.php'))
+					if (in_string('overrides/', $o_path = $dir.'/'.$filename.'.php') || !check_file($o_path))
 					{
 						continue;
 					}
