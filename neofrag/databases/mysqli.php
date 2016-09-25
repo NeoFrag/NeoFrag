@@ -28,10 +28,13 @@ class Driver_mysqli extends Driver
 		{
 			self::$db->set_charset('utf8');
 
+			self::$db->query('SET time_zone = "+00:00"');
+			self::$db->query('SET time_zone = "'.date_create(self::$db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I').'"');
+
 			return TRUE;
 		}
 	}
-	
+
 	static public function get_info()
 	{
 		$server  = 'MySQL';
@@ -118,8 +121,8 @@ class Driver_mysqli extends Driver
 			}
 		}
 
-		$this->error = self::$db->error;
-	}
+			$this->error = self::$db->error;
+		}
 
 	protected function bind($value)
 	{
@@ -160,12 +163,12 @@ class Driver_mysqli extends Driver
 	{
 		return $this->_get_results(function(&$row){
 			$results = [];
-
+		
 			while ($this->stmt->fetch())
 			{
 				$results[] = self::_get_result($row);
 			}
-
+		
 			return $results;
 		});
 	}
@@ -179,7 +182,7 @@ class Driver_mysqli extends Driver
 			}
 		});
 	}
-
+		
 	public function results()
 	{
 		return $this->_get_results(function(&$row){
@@ -202,7 +205,7 @@ class Driver_mysqli extends Driver
 		return array_map(function($a){
 			return $a;
 		}, $row);
-	}
+}
 
 	private function _get_results($callback, $free_results = TRUE)
 	{
