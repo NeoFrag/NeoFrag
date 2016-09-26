@@ -86,16 +86,11 @@ class m_addons_c_admin_ajax extends Controller_Module
 					return !in_array($a, ['.', '..']) && is_dir($tmp.'/'.$a);
 				});
 				
-				function get_version($version)
-				{
-					return preg_replace('/[^\d.]/', '', $version);
-				}
-				
 				function parse_version($content, $value)
 				{
 					if (preg_match('/\$'.$value.'[ \t]*?=[ \t]*?([\'"])(.+?)\1;/', $content, $match))
 					{
-						return get_version($match[2]);
+						return version_format($match[2]);
 					}
 				}
 				
@@ -130,7 +125,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 								{
 									$update = TRUE;
 									
-									if (($cmp = version_compare($version, get_version($addon->version))) === 0)
+									if (($cmp = version_compare($version, version_format($addon->version))) === 0)
 									{
 										return [
 											'warning' => 'Le '.$type.' '.$addon->get_title().' est déjà installé en version '.$version
@@ -144,7 +139,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 									}
 								}
 
-								if (($cmp = version_compare($nf_version, get_version(NEOFRAG_VERSION))) !== 1)
+								if (($cmp = version_compare($nf_version, version_format(NEOFRAG_VERSION))) !== 1)
 								{
 									copy_all($dir, $type.'s/'.$name);
 

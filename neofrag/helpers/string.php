@@ -257,6 +257,11 @@ function highlight($string, $keywords, $max_length = 256)
 	return str_shortener(substr($string, strpos($string, '<mark>')), $max_length);
 }
 
+function version_format($version)
+{
+	return strtolower(trim(preg_replace('/[^\d.]/', '', $version), '.'));
+}
+
 /*
 NeoFrag Alpha 0.1.4.1
 ./neofrag/helpers/string.php
