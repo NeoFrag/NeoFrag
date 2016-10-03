@@ -91,7 +91,7 @@ class Config extends Core
 									->order_by('order')
 									->get();
 
-		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge([$this->session('language')], preg_replace('/^(.+?)[;-].*/', '\1', explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'])))), $nf_languages), $nf_languages));
+		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge([$this->session('language')], preg_replace('/^(.+?)[;-].*/', '\1', explode(',', !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '')))), $nf_languages), $nf_languages));
 
 		$this->update('default');
 
