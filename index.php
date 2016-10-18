@@ -165,7 +165,7 @@ $NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoF
 
 $NeoFrag->module = $NeoFrag->theme = NULL;
 
-foreach (['array', 'assets', 'buttons', 'color', 'file', 'geolocalisation', 'i18n', 'input', 'location', 'notify', 'output', 'statistics', 'string', 'time', 'user_agent'] as $helper)
+foreach (['array', 'assets', 'buttons', 'color', 'file', 'geolocalisation', 'i18n', 'input', 'location', 'network', 'notify', 'output', 'statistics', 'string', 'time', 'user_agent'] as $helper)
 {
 	$NeoFrag->helper($helper);
 }

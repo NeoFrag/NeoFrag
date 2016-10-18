@@ -24,27 +24,21 @@ class Captcha extends Library
 	{
 		return $this->config->nf_captcha_public_key && $this->config->nf_captcha_private_key;
 	}
-	
+
 	public function is_valid()
 	{
 		if ($response = post('g-recaptcha-response'))
 		{
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify?'.http_build_query([
+			return !empty(json_decode(network_get('https://www.google.com/recaptcha/api/siteverify?'.http_build_query([
 				'secret'   => $this->config->nf_captcha_private_key,
 				'response' => $response,
 				'remoteip' => $_SERVER['REMOTE_ADDR']
-			]));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-			$result = json_decode(curl_exec($ch));
-			curl_close($ch);
-
-			return !empty($result->success);
+			])))->success);
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	public function display()
 	{
 		return '<div class="g-recaptcha" data-sitekey="'.$this->config->nf_captcha_public_key.'"></div>';
