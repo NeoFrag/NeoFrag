@@ -163,8 +163,7 @@ class m_gallery_m_gallery extends Model
 							->where('file_id', $file_id)
 							->row();
 		
-		mkdir('upload/gallery/thumbnails', 0777, TRUE);
-		mkdir('upload/gallery/originals', 0777, TRUE);
+		dir_create('upload/gallery/thumbnails', 'upload/gallery/originals');
 		
 		copy($file['path'], $thumbnail = str_replace('upload/gallery/', 'upload/gallery/thumbnails/', $file['path']));
 		copy($file['path'], $original  = str_replace('upload/gallery/', 'upload/gallery/originals/', $file['path']));

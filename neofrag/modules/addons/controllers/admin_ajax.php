@@ -62,7 +62,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 			{
 				while (file_exists($tmp = sys_get_temp_dir().'/'.unique_id()));
 				
-				mkdir($tmp, 0777, TRUE);
+				dir_create($tmp);
 
 				while ($zip_entry = zip_read($zip))
 				{
@@ -70,7 +70,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 					if (substr($entry_name, -1) == '/')
 					{
-						mkdir($tmp.'/'.$entry_name, 0777, TRUE);
+						dir_create($tmp.'/'.$entry_name);
 					}
 					else if (zip_entry_open($zip, $zip_entry, 'r'))
 					{
@@ -141,7 +141,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 								if (($cmp = version_compare($nf_version, version_format(NEOFRAG_VERSION))) !== 1)
 								{
-									copy_all($dir, $type.'s/'.$name);
+									dir_copy($dir, $type.'s/'.$name);
 
 									if ($addon = NeoFrag::loader()->$type($name, TRUE))
 									{
@@ -199,7 +199,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 					}
 				}
 
-				rmdir_all($tmp);
+				dir_remove($tmp);
 
 				return array_filter($results);
 			}

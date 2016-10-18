@@ -22,13 +22,7 @@ class File extends Library
 {	
 	public function upload($files, $dir = NULL, &$filename = NULL, $file_id = NULL, $var = NULL)
 	{
-		if (!check_file($dir = 'upload/'.($dir ?: 'unknow')))
-		{
-			if (!mkdir($dir, 0777, TRUE))
-			{
-				return FALSE;
-			}
-		}
+		dir_create($dir = 'upload/'.($dir ?: 'unknow'));
 		
 		do
 		{

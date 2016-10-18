@@ -161,53 +161,6 @@ function image_resize($filename, $width, $height = NULL)
 	}
 }
 
-function rmdir_all($directory)
-{
-	foreach (scandir($directory = rtrim($directory, '/')) as $dir)
-	{
-		if (!in_array($dir, ['.', '..']))
-		{
-			if (is_dir($dir = $directory.'/'.$dir))
-			{
-				rmdir_all($dir);
-			}
-			else
-			{
-				unlink($dir);
-			}
-		}
-	}
-	
-	rmdir($directory);
-}
-
-function copy_all($src, $dst)
-{ 
-	if (!file_exists($dst))
-	{
-		mkdir($dst, 0777, TRUE);
-	}
-
-	$dir = opendir($src); 
-
-	while (($file = readdir($dir)) !== FALSE)
-	{
-		if (!in_array($file, ['.', '..']))
-		{
-			if (is_dir($src.'/'.$file))
-			{
-				copy_all($src.'/'.$file, $dst.'/'.$file); 
-			}
-			else
-			{
-				copy($src.'/'.$file, $dst.'/'.$file); 
-			}
-		}
-	}
-	
-	closedir($dir); 
-}
-
 /*
 NeoFrag Alpha 0.1.4
 ./neofrag/helpers/file.php

@@ -98,7 +98,7 @@ abstract class Loadable extends Translatable
 
 		if ($remove)
 		{
-			rmdir_all($this->type.'s/'.$this->name);
+			dir_remove($this->type.'s/'.$this->name);
 		}
 
 		return $this;
