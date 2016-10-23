@@ -32,16 +32,68 @@ class Driver_mysql extends Driver
 		}
 	}
 	
-	static public function get_server_info()
+	static public function get_info()
 	{
-		return 'MySQL '.mysql_get_server_info();
+		$server  = 'MySQL';
+		$version = mysql_get_server_info();
+
+		if (preg_match('/-([0-9.]+?)-(MariaDB)/', $version, $match))
+		{
+			list(, $version, $server) = $match;
+		}
+		else
+		{
+			$version = preg_replace('/-.*$/', '', $version);
+		}
+
+		return [
+			'server'  => $server,
+			'version' => $version,
+			'innodb'  => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], array('DEFAULT', 'YES'))
+		];
+	}
+	
+	static public function get_size()
+	{
+		$total = 0;
+
+		$sql = mysql_query('SHOW TABLE STATUS LIKE "nf\_%"');
+		while ($table = mysql_fetch_object($sql))
+		{
+			$total += $table->Data_length + $table->Index_length;
+		}
+
+		return $total;
+	}
+
+	static public function escape_string($string)
+	{
+		return mysql_real_escape_string($string);
 	}
 
 	static public function check_foreign_keys($check)
 	{
 		return mysql_query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
 	}
-	
+
+	static public function fetch($results, $type = 'assoc')
+	{
+		return mysql_fetch_assoc($results);
+	}
+
+	static public function free($results)
+	{
+		mysql_free_result($results);
+	}
+
+	protected function execute()
+	{
+		if (!$this->result = mysql_query($this->sql))
+		{
+			$this->error = mysql_error();
+		}
+	}
+
 	protected function build_sql()
 	{
 		parent::build_sql();
@@ -52,14 +104,6 @@ class Driver_mysql extends Driver
 		}
 		
 		return $this;
-	}
-
-	protected function execute()
-	{
-		if (!$this->result = mysql_query($this->sql))
-		{
-			$this->error = mysql_error();
-		}
 	}
 
 	protected function bind($value)
@@ -108,6 +152,11 @@ class Driver_mysql extends Driver
 		mysql_free_result($this->result);
 
 		return $return;
+	}
+
+	public function results()
+	{
+		return $this->result;
 	}
 
 	public function last_id()

@@ -32,14 +32,61 @@ class Driver_mysqli extends Driver
 		}
 	}
 	
-	static public function get_server_info()
+	static public function get_info()
 	{
-		return 'MySQL '.self::$db->server_info;
+		$server  = 'MySQL';
+		$version = self::$db->server_info;
+
+		if (preg_match('/-([0-9.]+?)-(MariaDB)/', $version, $match))
+		{
+			list(, $version, $server) = $match;
+		}
+		else
+		{
+			$version = preg_replace('/-.*$/', '', $version);
+		}
+
+		return [
+			'server'  => $server,
+			'version' => $version,
+			'innodb'  => ($result = self::$db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], array('DEFAULT', 'YES'))
+		];
+	}
+	
+	static public function get_size()
+	{
+		$total = 0;
+
+		$sql = self::$db->query('SHOW TABLE STATUS LIKE "nf\_%"');
+		while ($table = $sql->fetch_object())
+		{
+			$total += $table->Data_length + $table->Index_length;
+		}
+
+		return $total;
+	}
+
+	static public function escape_string($string)
+	{
+		return self::$db->real_escape_string($string);
 	}
 
 	static public function check_foreign_keys($check)
 	{
 		return self::$db->query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
+	}
+
+	static public function fetch($results, $type = 'assoc')
+	{
+		if ($results[1]->fetch())
+		{
+			return self::_get_result($results[0]);
+		}
+	}
+
+	static public function free($results)
+	{
+		$results[1]->free_result();
 	}
 
 	protected function execute()

@@ -62,12 +62,21 @@ abstract class Driver
 			return $string;
 		}
 	}
-	
+
+	abstract static public function connect($hostname, $username, $password, $database);
+	abstract static public function get_info();
+	abstract static public function get_size();
+	abstract static public function escape_string($string);
+	abstract static public function check_foreign_keys($check);
+	abstract static public function fetch($check, $type = 'assoc');
+	abstract static public function free($check);
+
 	abstract protected function execute();
 	abstract protected function bind($value);
-	
+
 	abstract public function get();
 	abstract public function row();
+	abstract public function results();
 	abstract public function last_id();
 	abstract public function affected_rows();
 

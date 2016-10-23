@@ -90,10 +90,41 @@ class Db extends Core
 		}
 	}
 	
-	public function get_info()
+	public function get_info($var = NULL)
+	{
+		static $info;
+		
+		if ($info === NULL)
+		{
+			$driver = $this->_driver;
+			$info = $driver::get_info();
+		}
+
+		if ($var !== NULL && isset($info[$var]))
+		{
+			return $info[$var];
+		}
+
+		return $info;
+	}
+
+	public function get_size()
+	{
+		static $size;
+		
+		if ($size === NULL)
+		{
+			$driver = $this->_driver;
+			$size = $driver::get_size();
+		}
+
+		return $size;
+	}
+
+	public function escape_string($string)
 	{
 		$driver = $this->_driver;
-		return $driver::get_server_info();
+		return $driver::escape_string($string);
 	}
 
 	public function select()
@@ -269,11 +300,34 @@ class Db extends Core
 
 		return $row;
 	}
-	
+
+	public function results()
+	{
+		return $this->_request('results');
+	}
+
+	public function fetch($results)
+	{
+		$driver = $this->_driver;
+		return $driver::fetch($results);
+	}
+
+	public function free($results)
+	{
+		$driver = $this->_driver;
+		return $driver::free($results);
+	}
+
+	public function execute($query)
+	{
+		$this->query($query);
+		$this->_request();
+		return $this;
+	}
+
 	public function query($query)
 	{
 		$this->_request['query'] = $query;
-		$this->_request();
 		return $this;
 	}
 
