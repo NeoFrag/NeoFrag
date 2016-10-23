@@ -26,7 +26,7 @@ foreach (range(1, 64) as $i)
 	$password['salt'] .= $chars[array_rand($chars)];
 }
 
-file_put_contents('./config/password.php', utf8_encode('<?php if (!defined(\'NEOFRAG_CMS\')) exit;'."\r\n".'$password[\'salt\'] = \''.$password['salt'].'\';'));
+file_put_contents('./config/password.php', utf8_string('<?php if (!defined(\'NEOFRAG_CMS\')) exit;'."\r\n".'$password[\'salt\'] = \''.$password['salt'].'\';'));
 
 /*
 NeoFrag Alpha 0.1

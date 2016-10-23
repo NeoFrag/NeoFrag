@@ -211,9 +211,9 @@ function utf8_html_entity_decode($string, $flags = ENT_COMPAT)
 
 function utf8_string($string)
 {
-	if (mb_detect_encoding($string, 'UTF-8', TRUE) != 'UTF-8')
+	if (($encoding = mb_detect_encoding($string, 'auto', TRUE)) != 'UTF-8')
 	{
-		$string = utf8_encode($string);
+		$string = mb_convert_encoding($string, 'UTF-8', $encoding);
 	}
 
 	return $string;

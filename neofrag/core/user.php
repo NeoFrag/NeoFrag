@@ -285,7 +285,7 @@ class User extends Core
 		{
 			$this->session->set('session', 'http_authentication', TRUE);
 
-			header('WWW-Authenticate: Basic realm="'.utf8_decode($this->config->nf_http_authentication_name).'"');
+			header('WWW-Authenticate: Basic realm="'.$this->config->nf_http_authentication_name.'", encoding="UTF-8"');
 			header('HTTP/1.0 401 Unauthorized');
 			exit;
 		}
