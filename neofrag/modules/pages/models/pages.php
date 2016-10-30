@@ -125,6 +125,6 @@ class m_pages_m_pages extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/pages/models/pages.php
 */

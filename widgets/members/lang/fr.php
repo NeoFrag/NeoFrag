@@ -36,6 +36,6 @@ $lang['whos_online']        = 'Qui est en ligne ?';
 $lang['whos_online_mini']   = 'Qui est en ligne ? (mini)';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./widgets/members/lang/fr.php
 */

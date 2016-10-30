@@ -39,6 +39,6 @@ class w_partners_c_checker extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./widgets/partners/controllers/checker.php
 */

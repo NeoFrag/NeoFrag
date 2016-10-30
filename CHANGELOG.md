@@ -1,5 +1,52 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.5](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5) (2016-10-30)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4.2...alpha0.1.5)
+
+**Features**
+
+- Auto updating and monitoring module
+- Limited access to admin panel
+
+**Core**
+
+- [Access] Fix ambiguity problem when two groups were equals
+- [Config] Fix empty HTTP_ACCEPT_LANGUAGE
+- [Db] Adding get_info, get_size, execute, results, free and escape_string methods
+- [Db] Using MySQLi driver when enabled
+- [Loader] Fix overrides loading priority
+- [Router] Checker methods throw unfound exception when return NULL
+
+**Database**
+
+- Removing sessions unique key
+- MySQL 5.7 compatibility SQL-MODE STRICT_ALL_TABLES
+- [MySQLi] Fix mysqli_stmt::get_result() error
+- [MySQLi] Synchronizing timezone between PHP and MySQL
+- [MySQL] Synchronizing timezone between PHP and MySQL
+
+**Helper**
+
+- [Assets] Adding Content-Length HTTP header
+- [Input] Add optionnal arg to post_check function
+- [Network] Add new helper
+- [String] Add version_format function (transform Alpha 0.1.4.2 to 0.1.4.2)
+- [Dir] Add new helper
+
+**Modules**
+
+- [Statistics] Add new module
+- [User] Migration admin panel from member module
+
+**Minor changes**
+
+- Assets are transmitted directly by HTTP server
+- Convert array syntax to []
+- CSS cache is forced to reload after theme update
+- Dynamic loading of libraries
+- Extension method moved in NeoFrag class and json data are formatted automatically
+- Removing xml extension requirements (utf8_encode / utf8_decode)
+
 ## [Alpha 0.1.4.2](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.4.2) (2016-07-30)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4.1...alpha0.1.4.2)
 

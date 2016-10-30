@@ -106,6 +106,6 @@ class m_news_m_categories extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4.1
+NeoFrag Alpha 0.1.5
 ./modules/news/models/categories.php
 */

@@ -162,6 +162,6 @@ function image_resize($filename, $width, $height = NULL)
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/helpers/file.php
 */

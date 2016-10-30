@@ -73,6 +73,6 @@ class m_comments_m_comments extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/comments/models/comments.php
 */

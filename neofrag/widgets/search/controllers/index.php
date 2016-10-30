@@ -27,6 +27,6 @@ class w_search_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/widgets/search/controllers/index.php
 */

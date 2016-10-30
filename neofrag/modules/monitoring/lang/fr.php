@@ -29,6 +29,6 @@ $lang['operating_system']  = 'Système d\'exploitation';
 $lang['web_server']        = 'Serveur web';
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/monitoring/lang/fr.php
 */

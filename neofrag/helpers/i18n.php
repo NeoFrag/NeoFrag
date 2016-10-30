@@ -98,6 +98,6 @@ function p11n($locale)
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/helpers/i18n.php
 */

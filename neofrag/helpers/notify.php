@@ -45,6 +45,6 @@ function notifications()
 }
 
 /*
-NeoFrag Alpha 0.1.4.2
+NeoFrag Alpha 0.1.5
 ./neofrag/helpers/notify.php
 */

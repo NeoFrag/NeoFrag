@@ -287,6 +287,6 @@ class Access extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/core/access.php
 */

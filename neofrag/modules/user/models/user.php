@@ -213,6 +213,6 @@ class m_user_m_user extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/user/models/user.php
 */

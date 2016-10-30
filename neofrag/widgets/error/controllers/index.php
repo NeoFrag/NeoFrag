@@ -32,6 +32,6 @@ class w_error_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./neofrag/widgets/error/controllers/index.php
 */

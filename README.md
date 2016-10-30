@@ -1,6 +1,6 @@
 # NeoFrag CMS
 
-[![Tag](http://img.shields.io/github/tag/NeoFragCMS/neofrag-cms.svg)](https://github.com/NeoFragCMS/neofrag-cms/tags)
+[![Release](https://img.shields.io/github/release/NeoFragCMS/neofrag-cms.svg)](https://github.com/NeoFragCMS/neofrag-cms/tags)
 
 NeoFrag est un CMS qui vous offre des fonctionnalités évoluées pour la gestion de votre équipe de jeu, association sportive ou esportive ! Facile à prendre en main, complet et performant, vous pouvez créer votre site internet avec des interfaces modernes et personnalisables, le tout gratuitement, sans connaissance particulière.
 
@@ -35,7 +35,7 @@ NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner
 - Créer une base de données MySQL et importer le fichier DATABASE.sql
 - Éditer le fichier de configuration de la base de données ./config/db.php
 - Connectez-vous sur votre site web avec comme identifiant: admin et mot de passe: admin123
-- Profitez de [NeoFrag CMS](https://neofr.ag) Alpha 0.1.4.2 !
+- Profitez de [NeoFrag CMS](https://neofr.ag) Alpha 0.1.5 !
 
 ## :uk: Installation
 
@@ -43,7 +43,7 @@ NeoFrag CMS nécessite un hébergement web Apache / PHP / MySQL pour fonctionner
 - Create a MySQL database and import DATABASE.sql
 - Edit database config file in ./config/db.php
 - Connect on your website and login with username: admin and password: admin123
-- Let's enjoy [NeoFrag CMS](https://neofr.ag) Alpha 0.1.4.2
+- Let's enjoy [NeoFrag CMS](https://neofr.ag) Alpha 0.1.5
 
 ## Contribuer
 

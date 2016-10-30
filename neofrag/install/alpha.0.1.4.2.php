@@ -56,5 +56,5 @@ class i_0_1_4_2 extends Install
 
 /*
 NeoFrag Alpha 0.1.5
-./neofrag/install/alpha.0.1.php
+./neofrag/install/alpha.0.1.4.2.php
 */

@@ -39,6 +39,6 @@ class m_members_m_members extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/members/models/members.php
 */

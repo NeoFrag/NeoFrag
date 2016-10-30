@@ -211,6 +211,6 @@ class m_forum extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/forum/forum.php
 */

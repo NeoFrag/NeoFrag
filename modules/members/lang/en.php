@@ -29,6 +29,6 @@ $lang['no_members']       = 'There are no members in this group';
 $lang['show_all_members'] = 'See all members';
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/members/lang/en.php
 */

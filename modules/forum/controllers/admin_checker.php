@@ -58,6 +58,6 @@ class m_forum_c_admin_checker extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/forum/controllers/admin_checker.php
 */

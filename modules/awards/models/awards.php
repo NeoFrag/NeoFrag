@@ -241,6 +241,6 @@ class m_awards_m_awards extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4.1
+NeoFrag Alpha 0.1.5
 ./modules/awards/models/awards.php
 */

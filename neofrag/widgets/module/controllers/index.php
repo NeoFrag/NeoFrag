@@ -28,6 +28,6 @@ class w_module_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.5
 ./neofrag/widgets/module/controllers/index.php
 */

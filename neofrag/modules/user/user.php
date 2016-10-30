@@ -59,6 +59,6 @@ class m_user extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/user/user.php
 */

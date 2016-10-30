@@ -37,6 +37,6 @@ class m_forum_c_ajax_checker extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./modules/forum/controllers/ajax_checker.php
 */

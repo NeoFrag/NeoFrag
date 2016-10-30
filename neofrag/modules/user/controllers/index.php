@@ -848,6 +848,6 @@ class m_user_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4.2
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/user/controllers/index.php
 */

@@ -66,6 +66,6 @@ class m_access_m_access extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/access/models/access.php
 */

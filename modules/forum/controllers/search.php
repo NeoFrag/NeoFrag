@@ -52,6 +52,6 @@ class m_forum_c_search extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.4.2
+NeoFrag Alpha 0.1.5
 ./modules/forum/controllers/search.php
 */

@@ -730,7 +730,7 @@ CREATE TABLE IF NOT EXISTS `nf_partners_lang` (
 -- Contenu de la table `nf_partners_lang`
 --
 
-INSERT INTO `nf_partners_lang` VALUES(1, 'fr', 'NeoFrag', 'NeoFrag est un CMS (syst&egrave;me de gestion de contenu) &agrave; la fois puissant, compact et performant, pour cr&eacute;er votre site web orient&eacute; e-Sport !\r\n\r\n[b]C''est enti&egrave;rement gratuit et personnalisable ![/b]\r\nPeu importe votre niveau dans le domaine du web, ce projet a pour but de vous proposer une solution cl&eacute;s en main pour cr&eacute;er votre site &agrave; l''aide d''interfaces modernes, personnalisables et &eacute;volutives pour correspondre &agrave; un maximum d''univers.');
+INSERT INTO `nf_partners_lang` VALUES(1, 'fr', 'NeoFrag', 'NeoFrag est un CMS (syst&egrave;me de gestion de contenu) &agrave; la fois puissant, compact et performant, pour cr&eacute;er votre site web orient&eacute; eSport !\r\n\r\n[b]C''est enti&egrave;rement gratuit et personnalisable ![/b]\r\nPeu importe votre niveau dans le domaine du web, ce projet a pour but de vous proposer une solution cl&eacute;s en main pour cr&eacute;er votre site &agrave; l''aide d''interfaces modernes, personnalisables et &eacute;volutives pour correspondre &agrave; un maximum d''univers.');
 
 -- --------------------------------------------------------
 
@@ -815,7 +815,7 @@ INSERT INTO `nf_settings` VALUES('nf_cookie_name', '', '', 'nf_session', 'string
 INSERT INTO `nf_settings` VALUES('nf_debug', '', '', '0', 'int');
 INSERT INTO `nf_settings` VALUES('nf_default_page', 'default', '', 'news', 'string');
 INSERT INTO `nf_settings` VALUES('nf_default_theme', 'default', '', 'default', 'string');
-INSERT INTO `nf_settings` VALUES('nf_description', 'default', '', 'ALPHA 0.1.4.2', 'string');
+INSERT INTO `nf_settings` VALUES('nf_description', 'default', '', 'ALPHA 0.1.5', 'string');
 INSERT INTO `nf_settings` VALUES('nf_humans_txt', '', '', '/* TEAM */\n	NeoFrag CMS for gamers\n	Contact: contact [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: France\n\n	Developper: Micha&euml;l BILCOT\n	Contact: michael.bilcot [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Paris, France\n\n	Designer: J&eacute;r&eacute;my VALENTIN\n	Contact: jeremy.valentin [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Caen, France', 'string');
 INSERT INTO `nf_settings` VALUES('nf_name', 'default', '', 'NeoFrag CMS', 'string');
 INSERT INTO `nf_settings` VALUES('nf_robots_txt', '', '', 'User-agent: *\r\nDisallow:', 'string');
@@ -1274,7 +1274,7 @@ INSERT INTO `nf_widgets` VALUES(15, 'navigation', 'index', NULL, 'a:2:{s:7:"disp
 INSERT INTO `nf_widgets` VALUES(16, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(17, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:8:"Facebook";s:3:"url";s:1:"#";}i:1;a:2:{s:5:"title";s:7:"Twitter";s:3:"url";s:1:"#";}i:2;a:2:{s:5:"title";s:6:"Origin";s:3:"url";s:1:"#";}i:3;a:2:{s:5:"title";s:5:"Steam";s:3:"url";s:1:"#";}}}');
 INSERT INTO `nf_widgets` VALUES(18, 'members', 'online_mini', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(19, 'html', 'index', NULL, 'a:1:{s:7:"content";s:98:"[center]Propuls&eacute; par [url=https://neofr.ag]NeoFrag CMS[/url] version Alpha 0.1.4.2[/center]";}');
+INSERT INTO `nf_widgets` VALUES(19, 'html', 'index', NULL, 'a:1:{s:7:"content";s:98:"[center]Propuls&eacute; par [url=https://neofr.ag]NeoFrag CMS[/url] version Alpha 0.1.5[/center]";}');
 INSERT INTO `nf_widgets` VALUES(20, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
 INSERT INTO `nf_widgets` VALUES(21, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:10:"index.html";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:10:"forum.html";}i:2;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:10:"teams.html";}i:3;a:2:{s:5:"title";s:6:"Photos";s:3:"url";s:12:"gallery.html";}i:4;a:2:{s:5:"title";s:11:"Partenaires";s:3:"url";s:13:"partners.html";}i:5;a:2:{s:5:"title";s:15:"Palmar&egrave;s";s:3:"url";s:11:"awards.html";}}}');
 INSERT INTO `nf_widgets` VALUES(22, 'user', 'index_mini', NULL, NULL);

@@ -57,6 +57,6 @@ function statistics($name, $value = NULL, $callback = NULL)
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/helpers/statistics.php
 */

@@ -86,6 +86,6 @@ class File extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/libraries/file.php
 */

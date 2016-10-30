@@ -27,6 +27,6 @@ class w_user_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/widgets/user/controllers/admin.php
 */

@@ -45,6 +45,6 @@ $rules = [
 ];
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./modules/forum/forms/forum.php
 */

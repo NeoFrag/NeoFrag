@@ -92,6 +92,6 @@ class m_partners_m_partners extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/partners/models/partners.php
 */

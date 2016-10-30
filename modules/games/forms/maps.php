@@ -48,6 +48,6 @@ $rules = [
 ];
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/games/forms/maps.php
 */

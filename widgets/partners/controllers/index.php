@@ -66,6 +66,6 @@ class w_partners_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./widgets/partners/controllers/index.php
 */

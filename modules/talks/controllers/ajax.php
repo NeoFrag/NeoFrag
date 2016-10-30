@@ -77,6 +77,6 @@ class m_talks_c_ajax extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./modules/talks/controllers/ajax.php
 */

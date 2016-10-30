@@ -30,6 +30,6 @@ class m_user_c_ajax_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/user/controllers/ajax_checker.php
 */

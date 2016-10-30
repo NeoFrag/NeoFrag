@@ -216,6 +216,6 @@ abstract class NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./neofrag/classes/neofrag.php
 */

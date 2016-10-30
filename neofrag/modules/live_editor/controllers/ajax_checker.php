@@ -163,6 +163,6 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4.1
+NeoFrag Alpha 0.1.5
 ./neofrag/modules/live_editor/controllers/ajax_checker.php
 */

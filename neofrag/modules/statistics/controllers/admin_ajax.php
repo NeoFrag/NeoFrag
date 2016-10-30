@@ -75,5 +75,5 @@ class m_statistics_c_admin_ajax extends Controller_Module
 
 /*
 NeoFrag Alpha 0.1.5
-./neofrag/modules/monitoring/controllers/admin_ajax.php
+./neofrag/modules/statistics/controllers/admin_ajax.php
 */

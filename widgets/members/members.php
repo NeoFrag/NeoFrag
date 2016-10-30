@@ -36,6 +36,6 @@ class w_members extends Widget
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./widgets/members/members.php
 */

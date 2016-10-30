@@ -89,6 +89,6 @@ class m_talks extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./modules/talks/talks.php
 */

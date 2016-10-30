@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 NeoFrag is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -29,6 +29,6 @@ foreach (range(1, 64) as $i)
 file_put_contents('./config/password.php', utf8_string('<?php if (!defined(\'NEOFRAG_CMS\')) exit;'."\r\n".'$password[\'salt\'] = \''.$password['salt'].'\';'));
 
 /*
-NeoFrag Alpha 0.1
+NeoFrag Alpha 0.1.5
 ./config/password.php
 */

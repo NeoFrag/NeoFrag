@@ -83,6 +83,6 @@ class m_games_m_maps extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/games/models/maps.php
 */

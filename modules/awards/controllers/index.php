@@ -176,6 +176,6 @@ class m_awards_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./modules/awards/controllers/index.php
 */

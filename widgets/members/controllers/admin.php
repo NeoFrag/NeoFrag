@@ -27,6 +27,6 @@ class w_members_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5
 ./widgets/members/controllers/admin.php
 */

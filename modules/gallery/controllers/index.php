@@ -183,6 +183,6 @@ class m_gallery_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.3
+NeoFrag Alpha 0.1.5
 ./modules/gallery/controllers/index.php
 */

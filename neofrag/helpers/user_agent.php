@@ -459,6 +459,6 @@ function is_crawler()
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.5
 ./neofrag/helpers/user_agent.php
 */
