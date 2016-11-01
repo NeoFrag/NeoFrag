@@ -294,7 +294,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			$i = 0;
 			$scan_zip(function($zip_entry, $entry_name) use ($files, &$i){
 				$this->_flush(3, ++$i / $files * 100);
-				//file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+				file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
 			});
 
 			unlink($file);
