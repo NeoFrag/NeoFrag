@@ -44,8 +44,8 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			$result = [
 				'storage' => [
-					'total'    => disk_total_space(NEOFRAG_CMS),
-					'free'     => disk_free_space(NEOFRAG_CMS),
+					'total'    => disk_total_space(NEOFRAG_CMS) ?: 0,
+					'free'     => disk_free_space(NEOFRAG_CMS) ?: 0,
 					'files'    => array_sum(dir_scan($this->model()->folders, 'filesize')) + filesize('index.php'),
 					'database' => $this->db->get_size()
 				],
@@ -133,6 +133,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 					while (1);
 				}
 			});
+			print_r($checksum);exit;
 
 			$tree = [];
 
