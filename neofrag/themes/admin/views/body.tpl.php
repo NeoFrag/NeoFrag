@@ -53,7 +53,7 @@
 						</div>
 					</div>
 				</li>
-				<?php if ($data['update']): ?>
+				<?php if (!empty($data['update'])): ?>
 					<li class="sidebar-update">
 						<div class="row">
 							<div class="col-md-12 col-xs-12 text-center">
@@ -61,7 +61,7 @@
 							<div class="col-md-12 col-xs-12 text-center">
 								<h5>
 									Nouvelle mise à jour !
-									<small>NeoFrag <?php echo $data['update']; ?></small>
+									<small>NeoFrag <?php echo $data['update']->version; ?></small>
 								</h5>
 							</div>
 						</div>
@@ -160,18 +160,17 @@
 		<?php echo $NeoFrag->output->data['module']; ?>
 	</div>
 </div>
-<?php if ($data['update']): ?>
+<?php if (!empty($data['update'])): ?>
 	<div id="modal-update" class="modal fade">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<?php $version = json_decode(file_get_contents('cache/monitoring/version.json'))->neofrag; ?>
-					<h4 class="modal-title" id="myModalLabel">Mise à jour de NeoFrag <?php echo version_format(NEOFRAG_VERSION).' '.icon('fa-chevron-right').' '.version_format($version->version); ?></h4>
+					<h4 class="modal-title" id="myModalLabel">Mise à jour de NeoFrag <?php echo version_format(NEOFRAG_VERSION).' '.icon('fa-chevron-right').' '.version_format($data['update']->version); ?></h4>
 				</div>
 				<div class="modal-body">
 					<div class="update-features">
-						<?php echo $version->features; ?>
+						<?php echo $data['update']->features; ?>
 					</div>
 					<hr />
 					<div class="steps-body text-center">

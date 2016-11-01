@@ -49,10 +49,15 @@ class t_admin extends Theme
 			return $a['title'];
 		});
 
-		if (file_exists($file = 'cache/monitoring/version.json') && version_compare(version_format($version = json_decode(file_get_contents($file))->neofrag->version), version_format(NEOFRAG_VERSION), '>'))
+		if (file_exists($file = 'cache/monitoring/version.json'))
 		{
-			$this->add_data('update', $version);
-			$this->js('neofrag.update');
+			$version = json_decode(file_get_contents($file))->neofrag;
+			
+			if (version_compare(version_format($version->version), version_format(NEOFRAG_VERSION), '>'))
+			{
+				$this->add_data('update', $version);
+				$this->js('neofrag.update');
+			}
 		}
 
 		$this	->css('font.open-sans.300.400.600.700.800')
