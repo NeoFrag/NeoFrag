@@ -101,7 +101,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 				{
 					return -1;
 				}
-				else if (($cmp = str_nat(implode('/', $a), implode('/', $b))) != 0)
+				else if (($cmp = strnatcmp(implode('/', $a), implode('/', $b))) != 0)
 				{
 					return $cmp;
 				}
@@ -111,18 +111,15 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 					{
 						$fct3 = function(&$a, &$b){
 							$b = explode('.', $a);
-							$a = array_shift($b);
+							$a = str_split(array_shift($b));
 							$b = implode('.', $b);
 						};
 						
 						$fct3($aa, $aaa);
 						$fct3($bb, $bbb);
-						
-						$aa = str_split($aa);
-						$bb = str_split($bb);
 						$fct2($aa, $bb);
-						
-						if (($cmp = str_nat(implode($aa), implode($bb))) != 0)
+
+						if (($cmp = strnatcmp(implode($aa), implode($bb))) != 0)
 						{
 							return $cmp;
 						}
@@ -130,10 +127,9 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 						$aa = $aaa;
 						$bb = $bbb;
 					}
-					while (1);
+					while ($aa || $bb);
 				}
 			});
-			print_r($checksum);exit;
 
 			$tree = [];
 
