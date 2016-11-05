@@ -30,41 +30,17 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			dir_create('cache/monitoring');
 
-			if (version_compare(PHP_VERSION, 7, '<'))
-			{
-				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
-			}
-
-			if ($this->db->get_info('driver') != 'mysqli')
-			{
-				$this->_notify('Il est recommandé d\'utiliser MySQLi', 'info');
-			}
-
-			$server = [];
-			
-			foreach ($this->model()->check_server() as $check)
-			{
-				foreach ($check['check'] as $name => $check)
-				{
-					$title = NULL;
-					$result = $check['check']($this->_notifications, $title);
-					$server[$name] = $title === NULL ? $result : [$result, $title];
-				}
-			}
-
-			$result = [
-				'storage' => [
-					'total'    => disk_total_space(NEOFRAG_CMS) ?: 0,
-					'free'     => disk_free_space(NEOFRAG_CMS) ?: 0,
-					'files'    => array_sum(dir_scan($this->model()->folders, 'filesize')) + filesize('index.php'),
-					'database' => $this->db->get_size()
-				],
-				'server' => $server
-			];
-
 			foreach (['version', 'checksum'] as $file)
 			{
 				file_put_contents('cache/monitoring/'.$file.'.json', $$file = network_get('https://neofr.ag/'.$file.'.json'));
+
+				if (!$$file)
+				{
+					return [
+						'error' => 'Une erreur s\'est produite lors du téléchargement des informations requises'
+					];
+				}
+
 				$$file = (array)json_decode($$file);
 			}
 
@@ -240,6 +216,38 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 				
 				return $output;
 			};
+
+			if (version_compare(PHP_VERSION, 7, '<'))
+			{
+				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
+			}
+
+			if ($this->db->get_info('driver') != 'mysqli')
+			{
+				$this->_notify('Il est recommandé d\'utiliser MySQLi', 'info');
+			}
+
+			$server = [];
+			
+			foreach ($this->model()->check_server() as $check)
+			{
+				foreach ($check['check'] as $name => $check)
+				{
+					$title = NULL;
+					$result = $check['check']($this->_notifications, $title);
+					$server[$name] = $title === NULL ? $result : [$result, $title];
+				}
+			}
+
+			$result = [
+				'storage' => [
+					'total'    => disk_total_space(NEOFRAG_CMS) ?: 0,
+					'free'     => disk_free_space(NEOFRAG_CMS) ?: 0,
+					'files'    => array_sum(dir_scan($this->model()->folders, 'filesize')) + filesize('index.php'),
+					'database' => $this->db->get_size()
+				],
+				'server' => $server
+			];
 
 			$result['files']         = $treeview($tree);
 			$result['notifications'] = $this->_notifications;
