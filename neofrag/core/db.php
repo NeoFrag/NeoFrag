@@ -106,7 +106,9 @@ class Db extends Core
 		if ($info === NULL)
 		{
 			$driver = $this->_driver;
-			$info = $driver::get_info();
+			$info = array_merge($driver::get_info(), [
+				'driver' => strtolower(preg_replace('/^Driver_/', '', $driver))
+			]);
 		}
 
 		if ($var !== NULL && isset($info[$var]))

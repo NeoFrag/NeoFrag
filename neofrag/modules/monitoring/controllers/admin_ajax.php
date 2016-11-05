@@ -30,6 +30,16 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			dir_create('cache/monitoring');
 
+			if (version_compare(PHP_VERSION, 7, '<'))
+			{
+				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
+			}
+
+			if ($this->db->get_info('driver') != 'mysqli')
+			{
+				$this->_notify('Il est recommandé d\'utiliser MySQLi', 'info');
+			}
+
 			$server = [];
 			
 			foreach ($this->model()->check_server() as $check)
