@@ -62,9 +62,14 @@ class m_user_m_user extends Model
 		}
 	}
 
-	public function edit_user($username, $email, $first_name, $last_name, $avatar, $date_of_birth, $sex, $location, $website, $quote, $signature)
+	public function edit_user($username, $email, $first_name, $last_name, $avatar, $date_of_birth, $sex, $location, $website, $quote, $signature, $user_id = NULL)
 	{
-		$this->db	->where('user_id', $this->user('user_id'))
+		if ($user_id === NULL)
+		{
+			$user_id = $this->user('user_id');
+		}
+		
+		$this->db	->where('user_id', $user_id)
 					->update('nf_users', [
 						'username' => $username,
 						'email'    => $email
@@ -82,15 +87,15 @@ class m_user_m_user extends Model
 			'signature'     => $signature
 		];
 		
-		if ($this->db->select('1')->from('nf_users_profiles')->where('user_id', $this->user('user_id'))->row())
+		if ($this->db->select('1')->from('nf_users_profiles')->where('user_id', $user_id)->row())
 		{
-			$this->db	->where('user_id', $this->user('user_id'))
+			$this->db	->where('user_id', $user_id)
 						->update('nf_users_profiles', $data);
 		}
 		else
 		{
 			$this->db->insert('nf_users_profiles', array_merge($data, [
-				'user_id' => $this->user('user_id')
+				'user_id' => $user_id
 			]));
 		}
 		

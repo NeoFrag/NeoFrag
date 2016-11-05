@@ -238,8 +238,7 @@ class m_user_c_admin extends Controller_Module
 		
 		if ($form_member->is_valid($post))
 		{
-			$this->model()->edit_member(
-				$member_id,
+			$this->model()->edit_user(
 				$post['username'],
 				$post['email'],
 				$post['first_name'],
@@ -250,7 +249,8 @@ class m_user_c_admin extends Controller_Module
 				$post['location'],
 				$post['website'],
 				$post['quote'],
-				$post['signature']
+				$post['signature'],
+				$member_id
 			);
 			
 			notify('Membre édité');
