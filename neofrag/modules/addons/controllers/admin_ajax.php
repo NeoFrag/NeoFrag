@@ -281,8 +281,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 	public function _theme_reset($theme)
 	{
-		$theme	->extension('json')
-				->reset();
+		$theme->reset()->extension('json');
 		
 		return [
 			'success' => 'Le thème '.$theme->get_title().' a été réinstallé par défaut'
