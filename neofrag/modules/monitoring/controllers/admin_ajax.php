@@ -304,45 +304,56 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 				zip_close($zip);
 			};
 
-			$files = 0;
+			$files = [];
+
 			$scan_zip(function($zip_entry, $entry_name) use (&$files){
-				$files++;
+				$files[] = $entry_name;
 			});
 
-			$i = 0;
-			$scan_zip(function($zip_entry, $entry_name) use ($files, &$i){
-				$this->_flush(3, ++$i / $files * 100);
-				file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-			});
-
-			unlink($file);
-
-			$patchs = array_map('version_format', dir_scan('neofrag/install'));
-
-			if (!$this->config->nf_version)
+			if ($total = count($files))
 			{
-				$this->config('nf_version', version_format(NEOFRAG_VERSION));
+				$scan_zip(function($zip_entry, $entry_name) use ($total){
+					static $i = 0;
+					$this->_flush(3, ++$i / $total * 100);
+					file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+				});
+
+				unlink($file);
+
+				foreach (array_diff(array_keys(dir_scan('neofrag')), array_filter($files, function($a){
+					return preg_match('_^neofrag/_', $a);
+				})) as $file)
+				{
+					unlink($file);
+				}
+
+				$patchs = array_map('version_format', dir_scan('neofrag/install'));
+
+				if (!$this->config->nf_version)
+				{
+					$this->config('nf_version', version_format(NEOFRAG_VERSION));
+				}
+
+				$total = count($patchs = array_filter($patchs, function($a){
+					return version_compare($a, $this->config->nf_version, '>');
+				}));
+
+				uasort($patchs, 'version_compare');
+
+				$i = 0;
+
+				foreach ($patchs as $path => $version)
+				{
+					$class = 'i_'.str_replace('.', '_', $version);
+					include_once $path;
+					$install = new $class;
+					$install->up();
+					$this->_flush(4, ++$i / $total * 100);
+				}
+
+				$this	->config('nf_version', end($patchs))
+						->config('nf_monitoring_last_check', 0);
 			}
-
-			$total = count($patchs = array_filter($patchs, function($a){
-				return version_compare($a, $this->config->nf_version, '>');
-			}));
-
-			uasort($patchs, 'version_compare');
-
-			$i = 0;
-
-			foreach ($patchs as $path => $version)
-			{
-				$class = 'i_'.str_replace('.', '_', $version);
-				include_once $path;
-				$install = new $class;
-				$install->up();
-				$this->_flush(4, ++$i / $total * 100);
-			}
-
-			$this	->config('nf_version', end($patchs))
-					->config('nf_monitoring_last_check', 0);
 		});
 	}
 	
