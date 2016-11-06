@@ -169,10 +169,12 @@
 					<h4 class="modal-title" id="myModalLabel">Mise à jour de NeoFrag <?php echo version_format(NEOFRAG_VERSION).' '.icon('fa-chevron-right').' '.version_format($data['update']->version); ?></h4>
 				</div>
 				<div class="modal-body">
-					<div class="update-features">
-						<?php echo $data['update']->features; ?>
-					</div>
-					<hr />
+					<?php if (!empty($data['update']->features)): ?>
+						<div class="update-features">
+							<?php echo $data['update']->features; ?>
+						</div>
+						<hr />
+					<?php endif; ?>
 					<div class="steps-body text-center">
 						<div class="row" style="padding: 0 110px;">
 							<div class="col-md-4">
