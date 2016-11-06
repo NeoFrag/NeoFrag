@@ -1,5 +1,25 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.5.1](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.1) (2016-11-06)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5...alpha0.1.5.1)
+
+**Modules**
+
+- [Addons] Fix reset theme feature
+- [Forum] Removing unused icons
+- [Monitoring] Adding some advices (PHP 7 + MySQLi driver)
+- [Monitoring] Auto cleaning neofrag/ folder
+- [Monitoring] Fix disk usage value
+- [Monitoring] Fix download problems
+- [Monitoring] Fix files replacement (oops php line commented out 😱)
+- [Monitoring] Fix infinite loop when sorting files tree
+- [User] Fix update member
+
+**Themes**
+
+- [Admin] Fix notices
+- [Admin] Hide features area when is empty
+
 ## [Alpha 0.1.5](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5) (2016-10-30)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.4.2...alpha0.1.5)
 
