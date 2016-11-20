@@ -34,7 +34,42 @@ class Debug extends Core
 	{
 		parent::__construct();
 
-		set_error_handler([$this, 'error_handler']);
+		set_error_handler(function($errno, $errstr, $errfile, $errline){
+			if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR]))
+			{
+				$error = self::ERROR;
+			}
+			else if (in_array($errno, [E_USER_WARNING, E_WARNING]))
+			{
+				$error = self::WARNING;
+			}
+			else if (in_array($errno, [E_USER_NOTICE, E_NOTICE]))
+			{
+				$error = self::NOTICE;
+			}
+			else if (in_array($errno, [E_DEPRECATED]))
+			{
+				$error = self::DEPRECATED;
+			}
+			else if ($errno == E_STRICT)
+			{
+				$error = self::STRICT;
+			}
+
+			if (preg_match('/ : eval\(\)\'d code$/', $errfile))
+			{
+				$errfile = './'.debug_backtrace(FALSE, 4)[3]['args'][0];
+				trigger_error($errstr.' in '.$errfile.' on line '.$errline, E_USER_WARNING);
+			}
+			else
+			{
+				$errfile = relative_path($errfile);
+			}
+
+			$this->_log[] = [$errstr, $error, $errfile, $errline];
+
+			return !(error_reporting() & $errno);
+		}, E_ALL);
 
 		$this->log('URL http://'.$_SERVER['HTTP_HOST'].rawurldecode($_SERVER['REQUEST_URI']), self::INFO);
 		$this->log('IP '.((isset($_SERVER['HTTP_X_REAL_IP'])) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR']), self::INFO);
@@ -66,44 +101,6 @@ class Debug extends Core
 	{
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $trace + 1);
 		$this->_log[] = [$error, $type, relative_path($backtrace[$trace]['file']), $backtrace[$trace]['line']];
-	}
-
-	public function error_handler($errno, $errstr, $errfile, $errline)
-	{
-		if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR]))
-		{
-			$error = self::ERROR;
-		}
-		else if (in_array($errno, [E_USER_WARNING, E_WARNING]))
-		{
-			$error = self::WARNING;
-		}
-		else if (in_array($errno, [E_USER_NOTICE, E_NOTICE]))
-		{
-			$error = self::NOTICE;
-		}
-		else if (in_array($errno, [E_DEPRECATED]))
-		{
-			$error = self::DEPRECATED;
-		}
-		else if ($errno == E_STRICT)
-		{
-			$error = self::STRICT;
-		}
-
-		if (preg_match('/ : eval\(\)\'d code$/', $errfile))
-		{
-			$backtrace = debug_backtrace(FALSE, 4);
-			$errfile   = './'.$backtrace[3]['args'][0];
-		}
-		else
-		{
-			$errfile = relative_path($errfile);
-		}
-
-		$this->_log[] = [$errstr, $error, $errfile, $errline];
-
-		return TRUE;
 	}
 
 	public function table($data)
@@ -267,7 +264,7 @@ class Debug extends Core
 			else if ($type == self::STRICT)
 			{
 				$type = '<span class="label label-default">Strict</span>';
-				$scrict++;
+				$strict++;
 			}
 
 			$result .= '	<tr>

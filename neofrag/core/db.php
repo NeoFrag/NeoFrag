@@ -93,7 +93,11 @@ class Db extends Core
 		
 		$this->_request = [];
 		
-		if ($callback && empty($request->error))
+		if (!empty($request->error))
+		{
+			trigger_error($request->error.' ['.$request->sql.']'.(!empty($request->bind) ? ' '.json_encode($request->bind) : '').' in '.$request->file.' on line '.$request->line, E_USER_WARNING);
+		}
+		else if ($callback)
 		{
 			return $request->$callback();
 		}
