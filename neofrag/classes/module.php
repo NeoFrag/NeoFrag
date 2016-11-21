@@ -27,6 +27,7 @@ abstract class Module extends Loadable
 		'comments'    => TRUE,
 		'error'       => FALSE,
 		'live_editor' => FALSE,
+		'monitoring'  => FALSE,
 		'pages'       => TRUE,
 		'search'      => TRUE,
 		'settings'    => FALSE,
