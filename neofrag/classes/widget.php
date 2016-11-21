@@ -118,9 +118,9 @@ abstract class Widget extends Loadable
 
 	public function get_output($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('index')) && ($output = $controller->method($type, [$settings])) !== FALSE)
+		if (($controller = $this->load->controller('index')) && $controller->has_method($type))
 		{
-			if (!is_array($output))
+			if (!is_array($output = $controller->method($type, [$settings])))
 			{
 				$output = [$output];
 			}
@@ -133,9 +133,9 @@ abstract class Widget extends Loadable
 
 	public function get_admin($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('admin')) && ($output = $controller->method($type, [$settings])) !== FALSE)
+		if (($controller = $this->load->controller('admin')) && $controller->has_method($type))
 		{
-			if (!is_array($output))
+			if (!is_array($output = $controller->method($type, [$settings])))
 			{
 				$output = [$output];
 			}
@@ -148,9 +148,9 @@ abstract class Widget extends Loadable
 
 	public function get_settings($type, $settings = [])
 	{
-		if (($controller = $this->load->controller('checker')) && ($output = $controller->method($type, [$settings])) !== FALSE)
+		if (($controller = $this->load->controller('checker')) && $controller->has_method($type))
 		{
-			return serialize($output);
+			return serialize($controller->method($type, [$settings]));
 		}
 	}
 }

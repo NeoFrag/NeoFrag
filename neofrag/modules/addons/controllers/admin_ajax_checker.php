@@ -42,7 +42,7 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 
 	public function _theme_settings($theme_name)
 	{
-		if (($theme = $this->load->theme($theme_name)) && ($controller = $theme->load->controller('admin_ajax')) !== NULL && method_exists($controller, 'index'))
+		if (($theme = $this->load->theme($theme_name)) && ($controller = $theme->load->controller('admin_ajax')) && $controller->has_method('index'))
 		{
 			return [$controller];
 		}

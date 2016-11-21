@@ -22,7 +22,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 {
 	public function index()
 	{
-		if (method_exists($this, $addon = '_'.post('addon').'_list'))
+		if ($this->has_method($addon = '_'.post('addon').'_list'))
 		{
 			return new Col(new Panel(array_merge([
 				'body' => FALSE,

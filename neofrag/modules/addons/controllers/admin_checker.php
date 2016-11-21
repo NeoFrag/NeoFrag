@@ -40,7 +40,7 @@ class m_addons_c_admin_checker extends Controller_Module
 
 	public function _theme_settings($name)
 	{
-		if (($theme = $this->load->theme($name)) && ($controller = $theme->load->controller('admin')) && method_exists($controller, 'index'))
+		if (($theme = $this->load->theme($name)) && ($controller = $theme->load->controller('admin')) && $controller->has_method('index'))
 		{
 			return [$theme, $controller];
 		}

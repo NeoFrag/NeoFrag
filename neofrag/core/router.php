@@ -112,7 +112,7 @@ class Router extends Core
 		$this->segments = array_merge([$module->name, $method], $segments);
 		
 		//Checker Controller
-		if (($checker = $module->load->controller(($this->config->admin_url ? 'admin_' : '').($this->config->ajax_url ? 'ajax_' : '').'checker')) && method_exists($checker, $method))
+		if (($checker = $module->load->controller(($this->config->admin_url ? 'admin_' : '').($this->config->ajax_url ? 'ajax_' : '').'checker')) && $checker->has_method($method))
 		{
 			try
 			{
@@ -132,7 +132,7 @@ class Router extends Core
 				return;
 			}
 		}
-		
+
 		$controller_name = [];
 		
 		if ($module->name != 'error')
@@ -163,7 +163,7 @@ class Router extends Core
 		}
 	
 		//Controller
-		if ($controller = $module->load->controller(implode('_', $controller_name)))
+		if (($controller = $module->load->controller(implode('_', $controller_name))) && $controller->has_method($method))
 		{
 			if ($module->name != 'error' && $module->name != 'admin' && $this->config->admin_url && !$module->is_authorized())
 			{
@@ -176,7 +176,7 @@ class Router extends Core
 				$module->add_data('module_icon', $module->icon);
 				$module->add_data('module_method', $method);
 				
-				if (	($output = $controller->method($method, $segments)) !== FALSE &&
+				if (	($output = $controller->method($method, $segments)) &&
 						(empty($ajax_error) || $this->config->ajax_allowed) &&
 						($this->config->extension_url == 'html' || $this->config->extension_allowed))
 				{

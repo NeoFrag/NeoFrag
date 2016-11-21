@@ -12,7 +12,7 @@
 							<?php echo $theme->get_title(); ?>
 							<small><?php echo $theme->version; ?></small>
 							<span class="pull-right">
-							<?php if (($checker = $theme->load->controller('admin')) && method_exists($checker, 'index')): ?>
+							<?php if (($checker = $theme->load->controller('admin')) && $checker->has_method('index')): ?>
 								<a class="btn btn-outline btn-info btn-xs" href="<?php echo url('admin/addons/theme/'.$theme->name.'.html'); ?>" title="<?php echo i18n('personalize'); ?>" data-toggle="tooltip"><?php echo icon('fa-paint-brush'); ?></a>
 							<?php endif; ?>
 							<button class="btn btn-outline btn-warning btn-xs" title="<?php echo i18n('reinstall_to_default'); ?>" data-toggle="tooltip"><?php echo icon('fa-refresh'); ?></button>
