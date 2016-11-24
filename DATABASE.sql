@@ -779,7 +779,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
   `referer` varchar(100) NOT NULL,
-  `user_agent` varchar(100) NOT NULL,
+  `user_agent` varchar(250) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
