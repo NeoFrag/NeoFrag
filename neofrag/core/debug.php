@@ -269,7 +269,7 @@ class Debug extends Core
 
 			$result .= '	<tr>
 								<td class="col-md-1"><b>'.($i + 1).'</b><div class="pull-right">'.$type.'</div></td>
-								<td class="col-md-8">'.$text.'</td>
+								<td class="col-md-8">'.utf8_htmlentities($text).'</td>
 								<td class="col-md-3 text-right">'.$file.' <code>'.$line.'</code></td>
 							</tr>';
 		}

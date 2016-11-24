@@ -39,7 +39,7 @@ class m_search_c_index extends Controller_Module
 		
 		$count = 0;
 		$row   = [];
-		
+
 		if ($search = rawurldecode($search))
 		{
 			$keywords = $not_keywords = [];
@@ -157,7 +157,7 @@ class m_search_c_index extends Controller_Module
 						new Panel([
 							'body'    => FALSE,
 							'content' => $this->load->view('results', [
-								'keywords' => rawurlencode($search),
+								'keywords' => $search,
 								'results'  => $results,
 								'count'    => $count
 							])

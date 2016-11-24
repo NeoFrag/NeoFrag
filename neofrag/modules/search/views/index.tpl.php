@@ -11,5 +11,5 @@
 	</div>
 </div>
 <?php if ($data['keywords'] !== '' && !$data['results']): ?>
-<h3 class="text-center"><?php echo i18n('no_results_for', $data['keywords']); ?></b></h3>
+<h3 class="text-center"><?php echo i18n('no_results_for', utf8_htmlentities($data['keywords'])); ?></b></h3>
 <?php endif; ?>
