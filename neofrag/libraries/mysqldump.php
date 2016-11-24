@@ -48,7 +48,7 @@ class MySQLDump extends Library
 	 * @param  string filename
 	 * @return void
 	 */
-	public function save($handle, $callback = NULL)
+	public function dump($handle, $callback = NULL)
 	{
 		$tables = $views = array();
 
@@ -62,7 +62,7 @@ class MySQLDump extends Library
 
 		$tables = array_merge($tables, $views); // views must be last
 
-		$this->db->execute('LOCK TABLES `' . implode('` READ, `', $tables) . '` READ');
+		$this->db->lock($tables);
 
 		$db = $this->db->query('SELECT DATABASE()')->row();
 		fwrite($handle, "-- Created at " . date('j.n.Y G:i') . " using David Grudl MySQL Dump Utility\r\n"
@@ -158,7 +158,7 @@ class MySQLDump extends Library
 		fwrite($handle, "-- THE END\r\n");
 		fclose($handle);
 
-		$this->db->execute('UNLOCK TABLES');
+		$this->db->unlock($tables);
 	}
 
 	private function delimite($s)

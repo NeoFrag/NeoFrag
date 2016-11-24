@@ -26,11 +26,6 @@ class m_live_editor_c_index extends Controller_Module
 				->css('live-editor')
 				->js('live-editor');
 
-		$dispositions = $this->db	->select('DISTINCT page')
-									->from('nf_settings_dispositions')
-									->where('theme', $theme)
-									->get();
-		
 		$modules = [];
 		
 		foreach ($this->addons->get_modules() as $module)

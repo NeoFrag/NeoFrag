@@ -118,7 +118,6 @@ class m_live_editor_m_live_editor extends Model
 		}
 		
 		array_natsort($widgets);
-		array_natsort($types);
 	}
 }
 

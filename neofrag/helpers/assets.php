@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function is_asset($extension = NULL)
 {
-	return in_array($extension ?: extension(NeoFrag::loader()->config->request_url), ['png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip']);
+	return in_array($extension ?: extension($_SERVER['REQUEST_URI']), ['png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip']);
 }
 
 function icon($icon)

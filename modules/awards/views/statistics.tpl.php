@@ -28,21 +28,33 @@
 				<h1><?php echo icon('fa-trophy'); ?></h1>
 				<p>
 					La plus récompensée<br />
-					<b><a href="<?php echo url('awards/team/'.$data['best_team_awards'][0]['team_id'].'/'.$data['best_team_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_team_awards'][0]['team_title']; ?></a></b>
+					<?php if ($data['best_team_awards']): ?>
+						<b><a href="<?php echo url('awards/team/'.$data['best_team_awards'][0]['team_id'].'/'.$data['best_team_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_team_awards'][0]['team_title']; ?></a></b>
+					<?php else: ?>
+						-
+					<?php endif; ?>
 				</p>
 			</td>
 			<td class="col-md-4 text-center">
 				<h1><?php echo icon('fa-star-o'); ?></h1>
 				<p>
 					Meilleur classement<br />
-					<b><a href="<?php echo url('awards/team/'.$data['best_team'][0]['team_id'].'/'.$data['best_team'][0]['name'].'.html'); ?>"><?php echo $data['best_team'][0]['team_title']; ?></a></b>
+					<?php if ($data['best_team']): ?>
+						<b><a href="<?php echo url('awards/team/'.$data['best_team'][0]['team_id'].'/'.$data['best_team'][0]['name'].'.html'); ?>"><?php echo $data['best_team'][0]['team_title']; ?></a></b>
+					<?php else: ?>
+						-
+					<?php endif; ?>
 				</p>
 			</td>
 			<td class="col-md-4 text-center">
 				<h1><?php echo icon('fa-gamepad'); ?></h1>
 				<p>
 					Meilleur jeu<br />
-					<b><a href="<?php echo url('awards/game/'.$data['best_game_awards'][0]['game_id'].'/'.$data['best_game_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_game_awards'][0]['game_title']; ?></a></b>
+					<?php if ($data['best_game_awards']): ?>
+						<b><a href="<?php echo url('awards/game/'.$data['best_game_awards'][0]['game_id'].'/'.$data['best_game_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_game_awards'][0]['game_title']; ?></a></b>
+					<?php else: ?>
+						-
+					<?php endif; ?>
 				</p>
 			</td>
 		</tr>
@@ -77,6 +89,11 @@
 				</td>
 			</tr>
 			<?php endforeach; ?>
+			<?php if (!$data['teams']): ?>
+			<tr>
+				<td class="text-center" colspan="5">Aucun classement</td>
+			</tr>
+			<?php endif; ?>
 		</tbody>
 	</table>
 </div>

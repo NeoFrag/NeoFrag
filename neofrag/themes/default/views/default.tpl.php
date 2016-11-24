@@ -25,7 +25,7 @@
 			</div>
 		</nav>
 	<?php endif; ?>
-	<?php echo $data[$NeoFrag->module->name == 'live_editor' ? 'module' : 'body']; ?>
+	<?php echo $data[!empty($NeoFrag->module->name) && $NeoFrag->module->name == 'live_editor' ? 'module' : 'body']; ?>
 	<script type="text/javascript" src="<?php echo js('bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo js('bootstrap-notify.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo js('neofrag.notify.js'); ?>"></script>

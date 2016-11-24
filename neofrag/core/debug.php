@@ -140,7 +140,7 @@ class Debug extends Core
 		}
 	}
 	
-	public function timeline($output, $start, $end)
+	public function timeline()
 	{
 		if (!func_num_args())
 		{
@@ -192,7 +192,7 @@ class Debug extends Core
 		}
 		else
 		{
-			$this->_timeline[] = [$output, $start, $end];
+			$this->_timeline[] = func_get_args();
 			return $this;
 		}
 	}

@@ -40,7 +40,7 @@ class m_search_c_index extends Controller_Module
 		$count = 0;
 		$row   = [];
 		
-		if ($search)
+		if ($search = rawurldecode($search))
 		{
 			$keywords = $not_keywords = [];
 			$results  = [];
@@ -81,7 +81,7 @@ class m_search_c_index extends Controller_Module
 								{
 									foreach ($columns as $col)
 									{
-										array_push($args, $col.' '.$query[1],  '%'.$keyword.'%', $query[2]);
+										array_push($args, $col.' '.$query[1],  '%'.addcslashes($keyword, '%_').'%', $query[2]);
 									}
 								}
 

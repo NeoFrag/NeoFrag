@@ -33,7 +33,7 @@ $rules = [
 	],
 	'date' => [
 		'label' => 'Date',
-		'value' => $date && $date != '0000-00-00' ? timetostr(i18n('date_short'), strtotime($date)) : '',
+		'value' => $date && ? timetostr(i18n('date_short'), strtotime($date)) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))

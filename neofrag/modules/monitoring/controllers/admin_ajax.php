@@ -32,9 +32,11 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			foreach (['version', 'checksum'] as $file)
 			{
-				file_put_contents('cache/monitoring/'.$file.'.json', $$file = network_get('https://neofr.ag/'.$file.'.json'));
-
-				if (!$$file)
+				if ($$file = network_get('https://neofr.ag/'.$file.'.json'))
+				{
+					file_put_contents('cache/monitoring/'.$file.'.json', $$file);
+				}
+				else
 				{
 					return [
 						'error' => 'Une erreur s\'est produite lors du téléchargement des informations requises'
@@ -372,7 +374,12 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			}
 
 			echo json_encode([$n = $step, $i = $value]).PHP_EOL;
-			ob_get_flush();
+
+			if (ob_get_level())
+			{
+				ob_end_flush();
+			}
+
 			flush();
 		}
 	}
@@ -398,7 +405,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			sleep(1);
 		}
 
-		$this->mysqldump->save(fopen($dump, 'w+b'), function($value){
+		$this->mysqldump->dump(fopen($dump, 'w+b'), function($value){
 			$this->_flush(0, $value);
 		});
 

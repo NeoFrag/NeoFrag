@@ -68,7 +68,7 @@ function dir_scan($dirs = '.', $callback = NULL, $dir_callback = NULL)
 
 function dir_remove($directory)
 {
-	dir_scan($directory, 'unlink');
+	dir_scan($directory, 'unlink', 'dir_remove');
 	rmdir($directory);
 }
 

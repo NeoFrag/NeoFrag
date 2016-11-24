@@ -127,8 +127,11 @@ abstract class Theme extends Loadable
 		$this->db	->where('theme', $this->name)
 					->delete('nf_dispositions');
 		
-		$this->db	->where('widget_id', $widgets)
-					->delete('nf_widgets');
+		if ($widgets)
+		{
+			$this->db	->where('widget_id', $widgets)
+						->delete('nf_widgets');
+		}
 		
 		return parent::uninstall($remove);
 	}

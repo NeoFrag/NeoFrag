@@ -377,7 +377,7 @@ class m_user_c_index extends Controller_Module
 			{
 				if (!$salt)
 				{
-					$this->db	->where('user_id', user_id)
+					$this->db	->where('user_id', $user_id)
 								->update('nf_users', [
 									'password' => $this->password->encrypt($password.($salt = unique_id())),
 									'salt'     => $salt

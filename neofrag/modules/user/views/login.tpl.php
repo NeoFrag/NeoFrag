@@ -13,6 +13,7 @@
 			</label>
 		</div>
 		<a href="<?php echo url('user/lost-password.html'); ?>" class="btn btn-link"><?php echo i18n('forgot_password'); ?></a>
+		<input type="hidden" name="<?php echo $data['form_id']; ?>[redirect]" value="" />
 		<input type="submit" class="btn btn-primary" value="<?php echo i18n('login'); ?>" />
 	</div>
 </form>

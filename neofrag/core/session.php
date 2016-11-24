@@ -94,18 +94,16 @@ class Session extends Core
 		{
 			if (in_array($this->_get_url(), ['index.html', 'admin.html']) || empty($_SERVER['HTTP_REFERER']))
 			{
-				$this->_user_data['session']['history'] = [$this->_get_url()];
+				$this->_user_data['session']['history'] = [];
 			}
-			else if (empty($this->_user_data['session']['history']) || end($this->_user_data['session']['history']) != $this->_get_url())
+
+			if (!empty($this->_user_data['session']['history']) && end($this->_user_data['session']['history']) != $this->_get_url() && prev($this->_user_data['session']['history']) == $this->_get_url())
 			{
-				if (prev($this->_user_data['session']['history']) == $this->_get_url())
-				{
-					array_pop($this->_user_data['session']['history']);
-				}
-				else
-				{
-					$this->_user_data['session']['history'][] = $this->_get_url();
-				}
+				array_pop($this->_user_data['session']['history']);
+			}
+			else
+			{
+				$this->_user_data['session']['history'][] = $this->_get_url();
 			}
 		}
 		

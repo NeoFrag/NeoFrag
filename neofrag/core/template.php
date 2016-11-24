@@ -27,7 +27,7 @@ class Template extends Core
 			$loader = $this->load;
 		}
 
-		if ($parse_php && is_callable($content))
+		if ($parse_php && is_a($content, 'closure'))
 		{
 			$content = call_user_func($content, $data, $loader);
 		}

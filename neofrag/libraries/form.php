@@ -279,7 +279,7 @@ class Form extends Library
 	
 	private function _check_checkbox(&$post, $var, $options)
 	{
-		$post[$var] = array_filter($post[$var], function($a){
+		$post[$var] = array_filter(isset($post[$var]) ? $post[$var] : [], function($a){
 			return strlen($a);
 		});
 		return $this->_check_text($post, $var, $options);
@@ -402,7 +402,7 @@ class Form extends Library
 
 			if ($display = $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL))
 			{
-				$output .= '<div class="form-group'.(isset($this->_errors[$var]) ? ' has-error' : '').($options['type'] == 'legend' ? ' legend' : '').'">';
+				$output .= '<div class="form-group'.(isset($this->_errors[$var]) ? ' has-error' : '').(isset($options['type']) && $options['type'] == 'legend' ? ' legend' : '').'">';
 				
 				if ($this->_fast_mode || $type == 'legend')
 				{
@@ -708,7 +708,7 @@ class Form extends Library
 
 	private function _display_date($var, $options, $post)
 	{
-		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '0000-00-00')
+		if (isset($options['value']) && $options['value'] !== '')
 		{
 			$options['value'] = timetostr(NeoFrag::loader()->lang('date_short'), $options['value']);
 		}

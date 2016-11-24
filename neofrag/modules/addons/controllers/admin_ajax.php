@@ -85,17 +85,8 @@ class m_addons_c_admin_ajax extends Controller_Module
 				$folders = array_filter(scandir($tmp), function($a) use ($tmp){
 					return !in_array($a, ['.', '..']) && is_dir($tmp.'/'.$a);
 				});
-				
-				function parse_version($content, $value)
-				{
-					if (preg_match('/\$'.$value.'[ \t]*?=[ \t]*?([\'"])(.+?)\1;/', $content, $match))
-					{
-						return version_format($match[2]);
-					}
-				}
-				
-				function install_addon($dir, $types = NULL)
-				{
+
+				$install_addon = function ($dir, $types = NULL) {
 					if ($types === NULL)
 					{
 						$types = ['Module', 'Widget', 'Theme'];
@@ -112,8 +103,10 @@ class m_addons_c_admin_ajax extends Controller_Module
 							preg_match('/class ('.implode('|', array_map(function($a){ return strtolower(substr($a, 0, 1)); }, $types)).')_('.$match[1].') extends ('.implode('|', $types).')/', $content = php_strip_whitespace($file), $match) &&
 							$match[1] == strtolower(substr($match[3], 0, 1)))
 						{
-							$version    = parse_version($content, 'version');
-							$nf_version = parse_version($content, 'nf_version');
+							foreach (['version', 'nf_version'] as $var)
+							{
+								$$var = preg_match('/\$'.$var.'[ \t]*?=[ \t]*?([\'"])(.+?)\1;/', $content, $match2) ? version_format($match2[2]) : NULL;
+							}
 							
 							if (!empty($version) && !empty($nf_version))
 							{
@@ -171,7 +164,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 					return [
 						'danger' => 'Le composant ne peut pas être installé, veuillez vérifier son contenu'
 					];
-				}
+				};
 
 				$types   = ['modules', 'widgets', 'themes'];
 
@@ -183,7 +176,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 
 				if (count($folders) == 1 && !in_array($folder = current($folders), $types))
 				{
-					$results = array_merge_recursive($results, install_addon($tmp.'/'.$folder));
+					$results = array_merge_recursive($results, $install_addon($tmp.'/'.$folder));
 				}
 				else
 				{
@@ -193,11 +186,13 @@ class m_addons_c_admin_ajax extends Controller_Module
 						{
 							if (!in_array($dir, ['.', '..']) && is_dir($dir = $tmp.'/'.$folder.'/'.$dir))
 							{
-								$results = array_merge_recursive($results, install_addon($dir, substr(ucfirst($folder), 0, -1)));
+								$results = array_merge_recursive($results, $install_addon($dir, substr(ucfirst($folder), 0, -1)));
 							}
 						}
 					}
 				}
+
+				$this->extension('json');
 
 				dir_remove($tmp);
 

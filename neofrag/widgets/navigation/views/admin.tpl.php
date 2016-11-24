@@ -12,7 +12,7 @@
 				<li class="list-group-item">
 					<input type="hidden" name="settings[title][]" id="edit-title" value="<?php echo $link['title']; ?>" />
 					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url']; ?>" />
-					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo $link['target']; ?>" />
+					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent'; ?>" />
 					<ul class="list-inline no-margin">
 						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo i18n('move'); ?>"><?php echo icon('fa-arrows-v'); ?></a></li>
 						<li><span data-toggle="tooltip" title="<?php echo $link['url']; ?>"><?php echo icon('fa-link'); ?></span></li>

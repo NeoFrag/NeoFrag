@@ -1,5 +1,13 @@
 $(function(){
+	var updating = false;
+
 	var update = function(){
+		if (updating){
+			return;
+		}
+
+		updating = true;
+
 		var data = {};
 
 		$.each($('form').serializeArray(), function(){
@@ -40,6 +48,8 @@ $(function(){
 				},
 				series: series
 			});
+
+			updating = false;
 		});
 	};
 	

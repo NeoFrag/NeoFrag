@@ -146,7 +146,7 @@ class m_monitoring_m_monitoring extends Model
 					'email' => [
 						'title' => 'Test du serveur...',
 						'check' => function(&$errors, &$title){
-							if (!$this->email->to('test@neofr.ag')->subject('email_check')->message('default')->send())
+							if (!$this->email->to('test@neofr.ag')->subject('email_check')->message('default', ['content' => ''])->send())
 							{
 								$errors[] = ['Le serveur d\'envoi d\'email doit être configuré', 'danger'];
 								$title = 'Échec';

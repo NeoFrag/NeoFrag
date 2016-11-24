@@ -252,7 +252,7 @@ function bbcode($string)
 
 function highlight($string, $keywords, $max_length = 256)
 {
-	$string = nl2br(preg_replace($patern = '/'.implode('|', array_map('preg_quote', $keywords)).'/i', '<mark>\0</mark>', htmlspecialchars(utf8_html_entity_decode(strip_tags(bbcode($string))), ENT_COMPAT, 'UTF-8')));
+	$string = nl2br(preg_replace($patern = '/'.implode('|', array_map(function($a){ return preg_quote($a, '/'); }, $keywords)).'/i', '<mark>\0</mark>', htmlspecialchars(utf8_html_entity_decode(strip_tags(bbcode($string))), ENT_COMPAT, 'UTF-8')));
 	
 	return str_shortener(substr($string, strpos($string, '<mark>')), $max_length);
 }

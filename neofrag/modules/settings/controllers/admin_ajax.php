@@ -22,9 +22,12 @@ class m_settings_c_admin_ajax extends Controller_Module
 {
 	public function maintenance()
 	{
-		$this->config('nf_maintenance', (bool)post('closed'), 'bool');
+		$this	->extension('json')
+				->config('nf_maintenance', (bool)post('closed'), 'bool');
 		
-		return (int)$this->config->nf_maintenance;
+		return [
+			'status' => $this->config->nf_maintenance
+		];
 	}
 }
 
