@@ -811,7 +811,7 @@ INSERT INTO `nf_settings` VALUES('news_per_page', '', '', '5', 'int');
 INSERT INTO `nf_settings` VALUES('nf_analytics', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_contact', '', '', 'noreply@neofrag.com', 'string');
 INSERT INTO `nf_settings` VALUES('nf_cookie_expire', '', '', '1 hour', 'string');
-INSERT INTO `nf_settings` VALUES('nf_cookie_name', '', '', 'nf_session', 'string');
+INSERT INTO `nf_settings` VALUES('nf_cookie_name', '', '', 'session', 'string');
 INSERT INTO `nf_settings` VALUES('nf_debug', '', '', '0', 'int');
 INSERT INTO `nf_settings` VALUES('nf_default_page', 'default', '', 'news', 'string');
 INSERT INTO `nf_settings` VALUES('nf_default_theme', 'default', '', 'default', 'string');
