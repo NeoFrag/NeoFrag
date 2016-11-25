@@ -94,6 +94,18 @@ class Driver_mysql extends Driver
 		mysql_free_result($results);
 	}
 
+	static public function lock($tables)
+	{
+		mysql_query('LOCK TABLES '.implode(', ', array_map(function($a){
+			return '`'.$a.'` READ';
+		}, $tables)));
+	}
+
+	static public function unlock($tables)
+	{
+		mysql_query('UNLOCK TABLES');
+	}
+
 	protected function execute()
 	{
 		if (!$this->result = mysql_query($this->sql))

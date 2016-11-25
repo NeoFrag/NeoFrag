@@ -333,6 +333,20 @@ class Db extends Core
 		return $driver::free($results);
 	}
 
+	public function lock($tables)
+	{
+		$driver = $this->_driver;
+		$driver::lock($tables);
+		return $this;
+	}
+
+	public function unlock($tables)
+	{
+		$driver = $this->_driver;
+		$driver::unlock($tables);
+		return $this;
+	}
+
 	public function execute($query)
 	{
 		$this->query($query);

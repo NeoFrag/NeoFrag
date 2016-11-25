@@ -92,6 +92,18 @@ class Driver_mysqli extends Driver
 		$results[1]->free_result();
 	}
 
+	static public function lock($tables)
+	{
+		self::$db->query('LOCK TABLES '.implode(', ', array_map(function($a){
+			return '`'.$a.'` READ';
+		}, $tables)));
+	}
+
+	static public function unlock($tables)
+	{
+		self::$db->query('UNLOCK TABLES');
+	}
+
 	protected function execute()
 	{
 		if (!isset(self::$_stmt[$this->sql]))
