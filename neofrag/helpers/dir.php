@@ -29,7 +29,7 @@ function dir_create()
 	}
 }
 
-function dir_scan($dirs = '.', $callback = NULL)
+function dir_scan($dirs = '.', $callback = NULL, $dir_callback = NULL)
 {
 	$result = [];
 
@@ -49,7 +49,12 @@ function dir_scan($dirs = '.', $callback = NULL)
 			
 			if (is_dir($path = $dir.'/'.$file))
 			{
-				$result = array_merge($result, dir_scan($path, $callback));
+				$result = array_merge($result, dir_scan($path, $callback, $dir_callback));
+				
+				if (is_callable($dir_callback))
+				{
+					$dir_callback($path);
+				}
 			}
 			else
 			{
