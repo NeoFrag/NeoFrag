@@ -21,13 +21,13 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label'  => '{lang title}',
-		'value'  => $title,
+		'value'  => $this->form->value('title'),
 		'type'   => 'text',
 		'rules'  => 'required'
 	],
 	'image' => [
 		'label'  => '{lang image}',
-		'value'  => $image,
+		'value'  => $this->form->value('image'),
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
 		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
@@ -40,7 +40,7 @@ $rules = [
 	],
 	'icon' => [
 		'label'  => '{lang icon}',
-		'value'  => $icon,
+		'value'  => $this->form->value('icon'),
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
 		'info'   => i18n('file_icon', 16, file_upload_max_size() / 1024 / 1024),

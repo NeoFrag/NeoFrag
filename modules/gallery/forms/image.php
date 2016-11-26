@@ -22,13 +22,13 @@ $rules = [
 	'title' => [
 		'label' => '{lang title}',
 		'type'  => 'text',
-		'value' => $title,
+		'value' => $this->form->value('title'),
 		'rules' => 'required'
 	],
 	'description' => [
 		'label' => '{lang description}',
 		'type'  => 'textarea',
-		'value' => $description
+		'value' => $this->form->value('description')
 	]
 ];
 

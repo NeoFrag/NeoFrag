@@ -21,19 +21,19 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'name' => [
 		'label' => 'Titre de l\'événement',
-		'value' => $name,
+		'value' => $this->form->value('name'),
 		'type'  => 'text',
 		'rules' => 'required'
 	],
 	'location' => [
 		'label' => 'Lieu',
 		'icon'  => 'fa-map-marker',
-		'value' => $location,
+		'value' => $this->form->value('location'),
 		'type'  => 'text'
 	],
 	'date' => [
 		'label' => 'Date',
-		'value' => $date && ? timetostr(i18n('date_short'), strtotime($date)) : '',
+		'value' => $this->form->value('date') ? timetostr(i18n('date_short'), strtotime($this->form->value('date'))) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
@@ -46,16 +46,16 @@ $rules = [
 	],
 	'team' => [
 		'label'  => 'Équipe',
-		'value'  => $team_id,
-		'values' => $teams,
+		'value'  => $this->form->value('team_id'),
+		'values' => $this->form->value('teams'),
 		'type'   => 'select',
 		'size'   => 'col-md-4',
 		'rules'  => 'required'
 	],
 	'game' => [
 		'label'  => 'Jeu',
-		'value'  => $game_id,
-		'values' => $games,
+		'value'  => $this->form->value('game_id'),
+		'values' => $this->form->value('games'),
 		'type'   => 'select',
 		'size'   => 'col-md-4',
 		'rules'  => 'required'
@@ -63,7 +63,7 @@ $rules = [
 	'platform' => [
 		'label'  => 'Plateforme',
 		'icon'   => 'fa-tv',
-		'value'  => $platform,
+		'value'  => $this->form->value('platform'),
 		'values' => [
 			'PC'       => 'PC',
 			'PS3'      => 'PS3',
@@ -80,7 +80,7 @@ $rules = [
 	'ranking' => [
 		'label' => 'Classement',
 		'icon'  => 'fa-trophy',
-		'value' => $ranking,
+		'value' => $this->form->value('ranking'),
 		'type'  => 'number',
 		'size'  => 'col-md-2',
 		'rules' => 'required'
@@ -88,19 +88,19 @@ $rules = [
 	'participants' => [
 		'label' => 'Nombre d\'équipes',
 		'icon'  => 'fa-users',
-		'value' => $participants,
+		'value' => $this->form->value('participants'),
 		'type'  => 'number',
 		'size'  => 'col-md-2',
 		'rules' => 'required'
 	],
 	'description' => [
 		'label' => 'Commentaire',
-		'value' => $description,
+		'value' => $this->form->value('description'),
 		'type'  => 'editor'
 	],
 	'image' => [
 		'label'  => 'Image',
-		'value'  => $image,
+		'value'  => $this->form->value('image'),
 		'type'   => 'file',
 		'upload' => 'awards',
 		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),

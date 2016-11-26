@@ -21,25 +21,25 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label' => '{lang title}',
-		'value' => $title,
+		'value' => $this->form->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'
 	],
 	'category' => [
 		'label'  => '{lang category}',
-		'value'  => $category_id,
-		'values' => $categories,
+		'value'  => $this->form->value('category_id'),
+		'values' => $this->form->value('categories'),
 		'type'   => 'select',
 		'rules'  => 'required'
 	],
 	'description' => [
 		'label' => '{lang description}',
-		'value' => $description,
+		'value' => $this->form->value('description'),
 		'type'  => 'text'
 	],
 	'url' => [
 		'label' => '{lang redirect}',
-		'value' => $url,
+		'value' => $this->form->value('url'),
 		'type'  => 'url'
 	]
 ];

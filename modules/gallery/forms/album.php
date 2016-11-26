@@ -21,20 +21,20 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label'  => '{lang title}',
-		'value'  => $title,
+		'value'  => $this->form->value('title'),
 		'type'   => 'text',
 		'rules'  => 'required',
 	],
 	'category' => [
 		'label'  => '{lang category}',
-		'value'  => $category_id,
-		'values' => $categories,
+		'value'  => $this->form->value('category_id'),
+		'values' => $this->form->value('categories'),
 		'type'   => 'select',
 		'rules'  => 'required'
 	],
 	'image' => [
 		'label'  => '{lang upload}',
-		'value'  => $image,
+		'value'  => $this->form->value('image'),
 		'type'   => 'file',
 		'upload' => 'gallery/covers',
 		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
@@ -47,12 +47,12 @@ $rules = [
 	],
 	'description' => [
 		'label'   => '{lang description}',
-		'value'   => $description,
+		'value'   => $this->form->value('description'),
 		'type'    => 'editor'
 	],
 	'published' => [
 		'type'    => 'checkbox',
-		'checked' => ['on' => $published],
+		'checked' => ['on' => $this->form->value('published')],
 		'values'  => ['on' => '{lang album_visible}']
 	]
 ];

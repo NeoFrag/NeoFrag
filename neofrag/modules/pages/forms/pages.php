@@ -21,18 +21,18 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label'         => '{lang page_title}',
-		'value'         => $title,
+		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'         => 'required'
 	],
 	'subtitle' => [
 		'label'         => '{lang subtitle}',
-		'value'         => $subtitle,
+		'value'         => $this->form->value('subtitle'),
 		'type'          => 'text'
 	],
 	'name' => [
 		'label'         => '{lang access_path}',
-		'value'         => $name,
+		'value'         => $name = $this->form->value('name'),
 		'type'          => 'text',
 		'check'         => function($value, $post) use ($name){
 			if (!$value)
@@ -50,12 +50,12 @@ $rules = [
 	],
 	'content' => [
 		'label'			=> '{lang content}',
-		'value'			=> $content,
+		'value'			=> $this->form->value('content'),
 		'type'			=> 'editor'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
-		'checked'		=> ['on' => $published],
+		'checked'		=> ['on' => $this->form->value('published')],
 		'values'        => ['on' => '{lang publish_now}']
 	]
 ];

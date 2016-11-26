@@ -21,20 +21,20 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label'         => '{lang title}',
-		'value'         => $title,
+		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'			=> 'required'
 	],
 	'category' => [
 		'label'         => '{lang category}',
-		'value'         => $category_id,
-		'values'        => $categories,
+		'value'         => $this->form->value('category_id'),
+		'values'        => $this->form->value('categories'),
 		'type'          => 'select',
 		'rules'			=> 'required'
 	],
 	'image' => [
 		'label'       => '{lang image}',
-		'value'       => $image_id,
+		'value'       => $this->form->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'news',
 		'info'        => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
@@ -47,23 +47,23 @@ $rules = [
 	],
 	'introduction' => [
 		'label'			=> '{lang intro}',
-		'value'			=> $introduction,
+		'value'			=> $this->form->value('introduction'),
 		'type'			=> 'editor',
 		'rules'			=> 'required'
 	],
 	'content' => [
 		'label'			=> '{lang content}',
-		'value'			=> $content,
+		'value'			=> $this->form->value('content'),
 		'type'			=> 'editor'
 	],
 	'tags' => [
 		'label'			=> '{lang tags}',
-		'value'			=> $tags,
+		'value'			=> $this->form->value('tags'),
 		'type'			=> 'text'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
-		'checked'		=> ['on' => $published],
+		'checked'		=> ['on' => $this->form->value('published')],
 		'values'        => ['on' => '{lang published}']
 	]
 ];

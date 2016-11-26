@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label' => 'Nom du mode',
-		'value' => $title,
+		'value' => $this->form->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'
 	]

@@ -46,6 +46,7 @@ class Form extends Library
 	private $_confirm_deletion = [];
 	private $_errors           = [];
 	private $_rules            = [];
+	private $_values           = [];
 	private $_display_required = TRUE;
 	private $_fast_mode        = FALSE;
 	private $_display_captcha  = FALSE;
@@ -71,7 +72,9 @@ class Form extends Library
 	{
 		if (!is_array($rules))
 		{
-			$rules = $this->load->form($rules, $values);
+			$this->_values = $values;
+
+			$rules = $this->load->form($rules);
 		}
 		
 		foreach ($rules as $var => $options)
@@ -241,6 +244,11 @@ class Form extends Library
 	public function get_errors()
 	{
 		return $this->_errors;
+	}
+
+	public function value($var)
+	{
+		return isset($this->_values[$var]) ? $this->_values[$var] : NULL;
 	}
 
 	private function _check_text($post, $var, $options)

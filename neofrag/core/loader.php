@@ -205,7 +205,7 @@ class Loader extends Core
 		}
 	}
 
-	public function form($form, $values)
+	public function form($form)
 	{
 		foreach ($this->paths['forms'] as $dir)
 		{
@@ -216,12 +216,7 @@ class Loader extends Core
 			
 			if ($this->debug->is_enabled())
 			{
-				$this->forms[$dir] = [$path, $form.'.php', $values];
-			}
-
-			foreach ($values as $var => $value)
-			{
-				$$var = $value;
+				$this->forms[$dir] = [$path, $form.'.php'];
 			}
 
 			include $path;

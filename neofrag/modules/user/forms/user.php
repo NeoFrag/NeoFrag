@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'username' => [
 		'label' => '{lang username}',
-		'value' => $username,
+		'value' => $username = $this->form->value('username'),
 		'rules' => 'required',
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
@@ -68,7 +68,7 @@ if (!NeoFrag::loader()->config->admin_url)
 $rules = array_merge($rules, [
 	'email' => [
 		'label' => '{lang email}',
-		'value' => $email,
+		'value' => $email = $this->form->value('email'),
 		'type'  => 'email',
 		'rules' => 'required',
 		'check' => function($value) use ($email){
@@ -80,15 +80,15 @@ $rules = array_merge($rules, [
 	],
 	'first_name' => [
 		'label' => '{lang first_name}',
-		'value' => $first_name,
+		'value' => $this->form->value('first_name'),
 	],
 	'last_name' => [
 		'label' => '{lang last_name}',
-		'value' => $last_name,
+		'value' => $this->form->value('last_name'),
 	],
 	'avatar' => [
 		'label'       => '{lang avatar}',
-		'value'       => $avatar,
+		'value'       => $this->form->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
 		'info'        => i18n('file_icon', 250, file_upload_max_size() / 1024 / 1024),
@@ -115,7 +115,7 @@ $rules = array_merge($rules, [
 	],
 	'date_of_birth' => [
 		'label' => '{lang birth_date}',
-		'value' => $date_of_birth,
+		'value' => $this->form->value('date_of_birth'),
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
@@ -126,7 +126,7 @@ $rules = array_merge($rules, [
 	],
 	'sex' => [
 		'label'  => '{lang gender}',
-		'value'  => $sex,
+		'value'  => $this->form->value('sex'),
 		'values' => [
 			'female' => icon('fa-female').' {lang female}',
 			'male'   => icon('fa-male').' {lang male}'
@@ -135,20 +135,20 @@ $rules = array_merge($rules, [
 	],
 	'location' => [
 		'label' => '{lang location}',
-		'value' => $location
+		'value' => $this->form->value('location')
 	],
 	'website' => [
 		'label' => '{lang website}',
-		'value' => $website,
+		'value' => $this->form->value('website'),
 		'type'  => 'url'
 	],
 	'quote' => [
 		'label'  => '{lang quote}',
-		'value' => $quote
+		'value' => $this->form->value('quote')
 	],
 	'signature' => [
 		'label' => '{lang signature}',
-		'value' => $signature,
+		'value' => $this->form->value('signature'),
 		'type'  => 'editor'
 	]
 ]);

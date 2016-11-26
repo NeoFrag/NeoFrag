@@ -21,17 +21,17 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label' => '{lang name}',
-		'value' => $title,
-		'rules' => 'required'.(!empty($auto) ? '|disabled' : '')
+		'value' => $this->form->value('title'),
+		'rules' => 'required'.(!empty($this->form->value('auto')) ? '|disabled' : '')
 	],
 	'color' => [
 		'label' => '{lang color}',
-		'value' => $color,
+		'value' => $this->form->value('color'),
 		'type'  => 'colorpicker'
 	],
 	'icon' => [
 		'label'   => '{lang icon}',
-		'value'   => $icon,
+		'value'   => $this->form->value('icon'),
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'
 	]

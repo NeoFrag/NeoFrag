@@ -21,7 +21,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 $rules = [
 	'title' => [
 		'label' => '{lang title}',
-		'value' => $title,
+		'value' => $this->form->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'
 	]
