@@ -401,6 +401,6 @@ class Db extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.5.1
+NeoFrag Alpha 0.1.5.2
 ./neofrag/core/db.php
 */

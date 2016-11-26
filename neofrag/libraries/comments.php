@@ -125,6 +125,6 @@ class Comments extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.2
 ./neofrag/libraries/comments.php
 */

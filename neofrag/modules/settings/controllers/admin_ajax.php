@@ -32,6 +32,6 @@ class m_settings_c_admin_ajax extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.5.2
 ./neofrag/modules/settings/controllers/admin_ajax.php
 */

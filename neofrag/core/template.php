@@ -71,6 +71,6 @@ class Template extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.2
 ./neofrag/core/template.php
 */

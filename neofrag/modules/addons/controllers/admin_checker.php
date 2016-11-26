@@ -58,6 +58,6 @@ class m_addons_c_admin_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.2
 ./neofrag/modules/addons/controllers/admin_checker.php
 */

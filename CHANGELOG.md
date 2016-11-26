@@ -1,5 +1,44 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.5.2](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.2) (2016-11-26)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.1...alpha0.1.5.2)
+
+**NeoFrag**
+
+- Overall fixing of tiny errors (warnings, notices, deprecated...)
+
+**Classes**
+
+- [Controller] Adding method has_method to check if method exists
+- [Library] It's not necessary to instantiate new object after reset
+
+**Core**
+
+- [Db] Adding lock and unlock methods
+- [Debug] Using the default handler to continue to deal with errors (and adding DB errors)
+
+**Database**
+
+- Increase user_agent column to 250 chars
+
+**Helpers**
+
+- [Dir] Adding a second callback for dirs on dir_scan method
+
+**Libraries**
+
+- [Form] Using a method to get forms values
+- [Form][Fixes #10] Adding random token on forms
+
+**Modules**
+
+- [Monitoring] Prevent the deactivation
+
+**Security**
+
+- [Fixes #18]XSS vulnerabilities
+- [Fixes #19]Using Secure and HttpOnly flags to set session cookie
+
 ## [Alpha 0.1.5.1](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.1) (2016-11-06)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5...alpha0.1.5.1)
 
