@@ -31,7 +31,6 @@ class Library extends NeoFrag
 		if (isset($this->load->libraries[$this->name]))
 		{
 			unset($this->load->libraries[$this->name]);
-			$this->{$this->name};
 		}
 	}
 
