@@ -22,7 +22,7 @@ class m_statistics_c_admin_ajax_checker extends Controller_Module
 {
 	public function index()
 	{
-		if ($check = post_check(['modules', 'start', 'end', 'period'], 'statistics'))
+		if ($check = post_check(['modules', 'start', 'end', 'period'], $this->form->token('sq6fswkfb81n0lu4cb7eyb3tuixcovla')))
 		{
 			$this->extension('json');
 

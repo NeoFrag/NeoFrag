@@ -180,7 +180,7 @@ class m_forum_c_index extends Controller_Module
 			'icon'    => 'fa-file-text-o',
 			'body'    => FALSE,
 			'content' => $this->load->view('new', [
-				'form_id'     => $this->form->id,
+				'form_id'     => $this->form->token(),
 				'forum_id'    => $forum_id,
 				'category_id' => $category_id,
 				'title'       => $title
@@ -394,7 +394,7 @@ class m_forum_c_index extends Controller_Module
 				'icon'    => 'fa-file-text-o',
 				'body'    => FALSE,
 				'content' => $this->load->view('new', [
-					'form_id'  => $this->form->id
+					'form_id'  => $this->form->token()
 				])
 			]);
 		}
@@ -550,7 +550,7 @@ class m_forum_c_index extends Controller_Module
 			'icon'    => 'fa-file-text-o',
 			'body'    => FALSE,
 			'content' => $this->load->view('new', [
-				'form_id'  => $this->form->id,
+				'form_id'  => $this->form->token(),
 				'topic_id' => $topic_id,
 				'is_topic' => $is_topic,
 				'title'    => $title,

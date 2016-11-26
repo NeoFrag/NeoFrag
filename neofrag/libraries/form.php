@@ -49,7 +49,24 @@ class Form extends Library
 	private $_display_required = TRUE;
 	private $_fast_mode        = FALSE;
 	private $_display_captcha  = FALSE;
-	
+
+	static private function _token($id)
+	{
+		static $tokens;
+
+		if ($tokens === NULL)
+		{
+			$tokens = NeoFrag::loader()->session('form') ?: [];
+		}
+
+		if (empty($tokens[$id]))
+		{
+			NeoFrag::loader()->session->set('form', $id, $tokens[$id] = unique_id(array_merge([$id], $tokens)));
+		}
+
+		return $tokens[$id];
+	}
+
 	public function add_rules($rules, $values = [])
 	{
 		if (!is_array($rules))
@@ -100,6 +117,16 @@ class Form extends Library
 		return $this;
 	}
 
+	public function token($id = NULL)
+	{
+		if ($id === NULL)
+		{
+			$id = $this->id;
+		}
+
+		return self::_token($id);
+	}
+
 	public function confirm_deletion($title, $message = '')
 	{
 		$this->_confirm_deletion = [$title, $message];
@@ -121,9 +148,9 @@ class Form extends Library
 
 	public function is_valid(&$post = NULL)
 	{
-		$post = post($this->id);
+		$post = post($token = $this->token());
 
-		if (($this->_display_captcha && !$this->captcha->is_valid()) || strtolower($_SERVER['REQUEST_METHOD']) != 'post' || (empty($post) && empty($_FILES[$this->id])))
+		if (($this->_display_captcha && !$this->captcha->is_valid()) || strtolower($_SERVER['REQUEST_METHOD']) != 'post' || (empty($post) && empty($_FILES[$token])))
 		{
 			return FALSE;
 		}
@@ -170,7 +197,7 @@ class Form extends Library
 		{
 			if ($this->_has_upload())
 			{
-				$files = $_FILES[$this->id];
+				$files = $_FILES[$token];
 				
 				$this->file;
 				
@@ -234,7 +261,7 @@ class Form extends Library
 				in_array('required', $options['rules']) &&
 				!in_array('disabled', $options['rules']) &&
 				(
-					($is_file && empty($_FILES[$this->id]['tmp_name'][$var])) ||
+					($is_file && empty($_FILES[$this->token()]['tmp_name'][$var])) ||
 					(!$is_file && in_array($post[$var], ['', NULL]))
 				)
 			)
@@ -242,16 +269,16 @@ class Form extends Library
 			return NeoFrag::loader()->lang('required_input');
 		}
 		
-		if ($is_file && !empty($_FILES[$this->id]['error'][$var]) && $_FILES[$this->id]['error'][$var] != 4)
+		if ($is_file && !empty($_FILES[$this->token()]['error'][$var]) && $_FILES[$this->token()]['error'][$var] != 4)
 		{
-			return NeoFrag::loader()->lang('file_transfer_error_'.$_FILES[$this->id]['error'][$var]);
+			return NeoFrag::loader()->lang('file_transfer_error_'.$_FILES[$this->token()]['error'][$var]);
 		}
 		
 		if (isset($options['check']) && is_callable($options['check']))
 		{
 			if (!empty($options['type']) && $options['type'] == 'file')
 			{
-				$error = !empty($_FILES[$this->id]['tmp_name'][$var]) ? call_user_func_array($options['check'], [$_FILES[$this->id]['tmp_name'][$var], extension($_FILES[$this->id]['name'][$var])]) : TRUE;
+				$error = !empty($_FILES[$this->token()]['tmp_name'][$var]) ? call_user_func_array($options['check'], [$_FILES[$this->token()]['tmp_name'][$var], extension($_FILES[$this->token()]['name'][$var])]) : TRUE;
 			}
 			else
 			{
@@ -366,7 +393,7 @@ class Form extends Library
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">'.NeoFrag::loader()->lang('cancel').'</button>
-							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">'.NeoFrag::loader()->lang('remove').'</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">'.NeoFrag::loader()->lang('remove').'</a>
 						</div>';
 			}
 			else
@@ -374,7 +401,7 @@ class Form extends Library
 				//TODO
 				/*return 	'<p>'.$message.'</p><p>
 							<button type="button" class="btn btn-default" onclick="$(this).parents(\'.alert\').alert(\'close\');">Annuler</button>
-							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->id.'" onclick="return confirm_deletion(this);">Supprimer</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">Supprimer</a>
 						</p>';*/
 			}
 
@@ -391,7 +418,7 @@ class Form extends Library
 		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->config->request_url).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
 						<fieldset>';
 
-		$post = post($this->id);
+		$post = post($this->token());
 						
 		foreach ($this->_rules as $var => $options)
 		{
@@ -410,7 +437,7 @@ class Form extends Library
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->id.'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
+					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->token().'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
 
 					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
 					{
@@ -488,15 +515,15 @@ class Form extends Library
 	{
 		$post = post();
 
-		if (isset($post[$this->id][$var]))
+		if (isset($post[$this->token()][$var]))
 		{
-			if (is_array($post[$this->id][$var]))
+			if (is_array($post[$this->token()][$var]))
 			{
-				return array_values(array_filter($post[$this->id][$var]));
+				return array_values(array_filter($post[$this->token()][$var]));
 			}
 			else
 			{
-				return utf8_htmlentities(trim($post[$this->id][$var]));
+				return utf8_htmlentities(trim($post[$this->token()][$var]));
 			}
 		}
 		else if (isset($options['checked']))
@@ -626,7 +653,7 @@ class Form extends Library
 			}
 		}
 
-		$input = '<input id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').(!empty($class) ? $class : '').($type == 'password' && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').$placeholder.' />';
+		$input = '<input id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" type="'.$type.'"'.(!empty($value) ? $value : '').(!empty($class) ? $class : '').($type == 'password' && isset($options['autocomplete']) && $options['autocomplete'] === FALSE ? ' autocomplete="off"' : '').(!empty($options['rules']) && in_array('disabled', $options['rules']) ? ' disabled="disabled"' : '').$placeholder.' />';
 
 		if ($type == 'file')
 		{
@@ -636,9 +663,9 @@ class Form extends Library
 			
 			if (!empty($options['value']))
 			{
-				if (isset($post[$this->id][$var]) && $post[$this->id][$var] == 'delete')
+				if (isset($post[$this->token()][$var]) && $post[$this->token()][$var] == 'delete')
 				{
-					$input = '<input type="hidden" name="'.$this->id.'['.$var.']" value="delete" />'.$input;
+					$input = '<input type="hidden" name="'.$this->token().'['.$var.']" value="delete" />'.$input;
 				}
 				else
 				{
@@ -647,7 +674,7 @@ class Form extends Library
 										<div class="thumbnail no-margin">
 											<img src="'.url($this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row()).'" alt="" />
 											<div class="caption text-center">
-												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->id.'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag::loader()->lang('remove').'</a>
+												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->token().'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag::loader()->lang('remove').'</a>
 											</div>
 										</div>
 									</div>
@@ -693,7 +720,7 @@ class Form extends Library
 											unselectedClass: ""
 										});');
 		
-		return '<button id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
+		return '<button id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
 	}
 
 	private function _display_colorpicker($var, $options, $post)
@@ -780,7 +807,7 @@ class Form extends Library
 
 	private function _display_checkbox($var, $options, $post)
 	{
-		$output = '<input type="hidden" name="'.$this->id.'['.$var.'][]" value="" />';
+		$output = '<input type="hidden" name="'.$this->token().'['.$var.'][]" value="" />';
 
 		if (!empty($options['values']))
 		{
@@ -790,7 +817,7 @@ class Form extends Library
 			{
 				 $output .= '	<div class="checkbox">
 									<label>
-										<input type="checkbox" name="'.$this->id.'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
+										<input type="checkbox" name="'.$this->token().'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
 										'.$this->load->lang($label, NULL).'
 									</label>
 								</div>';
@@ -802,7 +829,7 @@ class Form extends Library
 
 	private function _display_radio($var, $options, $post)
 	{
-		$output = '<input type="hidden" name="'.$this->id.'['.$var.']" value="" />';
+		$output = '<input type="hidden" name="'.$this->token().'['.$var.']" value="" />';
 
 		if (!empty($options['values']))
 		{
@@ -811,7 +838,7 @@ class Form extends Library
 			foreach ($options['values'] as $value => $label)
 			{
 				 $output .= '	<label class="radio-inline">
-									<input type="radio" name="'.$this->id.'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
+									<input type="radio" name="'.$this->token().'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
 									'.$this->load->lang($label, NULL).'
 								</label>';
 			}
@@ -827,7 +854,7 @@ class Form extends Library
 			return;
 		}
 
-		$output = '<select class="form-control" id="form_'.$this->id.'_'.$var.'" name="'.$this->id.'['.$var.']">
+		$output = '<select class="form-control" id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']">
 						<option></option>';
 
 		if (!empty($options['values']))
@@ -845,7 +872,7 @@ class Form extends Library
 
 	private function _display_textarea($var, $options, $post, $editor = FALSE)
 	{
-		return '<textarea id="form_'.$this->id.'_'.$var.'" class="form-control'.($editor ? ' editor' : '').'" rows="10" name="'.$this->id.'['.$var.']">'.$this->_display_value($var, $options).'</textarea>';
+		return '<textarea id="form_'.$this->token().'_'.$var.'" class="form-control'.($editor ? ' editor' : '').'" rows="10" name="'.$this->token().'['.$var.']">'.$this->_display_value($var, $options).'</textarea>';
 	}
 
 	private function _display_editor($var, $options, $post)

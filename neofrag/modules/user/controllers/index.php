@@ -434,7 +434,7 @@ class m_user_c_index extends Controller_Module
 					'title'   => $this('login_title'),
 					'icon'    => 'fa-sign-in',
 					'content' => $this->load->view('login', [
-						'form_id' => $form_login->id
+						'form_id' => $form_login->token()
 					])
 				])
 				, 'col-md-6'

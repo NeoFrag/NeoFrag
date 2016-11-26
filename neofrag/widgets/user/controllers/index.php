@@ -40,7 +40,7 @@ class w_user_c_index extends Controller_Widget
 			return new Panel([
 				'title'   => $this('member_area'),
 				'content' => $this->load->view('index', [
-					'form_id' => '6e0fbe194d97aa8c83e9f9e6b5d07c66'
+					'form_id' => $this->form->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 				]),
 				'footer'  => '<a href="'.url('user.html').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this('create_account').'</a>'
 			]);

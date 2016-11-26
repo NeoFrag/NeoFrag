@@ -116,7 +116,7 @@ class Comments extends Library
 			'title'   => '<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count),
 			'icon'    => 'fa-comments-o',
 			'content' => $output.$this->load->view('new', [
-				'form_id' => $this->form->id
+				'form_id' => $this->form->token()
 			])
 		]);
 		

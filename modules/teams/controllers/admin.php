@@ -261,7 +261,7 @@ class m_teams_c_admin extends Controller_Module
 					'footer'  => $this->load->view('users', [
 						'users'   => $users,
 						'roles'   => $roles,
-						'form_id' => $form_users->id
+						'form_id' => $form_users->token()
 					]),
 					'size'    => 'col-md-12 col-lg-5'
 				])

@@ -284,7 +284,7 @@ class m_user_c_admin extends Controller_Module
 					'icon'    => 'fa-users',
 					'content' => $this->load->view('admin/groups', [
 						'user_id' => $member_id,
-						'form_id' => $form_groups->id
+						'form_id' => $form_groups->token()
 					]),
 					'footer'  => '<button class="btn btn-outline btn-primary">'.icon('fa-check').' '.$this('save').'</button>',
 					'form'    => TRUE,

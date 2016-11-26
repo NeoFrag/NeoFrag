@@ -44,10 +44,10 @@
 			<h2><?php echo i18n('login_title'); ?></h2>
 			<form action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
 				<div class="form-group">
-					<input type="text" name="dd74f62896869c798933e29305aa9473[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
+					<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
 				</div>
 				<div class="form-group">
-					<input type="password" name="dd74f62896869c798933e29305aa9473[password]" class="form-control" placeholder="<?php echo i18n('password'); ?>" />
+					<input type="password" name="<?php echo $token; ?>[password]" class="form-control" placeholder="<?php echo i18n('password'); ?>" />
 				</div>
 				<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.i18n('login_title'); ?></button>
 			</form>

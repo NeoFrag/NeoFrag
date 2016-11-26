@@ -25,16 +25,19 @@ class m_statistics_c_admin extends Controller_Module
 	public function index()
 	{
 		$this	->js('statistics')
-				->js('highstock')
-				->form->set_id('statistics')->add_rules('statistics')->fast_mode();
-		
+				->js('highstock');
+
 		return [
 			new Row(
 				new Col(
 					new Panel([
 						'title'   => 'Statistiques',
 						'icon'    => 'fa-bar-chart',
-						'content' => $this->form->display()
+						'content' => $this	->form
+											->set_id('sq6fswkfb81n0lu4cb7eyb3tuixcovla')
+											->add_rules('statistics')
+											->fast_mode()
+											->display()
 					])
 				, 'col-md-4 col-lg-3'),
 				new Col(
