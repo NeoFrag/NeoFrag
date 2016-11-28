@@ -20,16 +20,20 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Driver_mysqli extends Driver
 {
+	static private $_database;
+	static private $_time_zone;
 	static private $_stmt = [];
 
 	static public function connect($hostname, $username, $password, $database)
 	{
 		if ((self::$db = @mysqli_connect($hostname, $username, $password, $database)) !== FALSE)
 		{
+			self::$_database = $database;
+
 			self::$db->set_charset('utf8');
 
 			self::$db->query('SET time_zone = "+00:00"');
-			self::$db->query('SET time_zone = "'.date_create(self::$db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I').'"');
+			self::$db->query('SET time_zone = "'.(self::$_time_zone = date_create(self::$db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I')).'"');
 
 			return TRUE;
 		}
@@ -50,9 +54,11 @@ class Driver_mysqli extends Driver
 		}
 
 		return [
-			'server'  => $server,
-			'version' => $version,
-			'innodb'  => ($result = self::$db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], array('DEFAULT', 'YES'))
+			'name'      => self::$_database,
+			'time_zone' => self::$_time_zone,
+			'server'    => $server,
+			'version'   => $version,
+			'innodb'    => ($result = self::$db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], array('DEFAULT', 'YES'))
 		];
 	}
 	
@@ -104,6 +110,45 @@ class Driver_mysqli extends Driver
 		self::$db->query('UNLOCK TABLES');
 	}
 
+	static public function tables()
+	{
+		$tables = [];
+
+		$sql = self::$db->query('SHOW TABLE STATUS LIKE "nf\_%"');
+		while ($table = $sql->fetch_object())
+		{
+			$tables[] = $table->Name;
+		}
+
+		return $tables;
+	}
+
+	static public function table_create($table)
+	{
+		$result = '';
+
+		$sql = self::$db->query('SHOW CREATE TABLE `'.$table.'`');
+		if ($row = $sql->fetch_object())
+		{
+			$result = $row->{'Create Table'};
+		}
+
+		return $result;
+	}
+
+	static public function table_columns($table)
+	{
+		$columns = [];
+
+		$sql = self::$db->query('SHOW COLUMNS FROM `'.$table.'`');
+		while ($column = $sql->fetch_object())
+		{
+			$columns[$column->Field] = $column->Type;
+		}
+
+		return $columns;
+	}
+
 	protected function execute()
 	{
 		if (!isset(self::$_stmt[$this->sql]))
@@ -133,8 +178,8 @@ class Driver_mysqli extends Driver
 			}
 		}
 
-			$this->error = self::$db->error;
-		}
+		$this->error = self::$db->error;
+	}
 
 	protected function bind($value)
 	{
@@ -217,7 +262,7 @@ class Driver_mysqli extends Driver
 		return array_map(function($a){
 			return $a;
 		}, $row);
-}
+	}
 
 	private function _get_results($callback, $free_results = TRUE)
 	{

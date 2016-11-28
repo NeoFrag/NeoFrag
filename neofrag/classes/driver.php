@@ -72,6 +72,9 @@ abstract class Driver
 	abstract static public function free($check);
 	abstract static public function lock($tables);
 	abstract static public function unlock($tables);
+	abstract static public function tables();
+	abstract static public function table_create($table);
+	abstract static public function table_columns($table);
 
 	abstract protected function execute();
 	abstract protected function bind($value);

@@ -20,6 +20,9 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Driver_mysql extends Driver
 {
+	static private $_database;
+	static private $_time_zone;
+
 	static public function connect($hostname, $username, $password, $database)
 	{
 		if (function_exists('mysqli_connect'))
@@ -31,10 +34,12 @@ class Driver_mysql extends Driver
 
 		if (self::$db !== FALSE && mysql_select_db($database, self::$db))
 		{
+			self::$_database = $database;
+
 			mysql_set_charset('UTF8');
 
 			mysql_query('SET time_zone = "+00:00"');
-			mysql_query('SET time_zone = "'.date_create(mysql_fetch_row(mysql_query('SELECT NOW()'))[0])->diff(date_create())->format('%R%H:%I').'"');
+			mysql_query('SET time_zone = "'.(self::$_time_zone = date_create(mysql_fetch_row(mysql_query('SELECT NOW()'))[0])->diff(date_create())->format('%R%H:%I')).'"');
 
 			return TRUE;
 		}
@@ -55,9 +60,11 @@ class Driver_mysql extends Driver
 		}
 
 		return [
-			'server'  => $server,
-			'version' => $version,
-			'innodb'  => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], array('DEFAULT', 'YES'))
+			'name'      => self::$_database,
+			'time_zone' => self::$_time_zone,
+			'server'    => $server,
+			'version'   => $version,
+			'innodb'    => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], array('DEFAULT', 'YES'))
 		];
 	}
 	
@@ -104,6 +111,45 @@ class Driver_mysql extends Driver
 	static public function unlock($tables)
 	{
 		mysql_query('UNLOCK TABLES');
+	}
+
+	static public function tables()
+	{
+		$tables = [];
+
+		$sql = mysql_query('SHOW TABLE STATUS LIKE "nf\_%"');
+		while ($table = mysql_fetch_object($sql))
+		{
+			$tables[] = $table->Name;
+		}
+
+		return $tables;
+	}
+
+	static public function table_create($table)
+	{
+		$result = '';
+
+		$sql = mysql_query('SHOW CREATE TABLE `'.$table.'`');
+		if ($row = mysql_fetch_object($sql))
+		{
+			$result = $row->{'Create Table'};
+		}
+
+		return $result;
+	}
+
+	static public function table_columns($table)
+	{
+		$columns = [];
+
+		$sql = mysql_query('SHOW COLUMNS FROM `'.$table.'`');
+		while ($column = mysql_fetch_object($sql))
+		{
+			$columns[$column->Field] = $column->Type;
+		}
+
+		return $columns;
 	}
 
 	protected function execute()

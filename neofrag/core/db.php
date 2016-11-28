@@ -347,6 +347,24 @@ class Db extends Core
 		return $this;
 	}
 
+	public function tables()
+	{
+		$driver = $this->_driver;
+		return $driver::tables();
+	}
+
+	public function table_create($table)
+	{
+		$driver = $this->_driver;
+		return $driver::table_create($table);
+	}
+
+	public function table_columns($table)
+	{
+		$driver = $this->_driver;
+		return $driver::table_columns($table);
+	}
+
 	public function execute($query)
 	{
 		$this->query($query);
