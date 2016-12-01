@@ -20,51 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_settings_c_ajax extends Controller_Module
 {
-	public function pagination()
-	{
-		if (in_array($items_per_page = post('items_per_page'), [0, 10, 25, 50, 100]))
-		{
-			if (($table_id = post('table_id')))
-			{
-				$this->session->set('table', $table_id, 'items_per_page', (int)$items_per_page);
-			}
-			else
-			{
-				$this->session->set('pagination', (int)$items_per_page);
-			}
-
-			if ($items_per_page == 0)
-			{
-				echo 'all';
-			}
-			else
-			{
-				echo 'p1-'.$items_per_page;
-			}
-
-			return;
-		}
-
-		echo 'OK';
-	}
-
-	public function language()
-	{
-		if ($this->user())
-		{
-			$this->db	->where('user_id', $this->_user_data['user_id'])
-						->update('nf_users', [
-							'language' => post('language')
-						]);
-		}
-		else
-		{
-			$this->session->set('language', post('language'));
-		}
-
-		echo 'OK';
-	}
-
 	public function humans()
 	{
 		$this->extension('txt');
