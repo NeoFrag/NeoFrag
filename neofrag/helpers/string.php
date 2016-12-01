@@ -213,7 +213,7 @@ function utf8_string($string)
 {
 	if (($encoding = mb_detect_encoding($string, 'auto', TRUE)) != 'UTF-8')
 	{
-		$string = mb_convert_encoding($string, 'UTF-8', $encoding);
+		$string = mb_convert_encoding($string, 'UTF-8', $encoding ?: 'ASCII');
 	}
 
 	return $string;
