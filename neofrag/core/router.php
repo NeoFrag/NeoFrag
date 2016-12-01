@@ -175,10 +175,11 @@ class Router extends Core
 				$module->add_data('module_title', $module->get_title());
 				$module->add_data('module_icon', $module->icon);
 				$module->add_data('module_method', $method);
-				
-				if (	($output = $controller->method($method, $segments)) &&
-						(empty($ajax_error) || $this->config->ajax_allowed) &&
-						($this->config->extension_url == 'html' || $this->config->extension_allowed))
+
+				$output = $controller->method($method, $segments);
+
+				if ((empty($ajax_error) || $this->config->ajax_allowed) &&
+					($this->config->extension_url == 'html' || $this->config->extension_allowed))
 				{
 					$module->segments = [$module->name, $method];
 					$module->append_output($output);
