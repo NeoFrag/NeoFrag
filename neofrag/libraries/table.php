@@ -28,7 +28,7 @@ class Table extends Library
 	private $_preprocessing = [];
 	private $_no_data       = '';
 	private $_words         = [];
-
+	
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
 		$this->_columns[] = [
@@ -100,7 +100,7 @@ class Table extends Library
 		{
 			if (post('table_id') == $this->id)
 			{
-				$this->config->ajax_allowed = $this->config->ajax_url = $this->_ajax = TRUE;
+				$this->_ajax = TRUE;
 			}
 			else
 			{
@@ -479,25 +479,16 @@ class Table extends Library
 
 		if ($this->_ajax)
 		{
-			$this->session->save();
-			echo $output;
-			return '';
+			header('Content-Type: application/json; charset=UTF-8');
+			exit(json_encode([
+				'search'  => array_values(array_unique($this->_words)),
+				'content' => $this->template->parse($output, NeoFrag::loader()->data)
+			]));
 		}
 		else
 		{
 			return $output;
 		}
-	}
-
-	public function is_ajax()
-	{
-		return $this->config->ajax_url && post('table_id');
-	}
-
-	public function get_output($output, $data)
-	{
-		$this->config->extension_url = 'json';
-		return json_encode(['search' => array_values(array_unique($this->_words)), 'content' => $this->template->parse($output, $data)]);
 	}
 
 	private function _is_searchable()

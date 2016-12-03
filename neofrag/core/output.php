@@ -29,11 +29,7 @@ class Output extends Core
 		$this->data['page_title'] = $this->config->nf_name.' :: '.$this->config->nf_description;
 		$this->data['lang']       = $this->config->lang;
 		
-		if (isset($this->load->module->table) && $this->load->module->table->is_ajax())
-		{
-			$output = $this->load->module->table->get_output(ob_get_clean(), $this->data);
-		}
-		else if ($this->router->ajax())
+		if ($this->router->ajax())
 		{
 			$output = $this->load->module->get_output();
 		}
