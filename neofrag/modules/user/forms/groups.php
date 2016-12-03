@@ -22,7 +22,7 @@ $rules = [
 	'title' => [
 		'label' => '{lang name}',
 		'value' => $this->form->value('title'),
-		'rules' => 'required'.(!empty($this->form->value('auto')) ? '|disabled' : '')
+		'rules' => 'required'.($this->form->value('auto') ? '|disabled' : '')
 	],
 	'color' => [
 		'label' => '{lang color}',
