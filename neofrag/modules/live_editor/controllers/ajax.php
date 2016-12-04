@@ -35,10 +35,20 @@ class m_live_editor_c_ajax extends Controller_Module
 		}
 		
 		$url = explode('/', $url);
-		
-		if (!empty($url[0]) && ($module = $this->load->module($url[0])) && !empty($module->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
+
+		if (!empty($url[0]))
 		{
-			$url = [$url[0], $method, '*'];
+			if ($module = $this->load->module($url[0]))
+			{
+				if (!empty($module->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
+				{
+					$url = [$url[0], $method, '*'];
+				}
+			}
+			else if ($module = $this->load->module('pages'))
+			{
+				$url = ['pages', '_index', $url[0], '*'];
+			}
 		}
 		
 		$url = implode('/', $url);

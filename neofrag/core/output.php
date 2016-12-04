@@ -138,7 +138,7 @@ class Output extends Core
 			}
 			else
 			{
-				for ($i = count($segments = $this->load->module->segments); $i > 0; $i--)
+				for ($i = count($segments = $this->router->segments); $i > 0; $i--)
 				{
 					$pages[] = 'page';
 					$pages[] = implode('/', array_slice($segments, 0, $i)).'/*';

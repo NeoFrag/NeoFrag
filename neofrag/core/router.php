@@ -181,7 +181,6 @@ class Router extends Core
 				if ((empty($ajax_error) || $this->config->ajax_allowed) &&
 					($this->config->extension_url == 'html' || $this->config->extension_allowed))
 				{
-					$module->segments = [$module->name, $method];
 					$module->append_output($output);
 					return;
 				}
