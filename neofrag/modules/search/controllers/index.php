@@ -20,27 +20,15 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_search_c_index extends Controller_Module
 {
-	public function index($search = '', $module_name = '', $page = '')
+	public function index($module_name = '', $page = '')
 	{
-		$this	->title($this('search'))
-				->form
-				->set_id('a86e16bac4c992732c3f7c6f1fdd159b')
-				->add_rules([
-					'keywords' => [
-						'type'  => 'text',
-						'rules' => 'required'
-					]
-				]);
+		$this->title($this('search'));
 
-		if ($this->form->is_valid($post))
-		{
-			redirect('search/'.rawurlencode(utf8_html_entity_decode($post['keywords'])).'.html');
-		}
-		
-		$count = 0;
-		$row   = [];
+		$count  = 0;
+		$row    = [];
+		$search = '';
 
-		if ($search = rawurldecode($search))
+		if (!empty($_GET['q']) && ($search = rawurldecode($_GET['q'])))
 		{
 			$keywords = $not_keywords = [];
 			$results  = [];
@@ -88,11 +76,12 @@ class m_search_c_index extends Controller_Module
 								call_user_func_array([$this->db, 'where'], $args);
 							}
 						}
-						
-						$result = $this->db->get();
-						
-						$results[] = [$module, $search_controller, $result, $c = count($result)];
-						$count += $c;
+
+						if ($c = count($result = $this->db->get()))
+						{
+							$results[] = [$module, $search_controller, $result, $c];
+							$count += $c;
+						}
 					}
 				}
 			}
@@ -131,9 +120,9 @@ class m_search_c_index extends Controller_Module
 					{
 						$panels[] = new Panel([
 							'title'   => icon($result[0]->icon).' '.$result[0]->get_title(),
-							'url'     => 'search/'.rawurlencode($search).'/'.$result[0]->name.'.html',
+							'url'     => 'search/'.$result[0]->name.'.html?q='.rawurlencode($search),
 							'content' => implode('<hr />', $content),
-							'footer'  => (!$details && $result[3] > 3) ? '<a href="'.url('search/'.rawurlencode($search).'/'.$result[0]->name.'.html').'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : ''
+							'footer'  => (!$details && $result[3] > 3) ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : ''
 						]);
 					}
 					
@@ -149,7 +138,7 @@ class m_search_c_index extends Controller_Module
 				
 				if (!$panels)
 				{
-					redirect('search/'.rawurlencode($search).'.html');
+					redirect('search.html?q='.rawurlencode($search));
 				}
 
 				$row[] = new Row(

@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
-		<form action="" method="post">
+		<form action="<?php echo url('search.html'); ?>" method="get">
 			<div class="input-group">
-				<input type="text" class="form-control input-lg" name="<?php echo $this->form->token('a86e16bac4c992732c3f7c6f1fdd159b'); ?>[keywords]" value="<?php echo utf8_htmlentities($data['keywords']); ?>" placeholder="<?php echo i18n('search_for'); ?>" />
+				<input type="text" class="form-control input-lg" name="q" value="<?php echo utf8_htmlentities($data['keywords']); ?>" placeholder="<?php echo i18n('search_for'); ?>" />
 				<span class="input-group-btn btn-group-lg">
 					<button class="btn btn-primary btn-lg" type="submit"><?php echo icon('fa-search').' '.i18n('search'); ?></button>
 				</span>

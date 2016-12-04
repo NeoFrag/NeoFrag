@@ -30,7 +30,7 @@ class m_search extends Module
 	public $nf_version    = 'Alpha 0.1';
 	public $path          = __FILE__;
 	public $routes        = [
-		'([^/]+?)(?:(/.+?){pages})?' => 'index'
+		'(?:(.+?){pages})?' => 'index'
 	];
 }
 
