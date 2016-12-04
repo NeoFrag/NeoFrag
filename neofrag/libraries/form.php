@@ -253,6 +253,11 @@ class Form extends Library
 
 	private function _check_text($post, $var, $options)
 	{
+		if (!empty($options['rules']) && in_array('disabled', $options['rules']))
+		{
+			return TRUE;
+		}
+
 		if (!in_array($post[$var], ['', NULL]) &&
 			!empty($options['values']) &&
 			is_array($options['values']) &&
@@ -267,7 +272,6 @@ class Form extends Library
 		
 		if (	!empty($options['rules']) &&
 				in_array('required', $options['rules']) &&
-				!in_array('disabled', $options['rules']) &&
 				(
 					($is_file && empty($_FILES[$this->token()]['tmp_name'][$var])) ||
 					(!$is_file && in_array($post[$var], ['', NULL]))

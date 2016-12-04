@@ -179,7 +179,7 @@ abstract class Module extends Loadable
 				{
 					foreach (array_offset_left($matches) as $arg)
 					{
-						$args = array_merge($args, explode('/', $arg));
+						$args = array_merge($args, explode('/', trim($arg, '/')));
 					}
 				}
 				else

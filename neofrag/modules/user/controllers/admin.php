@@ -391,7 +391,7 @@ class m_user_c_admin extends Controller_Module
 			{
 				$this->model('groups')->edit_group(
 					$group_id,
-					$post['title'],
+					!$auto ? $post['title'] : NULL,
 					$post['color'],
 					$post['icon'],
 					$this->config->lang,

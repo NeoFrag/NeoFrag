@@ -51,7 +51,7 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 			
 			$groups['admins'] = TRUE;
 			
-			return [$module_name, $action, $id, $groups, [], $title, $icon];
+			return [$module_name, $action, $id, array_map('intval', $groups), [], $title, $icon];
 		}
 		else if ($user = post('user'))
 		{
