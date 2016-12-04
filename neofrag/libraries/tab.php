@@ -21,59 +21,22 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 class Tab extends Library
 {
 	private $_tabs         = [];
-	private $_url_position = 'end';
-	private $_default_tab  = 'default';
+	private $_default_tab  = '';
 
-	public function add_tab($url, $name, $function, $args = [])
+	public function add_tab($url, $name, $callback)
 	{
 		$this->_tabs[] = [
 			'url'      => $url,
 			'name'     => $name,
-			'function' => $function,
-			'args'     => $args ? array_offset_left(func_get_args(), 3) : $args
+			'callback' => $callback,
 		];
 
-		return $this;
-	}
-	
-	public function add_tabs($tabs)
-	 {
-		$this->_tabs = array_merge($this->_tabs, $tabs);
-		return $this;
-	 }
-	 
-	public function add_translation_tabs($function)
-	{
-		$this->_tabs[] = [
-			'name'     => 'translations',
-			'function' => $function,
-			'args'     => array_offset_left(func_get_args())
-		];
-
-		return $this;
-	}
-
-	public function url_position($position)
-	{
-		if (in_array($position, ['beginning', 'end']))
-		{
-			$this->_url_position = $position;
-		}
-
-		return $this;
-	}
-
-	public function default_tab($default)
-	{
-		$this->_default_tab = url_title($default);
 		return $this;
 	}
 
 	public function display($index)
 	{
 		$index = url_title($index);
-		$module_name = $this->config->segments_url[0];
-		$base_url = implode('/', in_array($index, $segments = array_offset_left($this->config->segments_url)) ? ($this->_url_position == 'end' ? array_offset_right($segments) : array_offset_left($segments)) : $segments);
 
 		$tabs = [
 			'panes'    => [],
@@ -96,9 +59,8 @@ class Tab extends Library
 				if ($tab['url'] == $index)
 				{
 					$tabs['panes'][] = [
-						'args'     => $tab['args'],
 						'id'       => $tab['url'],
-						'function' => $tab['function']
+						'callback' => $tab['callback']
 					];
 				}
 
@@ -136,9 +98,8 @@ class Tab extends Library
 					if ($lang['code'] == $index)
 					{
 						$tabs['panes'][] = [
-							'args'     => array_merge($tab['args'], [$index]),
 							'id'       => $lang['code'],
-							'function' => $tab['function']
+							'callback' => $tab['callback']
 						];
 					}
 
@@ -160,23 +121,24 @@ class Tab extends Library
 			throw new Exception(NeoFrag::UNFOUND);
 		}
 
+		$segments = explode('/', $this->pagination->get_url());
+		$base_url = implode('/', end($segments) == $index ? array_offset_right($segments) : $segments);
+
 		$output = '	<div class="tabbable">
 						<ul class="nav nav-tabs">';
 
 		foreach ($tabs['sections'] as $section)
 		{
-			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="'.url($module_name.'/'.trim(($this->_url_position == 'end') ? $base_url.'/'.$section['url'] : $section['url'].'/'.$base_url, '/').'.html').'">'.$section['name'].'</a></li>';
+			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="'.rtrim($base_url.'/'.$section['url'], '/').'.html">'.$section['name'].'</a></li>';
 		}
 
 		$output .= '	</ul>
 						<div class="tab-content">';
 
-		$caller = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1]['object'];
-
 		foreach ($tabs['panes'] as $pane)
 		{
 			$output .= '	<div class="tab-pane active" id="'.$pane['id'].'">
-								'.(string)$caller->method($pane['function'], $pane['args']).'
+								'.$pane['callback']().'
 							</div>';
 		}
 

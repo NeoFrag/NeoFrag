@@ -30,8 +30,8 @@ class m_access extends Module
 	public $nf_version    = 'Alpha 0.1';
 	public $path          = __FILE__;
 	public $routes        = [
-		'admin/edit/{url_title*}'   => '_edit',
-		'admin/{url_title*}{pages}' => 'index'
+		'admin/edit/{url_title*}'  => '_edit',
+		'admin/([a-z0-9-]*?){pages}' => 'index'
 	];
 }
 

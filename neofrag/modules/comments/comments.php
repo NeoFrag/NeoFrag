@@ -30,7 +30,7 @@ class m_comments extends Module
 	public $nf_version  = 'Alpha 0.1';
 	public $path        = __FILE__;
 	public $routes      = [
-		'admin/{url_title*}{pages}' => 'index'
+		'admin/([a-z0-9-]*?){pages}' => 'index'
 	];
 }
 

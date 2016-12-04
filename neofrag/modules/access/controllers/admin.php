@@ -37,70 +37,69 @@ class m_access_c_admin extends Controller_Module
 
 		foreach ($modules as $module_name => $module)
 		{
-			list($module, $icon, $type, $access) = $module;
-			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), '_tab_index', $objects, $module->get_title(), $module, $type, $access);
+			list($module, $icon, $type, $all_access) = $module;
+			
+			$title = $module->get_title();
+
+			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), function() use ($objects, $title, $module, $type, $all_access){
+				$this	->subtitle($title)
+						->table
+						->add_columns([
+							[
+								'title'   => $this('name'),
+								'content' => function($data){
+									return $data['title'];
+								}
+							]
+						]);
+
+				foreach ($all_access['access'] as $a)
+				{
+					foreach ($a['access'] as $action => $access)
+					{
+						$this	->table
+								->add_columns([
+									[
+										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->load->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
+										'content' => function($data) use ($module, $action){
+											return NeoFrag::loader()->access->count($module->name, $action, $data['id']);
+										},
+										'class'   => 'col-md-1'
+									]
+								]);
+					}
+				}
+				
+				return $this->table
+							->add_columns([
+								[
+									'content' => [
+										function($data, $loader) use ($module, $type){
+											return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', [
+												'module' => $module->name,
+												'type'   => $type,
+												'id'     => $data['id']
+											]);
+										},
+										/*function(){
+											return button('#', 'fa-copy', 'Glissez pour copier', 'primary');
+										},*/
+										function($data, $loader) use ($module, $type){
+											return button_access($data['id'], $type, $module->name, $loader->lang('edit'));
+										}
+									]
+								]
+							])
+							->data($objects)
+							->display();
+			});
 		}
 
 		return new Panel([
 			'content' => $this->tab->display($tab)
 		]);
 	}
-	
-	public function _tab_index($objects, $title, $module, $type, $all_access)
-	{
-		$this	->subtitle($title)
-				->table
-				->add_columns([
-					[
-						'title'   => $this('name'),
-						'content' => function($data){
-							return $data['title'];
-						}
-					]
-				]);
 
-		foreach ($all_access['access'] as $a)
-		{
-			foreach ($a['access'] as $action => $access)
-			{
-				$this	->table
-						->add_columns([
-							[
-								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->load->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
-								'content' => function($data) use ($module, $action){
-									return NeoFrag::loader()->access->count($module->name, $action, $data['id']);
-								},
-								'class'   => 'col-md-1'
-							]
-						]);
-			}
-		}
-		
-		$this	->table
-				->add_columns([
-					[
-						'content' => [
-							function($data, $loader) use ($module, $type){
-								return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', [
-									'module' => $module->name,
-									'type'   => $type,
-									'id'     => $data['id']
-								]);
-							},
-							/*function(){
-								return button('#', 'fa-copy', 'Glissez pour copier', 'primary');
-							},*/
-							function($data, $loader) use ($module, $type){
-								return button_access($data['id'], $type, $module->name, $loader->lang('edit'));
-							}
-						]
-					]
-				])
-				->data($objects);
-
-		echo $this->table->display();
-	}
-	
 	public function _edit($module, $type, $access, $id, $title = NULL)
 	{
 		$this	->title($module->get_title())

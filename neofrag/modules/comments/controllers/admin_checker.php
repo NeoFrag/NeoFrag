@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_comments_c_admin_checker extends Controller
 {
-	public function index($tab = 'default', $page = '')
+	public function index($tab = '', $page = '')
 	{
 		$comments = $this->model()->get_comments();
 		$modules  = [];
@@ -29,14 +29,14 @@ class m_comments_c_admin_checker extends Controller
 		{
 			$modules[$comment['module']] = [$comment['module_title'], $comment['icon']];
 
-			if (!in_array($tab, ['default', $comment['module']]))
+			if (!in_array($tab, ['', $comment['module']]))
 			{
 				unset($comments[$i]);
 			}
 		}
 
 		array_natsort($modules, function($a){
-			return $a['title'];
+			return $a[0];
 		});
 
 		return [$this->pagination->get_data($comments, $page), $modules, $tab];

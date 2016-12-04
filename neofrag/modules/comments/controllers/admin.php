@@ -22,12 +22,16 @@ class m_comments_c_admin extends Controller_Module
 {
 	public function index($comments, $modules, $tab)
 	{
-		$this->tab->add_tab('default', $this('all_comments'), '_tab_index', $comments);
+		$this->tab->add_tab('', $this('all_comments'), function() use ($comments){
+			return $this->_tab_index($comments);
+		});
 
 		foreach ($modules as $module_name => $module)
 		{
 			list($title, $icon) = $module;
-			$this->tab->add_tab($module_name, icon($icon).' '.$title, '_tab_index', $comments, $title);
+			$this->tab->add_tab($module_name, icon($icon).' '.$title, function() use ($comments, $title){
+				return $this->_tab_index($comments, $title);
+			});
 		}
 								
 		return new Panel([
@@ -35,7 +39,7 @@ class m_comments_c_admin extends Controller_Module
 		]);
 	}
 	
-	public function _tab_index($comments, $title = NULL)
+	private function _tab_index($comments, $title = NULL)
 	{
 		$this->subtitle($title === NULL ? $this('all_comments') : $title);
 		
@@ -58,7 +62,7 @@ class m_comments_c_admin extends Controller_Module
 			]);
 		}
 	
-		echo $this->table->add_columns([
+		return $this->table->add_columns([
 			[
 				'title'   => $this('name'),
 				'content' => function($data){
