@@ -25,10 +25,9 @@ function relative_path($file)
 	return (substr($file, 0, 1) == '/' ? '.' : './').$file;
 }
 
-function extension($file, &$path = NULL)
+function extension($file)
 {
-	$url = parse_url($file);
-	return strtolower(pathinfo($path = $url['path'], PATHINFO_EXTENSION));
+	return strtolower(pathinfo(parse_url($file, PHP_URL_PATH), PATHINFO_EXTENSION));
 }
 
 function get_mime_by_extension($extension)
