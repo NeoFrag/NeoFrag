@@ -88,7 +88,7 @@ class m_news_c_admin_checker extends Controller_Module
 	
 	public function _categories_delete($category_id, $name)
 	{
-		if (!$this->is_autorized('delete_news_categories'))
+		if (!$this->is_authorized('delete_news_categories'))
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
