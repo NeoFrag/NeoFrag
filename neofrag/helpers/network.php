@@ -34,6 +34,11 @@ function network_get($url, $file = NULL, $callback = NULL)
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
 		$result = curl_exec($ch);
+
+		if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200)
+		{
+			$result = FALSE;
+		}
 	}
 	else
 	{
