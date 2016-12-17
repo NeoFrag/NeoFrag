@@ -631,6 +631,6 @@ class m_forum_m_forum extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.3
 ./modules/forum/models/forum.php
 */

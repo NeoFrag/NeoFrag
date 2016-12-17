@@ -1,5 +1,43 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.5.3](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.3) (2016-12-17)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.2...alpha0.1.5.3)
+
+**Core**
+
+- [Config] Improving url reading
+- [Db] Adding 503 Service Unavailable HTTP header when database is unavailable
+- [Router] Fix error when controller result is NULL
+
+**NeoFrag**
+
+- Overall fixing of tiny php errors (warnings, notices, deprecated...)
+- Removing some useless codes
+
+**LiveEditor**
+
+- Custom zones are now available for pages
+
+**Libraries**
+
+- [MySQLDump] Fix some errors
+- [Tab] Using a real callback
+- [Table] Fix ajax output for search and sort
+
+**Modules**
+
+- [Forum] Fix unread status for subforums
+- [News] Fix categories deletion
+- [Search] Request is now transmitted in $_GET['q']
+- [Statistics] Fix bug when all categories are unchecked
+- [User] Fix error on group form
+
+**Helper**
+
+- [File] Removing useless 2nd argument
+- [Network] Function network_get returns FALSE if HTTP response code is not 200
+- [String] Add default encoding ASCII
+
 ## [Alpha 0.1.5.2](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.2) (2016-11-26)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.1...alpha0.1.5.2)
 

@@ -98,6 +98,6 @@ class m_access_c_admin_ajax_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.3
 ./neofrag/modules/access/controllers/admin_ajax_checker.php
 */

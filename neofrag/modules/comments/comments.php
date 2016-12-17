@@ -35,6 +35,6 @@ class m_comments extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.5.3
 ./neofrag/modules/comments/comments.php
 */
