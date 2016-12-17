@@ -178,10 +178,17 @@ class m_forum_m_forum extends Model
 		
 		foreach ($forums as &$forum)
 		{
+			$forum['has_unread'] = $forum['url'] ? FALSE : $this->_has_unread($forum);
+
 			if ($forum['subforums'])
 			{
 				foreach ($forum['subforums'] = $this->get_forums($forum['forum_id'], TRUE) as $subforum)
 				{
+					if (!$forum['has_unread'] && $subforum['has_unread'])
+					{
+						$forum['has_unread'] = TRUE;
+					}
+
 					if ($subforum['last_message_id'] > $forum['last_message_id'])
 					{
 						foreach (['last_message_id', 'user_id', 'username', 'topic_id', 'last_title', 'last_message_date', 'last_count_messages'] as $var)
@@ -196,7 +203,6 @@ class m_forum_m_forum extends Model
 				$forum['subforums'] = [];
 			}
 			
-			$forum['has_unread'] = $forum['url'] ? FALSE : $this->_has_unread($forum);
 			$forum['icon']       = icon(($forum['url'] ? 'fa-globe' : 'fa-comments'.($forum['has_unread'] ? '' : '-o')).($mini ? '' : ' fa-3x'));
 		}
 		
@@ -603,19 +609,6 @@ class m_forum_m_forum extends Model
 			if (!isset($forum_reads[0]) || $registration_date > $forum_reads[0])
 			{
 				$forum_reads[0] = $registration_date;
-			}
-			
-			foreach ($this->db	->select('f.forum_id', 'f.parent_id')
-								->from('nf_forum f')
-								->join('nf_forum_url u', 'f.forum_id = u.forum_id')
-								->where('f.is_subforum', TRUE)
-								->where('u.forum_id', NULL)
-								->get() as $subforum)
-			{
-				if (isset($forum_reads[$subforum['parent_id']]))
-				{
-					$forum_reads[$subforum['parent_id']] = min(isset($forum_reads[$subforum['forum_id']]) ? $forum_reads[$subforum['forum_id']] : $forum_reads[0], $forum_reads[$subforum['parent_id']]);
-				}
 			}
 		}
 		
