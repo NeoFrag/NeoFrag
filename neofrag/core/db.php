@@ -47,6 +47,7 @@ class Db extends Core
 
 		if (!$this->_connected)
 		{
+			header('HTTP/1.0 503 Service Unavailable');
 			exit('Database error check config/db.php');
 		}
 	}

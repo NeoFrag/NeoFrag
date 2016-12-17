@@ -62,6 +62,7 @@ class Config extends Core
 
 		if (($configs = $this->load->db->select('site', 'lang', 'name', 'value', 'type')->from('nf_settings')->get()) === NULL)
 		{
+			header('HTTP/1.0 503 Service Unavailable');
 			exit('Database is empty');
 		}
 
