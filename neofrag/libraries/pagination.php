@@ -139,7 +139,7 @@ class Pagination extends Library
 			}
 			else
 			{
-				$buttons[] = '<a class="btn btn-default btn-'.$size.(($current_page == $p) ? ' active' : '').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').'.html">'.$p.'</a>';
+				$buttons[] = '<a class="btn btn-default btn-'.$size.(($current_page == $p) ? ' active' : '').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').'.html'.(!empty($_GET) ? '?'.http_build_query($_GET, NULL, '&', PHP_QUERY_RFC3986) : '').'">'.$p.'</a>';
 			}
 		}
 
