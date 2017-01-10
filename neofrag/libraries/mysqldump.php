@@ -89,7 +89,7 @@ class MySQLDump extends Library
 
 				if ($size == 0)
 				{
-					fwrite($handle, PHP_EOL.'INSERT INTO '.self::_delimite($table).' ('.implode(', ', array_keys(array_map([$this, '_delimite'], $cols))).') VALUES'.PHP_EOL);
+					fwrite($handle, PHP_EOL.'INSERT INTO '.self::_delimite($table).' ('.implode(', ', array_map([$this, '_delimite'], array_keys($cols))).') VALUES'.PHP_EOL);
 				}
 				else
 				{
@@ -106,7 +106,7 @@ class MySQLDump extends Library
 					}
 					elseif (preg_match('#^[^(]*(BYTE|COUNTER|SERIAL|INT|LONG$|CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER)#i', $cols[$key]))
 					{
-						$values[] = $value;
+						$values[] = str_replace(',', '.', $value);
 					}
 					else
 					{
