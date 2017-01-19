@@ -129,6 +129,8 @@ abstract class NeoFrag
 				return $loader->libraries[$library->name = $name] = $library->set_id();
 			}
 		}
+
+		trigger_error('Undefined property: '.get_class($this).'::$'.$name, E_USER_WARNING);
 	}
 
 	public function __call($name, $args)
@@ -137,6 +139,8 @@ abstract class NeoFrag
 		{
 			return call_user_func_array($library, $args);
 		}
+
+		trigger_error('Call to undefined method '.get_class($this).'::'.$name.'()', E_USER_WARNING);
 	}
 
 	public function ajax()
