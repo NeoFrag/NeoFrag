@@ -78,8 +78,8 @@ class m_user_m_user extends Model
 		$data = [
 			'first_name'    => $first_name,
 			'last_name'     => $last_name,
-			'avatar'        => $avatar,
-			'date_of_birth' => $date_of_birth,
+			'avatar'        => $avatar ?: NULL,
+			'date_of_birth' => $date_of_birth ?: NULL,
 			'sex'           => $sex,
 			'location'      => $location,
 			'website'       => $website,

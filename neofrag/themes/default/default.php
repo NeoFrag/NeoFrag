@@ -52,7 +52,8 @@ class t_default extends Theme
 	
 	public function install($dispositions = [])
 	{
-		$this	->config('default_background_repeat',     'no-repeat')
+		$this	->config('default_background',            0, 'int')
+				->config('default_background_repeat',     'no-repeat')
 				->config('default_background_attachment', 'scroll')
 				->config('default_background_position',   'center top')
 				->config('default_background_color',      '#141d26')

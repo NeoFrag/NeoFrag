@@ -109,6 +109,11 @@ class Groups extends Core
 					{
 						$this->_groups[$group_id]['icon'] = $module->icon;
 					}
+
+					if (empty($this->_groups[$group_id]['color']))
+					{
+						$this->_groups[$group_id]['color'] = 'default';
+					}
 				}
 			}
 		}

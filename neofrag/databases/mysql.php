@@ -64,7 +64,7 @@ class Driver_mysql extends Driver
 			'time_zone' => self::$_time_zone,
 			'server'    => $server,
 			'version'   => $version,
-			'innodb'    => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], array('DEFAULT', 'YES'))
+			'innodb'    => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], ['DEFAULT', 'YES'])
 		];
 	}
 	

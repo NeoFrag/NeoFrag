@@ -18,7 +18,7 @@
 				<?php if ($deactivatable) echo $this->addons->is_enabled($widget->name, 'widget') ? '<a href="#" data-toggle="tooltip" title="Désactiver le widget">'.icon('fa-toggle-on text-green').'</a>' : '<a href="#" data-toggle="tooltip" title="Activer le widget">'.icon('fa-toggle-off text-muted').'</a>'; ?>
 			</div>
 			<div class="item-name">
-				<?php echo icon($widget->icon).' <b>'.$widget->get_title().'</b><br />'; ?>
+				<?php echo '<b>'.$widget->get_title().'</b><br />'; ?>
 				<small><?php echo $widget->description; ?></small>
 			</div>
 		</div>

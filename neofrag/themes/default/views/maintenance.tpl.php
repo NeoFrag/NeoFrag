@@ -37,29 +37,23 @@
 		</div>
 	</div>
 </section>
-<?php if (!$NeoFrag->user()): ?>
-	<section id="login">
-		<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.i18n('hide'); ?></a>
-		<div class="login-body">
-			<h2><?php echo i18n('login_title'); ?></h2>
-			<form action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
-				<div class="form-group">
-					<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
-				</div>
-				<div class="form-group">
-					<input type="password" name="<?php echo $token; ?>[password]" class="form-control" placeholder="<?php echo i18n('password'); ?>" />
-				</div>
-				<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.i18n('login_title'); ?></button>
-			</form>
-		</div>
-	</section>
-<?php endif; ?>
+<section id="login">
+	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.i18n('hide'); ?></a>
+	<div class="login-body">
+		<h2><?php echo i18n('login_title'); ?></h2>
+		<form action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
+			<div class="form-group">
+				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
+			</div>
+			<div class="form-group">
+				<input type="password" name="<?php echo $token; ?>[password]" class="form-control" placeholder="<?php echo i18n('password'); ?>" />
+			</div>
+			<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.i18n('login_title'); ?></button>
+		</form>
+	</div>
+</section>
 <footer>
-	<?php if ($NeoFrag->user()): ?>
-		<a href="<?php echo url('user/logout.html'); ?>" class="btn-login"><?php echo $NeoFrag->user('username').' '.icon('fa-lock'); ?></a>
-	<?php else: ?>
-		<a href="#" class="btn-login"><?php echo icon('fa-unlock-alt'); ?></a>
-	<?php endif; ?>
+	<a href="#" class="btn-login"><?php echo icon('fa-unlock-alt'); ?></a>
 	<div class="container text-center">
 		<p><?php echo i18n('copyright_all_rights_reserved'); ?></p>
 	</div>

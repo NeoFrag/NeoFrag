@@ -199,7 +199,7 @@ class Debug extends Core
 
 	public function is_enabled()
 	{
-		return !empty($this->config->nf_debug) && ($this->config->nf_debug == 2 || ($this->user('admin') && $this->config->nf_debug == 1));
+		return isset($this->config) && !empty($this->config->nf_debug) && ($this->config->nf_debug == 2 || ($this->user('admin') && $this->config->nf_debug == 1));
 	}
 	
 	public function display()

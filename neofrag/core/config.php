@@ -43,22 +43,16 @@ class Config extends Core
 	{
 		$this->_configs = $this->_settings = [];
 		
-		$this->_configs['host']          = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
-		$this->_configs['base_url']      = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-		$this->_configs['request_url']   = preg_replace('#^'.preg_quote($this->_configs['base_url'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) ?: 'index.html';
-		$this->_configs['extension_url'] = extension($this->_configs['request_url']);
-		$this->_configs['segments_url']  = explode('/', !empty($_SERVER['REDIRECT_ROUTE']) ? $_SERVER['REDIRECT_ROUTE'] : substr($this->_configs['request_url'], 0, - strlen($this->_configs['extension_url']) - 1));
-		$this->_configs['ajax_header']   = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-
-		if ($this->_configs['segments_url'][0] == 'admin')
-		{
-			$this->_configs['admin_url'] = TRUE;
-		}
-
-		if ((empty($this->_configs['admin_url']) && $this->_configs['segments_url'][0] == 'ajax') || (!empty($this->_configs['admin_url']) && isset($this->_configs['segments_url'][1]) && $this->_configs['segments_url'][1] == 'ajax'))
-		{
-			$this->_configs['ajax_url'] = TRUE;
-		}
+		$this->_configs['host']              = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
+		$this->_configs['base_url']          = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+		$this->_configs['request_url']       = preg_replace('#^'.preg_quote($this->_configs['base_url'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) ?: 'index.html';
+		$this->_configs['extension_url']     = extension($this->_configs['request_url']);
+		$this->_configs['segments_url']      = explode('/', !empty($_SERVER['REDIRECT_ROUTE']) ? $_SERVER['REDIRECT_ROUTE'] : substr($this->_configs['request_url'], 0, - strlen($this->_configs['extension_url']) - 1));
+		$this->_configs['admin_url']         = $this->_configs['segments_url'][0] == 'admin';
+		$this->_configs['ajax_header']       = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+		$this->_configs['ajax_url']          = (empty($this->_configs['admin_url']) && $this->_configs['segments_url'][0] == 'ajax') || (!empty($this->_configs['admin_url']) && isset($this->_configs['segments_url'][1]) && $this->_configs['segments_url'][1] == 'ajax');
+		$this->_configs['ajax_allowed']      = FALSE;
+		$this->_configs['extension_allowed'] = $this->_configs['extension_url'] == 'html';
 
 		if (($configs = $this->load->db->select('site', 'lang', 'name', 'value', 'type')->from('nf_settings')->get()) === NULL)
 		{
@@ -99,7 +93,8 @@ class Config extends Core
 									->order_by('order')
 									->get();
 
-		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge([$this->session('language')], preg_replace('/^(.+?)[;-].*/', '\1', explode(',', !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '')))), $nf_languages), $nf_languages));
+		//TODO
+		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge(/*[$this->session('language')], */preg_replace('/^(.+?)[;-].*/', '\1', explode(',', !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '')))), $nf_languages), $nf_languages));
 
 		$this->update('default');
 

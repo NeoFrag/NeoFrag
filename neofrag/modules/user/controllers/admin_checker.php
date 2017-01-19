@@ -47,7 +47,7 @@ class m_user_c_admin_checker extends Controller_Module
 	{
 		if ($group = $this->groups->check_group(func_get_args()))
 		{
-			return [$group['id'], $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']];
+			return [isset($group['id']) ? $group['id'] : 0, $group['unique_id'], $group['title'], $group['color'], $group['icon'], $group['auto']];
 		}
 	}
 

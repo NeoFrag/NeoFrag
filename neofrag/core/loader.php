@@ -20,6 +20,8 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Loader extends Core
 {
+	private $_update    = NULL;
+
 	public $libraries   = [];
 	public $helpers     = [];
 	public $controllers = [];
@@ -32,7 +34,7 @@ class Loader extends Core
 
 	public function __construct($paths, $object = NULL)
 	{
-		call_user_func($this->update = function() use ($paths, $object){
+		call_user_func($this->_update = function() use ($paths, $object){
 			if (is_callable($paths))
 			{
 				$this->paths = call_user_func($paths);
@@ -40,7 +42,8 @@ class Loader extends Core
 			else
 			{
 				$this->paths = $paths;
-				unset($this->update);
+				unset($this->_update);
+				$this->_update = NULL;
 			}
 
 			$this->object = $object;
@@ -90,9 +93,9 @@ class Loader extends Core
 			$filename = $name;
 		}
 		
-		if (is_callable($this->update))
+		if (is_callable($this->_update))
 		{
-			call_user_func($this->update);
+			call_user_func($this->_update);
 		}
 
 		reset($this->paths[$type.'s']);
@@ -311,16 +314,16 @@ class Loader extends Core
 							'.$output;
 
 		foreach ([
-			[$this->modules,     'Modules',     'default', function($a){ return $a->debug('default'); }],
-			[$this->themes,      'Themes',      'primary', function($a){ return $a->debug('primary'); }],
-			[$this->widgets,     'Widgets',     'success', function($a){ return $a->debug('success'); }],
-			[$this->libraries,   'Libraries',   'info',    function($a){ return $a->debug('info'); }],
-			[$this->helpers,     'Helpers',     'warning', function($a){ return '<span class="label label-warning">'.$a[1].'</span>'; }],
-			[$this->controllers, 'Controllers', 'danger',  function($a){ return $a->debug('danger'); }],
-			[$this->models,      'Models',      'default', function($a){ return $a->debug('default'); }],
-			[$this->views,       'Views',       'primary', function($a){ return '<span class="label label-primary">'.$a[1].'</span>'; }],
-			[$this->forms,       'Forms',       'success', function($a){ return '<span class="label label-success">'.$a[1].'</span>'; }],
-			[$this->langs,       'Locales',     'info',    function($a, $b){ return '<span class="label label-info">'.$b.'</span>'; }]
+			[isset($this->modules) ? $this->modules : [], 'Modules',     'default', function($a){ return $a->debug('default'); }],
+			[isset($this->themes) ?  $this->themes : [],  'Themes',      'primary', function($a){ return $a->debug('primary'); }],
+			[isset($this->widgets) ? $this->widgets : [], 'Widgets',     'success', function($a){ return $a->debug('success'); }],
+			[$this->libraries,                            'Libraries',   'info',    function($a){ return $a->debug('info'); }],
+			[$this->helpers,                              'Helpers',     'warning', function($a){ return '<span class="label label-warning">'.$a[1].'</span>'; }],
+			[$this->controllers,                          'Controllers', 'danger',  function($a){ return $a->debug('danger'); }],
+			[$this->models,                               'Models',      'default', function($a){ return $a->debug('default'); }],
+			[$this->views,                                'Views',       'primary', function($a){ return '<span class="label label-primary">'.$a[1].'</span>'; }],
+			[$this->forms,                                'Forms',       'success', function($a){ return '<span class="label label-success">'.$a[1].'</span>'; }],
+			[$this->langs,                                'Locales',     'info',    function($a, $b){ return '<span class="label label-info">'.$b.'</span>'; }]
 		] as $vars)
 		{
 			list($objects, $name, $class, $callback) = $vars;

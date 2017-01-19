@@ -29,8 +29,8 @@ class i_0_1_1 extends Install
 					->execute('INSERT INTO `nf_settings` VALUES(\'default_background_color\', \'\', \'\', \'#141d26\', \'string\')')
 					->execute('INSERT INTO `nf_settings` VALUES(\'default_background_position\', \'\', \'\', \'center top\', \'string\')')
 					->execute('INSERT INTO `nf_settings` VALUES(\'default_background_repeat\', \'\', \'\', \'no-repeat\', \'string\')')
-					->execute('INSERT INTO `nf_settings_addons` VALUES(\'gallery', \'module\', \'1\')')
-					->execute('INSERT INTO `nf_settings_addons` VALUES(\'gallery', \'widget\', \'1\')')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'gallery\', \'module\', \'1\')')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'gallery\', \'widget\', \'1\')')
 					->execute('DROP TABLE IF EXISTS `nf_gallery`')
 					->execute('CREATE TABLE IF NOT EXISTS `nf_gallery` (
 						`gallery_id` int(11) unsigned NOT NULL AUTO_INCREMENT,

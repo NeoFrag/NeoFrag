@@ -3,7 +3,7 @@
 		<a href="<?php echo url(); ?>" class="btn btn-default back-to visible-xs"><?php echo icon('fa-sign-out'); ?></a>
 		<a href="#" class="btn btn-default touch-menu visible-xs"><?php echo icon('fa-bars'); ?></a>
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<?php echo url('admin.html'); ?>"><b>NeoFrag</b> CMS<span class="nf-version"><?php echo NEOFRAG_VERSION.($NeoFrag->config->nf_pro ? ' Pro' : ''); ?></span></a>
+			<a class="navbar-brand" href="<?php echo url('admin.html'); ?>"><b>NeoFrag</b> CMS<span class="nf-version"><?php echo NEOFRAG_VERSION; ?></span></a>
 		</div>
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">

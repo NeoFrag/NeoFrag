@@ -166,7 +166,7 @@ class User extends Core
 
 					if ($form_login->is_valid($post))
 					{
-						$user_id = $this->load->module('user')->model()->check_login($post['login'], $hash, $salt);
+						$user_id = $this->load->module('user', TRUE)->model()->check_login($post['login'], $hash, $salt);
 
 						if ($user_id > 0 && $this->password->is_valid($post['password'].$salt, $hash, (bool)$salt))
 						{
@@ -186,7 +186,7 @@ class User extends Core
 					echo $theme->load->view('default', [
 						'body'       => $theme->load->view('maintenance', [
 							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')
-						]).$this->debug->output(),
+						]),
 						'lang'       => $this->config->lang,
 						'css'        => output('css'),
 						'js'         => output('js'),

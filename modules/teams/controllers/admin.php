@@ -356,7 +356,7 @@ class m_teams_c_admin extends Controller_Module
 	public function _players_delete($team_id, $user_id, $username)
 	{
 		$this	->title($this('delete_player'))
-				->subtitle($title)
+				->subtitle($username)
 				->form
 				->confirm_deletion($this('delete_confirmation'), $this('delete_player_message', $username));
 				

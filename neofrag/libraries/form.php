@@ -201,9 +201,7 @@ class Form extends Library
 			if ($this->_has_upload())
 			{
 				$files = $_FILES[$token];
-				
-				$this->file;
-				
+
 				foreach ($this->_rules as $var => $options)
 				{
 					if (isset($options['type']) && $options['type'] == 'file')
@@ -211,7 +209,7 @@ class Form extends Library
 						if (!empty($post[$var]) && $post[$var] == 'delete' && !empty($options['value']))
 						{
 							$this->file->delete($options['value']);
-							$options['value'] = $post[$var] = NULL;
+							$options['value'] = $post[$var] = 0;
 						}
 						
 						if (!empty($files['tmp_name'][$var]))

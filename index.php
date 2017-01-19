@@ -91,12 +91,12 @@ function load($name)
 
 	$r = new ReflectionClass($name);
 
-	if ($debug = NeoFrag::loader() === NULL || NeoFrag::loader()->config === NULL || NeoFrag::loader()->user === NULL || NeoFrag::loader()->debug === NULL || NeoFrag::loader()->debug->is_enabled())
+	if ($debug = NeoFrag::loader() === NULL || !isset(NeoFrag::loader()->user) || !isset(NeoFrag::loader()->debug) || NeoFrag::loader()->debug->is_enabled())
 	{
 		$memory = memory_get_usage();
 		$time   = microtime(TRUE);
 	}
-	
+
 	$object = $r->newInstanceArgs($args);
 	
 	if ($debug)

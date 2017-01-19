@@ -65,7 +65,7 @@ class File extends Library
 	
 	public function delete($files)
 	{
-		foreach ((array)$files as $file_id)
+		foreach (array_filter((array)$files) as $file_id)
 		{
 			$this->_unlink($file_id);
 			

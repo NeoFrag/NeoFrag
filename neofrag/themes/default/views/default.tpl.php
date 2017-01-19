@@ -17,7 +17,7 @@
 <title><?php echo $data['page_title']; ?></title>
 </head>
 <body>
-	<?php if ($NeoFrag->config->nf_maintenance && !$NeoFrag->config->admin_url && $NeoFrag->user('admin') && $NeoFrag->module->name != 'live_editor'): ?>
+	<?php if ($NeoFrag->config->nf_maintenance && !$NeoFrag->config->admin_url && isset($NeoFrag->user) && $NeoFrag->user('admin') && $NeoFrag->module->name != 'live_editor'): ?>
 		<nav class="navbar no-margin bg-danger">
 			<div class="container">
 				<p class="navbar-text"><?php echo icon('fa-power-off').' '.i18n('website_down_for_maintenance'); ?></p>
