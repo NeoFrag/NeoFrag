@@ -101,9 +101,11 @@ abstract class Driver
 		{
 			$this->sql = $this->query;
 		}
-		else if (!empty($this->insert) && !empty($this->values))
+		else if ((!empty($this->insert) || !empty($this->replace)) && !empty($this->values))
 		{
-			$this->sql = 'INSERT INTO '.$this->insert.' ('.implode(', ', array_map('static::escape_keywords', array_keys($this->values))).') VALUES ('.implode(', ', array_map(function($a){
+			$this->sql = !empty($this->insert) ? 'INSERT INTO '.$this->insert : 'REPLACE INTO '.$this->replace;
+
+			$this->sql .= ' ('.implode(', ', array_map('static::escape_keywords', array_keys($this->values))).') VALUES ('.implode(', ', array_map(function($a){
 				return $this->bind($a);
 			}, $this->values)).')';
 		}

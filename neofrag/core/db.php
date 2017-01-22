@@ -270,6 +270,14 @@ class Db extends Core
 		return $this->_request('last_id');
 	}
 
+	public function replace($table, $data)
+	{
+		$this->_request['replace'] = $table;
+		$this->_request['values']  = $data;
+
+		return $this->_request('last_id');
+	}
+
 	public function update($table, $data)
 	{
 		$this->_request['update'] = $table;
