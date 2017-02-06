@@ -148,7 +148,7 @@ class Pagination extends Library
 
 	public function get_url()
 	{
-		return url(implode('/', ($pos = array_search('page', $this->config->segments_url)) !== FALSE || ($pos = array_search('all', $this->config->segments_url)) !== FALSE ? array_slice($this->config->segments_url, 0, $pos) : $this->config->segments_url));
+		return url(implode('/', ($pos = array_search('page', $this->url->segments)) !== FALSE || ($pos = array_search('all', $this->url->segments)) !== FALSE ? array_slice($this->url->segments, 0, $pos) : $this->url->segments));
 	}
 
 	public function get_items_per_page()

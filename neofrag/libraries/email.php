@@ -107,20 +107,19 @@ class Email extends Library
 		{
 			$mail->addAddress($to);
 		}
-		
-		$base_url = $this->config->base_url;
-		$this->config->base_url = $this->config->host.$base_url;
+
+		$this->url->external(TRUE);
 
 		$this->template->parse_data($this->_data, $this->load);
 		
 		$mail->Body    = $this->load->view('emails/'.$this->_view, $this->_data);
 		$mail->AltBody = $this->load->view('emails/'.$this->_view.'.txt', $this->_data);
 
+		$this->url->external(FALSE);
+
 		$result = $mail->send();
 
 		$this->reset();
-
-		$this->config->base_url = $base_url;
 
 		return $result;
 	}

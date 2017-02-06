@@ -26,13 +26,13 @@ class Breadcrumb extends Core
 	{
 		$links = $this->_links;
 		
-		if (empty($links) && $this->config->segments_url[0] == 'index')
+		if (empty($links) && $this->url->segments[0] == 'index')
 		{
 			array_unshift($links, [$this->load->lang('home'), '', 'fa-map-marker']);
 		}
 		else
 		{
-			array_unshift($links, [$this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->config->request_url : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker']);
+			array_unshift($links, [$this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->url->request : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker']);
 		}
 
 		return $links;
@@ -47,7 +47,7 @@ class Breadcrumb extends Core
 
 		if ($title !== '')
 		{
-			$this->_links[] = [$title, $link ?: $this->config->request_url, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon)];
+			$this->_links[] = [$title, $link ?: $this->url->request, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon)];
 		}
 
 		return $this;

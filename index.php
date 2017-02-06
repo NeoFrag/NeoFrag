@@ -165,18 +165,53 @@ $NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoF
 
 $NeoFrag->module = $NeoFrag->theme = NULL;
 
-foreach (['array', 'assets', 'buttons', 'color', 'countries', 'file', 'geolocalisation', 'dir', 'i18n', 'input', 'location', 'network', 'notify', 'output', 'statistics', 'string', 'time', 'user_agent'] as $helper)
+foreach ([
+			'array',
+			'assets',
+			'buttons',
+			'color',
+			'countries',
+			'file',
+			'geolocalisation',
+			'dir',
+			'i18n',
+			'input',
+			'location',
+			'network',
+			'notify',
+			'output',
+			'statistics',
+			'string',
+			'time',
+			'user_agent'
+		] as $helper
+	)
 {
 	$NeoFrag->helper($helper);
 }
 
-foreach(['debug', 'template', 'db', 'config', 'access', 'addons', 'session', 'user', 'groups', 'breadcrumb', 'router', 'output'] as $library)
+foreach([
+			'debug',
+			'template',
+			'db',
+			'url',
+			'config',
+			'access',
+			'addons',
+			'session',
+			'user',
+			'groups',
+			'breadcrumb',
+			'router',
+			'output'
+		] as $library
+	)
 {
 	$NeoFrag->{'core_'.$library};
 
-	if ($library == 'config' && is_asset() && !preg_match('#^backups/#', $NeoFrag->config->request_url))
+	if ($library == 'config' && is_asset() && !preg_match('#^backups/#', $NeoFrag->url->request))
 	{
-		asset($NeoFrag->config->request_url);
+		asset($NeoFrag->url->request);
 	}
 }
 

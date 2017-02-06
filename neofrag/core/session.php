@@ -57,7 +57,7 @@ class Session extends Core
 							'last_activity' => now()
 						]);
 		}
-		else if (!is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+		else if (!is_asset() && !$this->url->ajax && !$this->url->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
 			$this->_session_id();
 			
@@ -67,7 +67,7 @@ class Session extends Core
 			{
 				$this->db->insert('nf_crawlers', [
 					'name' => $crawler,
-					'path' => $this->config->request_url
+					'path' => $this->url->request
 				]);
 			}
 
@@ -90,7 +90,7 @@ class Session extends Core
 	
 	public function __destruct()
 	{
-		if (!is_asset() && !$this->config->ajax_url && !$this->config->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+		if (!is_asset() && !$this->url->ajax && !$this->url->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
 			if (in_array($this->_get_url(), ['index.html', 'admin.html']) || empty($_SERVER['HTTP_REFERER']))
 			{
@@ -276,7 +276,7 @@ class Session extends Core
 		
 		if ($url === NULL)
 		{
-			$url = $this->config->request_url;
+			$url = $this->url->request;
 			
 			if (preg_match('#('.($patern = implode('|', [self::$route_patterns['pages'], self::$route_patterns['page']])).')\.html$#', $url, $match) && $match[1])
 			{

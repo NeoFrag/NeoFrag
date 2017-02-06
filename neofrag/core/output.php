@@ -29,7 +29,7 @@ class Output extends Core
 		$this->data['page_title'] = $this->config->nf_name.' :: '.$this->config->nf_description;
 		$this->data['lang']       = $this->config->lang;
 		
-		if ($this->router->ajax())
+		if ($this->url->ajax())
 		{
 			$output = $this->load->module->get_output();
 		}
@@ -43,7 +43,7 @@ class Output extends Core
 
 			$this->data['module'] = $this->load->module->get_output();
 			
-			if ($this->config->admin_url)
+			if ($this->url->admin)
 			{
 				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].'</div>';
 			}
@@ -52,7 +52,7 @@ class Output extends Core
 			{
 				$module_title = $this->data['module_title'];
 				
-				if ($this->config->segments_url[0] != 'index')
+				if ($this->url->segments[0] != 'index')
 				{
 					$this->data['page_title'] = $this->data['module_title'].' :: '.$this->config->nf_name;
 				}
@@ -73,7 +73,7 @@ class Output extends Core
 
 			if (NeoFrag::live_editor())
 			{
-				$this->data['body'] = '<div id="live_editor" data-module-title="'.($this->config->segments_url[0] == 'index' ? NeoFrag::loader()->lang('home') : $module_title).'"></div>'.$this->data['body'];
+				$this->data['body'] = '<div id="live_editor" data-module-title="'.($this->url->segments[0] == 'index' ? NeoFrag::loader()->lang('home') : $module_title).'"></div>'.$this->data['body'];
 			
 				$this->load	->css('font.open-sans.300.400.600.700.800')
 							->css('neofrag.live-editor');
@@ -83,7 +83,7 @@ class Output extends Core
 				$this->data['body'] .= $this->debug->display();
 			}
 
-			if (!$this->router->ajax() && $this->user('admin') && $this->config->request_url != 'admin/monitoring.html' && $this->load->module('monitoring')->need_checking())
+			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring.html' && $this->load->module('monitoring')->need_checking())
 			{
 				$this->js_load('$.post(\''.url('admin/ajax/monitoring.json').'\', {refresh: false});');
 			}
@@ -95,16 +95,16 @@ class Output extends Core
 			$output = $this->load->theme->load->view('default', $this->data);
 		}
 
-		if ($this->config->extension_url == 'json')
+		if ($this->url->extension == 'json')
 		{
 			header('Content-Type: application/json; charset=UTF-8');
 		}
-		else if ($this->config->extension_url == 'xml')
+		else if ($this->url->extension == 'xml')
 		{
 			header('Content-Type: application/xml; charset=UTF-8');
 			$output = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".$output;
 		}
-		else if ($this->config->extension_url == 'txt')
+		else if ($this->url->extension == 'txt')
 		{
 			header('Content-Type: text/plain; charset=UTF-8');
 			$output = utf8_html_entity_decode($output);
@@ -130,7 +130,7 @@ class Output extends Core
 
 			$pages = ['page', '*', 'OR'];
 
-			if ($this->config->segments_url[0] == 'index')
+			if ($this->url->segments[0] == 'index')
 			{
 				$pages[] = 'page';
 				$pages[] = '/';

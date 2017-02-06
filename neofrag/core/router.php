@@ -26,28 +26,28 @@ class Router extends Core
 	{
 		$segments = ['error'];
 
-		if ((in_array($this->config->extension_url, ['html', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->config->request_url))
+		if ((in_array($this->url->extension, ['html', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->url->request))
 		{
-			$segments = $this->config->segments_url;
+			$segments = $this->url->segments;
 			
 			if ($segments[0] == 'index')
 			{
 				$segments = array_merge(explode('/', $this->config->nf_default_page), array_offset_left($segments));
 			}
 			
-			if ($this->config->admin_url && $this->config->request_url != 'admin.html')
+			if ($this->url->admin && $this->url->request != 'admin.html')
 			{
 				$segments = array_offset_left($segments);
 			}
 			
-			if ($this->config->ajax_url)
+			if ($this->url->ajax)
 			{
 				$segments = array_offset_left($segments);
 			}
 			
-			if ($this->config->admin_url && !$this->access->admin())
+			if ($this->url->admin && !$this->access->admin())
 			{
-				$this->config->admin_url = FALSE;
+				$this->url->admin = FALSE;
 				
 				if ($this->user())
 				{
@@ -60,25 +60,18 @@ class Router extends Core
 			}
 		}
 
-		$this->load->theme = $this->load->theme($this->config->admin_url ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
+		$this->load->theme = $this->load->theme($this->url->admin ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
 
 		$this->_load($segments);
 		
 		return $this;
-	}
-	
-	public function ajax()
-	{
-		return 	$this->config->ajax_url ||
-				($this->config->ajax_header && $this->config->ajax_allowed) ||
-				($this->config->extension_allowed && $this->config->extension_url != 'html');
 	}
 
 	private function _load($segments)
 	{
 		if (!$module = $this->load->module = $this->load->module(!in_string('_', $segments[0]) ? str_replace('-', '_', $segments[0]) : 'error'))
 		{
-			return $this->_load($segments[0] != 'pages' ? array_merge([$this->config->admin_url ? 'admin' : 'pages'], $segments) : ['error']);
+			return $this->_load($segments[0] != 'pages' ? array_merge([$this->url->admin ? 'admin' : 'pages'], $segments) : ['error']);
 		}
 
 		array_shift($segments);
@@ -112,7 +105,7 @@ class Router extends Core
 		$this->segments = array_merge([$module->name, $method], $segments);
 		
 		//Checker Controller
-		if (($checker = $module->load->controller(($this->config->admin_url ? 'admin_' : '').($this->config->ajax_url ? 'ajax_' : '').'checker')) && $checker->has_method($method))
+		if (($checker = $module->load->controller(($this->url->admin ? 'admin_' : '').($this->url->ajax ? 'ajax_' : '').'checker')) && $checker->has_method($method))
 		{
 			try
 			{
@@ -137,17 +130,17 @@ class Router extends Core
 		
 		if ($module->name != 'error')
 		{
-			if (($ajax_error = $this->config->ajax_header && !$this->config->ajax_url && !$this->config->ajax_allowed) && !post('table_id'))
+			if (($ajax_error = $this->url->ajax_header && !$this->url->ajax && !$this->url->ajax_allowed) && !post('table_id'))
 			{
 				return $this->_load(['error']);
 			}
 			
-			if ($this->config->admin_url)
+			if ($this->url->admin)
 			{
 				$controller_name[] = 'admin';
 			}
 			
-			if ($this->config->ajax_url)
+			if ($this->url->ajax)
 			{
 				$controller_name[] = 'ajax';
 			}
@@ -159,13 +152,13 @@ class Router extends Core
 		}
 		else
 		{
-			$controller_name[] = $this->config->ajax_header ? 'ajax' : 'index';
+			$controller_name[] = $this->url->ajax_header ? 'ajax' : 'index';
 		}
 	
 		//Controller
 		if (($controller = $module->load->controller(implode('_', $controller_name))) && $controller->has_method($method))
 		{
-			if ($module->name != 'error' && $module->name != 'admin' && $this->config->admin_url && !$module->is_authorized())
+			if ($module->name != 'error' && $module->name != 'admin' && $this->url->admin && !$module->is_authorized())
 			{
 				return $this->_load(['error', 'unauthorized']);
 			}
@@ -178,7 +171,7 @@ class Router extends Core
 
 				$output = $controller->method($method, $segments);
 
-				if ($module->name == 'error' || ((empty($ajax_error) || $this->config->ajax_allowed) && $this->config->extension_allowed))
+				if ($module->name == 'error' || ((empty($ajax_error) || $this->url->ajax_allowed) && $this->url->extension_allowed))
 				{
 					$module->append_output($output);
 					return;

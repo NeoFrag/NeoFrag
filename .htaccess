@@ -22,7 +22,5 @@ AddDefaultCharset UTF-8
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule .* - [L,QSA]
 
-	RewriteRule ^humans.txt - [E=ROUTE:ajax/settings/humans]
-	RewriteRule ^robots.txt - [E=ROUTE:ajax/settings/robots]
 	RewriteRule .* index.php [E=REMOTE_USER:%{HTTP:Authorization},L,QSA]
 </IfModule>

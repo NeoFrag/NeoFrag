@@ -1,4 +1,4 @@
-<form class="form-inline" action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
+<form class="form-inline" action="<?php echo url($NeoFrag->url->request); ?>" method="post">
 	<div class="form-group">
 		<label for="form_<?php echo $data['form_id']; ?>_user"><?php echo i18n('player_single'); ?></label>
 		<select class="form-control" name="<?php echo $data['form_id']; ?>[user_id]">

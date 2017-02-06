@@ -32,7 +32,7 @@ $rules = [
 	]
 ];
 
-if (!NeoFrag::loader()->config->admin_url)
+if (!NeoFrag::loader()->url->admin)
 {
 	$rules = array_merge($rules, [
 		'password_old' => [

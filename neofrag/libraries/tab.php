@@ -79,7 +79,7 @@ class Tab extends Library
 
 					if ($i == 0)
 					{
-						if ($index != array_last($this->config->segments_url))
+						if ($index != array_last($this->url->segments))
 						{
 							$index = $code = $lang['code'];
 						}
@@ -116,7 +116,7 @@ class Tab extends Library
 			}
 		}
 
-		if (!isset($is_good) || !$is_good || array_last($this->config->segments_url) == $this->_default_tab)
+		if (!isset($is_good) || !$is_good || array_last($this->url->segments) == $this->_default_tab)
 		{
 			throw new Exception(NeoFrag::UNFOUND);
 		}

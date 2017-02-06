@@ -24,7 +24,7 @@ class m_settings_c_ajax extends Controller_Module
 	{
 		$this->extension('txt');
 
-		if ($this->config->request_url != 'humans.txt' || !$this->config->nf_humans_txt)
+		if ($this->url->request != 'humans.txt' || !$this->config->nf_humans_txt)
 		{
 			throw new Exception(NeoFrag::UNFOUND);
 		}
@@ -36,7 +36,7 @@ class m_settings_c_ajax extends Controller_Module
 	{
 		$this->extension('txt');
 
-		if ($this->config->request_url != 'robots.txt' || !$this->config->nf_robots_txt)
+		if ($this->url->request != 'robots.txt' || !$this->config->nf_robots_txt)
 		{
 			throw new Exception(NeoFrag::UNFOUND);
 		}

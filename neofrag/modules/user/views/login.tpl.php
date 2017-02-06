@@ -1,4 +1,4 @@
-<form action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
+<form action="<?php echo url($NeoFrag->url->request); ?>" method="post">
 	<div class="form-group">
 		<input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[login]" placeholder="<?php echo i18n('username'); ?>" />
 	</div>

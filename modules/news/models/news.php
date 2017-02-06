@@ -45,7 +45,7 @@ class m_news_m_news extends Model
 			}
 		}
 		
-		if (!$this->config->admin_url)
+		if (!$this->url->admin)
 		{
 			$this->db->where('n.published', TRUE);
 		}
@@ -89,7 +89,7 @@ class m_news_m_news extends Model
 						->where('nl.lang', $lang)
 						->where('cl.lang', $lang);
 		
-		if (!$this->config->admin_url)
+		if (!$this->url->admin)
 		{
 			$this->db->where('n.published', TRUE);
 		}

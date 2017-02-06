@@ -1,4 +1,4 @@
-<form action="<?php echo url($NeoFrag->config->request_url.(empty($data['forum_id']) && empty($data['is_topic']) ? '#reply' : '')); ?>" method="post">
+<form action="<?php echo url($NeoFrag->url->request.(empty($data['forum_id']) && empty($data['is_topic']) ? '#reply' : '')); ?>" method="post">
 	<table class="table">
 		<tbody class="forum-content">
 			<?php if (!empty($data['forum_id']) || !empty($data['is_topic'])): ?>

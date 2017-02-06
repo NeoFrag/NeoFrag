@@ -167,7 +167,7 @@ class m_forum extends Module
 	
 	public function load()
 	{
-		if (!$this->config->admin_url && !$this->config->ajax_url)
+		if (!$this->url->admin && !$this->url->ajax)
 		{
 			$this->css('forum');
 		}

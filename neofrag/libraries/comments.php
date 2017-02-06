@@ -80,7 +80,7 @@ class Comments extends Library
 				'content'   => $post['comment']
 			]);
 			
-			redirect($this->config->request_url.'#comment-'.$comment_id);
+			redirect($this->url->request.'#comment-'.$comment_id);
 		}
 
 		$comments = $this->db	->select('c.comment_id', 'c.parent_id', 'u.user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')

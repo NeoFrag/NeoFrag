@@ -392,7 +392,7 @@ class Form extends Library
 		{
 			list($title, $message) = $this->_confirm_deletion;
 
-			if ($this->router->ajax())
+			if ($this->url->ajax())
 			{
 				return '<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.NeoFrag::loader()->lang('close').'</span></button>
@@ -403,7 +403,7 @@ class Form extends Library
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">'.NeoFrag::loader()->lang('cancel').'</button>
-							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">'.NeoFrag::loader()->lang('remove').'</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->url->request).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">'.NeoFrag::loader()->lang('remove').'</a>
 						</div>';
 			}
 			else
@@ -411,7 +411,7 @@ class Form extends Library
 				//TODO
 				/*return 	'<p>'.$message.'</p><p>
 							<button type="button" class="btn btn-default" onclick="$(this).parents(\'.alert\').alert(\'close\');">Annuler</button>
-							<a class="btn btn-danger delete-confirm" href="'.url($this->config->request_url).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">Supprimer</a>
+							<a class="btn btn-danger delete-confirm" href="'.url($this->url->request).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">Supprimer</a>
 						</p>';*/
 			}
 
@@ -425,7 +425,7 @@ class Form extends Library
 			$this->js('neofrag.file');
 		}
 		
-		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->config->request_url).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
+		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->url->request).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
 						<fieldset>';
 
 		$post = post($this->token());

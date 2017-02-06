@@ -64,7 +64,7 @@ class User extends Core
 					{
 						$this->login((int)$user['user_id'], FALSE);
 
-						if ($this->config->request_url == 'user/logout.html')
+						if ($this->url->request == 'user/logout.html')
 						{
 							redirect();
 						}
@@ -140,7 +140,7 @@ class User extends Core
 				$this	->config('nf_maintenance', FALSE, 'bool')
 						->config('nf_maintenance_opening', '');
 			}
-			else if (!$this('admin') && $this->config->request_url != 'user/logout.html')
+			else if (!$this('admin') && $this->url->request != 'user/logout.html')
 			{
 				header('HTTP/1.0 503 Service Unavailable');
 				
@@ -149,7 +149,7 @@ class User extends Core
 					header('Retry-After: '.$opening->setTimezone(new DateTimezone('UTC'))->format('D, d M Y H:i:s \G\M\T'));
 				}
 				
-				if (!$this->config->ajax_header)
+				if (!$this->url->ajax_header)
 				{
 					$form_login = $this
 						->form

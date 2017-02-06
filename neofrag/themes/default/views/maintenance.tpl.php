@@ -41,7 +41,7 @@
 	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.i18n('hide'); ?></a>
 	<div class="login-body">
 		<h2><?php echo i18n('login_title'); ?></h2>
-		<form action="<?php echo url($NeoFrag->config->request_url); ?>" method="post">
+		<form action="<?php echo url($NeoFrag->url->request); ?>" method="post">
 			<div class="form-group">
 				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
 			</div>

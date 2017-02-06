@@ -38,7 +38,7 @@ class m_gallery_m_gallery extends Model
 			$this->db->where('g.category_id', $category_id);
 		}
 		
-		if (!$this->config->admin_url)
+		if (!$this->url->admin)
 		{
 			$this->db->where('g.published', TRUE);
 		}
@@ -63,7 +63,7 @@ class m_gallery_m_gallery extends Model
 					->where('gl.lang', $lang)
 					->where('cl.lang', $lang);
 		
-		if (!$this->config->admin_url)
+		if (!$this->url->admin)
 		{
 			$this->db->where('g.published', TRUE);
 		}

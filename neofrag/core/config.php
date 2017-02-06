@@ -27,32 +27,12 @@ class Config extends Core
 	{
 		parent::__construct();
 
-		foreach ($_SERVER as $key => $value)
-		{
-			if (preg_match('/^(REDIRECT_)+(.*)/', $key, $match))
-			{
-				unset($_SERVER[$key]);
-				$_SERVER['REDIRECT_'.$match[2]] = $value;
-			}
-		}
-
 		$this->reset();
 	}
 
 	public function reset()
 	{
 		$this->_configs = $this->_settings = [];
-		
-		$this->_configs['host']              = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
-		$this->_configs['base_url']          = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-		$this->_configs['request_url']       = preg_replace('#^'.preg_quote($this->_configs['base_url'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) ?: 'index.html';
-		$this->_configs['extension_url']     = extension($this->_configs['request_url']);
-		$this->_configs['segments_url']      = explode('/', !empty($_SERVER['REDIRECT_ROUTE']) ? $_SERVER['REDIRECT_ROUTE'] : substr($this->_configs['request_url'], 0, - strlen($this->_configs['extension_url']) - 1));
-		$this->_configs['admin_url']         = $this->_configs['segments_url'][0] == 'admin';
-		$this->_configs['ajax_header']       = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-		$this->_configs['ajax_url']          = (empty($this->_configs['admin_url']) && $this->_configs['segments_url'][0] == 'ajax') || (!empty($this->_configs['admin_url']) && isset($this->_configs['segments_url'][1]) && $this->_configs['segments_url'][1] == 'ajax');
-		$this->_configs['ajax_allowed']      = FALSE;
-		$this->_configs['extension_allowed'] = $this->_configs['extension_url'] == 'html';
 
 		if (($configs = $this->load->db->select('site', 'lang', 'name', 'value', 'type')->from('nf_settings')->get()) === NULL)
 		{

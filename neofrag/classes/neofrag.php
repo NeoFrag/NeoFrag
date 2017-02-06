@@ -145,7 +145,7 @@ abstract class NeoFrag
 
 	public function ajax()
 	{
-		$this->config->ajax_allowed = TRUE;
+		$this->url->ajax_allowed = TRUE;
 		return $this;
 	}
 
@@ -153,13 +153,13 @@ abstract class NeoFrag
 	{
 		if (in_array($extension, ['json', 'xml', 'txt']))
 		{
-			if ($this->config->extension_url != $extension)
+			if ($this->url->extension != $extension)
 			{
 				throw new Exception(NeoFrag::UNFOUND);
 			}
 
-			$this->config->extension_url     = $extension;
-			$this->config->extension_allowed = TRUE;
+			$this->url->extension     = $extension;
+			$this->url->extension_allowed = TRUE;
 
 			$this->ajax();
 		}

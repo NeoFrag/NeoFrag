@@ -22,7 +22,7 @@ function display($objects, $id = NULL)
 {
 	$output = '';
 	
-	if (!NeoFrag::loader()->config->ajax_url)
+	if (!NeoFrag::loader()->url->ajax)
 	{
 		if (is_object($objects) && is_a($objects, 'Panel'))
 		{

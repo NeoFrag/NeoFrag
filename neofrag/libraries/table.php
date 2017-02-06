@@ -471,7 +471,7 @@ class Table extends Library
 
 			if (!$this->_ajax)
 			{
-				$output = '<div class="table-area" data-table-id="'.$this->id.'"'.($this->config->ajax_url ? ' data-ajax-url="'.url($this->config->request_url).'"  data-ajax-post="'.http_build_query(post()).'"' : '').'>'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
+				$output = '<div class="table-area" data-table-id="'.$this->id.'"'.($this->url->ajax ? ' data-ajax-url="'.url($this->url->request).'"  data-ajax-post="'.http_build_query(post()).'"' : '').'>'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
 			}
 		}
 		

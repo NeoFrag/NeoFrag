@@ -7,7 +7,7 @@
 	</div>
 	<div class="text-right">
 		<a href="<?php echo url('user/lost-password.html'); ?>" class="btn btn-link"><?php echo i18n('lost_password'); ?></a>
-		<input type="hidden" name="<?php echo $data['form_id']; ?>[redirect]" value="<?php echo $NeoFrag->config->request_url; ?>" />
+		<input type="hidden" name="<?php echo $data['form_id']; ?>[redirect]" value="<?php echo $NeoFrag->url->request; ?>" />
 		<input type="hidden" name="<?php echo $data['form_id']; ?>[remember_me][]" value="on" />
 		<input type="submit" class="btn btn-default" value="<?php echo i18n('login'); ?>" />
 	</div>

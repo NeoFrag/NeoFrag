@@ -81,7 +81,7 @@
 		{
 			foreach ($link['url'] as $sublink)
 			{
-				if (preg_match('#^(.*?)\.html#', $sublink['url'], $match) && preg_match('#^'.$match[1].'(?:\.|/)#', $NeoFrag->config->request_url))
+				if (preg_match('#^(.*?)\.html#', $sublink['url'], $match) && preg_match('#^'.$match[1].'(?:\.|/)#', $NeoFrag->url->request))
 				{
 					$actives[] = $match[1].'.html';
 				}
@@ -128,7 +128,7 @@
 		}
 		else if (!isset($link['access']) || $link['access'])
 		{
-			echo '<li><a'.($NeoFrag->config->request_url == $link['url'] ? ' class="active"' : '').' href="'.url($link['url']).'">'.icon($link['icon']).' <span class="hidden-xs">'.$link['title'].'</span></a></li>';
+			echo '<li><a'.($NeoFrag->url->request == $link['url'] ? ' class="active"' : '').' href="'.url($link['url']).'">'.icon($link['icon']).' <span class="hidden-xs">'.$link['title'].'</span></a></li>';
 		}
 	}
 ?>
@@ -148,7 +148,7 @@
 					<?php endif; ?>
 					<?php if (($help = $NeoFrag->module->load->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
 					<?php NeoFrag::loader()->js('neofrag.help'); ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->config->request_url); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo i18n('help'); ?></span></a>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->url->request); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo i18n('help'); ?></span></a>
 					<?php endif; ?>
 				</div>
 			</div>
