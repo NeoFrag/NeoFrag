@@ -41,7 +41,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		}
 		
 		return new Col(new Panel([
-			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.button('#', 'fa-users', $this('users'), 'info access-users').'</span>'.$title,
+			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title,
 			'icon'    => $icon,
 			'content' => $this->load->view('details', [
 				'groups' => $groups

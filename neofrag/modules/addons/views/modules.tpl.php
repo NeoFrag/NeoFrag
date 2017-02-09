@@ -25,9 +25,15 @@
 			</div>
 		</div>
 		<div class="item-action">
-			<?php if ($settings) echo button('admin/addons/module/'.$module->name.'.html', 'fa-wrench', 'Configurer', 'warning'); ?>
-			<?php if ($access) echo button_access($module->name); ?>
-			<?php if (0 && $removable) echo button_delete('admin/addons/delete/module/'.$module->name.'.html'); ?>
+			<?php if ($settings) echo $this	->button()
+											->tooltip('Configurer')
+											->icon('fa-wrench')
+											->url('admin/addons/module/'.$module->name.'.html')
+											->color('warning')
+											->compact()
+											->outline(); ?>
+			<?php if ($access) echo $this->button_access($module->name); ?>
+			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/module/'.$module->name.'.html'); ?>
 		</div>
 	</div>
 	<?php endforeach; ?>

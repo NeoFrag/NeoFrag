@@ -13,7 +13,7 @@
 			
 			if ($NeoFrag->user('admin') || ($NeoFrag->user() && $NeoFrag->user('user_id') == $data['user_id']))
 			{
-				$actions[] = button_delete('ajax/comments/delete/'.$data['comment_id'].'.html');
+				$actions[] = $this->button_delete('ajax/comments/delete/'.$data['comment_id'].'.html');
 			}
 			
 			if ($actions)

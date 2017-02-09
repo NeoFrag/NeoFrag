@@ -17,7 +17,6 @@
 				<td class="access-count">
 					<?php echo NeoFrag::loader()->access->count($data['module'], $name, $data['id']); ?>
 				</td>
-				<!--<td class="text-right"><?php echo button('#', 'fa-copy', 'Glissez pour copier les droits', 'primary'); ?></td>-->
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

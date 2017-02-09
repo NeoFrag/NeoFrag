@@ -16,7 +16,7 @@
 								<a class="btn btn-outline btn-info btn-xs" href="<?php echo url('admin/addons/theme/'.$theme->name.'.html'); ?>" title="<?php echo i18n('personalize'); ?>" data-toggle="tooltip"><?php echo icon('fa-paint-brush'); ?></a>
 							<?php endif; ?>
 							<button class="btn btn-outline btn-warning btn-xs" title="<?php echo i18n('reinstall_to_default'); ?>" data-toggle="tooltip"><?php echo icon('fa-refresh'); ?></button>
-							<?php if ($theme->is_removable()) echo button_delete('admin/addons/delete/theme/'.$theme->name.'.html'); ?>
+							<?php if ($theme->is_removable()) echo $this->button_delete('admin/addons/delete/theme/'.$theme->name.'.html'); ?>
 							</span>
 						</h3>
 						<p><?php echo $theme->load->lang($theme->description, NULL); ?></p>

@@ -40,7 +40,11 @@ class m_addons_c_admin extends Controller_Module
 					'title'   => '<div class="pull-right"><small>(max. '.(file_upload_max_size() / 1024 / 1024).' Mo)</small></div>Ajouter un composant',
 					'icon'    => 'fa-plus',
 					'content' => '<input type="file" id="install-input" class="install" accept=".zip" /><label for="install-input" id="install-input-label"><p>'.icon('fa-upload fa-3x').'</p><span class="legend">Choisissez votre archive</span><br /><small class="text-muted">(format .zip)</small></label>',
-					'footer'  => button('#', 'fa-plus', 'Installer', 'info btn-block install disabled', [], FALSE)
+					'footer'  => $this	->button()
+										->title('Installer')
+										->icon('fa-plus')
+										->color('info btn-block install disabled')
+										->outline()
 				]),
 				new Panel([
 					'title'   => 'Composants du site',

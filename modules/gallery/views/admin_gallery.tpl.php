@@ -19,7 +19,7 @@
 					<a class="thumbnail-link" data-toggle="tooltip" title="<?php echo i18n('view'); ?>" data-image="<?php echo path($image['file_id']); ?>" data-title="<?php echo $image['title']; ?>" data-description="<?php echo $image['description']; ?>"><img class="img-responsive" src="<?php echo path($image['thumbnail_file_id']); ?>" alt="" /></a>
 						<div class="actions">
 						<a href="<?php echo url('admin/gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html'); ?>" class="btn btn-outline btn-info btn-xs" data-toggle="tooltip" title="<?php echo i18n('edit'); ?>"><?php echo icon('fa-pencil'); ?></a>
-						<?php echo button_delete('admin/gallery/image/delete/'.$image['image_id'].'/'.url_title($image['title']).'.html'); ?>
+						<?php echo $this->button_delete('admin/gallery/image/delete/'.$image['image_id'].'/'.url_title($image['title']).'.html'); ?>
 						</div>
 					</div>
 				</div>

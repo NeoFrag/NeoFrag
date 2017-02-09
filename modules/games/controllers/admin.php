@@ -36,10 +36,10 @@ class m_games_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/games/'.$data['game_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/games/'.$data['game_id'].'/'.$data['name'].'.html');
 									},
 									function($data){
-										return button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name'].'.html');
 									}
 								],
 								'size'    => TRUE
@@ -56,7 +56,7 @@ class m_games_c_admin extends Controller_Module
 					'title'   => $this('game_list'),
 					'icon'    => 'fa-gamepad',
 					'content' => $games,
-					'footer'  => button_add('admin/games/add.html', $this('add_game')),
+					'footer'  => $this->button_create('admin/games/add.html', $this('add_game')),
 					'size'    => 'col-md-12 col-lg-4'
 				])
 			),
@@ -122,10 +122,10 @@ class m_games_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/games/modes/edit/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_update('admin/games/modes/edit/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
 									},
 									function($data){
-										return button_delete('admin/games/modes/delete/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_delete('admin/games/modes/delete/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
 									}
 								],
 								'size'    => TRUE
@@ -163,7 +163,7 @@ class m_games_c_admin extends Controller_Module
 					'title'   => 'Modes',
 					'icon'    => 'fa-cog',
 					'content' => $modes,
-					'footer'  => button_add('admin/games/modes/add/'.$game_id.'/'.url_title($title).'.html',  'Ajouter un mode')
+					'footer'  => $this->button_create('admin/games/modes/add/'.$game_id.'/'.url_title($title).'.html',  'Ajouter un mode')
 				]),
 				$this->_panel_maps($maps, $game_id, $title),
 				'col-md-5'
@@ -346,10 +346,10 @@ class m_games_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_update('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']).'.html');
 									},
 									function($data){
-										return button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']).'.html');
 									}
 								],
 								'size'    => TRUE
@@ -363,7 +363,7 @@ class m_games_c_admin extends Controller_Module
 			'title'   => 'Cartes',
 			'icon'    => 'fa-map-o',
 			'content' => $maps,
-			'footer'  => button_add('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : '').'.html',  'Ajouter une carte')
+			'footer'  => $this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : '').'.html',  'Ajouter une carte')
 		]);
 	}
 }

@@ -9,9 +9,9 @@
 				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o'); ?><span class="hidden-xs"> <?php echo i18n('last_message'); ?></span></h4></th>
 				<?php if ($NeoFrag->url->admin): ?>
 				<th class="col-md-1 text-right">
-					<?php echo button_access($data['category_id'], 'category'); ?>
-					<?php echo button_edit('admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
-					<?php echo button_delete('admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
+					<?php echo $this->button_access($data['category_id'], 'category'); ?>
+					<?php echo $this->button_update('admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
+					<?php echo $this->button_delete('admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title']).'.html'); ?>
 				</th>
 				<?php endif; ?>
 			</tr>
@@ -30,7 +30,7 @@
 						echo '<ul class="subforums">';
 						foreach ($forum['subforums'] as $subforum):
 							echo '<li'.($NeoFrag->url->admin ? ' data-forum-id="'.$subforum['forum_id'].'"' : '').'>'.
-									($NeoFrag->url->admin ? '<div class="pull-right">'.button_edit('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').' '.button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'</div>' : '')
+									($NeoFrag->url->admin ? '<div class="pull-right">'.$this->button_update('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').' '.$this->button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'</div>' : '')
 									.$subforum['icon'].' <a href="'.url('forum/'.$subforum['forum_id'].'/'.url_title($subforum['title']).'.html').'">'.$subforum['title'].'</a>'.
 								'</li>';
 						endforeach;
@@ -62,8 +62,8 @@
 				</td>
 				<?php if ($NeoFrag->url->admin): ?>
 				<td class="col-md-1 text-right">
-						<?php echo button_edit('admin/forum/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
-						<?php echo button_delete('admin/forum/delete/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
+						<?php echo $this->button_update('admin/forum/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
+						<?php echo $this->button_delete('admin/forum/delete/'.$forum['forum_id'].'/'.url_title($forum['title']).'.html'); ?>
 				</td>
 				<?php endif; ?>
 			</tr>

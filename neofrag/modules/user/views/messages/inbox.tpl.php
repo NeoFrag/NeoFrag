@@ -16,7 +16,7 @@
 			</td>
 			<?php if ($data['allow_delete']): ?>
 			<td class="col-md-1 text-right">
-				<?php echo button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title']).'.html'); ?>
+				<?php echo $this->button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title']).'.html'); ?>
 			</td>
 			<?php endif; ?>
 		</tr>

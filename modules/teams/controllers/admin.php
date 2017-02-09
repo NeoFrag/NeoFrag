@@ -28,7 +28,7 @@ class m_teams_c_admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return button_sort($data['team_id'], 'admin/ajax/teams/sort.html');
+									return $this->button_sort($data['team_id'], 'admin/ajax/teams/sort.html');
 								},
 								'size'    => TRUE
 							],
@@ -54,10 +54,10 @@ class m_teams_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/teams/'.$data['team_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/teams/'.$data['team_id'].'/'.$data['name'].'.html');
 									},
 									function($data){
-										return button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name'].'.html');
 									}
 								],
 								'size'    => TRUE
@@ -71,7 +71,7 @@ class m_teams_c_admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return button_sort($data['role_id'], 'admin/ajax/teams/roles/sort.html');
+										return $this->button_sort($data['role_id'], 'admin/ajax/teams/roles/sort.html');
 									},
 									'size'    => TRUE
 								],
@@ -83,10 +83,10 @@ class m_teams_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return button_edit('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+											return $this->button_update('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html');
 										},
 										function($data){
-											return button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+											return $this->button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']).'.html');
 										}
 									],
 									'size'    => TRUE
@@ -103,7 +103,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => $this('roles'),
 					'icon'    => 'fa-sitemap',
 					'content' => $roles,
-					'footer'  => button_add('admin/teams/roles/add.html', $this('add_role')),
+					'footer'  => $this->button_create('admin/teams/roles/add.html', $this('add_role')),
 					'size'    => 'col-md-12 col-lg-4'
 				])
 			),
@@ -112,7 +112,7 @@ class m_teams_c_admin extends Controller_Module
 					'title'   => $this('list_teams'),
 					'icon'    => 'fa-gamepad',
 					'content' => $teams,
-					'footer'  => button_add('admin/teams/add.html', $this('add_team')),
+					'footer'  => $this->button_create('admin/teams/add.html', $this('add_team')),
 					'size'    => 'col-md-12 col-lg-8'
 				])
 			)
@@ -234,7 +234,7 @@ class m_teams_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data) use ($team_id, $name){
-								return button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id'].'.html');
+								return $this->button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id'].'.html');
 							}
 						],
 						'size'    => TRUE

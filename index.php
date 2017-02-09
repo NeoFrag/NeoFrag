@@ -177,7 +177,6 @@ $NeoFrag->module = $NeoFrag->theme = NULL;
 foreach ([
 			'array',
 			'assets',
-			'buttons',
 			'color',
 			'countries',
 			'file',

@@ -172,7 +172,7 @@ class m_user_c_index extends Controller_Module
 					'content' => [function($data){
 						if ($data['session_id'] != NeoFrag::loader()->session('session_id'))
 						{
-							return button_delete('user/sessions/delete/'.$data['session_id'].'.html');
+							return $this->button_delete('user/sessions/delete/'.$data['session_id'].'.html');
 						}
 					}]
 				]

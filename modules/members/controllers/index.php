@@ -41,7 +41,7 @@ class m_members_c_index extends Controller_Module
 					],
 					[
 						'content' => function($data){
-							return $this->user() && $this->user('user_id') != $data['user_id'] ? button('user/messages/compose/'.$data['user_id'].'/'.url_title($data['username']).'.html', 'fa-envelope-o') : '';
+							return $this->user() && $this->user('user_id') != $data['user_id'] ? $this->button()->icon('fa-envelope-o')->url('user/messages/compose/'.$data['user_id'].'/'.url_title($data['username']).'.html')->compact()->outline() : '';
 						},
 						'size'    => TRUE,
 						'align'   => 'right',
@@ -62,7 +62,7 @@ class m_members_c_index extends Controller_Module
 	{
 		return [
 			new Panel([
-				'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.button('members.html', 'fa-close', $this('show_all_members'), 'danger pull-right').'</h2>'
+				'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this('show_all_members'))->icon('fa-close')->url('members.html')->color('danger pull-right')->compact()->outline().'</h2>'
 			]),
 			$this->index($members)
 		];

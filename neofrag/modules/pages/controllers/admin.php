@@ -48,13 +48,13 @@ class m_pages_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data, $loader){
-								return $data['published'] ? button($data['name'].'.html', 'fa-eye', $loader->lang('view_page')) : '';
+								return $data['published'] ? $this->button()->tooltip($loader->lang('view_page'))->icon('fa-eye')->url($data['name'].'.html')->compact()->outline() : '';
 							},
 							function($data){
-								return button_edit('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');
 							},
 							function($data){
-								return button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+								return $this->button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']).'.html');
 							}
 						],
 						'size'    => TRUE
@@ -67,7 +67,7 @@ class m_pages_c_admin extends Controller_Module
 			'title'   => $this('list_pages'),
 			'icon'    => 'fa-align-left',
 			'content' => $this->table->display(),
-			'footer'  => button_add('admin/pages/add.html', $this('create_page'))
+			'footer'  => $this->button_create('admin/pages/add.html', $this('create_page'))
 		]);
 	}
 	

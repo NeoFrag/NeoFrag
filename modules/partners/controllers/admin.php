@@ -26,7 +26,7 @@ class m_partners_c_admin extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return button_sort($data['partner_id'], 'admin/ajax/partners/sort.html');
+							return $this->button_sort($data['partner_id'], 'admin/ajax/partners/sort.html');
 						},
 						'size'    => TRUE
 					],
@@ -51,10 +51,10 @@ class m_partners_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return button_edit('admin/partners/'.$data['partner_id'].'/'.$data['name'].'.html');
+								return $this->button_update('admin/partners/'.$data['partner_id'].'/'.$data['name'].'.html');
 							},
 							function($data){
-								return button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name'].'.html');
+								return $this->button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name'].'.html');
 							}
 						],
 						'size'    => TRUE
@@ -67,7 +67,7 @@ class m_partners_c_admin extends Controller_Module
 			'title'   => 'Liste des partenaires',
 			'icon'    => 'fa-star-o',
 			'content' => $this->table->display(),
-			'footer'  => button_add('admin/partners/add.html', 'Ajouter un partenaire')
+			'footer'  => $this->button_create('admin/partners/add.html', 'Ajouter un partenaire')
 		]);
 	}
 
