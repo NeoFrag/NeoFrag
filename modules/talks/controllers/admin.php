@@ -41,19 +41,19 @@ class m_talks_c_admin extends Controller_Module
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return button_access($data['talk_id'], 'talk');
+									return $this->button_access($data['talk_id'], 'talk');
 								}
 							},
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return button_edit('admin/talks/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
+									return $this->button_update('admin/talks/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
 								}
 							},
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
+									return $this->button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
 								}
 							}
 						],
@@ -67,7 +67,7 @@ class m_talks_c_admin extends Controller_Module
 			'title'   => $this('talks_list'),
 			'icon'    => 'fa-comment-o',
 			'content' => $this->table->display(),
-			'footer'  => button_add('admin/talks/add.html', $this('create_talk'))
+			'footer'  => $this->button_create('admin/talks/add.html', $this('create_talk'))
 		]);
 	}
 	

@@ -72,7 +72,7 @@ $(function(){
 		}
 	});
 	
-	$('.btn.install').click(function(){
+	$('.btn.install').not('.disabled').click(function(){
 		var formData = new FormData();
 		formData.append('file', $('input[type="file"].install')[0].files[0]);
 		

@@ -75,17 +75,14 @@ class m_access_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data, $loader) use ($module, $type){
-											return button(NULL, 'fa-refresh', $loader->lang('reset'), 'info access-reset', [
+											return $this->button()->tooltip($loader->lang('reset'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 												'module' => $module->name,
 												'type'   => $type,
 												'id'     => $data['id']
 											]);
 										},
-										/*function(){
-											return button('#', 'fa-copy', 'Glissez pour copier', 'primary');
-										},*/
 										function($data, $loader) use ($module, $type){
-											return button_access($data['id'], $type, $module->name, $loader->lang('edit'));
+											return $this->button_access($data['id'], $type, $module->name, $loader->lang('edit'));
 										}
 									]
 								]
@@ -114,7 +111,7 @@ class m_access_c_admin extends Controller_Module
 			new Row(
 				new Col(
 					new Panel([
-						'title'   => $this('permissions_list').'<div class="pull-right">'.button(NULL, 'fa-refresh', $this('reset_all_permissions'), 'info access-reset', [
+						'title'   => $this('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 							'module' => $module->name,
 							'type'   => $type,
 							'id'     => $id

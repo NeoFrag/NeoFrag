@@ -44,12 +44,12 @@ class m_user_c_admin extends Controller_Module
 				[
 					'content' => [
 						function($data){
-							return button_edit('admin/user/groups/edit/'.$data['url'].'.html');
+							return $this->button_update('admin/user/groups/edit/'.$data['url'].'.html');
 						},
 						function($data){
 							if (!$data['auto'])
 							{
-								return button_delete('admin/user/groups/delete/'.$data['url'].'.html');
+								return $this->button_delete('admin/user/groups/delete/'.$data['url'].'.html');
 							}
 						}
 					]
@@ -119,13 +119,19 @@ class m_user_c_admin extends Controller_Module
 				[
 					'content' => [
 						function($data, $loader){
-							return button('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html', 'fa-ban', $loader->lang('ban'), 'warning');
+							return $this->button()
+										->tooltip($loader->lang('ban'))
+										->icon('fa-ban')
+										->url('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html')
+										->color('warning')
+										->compact()
+										->outline();
 						},
 						function($data){
-							return button_edit('admin/user/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+							return $this->button_update('admin/user/'.$data['user_id'].'/'.url_title($data['username']).'.html');
 						},
 						function($data){
-							return button_delete('admin/user/delete/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+							return $this->button_delete('admin/user/delete/'.$data['user_id'].'/'.url_title($data['username']).'.html');
 						}
 					]
 				]
@@ -139,7 +145,7 @@ class m_user_c_admin extends Controller_Module
 					'title'   => $this('groups'),
 					'icon'    => 'fa-users',
 					'content' => $table_groups->display(),
-					'footer'  => button_add('admin/user/groups/add.html', $this('add_group')),
+					'footer'  => $this->button_create('admin/user/groups/add.html', $this('add_group')),
 					'size'    => 'col-md-12 col-lg-3'
 				])
 			),
@@ -227,7 +233,7 @@ class m_user_c_admin extends Controller_Module
 				[
 					'content' => [
 						function($data){
-							return button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
+							return $this->button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
 						}
 					]
 				]
@@ -547,7 +553,7 @@ class m_user_c_admin extends Controller_Module
 						'content' => [function($data){
 							if ($data['user_id'] && $data['session_id'] != NeoFrag::loader()->session('session_id'))
 							{
-								return button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
+								return $this->button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
 							}
 						}]
 					]

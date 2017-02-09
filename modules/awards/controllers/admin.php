@@ -121,10 +121,10 @@ class m_awards_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/awards/'.$data['award_id'].'/'.url_title($data['name']).'.html');
+										return $this->button_update('admin/awards/'.$data['award_id'].'/'.url_title($data['name']).'.html');
 									},
 									function($data){
-										return button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']).'.html');
+										return $this->button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']).'.html');
 									}
 								],
 								'size'    => TRUE
@@ -138,7 +138,7 @@ class m_awards_c_admin extends Controller_Module
 			'title'   => 'Liste des palmarès',
 			'icon'    => 'fa-trophy',
 			'content' => $awards,
-			'footer'  => button_add('admin/awards/add.html', 'Ajouter un palmarès')
+			'footer'  => $this->button_create('admin/awards/add.html', 'Ajouter un palmarès')
 		]);
 	}
 

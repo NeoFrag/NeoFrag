@@ -75,10 +75,10 @@ class m_gallery_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return button_edit('admin/gallery/'.$data['gallery_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/gallery/'.$data['gallery_id'].'/'.$data['name'].'.html');
 									},
 									function($data){
-										return button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name'].'.html');
 									}
 								],
 								'size'    => TRUE
@@ -107,10 +107,10 @@ class m_gallery_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return button_edit('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html');
+											return $this->button_update('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html');
 										},
 										function($data){
-											return button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html');
+											return $this->button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html');
 										}
 									],
 									'size'    => TRUE
@@ -127,7 +127,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => $this('categories'),
 					'icon'    => 'fa-book',
 					'content' => $categories,
-					'footer'  => button_add('admin/gallery/categories/add.html', $this('add_category')),
+					'footer'  => $this->button_create('admin/gallery/categories/add.html', $this('add_category')),
 					'size'    => 'col-md-12 col-lg-4'
 				])
 			),
@@ -136,7 +136,7 @@ class m_gallery_c_admin extends Controller_Module
 					'title'   => $this('list_album_photos'),
 					'icon'    => 'fa-photo',
 					'content' => $gallery,
-					'footer'  => button_add('admin/gallery/add.html', $this('add_album')),
+					'footer'  => $this->button_create('admin/gallery/add.html', $this('add_album')),
 					'size'    => 'col-md-12 col-lg-8'
 				])
 			)
@@ -260,13 +260,18 @@ class m_gallery_c_admin extends Controller_Module
 									[
 										'content' => [
 											function($data, $loader){
-												return button('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html', 'fa-eye', $loader->lang('see_image'));
+												return $this->button()
+															->tooltip($loader->lang('see_image'))
+															->icon('fa-eye')
+															->url('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html')
+															->compact()
+															->outline();
 											},
 											function($data){
-												return button_edit('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												return $this->button_update('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
 											},
 											function($data){
-												return button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												return $this->button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
 											}
 										],
 										'align'   => 'right',
@@ -462,7 +467,7 @@ class m_gallery_c_admin extends Controller_Module
 			),
 			new Col(
 				new Panel([
-					'title'   => '<div class="pull-right">'.button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'),
+					'title'   => '<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'),
 					'icon'    => 'fa-photo',
 					'content' => function($data, $loader) use ($image_id, $title, $description, $thumbnail_file_id){
 						return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';

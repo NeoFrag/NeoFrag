@@ -90,10 +90,10 @@ class m_news_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->is_authorized('modify_news') ? button_edit('admin/news/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
+										return $this->is_authorized('modify_news') ? $this->button_update('admin/news/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
 									},
 									function($data){
-										return $this->is_authorized('delete_news') ? button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
+										return $this->is_authorized('delete_news') ? $this->button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -120,10 +120,10 @@ class m_news_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return $this->is_authorized('modify_news_category') ? button_edit('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
+											return $this->is_authorized('modify_news_category') ? $this->button_update('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
 										},
 										function($data){
-											return $this->is_authorized('delete_news_category') ? button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
+											return $this->is_authorized('delete_news_category') ? $this->button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
 										}
 									],
 									'size'    => TRUE
@@ -140,7 +140,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => $this('categories'),
 					'icon'    => 'fa-align-left',
 					'content' => $categories,
-					'footer'  => $this->is_authorized('add_news_category') ? button_add('admin/news/categories/add.html', $this('create_category')) : NULL,
+					'footer'  => $this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this('create_category')) : NULL,
 					'size'    => 'col-md-12 col-lg-3'
 				])
 			),
@@ -149,7 +149,7 @@ class m_news_c_admin extends Controller_Module
 					'title'   => $this('list_news'),
 					'icon'    => 'fa-file-text-o',
 					'content' => $news,
-					'footer'  => $this->is_authorized('add_news') ? button_add('admin/news/add.html', $this('add_news')) : NULL,
+					'footer'  => $this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this('add_news')) : NULL,
 					'size'    => 'col-md-12 col-lg-9'
 				])
 			)
