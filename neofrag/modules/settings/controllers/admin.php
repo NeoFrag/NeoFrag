@@ -125,22 +125,15 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => $this('general_settings'),
-					'icon'    => 'fa-cog',
-					'content' => $this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading($this('general_settings'), 'fa-cog')
+								->body($this->form->display())
+					)
+					->size('col-md-9')
 		);
 	}
 
@@ -235,22 +228,14 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => 'Gestions des inscriptions',
-					'icon'    => 'fa-sign-in fa-rotate-90',
-					'content' => $this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading('Gestions des inscriptions', 'fa-sign-in fa-rotate-90')
+								->body($this->form->display()))
+					->size('col-md-9')
 		);
 	}
 
@@ -315,22 +300,15 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => 'Notre structure',
-					'icon'    => 'fa-users',
-					'content' => $this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading('Notre structure', 'fa-users')
+								->body($this->form->display())
+					)
+					->size('col-md-9')
 		);
 	}
 
@@ -430,22 +408,15 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => 'Réseaux sociaux',
-					'icon'    => 'fa-globe',
-					'content' => $this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading('Réseaux sociaux', 'fa-globe')
+								->body($this->form->display())
+					)
+					->size('col-md-9')
 		);
 	}
 
@@ -483,22 +454,15 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => 'Configuration de Google reCAPTCHA',
-					'icon'    => 'fa-shield',
-					'content' => '<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading('Configuration de Google reCAPTCHA', 'fa-shield')
+								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form->display())
+					)
+					->size('col-md-9')
 		);
 	}
 
@@ -555,22 +519,15 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'body'    => FALSE,
-					'content' => $this->load->view('menu')
-				]),
-				'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => 'Serveur e-mail',
-					'icon'    => 'fa-envelope-o',
-					'content' => $this->form->display()
-				]),
-				'col-md-9'
-			)
+		return $this->row(
+			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+					->size('col-md-3'),
+			$this->col(
+						$this	->panel()
+								->heading('Serveur e-mail', 'fa-envelope-o')
+								->body($this->form->display())
+					)
+					->size('col-md-9')
 		);
 	}
 
@@ -729,28 +686,22 @@ class m_settings_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('website_status'),
-					'icon'    => 'fa-power-off',
-					'content' => $this->load->view('maintenance')
-				]),
-				new Panel([
-					'title'   => $this('planned_opening'),
-					'icon'    => 'fa-clock-o',
-					'content' => $form_opening->display()
-				])
-				, 'col-md-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => $this('customizing_maintenance_page'),
-					'icon'    => 'fa-paint-brush',
-					'content' => $form_maintenance->display()
-				])
-				, 'col-md-9'
-			)
+		return $this->row(
+			$this	->col(
+						$this	->panel()
+								->heading($this('website_status'), 'fa-power-off')
+								->body($this->load->view('maintenance')),
+						$this	->panel()
+								->heading($this('planned_opening'), 'fa-clock-o')
+								->body($form_opening->display())
+					)
+					->size('col-md-3'),
+			$this	->col(
+						$this	->panel()
+								->heading($this('customizing_maintenance_page'), 'fa-paint-brush')
+								->body($form_maintenance->display())
+					)
+					->size('col-md-9')
 		);
 	}
 }

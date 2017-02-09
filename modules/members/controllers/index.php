@@ -51,19 +51,15 @@ class m_members_c_index extends Controller_Module
 				->data($members)
 				->no_data($this('no_members'));
 			
-		return new Panel([
-			'title'   => $this->load->data['module_title'],
-			'icon'    => $this->load->data['module_icon'],
-			'content' => $this->table->display()
-		]);
+		return $this->panel()
+					->heading()
+					->body($this->table->display());
 	}
 
 	public function _group($title, $members)
 	{
 		return [
-			new Panel([
-				'content' => '<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this('show_all_members'))->icon('fa-close')->url('members.html')->color('danger pull-right')->compact()->outline().'</h2>'
-			]),
+			$this->panel()->body('<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this('show_all_members'))->icon('fa-close')->url('members.html')->color('danger pull-right')->compact()->outline().'</h2>'),
 			$this->index($members)
 		];
 	}

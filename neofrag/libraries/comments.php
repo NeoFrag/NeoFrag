@@ -105,20 +105,16 @@ class Comments extends Library
 		
 		if ($errors = $this->form->get_errors())
 		{
-			$panels[] = new Panel([
-				'title'   => '<a name="comments"></a>'.NeoFrag::loader()->lang('message_needed'),
-				'icon'    => 'fa-warning',
-				'style'   => 'panel-danger'
-			]);
+			$panels[] = $this	->panel()
+								->heading('<a name="comments"></a>'.NeoFrag::loader()->lang('message_needed'), 'fa-warning')
+								->color('danger');
 		}
 		
-		$panels[] = new Panel([
-			'title'   => '<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count),
-			'icon'    => 'fa-comments-o',
-			'content' => $output.$this->load->view('new', [
-				'form_id' => $this->form->token()
-			])
-		]);
+		$panels[] = $this	->panel()
+							->heading('<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count), 'fa-comments-o')
+							->body($output.$this->load->view('new', [
+								'form_id' => $this->form->token()
+							]));
 		
 		return display($panels);
 	}

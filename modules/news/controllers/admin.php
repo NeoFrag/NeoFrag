@@ -134,24 +134,20 @@ class m_news_c_admin extends Controller_Module
 							->no_data($this('no_category'))
 							->display();
 
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('categories'),
-					'icon'    => 'fa-align-left',
-					'content' => $categories,
-					'footer'  => $this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this('create_category')) : NULL,
-					'size'    => 'col-md-12 col-lg-3'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('categories'), 'fa-align-left')
+						->body($categories)
+						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this('create_category')) : NULL)
+						->size('col-md-12 col-lg-3')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('list_news'),
-					'icon'    => 'fa-file-text-o',
-					'content' => $news,
-					'footer'  => $this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this('add_news')) : NULL,
-					'size'    => 'col-md-12 col-lg-9'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('list_news'), 'fa-file-text-o')
+						->body($news)
+						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this('add_news')) : NULL)
+						->size('col-md-12 col-lg-9')
 			)
 		);
 	}
@@ -181,11 +177,9 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 
-		return new Panel([
-			'title'   => $this('add_news'),
-			'icon'    => 'fa-file-text-o',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_news'), 'fa-file-text-o')
+					->body($this->form->display());
 	}
 
 	public function _edit($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $news_image, $category_image, $category_icon)
@@ -223,11 +217,9 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 
-		return new Panel([
-			'title'   => $this('edit_news'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_news'), 'fa-align-left')
+					->body($this->form->display());
 	}
 
 	public function delete($news_id, $title)
@@ -266,11 +258,9 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_category'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_category'), 'fa-align-left')
+					->body($this->form->display());
 	}
 	
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
@@ -297,11 +287,9 @@ class m_news_c_admin extends Controller_Module
 			redirect_back('admin/news.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_category'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_category'), 'fa-align-left')
+					->body($this->form->display());
 	}
 	
 	public function _categories_delete($category_id, $title)

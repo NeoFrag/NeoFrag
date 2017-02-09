@@ -26,37 +26,23 @@ class m_teams_c_index extends Controller_Module
 		
 		foreach ($this->model()->get_teams() as $team)
 		{
-			$panel = [
-				'title'  => '<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'">'.$team['title'].'</a>',
-				'footer' => icon('fa-users').' '.$this('player', $team['users'], $team['users']),
-				'body'   => FALSE
-			];
-			
+			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'].'.html')
+									->footer(icon('fa-users').' '.$this('player', $team['users'], $team['users']));
+
 			if ($team['image_id'])
 			{
-				$panel['content'] = '<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'"><img class="img-responsive" src="'.path($team['image_id']).'" alt="" /></a>';
+				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'"><img class="img-responsive" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
 			}
-			
-			if ($team['icon_id'] || $team['game_icon'])
-			{
-				$panel['title'] = '<img src="'.path($team['icon_id'] ?: $team['game_icon']).'" alt="" /> '.$panel['title'];
-			}
-			else
-			{
-				$panel['icon'] = 'fa-gamepad';
-			}
-			
-			$panels[] = new Panel($panel);
+
+			$panels[] = $panel;
 		}
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel([
-				'title'   => $this('teams'),
-				'icon'    => 'fa-gamepad',
-				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.$this('no_team_yet').'</div>'
-			]);
+			$panels[] = $this	->panel()
+								->heading($this('teams'), 'fa-gamepad')
+								->body('<div class="text-center">'.$this('no_team_yet').'</div>')
+								->color('info');
 		}
 
 		return $panels;
@@ -86,36 +72,23 @@ class m_teams_c_index extends Controller_Module
 				])
 				->data($this->model()->get_players($team_id))
 				->no_data($this('no_players_on_team'));
-		
-		$panel = [
-			'title' => '	<div class="pull-right">
-								<span class="label label-default">'.$game.'</span>
-							</div>
-							<a href="'.url('teams/'.$team_id.'/'.$name.'.html').'">'.$title.'</a>',
-			'body'  => FALSE
-		];
-		
-		$panel['content'] = $this->load->view('index', [
-			'team_id'     => $team_id,
-			'name'        => $name,
-			'title'       => $title,
-			'image_id'    => $image_id,
-			'description' => bbcode($description),
-			'users'       => $this->table->display()
-		]);
-		
-		if ($icon_id || $game_icon)
-		{
-			$panel['title'] = '<img src="'.path($icon_id ?: $game_icon).'" alt="" /> '.$panel['title'];
-		}
-		else
-		{
-			$panel['icon'] = 'fa-gamepad';
-		}
-		
+
 		return [
-			new Panel($panel),
-			new Button_back('teams.html')
+			$this->panel()	->heading('	<div class="pull-right">
+											<span class="label label-default">'.$game.'</span>
+										</div>
+										<a href="'.url('teams/'.$team_id.'/'.$name.'.html').'">'.$title.'</a>',
+										$icon_id ?: $game_icon ?: 'fa-gamepad'
+							)
+							->body($this->load->view('index', [
+								'team_id'     => $team_id,
+								'name'        => $name,
+								'title'       => $title,
+								'image_id'    => $image_id,
+								'description' => bbcode($description),
+								'users'       => $this->table->display()
+							]), FALSE),
+			$this->panel_back('teams.html')
 		];
 	}
 }

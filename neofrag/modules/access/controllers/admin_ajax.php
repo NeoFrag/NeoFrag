@@ -40,14 +40,14 @@ class m_access_c_admin_ajax extends Controller_Module
 			}
 		}
 		
-		return new Col(new Panel([
-			'title'   => '<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title,
-			'icon'    => $icon,
-			'content' => $this->load->view('details', [
-				'groups' => $groups
-			]),
-			'body'    => FALSE
-		]), 'col-md-12 col-lg-7');
+		return $this->col(
+			$this	->panel()
+					->heading('<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
+					->body($this->load->view('details', [
+						'groups' => $groups
+					]), FALSE)
+					->size('col-md-12 col-lg-7')
+		);
 	}
 	
 	public function update($module_name, $action, $id, $groups, $user, $title, $icon)

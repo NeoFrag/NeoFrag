@@ -26,12 +26,12 @@ function display($objects, $id = NULL)
 	{
 		if (is_object($objects) && is_a($objects, 'Panel'))
 		{
-			$objects = new Col($objects);
+			$objects = NeoFrag::loader()->col($objects);
 		}
 		
 		if (is_object($objects) && is_a($objects, 'Col'))
 		{
-			$objects = new Row($objects);
+			$objects = NeoFrag::loader()->row($objects);
 		}
 	}
 	
@@ -42,14 +42,12 @@ function display($objects, $id = NULL)
 	
 	foreach ($objects as $i => $object)
 	{
-		if (is_object($object))
+		if ($id !== NULL && method_exists($object, 'id'))
 		{
-			$output .= $object->display($id !== NULL ? $i : NULL);
+			$object->id($i);
 		}
-		else
-		{
-			$output .= $object;
-		}
+
+		$output .= $object;
 	}
 	
 	return $output;

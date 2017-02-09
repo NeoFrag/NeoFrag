@@ -18,18 +18,26 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Panel_Pagination
+class Panel_back extends Panel
 {
-	public function display()
+	private $_url;
+
+	public function __invoke($url = '')
 	{
-		if ($pagination = NeoFrag::loader()->module->pagination->get_pagination())
-		{
-			return '<div class="pull-right">'.$pagination.'</div>';
-		}
+		$this->_url = $url;
+		return $this->reset();
+	}
+
+	public function __toString()
+	{
+		return $this->html()
+					->attr('class', 'panel panel-back')
+					->content($this->button_back($this->_url))
+					->__toString();
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.4
-./neofrag/classes/panel_pagination.php
+NeoFrag Alpha 0.1.6
+./neofrag/libraries/panels/back.php
 */

@@ -31,22 +31,18 @@ class w_members_c_index extends Controller_Widget
 		
 		if (!empty($members))
 		{
-			return new Panel([
-				'title'        => $this('last_members'),
-				'content'      => $this->load->view('index', [
-					'members'  => $members
-				]),
-				'body'         => FALSE,
-				'footer'       => '<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('last_members'))
+						->body($this->load->view('index', [
+							'members'  => $members
+						]), FALSE)
+						->footer('<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('last_members'),
-				'content' => $this('no_members')
-			]);
+			return $this->panel()
+						->heading($this('last_members'))
+						->body($this('no_members'));
 		}
 	}
 	
@@ -77,17 +73,18 @@ class w_members_c_index extends Controller_Widget
 			}
 		}
 
-		$output = [new Panel([
-			'title'   => $this('whos_online'),
-			'content' => $this->load->view('online', [
-				'administrators' => $admins,
-				'members'        => $members,
-				'nb_admins'      => $nb_admins,
-				'nb_members'     => $nb_members,
-				'nb_visitors'    => $this->session->current_sessions() - $nb_admins - $nb_members
-			])
-		])];
-		
+		$output = [
+			$this	->panel()
+					->heading($this('whos_online'))
+					->body($this->load->view('online', [
+						'administrators' => $admins,
+						'members'        => $members,
+						'nb_admins'      => $nb_admins,
+						'nb_members'     => $nb_members,
+						'nb_visitors'    => $this->session->current_sessions() - $nb_admins - $nb_members
+					]))
+		];
+
 		if ($nb_admins)
 		{
 			$output[] = $this->load->view('online_modal', [

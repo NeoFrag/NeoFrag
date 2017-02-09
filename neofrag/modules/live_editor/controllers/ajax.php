@@ -55,21 +55,16 @@ class m_live_editor_c_ajax extends Controller_Module
 		
 		if ($page == '*' || !$this->db->select('1')->from('nf_dispositions')->where('page', $url)->row())
 		{
-			foreach ($disposition as &$rows)
-			{
-				foreach ($rows->cols as &$col)
-				{
-					foreach ($col->widgets as &$w)
-					{
-						$w->widget_id = $this->db->insert('nf_widgets', $this->db	->select('widget', 'type', 'title', 'settings')
-																					->from('nf_widgets')
-																					->where('widget_id', $w->widget_id)
-																					->row());
-					}
-				}
-			}
-			
-			return Zone::display($this->db->insert('nf_dispositions', [
+			array_walk($disposition, function($c){
+				$c->traversal(function($w){
+					$w->widget_id($this->db->insert('nf_widgets', $this->db	->select('widget', 'type', 'title', 'settings')
+																			->from('nf_widgets')
+																			->where('widget_id', $w->widget_id())
+																			->row()));
+				});
+			});
+
+			return $this->zone($this->db->insert('nf_dispositions', [
 				'theme'       => $theme,
 				'page'        => $url,
 				'zone'        => $zone,
@@ -78,7 +73,7 @@ class m_live_editor_c_ajax extends Controller_Module
 		}
 		else
 		{
-			$this->model()->delete_disposition($disposition);
+			$this->model()->delete_widgets($disposition);
 			
 			$this->db	->where('disposition_id', $disposition_id)
 						->delete('nf_dispositions');
@@ -90,16 +85,16 @@ class m_live_editor_c_ajax extends Controller_Module
 									->where('zone', $zone)
 									->row();
 			
-			return Zone::display($disposition['disposition_id'], unserialize($disposition['disposition']), '*', $zone, TRUE);
+			return $this->zone($disposition['disposition_id'], unserialize($disposition['disposition']), '*', $zone, TRUE);
 		}
 	}
 	
 	public function row_add($disposition_id, $disposition)
 	{
-		$row = $disposition[] = new Row('row-default');
+		$row = $disposition[] = $this->row()->style('row-default');
 		$this->model()->set_disposition($disposition_id, $disposition);
 		
-		return $row->display(array_last_key($disposition));
+		return $row->id(array_last_key($disposition));
 	}
 	
 	public function row_move($disposition_id, $disposition, $row_id, $position)
@@ -111,43 +106,41 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function row_style($disposition_id, $disposition, $row_id, $style)
 	{
-		$disposition[$row_id]->style = $style;
+		$disposition[$row_id]->style($style);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
 	public function row_delete($disposition_id, $disposition, $row_id)
 	{
-		$this->model()->delete_row($disposition[$row_id]->cols);
+		$this->model()->delete_widgets($disposition[$row_id]);
 		unset($disposition[$row_id]);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
 	public function col_add($disposition_id, $disposition, $row_id)
 	{
-		$col = $disposition[$row_id]->cols[] = new Col('col-md-4');
+		$disposition[$row_id]->append($col = $this->col()->size('col-md-4'));
 		$this->model()->set_disposition($disposition_id, $disposition);
 		
-		return $col->display(array_last_key($disposition[$row_id]->cols));
+		return $col->id(array_last_key($disposition[$row_id]->children()));
 	}
 	
 	public function col_move($disposition_id, $disposition, $row_id, $col_id, $position)
 	{
-		$col = $disposition[$row_id]->cols[$col_id];
-		unset($disposition[$row_id]->cols[$col_id]);
-		$disposition[$row_id]->cols = array_slice($disposition[$row_id]->cols, 0, $position, TRUE) + [$col_id => $col] + array_slice($disposition[$row_id]->cols, $position, NULL, TRUE);
+		$disposition[$row_id]->move($col_id, $position);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
 	public function col_size($disposition_id, $disposition, $row_id, $col_id, $size)
 	{
-		$disposition[$row_id]->cols[$col_id]->set_size($size);
+		$disposition[$row_id]->children()[$col_id]->size('col-md-'.min(12, max($size, 1)));
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
 	public function col_delete($disposition_id, $disposition, $row_id, $col_id)
 	{
-		$this->model()->delete_col($disposition[$row_id]->cols[$col_id]->widgets);
-		$disposition[$row_id]->delete_col($col_id);
+		$this->model()->delete_widgets($disposition[$row_id]->children()[$col_id]);
+		$disposition[$row_id]->delete($col_id);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
@@ -160,20 +153,16 @@ class m_live_editor_c_ajax extends Controller_Module
 									'settings' => $this->load->widget($widget_name)->get_settings($type, $settings)
 								]);
 		
-		$widget = $disposition[$row_id]->cols[$col_id]->widgets[] = new Widget_View([
-			'widget_id' => $widget_id
-		]);
+		$disposition[$row_id]->children()[$col_id]->append($widget = $this->panel_widget($widget_id));
 		
 		$this->model()->set_disposition($disposition_id, $disposition);
 		
-		return $widget->display(array_last_key($disposition[$row_id]->cols[$col_id]->widgets));
+		return $widget->id(array_last_key($disposition[$row_id]->children()[$col_id]->children()));
 	}
 	
 	public function widget_move($disposition_id, $disposition, $row_id, $col_id, $widget_id, $position)
 	{
-		$widget = $disposition[$row_id]->cols[$col_id]->widgets[$widget_id];
-		unset($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]);
-		$disposition[$row_id]->cols[$col_id]->widgets = array_slice($disposition[$row_id]->cols[$col_id]->widgets, 0, $position, TRUE) + [$widget_id => $widget] + array_slice($disposition[$row_id]->cols[$col_id]->widgets, $position, NULL, TRUE);
+		$disposition[$row_id]->children()[$col_id]->move($widget_id, $position);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
@@ -184,7 +173,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function widget_style($disposition_id, $disposition, $row_id, $col_id, $widget_id, $style)
 	{
-		$disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->style = $style;
+		$disposition[$row_id]->children()[$col_id]->children()[$widget_id]->color($style);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
@@ -214,13 +203,13 @@ class m_live_editor_c_ajax extends Controller_Module
 						'settings' => $settings,
 					]);
 
-		return $disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->display($widget_id);
+		return $disposition[$row_id]->children()[$col_id]->children()[$widget_id]->id($widget_id);
 	}
 	
 	public function widget_delete($disposition_id, $disposition, $row_id, $col_id, $widget_id)
 	{
-		$this->model()->delete_widget($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->widget_id);
-		$disposition[$row_id]->cols[$col_id]->delete_widget($widget_id);
+		$this->model()->delete_widgets($disposition[$row_id]->children()[$col_id]->children()[$widget_id]);
+		$disposition[$row_id]->children()[$col_id]->delete($widget_id);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 }

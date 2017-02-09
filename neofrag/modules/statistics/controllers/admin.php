@@ -28,24 +28,19 @@ class m_statistics_c_admin extends Controller_Module
 				->js('highstock');
 
 		return [
-			new Row(
-				new Col(
-					new Panel([
-						'title'   => 'Statistiques',
-						'icon'    => 'fa-bar-chart',
-						'content' => $this	->form
-											->set_id('sq6fswkfb81n0lu4cb7eyb3tuixcovla')
-											->add_rules('statistics')
-											->fast_mode()
-											->display()
-					])
-				, 'col-md-4 col-lg-3'),
-				new Col(
-					new Panel([
-						'content' => '<div id="highcharts"></div>',
-						'body'    => FALSE
-					])
-				, 'col-md-8 col-lg-9')
+			$this->row(
+				$this	->col(
+							$this	->panel()
+									->heading('Statistiques', 'fa-bar-chart')
+									->body($this	->form
+													->set_id('sq6fswkfb81n0lu4cb7eyb3tuixcovla')
+													->add_rules('statistics')
+													->fast_mode()
+													->display())
+						)
+						->size('col-md-4 col-lg-3'),
+				$this	->col($this->panel()->body('<div id="highcharts"></div>', FALSE))
+						->size('col-md-8 col-lg-9')
 			)
 		];
 	}

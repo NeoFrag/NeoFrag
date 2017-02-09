@@ -18,26 +18,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Panel_Box extends Panel
+class Panel_Pagination extends Panel
 {
-	public function display($id = NULL)
+	public function __toString()
 	{
-		NeoFrag::loader()->css('neofrag.panel-box');
-		
-		return '<div class="small-box '.$this->color.'">
-					<div class="inner">
-						<h3>'.$this->count.'</h3>
-						<p>'.$this->label.'</p>
-					</div>
-					'.($this->icon ? '<div class="icon">'.icon($this->icon).'</div>' : '').'
-					<a class="small-box-footer" href="'.url($this->url).'">
-						'.$this->footer.'
-					</a>
-				</div>';
+		if ($pagination = NeoFrag::loader()->module->pagination->get_pagination())
+		{
+			return '<div class="pull-right">'.$pagination.'</div>';
+		}
+
+		return '';
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.2
-./neofrag/classes/panel_box.php
+NeoFrag Alpha 0.1.6
+./neofrag/libraries/panels/pagination.php
 */

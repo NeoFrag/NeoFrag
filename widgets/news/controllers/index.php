@@ -28,21 +28,18 @@ class w_news_c_index extends Controller_Widget
 		
 		if (!empty($news))
 		{
-			return new Panel([
-				'title'        => $this('recent_news'),
-				'content'      => $this->load->view('index', [
-					'news'     => array_slice($news, 0, 3)
-				]),
-				'footer'       => '<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('recent_news'))
+						->body($this->load->view('index', [
+							'news' => array_slice($news, 0, 3)
+						]))
+						->footer('<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('recent_news'),
-				'content' => $this('no_news')
-			]);
+			return $this->panel()
+						->heading($this('recent_news'))
+						->body($this('no_news'));
 		}
 	}
 	
@@ -52,20 +49,17 @@ class w_news_c_index extends Controller_Widget
 		
 		if (!empty($categories))
 		{
-			return new Panel([
-				'title'   => $this('categories'),
-				'content' => $this->load->view('categories', [
-					'categories' => $categories
-				]),
-				'body'    => FALSE
-			]);
+			return $this->panel()
+						->heading($this('categories'))
+						->body($this->load->view('categories', [
+							'categories' => $categories
+						]), FALSE);
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('categories'),
-				'content' => $this('no_category')
-			]);
+			return $this->panel()
+						->heading($this('categories'))
+						->body($this('no_category'));
 		}
 	}
 }

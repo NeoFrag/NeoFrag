@@ -26,22 +26,18 @@ class w_awards_c_index extends Controller_Widget
 		{
 			$this->css('awards');
 
-			return new Panel([
-				'title'        => 'Nos derniers palmarès',
-				'content'      => $this->load->view('index', [
-					'awards' => array_slice($awards, 0, 5)
-				]),
-				'body'         => FALSE,
-				'footer'       => '<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading('Nos derniers palmarès')
+						->body($this->load->view('index', [
+							'awards' => array_slice($awards, 0, 5)
+						]), FALSE)
+						->footer('<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => 'Palmarès',
-				'content' => 'Aucun palmarès pour le moment...'
-			]);
+			return $this->panel()
+						->heading('Palmarès')
+						->body('Aucun palmarès pour le moment...');
 		}
 	}
 	
@@ -49,24 +45,21 @@ class w_awards_c_index extends Controller_Widget
 	{
 		if ($best_team = $this->model()->get_best_team_awards())
 		{
-			return new Panel([
-				'title'   => 'Palmarès',
-				'content' => $this->load->view('best_team', [
-					'team_id'    => $best_team[0]['team_id'],
-					'name'       => $best_team[0]['name'],
-					'team_title' => $best_team[0]['team_title'],
-					'nb_awards'  => $best_team[0]['nb_awards']
-				]),
-				'footer'       => '<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading('Palmarès')
+						->body($this->load->view('best_team', [
+							'team_id'    => $best_team[0]['team_id'],
+							'name'       => $best_team[0]['name'],
+							'team_title' => $best_team[0]['team_title'],
+							'nb_awards'  => $best_team[0]['nb_awards']
+						]))
+						->footer('<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => 'Palmarès',
-				'content' => 'Aucun palmarès pour le moment...'
-			]);
+			return $this->panel()
+						->heading('Palmarès')
+						->body('Aucun palmarès pour le moment...');
 		}
 	}
 	
@@ -74,24 +67,21 @@ class w_awards_c_index extends Controller_Widget
 	{
 		if ($best_game = $this->model()->get_best_game_awards())
 		{
-			return new Panel([
-				'title'   => 'Palmarès',
-				'content' => $this->load->view('best_game', [
-					'game_id'    => $best_game[0]['game_id'],
-					'name'       => $best_game[0]['name'],
-					'game_title' => $best_game[0]['game_title'],
-					'nb_awards'  => $best_game[0]['nb_awards']
-				]),
-				'footer'       => '<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading('Palmarès')
+						->body($this->load->view('best_game', [
+							'game_id'    => $best_game[0]['game_id'],
+							'name'       => $best_game[0]['name'],
+							'game_title' => $best_game[0]['game_title'],
+							'nb_awards'  => $best_game[0]['nb_awards']
+						]))
+						->footer('<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => 'Palmarès',
-				'content' => 'Aucun palmarès pour le moment...'
-			]);
+			return $this->panel()
+						->heading('Palmarès')
+						->body('Aucun palmarès pour le moment...');
 		}
 	}
 }

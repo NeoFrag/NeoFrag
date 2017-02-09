@@ -60,208 +60,191 @@ class t_default extends Theme
 				->config('nf_version_css',                time());
 		
 		$header = function(){
-			return new Row(
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget'   => 'header',
-						'type'     => 'index',
-						'settings' => serialize([
-							'align'             => 'text-center',
-							'title'             => '',
-							'description'       => '',
-							'color-title'       => '',
-							'color-description' => '#DC351E'
-						])
-					])
-				]), 'col-md-12')
-			, 'row-default');
+			return $this->row(
+					$this->col(
+						$this->panel_widget($this->db->insert('nf_widgets', [
+							'widget'   => 'header',
+							'type'     => 'index',
+							'settings' => serialize([
+								'align'             => 'text-center',
+								'title'             => '',
+								'description'       => '',
+								'color-title'       => '',
+								'color-description' => '#DC351E'
+							])
+						]))
+					)
+				)
+				->style('row-default');
 		};
 		
 		$navbar = function(){
-			return new Row(
-					new Col(
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget'   => 'navigation',
-								'type'     => 'index',
-								'settings' => serialize([
-									'display' => TRUE,
-									'links'   => [
-										[
-											'title' => utf8_htmlentities($this('home')),
-											'url'   => 'index.html'
-										],
-										[
-											'title' => utf8_htmlentities($this('forum')),
-											'url'   => 'forum.html'
-										],
-										[
-											'title' => utf8_htmlentities($this('teams')),
-											'url'   => 'teams.html'
-										],
-										[
-											'title' => utf8_htmlentities('Photos'),
-											'url'   => 'gallery.html'
-										],
-										[
-											'title' => utf8_htmlentities('Partenaires'),
-											'url'   => 'partners.html'
-										],
-										[
-											'title' => utf8_htmlentities('Palmarès'),
-											'url'   => 'awards.html'
+			return $this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget'   => 'navigation',
+									'type'     => 'index',
+									'settings' => serialize([
+										'display' => TRUE,
+										'links'   => [
+											[
+												'title' => utf8_htmlentities($this('home')),
+												'url'   => 'index.html'
+											],
+											[
+												'title' => utf8_htmlentities($this('forum')),
+												'url'   => 'forum.html'
+											],
+											[
+												'title' => utf8_htmlentities($this('teams')),
+												'url'   => 'teams.html'
+											],
+											[
+												'title' => utf8_htmlentities('Photos'),
+												'url'   => 'gallery.html'
+											],
+											[
+												'title' => utf8_htmlentities('Partenaires'),
+												'url'   => 'partners.html'
+											],
+											[
+												'title' => utf8_htmlentities('Palmarès'),
+												'url'   => 'awards.html'
+											]
 										]
-									]
-								])
-							])
-						]), 'col-md-7'
+									])
+								]))
+								->size('col-md-7')
 					),
-					new Col(
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget' => 'user',
-								'type'   => 'index_mini'
-							])
-						]), 'col-md-5'
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'user',
+									'type'   => 'index_mini'
+								]))
+								->size('col-md-5')
 					)
-				, 'row-black'
-			);
+				)
+				->style('row-black');
 		};
 		
 		$breadcrumb = function($search = TRUE){
-			return new Row(
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'breadcrumb',
-							'type'   => 'index'
-						])
-					]), 'col-md-8'
-				),
-				$search ? new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'search',
-							'type'   => 'index'
-						])
-					]), 'col-md-4'
-				) : NULL,
-				'row-white'
-			);
+			return $this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+										'widget' => 'breadcrumb',
+										'type'   => 'index'
+								]))
+								->size('col-md-8')
+					),
+					$search ? $this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'search',
+									'type'   => 'index'
+								]))
+								->size('col-md-4')
+					) : NULL
+				)
+				->style('row-white');
 		};
 		
 		$dispositions['*']['{lang content}'] = [
 			$breadcrumb(),
-			new Row(
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget' => 'module',
-						'type'   => 'index'
-					])
-				]), 'col-md-8'),
-				new Col(
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget'   => 'navigation',
-								'type'     => 'index',
-								'settings' => serialize([
-									'display' => FALSE,
-									'links'   => [
-										[
-											'title' => utf8_htmlentities($this('news')),
-											'url'   => 'news.html'
-										],
-										[
-											'title' => utf8_htmlentities($this('members')),
-											'url'   => 'members.html'
-										],
-										[
-											'title' => utf8_htmlentities($this('search')),
-											'url'   => 'search.html'
-										],
-										[
-											'title' => utf8_htmlentities($this('contact')),
-											'url'   => 'contact.html'
+			$this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'module',
+									'type'   => 'index'
+								]))
+								->size('col-md-8')
+					),
+					$this	->col(
+								$this->panel_widget($this->db->insert('nf_widgets', [
+									'widget'   => 'navigation',
+									'type'     => 'index',
+									'settings' => serialize([
+										'display' => FALSE,
+										'links'   => [
+											[
+												'title' => utf8_htmlentities($this('news')),
+												'url'   => 'news.html'
+											],
+											[
+												'title' => utf8_htmlentities($this('members')),
+												'url'   => 'members.html'
+											],
+											[
+												'title' => utf8_htmlentities($this('search')),
+												'url'   => 'search.html'
+											],
+											[
+												'title' => utf8_htmlentities($this('contact')),
+												'url'   => 'contact.html'
+											]
 										]
-									]
-								])
-							])
-						]),
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget' => 'partners',
-								'type'   => 'column',
-								'settings' => serialize([
-									'display_style' => 'light'
-								])
-							]),
-							'style'     => 'panel-dark'
-						]),
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget' => 'user',
-								'type'   => 'index'
-							]),
-							'style'     => 'panel-dark'
-						]),
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget' => 'news',
-								'type'   => 'categories'
-							]),
-							'style'     => 'panel-default'
-						]),
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget'   => 'talks',
-								'type'     => 'index',
-								'settings' => serialize([
-									'talk_id' => 2
-								])
-							]),
-							'style'     => 'panel-default'
-						]),
-						new Widget_View([
-							'widget_id' => $this->db->insert('nf_widgets', [
-								'widget' => 'members',
-								'type'   => 'online'
-							]),
-							'style'     => 'panel-red'
-						])
-				, 'col-md-4')
-			, 'row-light')
+									])
+								])),
+								$this	->panel_widget($this->db->insert('nf_widgets', [
+											'widget' => 'partners',
+											'type'   => 'column',
+											'settings' => serialize([
+												'display_style' => 'light'
+											])
+										]))
+										->color('dark'),
+								$this	->panel_widget($this->db->insert('nf_widgets', [
+											'widget' => 'user',
+											'type'   => 'index'
+										]))
+										->color('dark'),
+								$this->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'news',
+									'type'   => 'categories'
+								])),
+								$this->panel_widget($this->db->insert('nf_widgets', [
+									'widget'   => 'talks',
+									'type'     => 'index',
+									'settings' => serialize([
+										'talk_id' => 2
+									])
+								])),
+								$this	->panel_widget($this->db->insert('nf_widgets', [
+											'widget' => 'members',
+											'type'   => 'online'
+										]))
+										->color('red')
+							)
+							->size('col-md-4')
+				)
+				->style('row-light')
 		];
 		
 		$dispositions['*']['{lang pre_content}'] = [
-			new Row(
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'forum',
-							'type'   => 'topics'
-						]),
-						'style' => 'panel-default'
-					]), 'col-md-4'
-				),
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'news',
-							'type'   => 'index'
-						]),
-						'style' => 'panel-dark'
-					]), 'col-md-4'
-				),
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'members',
-							'type'   => 'index'
-						]),
-						'style' => 'panel-red'
-					]), 'col-md-4'
+			$this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'forum',
+									'type'   => 'topics'
+								]))
+								->size('col-md-4')
+					),
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'news',
+									'type'   => 'index'
+								]))
+								->color('dark')
+								->size('col-md-4')
+					),
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'members',
+									'type'   => 'index'
+								]))
+								->color('red')
+								->size('col-md-4')
+					)
 				)
-			, 'row-default')
+				->style('row-default')
 		];
 		
 		$dispositions['*']['{lang post_content}'] = [];
@@ -272,109 +255,114 @@ class t_default extends Theme
 		];
 
 		$dispositions['*']['{lang top}'] = [
-			new Row(
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget'   => 'navigation',
-						'type'     => 'index',
-						'settings' => serialize([
-							'display' => TRUE,
-							'links'   => [
-								[
-									'title' => 'Facebook',
-									'url'   => '#'
-								],
-								[
-									'title' => 'Twitter',
-									'url'   => '#'
-								],
-								[
-									'title' => 'Origin',
-									'url'   => '#'
-								],
-								[
-									'title' => 'Steam',
-									'url'   => '#'
-								]
-							]
-						])
-					])
-				]), 'col-md-8'),
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget' => 'members',
-						'type'   => 'online_mini'
-					])
-				]), 'col-md-4')
-			, 'row-default')
+			$this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget'   => 'navigation',
+									'type'     => 'index',
+									'settings' => serialize([
+										'display' => TRUE,
+										'links'   => [
+											[
+												'title' => 'Facebook',
+												'url'   => '#'
+											],
+											[
+												'title' => 'Twitter',
+												'url'   => '#'
+											],
+											[
+												'title' => 'Origin',
+												'url'   => '#'
+											],
+											[
+												'title' => 'Steam',
+												'url'   => '#'
+											]
+										]
+									])
+								]))
+								->size('col-md-8')
+					),
+					$this->col(
+						$this->panel_widget($this->db->insert('nf_widgets', [
+							'widget' => 'members',
+							'type'   => 'online_mini'
+						]))
+						->size('col-md-4')
+					)
+				)
+				->style('row-default')
 		];
 		
 		$dispositions['*']['{lang footer}'] = [
-			new Row(
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget'   => 'html',
-						'type'     => 'index',
-						'settings' => serialize([
-							'content' => utf8_htmlentities($this('powered_by_neofrag'))
-						])
-					]),
-					'style' => 'panel-dark'
-				]))
-			, 'row-default')
+			$this->row(
+					$this->col(
+						$this	->panel_widget($this->db->insert('nf_widgets', [
+									'widget'   => 'html',
+									'type'     => 'index',
+									'settings' => serialize([
+										'content' => utf8_htmlentities($this('powered_by_neofrag'))
+									])
+								]))
+								->color('dark')
+					)
+				)
+				->style('row-default')
 		];
 		
 		$dispositions['/']['{lang header}'] = [
 			$header(),
 			$navbar(),
-			new Row(
-				new Col(new Widget_View([
-					'widget_id' => $this->db->insert('nf_widgets', [
-						'widget'   => 'slider',
-						'type'     => 'index'
-					])
-				]), 'col-md-12')
-			, 'row-default')
+			$this->row(
+					$this->col(
+						$this->panel_widget($this->db->insert('nf_widgets', [
+							'widget'   => 'slider',
+							'type'     => 'index'
+						]))
+					)
+				)
+				->style('row-default')
 		];
 		
 		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
 		{
 			$dispositions[$page]['{lang content}'] = [
 				$breadcrumb($page != 'search/*'),
-				new Row(
-					new Col(new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'module',
-							'type'   => 'index'
-						])
-					]), 'col-md-12')
-				, 'row-light')
+				$this	->row(
+							$this->col(
+								$this->panel_widget($this->db->insert('nf_widgets', [
+									'widget' => 'module',
+									'type'   => 'index'
+								]))
+							)
+						)
+						->style('row-light')
 			];
 		}
 		
 		$dispositions['forum/*']['{lang post_content}'] = [
-			new Row(
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'forum',
-							'type'   => 'statistics'
-						]),
-						'style' => 'panel-red'
-					]), 'col-md-4'
-				),
-				new Col(
-					new Widget_View([
-						'widget_id' => $this->db->insert('nf_widgets', [
-							'widget' => 'forum',
-							'type'   => 'activity'
-						]),
-						'style' => 'panel-dark'
-					]), 'col-md-8'
-				)
-			, 'row-light')
+			$this	->row(
+						$this->col(
+							$this	->panel_widget($this->db->insert('nf_widgets', [
+										'widget' => 'forum',
+										'type'   => 'statistics'
+									]))
+									->color('red')
+									->size('col-md-4')
+						),
+						$this->col(
+							$this	->panel_widget($this->db->insert('nf_widgets', [
+										'widget' => 'forum',
+										'type'   => 'activity'
+									]))
+									->color('dark')
+									->size('col-md-8')
+						)
+					)
+					->style('row-light')
 		];
-		
+
 		return parent::install($dispositions);
 	}
 	

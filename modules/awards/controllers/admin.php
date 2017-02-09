@@ -134,12 +134,10 @@ class m_awards_c_admin extends Controller_Module
 						->no_data('Aucun palmarès')
 						->display();
 
-		return new Panel([
-			'title'   => 'Liste des palmarès',
-			'icon'    => 'fa-trophy',
-			'content' => $awards,
-			'footer'  => $this->button_create('admin/awards/add.html', 'Ajouter un palmarès')
-		]);
+		return $this->panel()
+					->heading('Liste des palmarès', 'fa-trophy')
+					->body($awards)
+					->footer($this->button_create('admin/awards/add.html', 'Ajouter un palmarès'));
 	}
 
 	public function add()
@@ -171,11 +169,9 @@ class m_awards_c_admin extends Controller_Module
 			redirect_back('admin/awards.html');
 		}
 
-		return new Panel([
-			'title'   => 'Nouveau palmarès',
-			'icon'    => 'fa-trophy',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading('Nouveau palmarès', 'fa-trophy')
+					->body($this->form->display());
 	}
 
 	public function _edit($award_id, $team_id, $date, $location, $name, $platform, $game_id, $ranking, $participants, $description, $image_id, $team_name, $team_title, $game_name, $game_title)
@@ -219,11 +215,9 @@ class m_awards_c_admin extends Controller_Module
 			redirect_back('admin/awards.html');
 		}
 
-		return new Panel([
-			'title'   => 'Édition du palmarès',
-			'icon'    => 'fa-trophy',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading('Édition du palmarès', 'fa-trophy')
+					->body($this->form->display());
 	}
 
 	public function delete($award_id, $name)

@@ -68,11 +68,9 @@ class m_contact_c_index extends Controller_Module
 			redirect();
 		}
 
-		return new Panel([
-			'title'   => $this('contact_us'),
-			'icon'    => 'fa-envelope-o',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('contact_us'), 'fa-envelope-o')
+					->body($this->form->display());
 	}
 }
 

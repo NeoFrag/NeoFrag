@@ -26,36 +26,29 @@ class w_gallery_c_index extends Controller_Widget
 		
 		if (!empty($categories))
 		{
-			return new Panel([
-				'title'        => $this('ours_galleries'),
-				'content'      => $this->load->view('index', [
-					'categories' => $categories
-				]),
-				'body'         => FALSE,
-				'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('ours_galleries'))
+						->body($this->load->view('index', [
+							'categories' => $categories
+						]), FALSE)
+						->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('gallery'),
-				'content' => $this('no_category')
-			]);
+			return $this->panel()
+						->heading($this('gallery'))
+						->body($this('no_category'));
 		}
 	}
 	
 	public function albums($settings = [])
 	{
-		return new Panel([
-			'title'        => $this('ours_albums'),
-			'content'      => $this->load->view('gallery', [
-				'gallery' => $this->model()->get_gallery($settings['category_id'])
-			]),
-			'body'         => FALSE,
-			'footer'       => '<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>',
-			'footer_align' => 'right'
-		]);
+		return $this->panel()
+					->heading($this('ours_albums'))
+					->body($this->load->view('gallery', [
+						'gallery' => $this->model()->get_gallery($settings['category_id'])
+					]), FALSE)
+					->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
 	}
 	
 	public function image($settings = [])
@@ -65,20 +58,16 @@ class w_gallery_c_index extends Controller_Widget
 		
 		if (!empty($image['file_id']))
 		{
-			return new Panel([
-				'title'        => $image['title'],
-				'content'      => '<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>',
-				'body'         => FALSE,
-				'footer'       => '<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this('details').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($image['title'])
+						->body('<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>', FALSE)
+						->footer('<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this('details').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('random_picture'),
-				'content' => $this('no_picture')
-			]);
+			return $this->panel()
+						->heading($this('random_picture'))
+						->body($this('no_picture'));
 		}
 	}
 	
@@ -88,20 +77,17 @@ class w_gallery_c_index extends Controller_Widget
 		
 		if (!empty($images))
 		{
-			return new Panel([
-				'title'   => $images['title'],
-				'content' => $this->load->view('slider', [
-					'images' => $images
-				]),
-				'body'    => FALSE
-			]);
+			return $this->panel()
+						->heading($images['title'])
+						->body($this->load->view('slider', [
+							'images' => $images
+						]), FALSE);
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('album'),
-				'content' => $this('no_picture')
-			]);
+			return $this->panel()
+						->heading($this('album'))
+						->body($this('no_picture'));
 		}
 	}
 }

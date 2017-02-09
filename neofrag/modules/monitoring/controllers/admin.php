@@ -37,11 +37,10 @@ class m_monitoring_c_admin extends Controller_Module
 		$extensions = get_loaded_extensions();
 		natcasesort($extensions);
 
-		$phpinfo = [new Panel([
-			'content' => $this->load->view('phpinfo', array_merge($this->model()->get_info(), [
-				'extensions' => $extensions
-			]))
-		])];
+		$phpinfo = [$this	->panel()
+							->body($this->load->view('phpinfo', array_merge($this->model()->get_info(), [
+								'extensions' => $extensions
+							])))];
 
 		ob_start();
 		phpinfo();
@@ -52,69 +51,55 @@ class m_monitoring_c_admin extends Controller_Module
 			{
 				if ($match[1])
 				{
-					$phpinfo[] = new Panel([
-						'title' => $match[1] ? '<h1 class="text-center no-margin">'.$match[1].'</h1>' : ''
-					]);
+					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center no-margin">'.$match[1].'</h1>' : '');
 				}
 				
-				$phpinfo[] = new Panel([
-					'title'   => $match[2] ? '<h2 class="text-center no-margin">'.$match[2].'</h2>' : '',
-					'content' => '<table class="table table-hover table-striped">'.$match[3].'</table>',
-					'body'    => FALSE
-				]);
+				$phpinfo[] = $this		->panel()
+										->heading($match[2] ? '<h2 class="text-center no-margin">'.$match[2].'</h2>' : '')
+										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE);
 			}
 		}
 
-		return [
-			new Row(
-				new Col(
-					new Panel([
-						'content' => $this->load->view('monitoring'),
-						'body'    => FALSE
-					]),
-					new Panel([
-						'title'   => '<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-phpinfo">'.icon('fa-info').'</a></div>Informations serveur',
-						'style'   => 'panel-default panel-infos',
-						'icon'    => 'fa-info-circle',
-						'content' => $this->load->view('infos', [
-							'check'   => $this->model()->check_server(),
-							'phpinfo' => $phpinfo
-						])
-					])
-				, 'col-md-4 col-lg-3'),
-				new Col(
-					new Row(
-						new Col(
-							new Panel([
-								'title'   => '<div class="pull-right"><a class="btn btn-xs btn-default refresh">'.icon('fa-refresh').'</a></div>Notifications',
-								'icon'    => 'fa-bell-o',
-								'content' => '<table class="table table-notifications no-margin"></table>',
-								'style'   => 'panel-default panel-notifications'
-							])
-						, 'col-md-6 col-lg-8'),
-						new Col(
-							new Panel([
-								'title'   => '<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage',
-								'icon'    => 'fa-files-o',
-								'content' => $this->load->view('storage'),
-								'style'   => 'panel-default panel-storage',
-								'footer'  => $this->load->view('storage-footer'),
-							])
-						, 'col-md-6 col-lg-4')
-					),
-					new Row(
-						new Col(
-							new Panel([
-								'title'   => 'Votre installation NeoFrag',
-								'icon'    => 'fa-heartbeat',
-								'content' => '<div id="tree"></div>',
-								'body'    => FALSE
-							])
-						, 'col-md-12')
+		return $this->row(
+			$this	->col(
+						$this->panel()->body($this->load->view('monitoring'), FALSE),
+						$this	->panel()
+								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-phpinfo">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
+								->body($this->load->view('infos', [
+									'check'   => $this->model()->check_server(),
+									'phpinfo' => $phpinfo
+								]))
+								->color('default panel-infos')
 					)
-				, 'col-md-8 col-lg-9')
-			)
-		];
+					->size('col-md-4 col-lg-3'),
+			$this	->col(
+						$this->row(
+							$this	->col(
+										$this	->panel()
+												->heading('<div class="pull-right"><a class="btn btn-xs btn-default refresh">'.icon('fa-refresh').'</a></div>Notifications', 'fa-bell-o')
+												->body('<table class="table table-notifications no-margin"></table>')
+												->color('default panel-notifications')
+									)
+									->size('col-md-6 col-lg-8'),
+							$this	->col(
+										$this	->panel()
+												->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
+												->body($this->load->view('storage'))
+												->footer($this->load->view('storage-footer'))
+												->color('default panel-storage')
+									)
+									->size('col-md-6 col-lg-4')
+						),
+						$this->row(
+							$this->col(
+								$this	->panel()
+										->heading('Votre installation NeoFrag', 'fa-heartbeat')
+										->body('<div id="tree"></div>', FALSE)
+							)
+						)
+					)
+					->size('col-md-8 col-lg-9')
+		);
 	}
 }
 

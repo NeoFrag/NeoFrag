@@ -63,12 +63,10 @@ class m_pages_c_admin extends Controller_Module
 				->data($pages)
 				->no_data($this('no_pages'));
 						
-		return new Panel([
-			'title'   => $this('list_pages'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->table->display(),
-			'footer'  => $this->button_create('admin/pages/add.html', $this('create_page'))
-		]);
+		return $this->panel()
+					->heading($this('list_pages'), 'fa-align-left')
+					->body($this->table->display())
+					->footer($this->button_create('admin/pages/add.html', $this('create_page')));
 	}
 	
 	public function add()
@@ -92,11 +90,9 @@ class m_pages_c_admin extends Controller_Module
 			redirect_back('admin/pages.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_pages'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_pages'), 'fa-align-left')
+					->body($this->form->display());
 	}
 
 	public function _edit($page_id, $name, $published, $title, $subtitle, $content, $tab)
@@ -128,11 +124,9 @@ class m_pages_c_admin extends Controller_Module
 			redirect_back('admin/pages.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_page'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_page'), 'fa-align-left')
+					->body($this->form->display());
 	}
 	
 	public function delete($page_id, $title)

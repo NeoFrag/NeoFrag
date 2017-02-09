@@ -32,20 +32,16 @@ class m_forum_c_admin extends Controller_Module
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = new Panel([
-				'content' => $this->load->view('index', $category),
-				'body'    => FALSE
-			]);
+			$panels[] = $this	->panel()
+								->body($this->load->view('index', $category), FALSE);
 		}
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel([
-				'title'   => $this('forum'),
-				'icon'    => 'fa-comments',
-				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.$this('no_forum').'</div>'
-			]);
+			$panels[] = $this	->panel()
+								->heading($this('forum'), 'fa-comments')
+								->body('<div class="text-center">'.$this('no_forum').'</div>')
+								->color('info');
 		}
 
 		return '<div id="forums-list">'.display($panels).'</div>';
@@ -73,11 +69,9 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 
-		return new Panel([
-			'title'   => $this('add_forum'),
-			'icon'    => 'fa-comments',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_forum'), 'fa-comments')
+					->body($this->form->display());
 	}
 
 	public function _edit($forum_id, $title, $description, $parent_id, $is_subforum, $url)
@@ -133,11 +127,9 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 
-		return new Panel([
-			'title'   => $this('edit_forum'),
-			'icon'    => 'fa-comments',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_forum'), 'fa-comments')
+					->body($this->form->display());
 	}
 
 	public function delete($forum_id, $title)
@@ -174,11 +166,9 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_category'),
-			'icon'    => 'fa-comments',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_category'), 'fa-comments')
+					->body($this->form->display());
 	}
 	
 	public function _categories_edit($category_id, $title)
@@ -201,11 +191,9 @@ class m_forum_c_admin extends Controller_Module
 			redirect_back('admin/forum.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_category'),
-			'icon'    => 'fa-comments',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_category'), 'fa-comments')
+					->body($this->form->display());
 	}
 	
 	public function _categories_delete($category_id, $title)

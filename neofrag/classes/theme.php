@@ -108,31 +108,14 @@ abstract class Theme extends Loadable
 	
 	public function uninstall($remove = TRUE)
 	{
-		$widgets = [];
-		
-		foreach ($this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get() as $disposition)
+		if ($dispositions = $this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get())
 		{
-			foreach (unserialize($disposition) as $rows)
-			{
-				foreach ($rows->cols as $col)
-				{
-					foreach ($col->widgets as $widget)
-					{
-						$widgets[] = $widget->widget_id;
-					}
-				}
-			}
+			$this->load->module('live_editor')->load->model()->delete_widgets(array_map('unserialize', $dispositions));
+
+			$this->db	->where('theme', $this->name)
+						->delete('nf_dispositions');
 		}
-		
-		$this->db	->where('theme', $this->name)
-					->delete('nf_dispositions');
-		
-		if ($widgets)
-		{
-			$this->db	->where('widget_id', $widgets)
-						->delete('nf_widgets');
-		}
-		
+
 		return parent::uninstall($remove);
 	}
 }

@@ -118,21 +118,16 @@ class m_search_c_index extends Controller_Module
 					
 					if ($content)
 					{
-						$panels[] = new Panel([
-							'title'   => icon($result[0]->icon).' '.$result[0]->get_title(),
-							'url'     => 'search/'.$result[0]->name.'.html?q='.rawurlencode($search),
-							'content' => implode('<hr />', $content),
-							'footer'  => (!$details && $result[3] > 3) ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : ''
-						]);
+						$panels[] = $this	->panel()
+											->heading($result[0]->get_title(), $result[0]->icon, 'search/'.$result[0]->name.'.html?q='.rawurlencode($search))
+											->body(implode('<hr />', $content))
+											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : '');
 					}
 					
 					if ($details && $pagination = $this->pagination->get_pagination())
 					{
-						$panels[] = new Panel([
-							'content' => $pagination,
-							'body'    => FALSE,
-							'style'   => 'panel-back'
-						]);
+						$panels[] = $this	->panel()
+											->body($pagination, FALSE);
 					}
 				}
 				
@@ -141,34 +136,31 @@ class m_search_c_index extends Controller_Module
 					redirect('search.html?q='.rawurlencode($search));
 				}
 
-				$row[] = new Row(
-					new Col(
-						new Panel([
-							'body'    => FALSE,
-							'content' => $this->load->view('results', [
-								'keywords' => $search,
-								'results'  => $results,
-								'count'    => $count
-							])
-						]),
-						'col-md-3'
-					),
-					new Col($panels, 'col-md-9')
+				$row[] = $this->row(
+					$this	->col(
+								$this	->panel()
+										->body($this->load->view('results', [
+											'keywords' => $search,
+											'results'  => $results,
+											'count'    => $count
+										]), FALSE)
+							)
+							->size('col-md-3'),
+					$this	->col($panels)
+							->size('col-md-9')
 				);
 			}
 		}
 
 		return array_merge([
-			new Row(
-				new Col(
-					new Panel([
-						'title'   => $this('search'),
-						'icon'    => 'fa-search',
-						'content' => $this->load->view('index', [
-							'results'  => (bool)$count,
-							'keywords' => $search
-						])
-					])
+			$this->row(
+				$this->col(
+					$this	->panel()
+							->heading($this('search'), 'fa-search')
+							->body($this->load->view('index', [
+								'results'  => (bool)$count,
+								'keywords' => $search
+							]))
 				)
 			)], $row);
 	}

@@ -139,23 +139,19 @@ class m_user_c_admin extends Controller_Module
 			->data($members)
 			->save();
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('groups'),
-					'icon'    => 'fa-users',
-					'content' => $table_groups->display(),
-					'footer'  => $this->button_create('admin/user/groups/add.html', $this('add_group')),
-					'size'    => 'col-md-12 col-lg-3'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('groups'), 'fa-users')
+						->body($table_groups->display())
+						->footer($this->button_create('admin/user/groups/add.html', $this('add_group')))
+						->size('col-md-12 col-lg-3')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('members'),
-					'icon'    => 'fa-users',
-					'content' => $table_users->display(),
-					'size'    => 'col-md-12 col-lg-9'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('members'), 'fa-users')
+						->body($table_users->display())
+						->size('col-md-12 col-lg-9')
 			)
 		);
 	}
@@ -275,39 +271,25 @@ class m_user_c_admin extends Controller_Module
 			redirect_back('admin/user.html');
 		}
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('edit_member'),
-					'icon'    => 'fa-user',
-					'content' => $form_member->display(),
-					'size'    => 'col-md-12 col-lg-7'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('edit_member'), 'fa-user')
+						->body($form_member->display())
+						->size('col-md-12 col-lg-7')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('groups'),
-					'icon'    => 'fa-users',
-					'content' => $this->load->view('admin/groups', [
-						'user_id' => $member_id,
-						'form_id' => $form_groups->token()
-					]),
-					'footer'  => '<button class="btn btn-outline btn-primary">'.icon('fa-check').' '.$this('save').'</button>',
-					'form'    => TRUE,
-					'size'    => 'col-md-12 col-lg-5'
-				]),
-				/*new Panel(array(
-					'title'   => 'Dernières activités',
-					'icon'    => 'fa-history',
-					'content' => $activities,
-					'size'    => 'col-md-12 col-lg-5'
-				)),*/
-				new Panel([
-					'title'   => $this('active_sessions'),
-					'icon'    => 'fa-globe',
-					'content' => $sessions,
-					'size'    => 'col-md-12 col-lg-5'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('groups'), 'fa-users')
+						->body($this->load->view('admin/groups', [
+							'user_id' => $member_id,
+							'form_id' => $form_groups->token()
+						]))
+						->size('col-md-12 col-lg-5'),
+				$this	->panel()
+						->heading($this('active_sessions'), 'fa-globe')
+						->body($sessions)
+						->size('col-md-12 col-lg-5')
 			)
 		);
 	}
@@ -337,13 +319,11 @@ class m_user_c_admin extends Controller_Module
 		$this	->title($this('ban_title'))
 				->icon('fa-bomb');
 		
-		return new Panel([
-			'title'   => $this('ban_title'),
-			'icon'    => 'fa-bomb',
-			'style'   => 'panel-info',
-			'content' => $this('unavailable_feature'),
-			'size'    => 'col-md-12'
-		]);
+		return $this->panel()
+					->heading($this('ban_title'), 'fa-bomb')
+					->body($this('unavailable_feature'))
+					->color('info')
+					->size('col-md-12');
 	}
 	
 	public function _groups_add()
@@ -369,12 +349,10 @@ class m_user_c_admin extends Controller_Module
 			redirect_back('admin/user.html');
 		}
 
-		return new Panel([
-			'title'   => $this('add_group'),
-			'icon'    => 'fa-users',
-			'content' => $this->form->display(),
-			'size'    => 'col-md-12'
-		]);
+		return $this->panel()
+					->heading($this('add_group'), 'fa-users')
+					->body($this->form->display())
+					->size('col-md-12');
 	}
 	
 	public function _groups_edit($group_id, $name, $title, $color, $icon, $auto)
@@ -419,12 +397,10 @@ class m_user_c_admin extends Controller_Module
 			redirect_back('admin/user.html');
 		}
 
-		return new Panel([
-			'title'   => $this('edit_group_title'),
-			'icon'    => 'fa-users',
-			'content' => $this->form->display(),
-			'size'    => 'col-md-12'
-		]);
+		return $this->panel()
+					->heading($this('edit_group_title'), 'fa-users')
+					->body($this->form->display())
+					->size('col-md-12');
 	}
 
 	public function _groups_delete($group_id, $title)
@@ -560,11 +536,9 @@ class m_user_c_admin extends Controller_Module
 				])
 				->data($sessions);
 		
-		return new Panel([
-			'title'   => $this('sessions'),
-			'icon'    => 'fa-globe',
-			'content' => $this->table->display()
-		]);
+		return $this->panel()
+					->heading($this('sessions'), 'fa-globe')
+					->body($this->table->display());
 	}
 	
 	public function _sessions_delete($session_id, $username)

@@ -31,26 +31,25 @@ class w_talks_c_index extends Controller_Widget
 				->css('talks')
 				->js('jquery.mCustomScrollbar.min')
 				->css('jquery.mCustomScrollbar.min');
-		
-		$params = [
-			'content' => '<div data-talk-id="'.$settings['talk_id'].'">'.$this->load->view('index', [
-				'messages' => $this->model()->get_messages($settings['talk_id'])
-			]).'</div>'
-		];
-		
+
+		$panel = $this	->panel()
+						->body('<div data-talk-id="'.$settings['talk_id'].'">'.$this->load->view('index', [
+							'messages' => $this->model()->get_messages($settings['talk_id'])
+						]).'</div>');
+
 		if ($this->access('talks', 'write', $settings['talk_id']))
 		{
-			$params['footer'] = '	<form>
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="'.$this('your_message').'" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
-											</span>
-										</div>
-									</form>';
+			$panel->footer('<form>
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="'.$this('your_message').'" />
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
+									</span>
+								</div>
+							</form>');
 		}
-		
-		return new Panel($params);
+
+		return $panel;
 	}
 }
 

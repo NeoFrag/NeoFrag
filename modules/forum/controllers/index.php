@@ -26,29 +26,22 @@ class m_forum_c_index extends Controller_Module
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = new Panel([
-				'content' => $this->load->view('index', $category),
-				'body'    => FALSE
-			]);
+			$panels[] = $this->panel()->body($this->load->view('index', $category), FALSE);
 		}
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel([
-				'title'   => $this('forum'),
-				'icon'    => 'fa-comments',
-				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.$this('no_forum').'</div>'
-			]);
+			$panels[] = $this	->panel()
+								->heading($this('forum'), 'fa-comments')
+								->body('<div class="text-center">'.$this('no_forum').'</div>')
+								->color('info');
 		}
 		
 		if ($this->user())
 		{
-			$actions = new Panel([
-				'content' => '<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>',
-				'body'    => FALSE,
-				'style'   => 'panel-back text-right'
-			]);
+			$actions = $this->panel()
+							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
+							->color('back text-right');
 
 			array_unshift($panels, $panels[] = $actions);
 		}
@@ -65,35 +58,29 @@ class m_forum_c_index extends Controller_Module
 		
 		if (!empty($subforums))
 		{
-			$panels[] = new Panel([
-				'content' => $this->load->view('index', [
-					'title'  => $this('subforums'),
-					'forums' => $subforums
-				]),
-				'body'    => FALSE
-			]);
+			$panels[] = $this	->panel()
+								->body($this->load->view('index', [
+									'title'  => $this('subforums'),
+									'forums' => $subforums
+								]), FALSE);
 		}
 		
 		if (!empty($announces))
 		{
-			$panels[] = new Panel([
-				'content' => $this->load->view('forum', [
-					'title'  => $this('announces'),
-					'icon'   => 'fa-flag',
-					'topics' => $announces
-				]),
-				'body'    => FALSE
-			]);
+			$panels[] = $this	->panel()
+								->body($this->load->view('forum', [
+									'title'  => $this('announces'),
+									'icon'   => 'fa-flag',
+									'topics' => $announces
+								]), FALSE);
 		}
 		
-		$panels[] = new Panel([
-			'content' => $this->load->view('forum', [
-				'title'  => $title,
-				'icon'   => 'fa-navicon',
-				'topics' => $topics
-			]),
-			'body'    => FALSE
-		]);
+		$panels[] = $this	->panel()
+							->body($this->load->view('forum', [
+								'title'  => $title,
+								'icon'   => 'fa-navicon',
+								'topics' => $topics
+							]), FALSE);
 		
 		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">'.$this('back').'</a>';
 		
@@ -112,11 +99,9 @@ class m_forum_c_index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>';
 		}
 
-		array_unshift($panels, $panels[] = new Panel([
-			'content' => $content,
-			'body'    => FALSE,
-			'style'   => 'panel-back'
-		]));
+		array_unshift($panels, $panels[] = $this->panel()
+												->body($content, FALSE)
+												->color('back'));
 		
 		return $panels;
 	}
@@ -166,26 +151,21 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($errors = $this->form->get_errors())
 		{
-			$panels[] = new Row(new Col(
-				new Panel([
-					'title'   => $this('fill_all_fields'),
-					'icon'    => 'fa-warning',
-					'style'   => 'panel-danger'
-				])
+			$panels[] = $this->row($this->col(
+				$this	->panel()
+						->heading($this('fill_all_fields'), 'fa-warning')
+						->color('danger')
 			));
 		}
 		
-		$panels[] = new Panel([
-			'title'   => $this('new_topic'),
-			'icon'    => 'fa-file-text-o',
-			'body'    => FALSE,
-			'content' => $this->load->view('new', [
-				'form_id'     => $this->form->token(),
-				'forum_id'    => $forum_id,
-				'category_id' => $category_id,
-				'title'       => $title
-			])
-		]);
+		$panels[] = $this	->panel()
+							->heading($this('new_topic'), 'fa-file-text-o')
+							->body($this->load->view('new', [
+								'form_id'     => $this->form->token(),
+								'forum_id'    => $forum_id,
+								'category_id' => $category_id,
+								'title'       => $title
+							]), FALSE);
 		
 		return $panels;
 	}
@@ -303,46 +283,37 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($is_locked)
 		{
-			$panels[] = new Panel([
-				'title'   => '<a name="reply"></a>'.$this('locked_topic'),
-				'icon'    => 'fa-warning',
-				'style'   => 'panel-danger'
-			]);
+			$panels[] = $this	->panel()
+								->heading('<a name="reply"></a>'.$this('locked_topic'), 'fa-warning')
+								->color('danger');
 		}
 		
-		$panels[] = new Panel([
-			'content' => $this->load->view('topic', array_merge($topic, [
-				'category_id'       => $category_id,
-				'topic_id'          => $topic_id,
-				'title'             => $title,
-				'views'             => $views,
-				'last_message_read' => $last_message_read
-			])),
-			'body'    => FALSE
-		]);
+		$panels[] = $this	->panel()
+							->body($this->load->view('topic', array_merge($topic, [
+								'category_id'       => $category_id,
+								'topic_id'          => $topic_id,
+								'title'             => $title,
+								'views'             => $views,
+								'last_message_read' => $last_message_read
+							])), FALSE);
 		
-		$actions = new Panel([
-			'content' => $content,
-			'body'    => FALSE,
-			'style'   => 'panel-back'
-		]);
+		$actions = $this->panel()
+						->body($content, FALSE)
+						->color('back');
 		
 		if (!empty($messages))
 		{
 			$panels[] = $actions;
 			
-			$panels[] = new Panel([
-				'content' => $this->load->view('messages', [
-					'category_id'       => $category_id,
-					'topic_id'          => $topic_id,
-					'title'             => $title,
-					'nb_users'          => $nb_users,
-					'nb_messages'       => $nb_messages, 
-					'messages'          => $messages,
-					'last_message_read' => $last_message_read
-				]),
-				'body'    => FALSE
-			]);
+			$panels[] = $this->panel()->body($this->load->view('messages', [
+				'category_id'       => $category_id,
+				'topic_id'          => $topic_id,
+				'title'             => $title,
+				'nb_users'          => $nb_users,
+				'nb_messages'       => $nb_messages, 
+				'messages'          => $messages,
+				'last_message_read' => $last_message_read
+			]), FALSE);
 		}
 		
 		$panels[] = $actions;
@@ -380,23 +351,18 @@ class m_forum_c_index extends Controller_Module
 			
 			if ($errors = $this->form->get_errors())
 			{
-				$panels[] = new Row(new Col(
-					new Panel([
-						'title'   => '<a name="reply"></a>'.$this('message_needed'),
-						'icon'    => 'fa-warning',
-						'style'   => 'panel-danger'
-					])
+				$panels[] = $this->row($this->col(
+					$this	->panel()
+							->heading('<a name="reply"></a>'.$this('message_needed'), 'fa-warning')
+							->color('danger')
 				));
 			}
 
-			$panels[] = new Panel([
-				'title'   => '<a name="reply"></a>'.$this('reply_topic').'',
-				'icon'    => 'fa-file-text-o',
-				'body'    => FALSE,
-				'content' => $this->load->view('new', [
-					'form_id'  => $this->form->token()
-				])
-			]);
+			$panels[] = $this	->panel()
+								->heading('<a name="reply"></a>'.$this('reply_topic'), 'fa-file-text-o')
+								->body($this->load->view('new', [
+									'form_id'  => $this->form->token()
+								]), FALSE);
 		}
 		
 		return $panels;
@@ -536,28 +502,23 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($errors = $this->form->get_errors())
 		{
-			$panels[] = new Row(new Col(
-				new Panel([
-					'title'   => $this($is_topic ? 'fill_all_fields' : 'message_needed'),
-					'icon'    => 'fa-warning',
-					'style'   => 'panel-danger'
-				])
+			$panels[] = $this->row($this->col(
+				$this	->panel()
+						->heading($this($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
+						->color('danger')
 			));
 		}
 		
-		$panels[] = new Panel([
-			'title'   => $this($is_topic ? 'edit_topic' : 'edit_message'),
-			'icon'    => 'fa-file-text-o',
-			'body'    => FALSE,
-			'content' => $this->load->view('new', [
-				'form_id'  => $this->form->token(),
-				'topic_id' => $topic_id,
-				'is_topic' => $is_topic,
-				'title'    => $title,
-				'message'  => $message,
-				'user_id'  => $user_id
-			])
-		]);
+		$panels[] = $this	->panel()
+							->heading($this($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
+							->body($this->load->view('new', [
+								'form_id'  => $this->form->token(),
+								'topic_id' => $topic_id,
+								'is_topic' => $is_topic,
+								'title'    => $title,
+								'message'  => $message,
+								'user_id'  => $user_id
+							]), FALSE);
 		
 		return $panels;
 	}

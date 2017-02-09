@@ -22,12 +22,10 @@ class w_error_c_index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		return new Panel([
-			'title'   => $this('error'),
-			'style'   => 'panel-danger',
-			'icon'    => 'fa-warning',
-			'content' => $this('widget_error')
-		]);
+		return $this->panel()
+					->heading($this('error'), 'fa-warning')
+					->body($this('widget_error'))
+					->color('danger');
 	}
 }
 
