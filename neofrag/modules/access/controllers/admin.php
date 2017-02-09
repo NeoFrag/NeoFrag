@@ -26,11 +26,9 @@ class m_access_c_admin extends Controller_Module
 	{
 		if (!$modules)
 		{
-			return new Panel([
-				'title'   => $this('permissions'),
-				'icon'    => 'fa-unlock-alt',
-				'content' => $this('no_permission')
-			]);
+			return $this->panel()
+						->heading($this('permissions'), 'fa-unlock-alt')
+						->body($this('no_permission'));
 		}
 		
 		$this->js('access');
@@ -92,9 +90,7 @@ class m_access_c_admin extends Controller_Module
 			});
 		}
 
-		return new Panel([
-			'content' => $this->tab->display($tab)
-		]);
+		return $this->panel()->body($this->tab->display($tab));
 	}
 
 	public function _edit($module, $type, $access, $id, $title = NULL)
@@ -108,27 +104,25 @@ class m_access_c_admin extends Controller_Module
 				->js('neofrag.table');
 		
 		return [
-			new Row(
-				new Col(
-					new Panel([
-						'title'   => $this('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
-							'module' => $module->name,
-							'type'   => $type,
-							'id'     => $id
-						]).'</div>',
-						'icon'    => 'fa-unlock-alt',
-						'content' => $this->load->view('index', [
-							'loader' => $module->load,
-							'module' => $module->name,
-							'type'   => $type,
-							'id'     => $id,
-							'access' => $access
-						]),
-						'size'    => 'col-md-12 col-lg-5'
-					])
+			$this->row(
+				$this->col(
+					$this	->panel()
+							->heading($this('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+								'module' => $module->name,
+								'type'   => $type,
+								'id'     => $id
+							]).'</div>', 'fa-unlock-alt')
+							->body($this->load->view('index', [
+								'loader' => $module->load,
+								'module' => $module->name,
+								'type'   => $type,
+								'id'     => $id,
+								'access' => $access
+							]))
+							->size('col-md-12 col-lg-5')
 				)
 			),
-			new Button_back()
+			$this->panel_back()
 		];
 	}
 }

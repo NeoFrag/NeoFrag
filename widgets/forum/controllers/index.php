@@ -26,21 +26,18 @@ class w_forum_c_index extends Controller_Widget
 		
 		if (!empty($messages))
 		{
-			return new Panel([
-				'title'        => $this('last_messages'),
-				'content'      => $this->load->view('index', [
-					'messages' => $messages
-				]),
-				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('last_messages'))
+						->body($this->load->view('index', [
+							'messages' => $messages
+						]))
+						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('last_messages'),
-				'content' => $this('no_messages')
-			]);
+			return $this->panel()
+						->heading($this('last_messages'))
+						->body($this('no_messages'));
 		}
 	}
 	
@@ -50,37 +47,31 @@ class w_forum_c_index extends Controller_Widget
 		
 		if (!empty($topics))
 		{
-			return new Panel([
-				'title'        => $this('last_topics'),
-				'content'      => $this->load->view('topics', [
-					'topics' => $topics
-				]),
-				'footer'       => '<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('last_topics'))
+						->body($this->load->view('topics', [
+							'topics' => $topics
+						]))
+						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('last_topics'),
-				'content' => $this('no_topics')
-			]);
+			return $this->panel()
+						->heading($this('last_topics'))
+						->body($this('no_topics'));
 		}
 	}
 	
 	public function statistics($config = [])
 	{
-		return new Panel([
-			'title'   => $this('statistics'),
-			'icon'    => 'fa-signal',
-			'body'    => FALSE,
-			'content' => $this->load->view('statistics', [
-				'topics'    => $topics = $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->row(),
-				'messages'  => $this->db->select('COUNT(message_id)')->from('nf_forum_messages')->row() - $topics,
-				'announces' => $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->where('status', ['-2', '1'])->row(),
-				'users'     => $this->db->select('COUNT(DISTINCT user_id)')->from('nf_forum_messages')->row()
-			])
-		]);
+		return $this->panel()
+					->heading($this('statistics'), 'fa-signal')
+					->body($this->load->view('statistics', [
+						'topics'    => $topics = $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->row(),
+						'messages'  => $this->db->select('COUNT(message_id)')->from('nf_forum_messages')->row() - $topics,
+						'announces' => $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->where('status', ['-2', '1'])->row(),
+						'users'     => $this->db->select('COUNT(DISTINCT user_id)')->from('nf_forum_messages')->row()
+					]), FALSE);
 	}
 	
 	public function activity($config = [])
@@ -91,14 +82,12 @@ class w_forum_c_index extends Controller_Widget
 			return $a['username'];
 		});
 
-		return new Panel([
-			'title'   => $this('forum_activity'),
-			'icon'    => 'fa-globe',
-			'content' => $this->load->view('activity', [
-				'users'    => $users,
-				'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()
-			])
-		]);
+		return $this->panel()
+					->heading($this('forum_activity'), 'fa-globe')
+					->body($this->load->view('activity', [
+						'users'    => $users,
+						'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()
+					]));
 	}
 }
 

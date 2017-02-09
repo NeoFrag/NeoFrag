@@ -26,6 +26,18 @@ class Library extends NeoFrag
 	public $load;
 	public $name = '';
 
+	public function __sleep()
+	{
+		return array_filter(array_keys(get_object_vars($this)), function($a){
+			return $a[0] == '_';
+		});
+	}
+
+	public function __wakeup()
+	{
+		$this->load = NeoFrag::loader();
+	}
+
 	public function reset()
 	{
 		if (isset($this->load->libraries[$this->name]))

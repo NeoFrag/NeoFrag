@@ -30,22 +30,18 @@ class w_teams_c_index extends Controller_Widget
 		
 		if (!empty($teams))
 		{
-			return new Panel([
-				'title'        => $this('ours_teams'),
-				'content'      => $this->load->view('index', [
-					'teams'    => $teams
-				]),
-				'body'         => FALSE,
-				'footer'       => '<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_all_teams').'</a>',
-				'footer_align' => 'right'
-			]);
+			return $this->panel()
+						->heading($this('ours_teams'))
+						->body($this->load->view('index', [
+							'teams'    => $teams
+						]), FALSE)
+						->footer('<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_all_teams').'</a>', 'right');
 		}
 		else
 		{
-			return new Panel([
-				'title'   => $this('ours_teams'),
-				'content' => $this('no_team')
-			]);
+			return $this->panel()
+						->heading($this('ours_teams'))
+						->body($this('no_team'));
 		}
 	}
 }

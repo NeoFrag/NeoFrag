@@ -34,9 +34,7 @@ class m_comments_c_admin extends Controller_Module
 			});
 		}
 								
-		return new Panel([
-			'content' => $this->tab->display($tab)
-		]);
+		return $this->panel()->body($this->tab->display($tab));
 	}
 	
 	private function _tab_index($comments, $title = NULL)

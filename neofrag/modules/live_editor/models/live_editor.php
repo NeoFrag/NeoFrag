@@ -41,41 +41,41 @@ class m_live_editor_m_live_editor extends Model
 						'disposition' => serialize($disposition)
 					]);
 	}
-	
-	public function delete_disposition($rows)
-	{
-		foreach ($rows as $row)
-		{
-			$this->delete_row($row->cols);
-		}
 
-		return $this;
-	}
-	
-	public function delete_row($cols)
+	public function delete_widgets($disposition)
 	{
-		foreach ($cols as $col)
-		{
-			$this->delete_col($col->widgets);
-		}
+		$widgets = [];
 
-		return $this;
-	}
-	
-	public function delete_col($widgets)
-	{
-		foreach ($widgets as $widget)
-		{
-			$this->delete_widget($widget->widget_id);
-		}
+		$f = function($d) use (&$f, &$widgets){
+			if (!$d)
+			{
+				return;
+			}
 
-		return $this;
-	}
-	
-	public function delete_widget($widget_id)
-	{
-		$this->db	->where('widget_id', $widget_id)
-					->delete('nf_widgets');
+			if (method_exists($d, 'children'))
+			{
+				$d = $d->children();
+			}
+			else if (method_exists($d, 'widget_id'))
+			{
+				$widgets[] = $d->widget_id();
+				return;
+			}
+			else if (!is_array($d))
+			{
+				$d = [$d];
+			}
+
+			array_walk($d, $f);
+		};
+
+		$f($disposition);
+
+		if ($widgets)
+		{
+			$this->db	->where('widget_id', $widgets)
+						->delete('nf_widgets');
+		}
 	}
 	
 	public function check_widget($widget_id)

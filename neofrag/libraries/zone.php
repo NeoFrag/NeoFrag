@@ -18,9 +18,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Zone
+class Zone extends Library
 {
-	static public function display($disposition_id, $disposition, $page, $zone_id)
+	public function __invoke($disposition_id, $disposition, $page, $zone_id)
 	{
 		$output = display($disposition, NeoFrag::live_editor() ? $zone_id : NULL);
 
@@ -29,9 +29,9 @@ class Zone
 			if (NeoFrag::live_editor() & NeoFrag::ZONES)
 			{
 				$output = '	<div class="pull-right">
-								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.NeoFrag::loader()->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.NeoFrag::loader()->lang('custom_layout').'</button>').'
+								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.$this->load->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.$this->load->lang('custom_layout').'</button>').'
 							</div>
-							<h3>'.(!empty(NeoFrag::loader()->theme->zones[$zone_id]) ? NeoFrag::loader()->theme->load->lang(NeoFrag::loader()->theme->zones[$zone_id], NULL) : NeoFrag::loader()->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.NeoFrag::loader()->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
+							<h3>'.(!empty(NeoFrag::loader()->theme->zones[$zone_id]) ? NeoFrag::loader()->theme->load->lang(NeoFrag::loader()->theme->zones[$zone_id], NULL) : $this->load->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.$this->load->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
 							$output;
 			}
 
@@ -43,6 +43,6 @@ class Zone
 }
 
 /*
-NeoFrag Alpha 0.1.4
-./neofrag/classes/zone.php
+NeoFrag Alpha 0.1.6
+./neofrag/libraries/zone.php
 */

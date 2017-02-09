@@ -116,7 +116,7 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 			{
 				return [];
 			}
-			else if ($widget = $this->model()->check_widget($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->widget_id))
+			else if ($widget = $this->model()->check_widget($disposition[$row_id]->children()[$col_id]->children()[$widget_id]->widget_id()))
 			{
 				return $widget;
 			}
@@ -126,7 +126,7 @@ class m_live_editor_c_ajax_checker extends Controller_Module
 	public function widget_update()
 	{
 		if ((list($disposition_id, $disposition, $row_id, $col_id, $widget_id, $title, $widget_name, $type, $settings) = $this->_check_disposition('disposition_id', 'row_id', 'col_id', 'widget_id', 'title', 'widget', 'type', 'settings')) &&
-			($widget = $this->model()->check_widget($disposition[$row_id]->cols[$col_id]->widgets[$widget_id]->widget_id)))
+			($widget = $this->model()->check_widget($disposition[$row_id]->children()[$col_id]->children()[$widget_id]->widget_id())))
 		{
 			$this->model()->get_widgets($widgets, $types);
 

@@ -160,9 +160,7 @@ class m_forum extends Module
 			redirect_back('admin/addons.html#modules');
 		}
 
-		return new Panel([
-			'content' => $this->form->display()
-		]);
+		return $this->panel()->body($this->form->display());
 	}
 	
 	public function load()

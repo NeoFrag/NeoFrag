@@ -18,24 +18,26 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Button_Back
+class Panel_Box extends Panel
 {
-	private $_url;
-	private $_title;
-	
-	public function __construct($url = '', $title = '')
+	public function __toString()
 	{
-		$this->_url   = NeoFrag::loader()->session->get_back() ?: $url;
-		$this->_title = $title;
-	}
+		$this->css('neofrag.panel-box');
 
-	public function display($id = NULL)
-	{
-		return '<div class="panel panel-back"><a class="btn btn-default" href="'.url($this->_url).'">'.($this->_title ?: NeoFrag::loader()->lang('back')).'</a></div>';
+		return '<div class="small-box '.$this->_color.'">
+					<div class="inner">
+						<h3>'.$this->_body.'</h3>
+						<p>'.$this->_heading[0]->title().'</p>
+					</div>
+					<div class="icon">'.$this->_heading[0]->icon().'</div>
+					<a class="small-box-footer" href="'.$this->_heading[0]->url().'">
+						'.$this->_footer[0]->title().'
+					</a>
+				</div>';
 	}
 }
 
 /*
-NeoFrag Alpha 0.1.4
-./neofrag/classes/button_back.php
+NeoFrag Alpha 0.1.6
+./neofrag/libraries/panel_box.php
 */

@@ -28,10 +28,7 @@ class w_navigation_c_index extends Controller_Widget
 		}
 		else
 		{
-			return new Panel([
-				'content' => $this->load->view('horizontal', $settings),
-				'body'    => FALSE
-			]);
+			return $this->panel()->body($this->load->view('horizontal', $settings), FALSE);
 		}
 	}
 }

@@ -24,10 +24,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 	{
 		if ($this->has_method($addon = '_'.post('addon').'_list'))
 		{
-			return new Col(new Panel(array_merge([
-				'body' => FALSE,
-				'size' => 'col-md-8 col-lg-9'
-			], $this->$addon())));
+			return $this->col($this->$addon()->size('col-md-8 col-lg-9'));
 		}
 	}
 
@@ -211,41 +208,32 @@ class m_addons_c_admin_ajax extends Controller_Module
 	
 	private function _modules_list()
 	{
-		return [
-			'title'   => 'Liste des modules',
-			'icon'    => 'fa-edit',
-			'content' => $this->load->view('modules')
-		];
+		return $this->panel()
+					->heading('Liste des modules', 'fa-edit')
+					->body($this->load->view('modules'), FALSE);
 	}
 	
 	private function _themes_list()
 	{
-		return [
-			'title'   => 'Liste des thèmes',
-			'icon'    => 'fa-tint',
-			'body'    => TRUE,
-			'content' => $this->load->view('themes')
-		];
+		return $this->panel()
+					->heading('Liste des thèmes', 'fa-tint')
+					->body($this->load->view('themes'));
 	}
 	
 	private function _widgets_list()
 	{
-		return [
-			'title' => 'Liste des widgets',
-			'icon'  => 'fa-cubes',
-			'content' => $this->load->view('widgets')
-		];
+		return $this->panel()
+					->heading('Liste des widgets', 'fa-cubes')
+					->body($this->load->view('widgets'), FALSE);
 	}
 	
 	private function _languages_list()
 	{
-		return [
-			'title'   => 'Liste des langues',
-			'icon'    => 'fa-book',
-			'content' => $this->load->view('languages', [
-				'languages' => $this->addons->get_languages()
-			])
-		];
+		return $this->panel()
+					->heading('Liste des langues', 'fa-book')
+					->body($this->load->view('languages', [
+						'languages' => $this->addons->get_languages()
+					]), FALSE);
 	}
 	
 	/*private function _smileys_list()

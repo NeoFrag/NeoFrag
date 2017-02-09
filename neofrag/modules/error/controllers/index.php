@@ -27,13 +27,11 @@ class m_error_c_index extends Controller_Module
 		$this->title($this->load->object->get_title($this('unfound')));
 
 		return [
-			new Panel([
-				'title'   => $this('unfound'),
-				'icon'    => 'fa-warning',
-				'style'   => 'panel-danger',
-				'content' => $this('page_unfound')
-			]),
-			new Button_back()
+			$this	->panel()
+					->heading($this('unfound'), 'fa-warning')
+					->body($this('page_unfound'))
+					->color('danger'),
+			$this->panel_back()
 		];
 	}
 
@@ -44,13 +42,11 @@ class m_error_c_index extends Controller_Module
 		$this->title($this->load->object->get_title($this('unauthorized')));
 
 		return [
-			new Panel([
-				'title'   => $this('unauthorized'),
-				'icon'    => 'fa-warning',
-				'style'   => 'panel-danger',
-				'content' => $this('required_permissions')
-			]),
-			new Button_back()
+			$this	->panel()
+					->heading($this('unauthorized'), 'fa-warning')
+					->body($this('required_permissions'))
+					->color('danger'),
+			$this->panel_back()
 		];
 	}
 }

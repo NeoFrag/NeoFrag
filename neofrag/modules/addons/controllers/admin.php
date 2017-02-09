@@ -34,53 +34,48 @@ class m_addons_c_admin extends Controller_Module
 				->js('neofrag.table')
 				->js('neofrag.sortable');
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => '<div class="pull-right"><small>(max. '.(file_upload_max_size() / 1024 / 1024).' Mo)</small></div>Ajouter un composant',
-					'icon'    => 'fa-plus',
-					'content' => '<input type="file" id="install-input" class="install" accept=".zip" /><label for="install-input" id="install-input-label"><p>'.icon('fa-upload fa-3x').'</p><span class="legend">Choisissez votre archive</span><br /><small class="text-muted">(format .zip)</small></label>',
-					'footer'  => $this	->button()
-										->title('Installer')
-										->icon('fa-plus')
-										->color('info btn-block install disabled')
-										->outline()
-				]),
-				new Panel([
-					'title'   => 'Composants du site',
-					'icon'    => 'fa-puzzle-piece',
-					'body'    => FALSE,
-					'content' => $this->load->view('addons', [
-						'addons' => [
-							'modules' => [
-								'title' => 'Modules',
-								'icon'  => 'fa-edit'
-							],
-							'themes' => [
-								'title' => 'Thèmes',
-								'icon'  => 'fa-tint'
-							],
-							'widgets' => [
-								'title' => 'Widgets',
-								'icon'  => 'fa-cubes'
-							],
-							'languages' => [
-								'title' => 'Langues',
-								'icon'  => 'fa-book'
-							]/*,
-							'smileys' => array(
-								'title' => 'Smileys',
-								'icon'  => 'fa-smile-o'
-							),
-							'bbcodes' => array(
-								'title' => 'BBcodes',
-								'icon'  => 'fa-code'
-							)*/
-						]
-					])
-				]),
-				'col-md-4 col-lg-3'
-			)
+		return $this->row(
+			$this	->col(
+						$this	->panel()
+								->heading('<div class="pull-right"><small>(max. '.(file_upload_max_size() / 1024 / 1024).' Mo)</small></div>Ajouter un composant', 'fa-plus')
+								->body('<input type="file" id="install-input" class="install" accept=".zip" /><label for="install-input" id="install-input-label"><p>'.icon('fa-upload fa-3x').'</p><span class="legend">Choisissez votre archive</span><br /><small class="text-muted">(format .zip)</small></label>')
+								->footer($this	->button()
+												->title('Installer')
+												->icon('fa-plus')
+												->color('info btn-block install disabled')
+												->outline()),
+						$this	->panel()
+								->heading('Composants du site', 'fa-puzzle-piece')
+								->body($this->load->view('addons', [
+									'addons' => [
+										'modules' => [
+											'title' => 'Modules',
+											'icon'  => 'fa-edit'
+										],
+										'themes' => [
+											'title' => 'Thèmes',
+											'icon'  => 'fa-tint'
+										],
+										'widgets' => [
+											'title' => 'Widgets',
+											'icon'  => 'fa-cubes'
+										],
+										'languages' => [
+											'title' => 'Langues',
+											'icon'  => 'fa-book'
+										]/*,
+										'smileys' => array(
+											'title' => 'Smileys',
+											'icon'  => 'fa-smile-o'
+										),
+										'bbcodes' => array(
+											'title' => 'BBcodes',
+											'icon'  => 'fa-code'
+										)*/
+									]
+								]), FALSE)
+					)
+					->size('col-md-4 col-lg-3')
 		);
 	}
 	

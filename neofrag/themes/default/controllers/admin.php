@@ -107,27 +107,23 @@ class t_default_c_admin extends Controller
 			redirect('#background');
 		}
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'content' => $this->load->view('admin/menu', [
-						'theme_name' => $theme->name
-					]),
-					'body'    => FALSE
-				])
-				, 'col-md-4 col-lg-3'
-			),
-			new Col(
-				new Panel([
-					'title'   => $this('dashboard'),
-					'icon'    => 'fa-cog',
-					'content' => $this->load->view('admin/index', [
-						'theme'           => $theme,
-						'form_background' => $this->form->display()
-					])
-				])
-				, 'col-md-8 col-lg-9'
-			)
+		return $this->row(
+			$this	->col(
+						$this	->panel()
+								->body($this->load->view('admin/menu', [
+									'theme_name' => $theme->name
+								]), FALSE)
+					)
+					->size('col-md-4 col-lg-3'),
+			$this	->col(
+						$this	->panel()
+								->heading($this('dashboard'), 'fa-cog')
+								->body($this->load->view('admin/index', [
+									'theme'           => $theme,
+									'form_background' => $this->form->display()
+								]))
+					)
+					->size('col-md-8 col-lg-9')
 		);
 	}
 }

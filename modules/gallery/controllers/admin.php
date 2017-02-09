@@ -121,24 +121,20 @@ class m_gallery_c_admin extends Controller_Module
 							->no_data($this('no_category'))
 							->display();
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('categories'),
-					'icon'    => 'fa-book',
-					'content' => $categories,
-					'footer'  => $this->button_create('admin/gallery/categories/add.html', $this('add_category')),
-					'size'    => 'col-md-12 col-lg-4'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('categories'), 'fa-book')
+						->body($categories)
+						->footer($this->button_create('admin/gallery/categories/add.html', $this('add_category')))
+						->size('col-md-12 col-lg-4')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('list_album_photos'),
-					'icon'    => 'fa-photo',
-					'content' => $gallery,
-					'footer'  => $this->button_create('admin/gallery/add.html', $this('add_album')),
-					'size'    => 'col-md-12 col-lg-8'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('list_album_photos'), 'fa-photo')
+						->body($gallery)
+						->footer($this->button_create('admin/gallery/add.html', $this('add_album')))
+						->size('col-md-12 col-lg-8')
 			)
 		);
 	}
@@ -166,11 +162,9 @@ class m_gallery_c_admin extends Controller_Module
 			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']).'.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('new_photo_album'),
-			'icon'    => 'fa-file-image-o',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('new_photo_album'), 'fa-file-image-o')
+					->body($this->form->display());
 	}
 	
 	public function _edit($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $category_image, $category_icon)
@@ -308,30 +302,26 @@ class m_gallery_c_admin extends Controller_Module
 			refresh();
 		}
 
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => /* //TODO '<div class="pull-right"><code data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode">[gallery-'.$gallery_id.']</code></div>*/$this('edit_album_title'),
-					'icon'    => 'fa-photo',
-					'content' => $form_album->display(),
-					'size'    => 'col-md-12 col-lg-7'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading(/* //TODO '<div class="pull-right"><code data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode">[gallery-'.$gallery_id.']</code></div>*/$this('edit_album_title'), 'fa-photo')
+						->body($form_album->display())
+						->size('col-md-12 col-lg-7')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('add_images_title'),
-					'icon'    => 'fa-photo',
-					'content' => $this->load->view('upload', [
-						'gallery_id' => $gallery_id,
-						'name'       => $name,
-						'form_image' => $form_image->display()
-					]),
-					'footer'  => $this->load->view('admin_gallery', [
-						'images'        => $images,
-						'gallery_table' => $gallery_table->display()
-					]),
-					'size'    => 'col-md-12 col-lg-5'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('add_images_title'), 'fa-photo')
+						->body($this->load->view('upload', [
+							'gallery_id' => $gallery_id,
+							'name'       => $name,
+							'form_image' => $form_image->display()
+						]))
+						->footer($this->load->view('admin_gallery', [
+							'images'        => $images,
+							'gallery_table' => $gallery_table->display()
+						]))
+						->size('col-md-12 col-lg-5')
 			)
 		);
 	}
@@ -372,11 +362,9 @@ class m_gallery_c_admin extends Controller_Module
 			redirect_back('admin/gallery.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_category'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_category'), 'fa-align-left')
+					->body($this->form->display());
 	}
 	
 	public function _categories_edit($category_id, $name, $title, $image_id, $icon_id)
@@ -403,11 +391,9 @@ class m_gallery_c_admin extends Controller_Module
 			redirect_back('admin/gallery.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_category_title'),
-			'icon'    => 'fa-align-left',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_category_title'), 'fa-align-left')
+					->body($this->form->display());
 	}
 	
 	public function _categories_delete($category_id, $title)
@@ -456,24 +442,20 @@ class m_gallery_c_admin extends Controller_Module
 			redirect_back();
 		}
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('edit_image_title'),
-					'icon'    => 'fa-photo',
-					'content' => $this->form->display(),
-					'size'    => 'col-md-8 col-lg-9'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('edit_image_title'), 'fa-photo')
+						->body($this->form->display())
+						->size('col-md-8 col-lg-9')
 			),
-			new Col(
-				new Panel([
-					'title'   => '<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'),
-					'icon'    => 'fa-photo',
-					'content' => function($data, $loader) use ($image_id, $title, $description, $thumbnail_file_id){
-						return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
-					},
-					'size'    => 'col-md-4 col-lg-3'
-				])
+			$this->col(
+				$this	->panel()
+						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'), 'fa-photo')
+						->body(function($data, $loader) use ($image_id, $title, $description, $thumbnail_file_id){
+							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+						})
+						->size('col-md-4 col-lg-3')
 			)
 		);
 	}

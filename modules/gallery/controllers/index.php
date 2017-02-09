@@ -28,35 +28,20 @@ class m_gallery_c_index extends Controller_Module
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panel = [
-				'title'   => '<a href="'.url('gallery/'.$category['category_id'].'/'.$category['name'].'.html').'">'.$category['title'].'</a>',
-				'content' => $this->load->view('index', [
-					'category_image' => $category['image_id'],
-					'gallery'        => $this->model()->get_gallery($category['category_id'])
-				]),
-				'body'    => FALSE
-			];
-			
-			if ($category['icon_id'])
-			{
-				$panel['title'] = '<img src="'.path($category['icon_id']).'" alt="" /> '.$panel['title'];
-			}
-			else
-			{
-				$panel['icon'] = 'fa-photo';
-			}
-			
-			$panels[] = new Panel($panel);
+			$panels[] = $this	->panel()
+								->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'].'.html')
+								->body($this->load->view('index', [
+									'category_image' => $category['image_id'],
+									'gallery'        => $this->model()->get_gallery($category['category_id'])
+								]), FALSE);
 		}
 		
 		if (empty($panels))
 		{
-			$panels[] = new Panel([
-				'title'   => $this('gallery'),
-				'icon'    => 'fa-photo',
-				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.$this('no_category_message').'</div>'
-			]);
+			$panels[] = $this	->panel()
+								->heading($this('gallery'), 'fa-photo')
+								->body('<div class="text-center">'.$this('no_category_message').'</div>')
+								->color('info');
 		}
 
 		return $panels;
@@ -65,30 +50,15 @@ class m_gallery_c_index extends Controller_Module
 	public function _category($category_id, $name, $title, $image_id, $icon_id)
 	{
 		$this->css('gallery');
-		
-		$panels = [];
-		
-		$panel = [
-			'title'   => '<a href="'.url('gallery/'.$category_id.'/'.$name.'.html').'">'.$title.'</a>',
-			'content' => $this->load->view('index', [
-				'category_image' => $image_id,
-				'gallery'        => $this->model()->get_gallery($category_id)
-			]),
-			'body'    => FALSE
+
+		return [
+			$this	->panel()
+					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name.'.html')
+					->body($this->load->view('index', [
+						'category_image' => $image_id,
+						'gallery'        => $this->model()->get_gallery($category_id)
+					]), FALSE)
 		];
-		
-		if ($icon_id)
-		{
-			$panel['title'] = '<img src="'.path($icon_id).'" alt="" /> '.$title;
-		}
-		else
-		{
-			$panel['icon'] = 'fa-photo';
-		}
-		
-		$panels[] = new Panel($panel);
-		
-		return $panels;
 	}
 	
 	public function _gallery($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $image, $category_icon, $images)
@@ -97,29 +67,24 @@ class m_gallery_c_index extends Controller_Module
 				->js('gallery')
 				->js('modal-carousel');
 		
-		$panels = [new Panel([
-			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title,
-			'icon'    => 'fa-photo',
-			'content' => $this->load->view('gallery', [
-				'title'           => $title,
-				'description'     => $description,
-				'image_id'        => $image_id,
-				'images'          => $images,
-				'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
-				'total_images'    => count($carousel_images),
-				'pagination'      => $this->pagination->get_pagination()
-			]),
-			'body' => FALSE
-		])];
+		$panels = [$this->panel()
+						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title, 'fa-photo')
+						->body($this->load->view('gallery', [
+							'title'           => $title,
+							'description'     => $description,
+							'image_id'        => $image_id,
+							'images'          => $images,
+							'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
+							'total_images'    => count($carousel_images),
+							'pagination'      => $this->pagination->get_pagination()
+						]), FALSE)];
 		
 		if (empty($images))
 		{
-			$panels[] = new Panel([
-				'title'   => $this('photos'),
-				'icon'    => 'fa-photo',
-				'style'   => 'panel-info',
-				'content' => '<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this('no_images_message').'</h4></div>'
-			]);
+			$panels[] = $this	->panel()
+								->heading($this('photos'), 'fa-photo')
+								->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this('no_images_message').'</h4></div>')
+								->color('info');
 		}
 
 		return $panels;
@@ -149,35 +114,27 @@ class m_gallery_c_index extends Controller_Module
 				$this->db->from('nf_gallery_images')->where('image_id <=', $image_id)->where('gallery_id', $gallery_id)->order_by('image_id DESC')->limit(5)->get()
 			);
 		}
-		
-		$panel = [
-			'title'   => '<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title,
-			'icon'    => 'fa-photo',
-			'content' => $this->load->view('image', [
-				'image_id'          => $image_id,
-				'file_id'           => $file_id,
-				'thumbnail_file_id' => $thumbnail_file_id,
-				'title'             => $title,
-				'description'       => $description,
-				'vignettes'         => $vignettes
-			]),
-			'body' => FALSE
-		];
-		
+
+		$panel = $this	->panel()
+						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
+						->body($this->load->view('image', [
+							'image_id'          => $image_id,
+							'file_id'           => $file_id,
+							'thumbnail_file_id' => $thumbnail_file_id,
+							'title'             => $title,
+							'description'       => $description,
+							'vignettes'         => $vignettes
+						]), FALSE);
+
 		if (!empty($description))
 		{
-			$panel['footer']       = $description;
-			$panel['footer_align'] = 'left';
+			$panel->footer($description, 'left');
 		}
-		
+
 		return [
-			new Row(
-				new Col(
-					new Panel($panel)
-				)
-			),
+			$this->row($this->col($panel)),
 			$this->comments->display('gallery', $image_id),
-			new Button_back()
+			$this->panel_back()
 		];
 	}
 }

@@ -162,11 +162,11 @@ class Output extends Core
 				}
 			}
 		}
-		
+
 		if (!empty($dispositions[$zone_id]))
 		{
 			$disposition = $dispositions[$zone_id];
-			return Zone::display($disposition['disposition_id'], unserialize($disposition['disposition']), $disposition['page'], $zone_id);
+			return $this->zone($disposition['disposition_id'], unserialize($disposition['disposition']), $disposition['page'], $zone_id);
 		}
 
 		return '';

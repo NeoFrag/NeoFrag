@@ -63,12 +63,10 @@ class m_talks_c_admin extends Controller_Module
 				->data($talks)
 				->no_data($this('no_talks'));
 						
-		return new Panel([
-			'title'   => $this('talks_list'),
-			'icon'    => 'fa-comment-o',
-			'content' => $this->table->display(),
-			'footer'  => $this->button_create('admin/talks/add.html', $this('create_talk'))
-		]);
+		return $this->panel()
+					->heading($this('talks_list'), 'fa-comment-o')
+					->body($this->table->display())
+					->footer($this->button_create('admin/talks/add.html', $this('create_talk')));
 	}
 	
 	public function add()
@@ -88,11 +86,9 @@ class m_talks_c_admin extends Controller_Module
 			redirect_back('admin/talks.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_talk'),
-			'icon'    => 'fa-comment-o',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_talk'), 'fa-comment-o')
+					->body($this->form->display());
 	}
 
 	public function _edit($talk_id, $title)
@@ -114,11 +110,9 @@ class m_talks_c_admin extends Controller_Module
 			redirect_back('admin/talks.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_talk'),
-			'icon'    => 'fa-comment-o',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_talk'), 'fa-comment-o')
+					->body($this->form->display());
 	}
 	
 	public function delete($talk_id, $title)

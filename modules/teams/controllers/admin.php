@@ -97,24 +97,20 @@ class m_teams_c_admin extends Controller_Module
 							->no_data($this('no_role'))
 							->display();
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('roles'),
-					'icon'    => 'fa-sitemap',
-					'content' => $roles,
-					'footer'  => $this->button_create('admin/teams/roles/add.html', $this('add_role')),
-					'size'    => 'col-md-12 col-lg-4'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('roles'), 'fa-sitemap')
+						->body($roles)
+						->footer($this->button_create('admin/teams/roles/add.html', $this('add_role')))
+						->size('col-md-12 col-lg-4')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('list_teams'),
-					'icon'    => 'fa-gamepad',
-					'content' => $teams,
-					'footer'  => $this->button_create('admin/teams/add.html', $this('add_team')),
-					'size'    => 'col-md-12 col-lg-8'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('list_teams'), 'fa-gamepad')
+						->body($teams)
+						->footer($this->button_create('admin/teams/add.html', $this('add_team')))
+						->size('col-md-12 col-lg-8')
 			)
 		);
 	}
@@ -142,11 +138,9 @@ class m_teams_c_admin extends Controller_Module
 			redirect('admin/teams/'.$team_id.'/'.url_title($post['title']).'.html');
 		}
 
-		return new Panel([
-			'title'   => $this('add_team'),
-			'icon'    => 'fa-gamepad',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_team'), 'fa-gamepad')
+					->body($this->form->display());
 	}
 
 	public function _edit($team_id, $name, $title, $image_id, $icon_id, $description, $game_id)
@@ -244,27 +238,23 @@ class m_teams_c_admin extends Controller_Module
 				->data($this->db->select('tu.user_id', 'u.username', 'r.title')->from('nf_teams_users tu')->join('nf_users u', 'u.user_id = tu.user_id AND u.deleted = "0"', 'INNER')->join('nf_teams_roles r', 'r.role_id = tu.role_id')->where('tu.team_id', $team_id)->order_by('r.title', 'u.username')->get())
 				->no_data($this('no_players_on_team'));
 		
-		return new Row(
-			new Col(
-				new Panel([
-					'title'   => $this('edit_team'),
-					'icon'    => 'fa-gamepad',
-					'content' => $form_team->display(),
-					'size'    => 'col-md-12 col-lg-7'
-				])
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this('edit_team'), 'fa-gamepad')
+						->body($form_team->display())
+						->size('col-md-12 col-lg-7')
 			),
-			new Col(
-				new Panel([
-					'title'   => $this('players'),
-					'icon'    => 'fa-users',
-					'content' => $this->table->display(),
-					'footer'  => $this->load->view('users', [
-						'users'   => $users,
-						'roles'   => $roles,
-						'form_id' => $form_users->token()
-					]),
-					'size'    => 'col-md-12 col-lg-5'
-				])
+			$this->col(
+				$this	->panel()
+						->heading($this('players'), 'fa-users')
+						->body($this->table->display())
+						->footer($this->load->view('users', [
+							'users'   => $users,
+							'roles'   => $roles,
+							'form_id' => $form_users->token()
+						]))
+						->size('col-md-12 col-lg-5')
 			)
 		);
 	}
@@ -303,11 +293,9 @@ class m_teams_c_admin extends Controller_Module
 			redirect_back('admin/teams.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('add_role'),
-			'icon'    => 'fa-sitemap',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('add_role'), 'fa-sitemap')
+					->body($this->form->display());
 	}
 	
 	public function _roles_edit($role_id, $title)
@@ -329,11 +317,9 @@ class m_teams_c_admin extends Controller_Module
 			redirect_back('admin/teams.html');
 		}
 		
-		return new Panel([
-			'title'   => $this('edit_role'),
-			'icon'    => 'fa-sitemap',
-			'content' => $this->form->display()
-		]);
+		return $this->panel()
+					->heading($this('edit_role'), 'fa-sitemap')
+					->body($this->form->display());
 	}
 	
 	public function _roles_delete($role_id, $title)

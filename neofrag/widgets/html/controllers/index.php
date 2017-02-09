@@ -22,16 +22,12 @@ class w_html_c_index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		return new Panel([
-			'content' => bbcode($settings['content'])
-		]);
+		return $this->panel()->body(bbcode($settings['content']));
 	}
 	
 	public function html($settings = [])
 	{
-		return new Panel([
-			'content' => $settings['content']
-		]);
+		return $this->panel()->body($settings['content']);
 	}
 }
 
