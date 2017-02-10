@@ -66,7 +66,13 @@ function __autoload($name)
 		$name = substr($name, 2);
 	}
 
-	if (file_exists($file = ($override ? 'overrides' : 'neofrag').'/'.($name == 'loader' ? 'core' : 'classes').'/'.$name.'.php'))
+	$dir = $override ? 'overrides' : 'neofrag';
+
+	if (file_exists($file = $dir.'/'.($name == 'loader' ? 'core' : 'classes').'/'.$name.'.php'))
+	{
+		require_once $file;
+	}
+	else if (file_exists($file = $dir.'/libraries/'.$name.'.php'))
 	{
 		require_once $file;
 	}
