@@ -33,6 +33,8 @@
 	<?php echo $data['js']; ?>
 	<script type="text/javascript">
 	$(function(){
+		$('body').trigger('nf.load');
+
 		$('body').popover({
 			selector: '[data-toggle=popover]',
 			container: 'body',
