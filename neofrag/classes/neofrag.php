@@ -108,15 +108,13 @@ abstract class NeoFrag
 					}
 				}
 
-				$class = u2ucc($name);
-
 				if (isset($$name))
 				{
-					$library = load($class, $$name);
+					$library = load($name, $$name);
 				}
 				else
 				{
-					$library = load($class);
+					$library = load($name);
 				}
 
 				if (!isset($library->load))
