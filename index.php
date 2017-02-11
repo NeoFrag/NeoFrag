@@ -182,7 +182,6 @@ foreach ([
 			'i18n',
 			'input',
 			'location',
-			'network',
 			'notify',
 			'output',
 			'statistics',

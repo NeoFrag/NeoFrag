@@ -32,7 +32,9 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			foreach (['version', 'checksum'] as $file)
 			{
-				if ($$file = network_get('https://neofr.ag/'.$file.'.json'))
+				if ($$file = $this	->network('https://neofr.ag/'.$file.'.json')
+									->type('text')
+									->get())
 				{
 					file_put_contents('cache/monitoring/'.$file.'.json', $$file);
 				}
@@ -278,9 +280,10 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 			dir_create('cache/monitoring');
 
-			network_get('https://neofrag.download', $file = 'cache/monitoring/neofrag.zip', function($size, $total){
-				$this->_flush(2, $size / $total * 100);
-			});
+			$this	->network('https://neofrag.download')
+					->stream($file = 'cache/monitoring/neofrag.zip', function($size, $total){
+						$this->_flush(2, $size / $total * 100);
+					});
 
 			$scan_zip = function($callback) use ($file){
 				if ($zip = zip_open($file))

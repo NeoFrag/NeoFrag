@@ -18,34 +18,10 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Captcha extends Library
-{
-	public function is_ok()
-	{
-		return $this->config->nf_captcha_public_key && $this->config->nf_captcha_private_key;
-	}
-
-	public function is_valid()
-	{
-		if ($response = post('g-recaptcha-response'))
-		{
-			return !empty($this->network('https://www.google.com/recaptcha/api/siteverify')->get([
-				'secret'   => $this->config->nf_captcha_private_key,
-				'response' => $response,
-				'remoteip' => $_SERVER['REMOTE_ADDR']
-			])->success);
-		}
-
-		return FALSE;
-	}
-
-	public function display()
-	{
-		return '<div class="g-recaptcha" data-sitekey="'.$this->config->nf_captcha_public_key.'"></div>';
-	}
-}
+$network['ssl_check'] = TRUE;
+$network['timeout']   = 1;
 
 /*
-NeoFrag Alpha 0.1.5
-./neofrag/libraries/captcha.php
+NeoFrag Alpha 0.1.6
+./neofrag/config/network.php
 */
