@@ -33,7 +33,6 @@ $lang['addons']                         = 'Addons management';
 $lang['administration']                 = 'Administration';
 $lang['age']                            = '(%d year)|(%d years)';
 $lang['ambiguities']                    = 'Ambiguities';
-$lang['ambiguity']                      = 'Ambiguity';
 $lang['authorized_members']             = 'Authorized members';
 $lang['avatar']                         = 'Avatar';
 $lang['avatar_must_be_square']          = 'The avatar must be a square';

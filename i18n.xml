@@ -52,7 +52,7 @@
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R719C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="725" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="724" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -967,16 +967,6 @@
     <Cell><Data ss:Type="String">Alignement</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Alignment</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">ambiguity</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Ambiguité</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Ambiguity</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>

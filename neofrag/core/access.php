@@ -21,7 +21,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 class Access extends Core
 {
 	private $_access = [];
-	private $_users  = [];
 	
 	public function __construct()
 	{
@@ -111,65 +110,30 @@ class Access extends Core
 		{
 			foreach (array_keys($this->groups()) as $group)
 			{
-				if (!isset($groups[$group]) && $group != 'admins')
+				if ($group != 'admins' && in_array($group, $user_groups))
 				{
-					$groups[$group] = $default;
-				}
-			}
-			
-			foreach (array_keys($groups) as $group)
-			{
-				if (!in_array($group, $user_groups))
-				{
-					unset($groups[$group]);
+					return isset($groups[$group]) ? $groups[$group] : $default;
 				}
 			}
 		}
 		else
 		{
-			$groups = ['visitors' => isset($groups['visitors']) ? $groups['visitors'] : $default];
-		}
-		
-		foreach (array_keys($groups) as $group)
-		{
-			foreach (array_keys($groups) as $group2)
-			{
-				if ($group != $group2)
-				{
-					if (($this->_load_users($group2) != $this->_load_users($group) || $groups[$group] == $groups[$group2]) && array_intersect($this->_load_users($group2), $this->_load_users($group)) == $this->_load_users($group2))
-					{
-						unset($groups[$group]);
-						continue 2;
-					}
-				}
-			}
-		}
-
-		if (count($groups = array_unique($groups)) == 1)
-		{
-			return current($groups);
+			return isset($groups['visitors']) ? $groups['visitors'] : $default;
 		}
 	}
 	
-	public function count($module, $action, $id = 0, &$ambiguous = FALSE)
+	public function count($module, $action, $id = 0)
 	{
 		$count = array_fill(0, 2, 0);
 		
 		foreach ($this->db->select('user_id')->from('nf_users')->where('deleted', FALSE)->get() as $user_id)
 		{
-			$access    = $this($module, $action, $id, NULL, $user_id);
-			$ambiguous = $ambiguous || $access === NULL;
-			
+			$access = $this($module, $action, $id, NULL, $user_id);
 			$count[(int)$access]++;
 		}
 		
 		$output = [];
-		
-		if ($ambiguous)
-		{
-			$output[] = '<span class="text-danger" data-toggle="tooltip" title="'.$this->load->lang('ambiguities').'">'.icon('fa-warning').'</span>';
-		}
-		
+
 		if (!empty($count[1]))
 		{
 			$output[] = '<span class="text-success" data-toggle="tooltip" title="'.$this->load->lang('authorized_members').'" data-original-title="">'.icon('fa-check').' '.$count[1].'</span>';
@@ -266,23 +230,6 @@ class Access extends Core
 		}
 		
 		return $allowed;
-	}
-
-	private function _load_users($group_id)
-	{
-		if (!isset($this->_users[$group_id]))
-		{
-			$this->_users[$group_id] = $this->groups()[$group_id]['users'];
-			
-			if (!isset($this->_users['admins']))
-			{
-				$this->_users['admins'] = $this->groups()['admins']['users'];
-			}
-			
-			$this->_users[$group_id] = array_values(array_diff($this->_users[$group_id], $this->_users['admins']));
-		}
-		
-		return $this->_users[$group_id];
 	}
 }
 

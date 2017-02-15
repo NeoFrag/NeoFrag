@@ -28,21 +28,10 @@ class m_access_c_admin_ajax extends Controller_Module
 		{
 			$groups[$group_id] = NeoFrag::loader()->access($module_name, $action, $id, $group_id);
 		}
-		
-		$ambiguous = FALSE;
-		
-		foreach ($this->db->select('user_id')->from('nf_users')->where('deleted', FALSE)->get() as $user_id)
-		{
-			if (NeoFrag::loader()->access($module_name, $action, $id, NULL, $user_id) === NULL)
-			{
-				$ambiguous = TRUE;
-				break;
-			}
-		}
-		
+
 		return $this->col(
 			$this	->panel()
-					->heading('<span class="pull-right"><span class="text-danger access-ambiguous"'.(!$ambiguous ? ' style="display: none;"' : '').'>'.icon('fa-warning').' '.$this('ambiguities_to_correct').'</span>&nbsp;&nbsp;&nbsp;'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
+					->heading('<span class="pull-right">'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
 					->body($this->load->view('details', [
 						'groups' => $groups
 					]), FALSE)
@@ -83,12 +72,10 @@ class m_access_c_admin_ajax extends Controller_Module
 		else if ($user)
 		{
 			$output['user_authorized'] = $authorized = $this->access($module_name, $action, $id, NULL, $user_id);
-			$output['user_ambiguous']  = $authorized === NULL;
 			$output['user_forced']     = is_int($authorized);
 		}
 		
-		$output['count']     = $this->access->count($module_name, $action, $id, $ambiguous);
-		$output['ambiguous'] = $ambiguous;
+		$output['count'] = $this->access->count($module_name, $action, $id);
 		
 		return $output;
 	}
@@ -125,11 +112,7 @@ class m_access_c_admin_ajax extends Controller_Module
 						'content' => function($data, $loader){
 							$output = '';
 							
-							if ($data['active'] === NULL)
-							{
-								$output = '<div data-toggle="tooltip" title="'.$loader->lang('ambiguity').'">'.icon('fa-warning text-danger').'</div>';
-							}
-							else if (is_int($data['active']))
+							if (is_int($data['active']))
 							{
 								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$loader->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
 							}
