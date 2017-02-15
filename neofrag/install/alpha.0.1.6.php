@@ -115,7 +115,8 @@ class i_0_1_6 extends Install
 		}
 
 		$this->db	->execute('ALTER TABLE `nf_users_profiles` CHANGE `date_of_birth` `date_of_birth` DATE NULL DEFAULT NULL')
-					->execute('ALTER TABLE `nf_groups` ADD `order` SMALLINT UNSIGNED NOT NULL DEFAULT \'0\' AFTER `auto`');
+					->execute('ALTER TABLE `nf_groups` ADD `order` SMALLINT UNSIGNED NOT NULL DEFAULT \'0\' AFTER `auto`')
+					->execute('ALTER TABLE `nf_groups` ADD `hidden` ENUM(\'0\',\'1\') NOT NULL DEFAULT \'0\' AFTER `icon`');
 	}
 }
 

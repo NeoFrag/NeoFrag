@@ -20,13 +20,14 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_user_m_groups extends Model
 {
-	public function add_group($title, $color, $icon, $lang)
+	public function add_group($title, $color, $icon, $hidden, $lang)
 	{
 		$group_id = $this->db->insert('nf_groups', [
-			'name'  => url_title($title),
-			'color' => $color,
-			'icon'  => $icon,
-			'auto'  => FALSE
+			'name'   => url_title($title),
+			'color'  => $color,
+			'icon'   => $icon,
+			'hidden' => $hidden,
+			'auto'   => FALSE
 		]);
 		
 		$this->db->insert('nf_groups_lang', [
@@ -36,11 +37,12 @@ class m_user_m_groups extends Model
 		]);
 	}
 	
-	public function edit_group($group_id, $title, $color, $icon, $lang, $auto)
+	public function edit_group($group_id, $title, $color, $icon, $hidden, $lang, $auto)
 	{
 		$group = [
-			'color' => $color,
-			'icon'  => $icon
+			'color'  => $color,
+			'icon'   => $icon,
+			'hidden' => $hidden
 		];
 		
 		if (!$auto)
@@ -49,9 +51,9 @@ class m_user_m_groups extends Model
 			
 			$this->db	->where('group_id', $group_id)
 						->update('nf_groups_lang', [
-				'lang'  => $lang,
-				'title' => $title
-			]);
+							'lang'  => $lang,
+							'title' => $title
+						]);
 		}
 		
 		$this->db	->where('group_id', $group_id)
