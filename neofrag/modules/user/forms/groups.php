@@ -34,6 +34,11 @@ $rules = [
 		'value'   => $this->form->value('icon'),
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'
+	],
+	'hidden' => [
+		'checked' => ['on' => $this->form->value('hidden')],
+		'values'  => ['on' => 'Groupe caché'],
+		'type'    => 'checkbox'
 	]
 ];
 

@@ -30,29 +30,35 @@ class Groups extends Core
 		
 		$this->_groups = [
 			'admins' => [
-				'name'  => 'admins',
-				'title' => NeoFrag::loader()->lang('group_admins'),
-				'icon'  => 'fa-rocket',
-				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
-				'auto'  => 'neofrag'
+				'name'   => 'admins',
+				'title'  => NeoFrag::loader()->lang('group_admins'),
+				'color'  => 'danger',
+				'icon'   => 'fa-rocket',
+				'hidden' => FALSE,
+				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
+				'auto'   => 'neofrag'
 			],
 			'members' => [
-				'name'  => 'members',
-				'title' => NeoFrag::loader()->lang('group_members'),
-				'icon'  => 'fa-user',
-				'users' => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
-				'auto'  => 'neofrag'
+				'name'   => 'members',
+				'title'  => NeoFrag::loader()->lang('group_members'),
+				'color'  => 'success',
+				'icon'   => 'fa-user',
+				'hidden' => FALSE,
+				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
+				'auto'   => 'neofrag'
 			],
 			'visitors' => [
-				'name'  => 'visitors',
-				'title' => NeoFrag::loader()->lang('group_visitors'),
-				'icon'  => '',
-				'users' => NULL,
-				'auto'  => 'neofrag'
+				'name'   => 'visitors',
+				'title'  => NeoFrag::loader()->lang('group_visitors'),
+				'color'  => 'info',
+				'icon'   => '',
+				'hidden' => FALSE,
+				'users'  => NULL,
+				'auto'   => 'neofrag'
 			]
 		];
 		
-		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
+		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
 							->from('nf_groups g')
 							->join('nf_groups_lang gl',  'gl.group_id = g.group_id')
 							->join('nf_users_groups ug', 'ug.group_id = g.group_id')
@@ -74,30 +80,24 @@ class Groups extends Core
 					$this->_groups[$group['name']]['order'] = $order++;
 				}
 
-				if ($group['color'])
-				{
-					$this->_groups[$group['name']]['color'] = $group['color'];
-				}
-				
-				if ($group['icon'])
-				{
-					$this->_groups[$group['name']]['icon'] = $group['icon'];
-				}
-				
-				$this->_groups[$group['name']]['id']   = $group['group_id'];
-				$this->_groups[$group['name']]['auto'] = TRUE;
+				$this->_groups[$group['name']]['id']     = $group['group_id'];
+				$this->_groups[$group['name']]['color']  = $group['color'];
+				$this->_groups[$group['name']]['icon']   = $group['icon'];
+				$this->_groups[$group['name']]['hidden'] = (bool)$group['hidden'];
+				$this->_groups[$group['name']]['auto']   = TRUE;
 			}
 			else
 			{
 				$this->_groups[url_title($group['group_id'])] = [
-					'id'    => $group['group_id'],
-					'name'  => $group['name'],
-					'title' => $group['title'],
-					'color' => $group['color'],
-					'icon'  => $group['icon'],
-					'users' => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : [],
-					'auto'  => FALSE,
-					'order' => $order++
+					'id'     => $group['group_id'],
+					'name'   => $group['name'],
+					'title'  => $group['title'],
+					'color'  => $group['color'],
+					'icon'   => $group['icon'],
+					'hidden' => (bool)$group['hidden'],
+					'users'  => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : [],
+					'auto'   => FALSE,
+					'order'  => $order++
 				];
 			}
 		}
@@ -121,6 +121,11 @@ class Groups extends Core
 					if (empty($this->_groups[$group_id]['color']))
 					{
 						$this->_groups[$group_id]['color'] = 'default';
+					}
+
+					if (empty($this->_groups[$group_id]['hidden']))
+					{
+						$this->_groups[$group_id]['hidden'] = FALSE;
 					}
 
 					if (empty($this->_groups[$group_id]['order']))
@@ -184,7 +189,7 @@ class Groups extends Core
 		
 		foreach ($this->_groups as $group_id => $group)
 		{
-			if (!empty($group['users']) && in_array($user_id, $group['users']))
+			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user('admin') && $this->url->admin)))
 			{
 				$groups[] = $this->display($group_id, $label);
 			}

@@ -45,17 +45,25 @@ class m_user_c_admin extends Controller_Module
 					}
 				],
 				[
-					'content' => [
-						function($data){
+					'content' => function($data){
+						return $data['hidden'] ? $this->button()->icon('fa-eye-slash')->tooltip('Groupe caché') : NULL;
+					},
+					'size'    => TRUE
+				],
+				[
+					'content' => function($data){
 							return $this->button_update('admin/user/groups/edit/'.$data['url'].'.html');
-						},
-						function($data){
-							if (!$data['auto'])
-							{
-								return $this->button_delete('admin/user/groups/delete/'.$data['url'].'.html');
-							}
+					},
+					'size'    => TRUE
+				],
+				[
+					'content' => function($data){
+						if (!$data['auto'])
+						{
+							return $this->button_delete('admin/user/groups/delete/'.$data['url'].'.html');
 						}
-					]
+					},
+					'size'    => TRUE
 				]
 			])
 			->data($this->groups())
@@ -344,6 +352,7 @@ class m_user_c_admin extends Controller_Module
 				$post['title'],
 				$post['color'],
 				$post['icon'],
+				in_array('on', $post['hidden']),
 				$this->config->lang
 			);
 
@@ -358,16 +367,17 @@ class m_user_c_admin extends Controller_Module
 					->size('col-md-12');
 	}
 	
-	public function _groups_edit($group_id, $name, $title, $color, $icon, $auto)
+	public function _groups_edit($group_id, $name, $title, $color, $icon, $hidden, $auto)
 	{
 		$this	->title($this('groups'))
 				->subtitle($this('edit'))
 				->form
 				->add_rules('groups', [
-					'title' => $title,
-					'color' => $color,
-					'icon'  => $icon,
-					'auto'  => $auto
+					'title'  => $title,
+					'color'  => $color,
+					'icon'   => $icon,
+					'hidden' => $hidden,
+					'auto'   => $auto
 				])
 				->add_back('admin/user.html')
 				->add_submit($this('edit'));
@@ -381,6 +391,7 @@ class m_user_c_admin extends Controller_Module
 					!$auto ? $post['title'] : NULL,
 					$post['color'],
 					$post['icon'],
+					in_array('on', $post['hidden']),
 					$this->config->lang,
 					$auto
 				);
