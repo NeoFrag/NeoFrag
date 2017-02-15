@@ -71,33 +71,15 @@ $(function(){
 					$row.append(data.details);
 				}
 				
-				if (typeof data.user_authorized != 'undefined' && typeof data.user_ambiguous != 'undefined' && typeof data.user_forced != 'undefined'){
-					if (data.user_ambiguous){
-						$tr.find('.access-status').html('<div data-toggle="tooltip" title="<?php echo i18n('ambiguity'); ?>"><?php echo icon('fa-warning text-danger'); ?></div>');
-					}
-					else if (data.user_forced){
+				if (typeof data.user_authorized != 'undefined' && typeof data.user_forced != 'undefined'){
+					if (data.user_forced){
 						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo i18n('reset_automatic'); ?>"><?php echo icon('fa-thumb-tack'); ?></a>');
 					}
 					else {
 						$tr.find('.access-status').html('');
 					}
-					
-					if (data.user_authorized == null){
-						$tr.find('.access-radio').each(function(){
-							var color = $(this).data('class')
-							$(this).removeClass(color).find('i').removeClass('text-'+color).addClass('text-muted').removeClass('fa-toggle-on').addClass('fa-toggle-off');
-						});
-					}
-					else {
-						update_radio($tr.find('[data-class="'+(data.user_authorized ? 'success' : 'danger')+'"]'));
-					}
-					
-					if (data.ambiguous){
-						$row.find('.access-ambiguous').show();
-					}
-					else {
-						$row.find('.access-ambiguous').hide();
-					}
+
+					update_radio($tr.find('[data-class="'+(data.user_authorized ? 'success' : 'danger')+'"]'));
 				}
 				
 				$cols.find('.info[data-action] .access-count').html(data.count);
