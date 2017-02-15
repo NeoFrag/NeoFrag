@@ -527,6 +527,7 @@ CREATE TABLE IF NOT EXISTS `nf_groups` (
   `color` varchar(20) NOT NULL,
   `icon` varchar(20) NOT NULL,
   `auto` enum('0','1') NOT NULL DEFAULT '0',
+  `order` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`group_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -534,9 +535,9 @@ CREATE TABLE IF NOT EXISTS `nf_groups` (
 -- Contenu de la table `nf_groups`
 --
 
-INSERT INTO `nf_groups` VALUES(1, 'admins', 'danger', 'fa-users', '1');
-INSERT INTO `nf_groups` VALUES(2, 'members', 'success', 'fa-user', '1');
-INSERT INTO `nf_groups` VALUES(3, 'visitors', 'info', '', '1');
+INSERT INTO `nf_groups` VALUES(1, 'admins', 'danger', 'fa-users', '1', 0);
+INSERT INTO `nf_groups` VALUES(2, 'members', 'success', 'fa-user', '1', 0);
+INSERT INTO `nf_groups` VALUES(3, 'visitors', 'info', '', '1', 0);
 
 -- --------------------------------------------------------
 

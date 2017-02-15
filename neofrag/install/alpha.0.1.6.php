@@ -114,7 +114,8 @@ class i_0_1_6 extends Install
 			}
 		}
 
-		$this->db->execute('ALTER TABLE `nf_users_profiles` CHANGE `date_of_birth` `date_of_birth` DATE NULL DEFAULT NULL');
+		$this->db	->execute('ALTER TABLE `nf_users_profiles` CHANGE `date_of_birth` `date_of_birth` DATE NULL DEFAULT NULL')
+					->execute('ALTER TABLE `nf_groups` ADD `order` SMALLINT UNSIGNED NOT NULL DEFAULT \'0\' AFTER `auto`');
 	}
 }
 
