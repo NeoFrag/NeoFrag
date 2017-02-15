@@ -32,12 +32,15 @@ class m_user_c_admin extends Controller_Module
 			->add_columns([
 				[
 					'content' => function($data){
+						return $data['auto'] != 'neofrag' ? $this->button_sort($data['data_id'], 'admin/ajax/user/groups/sort.html') : NULL;
+					},
+					'size'    => TRUE
+				],
+				[
+					'content' => function($data){
 						return NeoFrag::loader()->groups->display($data['data_id']);
 					},
 					'search'  => function($data){
-						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
-					},
-					'sort'    => function($data){
 						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
 					}
 				],

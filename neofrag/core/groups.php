@@ -60,13 +60,20 @@ class Groups extends Core
 							->where('gl.lang', $this->config->lang, 'OR')
 							->where('gl.lang', NULL)
 							->group_by('g.group_id')
-							->order_by('IFNULL(gl.title, g.name)')
+							->order_by('g.order')
 							->get();
+
+		$order = 1;
 
 		foreach ($groups as $group)
 		{
 			if ($group['auto'])
 			{
+				if (!isset($this->_groups[$group['name']]))
+				{
+					$this->_groups[$group['name']]['order'] = $order++;
+				}
+
 				if ($group['color'])
 				{
 					$this->_groups[$group['name']]['color'] = $group['color'];
@@ -89,7 +96,8 @@ class Groups extends Core
 					'color' => $group['color'],
 					'icon'  => $group['icon'],
 					'users' => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : [],
-					'auto'  => FALSE
+					'auto'  => FALSE,
+					'order' => $order++
 				];
 			}
 		}
@@ -114,6 +122,11 @@ class Groups extends Core
 					{
 						$this->_groups[$group_id]['color'] = 'default';
 					}
+
+					if (empty($this->_groups[$group_id]['order']))
+					{
+						$this->_groups[$group_id]['order'] = $order++;
+					}
 				}
 			}
 		}
@@ -132,25 +145,12 @@ class Groups extends Core
 			unset($group);
 		}
 
+		$this->_groups['admins']['order']   = 0;
+		$this->_groups['members']['order']  = $order++;
+		$this->_groups['visitors']['order'] = $order;
+
 		uasort($this->_groups, function($a, $b){
-			if ($a['auto'] == 'neofrag' && $b['auto'] == 'neofrag')
-			{
-				return str_nat($a['title'], $b['title']);
-			}
-			else if ($a['auto'] == 'neofrag')
-			{
-				return -1;
-			}
-			else if ($b['auto'] == 'neofrag')
-			{
-				return 1;
-			}
-			else if (($cmp = str_nat($a['auto'], $b['auto'])) != 0)
-			{
-				return $cmp;
-			}
-			
-			return str_nat($a['title'], $b['title']);
+			return $a['order'] > $b['order'];
 		});
 	}
 	
