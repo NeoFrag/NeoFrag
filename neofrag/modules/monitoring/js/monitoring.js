@@ -33,12 +33,6 @@ $(function(){
 		$('#tree').treeview('remove');
 
 		$.post('<?php echo url('admin/ajax/monitoring.json'); ?>', {refresh: typeof refresh != 'undefined' && refresh ? refresh : 0}, function(data){
-			if (typeof data.error != 'undefined'){
-				loading = false;
-				notify(data.error, 'danger');
-				return;
-			}
-
 			var used     = data.storage.total - data.storage.free;
 			var pourcent = Math.ceil(used / data.storage.total * 100);
 			
