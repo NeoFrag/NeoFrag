@@ -1,0 +1,21 @@
+.btn-auth {
+	display: inline-block;
+}
+
+.btn-auth > a {
+	border-radius: 50% 50% 50% 50%;
+		-moz-border-radius: 50% 50% 50% 50%;
+		-webkit-border-radius: 50% 50% 50% 50%;
+	color: #fff !important;
+	cursor: pointer;
+	display: block;
+	font-size: 23px;
+	line-height: 50px;
+	height: 50px;
+	width: 50px;
+	text-align: center;
+}
+
+.btn-auth + .btn-auth {
+	margin-left: 15px;
+}

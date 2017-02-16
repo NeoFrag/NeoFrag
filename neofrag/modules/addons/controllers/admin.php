@@ -63,6 +63,10 @@ class m_addons_c_admin extends Controller_Module
 										'languages' => [
 											'title' => 'Langues',
 											'icon'  => 'fa-book'
+										],
+										'authenticators' => [
+											'title' => 'Authentificateurs',
+											'icon'  => 'fa-user-circle'
 										]/*,
 										'smileys' => array(
 											'title' => 'Smileys',

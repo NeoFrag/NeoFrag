@@ -76,7 +76,7 @@ class Loader extends Core
 		});
 	}
 
-	private function _load($name, $type, $class, &$objects, $filename = NULL, $force = FALSE, $is_enabled = NULL)
+	private function _load($name, $type, $class, &$objects, $filename = NULL, $force = FALSE, $is_enabled = NULL, $constructor = [])
 	{
 		if (($force && !empty($objects[$name])) || (!$force && array_key_exists($name, $objects)))
 		{
@@ -133,7 +133,7 @@ class Loader extends Core
 
 			include_once $path;
 
-			$object = load($class, $name, $type);
+			$object = call_user_func_array('load', array_merge([$class], $constructor ?: [$name, $type]));
 			
 			break;
 		}
@@ -188,6 +188,11 @@ class Loader extends Core
 		}
 
 		return $model;
+	}
+
+	public function authenticator($name, $enabled, $settings = [])
+	{
+		return $this->_load($name, 'authenticator', 'a_'.$name, NeoFrag::loader()->authenticators, NULL, FALSE, NULL, [$name, $enabled, $settings]);
 	}
 
 	public function view($name, $data = [])

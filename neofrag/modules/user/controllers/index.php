@@ -105,7 +105,7 @@ class m_user_c_index extends Controller_Module
 							->heading()
 							->body($this->form->display())
 							->size('col-md-8 col-lg-9')
-				)
+						)
 			)
 		];
 	}
@@ -234,6 +234,135 @@ class m_user_c_index extends Controller_Module
 		}
 
 		echo $this->form->display();
+	}
+
+	public function _auth($authenticator)
+	{
+		try
+		{
+			spl_autoload_register(function($name){
+				if (preg_match('/^SocialConnect/', $name))
+				{
+					require_once 'lib/'.str_replace('\\', '/', $name).'.php';
+				}
+			});
+
+			$service = new \SocialConnect\Auth\Service(
+				new \SocialConnect\Common\Http\Client\Curl(),
+				new \SocialConnect\Provider\Session\NeoFrag($this->session), [
+					'redirectUri' => $this->url->host.url('user/auth'),
+					'provider'    => [
+						$name = str_replace('_', '-', $authenticator->name) => $authenticator->config()
+					]
+				]
+			);
+
+			$provider = $service->getProvider($name);
+
+			if ($callback = $authenticator->data($params))
+			{
+				$data = $callback($provider->getIdentity($provider->getAccessTokenByRequestParameters($params)));
+
+				if (!($user_id = $this->db->select('user_id')->from('nf_users_auth')->where('authenticator', $authenticator->name)->where('id', $data['id'])->row()))
+				{
+					if ($data['avatar'])
+					{
+						$this	->network($data['avatar'])
+								->stream($file = $this->file->filename('members', 'tmp'));
+
+						$name = pathinfo($data['avatar'], PATHINFO_BASENAME);
+
+						$data['avatar'] = 0;
+
+						if (file_exists($file))
+						{
+							if ((list($w, $h, $type) = getimagesize($file)) && $w == $h && $w >= 250 && in_array($type, array_keys($extensions = [IMAGETYPE_GIF => 'gif', IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png'])))
+							{
+								rename($file, $file = str_replace('.tmp', '.'.$extensions[$type], $file));
+								image_resize($file, 250, 250);
+								$data['avatar'] = $this->file->add($file, $name);
+							}
+							else
+							{
+								unlink($file);
+							}
+						}
+					}
+					else
+					{
+						$data['avatar'] = 0;
+					}
+
+					while ($data['username'] && $this->db->select('1')->from('nf_users')->where('username', $data['username'])->row())
+					{
+						$data['username'] = 'guest'.time();
+					}
+
+					if ($data['language'] && !$this->db->select('1')->from('nf_settings_languages')->where('code', $data['language'])->row())
+					{
+						$data['language'] = '';
+					}
+
+					if ($data['email'] && (!is_valid_email($data['email']) || $this->db->select('1')->from('nf_users')->where('email', $data['email'])->row()))
+					{
+						$data['email'] = '';
+					}
+
+					if ($data['website'] && !is_valid_url($data['website']))
+					{
+						$data['website'] = '';
+					}
+
+					$user_id = $this->db->insert('nf_users', [
+						'username' => utf8_htmlentities($data['username']) ?: NULL,
+						'password' => '',
+						'salt'     => '',
+						'email'    => $data['email']    ?: NULL,
+						'language' => $data['language'] ?: NULL
+					]);
+
+					$this->db->insert('nf_users_auth', [
+						'user_id'       => $user_id,
+						'authenticator' => $authenticator->name,
+						'id'            => $data['id']
+					]);
+
+					if (!in_array($data['sex'], ['female', 'male']))
+					{
+						$data['sex'] = NULL;
+					}
+
+					if ($data['first_name'] || $data['last_name'] || $data['avatar'] || $data['signature'] || $data['date_of_birth'] || $data['sex'] ||  $data['location'] ||  $data['website'])
+					{
+						$this->db->insert('nf_users_profiles', [
+							'user_id'       => $user_id,
+							'first_name'    => utf8_htmlentities($data['first_name']) ?: '',
+							'last_name'     => utf8_htmlentities($data['last_name'])  ?: '',
+							'avatar'        => $data['avatar']                        ?: NULL,
+							'signature'     => utf8_htmlentities($data['signature'])  ?: '',
+							'date_of_birth' => $data['date_of_birth']                 ?: NULL,
+							'sex'           => $data['sex'],
+							'location'      => utf8_htmlentities($data['location'])   ?: '',
+							'website'       => $data['website']                       ?: ''
+						]);
+					}
+				}
+
+				$this->session->set('session', 'authenticator', $authenticator->name);
+				$this->user->login($user_id, TRUE);
+			}
+			else
+			{
+				header('Location: '.$provider->makeAuthUrl());
+				exit;
+			}
+		}
+		catch (Exception $e)
+		{
+			trigger_error($e->getMessage(), E_USER_WARNING);
+		}
+
+		redirect('user.html');
 	}
 
 	public function login($error = 0)
@@ -407,7 +536,7 @@ class m_user_c_index extends Controller_Module
 		}
 		
 		$rows[] = $this->row(
-			$this	->col(
+			$col = $this->col(
 						$this	->panel()
 								->heading($this('login_title'), 'fa-sign-in')
 								->body($this->load->view('login', [
@@ -422,7 +551,18 @@ class m_user_c_index extends Controller_Module
 					)
 					->size('col-md-6')
 		);
-		
+
+		if ($authenticators = $this->addons->get_authenticators())
+		{
+			$this->css('auth');
+
+			$col->prepend(
+				$this	->panel()
+						->heading('Connexion rapide', 'fa-user-circle')
+						->body('<div class="text-center">'.implode($authenticators).'</div>')
+			);
+		}
+
 		return $rows;
 	}
 

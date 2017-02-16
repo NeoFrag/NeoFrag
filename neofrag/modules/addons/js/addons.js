@@ -50,8 +50,11 @@ $(function(){
 				name: $(this).parents('[data-name]:first').data('name')
 			},
 			success: function(data){
+				$.each(data, function(type, message){
+					notify(message, type);
+				});
+
 				if (typeof data.success != 'undefined'){
-					notify(data.success);
 					hashChange();
 				}
 			}
@@ -152,6 +155,80 @@ $(function(){
 			$.post('<?php echo url('admin/ajax/addons/theme/reset.json'); ?>', {theme: $(this).data('theme')}, function(data){
 				notify(data.success);
 			});
+		});
+	});
+
+	//Authenticators
+	var modal_authenticator = function(title, body, btn, callback){
+		var $modal = $('.modal-theme');
+		var $btn   = $(btn).appendTo($modal.find('.modal-footer'));
+		$modal.find('.modal-title').html(title);
+		$modal.find('.modal-body').html(body);
+		$modal.modal();
+		
+		$modal.on('hidden.bs.modal', function(){
+			$btn.remove();
+		});
+		
+		$btn.on('click', callback);
+		$btn.on('click', function(){
+			$modal.modal('hide');
+		});
+	};
+	
+	//Setting authenticators
+	$('body').on('click', '[data-type="authenticator"] .btn-warning', function(){
+		var $item = $(this).parents('[data-name]:first');
+		var name  = $item.data('name');
+
+		$.post('<?php echo url('admin/ajax/addons/authenticator/admin.json'); ?>', {name: name}, function(data){
+			var $modal = $('.modal-authenticator');
+
+			$modal.find('.modal-title').html(data.title);
+
+			var body = '<div class="alert alert-info" role="alert">'+data.help+'</div>';
+
+			$.each(data.settings, function(key, value){
+				body += '	<div class="form-group">\
+								<label for="settings-'+key+'" class="col-sm-3 control-label">'+key+'</label>\
+								<div class="col-sm-5">\
+									<input type="text" class="form-control" id="settings-'+key+'" name="'+key+'" value="'+value+'" />\
+								</div>\
+							</div>';
+			});
+
+			$.each(data.params, function(key, value){
+				body += '	<div class="form-group">\
+								<label class="col-sm-3 control-label">'+key+'</label>\
+								<div class="col-sm-5">\
+									<p class="help-block"><code>'+value+'</code></p>\
+								</div>\
+							</div>';
+			});
+
+			$modal.find('.modal-body').html('<div class="form-horizontal">'+body+'</div>');
+
+			$modal.find('.btn-success').click(function(){
+				var settings = {};
+
+				$modal.find('.modal-body input').each(function(){
+					settings[$(this).attr('name')] = $(this).val();
+				});
+
+				$.post('<?php echo url('admin/ajax/addons/authenticator/update.html'); ?>', {name: name, settings: settings}, function(data){
+					$modal.modal('hide');
+					
+					$modal.on('hidden.bs.modal', function(){
+						hashChange();
+					});
+				});
+			});
+
+			$modal.on('hidden.bs.modal', function(){
+				$modal.find('.btn-success').unbind('click');
+			});
+
+			$modal.modal();
 		});
 	});
 });

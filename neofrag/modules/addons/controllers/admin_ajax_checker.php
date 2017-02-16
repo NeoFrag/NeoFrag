@@ -24,9 +24,16 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	{
 		$post = post();
 
-		if (!empty($post['type']) && in_array($post['type'], ['module', 'widget']) && !empty($post['name']) && ($object = $this->load->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
+		if (!empty($post['type']))
 		{
-			return [$post['type'], $object];
+			if (in_array($post['type'], ['module', 'widget']) && !empty($post['name']) && ($object = $this->load->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
+			{
+				return [$post['type'], $object];
+			}
+			else if ($post['type'] == 'authenticator' && !empty($post['name']) && ($authenticator = $this->db->from('nf_settings_authenticators')->where('name', $post['name'])->row()))
+			{
+				return [$post['type'], $this->load->authenticator($authenticator['name'], $authenticator['is_enabled'], unserialize($authenticator['settings']))];
+			}
 		}
 	}
 
@@ -63,6 +70,32 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_settings_languages')->where('code', $check['id'])->row())
 		{
 			return $check;
+		}
+	}
+
+	public function _authenticator_sort()
+	{
+		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_settings_authenticators')->where('name', $check['id'])->row())
+		{
+			return $check;
+		}
+	}
+
+	public function _authenticator_admin()
+	{
+		$this->extension('json');
+
+		if (($check = post_check('name')) && ($auth = $this->db->from('nf_settings_authenticators')->where('name', $check['name'])->row()))
+		{
+			return [$this->load->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings']))];
+		}
+	}
+
+	public function _authenticator_update()
+	{
+		if (($check = post_check('name', 'settings')) && ($auth = $this->db->from('nf_settings_authenticators')->where('name', $check['name'])->row()))
+		{
+			return [$this->load->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings'])), $check['settings']];
 		}
 	}
 }

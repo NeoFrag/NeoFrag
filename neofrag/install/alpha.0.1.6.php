@@ -116,7 +116,34 @@ class i_0_1_6 extends Install
 
 		$this->db	->execute('ALTER TABLE `nf_users_profiles` CHANGE `date_of_birth` `date_of_birth` DATE NULL DEFAULT NULL')
 					->execute('ALTER TABLE `nf_groups` ADD `order` SMALLINT UNSIGNED NOT NULL DEFAULT \'0\' AFTER `auto`')
-					->execute('ALTER TABLE `nf_groups` ADD `hidden` ENUM(\'0\',\'1\') NOT NULL DEFAULT \'0\' AFTER `icon`');
+					->execute('ALTER TABLE `nf_groups` ADD `hidden` ENUM(\'0\',\'1\') NOT NULL DEFAULT \'0\' AFTER `icon`')
+					->execute('ALTER TABLE `nf_users` CHANGE `email` `email` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL')
+					->execute('ALTER TABLE `nf_sessions_history` ADD `authenticator` VARCHAR(100) NOT NULL AFTER `host_name`')
+					->execute('CREATE TABLE `nf_settings_authenticators` (
+						`name` varchar(100) NOT NULL,
+						`settings` text NOT NULL,
+						`is_enabled` enum(\'0\',\'1\') NOT NULL DEFAULT \'0\',
+						`order` smallint(5) unsigned NOT NULL DEFAULT \'0\',
+						PRIMARY KEY (`name`)
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_users_auth` (
+						`user_id` int(11) unsigned NOT NULL,
+						`authenticator` varchar(100) NOT NULL,
+						`id` varchar(250) NOT NULL,
+						PRIMARY KEY (`authenticator`,`id`),
+						KEY `user_id` (`user_id`),
+						CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+						CONSTRAINT `nf_users_auth_ibfk_2` FOREIGN KEY (`authenticator`) REFERENCES `nf_settings_authenticators` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+
+		foreach (['facebook', 'twitter', 'google', 'battle_net', 'steam', 'twitch', 'github', 'linkedin'] as $i => $name)
+		{
+			$this->db->insert('nf_settings_authenticators', [
+				'name'     => $name,
+				'settings' => serialize([]),
+				'order'    => $i
+			]);
+		}
 	}
 }
 

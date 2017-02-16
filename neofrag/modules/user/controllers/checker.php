@@ -77,6 +77,26 @@ class m_user_c_checker extends Controller_Module
 		}
 	}
 
+	public function _auth($provider)
+	{
+		if ($this->user())
+		{
+			redirect('user.html');
+		}
+
+		$provider = str_replace('-', '_', strtolower($provider));
+
+		if (	($settings = $this->db	->select('settings')
+										->from('nf_settings_authenticators')
+										->where('name', $provider)
+										->where('is_enabled', TRUE)
+										->row()) &&
+				($authenticator = $this->load->authenticator($provider, TRUE, unserialize($settings))))
+		{
+			return [$authenticator];
+		}
+	}
+
 	public function logout()
 	{
 		if (!$this->user())
@@ -134,7 +154,7 @@ class m_user_c_checker extends Controller_Module
 		{
 			if ($user_id && $username)
 			{
-				if (($user = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->where('deleted', FALSE)->row()) && $username == url_title($user))
+				if (($user = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->where('username <>', NULL)->where('deleted', FALSE)->row()) && $username == url_title($user))
 				{
 					$username = $user;
 				}
