@@ -773,6 +773,7 @@ CREATE TABLE IF NOT EXISTS `nf_sessions_history` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
+  `authenticator` varchar(100) NOT NULL,
   `referer` varchar(100) NOT NULL,
   `user_agent` varchar(250) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -928,6 +929,34 @@ INSERT INTO `nf_settings_addons` VALUES('teams', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('teams', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('user', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('user', 'widget', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_settings_authenticators`
+--
+
+DROP TABLE IF EXISTS `nf_settings_authenticators`;
+CREATE TABLE IF NOT EXISTS `nf_settings_authenticators` (
+  `name` varchar(100) NOT NULL,
+  `settings` text NOT NULL,
+  `is_enabled` enum('0','1') NOT NULL DEFAULT '0',
+  `order` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_settings_authenticators`
+--
+
+INSERT INTO `nf_settings_authenticators` VALUES('facebook', 'a:0:{}', '0', 0);
+INSERT INTO `nf_settings_authenticators` VALUES('twitter', 'a:0:{}', '0', 1);
+INSERT INTO `nf_settings_authenticators` VALUES('google', 'a:0:{}', '0', 2);
+INSERT INTO `nf_settings_authenticators` VALUES('battle_net', 'a:0:{}', '0', 3);
+INSERT INTO `nf_settings_authenticators` VALUES('steam', 'a:0:{}', '0', 4);
+INSERT INTO `nf_settings_authenticators` VALUES('twitch', 'a:0:{}', '0', 5);
+INSERT INTO `nf_settings_authenticators` VALUES('github', 'a:0:{}', '0', 6);
+INSERT INTO `nf_settings_authenticators` VALUES('linkedin', 'a:0:{}', '0', 7);
 
 -- --------------------------------------------------------
 
@@ -1109,7 +1138,7 @@ CREATE TABLE IF NOT EXISTS `nf_users` (
   `username` varchar(100) NOT NULL,
   `password` varchar(34) NOT NULL,
   `salt` varchar(32) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_activity_date` timestamp NULL DEFAULT NULL,
   `admin` enum('0','1') NOT NULL DEFAULT '0',
@@ -1127,6 +1156,21 @@ CREATE TABLE IF NOT EXISTS `nf_users` (
 --
 
 INSERT INTO `nf_users` VALUES(1, 'admin', '$H$92EwygSmbdXunbIvoo/V91MWcnHqzX/', '', 'noreply@neofrag.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', NULL, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_users_auth`
+--
+
+DROP TABLE IF EXISTS `nf_users_auth`;
+CREATE TABLE IF NOT EXISTS `nf_users_auth` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `authenticator` varchar(100) NOT NULL,
+  `id` varchar(250) NOT NULL,
+  PRIMARY KEY (`authenticator`,`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1555,6 +1599,13 @@ ALTER TABLE `nf_teams_users`
 --
 ALTER TABLE `nf_users`
   ADD CONSTRAINT `nf_users_ibfk_1` FOREIGN KEY (`language`) REFERENCES `nf_settings_languages` (`code`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Contraintes pour la table `nf_users_auth`
+--
+ALTER TABLE `nf_users_auth`
+  ADD CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_users_auth_ibfk_2` FOREIGN KEY (`authenticator`) REFERENCES `nf_settings_authenticators` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_users_groups`

@@ -32,20 +32,40 @@ class m_addons_c_admin_ajax extends Controller_Module
 	{
 		$this->extension('json');
 
-		$is_enabled = !$this->db->select('is_enabled')
-								->from('nf_settings_addons')
-								->where('name', $object->name)
-								->where('type', $type)
-								->row();
+		if ($type == 'authenticator')
+		{
+			if (!$object->is_setup())
+			{
+				return [
+					'danger' => 'Vous devez configurer l\'authentificateur'
+				];
+			}
+
+			$table      = 'nf_settings_authenticators';
+			$is_enabled = !$object->is_enabled();
+			$title      = 'L\'authentificateur '.$object->title;
+		}
+		else
+		{
+			$table      = 'nf_settings_addons';
+			$is_enabled = !$this->db->select('is_enabled')
+									->from('nf_settings_addons')
+									->where('name', $object->name)
+									->where('type', $type)
+									->row();
+
+			$this->db->where('type', $type);
+
+			$title = 'Le '.$type.' '.$object->get_title();
+		}
 
 		$this->db	->where('name', $object->name)
-					->where('type', $type)
-					->update('nf_settings_addons', [
+					->update($table, [
 						'is_enabled' => $is_enabled
 					]);
 
 		return [
-			'success' => 'Le '.$type.' '.$object->get_title().' est '.($is_enabled ? 'activé' : 'désactivé')
+			'success' => $title.' est '.($is_enabled ? 'activé' : 'désactivé')
 		];
 	}
 	
@@ -236,6 +256,15 @@ class m_addons_c_admin_ajax extends Controller_Module
 					]), FALSE);
 	}
 	
+	private function _authenticators_list()
+	{
+		return $this->panel()
+					->heading('Liste des authentificateurs', 'fa-user-circle')
+					->body($this->load->view('authenticators', [
+						'authenticators' => $this->addons->get_authenticators(TRUE)
+					]), FALSE);
+	}
+
 	/*private function _smileys_list()
 	{
 		return array(
@@ -292,6 +321,34 @@ class m_addons_c_admin_ajax extends Controller_Module
 							'order' => $order
 						]);
 		}
+	}
+
+	public function _authenticator_sort($auth, $position)
+	{
+		$authenticators = [];
+
+		foreach ($this->db->select('name')->from('nf_settings_authenticators')->where('name !=', $auth)->order_by('order')->get() as $name)
+		{
+			$authenticators[] = $name;
+		}
+
+		foreach (array_merge(array_slice($authenticators, 0, $position, TRUE), [$auth], array_slice($authenticators, $position, NULL, TRUE)) as $order => $name)
+		{
+			$this->db	->where('name', $name)
+						->update('nf_settings_authenticators', [
+							'order' => $order
+						]);
+		}
+	}
+
+	public function _authenticator_admin($authenticator)
+	{
+		return $authenticator->admin();
+	}
+
+	public function _authenticator_update($authenticator, $settings)
+	{
+		$authenticator->update($settings);
 	}
 }
 

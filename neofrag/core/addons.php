@@ -113,6 +113,21 @@ class Addons extends Core
 	{
 		return $this->_addons['language'];
 	}
+
+	public function get_authenticators($get_all = FALSE)
+	{
+		$authenticators = [];
+
+		foreach ($this->db->from('nf_settings_authenticators')->order_by('order')->get() as $auth)
+		{
+			if (($auth['is_enabled'] || $get_all) && ($authenticator = $this->load->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings']))))
+			{
+				$authenticators[] = $authenticator;
+			}
+		}
+
+		return $authenticators;
+	}
 }
 
 /*

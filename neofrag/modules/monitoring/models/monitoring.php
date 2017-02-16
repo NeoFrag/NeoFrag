@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_monitoring_m_monitoring extends Model
 {
-	public $folders = ['backups', 'cache', 'config', 'lib', 'modules', 'neofrag', 'overrides', 'themes', 'upload', 'widgets'];
+	public $folders = ['authenticators', 'backups', 'cache', 'config', 'lib', 'modules', 'neofrag', 'overrides', 'themes', 'upload', 'widgets'];
 
 	public function get_info()
 	{

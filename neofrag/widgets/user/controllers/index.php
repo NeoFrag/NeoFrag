@@ -35,8 +35,14 @@ class w_user_c_index extends Controller_Widget
 		}
 		else
 		{
+			if ($authenticators = $this->addons->get_authenticators())
+			{
+				$this	->css('auth')
+						->css('auth_mini');
+			}
+
 			return $this->panel()
-						->heading($this('member_area'))
+						->heading($this('member_area').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''))
 						->body($this->load->view('index', [
 							'form_id' => $this->form->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 						]))

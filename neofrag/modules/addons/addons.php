@@ -42,7 +42,12 @@ class m_addons extends Module
 		'admin/ajax/theme/{url_title}'    => '_theme_settings',
 
 		//Languages
-		'admin/ajax/language/sort'        => '_language_sort'
+		'admin/ajax/language/sort'        => '_language_sort',
+
+		//Authenticators
+		'admin/ajax/authenticator/sort'   => '_authenticator_sort',
+		'admin/ajax/authenticator/admin'  => '_authenticator_admin',
+		'admin/ajax/authenticator/update' => '_authenticator_update'
 	];
 }
 
