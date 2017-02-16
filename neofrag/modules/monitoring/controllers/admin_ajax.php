@@ -28,6 +28,16 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 		{
 			$this->config('nf_monitoring_last_check', time());
 
+			if (version_compare(PHP_VERSION, 7, '<'))
+			{
+				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
+			}
+
+			if ($this->db->get_info('driver') != 'mysqli')
+			{
+				$this->_notify('Il est recommandé d\'utiliser MySQLi', 'info');
+			}
+
 			dir_create('cache/monitoring');
 
 			foreach (['version', 'checksum'] as $file)
@@ -37,198 +47,195 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 									->get())
 				{
 					file_put_contents('cache/monitoring/'.$file.'.json', $$file);
+					$$file = (array)json_decode($$file);
 				}
-				else
-				{
-					return [
-						'error' => 'Une erreur s\'est produite lors du téléchargement des informations requises'
-					];
-				}
-
-				$$file = (array)json_decode($$file);
 			}
 
-			foreach (array_merge(dir_scan($this->model()->folders, 'md5_file'), ['index.php' => md5_file('index.php')]) as $file => $md5)
+			if ($checksum)
 			{
-				if (!isset($checksum[$file]))
+				foreach (array_merge(dir_scan($this->model()->folders, 'md5_file'), ['index.php' => md5_file('index.php')]) as $file => $md5)
 				{
-					$checksum[$file] = '';
-				}
-
-				$checksum[$file] .= '|'.$md5;
-			}
-
-			uksort($checksum, function($a, $b){
-				$fct = function(&$a, &$b){
-					$a = explode('/', $a);
-					$b = array_pop($a);
-				};
-				
-				$fct($a, $aa);
-				$fct($b, $bb);
-				
-				$fct2 = function(&$a, &$b){
-					foreach (range(0, max(count($a), count($b))) as $i)
+					if (!isset($checksum[$file]))
 					{
-						if (isset($a[$i], $b[$i]) && $a[$i] == $b[$i])
-						{
-							unset($a[$i], $b[$i]);
-						}
-						else
-						{
-							break;
-						}
-					}
-				};
-				
-				$fct2($a, $b);
-				
-				if (empty($a) && !empty($b))
-				{
-					return 1;
-				}
-				else if (!empty($a) && empty($b))
-				{
-					return -1;
-				}
-				else if (($cmp = strnatcmp(implode('/', $a), implode('/', $b))) != 0)
-				{
-					return $cmp;
-				}
-				else
-				{
-					do
-					{
-						$fct3 = function(&$a, &$b){
-							$b = explode('.', $a);
-							$a = str_split(array_shift($b));
-							$b = implode('.', $b);
-						};
-						
-						$fct3($aa, $aaa);
-						$fct3($bb, $bbb);
-						$fct2($aa, $bb);
-
-						if (($cmp = strnatcmp(implode($aa), implode($bb))) != 0)
-						{
-							return $cmp;
-						}
-						
-						$aa = $aaa;
-						$bb = $bbb;
-					}
-					while ($aa || $bb);
-				}
-			});
-
-			$tree = [];
-
-			foreach ($checksum as $file => $md5)
-			{
-				$dirs = explode('/', $file);
-				$file = array_pop($dirs);
-				
-				$node = &$tree;
-				
-				foreach ($dirs as $dir)
-				{
-					if (!isset($node[$dir]))
-					{
-						$node[$dir] = [];
+						$checksum[$file] = '';
 					}
 
-					$node = &$node[$dir];
+					$checksum[$file] .= '|'.$md5;
 				}
-				
-				if (!isset($node[$file]))
-				{
-					$node[$file] = '';
-				}
-				
-				$node[$file] .= $md5;
-				unset($node);
-			}
 
-			$treeview = function($tree, $dir = '') use (&$treeview){
-				$output = [];
-
-				foreach ($tree as $name => $node)
-				{
-					if (is_array($node))
-					{
-						$tags = [];
-						
-						if (file_exists($dir.$name) && !is_writable($dir.$name))
+				uksort($checksum, function($a, $b){
+					$fct = function(&$a, &$b){
+						$a = explode('/', $a);
+						$b = array_pop($a);
+					};
+					
+					$fct($a, $aa);
+					$fct($b, $bb);
+					
+					$fct2 = function(&$a, &$b){
+						foreach (range(0, max(count($a), count($b))) as $i)
 						{
-							$tags[] = 'Protégé en écriture';
-							$this->_notify('Le dossier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
+							if (isset($a[$i], $b[$i]) && $a[$i] == $b[$i])
+							{
+								unset($a[$i], $b[$i]);
+							}
+							else
+							{
+								break;
+							}
 						}
-						
-						$output[] = [
-							'text'  => $name,
-							'tags'  => $tags,
-							'nodes' => $treeview($node, $dir.$name.'/')
-						];
+					};
+					
+					$fct2($a, $b);
+					
+					if (empty($a) && !empty($b))
+					{
+						return 1;
+					}
+					else if (!empty($a) && empty($b))
+					{
+						return -1;
+					}
+					else if (($cmp = strnatcmp(implode('/', $a), implode('/', $b))) != 0)
+					{
+						return $cmp;
 					}
 					else
 					{
-						$node = explode('|', $node);
-						
-						if (!isset($node[1]))
+						do
 						{
-							$node[] = '';
-						}
-						
-						list($nf_md5, $md5) = $node;
+							$fct3 = function(&$a, &$b){
+								$b = explode('.', $a);
+								$a = str_split(array_shift($b));
+								$b = implode('.', $b);
+							};
+							
+							$fct3($aa, $aaa);
+							$fct3($bb, $bbb);
+							$fct2($aa, $bb);
 
-						$tags = [];
-
-						if (!preg_match('#^(?:backups|cache|config|overrides|upload)/#', $dir))
-						{
-							if ($nf_md5 === '')
+							if (($cmp = strnatcmp(implode($aa), implode($bb))) != 0)
 							{
-								if (!preg_match('#^(?:modules|themes|widgets)/#', $dir))
+								return $cmp;
+							}
+							
+							$aa = $aaa;
+							$bb = $bbb;
+						}
+						while ($aa || $bb);
+					}
+				});
+
+				$tree = [];
+
+				foreach ($checksum as $file => $md5)
+				{
+					$dirs = explode('/', $file);
+					$file = array_pop($dirs);
+					
+					$node = &$tree;
+					
+					foreach ($dirs as $dir)
+					{
+						if (!isset($node[$dir]))
+						{
+							$node[$dir] = [];
+						}
+
+						$node = &$node[$dir];
+					}
+					
+					if (!isset($node[$file]))
+					{
+						$node[$file] = '';
+					}
+					
+					$node[$file] .= $md5;
+					unset($node);
+				}
+
+				$treeview = function($tree, $dir = '') use (&$treeview){
+					$output = [];
+
+					foreach ($tree as $name => $node)
+					{
+						if (is_array($node))
+						{
+							$tags = [];
+							
+							if (file_exists($dir.$name) && !is_writable($dir.$name))
+							{
+								$tags[] = 'Protégé en écriture';
+								$this->_notify('Le dossier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
+							}
+							
+							$output[] = [
+								'text'  => $name,
+								'tags'  => $tags,
+								'nodes' => $treeview($node, $dir.$name.'/')
+							];
+						}
+						else
+						{
+							$node = explode('|', $node);
+							
+							if (!isset($node[1]))
+							{
+								$node[] = '';
+							}
+							
+							list($nf_md5, $md5) = $node;
+
+							$tags = [];
+
+							if (!preg_match('#^(?:backups|cache|config|overrides|upload)/#', $dir))
+							{
+								if ($nf_md5 === '')
 								{
-									$tags[] = 'Inconnu';
-									$this->_notify('Le fichier <code>'.$dir.$name.'</code> ne devrait pas se trouver là', 'error');
+									if (!preg_match('#^(?:modules|themes|widgets)/#', $dir))
+									{
+										$tags[] = 'Inconnu';
+										$this->_notify('Le fichier <code>'.$dir.$name.'</code> ne devrait pas se trouver là', 'error');
+									}
+								}
+								else if ($md5 === '')
+								{
+									$tags[] = 'Manquant';
+									$this->_notify('Le fichier <code>'.$dir.$name.'</code> est manquant', 'error');
+								}
+								else if ($nf_md5 != $md5)
+								{
+									$tags[] = 'Corrompu';
+									$this->_notify('Le fichier <code>'.$dir.$name.'</code> est corrompu', 'warning');
 								}
 							}
-							else if ($md5 === '')
+							
+							if ($md5 !== '' && !is_writable($dir.$name))
 							{
-								$tags[] = 'Manquant';
-								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est manquant', 'error');
+								$tags[] = 'Protégé en écriture';
+								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
 							}
-							else if ($nf_md5 != $md5)
-							{
-								$tags[] = 'Corrompu';
-								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est corrompu', 'warning');
-							}
+							
+							$output[] = [
+								'text' => $name,
+								'tags' => $tags
+							];
 						}
-						
-						if ($md5 !== '' && !is_writable($dir.$name))
-						{
-							$tags[] = 'Protégé en écriture';
-							$this->_notify('Le fichier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
-						}
-						
-						$output[] = [
-							'text' => $name,
-							'tags' => $tags
-						];
 					}
-				}
-				
-				return $output;
-			};
-
-			if (version_compare(PHP_VERSION, 7, '<'))
-			{
-				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
+					
+					return $output;
+				};
 			}
-
-			if ($this->db->get_info('driver') != 'mysqli')
+			else if (extension_loaded('curl'))
 			{
-				$this->_notify('Il est recommandé d\'utiliser MySQLi', 'info');
+				if (!($cainfo = ini_get('curl.cainfo')) || !file_exists($cainfo))
+				{
+					$this->_notify('Problème de téléchargement, veuillez configurer <a href="http://php.net/manual/fr/curl.configuration.php#ini.curl.cainfo" target="_blank">curl.cainfo</a>', 'error');
+				}
+				else
+				{
+					$this->_notify('Problème de téléchargement, erreur inconnue', 'error');
+				}
 			}
 
 			$server = [];
@@ -253,7 +260,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 				'server' => $server
 			];
 
-			$result['files']         = $treeview($tree);
+			$result['files']         = $checksum ? $treeview($tree) : [];
 			$result['notifications'] = $this->_notifications;
 
 			file_put_contents('cache/monitoring/monitoring.json', json_encode($result));
