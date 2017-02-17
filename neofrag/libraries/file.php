@@ -19,17 +19,24 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
 class File extends Library
-{	
-	public function upload($files, $dir = NULL, &$filename = NULL, $file_id = NULL, $var = NULL)
+{
+	public function filename($dir, $extension)
 	{
 		dir_create($dir = 'upload/'.($dir ?: 'unknow'));
 		
 		do
 		{
-			$file = unique_id().'.'.extension(basename($var ? $files['name'][$var] : $files['name']));
+			$file = unique_id().'.'.$extension;
 		}
 		while (check_file($filename = $dir.'/'.$file));
 		
+		return $filename;
+	}
+
+	public function upload($files, $dir = NULL, &$filename = NULL, $file_id = NULL, $var = NULL)
+	{
+		$filename = $this->filename($dir, extension(basename($var ? $files['name'][$var] : $files['name'])));
+
 		if (move_uploaded_file($var ? $files['tmp_name'][$var] : $files['tmp_name'], $filename))
 		{
 			if ($file_id)
