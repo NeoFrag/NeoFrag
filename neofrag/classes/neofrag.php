@@ -133,9 +133,40 @@ abstract class NeoFrag
 
 	public function __call($name, $args)
 	{
-		if (is_callable($library = $this->$name ?: NeoFrag::loader()->$name))
+		$callback = NULL;
+
+		if (preg_match('/^(?:static_)?(.+?)_if$/', $name, $match))
 		{
-			return call_user_func_array($library, $args);
+			if (!$args[0])
+			{
+				return $this;
+			}
+
+			$args = array_slice($args, 1);
+
+			array_walk($args, function(&$a){
+				if (is_a($a, 'closure'))
+				{
+					$a = $a();
+				}
+			});
+
+			$callback = [$this, $match[1]];
+		}
+
+		if (preg_match('/^static_(.+)/', $name, $match))
+		{
+			return forward_static_call_array($callback ?: [$this, $match[1]], $args);
+		}
+
+		if (!$callback && is_callable($library = $this->$name ?: NeoFrag::loader()->$name))
+		{
+			$callback = $library;
+		}
+
+		if ($callback)
+		{
+			return call_user_func_array($callback, $args);
 		}
 
 		trigger_error('Call to undefined method '.get_class($this).'::'.$name.'()', E_USER_WARNING);
