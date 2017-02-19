@@ -59,8 +59,7 @@ ini_set('mbstring.func_overload', 7);
 mb_regex_encoding('UTF-8');
 mb_internal_encoding('UTF-8');
 
-function __autoload($name)
-{
+spl_autoload_register(function($name){
 	if ($override = substr($name = strtolower($name), 0, 2) == 'o_')
 	{
 		$name = substr($name, 2);
@@ -76,7 +75,7 @@ function __autoload($name)
 	{
 		require_once $file;
 	}
-}
+});
 
 function load($name)
 {
