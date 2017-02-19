@@ -162,6 +162,7 @@ class m_forum_c_index extends Controller_Module
 							->heading($this('new_topic'), 'fa-file-text-o')
 							->body($this->load->view('new', [
 								'form_id'     => $this->form->token(),
+								'post'        => $post,
 								'forum_id'    => $forum_id,
 								'category_id' => $category_id,
 								'title'       => $title
@@ -513,6 +514,7 @@ class m_forum_c_index extends Controller_Module
 							->heading($this($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
 							->body($this->load->view('new', [
 								'form_id'  => $this->form->token(),
+								'post'     => $post,
 								'topic_id' => $topic_id,
 								'is_topic' => $is_topic,
 								'title'    => $title,

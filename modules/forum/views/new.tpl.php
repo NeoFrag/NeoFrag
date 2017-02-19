@@ -3,7 +3,7 @@
 		<tbody class="forum-content">
 			<?php if (!empty($data['forum_id']) || !empty($data['is_topic'])): ?>
 			<tr>
-				<td colspan="2"><input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[title]"<?php if (!empty($data['is_topic'])) echo ' value="'.$data['title'].'"'; ?> placeholder="<?php echo i18n('title_topic'); ?>" /></td>
+				<td colspan="2"><input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[title]" value="<?php echo isset($data['post']['title']) ? $data['post']['title'] : (isset($data['title']) && !empty($data['is_topic']) ? $data['title'] : ''); ?>" placeholder="<?php echo i18n('title_topic'); ?>" /></td>
 			</tr>
 			<?php endif; ?>
 			<tr>
@@ -12,11 +12,11 @@
 				</td>
 				<td class="text-left col-md-9 col-sm-10">
 					<div class="form-group">
-						<textarea class="form-control editor" name="<?php echo $data['form_id']; ?>[message]" rows="10"><?php if (!empty($data['message'])) echo $data['message']; ?></textarea>
+						<textarea class="form-control editor" name="<?php echo $data['form_id']; ?>[message]" rows="10"><?php echo isset($data['post']['message']) ? $data['post']['message'] : (isset($data['message']) ? $data['message'] : ''); ?></textarea>
 					</div>
 					<?php if (!empty($data['forum_id']) && $NeoFrag->access('forum', 'category_announce', $data['category_id'])): ?>
 					<div class="checkbox">
-						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]" /> <?php echo i18n('set_announce'); ?></label>
+						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]"<?php if (!empty($data['post']['announce']) && in_array('on', $data['post']['announce'])) echo ' checked="checked"'; ?> /> <?php echo i18n('set_announce'); ?></label>
 					</div>
 					<?php endif; ?>
 					<?php if (!empty($data['forum_id'])): ?>
