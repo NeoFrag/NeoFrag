@@ -93,7 +93,7 @@ abstract class NeoFrag
 			
 			foreach ($loader->paths[$type] as $dir)
 			{
-				if (!check_file($path = $dir.'/'.$name.'.php'))
+				if (!check_file($path = $dir.'/'.$name.'.php') && (!preg_match('/^(.+?)_(.+)/', $name, $match) || !check_file($path = $dir.'/'.$match[1].'s/'.$match[2].'.php')))
 				{
 					continue;
 				}

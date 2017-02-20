@@ -71,6 +71,10 @@ spl_autoload_register(function($name){
 	{
 		require_once $file;
 	}
+	else if (preg_match('/^(.+?)_(.+)/', $name, $match) && file_exists($dir.'/libraries/'.$match[1].'.php') && file_exists($file = $dir.'/libraries/'.$match[1].'s/'.$match[2].'.php'))
+	{
+		require_once $file;
+	}
 	else if (file_exists($file = $dir.'/libraries/'.$name.'.php'))
 	{
 		require_once $file;
