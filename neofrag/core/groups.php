@@ -202,8 +202,11 @@ class Groups extends Core
 				$link = FALSE;
 			}
 			
-			$class = !empty($this->_groups[$group_id]['color']) && in_array($this->_groups[$group_id]['color'], array_keys(get_colors())) ? $this->_groups[$group_id]['color'] : 'default';
-			return '<'.($link ? 'a href="'.url('members/group/'.$this->_groups[$group_id]['url'].'.html').'"' : 'span').' class="label label-'.$class.'"'.(!empty($this->_groups[$group_id]['color']) && $this->_groups[$group_id]['color'][0] == '#' ? ' style="background-color: '.$this->_groups[$group_id]['color'].'"' : '').'>'.(!empty($this->_groups[$group_id]['icon']) ? icon($this->_groups[$group_id]['icon']).'&nbsp;&nbsp;' : '').$this->_groups[$group_id]['title'].'</'.($link ? 'a' : 'span').'>';
+			return $this->label()
+						->title($this->_groups[$group_id]['title'])
+						->icon($this->_groups[$group_id]['icon'])
+						->url_if($link, 'members/group/'.$this->_groups[$group_id]['url'].'.html')
+						->color($this->_groups[$group_id]['color']);
 		}
 		else
 		{
