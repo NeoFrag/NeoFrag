@@ -33,7 +33,7 @@ class Library extends NeoFrag
 			unset($this->load->libraries[$this->name]);
 		}
 
-		return $this;
+		return $this->set_id();
 	}
 
 	public function save()
