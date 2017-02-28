@@ -22,7 +22,7 @@ class Router extends Core
 {
 	public $segments = [];
 
-	public function exec()
+	public function __invoke()
 	{
 		$segments = ['error'];
 
@@ -189,33 +189,24 @@ class Router extends Core
 
 	private function _check($error)
 	{
-		//Gestion des codes d'erreurs remontés par les Exceptions
-		if (is_numeric($error))
+		if ($error == NeoFrag::UNAUTHORIZED)
 		{
-			if ((int)$error === NeoFrag::UNFOUND)
+			if ($this->user())
 			{
-				$this->_load(['error']);
+				$this->_load(['error', 'unauthorized']);
 			}
-			else if ((int)$error === NeoFrag::UNAUTHORIZED)
+			else
 			{
-				if ($this->user())
-				{
-					$this->_load(['error', 'unauthorized']);
-				}
-				else
-				{
-					$this->_load(['user', 'login', NeoFrag::UNAUTHORIZED]);
-				}
-			}
-			else if ((int)$error === NeoFrag::UNCONNECTED)
-			{
-				$this->_load(['user', 'login', NeoFrag::UNCONNECTED]);
+				$this->_load(['user', 'login', NeoFrag::UNAUTHORIZED]);
 			}
 		}
-		//Gestion des redirections demandées par les Exceptions
+		else if ($error == NeoFrag::UNCONNECTED)
+		{
+			$this->_load(['user', 'login', NeoFrag::UNCONNECTED]);
+		}
 		else
 		{
-			call_user_func_array([$this, '_load'], explode('/', $error));
+			$this->_load(['error']);
 		}
 	}
 }

@@ -224,7 +224,7 @@ foreach([
 	}
 }
 
-echo $NeoFrag->router->exec()->output;
+echo $NeoFrag->router()->output;
 
 /*
 NeoFrag Alpha 0.1.5.3
