@@ -110,7 +110,7 @@ class Email extends Library
 
 		$this->url->external(TRUE);
 
-		$this->template->parse_data($this->_data, $this->load);
+		$this->output->parse_data($this->_data, $this->load);
 		
 		$mail->Body    = $this->load->view('emails/'.$this->_view, $this->_data);
 		$mail->AltBody = $this->load->view('emails/'.$this->_view.'.txt', $this->_data);

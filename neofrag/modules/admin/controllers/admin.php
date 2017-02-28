@@ -133,7 +133,7 @@ class m_admin_c_admin extends Controller_Module
 
 		if (($module = $this->load->module($module_name)) && ($help = $module->load->controller('admin_help')) && $help->has_method($method))
 		{
-			echo $this->template->parse($help->method($method), [], $module->load);
+			echo $this->output->parse($help->method($method), [], $module->load);
 		}
 		else
 		{

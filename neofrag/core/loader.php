@@ -208,7 +208,7 @@ class Loader extends Core
 					$this->views[] = [$path, $name.'.tpl.php', $data];
 				}
 
-				return $this->template->load($path, $data, $this);
+				return $this->output->parse(file_get_contents($path), $data, $this);
 			}
 		}
 	}

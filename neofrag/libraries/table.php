@@ -208,7 +208,7 @@ class Table extends Library
 							continue;
 						}
 
-						$value = $this->template->parse($value['search'], $data, $this->load);
+						$value = $this->output->parse($value['search'], $data, $this->load);
 
 						foreach ($words as $word)
 						{
@@ -253,7 +253,7 @@ class Table extends Library
 						continue;
 					}
 
-					$this->_words[] = $value = $this->template->parse($value['search'], $data, $this->load);
+					$this->_words[] = $value = $this->output->parse($value['search'], $data, $this->load);
 					$words[]        = '"'.$value.'"';
 				}
 			}
@@ -289,7 +289,7 @@ class Table extends Library
 					foreach ($this->_data as $data_id => $data)
 					{
 						$data = array_merge(['data_id' => $data_id], $data);
-						$tmp[] = $this->template->parse($this->_columns[$column]['sort'], $data, $this->load);
+						$tmp[] = $this->output->parse($this->_columns[$column]['sort'], $data, $this->load);
 					}
 
 					$sortings[] = array_map('strtolower', $tmp);
@@ -415,14 +415,14 @@ class Table extends Library
 						
 						foreach ($value['content'] as $val)
 						{
-							$actions[] = $this->template->parse($val, $data, $this->load);
+							$actions[] = $this->output->parse($val, $data, $this->load);
 						}
 						
 						$output .= '<td class="action">'.implode('&nbsp;', array_filter($actions)).'</td>';
 					}
 					else
 					{
-						$content = $this->template->parse($value['content'], $data, $this->load);
+						$content = $this->output->parse($value['content'], $data, $this->load);
 
 						if (!isset($value['td']) || $value['td'])
 						{
@@ -482,7 +482,7 @@ class Table extends Library
 			header('Content-Type: application/json; charset=UTF-8');
 			exit(json_encode([
 				'search'  => array_values(array_unique($this->_words)),
-				'content' => $this->template->parse($output, NeoFrag::loader()->data)
+				'content' => $this->output->parse($output, NeoFrag::loader()->data)
 			]));
 		}
 		else

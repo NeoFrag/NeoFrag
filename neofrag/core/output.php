@@ -22,7 +22,7 @@ class Output extends Core
 {
 	public $data = [];
 
-	public function display()
+	public function __toString()
 	{
 		$this->data = $this->load->data;
 
@@ -39,7 +39,7 @@ class Output extends Core
 
 			$this->data = array_merge($this->data, $this->load->module->load->data);
 
-			$this->template->parse_data($this->data, $this->load->module->load);
+			$this->parse_data($this->data, $this->load->module->load);
 
 			$this->data['module'] = $this->load->module->get_output();
 			
@@ -119,10 +119,10 @@ class Output extends Core
 			header('Content-Type: text/html; charset=UTF-8');
 		}
 
-		echo $output;
+		return (string)$output;
 	}
 
-	public function display_zone($zone_id)
+	public function zone($zone_id)
 	{
 		static $dispositions;
 		
@@ -166,10 +166,54 @@ class Output extends Core
 		if (!empty($dispositions[$zone_id]))
 		{
 			$disposition = $dispositions[$zone_id];
-			return $this->zone($disposition['disposition_id'], unserialize($disposition['disposition']), $disposition['page'], $zone_id);
+			return parent::zone($disposition['disposition_id'], unserialize($disposition['disposition']), $disposition['page'], $zone_id);
 		}
 
 		return '';
+	}
+
+	public function parse($content, $data = [], $loader = NULL, $parse_php = TRUE)
+	{
+		if (!$loader)
+		{
+			$loader = $this->load;
+		}
+
+		if ($parse_php && is_a($content, 'closure'))
+		{
+			$content = call_user_func($content, $data, $loader);
+		}
+		//Si le template contient du code PHP
+		else if (in_string('<?php', $content) && in_string('?>', $content))
+		{
+			$NeoFrag = $this->load;
+			$paths   = $loader->paths;
+			
+			$global = isset($GLOBALS['loader']) ? $GLOBALS['loader'] : NULL;
+			$GLOBALS['loader'] = $loader;
+
+			//Récupèration du contenu du template avec exécution du code PHP
+			$content = eval('ob_start(); ?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', $content)).'<?php return ob_get_clean();');
+
+			$GLOBALS['loader'] = $global;
+		}
+
+		return $content;
+	}
+
+	public function parse_data(&$data, $loader)
+	{
+		foreach ($data as &$var)
+		{
+			if (is_array($var))
+			{
+				$this->parse_data($var, $loader);
+			}
+			else
+			{
+				$var = $this->parse($var, $data, $loader);
+			}
+		}
 	}
 }
 
