@@ -39,7 +39,7 @@ class t_admin extends Theme
 			{
 				$content_submenu[] = [
 					'title'  => $module->get_title(),
-					'icon'   => $this->template->parse($module->icon),
+					'icon'   => $this->output->parse($module->icon),
 					'url'    => 'admin/'.$module->name.'.html'
 				];
 			}

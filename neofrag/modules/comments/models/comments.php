@@ -65,7 +65,7 @@ class m_comments_m_comments extends Model
 			$comment = $module->comments($module_id);
 			
 			$comment['module_title'] = $module->get_title();
-			$comment['icon']         = $module->template->parse($module->icon, [], $module->load);
+			$comment['icon']         = $module->output->parse($module->icon, [], $module->load);
 
 			return $comment;
 		}

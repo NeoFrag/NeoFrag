@@ -65,7 +65,7 @@ function asset($file_path, $file_name = '')
 				'lang' => NeoFrag::loader()->config->lang
 			];
 
-			$content = NeoFrag::loader()->template->parse($content, $data);
+			$content = NeoFrag::loader()->output->parse($content, $data);
 		}
 		
 		ob_end_clean();

@@ -202,7 +202,7 @@ foreach ([
 
 foreach([
 			'debug',
-			'template',
+			'output',
 			'db',
 			'url',
 			'config',
@@ -212,8 +212,7 @@ foreach([
 			'user',
 			'groups',
 			'breadcrumb',
-			'router',
-			'output'
+			'router'
 		] as $library
 	)
 {
@@ -225,8 +224,7 @@ foreach([
 	}
 }
 
-$NeoFrag	->router->exec()
-			->output->display();
+echo $NeoFrag->router->exec()->output;
 
 /*
 NeoFrag Alpha 0.1.5.3
