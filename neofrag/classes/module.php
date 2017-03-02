@@ -49,10 +49,6 @@ abstract class Module extends Loadable
 				{
 					unset($theme_name);
 				}
-				else
-				{
-					unset($this->load->update);
-				}
 			}
 
 			return [
@@ -216,14 +212,9 @@ abstract class Module extends Loadable
 		return [];
 	}
 
-	public function model($model = '')
-	{
-		return $this->load->model($model ?: $this->name);
-	}
-	
 	public function is_administrable()
 	{
-		return ($controller = $this->load->controller('admin')) && (!isset($controller->administrable) || $controller->administrable);
+		return ($controller = $this->controller('admin')) && (!isset($controller->administrable) || $controller->administrable);
 	}
 
 	public function is_authorized()
@@ -234,25 +225,22 @@ abstract class Module extends Loadable
 		{
 			$allowed = FALSE;
 			
-			if ($controller = $this->load->controller('admin'))
+			if ($this->is_administrable())
 			{
 				if ($this->user('admin'))
 				{
 					$allowed = TRUE;
 				}
-				else if (isset($this->groups($this->user('user_id'))[1]))
+				else if (isset($this->groups($this->user('user_id'))[1]) && ($all_permissions = $this->get_permissions('default')))
 				{
-					if ($all_permissions = $this->get_permissions('default'))
+					foreach ($all_permissions['access'] as $a)
 					{
-						foreach ($all_permissions['access'] as $a)
+						foreach ($a['access'] as $action => $access)
 						{
-							foreach ($a['access'] as $action => $access)
+							if (!empty($access['admin']) && $this->access($this->name, $action))
 							{
-								if (!empty($access['admin']) && $this->access($this->name, $action))
-								{
-									$allowed = TRUE;
-									break 2;
-								}
+								$allowed = TRUE;
+								break 2;
 							}
 						}
 					}

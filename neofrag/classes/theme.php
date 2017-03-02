@@ -79,12 +79,6 @@ abstract class Theme extends Loadable
 	
 	public function load()
 	{
-		if ($this->name != 'default')
-		{
-			array_unshift(NeoFrag::loader()->paths['assets'], 'themes/'.$this->name);
-			array_unshift(NeoFrag::loader()->paths['views'],  'themes/'.$this->name.'/overrides/views', 'themes/'.$this->name.'/views');
-		}
-		
 		return $this;
 	}
 	
@@ -110,7 +104,7 @@ abstract class Theme extends Loadable
 	{
 		if ($dispositions = $this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get())
 		{
-			$this->load->module('live_editor')->load->model()->delete_widgets(array_map('unserialize', $dispositions));
+			$this->module('live_editor')->model()->delete_widgets(array_map('unserialize', $dispositions));
 
 			$this->db	->where('theme', $this->name)
 						->delete('nf_dispositions');

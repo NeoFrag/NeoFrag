@@ -164,7 +164,9 @@ $NeoFrag = load('loader', [
 	],
 	'views' => [
 		'overrides/themes/default/views',
-		'neofrag/themes/default/views'
+		'neofrag/themes/default/views',
+		'overrides/views',
+		'neofrag/views'
 	],
 	'widgets' => [
 		'overrides/widgets',

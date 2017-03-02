@@ -57,7 +57,7 @@ class m_comments_m_comments extends Model
 		}
 		else
 		{
-			$this->_modules[$module_name] = $module = $this->load->module($module_name);
+			$this->_modules[$module_name] = $module = $this->module($module_name);
 		}
 
 		if (method_exists($module, 'comments'))

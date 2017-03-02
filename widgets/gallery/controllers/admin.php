@@ -22,7 +22,7 @@ class w_gallery_c_admin extends Controller
 {
 	public function albums($settings = [])
 	{
-		return $this->load->view('admin_gallery', [
+		return $this->view('admin_gallery', [
 			'category_id' => $settings['category_id'],
 			'categories'  => $this->model()->get_categories(),
 		]);
@@ -30,7 +30,7 @@ class w_gallery_c_admin extends Controller
 	
 	public function image($settings = [])
 	{
-		return $this->load->view('admin_image', [
+		return $this->view('admin_image', [
 			'gallery_id' => $settings['gallery_id'],
 			'gallery'    => $this->model()->get_gallery(),
 		]);
@@ -38,7 +38,7 @@ class w_gallery_c_admin extends Controller
 	
 	public function slider($settings = [])
 	{
-		return $this->load->view('admin_slider', [
+		return $this->view('admin_slider', [
 			'gallery_id' => $settings['gallery_id'],
 			'gallery'    => $this->model()->get_gallery(),
 		]);

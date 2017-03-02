@@ -65,17 +65,14 @@ abstract class NeoFrag
 
 	public function __isset($name)
 	{
-		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		return isset($loader->libraries[$name]) || isset(NeoFrag::loader()->libraries[$name]);
+		return isset($this->load->libraries[$name]) || isset(NeoFrag::loader()->libraries[$name]);
 	}
 
 	public function __get($name)
 	{
-		$loader = is_a($this, 'Loader') ? $this : $this->load;
-
-		if (isset($loader->libraries[$name]))
+		if (property_exists($this, 'load') && isset($this->load->libraries[$name]))
 		{
-			return $loader->libraries[$name];
+			return $this->load->libraries[$name];
 		}
 		else if (isset(NeoFrag::loader()->libraries[$name]))
 		{
@@ -91,7 +88,7 @@ abstract class NeoFrag
 				$type = 'core';
 			}
 			
-			foreach ($loader->paths[$type] as $dir)
+			foreach ($this->load->paths($type) as $dir)
 			{
 				if (!check_file($path = $dir.'/'.$name.'.php') && (!preg_match('/^(.+?)_(.+)/', $name, $match) || !check_file($path = $dir.'/'.$match[1].'s/'.$match[2].'.php')))
 				{
@@ -100,7 +97,7 @@ abstract class NeoFrag
 
 				require_once $path;
 
-				foreach ($loader->paths['config'] as $dir)
+				foreach ($this->load->paths('config') as $dir)
 				{
 					if (check_file($path = $dir.'/'.$name.'.php'))
 					{
@@ -119,12 +116,10 @@ abstract class NeoFrag
 
 				if (!isset($library->load))
 				{
-					$library->load = $loader;
+					$library->load = $this->load;
 				}
 
-				array_unshift($loader->paths['views'], 'overrides/views/'.$name, 'neofrag/views/'.$name);
-
-				return $loader->libraries[$library->name = $name] = $library->set_id();
+				return $this->load->libraries[$library->name = $name] = $library->set_id();
 			}
 		}
 
@@ -198,22 +193,19 @@ abstract class NeoFrag
 
 	public function add_data($data, $content)
 	{
-		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		$loader->data[$data] = $content;
+		$this->load->data[$data] = $content;
 		return $this;
 	}
 
 	public function css($file, $media = 'screen')
 	{
-		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		NeoFrag::loader()->css[] = [$file, $media, $loader->paths];
+		NeoFrag::loader()->css[] = [$file, $media, $this->load];
 		return $this;
 	}
 
 	public function js($file)
 	{
-		$loader = is_a($this, 'Loader') ? $this : $this->load;
-		NeoFrag::loader()->js[] = [$file, $loader->paths];
+		NeoFrag::loader()->js[] = [$file, $this->load];
 		return $this;
 	}
 
@@ -223,28 +215,274 @@ abstract class NeoFrag
 		return $this;
 	}
 
-	public function debug($class, $title = NULL, $loader = FALSE)
+	public function module($name, $force = FALSE)
 	{
-		if ($title === NUll)
+		return $this->_load($name, 'module', 'm_'.$name, NeoFrag::loader()->modules, $name.'/'.$name, $force, function() use ($name){
+			return $this->addons->is_enabled($name, 'module') && $this->access($name, 'module_access');
+		});
+	}
+
+	public function theme($name, $force = FALSE)
+	{
+		return $this->_load($name, 'theme', 't_'.$name, NeoFrag::loader()->themes, $name.'/'.$name, $force);
+	}
+
+	public function widget($name, $force = FALSE)
+	{
+		return $this->_load($name, 'widget', 'w_'.$name, NeoFrag::loader()->widgets, $name.'/'.$name, $force, function() use ($name){
+			return $this->addons->is_enabled($name, 'widget');
+		});
+	}
+
+	public function controller($name)
+	{
+		if ($controller = $this->_load($name, 'controller', preg_replace('/^o_/', '', get_class($this->load->caller)).'_c_'.$name, $this->load->controllers))
 		{
-			$title = get_class($this);
-		}
-		
-		if (!empty($this->override))
-		{
-			$title .= ' '.icon('fa-code-fork');
+			$controller->load = $this->load;
+
+			if (is_a($this->load->caller, $type = 'module') || is_a($this->load->caller, $type = 'widget'))
+			{
+				$controller->$type = $this->load->caller;
+			}
 		}
 
-		$output = '<span class="label label-'.$class.'" data-toggle="tooltip" data-html="true" title="'.utf8_htmlentities(icon('fa-clock-o').' '.round(($this->time[1] - $this->time[0]) * 1000, 2).' ms&nbsp;&nbsp;&nbsp;'.icon('fa-cogs').' '.ceil(($this->memory[1] - $this->memory[0]) / 1024).' kB').'">'.$title.'</span>';
-		
-		NeoFrag::loader()->debug->timeline($output, $this->time[0], $this->time[1]);
-	
-		if ($loader && isset($this->load))
+		return $controller;
+	}
+
+	public function model($name = NULL)
+	{
+		if ($name === NULL)
 		{
-			$output .= $this->load->debugbar();
+			$name = $this->load->caller->name;
 		}
-	
+
+		if ($model = $this->_load($name, 'model', preg_replace('/^o_/', '', get_class($this->load->caller)).'_m_'.$name, $this->load->models))
+		{
+			$model->load = $this->load;
+		}
+
+		return $model;
+	}
+
+	public function authenticator($name, $enabled, $settings = [])
+	{
+		return $this->_load($name, 'authenticator', 'a_'.$name, NeoFrag::loader()->authenticators, NULL, FALSE, NULL, [$name, $enabled, $settings]);
+	}
+
+	public function helper($name)
+	{
+		foreach ($this->load->paths('helpers') as $dir)
+		{
+			if (!check_file($path = $dir.'/'.$name.'.php'))
+			{
+				continue;
+			}
+
+			$this->load->helpers[] = [$path, $name];
+
+			include_once $path;
+
+			break;
+		}
+
+		return $this;
+	}
+
+	public function view($name, $data = [])
+	{
+		foreach ($paths = $this->load->paths('views') as $dir)
+		{
+			if (check_file($path = $dir.'/'.$name.'.tpl.php'))
+			{
+				$data = array_merge($data, $this->load->data);
+
+				if ($this->debug->is_enabled())
+				{
+					$this->load->views[] = [$path, $name.'.tpl.php', $data];
+				}
+
+				return $this->output->parse(file_get_contents($path), $data, $this->load);
+			}
+		}
+
+		trigger_error('Unfound view: '.$name.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+
+		return '';
+	}
+
+	public function form($form)
+	{
+		foreach ($paths = $this->load->paths('forms') as $dir)
+		{
+			if (!check_file($path = $dir.'/'.$form.'.php'))
+			{
+				continue;
+			}
+			
+			if ($this->debug->is_enabled())
+			{
+				$this->load->forms[$dir] = [$path, $form.'.php'];
+			}
+
+			include $path;
+
+			if (!empty($rules))
+			{
+				return $rules;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		trigger_error('Unfound form: '.$form.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+	}
+
+	public function lang($name)
+	{
+		$args = func_get_args();
+		$name = array_shift($args);
+
+		if (count($args) == 1 && $args[0] === NULL)
+		{
+			return preg_replace_callback('/\{lang (.+?)\}/', function($a){
+				return $this->lang($a[1]);
+			}, $name);
+		}
+
+		foreach ($paths = $this->load->paths('lang') as $dir)
+		{
+			foreach ($this->config->langs as $language)
+			{
+				if (!check_file($path = $dir.'/'.$language.'.php'))
+				{
+					continue;
+				}
+
+				if (isset($this->load->langs[$path]))
+				{
+					$lang = $this->load->langs[$path];
+				}
+				else if (isset(NeoFrag::loader()->load->langs[$path]))
+				{
+					$lang = NeoFrag::loader()->load->langs[$path];
+				}
+				else
+				{
+					$lang = [];
+
+					include $path;
+
+					$this->load->langs[$path] = $lang;
+				}
+
+				if (isset($lang[$name]))
+				{
+					if (is_array($lang[$name]))
+					{
+						return $lang[$name];
+					}
+					else
+					{
+						array_unshift($args, $lang[$name]);
+
+						if (($translation = call_user_func_array('p11n', $args)) !== FALSE)
+						{
+							/*if ($this->debug->is_enabled())
+							{
+								$translation = '❤ '.$translation.' ❤';
+							}*/
+							
+							return $translation;
+						}
+					}
+
+					break 2;
+				}
+			}
+		}
+
+		trigger_error('Unfound lang: '.$name.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+
+		return $name;
+	}
+
+	public function debug($color, $title = NULL, $loader = FALSE)
+	{
+		$output = NeoFrag()	->label($title ?: (isset($this->name) ? $this->name : get_class($this)))
+							->icon_if(property_exists($this, 'override') && $this->override, 'fa-code-fork')
+							->color($color)
+							->tooltip(icon('fa-clock-o').' '.round(($this->time[1] - $this->time[0]) * 1000, 2).' ms&nbsp;&nbsp;&nbsp;'.icon('fa-cogs').' '.ceil(($this->memory[1] - $this->memory[0]) / 1024).' kB');
+
+		NeoFrag::loader()->debug->timeline($output, $this->time[0], $this->time[1]);
+
 		return $output;
+	}
+
+	private function _load($name, $type, $class, &$objects, $filename = NULL, $force = FALSE, $is_enabled = NULL, $constructor = [])
+	{
+		if (($force && !empty($objects[$name])) || (!$force && array_key_exists($name, $objects)))
+		{
+			return $objects[$name];
+		}
+		
+		if (!$force && is_callable($is_enabled) && !$is_enabled())
+		{
+			return $objects[$name] = NULL;
+		}
+
+		if ($filename === NULL)
+		{
+			$filename = $name;
+		}
+
+		$paths = $this->load->paths($type.'s');
+		
+		$object = NULL;
+
+		while (list(, $dir) = each($paths))
+		{
+			if (!check_file($path = $dir.'/'.$filename.'.php', $force))
+			{
+				continue;
+			}
+
+			if ($type == 'model' && in_string('modules/', $dir))
+			{
+				$class = preg_replace('/^w_/', 'm_', $class);
+			}
+
+			if (in_string('overrides/', $path))
+			{
+				while (list(, $dir) = each($paths))
+				{
+					if (in_string('overrides/', $o_path = $dir.'/'.$filename.'.php') || !check_file($o_path))
+					{
+						continue;
+					}
+
+					include_once $o_path;
+
+					break;
+				}
+
+				$class = 'o_'.$class;
+			}
+
+			include_once $path;
+
+			$object = call_user_func_array('load', array_merge([$class], $constructor ?: [$name, $type]));
+			
+			break;
+		}
+
+		if (!$force)
+		{
+			$objects[$name] = $object;
+		}
+
+		return $object;
 	}
 }
 

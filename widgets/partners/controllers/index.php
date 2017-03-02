@@ -30,7 +30,7 @@ class w_partners_c_index extends Controller_Widget
 		{
 			$total_partners = count($partners);
 
-			return $this->panel()->body($this->load->view('index', [
+			return $this->panel()->body($this->view('index', [
 				'partners'       => $partners,
 				'total_partners' => $total_partners,
 				'total_slides'   => ceil($total_partners / $settings['display_number']),
@@ -53,7 +53,7 @@ class w_partners_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading('Partenaires')
-						->body($this->load->view('column', [
+						->body($this->view('column', [
 							'partners'      => $partners,
 							'display_style' => $settings['display_style']
 						]));

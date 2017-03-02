@@ -58,7 +58,7 @@ class m_access_c_admin extends Controller_Module
 						$this	->table
 								->add_columns([
 									[
-										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->load->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
+										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
 										'content' => function($data) use ($module, $action){
 											return NeoFrag::loader()->access->count($module->name, $action, $data['id']);
 										},
@@ -112,7 +112,7 @@ class m_access_c_admin extends Controller_Module
 								'type'   => $type,
 								'id'     => $id
 							]).'</div>', 'fa-unlock-alt')
-							->body($this->load->view('index', [
+							->body($this->view('index', [
 								'loader' => $module->load,
 								'module' => $module->name,
 								'type'   => $type,

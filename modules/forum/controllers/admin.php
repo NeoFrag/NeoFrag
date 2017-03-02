@@ -33,7 +33,7 @@ class m_forum_c_admin extends Controller_Module
 		foreach ($this->model()->get_categories() as $category)
 		{
 			$panels[] = $this	->panel()
-								->body($this->load->view('index', $category), FALSE);
+								->body($this->view('index', $category), FALSE);
 		}
 		
 		if (empty($panels))

@@ -146,7 +146,7 @@
 					<?php if (method_exists($NeoFrag->module, 'settings') && $NeoFrag->module('addons')->is_authorized()): ?>
 						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.$NeoFrag->module->name.'.html'); ?>"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> <?php echo i18n('configuration'); ?></span></a>
 					<?php endif; ?>
-					<?php if (($help = $NeoFrag->module->load->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
+					<?php if (($help = $NeoFrag->module->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
 					<?php NeoFrag::loader()->js('neofrag.help'); ?>
 					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($NeoFrag->url->request); ?>" data-help="<?php echo 'admin/help/'.$NeoFrag->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo i18n('help'); ?></span></a>
 					<?php endif; ?>

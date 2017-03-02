@@ -136,17 +136,17 @@ class Access extends Core
 
 		if (!empty($count[1]))
 		{
-			$output[] = '<span class="text-success" data-toggle="tooltip" title="'.$this->load->lang('authorized_members').'" data-original-title="">'.icon('fa-check').' '.$count[1].'</span>';
+			$output[] = '<span class="text-success" data-toggle="tooltip" title="'.$this->lang('authorized_members').'" data-original-title="">'.icon('fa-check').' '.$count[1].'</span>';
 		}
 		
 		if (!empty($count[0]))
 		{
-			$output[] = '<span class="text-danger" data-toggle="tooltip" title="'.$this->load->lang('forbidden_members').'">'.icon('fa-ban').' '.$count[0].'</span>';
+			$output[] = '<span class="text-danger" data-toggle="tooltip" title="'.$this->lang('forbidden_members').'">'.icon('fa-ban').' '.$count[0].'</span>';
 		}
 		
 		if (!$this($module, $action, $id, 'visitors'))
 		{
-			$output[] = '<span class="text-info" data-toggle="tooltip" title="'.$this->load->lang('forbidden_guests').'">'.icon('fa-eye-slash').'</span>';
+			$output[] = '<span class="text-info" data-toggle="tooltip" title="'.$this->lang('forbidden_guests').'">'.icon('fa-eye-slash').'</span>';
 		}
 		
 		return implode(str_repeat('&nbsp;', 3), $output);
@@ -154,7 +154,7 @@ class Access extends Core
 
 	public function init($module_name, $type = 'default', $id = 0)
 	{
-		$module = $this->load->module($module_name);
+		$module = $this->module($module_name);
 		$access = $module->get_permissions($type);
 		
 		if (!empty($access['init']))

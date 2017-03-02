@@ -35,11 +35,11 @@ class m_user_c_index extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this->_panel_profile($user_profile),
-				$this->panel()->body($this->load->view('menu'), FALSE)
+				$this->panel()->body($this->view('menu'), FALSE)
 			),
 			$this->col(
 				$this->_panel_infos(),
-				$this->panel()->body($this->load->view('index', $user_profile)),
+				$this->panel()->body($this->view('index', $user_profile)),
 				$this->_panel_activities()
 			)
 		);
@@ -98,7 +98,7 @@ class m_user_c_index extends Controller_Module
 			$this->row(
 				$this->col(
 					$this->_panel_profile(),
-					$this->panel()->body($this->load->view('menu'), FALSE)
+					$this->panel()->body($this->view('menu'), FALSE)
 				),
 				$this->col(
 					$this	->panel()
@@ -204,7 +204,7 @@ class m_user_c_index extends Controller_Module
 			$this->row(
 				$this->col(
 					$this->_panel_profile(),
-					$this->panel()->body($this->load->view('menu'), FALSE)
+					$this->panel()->body($this->view('menu'), FALSE)
 				),
 				$this->col(
 					$this	->panel()
@@ -539,7 +539,7 @@ class m_user_c_index extends Controller_Module
 			$col = $this->col(
 						$this	->panel()
 								->heading($this('login_title'), 'fa-sign-in')
-								->body($this->load->view('login', [
+								->body($this->view('login', [
 									'form_id' => $form_login->token()
 								]))
 					)
@@ -547,7 +547,7 @@ class m_user_c_index extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading($this('create_account_title'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->load->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
+								->body($this->config->nf_registration_status == 0 ? $this('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
 					)
 					->size('col-md-6')
 		);
@@ -696,7 +696,7 @@ class m_user_c_index extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading()
-						->body(!$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->load->view('messages/inbox', [
+						->body(!$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->view('messages/inbox', [
 							'messages'     => $messages,
 							'allow_delete' => $allow_delete
 						]), FALSE)
@@ -754,7 +754,7 @@ class m_user_c_index extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading($title, 'fa-envelope-o')
-							->body($this->load->view('messages/replies', [
+							->body($this->view('messages/replies', [
 								'replies' => $replies
 							]))
 							->size('col-md-8 col-lg-9'),
@@ -845,8 +845,8 @@ class m_user_c_index extends Controller_Module
 		return [
 			$this	->panel()
 					->heading($username, 'fa-user')
-					->body($this->load->view('profile_public', $this->model()->get_user_profile($user_id))),
-			$this->panel_back($this->load->module('members') ? 'members.html' : '')
+					->body($this->view('profile_public', $this->model()->get_user_profile($user_id))),
+			$this->panel_back($this->module('members') ? 'members.html' : '')
 		];
 	}
 
@@ -856,7 +856,7 @@ class m_user_c_index extends Controller_Module
 
 		return $this->panel()
 					->heading('Mon profil', 'fa-user')
-					->body($this->load->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))))
+					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))))
 					->size('col-md-4 col-lg-3');
 	}
 	
@@ -883,7 +883,7 @@ class m_user_c_index extends Controller_Module
 		$infos['groups'] = $this->groups->user_groups($user_id);
 
 		return $this->panel()
-					->body($this->load->view('infos', $infos))
+					->body($this->view('infos', $infos))
 					->size('col-md-8 col-lg-9');
 	}
 
@@ -899,7 +899,7 @@ class m_user_c_index extends Controller_Module
 		$user_activity = [];
 
 		//TODO
-		if ($forum = $this->load->module('forum'))
+		if ($forum = $this->module('forum'))
 		{
 			$categories = array_filter($this->db->select('category_id')->from('nf_forum_categories')->get(), function($a){
 				return $this->access('forum', 'category_read', $a);
@@ -921,7 +921,7 @@ class m_user_c_index extends Controller_Module
 
 		return $this->panel()
 					->heading('Activité récente')
-					->body($this->load->view('activity', [
+					->body($this->view('activity', [
 						'user_activity' => $user_activity
 					]));
 	}
@@ -930,7 +930,7 @@ class m_user_c_index extends Controller_Module
 	{
 		return $this->panel()
 					->heading('Messagerie privée', 'fa-envelope-o')
-					->body($this->load->view('messages/menu'), FALSE)
+					->body($this->view('messages/menu'), FALSE)
 					->footer('<a href="'.url('user.html').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>', 'left')
 					->size('col-md-4 col-lg-3');
 	}

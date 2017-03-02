@@ -38,13 +38,9 @@ abstract class Controller_Module extends Controller
 		return $this;
 	}
 
-	public function add_action($url, $title, $icon = '', $condition = TRUE)
+	public function add_action($url, $title, $icon = '')
 	{
-		if ($condition)
-		{
-			$this->load->object->add_action($url, $title, $icon);
-		}
-
+		$this->load->caller->add_action($url, $title, $icon);
 		return $this;
 	}
 }

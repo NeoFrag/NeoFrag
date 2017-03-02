@@ -28,7 +28,7 @@ class w_forum_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('last_messages'))
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'messages' => $messages
 						]))
 						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>', 'right');
@@ -49,7 +49,7 @@ class w_forum_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('last_topics'))
-						->body($this->load->view('topics', [
+						->body($this->view('topics', [
 							'topics' => $topics
 						]))
 						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('access_forum').'</a>', 'right');
@@ -66,7 +66,7 @@ class w_forum_c_index extends Controller_Widget
 	{
 		return $this->panel()
 					->heading($this('statistics'), 'fa-signal')
-					->body($this->load->view('statistics', [
+					->body($this->view('statistics', [
 						'topics'    => $topics = $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->row(),
 						'messages'  => $this->db->select('COUNT(message_id)')->from('nf_forum_messages')->row() - $topics,
 						'announces' => $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->where('status', ['-2', '1'])->row(),
@@ -84,7 +84,7 @@ class w_forum_c_index extends Controller_Widget
 
 		return $this->panel()
 					->heading($this('forum_activity'), 'fa-globe')
-					->body($this->load->view('activity', [
+					->body($this->view('activity', [
 						'users'    => $users,
 						'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()
 					]));

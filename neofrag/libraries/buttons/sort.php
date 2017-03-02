@@ -24,7 +24,7 @@ class Button_sort extends Library
 	{
 		return $this->js('neofrag.sortable')
 					->button()
-					->tooltip($this->load->lang('sort'))
+					->tooltip($this->lang('sort'))
 					->icon('fa-arrows-v')
 					->color('link')
 					->style('btn-sortable')

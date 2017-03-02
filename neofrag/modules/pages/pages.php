@@ -58,7 +58,7 @@ class m_pages extends Module
 		}
 		else if ($title === NULL)
 		{
-			$title = $this->load->lang($this->title, NULL);
+			$title = $this->lang($this->title, NULL);
 		}
 		
 		return $title;

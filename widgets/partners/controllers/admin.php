@@ -27,7 +27,7 @@ class w_partners_c_admin extends Controller
 			$settings['id'] = unique_id();
 		}
 
-		return $this->load->view('admin_index', [
+		return $this->view('admin_index', [
 			'display_style'  => $settings['display_style'],
 			'display_number' => $settings['display_number'],
 			'display_height' => $settings['display_height'],
@@ -37,7 +37,7 @@ class w_partners_c_admin extends Controller
 
 	public function column($settings = [])
 	{
-		return $this->load->view('admin_column', [
+		return $this->view('admin_column', [
 			'display_style'  => $settings['display_style']
 		]);
 	}

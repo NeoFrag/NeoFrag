@@ -30,7 +30,7 @@ class m_gallery_c_index extends Controller_Module
 		{
 			$panels[] = $this	->panel()
 								->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'].'.html')
-								->body($this->load->view('index', [
+								->body($this->view('index', [
 									'category_image' => $category['image_id'],
 									'gallery'        => $this->model()->get_gallery($category['category_id'])
 								]), FALSE);
@@ -54,7 +54,7 @@ class m_gallery_c_index extends Controller_Module
 		return [
 			$this	->panel()
 					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name.'.html')
-					->body($this->load->view('index', [
+					->body($this->view('index', [
 						'category_image' => $image_id,
 						'gallery'        => $this->model()->get_gallery($category_id)
 					]), FALSE)
@@ -69,7 +69,7 @@ class m_gallery_c_index extends Controller_Module
 		
 		$panels = [$this->panel()
 						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title, 'fa-photo')
-						->body($this->load->view('gallery', [
+						->body($this->view('gallery', [
 							'title'           => $title,
 							'description'     => $description,
 							'image_id'        => $image_id,
@@ -117,7 +117,7 @@ class m_gallery_c_index extends Controller_Module
 
 		$panel = $this	->panel()
 						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
-						->body($this->load->view('image', [
+						->body($this->view('image', [
 							'image_id'          => $image_id,
 							'file_id'           => $file_id,
 							'thumbnail_file_id' => $thumbnail_file_id,

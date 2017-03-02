@@ -23,13 +23,13 @@ class m_forum_c_search extends Controller
 	public function index($result, $keywords)
 	{
 		$result['message'] = highlight($result['message'], $keywords);
-		return $this->load->view('search/index', $result);
+		return $this->view('search/index', $result);
 	}
 
 	public function detail($result, $keywords)
 	{
 		$result['message'] = highlight($result['message'], $keywords, 1024);
-		return $this->load->view('search/index', $result);
+		return $this->view('search/index', $result);
 	}
 
 	public function search()

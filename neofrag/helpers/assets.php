@@ -43,7 +43,7 @@ function asset($file_path, $file_name = '')
 
 	if (!isset($content))
 	{
-		foreach (NeoFrag::loader()->paths['assets'] as $path)
+		foreach (NeoFrag::loader()->paths('assets') as $path)
 		{
 			if (!check_file($path = $path.'/'.$file_path))
 			{
@@ -118,7 +118,8 @@ function path($file, $file_type = '', $paths = [])
 
 		if (!$paths)
 		{
-			$paths = NeoFrag::loader()->paths['assets'];
+			$loader = NeoFrag::loader()->theme ? NeoFrag::loader()->theme->load : NeoFrag::loader();
+			$paths = $loader->paths('assets');
 		}
 
 		if (!in_array($file_type, ['images', 'css', 'js']))

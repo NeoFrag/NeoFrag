@@ -57,7 +57,7 @@ class m_search_c_index extends Controller_Module
 				
 				foreach ($this->addons->get_modules() as $module)
 				{
-					if (($search_controller = $module->load->controller('search')) && ($columns = $search_controller->search()))
+					if (($search_controller = $module->controller('search')) && ($columns = $search_controller->search()))
 					{
 						foreach ($queries as $query)
 						{
@@ -139,7 +139,7 @@ class m_search_c_index extends Controller_Module
 				$row[] = $this->row(
 					$this	->col(
 								$this	->panel()
-										->body($this->load->view('results', [
+										->body($this->view('results', [
 											'keywords' => $search,
 											'results'  => $results,
 											'count'    => $count
@@ -157,7 +157,7 @@ class m_search_c_index extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading($this('search'), 'fa-search')
-							->body($this->load->view('index', [
+							->body($this->view('index', [
 								'results'  => (bool)$count,
 								'keywords' => $search
 							]))

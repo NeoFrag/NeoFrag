@@ -42,12 +42,12 @@ class t_default extends Theme
 	
 	public function styles_row()
 	{
-		return $this->load->view('live_editor/row');
+		return $this->view('live_editor/row');
 	}
 	
 	public function styles_widget()
 	{
-		return $this->load->view('live_editor/widget');
+		return $this->view('live_editor/widget');
 	}
 	
 	public function install($dispositions = [])

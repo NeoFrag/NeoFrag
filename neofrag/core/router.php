@@ -60,7 +60,7 @@ class Router extends Core
 			}
 		}
 
-		$this->load->theme = $this->load->theme($this->url->admin ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
+		$this->load->theme = $this->theme($this->url->admin ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
 
 		$this->_load($segments);
 		
@@ -69,7 +69,7 @@ class Router extends Core
 
 	private function _load($segments)
 	{
-		if (!$module = $this->load->module = $this->load->module(!in_string('_', $segments[0]) ? str_replace('-', '_', $segments[0]) : 'error'))
+		if (!$module = $this->load->module = $this->module(!in_string('_', $segments[0]) ? str_replace('-', '_', $segments[0]) : 'error'))
 		{
 			return $this->_load($segments[0] != 'pages' ? array_merge([$this->url->admin ? 'admin' : 'pages'], $segments) : ['error']);
 		}
@@ -105,7 +105,7 @@ class Router extends Core
 		$this->segments = array_merge([$module->name, $method], $segments);
 		
 		//Checker Controller
-		if (($checker = $module->load->controller(($this->url->admin ? 'admin_' : '').($this->url->ajax ? 'ajax_' : '').'checker')) && $checker->has_method($method))
+		if (($checker = $module->controller(($this->url->admin ? 'admin_' : '').($this->url->ajax ? 'ajax_' : '').'checker')) && $checker->has_method($method))
 		{
 			try
 			{
@@ -156,7 +156,7 @@ class Router extends Core
 		}
 	
 		//Controller
-		if (($controller = $module->load->controller(implode('_', $controller_name))) && $controller->has_method($method))
+		if (($controller = $module->controller(implode('_', $controller_name))) && $controller->has_method($method))
 		{
 			if ($module->name != 'error' && $module->name != 'admin' && $this->url->admin && !$module->is_authorized())
 			{

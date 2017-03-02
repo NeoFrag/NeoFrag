@@ -30,7 +30,7 @@ class m_news_c_index extends Controller_Module
 
 			$panel = $this	->panel()
 							->heading($news['title'], 'fa-file-text-o', 'news/'.$news['news_id'].'/'.url_title($news['title']).'.html')
-							->body($this->load->view('index', $news));
+							->body($this->view('index', $news));
 
 			if ($news['content'])
 			{
@@ -80,7 +80,7 @@ class m_news_c_index extends Controller_Module
 		
 		$news = $this	->panel()
 						->heading($title, 'fa-file-text-o')
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'news_id'        => $news_id,
 							'category_id'    => $category_id,
 							'user_id'        => $user_id,
@@ -109,7 +109,7 @@ class m_news_c_index extends Controller_Module
 					$this->col(
 						$this	->panel()
 								->heading($this('about_the_author'), 'fa-user')
-								->body($this->load->view('author', [
+								->body($this->view('author', [
 									'user_id'  => $user_id,
 									'username' => $username,
 									'avatar'   => $avatar,
@@ -123,7 +123,7 @@ class m_news_c_index extends Controller_Module
 					$this->col(
 						$this	->panel()
 								->heading($this('more_news_from_author'), 'fa-file-text-o')
-								->body($this->load->view('author_news', [
+								->body($this->view('author_news', [
 									'news' => $this->model()->get_news_by_user($user_id, $news_id)
 								]), FALSE)
 								->size('col-md-6')

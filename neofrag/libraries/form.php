@@ -74,7 +74,7 @@ class Form extends Library
 		{
 			$this->_values = $values;
 
-			$rules = $this->load->form($rules);
+			$rules = $this->form($rules);
 		}
 		
 		foreach ($rules as $var => $options)
@@ -447,7 +447,7 @@ class Form extends Library
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->token().'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '');
+					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->token().'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->lang($options['label'], NULL) : '');
 
 					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
 					{
@@ -554,7 +554,7 @@ class Form extends Library
 		
 		if (!empty($options['description']))
 		{
-			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$this->load->lang($options['description'], NULL);
+			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$this->lang($options['description'], NULL);
 		}
 		
 		if (!empty($this->_errors[$var]))
@@ -659,7 +659,7 @@ class Form extends Library
 			
 			if ($placeholder)
 			{
-				$placeholder = ' placeholder="'.$this->load->lang($placeholder, NULL).'"';
+				$placeholder = ' placeholder="'.$this->lang($placeholder, NULL).'"';
 			}
 		}
 
@@ -828,7 +828,7 @@ class Form extends Library
 				 $output .= '	<div class="checkbox">
 									<label>
 										<input type="checkbox" name="'.$this->token().'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
-										'.$this->load->lang($label, NULL).'
+										'.$this->lang($label, NULL).'
 									</label>
 								</div>';
 			}
@@ -849,7 +849,7 @@ class Form extends Library
 			{
 				 $output .= '	<label class="radio-inline">
 									<input type="radio" name="'.$this->token().'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
-									'.$this->load->lang($label, NULL).'
+									'.$this->lang($label, NULL).'
 								</label>';
 			}
 		}
@@ -873,7 +873,7 @@ class Form extends Library
 
 			foreach ($options['values'] as $value => $label)
 			{
-				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$this->load->lang($label, NULL).'</option>';
+				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$this->lang($label, NULL).'</option>';
 			}
 		}
 		
@@ -897,7 +897,7 @@ class Form extends Library
 	
 	private function _display_legend($var, $options, $post)
 	{
-		return $output = '<div class="form-legend">'.(!empty($options['label']) ? $this->load->lang($options['label'], NULL) : '').'</div>';
+		return $output = '<div class="form-legend">'.(!empty($options['label']) ? $this->lang($options['label'], NULL) : '').'</div>';
 	}
 	
 	private function _has_upload()

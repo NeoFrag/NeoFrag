@@ -23,7 +23,7 @@ class Button_access extends Library
 	public function __invoke($id, $access = '', $module = '', $title = '')
 	{
 		return $this->button()
-					->tooltip($title ?: $this->load->lang('permissions'))
+					->tooltip($title ?: $this->lang('permissions'))
 					->url('admin/access/edit/'.($access ? ($module ?: NeoFrag::loader()->module->name).'/'.$id.'-'.$access : $id).'.html')
 					->icon('fa-unlock-alt')
 					->color('success')

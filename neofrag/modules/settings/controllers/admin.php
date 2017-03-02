@@ -48,7 +48,7 @@ class m_settings_c_admin extends Controller_Module
 			
 			if ($module->name == 'pages')
 			{
-				foreach ($module->load->model()->get_pages() as $page)
+				foreach ($module->model()->get_pages() as $page)
 				{
 					if ($page['published'])
 					{
@@ -126,7 +126,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
@@ -229,7 +229,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
@@ -301,7 +301,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
@@ -409,7 +409,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
@@ -455,7 +455,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
@@ -520,7 +520,7 @@ class m_settings_c_admin extends Controller_Module
 		}
 
 		return $this->row(
-			$this	->col($this->panel()->body($this->load->view('menu'), FALSE))
+			$this	->col($this->panel()->body($this->view('menu'), FALSE))
 					->size('col-md-3'),
 			$this->col(
 						$this	->panel()
@@ -690,7 +690,7 @@ class m_settings_c_admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading($this('website_status'), 'fa-power-off')
-								->body($this->load->view('maintenance')),
+								->body($this->view('maintenance')),
 						$this	->panel()
 								->heading($this('planned_opening'), 'fa-clock-o')
 								->body($form_opening->display())

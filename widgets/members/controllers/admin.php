@@ -22,7 +22,7 @@ class w_members_c_admin extends Controller_Module
 {
 	public function online_mini($settings = [])
 	{
-		return $this->load->view('admin_mini', $settings);
+		return $this->view('admin_mini', $settings);
 	}
 }
 

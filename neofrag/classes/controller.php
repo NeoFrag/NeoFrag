@@ -71,14 +71,9 @@ abstract class Controller extends Translatable
 		}
 	}
 
-	public function model($model = NULL)
-	{
-		return $this->load->object->load->model($model);
-	}
-
 	public function is_authorized($action)
 	{
-		return $this->access($this->load->object->name, $action);
+		return $this->access($this->load->caller->name, $action);
 	}
 }
 

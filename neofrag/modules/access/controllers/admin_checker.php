@@ -52,7 +52,7 @@ class m_access_c_admin_checker extends Controller_Module
 					
 					$object = [
 						'id'     => $id,
-						'title'  => $module[0]->load->lang($title, NULL)
+						'title'  => $module[0]->lang($title, NULL)
 					];
 					
 					unset($object);
@@ -68,13 +68,13 @@ class m_access_c_admin_checker extends Controller_Module
 
 	public function _edit($module_name, $access = '0-default')
 	{
-		$module = $this->load->module($module_name);
+		$module = $this->module($module_name);
 
 		list($id, $type) = explode('-', $access);
 
 		if (($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
 		{
-			return [$module, $type, $access['access'], $id, isset($title) ? $module->load->lang($title, NULL) : NULL];
+			return [$module, $type, $access['access'], $id, isset($title) ? $module->lang($title, NULL) : NULL];
 		}
 	}
 }

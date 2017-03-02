@@ -30,7 +30,7 @@ class m_live_editor_c_index extends Controller_Module
 		
 		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->load->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
+			if ($module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
 			{
 				$modules[$module->name] = $module->get_title();
 			}
@@ -42,7 +42,7 @@ class m_live_editor_c_index extends Controller_Module
 			'index' => NeoFrag::loader()->lang('home')
 		], $modules);
 
-		echo $this->load->view('index', [
+		echo $this->view('index', [
 			'modules'       => $modules,
 			'styles_row'    => NeoFrag::loader()->theme->styles_row(),
 			'styles_widget' => NeoFrag::loader()->theme->styles_widget()

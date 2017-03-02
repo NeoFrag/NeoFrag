@@ -28,7 +28,7 @@ class w_gallery_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('ours_galleries'))
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'categories' => $categories
 						]), FALSE)
 						->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
@@ -45,7 +45,7 @@ class w_gallery_c_index extends Controller_Widget
 	{
 		return $this->panel()
 					->heading($this('ours_albums'))
-					->body($this->load->view('gallery', [
+					->body($this->view('gallery', [
 						'gallery' => $this->model()->get_gallery($settings['category_id'])
 					]), FALSE)
 					->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
@@ -79,7 +79,7 @@ class w_gallery_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($images['title'])
-						->body($this->load->view('slider', [
+						->body($this->view('slider', [
 							'images' => $images
 						]), FALSE);
 		}

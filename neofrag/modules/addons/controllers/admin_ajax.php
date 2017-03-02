@@ -230,28 +230,28 @@ class m_addons_c_admin_ajax extends Controller_Module
 	{
 		return $this->panel()
 					->heading('Liste des modules', 'fa-edit')
-					->body($this->load->view('modules'), FALSE);
+					->body($this->view('modules'), FALSE);
 	}
 	
 	private function _themes_list()
 	{
 		return $this->panel()
 					->heading('Liste des thèmes', 'fa-tint')
-					->body($this->load->view('themes'));
+					->body($this->view('themes'));
 	}
 	
 	private function _widgets_list()
 	{
 		return $this->panel()
 					->heading('Liste des widgets', 'fa-cubes')
-					->body($this->load->view('widgets'), FALSE);
+					->body($this->view('widgets'), FALSE);
 	}
 	
 	private function _languages_list()
 	{
 		return $this->panel()
 					->heading('Liste des langues', 'fa-book')
-					->body($this->load->view('languages', [
+					->body($this->view('languages', [
 						'languages' => $this->addons->get_languages()
 					]), FALSE);
 	}
@@ -260,7 +260,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 	{
 		return $this->panel()
 					->heading('Liste des authentificateurs', 'fa-user-circle')
-					->body($this->load->view('authenticators', [
+					->body($this->view('authenticators', [
 						'authenticators' => $this->addons->get_authenticators(TRUE)
 					]), FALSE);
 	}

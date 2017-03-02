@@ -28,7 +28,7 @@ class Breadcrumb extends Core
 		
 		if (empty($links) && $this->url->segments[0] == 'index')
 		{
-			array_unshift($links, [$this->load->lang('home'), '', 'fa-map-marker']);
+			array_unshift($links, [$this->lang('home'), '', 'fa-map-marker']);
 		}
 		else
 		{

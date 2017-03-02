@@ -29,7 +29,7 @@ class Button_submit extends Button
 			$tag = 'button';
 		};
 
-		return $this->title($title ?: $this->load->lang('save'))
+		return $this->title($title ?: $this->lang('save'))
 					->color('primary');
 	}
 }

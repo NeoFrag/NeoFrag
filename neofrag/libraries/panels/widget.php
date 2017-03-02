@@ -54,7 +54,7 @@ class Panel_widget extends Panel
 								->where('widget_id', $this->_widget)
 								->row();
 
-		if ($widget_data && $widget = $this->load->widget($widget_data['widget']))
+		if ($widget_data && $widget = $this->widget($widget_data['widget']))
 		{
 			$output = implode(array_map(function($a) use ($widget_data){
 				if (is_a($a, 'Panel'))
