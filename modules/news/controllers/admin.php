@@ -27,8 +27,8 @@ class m_news_c_admin extends Controller_Module
 		$news = $this	->table
 						->add_columns([
 							[
-								'content' => function($data, $loader){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$loader->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$loader->lang('awaiting_publication').'" style="color: #535353;"></i>';
+								'content' => function($data){
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('awaiting_publication').'" style="color: #535353;"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -62,7 +62,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => $this('author'),
 								'content' => function($data){
-									return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : i18n('guest');
+									return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : $this->lang('guest');
 								},
 								'sort'    => function($data){
 									return $data['username'];
@@ -81,7 +81,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.i18n('comments').'"></i>',
+								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('comments').'"></i>',
 								'content' => function($data){
 									return NeoFrag::loader()->comments->admin_comments('news', $data['news_id']);
 								},

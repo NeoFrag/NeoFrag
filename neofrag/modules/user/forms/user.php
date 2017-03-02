@@ -26,7 +26,7 @@ $rules = [
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
 			{
-				return i18n('username_unavailable');
+				return $this->lang('username_unavailable');
 			}
 		}
 	]
@@ -42,7 +42,7 @@ if (!NeoFrag::loader()->url->admin)
 			'check' => function($value, $post){
 				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag::loader()->password->is_valid($value.($salt = NeoFrag::loader()->user('salt')), NeoFrag::loader()->user('password'), (bool)$salt))
 				{
-					return i18n('invalid_password');
+					return $this->lang('invalid_password');
 				}
 			}
 		],
@@ -74,7 +74,7 @@ $rules = array_merge($rules, [
 		'check' => function($value) use ($email){
 			if ($value != $email && NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 			{
-				return i18n('email_unavailable');
+				return $this->lang('email_unavailable');
 			}
 		}
 	],
@@ -91,22 +91,22 @@ $rules = array_merge($rules, [
 		'value'       => $this->form->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
-		'info'        => i18n('file_icon', 250, file_upload_max_size() / 1024 / 1024),
+		'info'        => $this->lang('file_icon', 250, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return i18n('select_image_file');
+				return $this->lang('select_image_file');
 			}
 			
 			list($w, $h) = getimagesize($filename);
 			
 			if ($w != $h)
 			{
-				return i18n('avatar_must_be_square');
+				return $this->lang('avatar_must_be_square');
 			}
 			else if ($w < 250)
 			{
-				return i18n('avatar_size_error', 250);
+				return $this->lang('avatar_size_error', 250);
 			}
 		},
 		'post_upload' => function($filename){
@@ -120,7 +120,7 @@ $rules = array_merge($rules, [
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
 			{
-				return i18n('invalid_birth_date');
+				return $this->lang('invalid_birth_date');
 			}
 		}
 	],

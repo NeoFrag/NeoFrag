@@ -30,9 +30,9 @@ foreach ($data['messages'] as $i => $message)
 ?>
 	<div class="media-<?php echo $media; ?>">
 		<?php if ($message['user_id']): ?>
-			<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
+			<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
 		<?php else: ?>
-			<?php echo $NeoFrag->user->avatar(NULL); ?>
+			<?php echo $this->user->avatar(NULL); ?>
 		<?php endif; ?>
 	</div>
 <?php
@@ -41,14 +41,14 @@ foreach ($data['messages'] as $i => $message)
 ?>
 	<div class="media-body<?php if ($media == 'right') echo ' text-right'; ?>">
 		<?php
-			if (($NeoFrag->user() && $NeoFrag->user('user_id') == $message['user_id']) || $NeoFrag->access('talks', 'delete', $message['talk_id']))
+			if (($this->user() && $this->user('user_id') == $message['user_id']) || $this->access('talks', 'delete', $message['talk_id']))
 			{
 				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.$this->button_delete('ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
 			}
 		?>
 		<h4 class="media-heading">
 		<?php
-			$title = [$message['user_id'] ? $NeoFrag->user->link($message['user_id'], $message['username']) : '<i>'.i18n('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
+			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
 			
 			if ($media == 'right')
 			{
@@ -58,7 +58,7 @@ foreach ($data['messages'] as $i => $message)
 			echo implode(' ', $title);
 		?>
 		</h4>
-		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.i18n('removed_message').'</i>'; ?>
+		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.$this->lang('removed_message').'</i>'; ?>
 	</div>
 <?php
 	$output = [$avatar, ob_get_clean()];
@@ -81,5 +81,5 @@ foreach ($data['messages'] as $i => $message)
 }
 ?>
 <?php if (!$count && empty($data['user_id']) && empty($data['position'])): ?>
-	<div class="text-center"><?php echo i18n('no_messages'); ?></div>
+	<div class="text-center"><?php echo $this->lang('no_messages'); ?></div>
 <?php endif; ?>

@@ -1,11 +1,11 @@
 <div class="media">
 	<div class="media-left">
-		<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']); ?>
+		<?php echo $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']); ?>
 	</div>
 	<div class="media-body">
-		<div><?php echo $NeoFrag->user->link($data['user_id'], $data['username']); ?></div>
+		<div><?php echo $this->user->link($data['user_id'], $data['username']); ?></div>
 		<p>
-			<small><?php echo icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.i18n($data['admin'] ? 'admin' : 'member').' '.i18n($data['online'] ? 'online' : 'offline'); ?></small>
+			<small><?php echo icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'admin' : 'member').' '.$this->lang($data['online'] ? 'online' : 'offline'); ?></small>
 		</p>
 	</div>
 </div>

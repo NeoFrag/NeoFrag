@@ -120,7 +120,7 @@ class m_user_c_index extends Controller_Module
 			->add_columns([
 				[
 					'content' => function($data){
-						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.i18n('persistent_connection').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.i18n('nonpersistent_connection').'"></i>';
+						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.$this->lang('persistent_connection').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.$this->lang('nonpersistent_connection').'"></i>';
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
@@ -140,8 +140,8 @@ class m_user_c_index extends Controller_Module
 				],
 				[
 					'title'   => $this('reference'),
-					'content' => function($data, $loader){
-						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
 					}
 				],
 				[
@@ -186,8 +186,8 @@ class m_user_c_index extends Controller_Module
 				],
 				[
 					'title'   => $this('reference'),
-					'content' => function($data, $loader){
-						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('unknown');
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
 					}
 				],
 				[
@@ -401,7 +401,7 @@ class m_user_c_index extends Controller_Module
 				'check' => function($value){
 					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
 					{
-						return i18n('username_unavailable');
+						return $this->lang('username_unavailable');
 					}
 				}
 			],
@@ -419,7 +419,7 @@ class m_user_c_index extends Controller_Module
 				'check' => function($value, $post){
 					if ($post['password'] != $value)
 					{
-						return i18n('password_not_match');
+						return $this->lang('password_not_match');
 					}
 				}
 			],
@@ -430,7 +430,7 @@ class m_user_c_index extends Controller_Module
 				'check' => function($value){
 					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 					{
-						return i18n('email_unavailable');
+						return $this->lang('email_unavailable');
 					}
 				}
 			]
@@ -579,7 +579,7 @@ class m_user_c_index extends Controller_Module
 						'check' => function($value){
 							if (!NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
 							{
-								return i18n('email_not_found');
+								return $this->lang('email_not_found');
 							}
 						}
 					]
@@ -629,7 +629,7 @@ class m_user_c_index extends Controller_Module
 						'check' => function($value, $post){
 							if ($post['password'] != $value)
 							{
-								return i18n('password_not_match');
+								return $this->lang('password_not_match');
 							}
 						}
 					]

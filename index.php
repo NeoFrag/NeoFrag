@@ -187,7 +187,6 @@ foreach ([
 			'file',
 			'geolocalisation',
 			'dir',
-			'i18n',
 			'input',
 			'location',
 			'notify',

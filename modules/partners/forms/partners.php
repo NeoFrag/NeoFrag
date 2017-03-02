@@ -31,11 +31,11 @@ $rules = [
 		'value'       => $this->form->value('logo_light'),
 		'type'        => 'file',
 		'upload'      => 'partners',
-		'info'        => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
+		'info'        => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return i18n('select_image_file');
+				return $this->lang('select_image_file');
 			}
 		},
 		'description' => 'Pour être affiché sur un fond foncé <i>(suivant le thème utilisé)</i>'
@@ -45,11 +45,11 @@ $rules = [
 		'value'       => $this->form->value('logo_dark'),
 		'type'        => 'file',
 		'upload'      => 'partners',
-		'info'        => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
+		'info'        => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return i18n('select_image_file');
+				return $this->lang('select_image_file');
 			}
 		},
 		'description' => 'Pour être affiché sur un fond clair <i>(suivant le thème utilisé)</i>'

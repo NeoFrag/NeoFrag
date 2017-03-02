@@ -4,4 +4,4 @@
 <br />
 <br />
 <br />
-<a href="<?php echo url(); ?>"><?php echo $NeoFrag->config->nf_name; ?></a>
+<a href="<?php echo url(); ?>"><?php echo $this->config->nf_name; ?></a>

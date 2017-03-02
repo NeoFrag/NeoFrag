@@ -2,9 +2,9 @@
 <div class="media">
 	<div class="media-left">
 	<?php if ($message['user_id']): ?>
-		<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
+		<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
 	<?php else: ?>
-		<?php echo $NeoFrag->user->avatar(NULL); ?>
+		<?php echo $this->user->avatar(NULL); ?>
 	<?php endif; ?>
 	</div>
 	<div class="media-body">

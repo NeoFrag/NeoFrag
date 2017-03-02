@@ -69,11 +69,6 @@ abstract class Loadable extends Translatable
 		return $title;
 	}
 
-	public function debug($class, $title = NULL, $loader = false)
-	{
-		return parent::debug($class, $this->name, TRUE);
-	}
-	
 	public function install()
 	{
 		$this->db->insert('nf_settings_addons', [

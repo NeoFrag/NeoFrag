@@ -4,10 +4,10 @@
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 				<?php echo icon('fa-bars'); ?>
 			</button>
-			<?php if ($NeoFrag->config->nf_maintenance_logo): ?>
-			<img src="<?php echo path($NeoFrag->config->nf_maintenance_logo); ?>" class="logo" alt="" />
+			<?php if ($this->config->nf_maintenance_logo): ?>
+			<img src="<?php echo path($this->config->nf_maintenance_logo); ?>" class="logo" alt="" />
 			<?php else: ?>
-			<span class="navbar-brand"><?php echo $NeoFrag->config->nf_name; ?></span>
+			<span class="navbar-brand"><?php echo $this->config->nf_name; ?></span>
 			<?php endif; ?>
 		</div>
 		<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
@@ -15,7 +15,7 @@
 				<?php
 					foreach (['facebook' => 'Facebook', 'twitter' => 'Twitter', 'google-plus' => 'Google+', 'steam' => 'Steam', 'twitch' => 'Twitch'] as $name => $title)
 					{
-						if ($url = $NeoFrag->config->{'nf_maintenance_'.$name})
+						if ($url = $this->config->{'nf_maintenance_'.$name})
 						{
 							echo '<li><a href="'.$url.'">'.icon('fa-'.$name).' '.$title.'</a></li>';
 						}
@@ -29,32 +29,32 @@
 	<div class="intro-body">
 		<div class="container">
 			<h1 class="brand-heading"><?php echo $data['page_title']; ?></h1>
-			<p class="intro-text"><?php echo bbcode($NeoFrag->config->nf_maintenance_content) ?: i18n('our_website_is_unavailable'); ?></p>
-			<?php if ($NeoFrag->config->nf_maintenance_opening): ?>
-				<?php echo i18n('coming_soon'); ?>
-				<div id="countdown" class="countdownHolder" data-timestamp="<?php echo date_create($NeoFrag->config->nf_maintenance_opening)->getTimestamp(); ?>"></div>
+			<p class="intro-text"><?php echo bbcode($this->config->nf_maintenance_content) ?: $this->lang('our_website_is_unavailable'); ?></p>
+			<?php if ($this->config->nf_maintenance_opening): ?>
+				<?php echo $this->lang('coming_soon'); ?>
+				<div id="countdown" class="countdownHolder" data-timestamp="<?php echo date_create($this->config->nf_maintenance_opening)->getTimestamp(); ?>"></div>
 			<?php endif; ?>
 		</div>
 	</div>
 </section>
 <section id="login">
-	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.i18n('hide'); ?></a>
+	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.$this->lang('hide'); ?></a>
 	<div class="login-body">
-		<h2><?php echo i18n('login_title'); ?></h2>
-		<form action="<?php echo url($NeoFrag->url->request); ?>" method="post">
+		<h2><?php echo $this->lang('login_title'); ?></h2>
+		<form action="<?php echo url($this->url->request); ?>" method="post">
 			<div class="form-group">
-				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo i18n('username'); ?>" />
+				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473'); ?>[login]" class="form-control" placeholder="<?php echo $this->lang('username'); ?>" />
 			</div>
 			<div class="form-group">
-				<input type="password" name="<?php echo $token; ?>[password]" class="form-control" placeholder="<?php echo i18n('password'); ?>" />
+				<input type="password" name="<?php echo $token; ?>[password]" class="form-control" placeholder="<?php echo $this->lang('password'); ?>" />
 			</div>
-			<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.i18n('login_title'); ?></button>
+			<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.$this->lang('login_title'); ?></button>
 		</form>
 	</div>
 </section>
 <footer>
 	<a href="#" class="btn-login"><?php echo icon('fa-unlock-alt'); ?></a>
 	<div class="container text-center">
-		<p><?php echo i18n('copyright_all_rights_reserved'); ?></p>
+		<p><?php echo $this->lang('copyright_all_rights_reserved'); ?></p>
 	</div>
 </footer>

@@ -570,7 +570,7 @@ class m_settings_c_admin extends Controller_Module
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
-							return i18n('select_image_file');
+							return $this->lang('select_image_file');
 						}
 					}
 				],
@@ -583,7 +583,7 @@ class m_settings_c_admin extends Controller_Module
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
-							return i18n('select_image_file');
+							return $this->lang('select_image_file');
 						}
 					}
 				],

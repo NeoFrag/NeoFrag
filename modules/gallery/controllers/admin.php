@@ -25,8 +25,8 @@ class m_gallery_c_admin extends Controller_Module
 		$gallery = $this->table
 						->add_columns([
 							[
-								'content' => function($data, $loader){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$loader->lang('published').'"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="'.$loader->lang('not_published').'"></i>';
+								'content' => function($data){
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$this->lang('published').'"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="'.$this->lang('not_published').'"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -200,7 +200,7 @@ class m_gallery_c_admin extends Controller_Module
 									'check'  => function($filename, $ext){
 										if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 										{
-											return i18n('select_image_file');
+											return $this->lang('select_image_file');
 										}
 									},
 									'rules'  => 'required'
@@ -220,8 +220,8 @@ class m_gallery_c_admin extends Controller_Module
 		$gallery_table = $this	->table
 								->add_columns([
 									[
-										'content' => function($data, $loader){
-											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+										'content' => function($data){
+											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$this->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
 										},
 										'size'    => TRUE
 									],
@@ -253,9 +253,9 @@ class m_gallery_c_admin extends Controller_Module
 									],
 									[
 										'content' => [
-											function($data, $loader){
+											function($data){
 												return $this->button()
-															->tooltip($loader->lang('see_image'))
+															->tooltip($this->lang('see_image'))
 															->icon('fa-eye')
 															->url('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html')
 															->compact()
@@ -452,8 +452,8 @@ class m_gallery_c_admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this('preview_image'), 'fa-photo')
-						->body(function($data, $loader) use ($image_id, $title, $description, $thumbnail_file_id){
-							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$loader->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+						->body(function($data) use ($image_id, $title, $description, $thumbnail_file_id){
+							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
 						})
 						->size('col-md-4 col-lg-3')
 			)

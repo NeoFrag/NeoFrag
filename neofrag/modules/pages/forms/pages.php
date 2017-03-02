@@ -44,7 +44,7 @@ $rules = [
 			
 			if ($value != $name && NeoFrag::loader()->db->select('1')->from('nf_pages')->where('name', $value)->row())
 			{
-				return i18n('access_path_already_used');
+				return $this->lang('access_path_already_used');
 			}
 		}
 	],

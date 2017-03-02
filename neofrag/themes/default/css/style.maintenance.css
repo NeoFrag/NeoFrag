@@ -1,7 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
-	background: <?php echo color2hex($NeoFrag->config->nf_maintenance_background_color) ?: '#000'; ?>;
-	color: <?php echo $color = color2hex($NeoFrag->config->nf_maintenance_text_color) ?: '#fff'; ?>;
+	background: <?php echo color2hex($this->config->nf_maintenance_background_color) ?: '#000'; ?>;
+	color: <?php echo $color = color2hex($this->config->nf_maintenance_text_color) ?: '#fff'; ?>;
 	overflow: hidden;
 }
 
@@ -121,7 +121,7 @@ img.logo {
 	height: auto;
 	padding: 100px 0;
 	text-align: center;
-	background: url('<?php echo $NeoFrag->config->nf_maintenance_background ? path($NeoFrag->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg'); ?>') <?php echo $NeoFrag->config->nf_maintenance_background_repeat ?: 'no-repeat'; ?> <?php echo $NeoFrag->config->nf_maintenance_background_position ?: 'top center'; ?>;
+	background: url('<?php echo $this->config->nf_maintenance_background ? path($this->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg'); ?>') <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat'; ?> <?php echo $this->config->nf_maintenance_background_position ?: 'top center'; ?>;
 }
 
 .intro .intro-body {

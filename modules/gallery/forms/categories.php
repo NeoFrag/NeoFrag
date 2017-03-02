@@ -30,11 +30,11 @@ $rules = [
 		'value'  => $this->form->value('image'),
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
-		'info'   => i18n('file_picture', file_upload_max_size() / 1024 / 1024),
+		'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return i18n('select_image_file');
+				return $this->lang('select_image_file');
 			}
 		}
 	],
@@ -43,22 +43,22 @@ $rules = [
 		'value'  => $this->form->value('icon'),
 		'upload' => 'gallery/categories',
 		'type'   => 'file',
-		'info'   => i18n('file_icon', 16, file_upload_max_size() / 1024 / 1024),
+		'info'   => $this->lang('file_icon', 16, file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return i18n('select_image_file');
+				return $this->lang('select_image_file');
 			}
 			
 			list($w, $h) = getimagesize($filename);
 			
 			if ($w != $h)
 			{
-				return i18n('icon_must_be_square');
+				return $this->lang('icon_must_be_square');
 			}
 			else if ($w < 16)
 			{
-				return i18n('icon_size_error', 16);
+				return $this->lang('icon_size_error', 16);
 			}
 		},
 		'post_upload' => function($filename){
