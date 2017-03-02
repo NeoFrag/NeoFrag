@@ -10,7 +10,7 @@
 					<dt><?php echo i18n('theme_title'); ?></dt>
 					<dd><?php echo $data['theme']->get_title(); ?></dd>
 					<dt><?php echo i18n('description'); ?></dt>
-					<dd><?php echo $data['theme']->load->lang($data['theme']->description, NULL); ?></dd>
+					<dd><?php echo $data['theme']->lang($data['theme']->description, NULL); ?></dd>
 					<dt><?php echo i18n('version'); ?></dt>
 					<dd><?php echo $data['theme']->version; ?></dd>
 					<dt><?php echo i18n('authors'); ?></dt>

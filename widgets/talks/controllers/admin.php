@@ -22,7 +22,7 @@ class w_talks_c_admin extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		return $this->load->view('admin', [
+		return $this->view('admin', [
 			'talks'    => $this->db->select('talk_id', 'name')->from('nf_talks')->get(),
 			'settings' => $settings
 		]);

@@ -38,7 +38,7 @@ class m_monitoring_c_admin extends Controller_Module
 		natcasesort($extensions);
 
 		$phpinfo = [$this	->panel()
-							->body($this->load->view('phpinfo', array_merge($this->model()->get_info(), [
+							->body($this->view('phpinfo', array_merge($this->model()->get_info(), [
 								'extensions' => $extensions
 							])))];
 
@@ -62,10 +62,10 @@ class m_monitoring_c_admin extends Controller_Module
 
 		return $this->row(
 			$this	->col(
-						$this->panel()->body($this->load->view('monitoring'), FALSE),
+						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
 								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-phpinfo">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
-								->body($this->load->view('infos', [
+								->body($this->view('infos', [
 									'check'   => $this->model()->check_server(),
 									'phpinfo' => $phpinfo
 								]))
@@ -84,8 +84,8 @@ class m_monitoring_c_admin extends Controller_Module
 							$this	->col(
 										$this	->panel()
 												->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
-												->body($this->load->view('storage'))
-												->footer($this->load->view('storage-footer'))
+												->body($this->view('storage'))
+												->footer($this->view('storage-footer'))
 												->color('default panel-storage')
 									)
 									->size('col-md-6 col-lg-4')

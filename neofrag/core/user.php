@@ -73,7 +73,7 @@ class User extends Core
 			}
 		}
 
-		setlocale(LC_ALL, $this->load->lang('locale'));
+		setlocale(LC_ALL, $this->lang('locale'));
 
 		$this->_init();
 	}
@@ -166,7 +166,7 @@ class User extends Core
 
 					if ($form_login->is_valid($post))
 					{
-						$user_id = $this->load->module('user', TRUE)->model()->check_login($post['login'], $hash, $salt);
+						$user_id = $this->module('user', TRUE)->model()->check_login($post['login'], $hash, $salt);
 
 						if ($user_id > 0 && $this->password->is_valid($post['password'].$salt, $hash, (bool)$salt))
 						{
@@ -175,7 +175,7 @@ class User extends Core
 						}
 					}
 					
-					$theme = $this->load->theme('default')->load();
+					$theme = $this->theme('default')->load();
 					
 					$this	->css('font.open-sans.300.400.600.700.800')
 							->css('jquery.countdown')
@@ -183,8 +183,8 @@ class User extends Core
 							->js('jquery.countdown')
 							->js('maintenance');
 					
-					echo $theme->load->view('default', [
-						'body'       => $theme->load->view('maintenance', [
+					echo $theme->view('default', [
+						'body'       => $theme->view('maintenance', [
 							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')
 						]),
 						'lang'       => $this->config->lang,
@@ -317,7 +317,7 @@ class User extends Core
 			$username = $this('username');
 		}
 
-		return $this->load->view('avatar', [
+		return $this->view('user/avatar', [
 			'user_id'  => $user_id,
 			'username' => $username,
 			'avatar'   => !empty($avatar) ? path($avatar) : image($sex == 'female' ? 'default_avatar_female.jpg' : 'default_avatar_male.jpg')

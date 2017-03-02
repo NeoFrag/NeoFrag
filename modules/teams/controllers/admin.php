@@ -249,7 +249,7 @@ class m_teams_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this('players'), 'fa-users')
 						->body($this->table->display())
-						->footer($this->load->view('users', [
+						->footer($this->view('users', [
 							'users'   => $users,
 							'roles'   => $roles,
 							'form_id' => $form_users->token()

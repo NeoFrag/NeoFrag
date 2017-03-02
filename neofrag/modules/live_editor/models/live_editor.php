@@ -112,7 +112,7 @@ class m_live_editor_m_live_editor extends Model
 			
 			if (!empty($widget->types))
 			{
-				$types[$widget->name] = $widget->load->lang($widget->types, NULL);
+				$types[$widget->name] = $widget->lang($widget->types, NULL);
 				array_natsort($types[$widget->name]);
 			}
 		}

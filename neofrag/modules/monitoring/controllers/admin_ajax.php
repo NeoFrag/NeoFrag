@@ -24,7 +24,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 	public function index($refresh)
 	{
-		if ($refresh || $this->load->object->need_checking())
+		if ($refresh || $this->module->need_checking())
 		{
 			$this->config('nf_monitoring_last_check', time());
 

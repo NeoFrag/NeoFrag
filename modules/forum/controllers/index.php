@@ -26,7 +26,7 @@ class m_forum_c_index extends Controller_Module
 		
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = $this->panel()->body($this->load->view('index', $category), FALSE);
+			$panels[] = $this->panel()->body($this->view('index', $category), FALSE);
 		}
 		
 		if (empty($panels))
@@ -59,7 +59,7 @@ class m_forum_c_index extends Controller_Module
 		if (!empty($subforums))
 		{
 			$panels[] = $this	->panel()
-								->body($this->load->view('index', [
+								->body($this->view('index', [
 									'title'  => $this('subforums'),
 									'forums' => $subforums
 								]), FALSE);
@@ -68,7 +68,7 @@ class m_forum_c_index extends Controller_Module
 		if (!empty($announces))
 		{
 			$panels[] = $this	->panel()
-								->body($this->load->view('forum', [
+								->body($this->view('forum', [
 									'title'  => $this('announces'),
 									'icon'   => 'fa-flag',
 									'topics' => $announces
@@ -76,7 +76,7 @@ class m_forum_c_index extends Controller_Module
 		}
 		
 		$panels[] = $this	->panel()
-							->body($this->load->view('forum', [
+							->body($this->view('forum', [
 								'title'  => $title,
 								'icon'   => 'fa-navicon',
 								'topics' => $topics
@@ -160,7 +160,7 @@ class m_forum_c_index extends Controller_Module
 		
 		$panels[] = $this	->panel()
 							->heading($this('new_topic'), 'fa-file-text-o')
-							->body($this->load->view('new', [
+							->body($this->view('new', [
 								'form_id'     => $this->form->token(),
 								'post'        => $post,
 								'forum_id'    => $forum_id,
@@ -290,7 +290,7 @@ class m_forum_c_index extends Controller_Module
 		}
 		
 		$panels[] = $this	->panel()
-							->body($this->load->view('topic', array_merge($topic, [
+							->body($this->view('topic', array_merge($topic, [
 								'category_id'       => $category_id,
 								'topic_id'          => $topic_id,
 								'title'             => $title,
@@ -306,7 +306,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = $actions;
 			
-			$panels[] = $this->panel()->body($this->load->view('messages', [
+			$panels[] = $this->panel()->body($this->view('messages', [
 				'category_id'       => $category_id,
 				'topic_id'          => $topic_id,
 				'title'             => $title,
@@ -361,7 +361,7 @@ class m_forum_c_index extends Controller_Module
 
 			$panels[] = $this	->panel()
 								->heading('<a name="reply"></a>'.$this('reply_topic'), 'fa-file-text-o')
-								->body($this->load->view('new', [
+								->body($this->view('new', [
 									'form_id'  => $this->form->token()
 								]), FALSE);
 		}
@@ -512,7 +512,7 @@ class m_forum_c_index extends Controller_Module
 		
 		$panels[] = $this	->panel()
 							->heading($this($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
-							->body($this->load->view('new', [
+							->body($this->view('new', [
 								'form_id'  => $this->form->token(),
 								'post'     => $post,
 								'topic_id' => $topic_id,

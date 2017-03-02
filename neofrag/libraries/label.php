@@ -64,7 +64,7 @@ class Label extends Html
 
 			if ($this->_title)
 			{
-				$output[] = $this->load->lang($this->_title, NULL);
+				$output[] = $this->lang($this->_title, NULL);
 			}
 
 			$content = implode(' ', $output);
@@ -78,6 +78,7 @@ class Label extends Html
 			if ($this->_tooltip)
 			{
 				$attrs['data-toggle'] = 'tooltip';
+				$attrs['data-html']   = 'true';
 				$attrs['title']       = $this->_tooltip;
 			}
 			else if ($this->_popover)

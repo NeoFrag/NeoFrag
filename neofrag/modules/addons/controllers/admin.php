@@ -46,7 +46,7 @@ class m_addons_c_admin extends Controller_Module
 												->outline()),
 						$this	->panel()
 								->heading('Composants du site', 'fa-puzzle-piece')
-								->body($this->load->view('addons', [
+								->body($this->view('addons', [
 									'addons' => [
 										'modules' => [
 											'title' => 'Modules',

@@ -28,7 +28,7 @@ class w_awards_c_index extends Controller_Widget
 
 			return $this->panel()
 						->heading('Nos derniers palmarès')
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'awards' => array_slice($awards, 0, 5)
 						]), FALSE)
 						->footer('<a href="'.url('awards.html').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
@@ -47,7 +47,7 @@ class w_awards_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading('Palmarès')
-						->body($this->load->view('best_team', [
+						->body($this->view('best_team', [
 							'team_id'    => $best_team[0]['team_id'],
 							'name'       => $best_team[0]['name'],
 							'team_title' => $best_team[0]['team_title'],
@@ -69,7 +69,7 @@ class w_awards_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading('Palmarès')
-						->body($this->load->view('best_game', [
+						->body($this->view('best_game', [
 							'game_id'    => $best_game[0]['game_id'],
 							'name'       => $best_game[0]['name'],
 							'game_title' => $best_game[0]['game_title'],

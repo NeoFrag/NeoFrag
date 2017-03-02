@@ -106,14 +106,14 @@ class m_admin_c_admin extends Controller_Module
 							$this	->panel_widget(1),
 							$this	->panel()
 									->heading('<a href="https://neofr.ag">'.$this('nf_news').'</a>', 'fa-newspaper-o')
-									->body($this->load->view('nf_news'))
+									->body($this->view('nf_news'))
 									
 						)
 						->size('col-md-8'),
 				$this	->col(
 							$this	->panel()
 									->heading($this('connected_users'), 'fa-globe')
-									->body($this->load->view('users_online', [
+									->body($this->view('users_online', [
 										'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
@@ -131,7 +131,7 @@ class m_admin_c_admin extends Controller_Module
 	{
 		$this->ajax();
 
-		if (($module = $this->load->module($module_name)) && ($help = $module->load->controller('admin_help')) && $help->has_method($method))
+		if (($module = $this->module($module_name)) && ($help = $module->controller('admin_help')) && $help->has_method($method))
 		{
 			echo $this->output->parse($help->method($method), [], $module->load);
 		}
@@ -150,7 +150,7 @@ class m_admin_c_admin extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading($this('lgpl_license'))
-							->body($this->load->view('license'))
+							->body($this->view('license'))
 							->size('col-md-12 col-lg-8')
 				),
 				$this->col(

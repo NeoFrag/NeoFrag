@@ -23,13 +23,13 @@ class m_news_c_search extends Controller
 	public function index($result, $keywords)
 	{
 		$result['introduction'] = highlight($result['introduction']."\r\r".$result['content'], $keywords);
-		return $this->load->view('search/index', $result);
+		return $this->view('search/index', $result);
 	}
 
 	public function detail($result, $keywords)
 	{
 		$result['introduction'] = highlight($result['introduction']."\r\r".$result['content'], $keywords, 1024);
-		return $this->load->view('search/index', $result);
+		return $this->view('search/index', $result);
 	}
 
 	public function search()

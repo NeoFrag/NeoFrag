@@ -96,7 +96,7 @@ class Comments extends Library
 				
 		foreach ($comments as $comment)
 		{
-			$output .= $this->load->view('index', $comment);
+			$output .= $this->view('comments/index', $comment);
 		}
 		
 		$count = count($comments);
@@ -112,7 +112,7 @@ class Comments extends Library
 		
 		$panels[] = $this	->panel()
 							->heading('<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count), 'fa-comments-o')
-							->body($output.$this->load->view('new', [
+							->body($output.$this->view('comments/new', [
 								'form_id' => $this->form->token()
 							]));
 		

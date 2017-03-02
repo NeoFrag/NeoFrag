@@ -29,14 +29,14 @@ class m_statistics_m_statistics extends Model
 
 		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($controller = $module->load->controller('statistics'))
+			if ($controller = $module->controller('statistics'))
 			{
 				foreach ($controller->statistics() as $name => $statistic)
 				{
 					if ($filters === NULL || in_array($module->name.'-'.$name, $filters))
 					{
 						$statistics[$module->name.'-'.$name] = array_merge($statistic, [
-							'title' => $module->load->lang($statistic['title'], NULL),
+							'title' => $module->lang($statistic['title'], NULL),
 							'color' => $colors[$i % 10]
 						]);
 					}

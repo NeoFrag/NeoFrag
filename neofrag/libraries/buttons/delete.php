@@ -25,7 +25,7 @@ class Button_delete extends Library
 		return $this->css('neofrag.delete')
 					->js('neofrag.delete')
 					->button()
-					->tooltip($title ?: $this->load->lang('remove'))
+					->tooltip($title ?: $this->lang('remove'))
 					->url($url)
 					->icon('fa-remove')
 					->color('danger')

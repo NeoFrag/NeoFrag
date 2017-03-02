@@ -40,12 +40,7 @@ abstract class Loadable extends Translatable
 
 	public function __get($name)
 	{
-		return $name != 'load' ? parent::__get($name) : $this->load = load('loader', $this->paths(), $this);
-	}
-
-	public function __isset($name)
-	{
-		return !in_array($name, ['load', 'override']) ? parent::__isset($name) : FALSE;
+		return $name != 'load' ? parent::__get($name) : $this->load = load('loader', $this, $this->paths());
 	}
 
 	public function is_deactivatable()
@@ -68,7 +63,7 @@ abstract class Loadable extends Translatable
 		}
 		else if ($title === NULL)
 		{
-			$title = $this->load->lang($this->title, NULL);
+			$title = $this->lang($this->title, NULL);
 		}
 		
 		return $title;

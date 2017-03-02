@@ -158,7 +158,7 @@ class t_admin extends Theme
 						]
 					],
 					[
-						'title'  => 'Monitoring'.$this->load->module('monitoring')->display(),
+						'title'  => 'Monitoring'.$this->module('monitoring')->display(),
 						'icon'   => 'fa-heartbeat',
 						'url'    => 'admin/monitoring.html',
 						'access' => $this->user('admin')

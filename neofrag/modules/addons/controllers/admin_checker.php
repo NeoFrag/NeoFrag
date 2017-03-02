@@ -22,7 +22,7 @@ class m_addons_c_admin_checker extends Controller_Module
 {
 	public function _module_settings($name)
 	{
-		if (($module = $this->load->module($name)) && method_exists($module, 'settings'))
+		if (($module = $this->module($name)) && method_exists($module, 'settings'))
 		{
 			return [$module];
 		}
@@ -32,7 +32,7 @@ class m_addons_c_admin_checker extends Controller_Module
 	{
 		$this->ajax();
 
-		if (($module = $this->load->module($name)) && $module->is_removable())
+		if (($module = $this->module($name)) && $module->is_removable())
 		{
 			return [$module];
 		}
@@ -40,7 +40,7 @@ class m_addons_c_admin_checker extends Controller_Module
 
 	public function _theme_settings($name)
 	{
-		if (($theme = $this->load->theme($name)) && ($controller = $theme->load->controller('admin')) && $controller->has_method('index'))
+		if (($theme = $this->theme($name)) && ($controller = $theme->controller('admin')) && $controller->has_method('index'))
 		{
 			return [$theme, $controller];
 		}
@@ -50,7 +50,7 @@ class m_addons_c_admin_checker extends Controller_Module
 	{
 		$this->ajax();
 
-		if (($theme = $this->load->theme($name)) && $theme->is_removable())
+		if (($theme = $this->theme($name)) && $theme->is_removable())
 		{
 			return [$theme];
 		}

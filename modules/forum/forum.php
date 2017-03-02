@@ -204,7 +204,7 @@ class m_forum extends Module
 			}
 		}
 		
-		return $this->load->view('profile', $data = $profiles[$user_id]);
+		return $this->view('profile', $data = $profiles[$user_id]);
 	}
 }
 

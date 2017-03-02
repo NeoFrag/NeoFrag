@@ -69,7 +69,7 @@ class Output extends Core
 
 			notifications();
 
-			$this->data['body'] = $this->load->theme->load->view('body', $this->data);
+			$this->data['body'] = $this->load->theme->view('body', $this->data);
 
 			if (NeoFrag::live_editor())
 			{
@@ -88,7 +88,7 @@ class Output extends Core
 				$this->data['body'] .= $this->debug->display();
 			}
 
-			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring.html' && $this->load->module('monitoring')->need_checking())
+			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring.html' && $this->module('monitoring')->need_checking())
 			{
 				$this->js_load('$.post(\''.url('admin/ajax/monitoring.json').'\', {refresh: false});');
 			}
@@ -97,7 +97,7 @@ class Output extends Core
 			$this->data['js']      = output('js');
 			$this->data['js_load'] = output('js_load');
 
-			$output = $this->load->theme->load->view('default', $this->data);
+			$output = $this->load->theme->view('default', $this->data);
 		}
 
 		if ($this->url->extension == 'json')
@@ -187,7 +187,7 @@ class Output extends Core
 		else if (in_string('<?php', $content) && in_string('?>', $content))
 		{
 			$NeoFrag = $this->load;
-			$paths   = $loader->paths;
+			$paths   = $loader->paths();
 			
 			$global = isset($GLOBALS['loader']) ? $GLOBALS['loader'] : NULL;
 			$GLOBALS['loader'] = $loader;

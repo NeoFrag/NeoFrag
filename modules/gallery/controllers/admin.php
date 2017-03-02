@@ -312,12 +312,12 @@ class m_gallery_c_admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading($this('add_images_title'), 'fa-photo')
-						->body($this->load->view('upload', [
+						->body($this->view('upload', [
 							'gallery_id' => $gallery_id,
 							'name'       => $name,
 							'form_image' => $form_image->display()
 						]))
-						->footer($this->load->view('admin_gallery', [
+						->footer($this->view('admin_gallery', [
 							'images'        => $images,
 							'gallery_table' => $gallery_table->display()
 						]))

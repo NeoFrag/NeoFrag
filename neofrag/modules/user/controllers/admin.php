@@ -292,7 +292,7 @@ class m_user_c_admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading($this('groups'), 'fa-users')
-						->body($this->load->view('admin/groups', [
+						->body($this->view('admin/groups', [
 							'user_id' => $member_id,
 							'form_id' => $form_groups->token()
 						]))

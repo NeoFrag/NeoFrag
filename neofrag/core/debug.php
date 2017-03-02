@@ -56,17 +56,7 @@ class Debug extends Core
 				$error = self::STRICT;
 			}
 
-			if (preg_match('/ : eval\(\)\'d code$/', $errfile))
-			{
-				$errfile = './'.debug_backtrace(FALSE, 4)[3]['args'][0];
-				trigger_error($errstr.' in '.$errfile.' on line '.$errline, E_USER_WARNING);
-			}
-			else
-			{
-				$errfile = relative_path($errfile);
-			}
-
-			$this->_log[] = [$errstr, $error, $errfile, $errline];
+			$this->_log[] = [$errstr, $error, relative_path($errfile), $errline];
 
 			return !(error_reporting() & $errno);
 		}, E_ALL);
@@ -212,7 +202,7 @@ class Debug extends Core
 						->js('neofrag.debugbar')
 						->js('jquery.mCustomScrollbar.min');
 
-			return $this->load->view('debugbar', [
+			return $this->view('debug/debugbar', [
 				'tabs' => $tabs = [
 					'console'  => [$this->debug->debugbar($console),              'Console',  'fa-terminal',    $console],
 					'database' => [$this->db->debugbar($database),                'Database', 'fa-database',    $database],

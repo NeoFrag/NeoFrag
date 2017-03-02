@@ -26,7 +26,7 @@ class m_awards_c_index extends Controller_Module
 
 		$awards_stats = $this	->panel()
 								->heading('Palmarès', 'fa-trophy')
-								->body($this->load->view('resume', [
+								->body($this->view('resume', [
 									'teams'        => $this->model()->get_teams_ranking(3),
 									'total_gold'   => $this->model()->count_awards(1, NULL, NULL),
 									'total_silver' => $this->model()->count_awards(2, NULL, NULL),
@@ -40,7 +40,7 @@ class m_awards_c_index extends Controller_Module
 		{
 			$panels[] = $this	->panel()
 								->heading('Année '.$year, 'fa-calendar-o')
-								->body($this->load->view('index', [
+								->body($this->view('index', [
 									'stats-team' => FALSE,
 									'stats-game' => FALSE,
 									'awards'     => $this->model()->get_awards('date', $year)
@@ -69,7 +69,7 @@ class m_awards_c_index extends Controller_Module
 		return [
 			$this	->panel()
 					->heading('Les trophées de nos équipes', 'fa-trophy')
-					->body($this->load->view('statistics', [
+					->body($this->view('statistics', [
 						'total_silver'     => $this->model()->count_awards(2, NULL, NULL),
 						'total_gold'       => $this->model()->count_awards(1, NULL, NULL),
 						'total_bronze'     => $this->model()->count_awards(3, NULL, NULL),
@@ -89,7 +89,7 @@ class m_awards_c_index extends Controller_Module
 		return [
 			$this	->panel()
 					->heading($name, 'fa-trophy')
-					->body($this->load->view('award', [
+					->body($this->view('award', [
 						'game_id'      => $game_id,
 						'team_id'      => $team_id,
 						'team_name'    => $team_name,
@@ -119,7 +119,7 @@ class m_awards_c_index extends Controller_Module
 			return [
 				$this	->panel()
 						->heading('Palmarès de l\'équipe '.$team['title'], 'fa-trophy')
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'stats-team' => TRUE,
 							'stats-game' => FALSE,
 							'image_id'   => $team['image_id'],
@@ -136,7 +136,7 @@ class m_awards_c_index extends Controller_Module
 			return [
 				$this	->panel()
 						->heading('Palmarès sur le jeu '.$game['title'], 'fa-trophy')
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'stats-team' => FALSE,
 							'stats-game' => TRUE,
 							'image_id'   => $game['image_id'],

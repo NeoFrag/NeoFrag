@@ -20,8 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class Loader extends Core
 {
-	private $_update    = NULL;
-
 	public $libraries   = [];
 	public $helpers     = [];
 	public $controllers = [];
@@ -30,287 +28,39 @@ class Loader extends Core
 	public $forms       = [];
 	public $langs       = [];
 	public $data        = [];
-	public $object;
+	public $caller;
 
-	public function __construct($paths, $object = NULL)
-	{
-		call_user_func($this->_update = function() use ($paths, $object){
-			if (is_callable($paths))
-			{
-				$this->paths = call_user_func($paths);
-			}
-			else
-			{
-				$this->paths = $paths;
-				unset($this->_update);
-				$this->_update = NULL;
-			}
+	protected $_paths;
 
-			$this->object = $object;
-
-			if ($object !== NULL)
-			{
-				$this->paths = array_merge_recursive($this->paths, NeoFrag::loader()->paths);
-			}
-
-			$this->paths = array_map('array_filter', $this->paths);
-		});
-	}
-
-	public function module($name, $force = FALSE)
-	{
-		return $this->_load($name, 'module', 'm_'.$name, NeoFrag::loader()->modules, $name.'/'.$name, $force, function() use ($name){
-			return $this->addons->is_enabled($name, 'module') && $this->access($name, 'module_access');
-		});
-	}
-
-	public function theme($name, $force = FALSE)
-	{
-		return $this->_load($name, 'theme', 't_'.$name, NeoFrag::loader()->themes, $name.'/'.$name, $force);
-	}
-
-	public function widget($name, $force = FALSE)
-	{
-		return $this->_load($name, 'widget', 'w_'.$name, NeoFrag::loader()->widgets, $name.'/'.$name, $force, function() use ($name){
-			return $this->addons->is_enabled($name, 'widget');
-		});
-	}
-
-	private function _load($name, $type, $class, &$objects, $filename = NULL, $force = FALSE, $is_enabled = NULL, $constructor = [])
-	{
-		if (($force && !empty($objects[$name])) || (!$force && array_key_exists($name, $objects)))
-		{
-			return $objects[$name];
-		}
-		
-		if (!$force && is_callable($is_enabled) && !$is_enabled())
-		{
-			return $objects[$name] = NULL;
-		}
-
-		if ($filename === NULL)
-		{
-			$filename = $name;
-		}
-		
-		if (is_callable($this->_update))
-		{
-			call_user_func($this->_update);
-		}
-
-		reset($this->paths[$type.'s']);
-		
-		$object = NULL;
-
-		while (list(, $dir) = each($this->paths[$type.'s']))
-		{
-			if (!check_file($path = $dir.'/'.$filename.'.php', $force))
-			{
-				continue;
-			}
-
-			if ($type == 'model' && in_string('modules/', $dir))
-			{
-				$class = preg_replace('/^w_/', 'm_', $class);
-			}
-
-			if (in_string('overrides/', $path))
-			{
-				while (list(, $dir) = each($this->paths[$type.'s']))
-				{
-					if (in_string('overrides/', $o_path = $dir.'/'.$filename.'.php') || !check_file($o_path))
-					{
-						continue;
-					}
-
-					include_once $o_path;
-
-					break;
-				}
-
-				$class = 'o_'.$class;
-			}
-
-			include_once $path;
-
-			$object = call_user_func_array('load', array_merge([$class], $constructor ?: [$name, $type]));
-			
-			break;
-		}
-
-		if (!$force)
-		{
-			$objects[$name] = $object;
-		}
-
-		return $object;
-	}
-
-	public function helper($name)
-	{
-		foreach ($this->paths['helpers'] as $dir)
-		{
-			if (!check_file($path = $dir.'/'.$name.'.php'))
-			{
-				continue;
-			}
-
-			$this->helpers[] = [$path, $name];
-
-			include_once $path;
-
-			break;
-		}
-
-		return $this;
-	}
-
-	public function controller($name)
-	{
-		if ($controller = $this->_load($name, 'controller', preg_replace('/^o_/', '', get_class($this->object)).'_c_'.$name, $this->controllers))
-		{
-			$controller->load = $this;
-		}
-
-		return $controller;
-	}
-
-	public function model($name = NULL)
-	{
-		if ($name === NULL)
-		{
-			$name = $this->object->name;
-		}
-
-		if ($model = $this->_load($name, 'model', preg_replace('/^o_/', '', get_class($this->object)).'_m_'.$name, $this->models))
-		{
-			$model->load = $this;
-		}
-
-		return $model;
-	}
-
-	public function authenticator($name, $enabled, $settings = [])
-	{
-		return $this->_load($name, 'authenticator', 'a_'.$name, NeoFrag::loader()->authenticators, NULL, FALSE, NULL, [$name, $enabled, $settings]);
-	}
-
-	public function view($name, $data = [])
-	{
-		foreach ($this->paths['views'] as $dir)
-		{
-			if (check_file($path = $dir.'/'.$name.'.tpl.php'))
-			{
-				$data = array_merge($data, $this->data);
-
-				if ($this->debug->is_enabled())
-				{
-					$this->views[] = [$path, $name.'.tpl.php', $data];
-				}
-
-				return $this->output->parse(file_get_contents($path), $data, $this);
-			}
-		}
-	}
-
-	public function form($form)
-	{
-		foreach ($this->paths['forms'] as $dir)
-		{
-			if (!check_file($path = $dir.'/'.$form.'.php'))
-			{
-				continue;
-			}
-			
-			if ($this->debug->is_enabled())
-			{
-				$this->forms[$dir] = [$path, $form.'.php'];
-			}
-
-			include $path;
-
-			if (!empty($rules))
-			{
-				return $rules;
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-
-	public function lang($name)
+	public function __construct()
 	{
 		$args = func_get_args();
-		$name = array_shift($args);
 
-		if (count($args) == 1 && $args[0] === NULL)
+		$this->_paths = array_pop($args);
+
+		if ($args)
 		{
-			$loader = $this;
-			return preg_replace_callback('/\{lang (.+?)\}/', function($a) use ($loader){
-				return $loader->lang($a[1]);
-			}, $name);
+			$this->caller = array_pop($args);
 		}
 
-		foreach ($this->paths['lang'] as $dir)
+		$this->load = $this;
+	}
+
+	public function paths($type = NULL)
+	{
+		$paths = is_a($this->_paths, 'closure') ? call_user_func_array($this->_paths, []) : $this->_paths;
+
+		if (NeoFrag::loader() != $this)
 		{
-			foreach ($this->config->langs as $language)
-			{
-				if (!check_file($path = $dir.'/'.$language.'.php'))
-				{
-					continue;
-				}
-
-				if (isset($this->langs[$path]))
-				{
-					$lang = $this->langs[$path];
-				}
-				else if (isset(NeoFrag::loader()->langs[$path]))
-				{
-					$lang = NeoFrag::loader()->langs[$path];
-				}
-				else
-				{
-					$lang = [];
-
-					include $path;
-
-					$this->langs[$path] = $lang;
-				}
-
-				if (isset($lang[$name]))
-				{
-					if (is_array($lang[$name]))
-					{
-						return $lang[$name];
-					}
-					else
-					{
-						array_unshift($args, $lang[$name]);
-
-						if (($translation = call_user_func_array('p11n', $args)) !== FALSE)
-						{
-							/*if ($this->debug->is_enabled())
-							{
-								$translation = '❤ '.$translation.' ❤';
-							}*/
-							
-							return $translation;
-						}
-					}
-
-					break 2;
-				}
-			}
+			$paths = array_merge_recursive($paths, NeoFrag::loader()->paths());
 		}
 
-		return $name;
+		return $type ? $paths[$type] : $paths;
 	}
 
 	public function debugbar($title = 'Loader')
 	{
-		$output = '<span class="label label-info">'.$title.(!empty($this->override) ? ' '.icon('fa-code-fork') : '').'</span>';
+		$output = '<span class="label label-info">'.$title.(property_exists($this, 'override') && $this->override ? ' '.icon('fa-code-fork') : '').'</span>';
 		
 		$this->debug->timeline($output, $this->time[0], $this->time[1]);
 
@@ -333,16 +83,16 @@ class Loader extends Core
 		{
 			list($objects, $name, $class, $callback) = $vars;
 
-			if (!empty($objects))
+			if ($objects = array_filter($objects))
 			{
 				$output .= '	<ul>
 									<li>
 										<span class="label label-'.$class.'">'.$name.'</span>
 										<ul>';
 
-				foreach (array_filter($objects) as $key => $object)
+				foreach ($objects as $key => $object)
 				{
-					$output .= '			<li>'.$callback($object, $key).'</li>';
+					$output .= '			<li>'.$callback($object, $key).(is_object($object) && property_exists($object, 'load') && $object->load != $this ? $object->load->debugbar() : '').'</li>';
 				}
 
 				$output .= '			</ul>

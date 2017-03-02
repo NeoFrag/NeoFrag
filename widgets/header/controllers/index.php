@@ -22,7 +22,7 @@ class w_header_c_index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		echo $this->load->view('index', $settings);
+		echo $this->view('index', $settings);
 	}
 }
 

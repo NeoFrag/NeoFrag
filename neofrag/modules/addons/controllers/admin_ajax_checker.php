@@ -26,13 +26,13 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 
 		if (!empty($post['type']))
 		{
-			if (in_array($post['type'], ['module', 'widget']) && !empty($post['name']) && ($object = $this->load->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
+			if (in_array($post['type'], ['module', 'widget']) && !empty($post['name']) && ($object = $this->{$post['type']}($post['name'], TRUE)) && $object->is_deactivatable())
 			{
 				return [$post['type'], $object];
 			}
 			else if ($post['type'] == 'authenticator' && !empty($post['name']) && ($authenticator = $this->db->from('nf_settings_authenticators')->where('name', $post['name'])->row()))
 			{
-				return [$post['type'], $this->load->authenticator($authenticator['name'], $authenticator['is_enabled'], unserialize($authenticator['settings']))];
+				return [$post['type'], $this->authenticator($authenticator['name'], $authenticator['is_enabled'], unserialize($authenticator['settings']))];
 			}
 		}
 	}
@@ -49,7 +49,7 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 
 	public function _theme_settings($theme_name)
 	{
-		if (($theme = $this->load->theme($theme_name)) && ($controller = $theme->load->controller('admin_ajax')) && $controller->has_method('index'))
+		if (($theme = $this->theme($theme_name)) && ($controller = $theme->controller('admin_ajax')) && $controller->has_method('index'))
 		{
 			return [$controller];
 		}
@@ -59,7 +59,7 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	{
 		$post = post();
 		
-		if (!empty($post['theme']) && $theme = $this->load->theme($post['theme']))
+		if (!empty($post['theme']) && $theme = $this->theme($post['theme']))
 		{
 			return $theme;
 		}
@@ -87,7 +87,7 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 
 		if (($check = post_check('name')) && ($auth = $this->db->from('nf_settings_authenticators')->where('name', $check['name'])->row()))
 		{
-			return [$this->load->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings']))];
+			return [$this->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings']))];
 		}
 	}
 
@@ -95,7 +95,7 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	{
 		if (($check = post_check('name', 'settings')) && ($auth = $this->db->from('nf_settings_authenticators')->where('name', $check['name'])->row()))
 		{
-			return [$this->load->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings'])), $check['settings']];
+			return [$this->authenticator($auth['name'], $auth['is_enabled'], unserialize($auth['settings'])), $check['settings']];
 		}
 	}
 }

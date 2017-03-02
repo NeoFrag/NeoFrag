@@ -33,7 +33,7 @@ class w_members_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('last_members'))
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'members'  => $members
 						]), FALSE)
 						->footer('<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>', 'right');
@@ -76,7 +76,7 @@ class w_members_c_index extends Controller_Widget
 		$output = [
 			$this	->panel()
 					->heading($this('whos_online'))
-					->body($this->load->view('online', [
+					->body($this->view('online', [
 						'administrators' => $admins,
 						'members'        => $members,
 						'nb_admins'      => $nb_admins,
@@ -87,7 +87,7 @@ class w_members_c_index extends Controller_Widget
 
 		if ($nb_admins)
 		{
-			$output[] = $this->load->view('online_modal', [
+			$output[] = $this->view('online_modal', [
 				'name'  => 'administrators',
 				'title' => $this('admins_online'),
 				'users' => $admins
@@ -96,7 +96,7 @@ class w_members_c_index extends Controller_Widget
 		
 		if ($nb_members)
 		{
-			$output[] = $this->load->view('online_modal', [
+			$output[] = $this->view('online_modal', [
 				'name'  => 'members',
 				'title' => $this('members_online'),
 				'users' => $members
@@ -108,7 +108,7 @@ class w_members_c_index extends Controller_Widget
 	
 	public function online_mini($config = [])
 	{
-		return $this->load->view('online_mini', [
+		return $this->view('online_mini', [
 			'members' => $this->session->current_sessions(),
 			'align'   => !empty($config['align']) ? $config['align'] : 'pull-right'
 		]);

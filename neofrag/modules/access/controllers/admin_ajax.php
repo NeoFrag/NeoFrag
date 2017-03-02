@@ -32,7 +32,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		return $this->col(
 			$this	->panel()
 					->heading('<span class="pull-right">'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
-					->body($this->load->view('details', [
+					->body($this->view('details', [
 						'groups' => $groups
 					]), FALSE)
 					->size('col-md-12 col-lg-7')
@@ -162,7 +162,7 @@ class m_access_c_admin_ajax extends Controller_Module
 				->sort_by(2, SORT_ASC)
 				->sort_by(1, SORT_ASC);
 
-		return $this->load->view('users', [
+		return $this->view('users', [
 			'title' => $title,
 			'icon'  => $icon,
 			'users' => $this->table->display()

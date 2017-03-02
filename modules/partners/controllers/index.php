@@ -28,7 +28,7 @@ class m_partners_c_index extends Controller_Module
 		{
 			return $this->panel()
 						->heading('Nos partenaires', 'fa-star-o')
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'partners' => $partners
 						]));
 		}

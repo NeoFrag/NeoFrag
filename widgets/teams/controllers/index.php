@@ -32,7 +32,7 @@ class w_teams_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('ours_teams'))
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'teams'    => $teams
 						]), FALSE)
 						->footer('<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_all_teams').'</a>', 'right');

@@ -38,14 +38,14 @@ class m_live_editor_c_ajax extends Controller_Module
 
 		if (!empty($url[0]))
 		{
-			if ($module = $this->load->module($url[0]))
+			if ($module = $this->module($url[0]))
 			{
 				if (!empty($module->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
 				{
 					$url = [$url[0], $method, '*'];
 				}
 			}
-			else if ($module = $this->load->module('pages'))
+			else if ($module = $this->module('pages'))
 			{
 				$url = ['pages', '_index', $url[0], '*'];
 			}
@@ -150,7 +150,7 @@ class m_live_editor_c_ajax extends Controller_Module
 									'title'    => $title ? utf8_htmlentities($title) : NULL,
 									'widget'   => $widget_name,
 									'type'     => $type,
-									'settings' => $this->load->widget($widget_name)->get_settings($type, $settings)
+									'settings' => $this->widget($widget_name)->get_settings($type, $settings)
 								]);
 		
 		$disposition[$row_id]->children()[$col_id]->append($widget = $this->panel_widget($widget_id));
@@ -168,7 +168,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function widget_admin($widget_name, $type, $settings = NULL)
 	{
-		return $this->load->widget($widget_name)->get_admin($type, $settings);
+		return $this->widget($widget_name)->get_admin($type, $settings);
 	}
 	
 	public function widget_style($disposition_id, $disposition, $row_id, $col_id, $widget_id, $style)
@@ -181,7 +181,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	{
 		$this->model()->get_widgets($widgets, $types);
 
-		return $this->load->view('widget', [
+		return $this->view('widget', [
 			'widget_id' => $widget_id,
 			'title'     => $title,
 			'widget'    => $widget ?: array_keys($widgets)[0],
@@ -193,7 +193,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function widget_update($disposition_id, $disposition, $row_id, $col_id, $widget_id, $id, $widget, $type, $title, $settings)
 	{
-		$settings = $this->load->widget($widget)->get_settings($type, $settings);
+		$settings = $this->widget($widget)->get_settings($type, $settings);
 		
 		$this->db	->where('widget_id', $id)
 					->update('nf_widgets', [

@@ -65,13 +65,13 @@ function output($type)
 			}
 
 			$output = array_map(function($a) use ($v){
-				return '<link rel="stylesheet" href="'.path($a[0].'.css', 'css', $a[2]['assets']).($v ?: '').'" type="text/css" media="'.$a[1].'" />';
+				return '<link rel="stylesheet" href="'.path($a[0].'.css', 'css', $a[2]->paths('assets')).($v ?: '').'" type="text/css" media="'.$a[1].'" />';
 			}, NeoFrag::loader()->css);
 		}
 		else if ($type == 'js')
 		{
 			$output = array_map(function($a){
-				return '<script type="text/javascript" src="'.path($a[0].'.js', 'js', $a[1]['assets']).'"></script>';
+				return '<script type="text/javascript" src="'.path($a[0].'.js', 'js', $a[1]->paths('assets')).'"></script>';
 			}, NeoFrag::loader()->js);
 		}
 		else if ($type == 'js_load')

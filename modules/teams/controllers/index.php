@@ -80,7 +80,7 @@ class m_teams_c_index extends Controller_Module
 										<a href="'.url('teams/'.$team_id.'/'.$name.'.html').'">'.$title.'</a>',
 										$icon_id ?: $game_icon ?: 'fa-gamepad'
 							)
-							->body($this->load->view('index', [
+							->body($this->view('index', [
 								'team_id'     => $team_id,
 								'name'        => $name,
 								'title'       => $title,

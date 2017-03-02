@@ -22,7 +22,7 @@ class w_search_c_index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		return $this->css('search')->load->view('index');
+		return $this->css('search')->view('index');
 	}
 }
 

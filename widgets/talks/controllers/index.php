@@ -33,7 +33,7 @@ class w_talks_c_index extends Controller_Widget
 				->css('jquery.mCustomScrollbar.min');
 
 		$panel = $this	->panel()
-						->body('<div data-talk-id="'.$settings['talk_id'].'">'.$this->load->view('index', [
+						->body('<div data-talk-id="'.$settings['talk_id'].'">'.$this->view('index', [
 							'messages' => $this->model()->get_messages($settings['talk_id'])
 						]).'</div>');
 

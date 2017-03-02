@@ -30,7 +30,7 @@ class w_news_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('recent_news'))
-						->body($this->load->view('index', [
+						->body($this->view('index', [
 							'news' => array_slice($news, 0, 3)
 						]))
 						->footer('<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>', 'right');
@@ -51,7 +51,7 @@ class w_news_c_index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($this('categories'))
-						->body($this->load->view('categories', [
+						->body($this->view('categories', [
 							'categories' => $categories
 						]), FALSE);
 		}

@@ -91,7 +91,7 @@ class m_user_c_checker extends Controller_Module
 										->where('name', $provider)
 										->where('is_enabled', TRUE)
 										->row()) &&
-				($authenticator = $this->load->authenticator($provider, TRUE, unserialize($settings))))
+				($authenticator = $this->authenticator($provider, TRUE, unserialize($settings))))
 		{
 			return [$authenticator];
 		}

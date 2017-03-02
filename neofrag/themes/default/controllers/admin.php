@@ -110,7 +110,7 @@ class t_default_c_admin extends Controller
 		return $this->row(
 			$this	->col(
 						$this	->panel()
-								->body($this->load->view('admin/menu', [
+								->body($this->view('admin/menu', [
 									'theme_name' => $theme->name
 								]), FALSE)
 					)
@@ -118,7 +118,7 @@ class t_default_c_admin extends Controller
 			$this	->col(
 						$this	->panel()
 								->heading($this('dashboard'), 'fa-cog')
-								->body($this->load->view('admin/index', [
+								->body($this->view('admin/index', [
 									'theme'           => $theme,
 									'form_background' => $this->form->display()
 								]))

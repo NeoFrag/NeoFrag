@@ -24,11 +24,11 @@ class w_navigation_c_index extends Controller_Widget
 	{
 		if ($settings['display'])
 		{
-			return $this->load->view('index', $settings);
+			return $this->view('index', $settings);
 		}
 		else
 		{
-			return $this->panel()->body($this->load->view('horizontal', $settings), FALSE);
+			return $this->panel()->body($this->view('horizontal', $settings), FALSE);
 		}
 	}
 }
