@@ -3,5 +3,5 @@
 <?php echo $data['content']; ?>
 
 
-<?php echo $NeoFrag->config->nf_name; ?>
+<?php echo $this->config->nf_name; ?>
 <?php echo url(); ?>

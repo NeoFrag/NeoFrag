@@ -72,15 +72,15 @@ class m_access_c_admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => [
-										function($data, $loader) use ($module, $type){
-											return $this->button()->tooltip($loader->lang('reset'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+										function($data) use ($module, $type){
+											return $this->button()->tooltip($this->lang('reset'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 												'module' => $module->name,
 												'type'   => $type,
 												'id'     => $data['id']
 											]);
 										},
-										function($data, $loader) use ($module, $type){
-											return $this->button_access($data['id'], $type, $module->name, $loader->lang('edit'));
+										function($data) use ($module, $type){
+											return $this->button_access($data['id'], $type, $module->name, $this->lang('edit'));
 										}
 									]
 								]

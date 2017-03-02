@@ -17,6 +17,6 @@ $(function(){
 </script>
 </head>
 <body>
-	<?php echo $loader->view('emails/body', $data); ?>
+	<?php echo $this->view('emails/body', $data); ?>
 </body>
 </html>

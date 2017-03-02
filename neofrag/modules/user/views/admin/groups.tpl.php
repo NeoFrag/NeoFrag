@@ -1,4 +1,4 @@
-<?php $groups = $NeoFrag->groups(); if (!empty($groups)): ?>
+<?php $groups = $this->groups(); if (!empty($groups)): ?>
 	<form action="<?php echo url($this->url->request); ?>" method="post">
 		<ul class="groups">
 		<?php foreach ($groups as $group_id => $group): ?>
@@ -6,7 +6,7 @@
 			<li class="col-md-4">
 				<label>
 					<input type="checkbox" name="<?php echo $data['form_id']; ?>[groups][]" value="<?php echo $group_id; ?>"<?php if (in_array($data['user_id'], $group['users'])) echo ' checked="checked"'; if ($group['auto'] && $group['auto'] != 'neofrag') echo ' disabled="disabled"'; ?> />
-					<?php echo $NeoFrag->groups->display($group_id, TRUE, FALSE); ?>
+					<?php echo $this->groups->display($group_id, TRUE, FALSE); ?>
 				</label>
 			</li>
 		<?php endforeach; ?>
@@ -28,7 +28,7 @@
 			});
 		</script>
 		<div class="text-center">
-			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fa-check').' '.i18n('save'); ?></button>
+			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fa-check').' '.$this->lang('save'); ?></button>
 		</div>
 	</form>
 <?php endif; ?>

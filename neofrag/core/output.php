@@ -39,7 +39,7 @@ class Output extends Core
 
 			$this->data = array_merge($this->data, $this->load->module->load->data);
 
-			$this->parse_data($this->data, $this->load->module->load);
+			$this->parse_data($this->data);
 
 			$this->data['module'] = $this->load->module->get_output();
 			
@@ -172,48 +172,21 @@ class Output extends Core
 		return '';
 	}
 
-	public function parse($content, $data = [], $loader = NULL, $parse_php = TRUE)
+	public function parse($content, $data = [])
 	{
-		if (!$loader)
+		if (is_a($content, 'closure'))
 		{
-			$loader = $this->load;
-		}
-
-		if ($parse_php && is_a($content, 'closure'))
-		{
-			$content = call_user_func($content, $data, $loader);
-		}
-		//Si le template contient du code PHP
-		else if (in_string('<?php', $content) && in_string('?>', $content))
-		{
-			$NeoFrag = $this->load;
-			$paths   = $loader->paths();
-			
-			$global = isset($GLOBALS['loader']) ? $GLOBALS['loader'] : NULL;
-			$GLOBALS['loader'] = $loader;
-
-			//Récupèration du contenu du template avec exécution du code PHP
-			$content = eval('ob_start(); ?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', $content)).'<?php return ob_get_clean();');
-
-			$GLOBALS['loader'] = $global;
+			$content = call_user_func($content, $data);
 		}
 
 		return $content;
 	}
 
-	public function parse_data(&$data, $loader)
+	public function parse_data(&$data)
 	{
-		foreach ($data as &$var)
-		{
-			if (is_array($var))
-			{
-				$this->parse_data($var, $loader);
-			}
-			else
-			{
-				$var = $this->parse($var, $data, $loader);
-			}
-		}
+		array_walk_recursive($data, function($a) use (&$data){
+			$a = $this->parse($a, $data);
+		});
 	}
 }
 

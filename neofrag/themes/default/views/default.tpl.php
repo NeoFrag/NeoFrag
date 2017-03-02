@@ -17,15 +17,15 @@
 <title><?php echo $data['page_title']; ?></title>
 </head>
 <body>
-	<?php if ($NeoFrag->config->nf_maintenance && !$NeoFrag->url->admin && isset($NeoFrag->user) && $NeoFrag->user('admin') && $NeoFrag->module->name != 'live_editor'): ?>
+	<?php if ($this->config->nf_maintenance && !$this->url->admin && isset($this->user) && $this->user('admin') && NeoFrag::loader()->module->name != 'live_editor'): ?>
 		<nav class="navbar no-margin bg-danger">
 			<div class="container">
-				<p class="navbar-text"><?php echo icon('fa-power-off').' '.i18n('website_down_for_maintenance'); ?></p>
-				<a href="<?php echo url('admin/settings/maintenance.html'); ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo i18n('open_website'); ?></a>
+				<p class="navbar-text"><?php echo icon('fa-power-off').' '.$this->lang('website_down_for_maintenance'); ?></p>
+				<a href="<?php echo url('admin/settings/maintenance.html'); ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo $this->lang('open_website'); ?></a>
 			</div>
 		</nav>
 	<?php endif; ?>
-	<?php echo $data[!empty($NeoFrag->module->name) && $NeoFrag->module->name == 'live_editor' ? 'module' : 'body']; ?>
+	<?php echo $data[!empty(NeoFrag::loader()->module->name) && NeoFrag::loader()->module->name == 'live_editor' ? 'module' : 'body']; ?>
 	<script type="text/javascript" src="<?php echo js('bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo js('bootstrap-notify.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo js('neofrag.notify.js'); ?>"></script>
@@ -47,7 +47,7 @@
 		
 		<?php echo $data['js_load']; ?>
 	});
-	<?php echo $NeoFrag->config->nf_analytics; ?>
+	<?php echo $this->config->nf_analytics; ?>
 	</script>
 </body>
 </html>

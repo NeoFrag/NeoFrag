@@ -128,7 +128,7 @@ $(function(){
 		if (!$(this).hasClass('panel-primary')){
 			var theme_name = $(this).data('theme');
 
-			modal_theme('<?php echo i18n('theme_activation'); ?>', '<?php echo i18n('theme_activation_message'); ?>', '<button type="button" class="btn btn-info" data-theme="'+theme_name+'"><?php echo i18n('activate'); ?></button>', function(){
+			modal_theme('<?php echo $this->lang('theme_activation'); ?>', '<?php echo $this->lang('theme_activation_message'); ?>', '<button type="button" class="btn btn-info" data-theme="'+theme_name+'"><?php echo $this->lang('activate'); ?></button>', function(){
 				$.post('<?php echo url('admin/ajax/addons/theme/active.json'); ?>', {theme: theme_name}, function(data){
 					$('.thumbnail .btn-danger.disabled').removeClass('disabled');
 					$('.thumbnail.panel-primary').removeClass('panel-primary');
@@ -151,7 +151,7 @@ $(function(){
 	//Reset
 	$('body').on('click', '.thumbnail .btn-warning', function(e){
 		e.stopPropagation();
-		modal_theme('<?php echo i18n('reinstall_to_default'); ?>', '<?php echo i18n('theme_reinstallation_message'); ?>', '<button type="button" class="btn btn-warning" data-theme="'+$(this).parents('.thumbnail:first').data('theme')+'"><?php echo i18n('reinstall'); ?></button>', function(){
+		modal_theme('<?php echo $this->lang('reinstall_to_default'); ?>', '<?php echo $this->lang('theme_reinstallation_message'); ?>', '<button type="button" class="btn btn-warning" data-theme="'+$(this).parents('.thumbnail:first').data('theme')+'"><?php echo $this->lang('reinstall'); ?></button>', function(){
 			$.post('<?php echo url('admin/ajax/addons/theme/reset.json'); ?>', {theme: $(this).data('theme')}, function(data){
 				notify(data.success);
 			});

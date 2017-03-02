@@ -25,8 +25,8 @@ class m_pages_c_admin extends Controller_Module
 		$this	->table
 				->add_columns([
 					[
-						'content' => function($data, $loader){
-							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$loader->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$loader->lang('awaiting_publication').'" style="color: #535353;"></i>';
+						'content' => function($data){
+							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('awaiting_publication').'" style="color: #535353;"></i>';
 						},
 						'sort'    => function($data){
 							return $data['published'];
@@ -47,8 +47,8 @@ class m_pages_c_admin extends Controller_Module
 					],
 					[
 						'content' => [
-							function($data, $loader){
-								return $data['published'] ? $this->button()->tooltip($loader->lang('view_page'))->icon('fa-eye')->url($data['name'].'.html')->compact()->outline() : '';
+							function($data){
+								return $data['published'] ? $this->button()->tooltip($this->lang('view_page'))->icon('fa-eye')->url($data['name'].'.html')->compact()->outline() : '';
 							},
 							function($data){
 								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');

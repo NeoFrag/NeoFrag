@@ -288,28 +288,6 @@ abstract class NeoFrag
 		return $this;
 	}
 
-	public function view($name, $data = [])
-	{
-		foreach ($paths = $this->load->paths('views') as $dir)
-		{
-			if (check_file($path = $dir.'/'.$name.'.tpl.php'))
-			{
-				$data = array_merge($data, $this->load->data);
-
-				if ($this->debug->is_enabled())
-				{
-					$this->load->views[] = [$path, $name.'.tpl.php', $data];
-				}
-
-				return $this->output->parse(file_get_contents($path), $data, $this->load);
-			}
-		}
-
-		trigger_error('Unfound view: '.$name.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
-
-		return '';
-	}
-
 	public function form($form)
 	{
 		foreach ($paths = $this->load->paths('forms') as $dir)
@@ -336,7 +314,7 @@ abstract class NeoFrag
 			}
 		}
 
-		trigger_error('Unfound form: '.$form.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+		trigger_error('Unfound form: '.$form.' in paths ['.implode(', ', $paths).']', E_USER_WARNING);
 	}
 
 	public function lang($name)
@@ -385,30 +363,86 @@ abstract class NeoFrag
 					}
 					else
 					{
-						array_unshift($args, $lang[$name]);
+						$locale = $lang[$name];
 
-						if (($translation = call_user_func_array('p11n', $args)) !== FALSE)
+						if (!$args)
 						{
-							/*if ($this->debug->is_enabled())
-							{
-								$translation = '❤ '.$translation.' ❤';
-							}*/
-							
-							return $translation;
+							$translation = $locale;
 						}
-					}
+						else
+						{
+							if (in_string('|', $locale))
+							{
+								$n      = NULL;
+								$locale = explode('|', $locale);
+								$count  = count($locale);
 
-					break 2;
+								foreach ($locale as $i => &$l)
+								{
+									if (preg_match('/^\{(\d+?)\}|\[(\d+?),(\d+?|Inf)\]/', $l, $match))
+									{
+										$n = end($match);
+
+										if ($n == 'Inf')
+										{
+											break;
+										}
+									}
+									else if ($n === NULL)
+									{
+										$l = '[0,1]'.$l;
+										$n = 1;
+									}
+									else if ($i == $count - 1)
+									{
+										$l = '['.++$n.',Inf]'.$l;
+									}
+									else
+									{
+										$l = '{'.++$n.'}'.$l;
+									}
+
+									unset($l);
+								}
+
+								foreach ($locale as $l)
+								{
+									if (preg_match('/^\{(\d+?)\}(.*)/', $l, $match) && $args[0] == $match[1])
+									{
+										$locale = $match[2];
+										unset($args[0]);
+										break;
+									}
+									else if (preg_match('/^\[(\d+?),(\d+?|Inf)\](.*)/', $l, $match) && $args[0] >= $match[1] && ($match[2] == 'Inf' || $args[0] <= $match[2]))
+									{
+										$locale = $match[3];
+										unset($args[0]);
+										break;
+									}
+								}
+							}
+
+							array_unshift($args, $locale);
+							$translation = call_user_func_array('sprintf', $args);
+						}
+
+						/*if ($this->debug->is_enabled())
+						{
+							$translation = '❤ '.$translation.' ❤';
+						}*/
+
+						return $translation;
+					}
 				}
 			}
 		}
 
-		trigger_error('Unfound lang: '.$name.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+		trigger_error('Unfound lang: '.$name.' in paths ['.implode(', ', $paths).']', E_USER_WARNING);
 
 		return $name;
 	}
 
-	public function debug($color, $title = NULL, $loader = FALSE)
+	public function debug($color, $title = NULL)
 	{
 		$output = NeoFrag()	->label($title ?: (isset($this->name) ? $this->name : get_class($this)))
 							->icon_if(property_exists($this, 'override') && $this->override, 'fa-code-fork')

@@ -1,9 +1,9 @@
 body {
-	background-image: url('<?php echo $NeoFrag->config->default_background ? path($NeoFrag->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
-	background-position: <?php echo $NeoFrag->config->default_background_position; ?>;
-	background-repeat: <?php echo $NeoFrag->config->default_background_repeat; ?>;
-	background-attachment: <?php echo $NeoFrag->config->default_background_attachment; ?>;
-	background-color: <?php echo color2hex($NeoFrag->config->default_background_color); ?>;
+	background-image: url('<?php echo $this->config->default_background ? path($this->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
+	background-position: <?php echo $this->config->default_background_position; ?>;
+	background-repeat: <?php echo $this->config->default_background_repeat; ?>;
+	background-attachment: <?php echo $this->config->default_background_attachment; ?>;
+	background-color: <?php echo color2hex($this->config->default_background_color); ?>;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	color: #656D79;

@@ -9,6 +9,6 @@
 </ul>
 <?php else: ?>
 <div class="panel-body text-center">
-	<?php echo i18n('no_news_from_author'); ?>
+	<?php echo $this->lang('no_news_from_author'); ?>
 </div>
 <?php endif; ?>

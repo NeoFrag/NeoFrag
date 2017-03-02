@@ -5,12 +5,12 @@
 			<td class="col-md-10">
 				<div class="media message">
 					<div class="media-left">
-						<?php echo $NeoFrag->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
+						<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']); ?>
 					</div>
 					<div class="media-body">
 						<small class="pull-right text-muted"><?php echo time_span($message['date']); ?></small>
 						<h5 class="no-margin"><a href="<?php echo url('user/messages/'.$message['message_id'].'/'.url_title($message['title']).'.html'); ?>"><b><?php echo mb_strimwidth($message['title'], 0, 40, '...'); ?></b></a></h5>
-						<small><?php echo $NeoFrag->user->link($message['user_id'], $message['username']) ?></small>
+						<small><?php echo $this->user->link($message['user_id'], $message['username']) ?></small>
 					</div>
 				</div>
 			</td>

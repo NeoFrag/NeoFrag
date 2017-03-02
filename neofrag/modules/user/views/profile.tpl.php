@@ -1,9 +1,9 @@
 <ul class="list-unstyled text-center">
 	<li>
-		<?php echo $NeoFrag->user->avatar($data['avatar'], $data['sex']); ?>
+		<?php echo $this->user->avatar($data['avatar'], $data['sex']); ?>
 	</li>
 	<li>
-		<h4 class="no-margin"><b><?php echo $NeoFrag->user->link($data['user_id'], $data['username']) ?></b></h4>
+		<h4 class="no-margin"><b><?php echo $this->user->link($data['user_id'], $data['username']) ?></b></h4>
 		<?php echo in_array('admins', $this->groups($data['user_id'])) ? 'Administrateur' : 'Membre'; ?>
 	</li>
 </ul>

@@ -81,9 +81,9 @@ class m_comments_c_admin extends Controller_Module
 				'size'    => TRUE
 			],
 			[
-				'content' => function($data, $loader){
+				'content' => function($data){
 					return $this->button()
-								->tooltip($loader->lang('see_comments'))
+								->tooltip($this->lang('see_comments'))
 								->icon('fa-eye')
 								->url($data['url'])
 								->color('info')

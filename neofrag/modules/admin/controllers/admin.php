@@ -41,8 +41,8 @@ class m_admin_c_admin extends Controller_Module
 					},
 				],
 				[
-					'content' => function($data, $loader){
-						return '<span data-toggle="tooltip" title="'.timetostr($loader->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+					'content' => function($data){
+						return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
 					'class'   => 'text-right',
 				]
@@ -133,7 +133,7 @@ class m_admin_c_admin extends Controller_Module
 
 		if (($module = $this->module($module_name)) && ($help = $module->controller('admin_help')) && $help->has_method($method))
 		{
-			echo $this->output->parse($help->method($method), [], $module->load);
+			echo $help->method($method);
 		}
 		else
 		{

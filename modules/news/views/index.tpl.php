@@ -5,10 +5,10 @@
 <?php endif; ?>
 <p class="news-detail">
 	<span><?php echo icon('fa-clock-o').' '.timetostr('%e %b %Y', $data['date']); ?></span>
-	<span><?php echo icon('fa-user').' '.($data['user_id'] ? $NeoFrag->user->link($data['user_id'], $data['username']) : i18n('guest')); ?></span>
+	<span><?php echo icon('fa-user').' '.($data['user_id'] ? $this->user->link($data['user_id'], $data['username']) : $this->lang('guest')); ?></span>
 	<!--<span><?php echo icon('fa-eye').' ' .$data['views']; ?></span>-->
-	<span><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#comments'); ?>"><?php echo icon('fa-comments-o').' '.$NeoFrag->comments->count_comments('news', $data['news_id']); ?></a></span>
-	<?php if ($data['vote'] && $note = $NeoFrag->votes->get_note('news', $data['news_id'])): ?><div class="info-votes"><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#vote'); ?>"><?php echo $note; ?>/5</a></div><?php endif; ?>
+	<span><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#comments'); ?>"><?php echo icon('fa-comments-o').' '.$this->comments->count_comments('news', $data['news_id']); ?></a></span>
+	<?php if ($data['vote'] && $note = $this->votes->get_note('news', $data['news_id'])): ?><div class="info-votes"><a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html#vote'); ?>"><?php echo $note; ?>/5</a></div><?php endif; ?>
 	<span><?php echo icon('fa-bookmark-o'); ?> <a href="<?php echo url('news/category/'.$data['category_id'].'/'.$data['category_name'].'.html'); ?>"><?php echo $data['category_title']; ?></a></span>
 </p>
 <?php echo $data['introduction']; ?>

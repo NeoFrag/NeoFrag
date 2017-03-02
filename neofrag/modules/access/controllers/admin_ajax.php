@@ -109,12 +109,12 @@ class m_access_c_admin_ajax extends Controller_Module
 						}
 					],
 					[
-						'content' => function($data, $loader){
+						'content' => function($data){
 							$output = '';
 							
 							if (is_int($data['active']))
 							{
-								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$loader->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
+								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
 							}
 							
 							return '<td class="access-status">'.$output.'</td>';
@@ -127,8 +127,8 @@ class m_access_c_admin_ajax extends Controller_Module
 					],
 					[
 						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
-						'content' => function($data, $loader){
-							return $loader->view('radio', [
+						'content' => function($data){
+							return $this->view('radio', [
 								'class'  => 'success',
 								'active' => $data['active']
 							]);
@@ -137,7 +137,7 @@ class m_access_c_admin_ajax extends Controller_Module
 					],
 					[
 						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
-						'content' => function($data, $loader){
+						'content' => function($data){
 							static $admins;
 							
 							if ($admins === NULL)
@@ -145,7 +145,7 @@ class m_access_c_admin_ajax extends Controller_Module
 								$admins = NeoFrag::loader()->groups()['admins']['users'];
 							}
 							
-							return in_array($data['user_id'], $admins) ? '<td></td>' : $loader->view('radio', [
+							return in_array($data['user_id'], $admins) ? '<td></td>' : $this->view('radio', [
 								'class'  => 'danger',
 								'active' => !$data['active'] && $data['active'] !== NULL
 							]);

@@ -129,9 +129,9 @@ class m_user_c_admin extends Controller_Module
 				],
 				[
 					'content' => [
-						function($data, $loader){
+						function($data){
 							return $this->button()
-										->tooltip($loader->lang('ban'))
+										->tooltip($this->lang('ban'))
 										->icon('fa-ban')
 										->url('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html')
 										->color('warning')
@@ -221,8 +221,8 @@ class m_user_c_admin extends Controller_Module
 				],
 				[
 					'title'   => $this('referer'),
-					'content' => function($data, $loader){
-						return $data['referer'] ? urltolink($data['referer']) : $loader->lang('none');
+					'content' => function($data){
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('none');
 					}
 				],
 				[
@@ -464,14 +464,14 @@ class m_user_c_admin extends Controller_Module
 					],
 					[
 						'title'   => $this('user'),
-						'content' => function($data, $loader){
-							return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : '<i>'.$loader->lang('guest').'</i>';
+						'content' => function($data){
+							return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('guest').'</i>';
 						},
-						'search'  => function($data, $loader){
-							return $data['user_id'] ? $data['username'] : $loader->lang('guest');
+						'search'  => function($data){
+							return $data['user_id'] ? $data['username'] : $this->lang('guest');
 						},
-						'sort'  => function($data, $loader){
-							return $data['user_id'] ? $data['username'] : $loader->lang('guest');
+						'sort'  => function($data){
+							return $data['user_id'] ? $data['username'] : $this->lang('guest');
 						}
 					],
 					[
@@ -501,8 +501,8 @@ class m_user_c_admin extends Controller_Module
 					],
 					[
 						'title'   => $this('referer'),
-						'content' => function($data, $loader){
-							return $data['referer'] ? urltolink($data['referer']) : $loader->lang('none');
+						'content' => function($data){
+							return $data['referer'] ? urltolink($data['referer']) : $this->lang('none');
 						},
 						'search'  => function($data){
 							return $data['user_agent'];
@@ -531,12 +531,12 @@ class m_user_c_admin extends Controller_Module
 					],
 					[
 						'title'   => $this('history'),
-						'content' => function($data, $loader){
+						'content' => function($data){
 							$links = implode('<br />', array_map(function($a){
 								return '<a href="'.url($a).'">'.$a.'</a>';
 							}, $data['history']));
 
-							return '<span data-toggle="popover" title="'.$loader->lang('last_pages_visited').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
+							return '<span data-toggle="popover" title="'.$this->lang('last_pages_visited').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
 						}
 					],
 					[
