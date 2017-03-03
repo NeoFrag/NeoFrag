@@ -1,6 +1,13 @@
 <div class="addons-panel-body" data-type="module">
-	<?php foreach ($this->addons->get_modules(TRUE) as $module): ?>
-	<?php
+<?php 
+	$modules = $this->addons->get_modules(TRUE);
+
+	array_natsort($modules, function($a){
+		return $a->get_title();
+	});
+
+	foreach ($modules as $module)
+	{
 		$settings      = method_exists($module, 'settings');
 		$access        = $module->get_permissions('default');
 		$deactivatable = $module->is_deactivatable();
@@ -10,7 +17,7 @@
 		{
 			continue;
 		}
-	?>
+?>
 	<div class="addon-item<?php echo $this->addons->is_enabled($module->name, 'module') ? ' active' : ''; ?>" data-name="<?php echo $module->name; ?>">
 		<div class="item-status">
 			<div class="item-status-icon">
@@ -36,5 +43,7 @@
 			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/module/'.$module->name.'.html'); ?>
 		</div>
 	</div>
-	<?php endforeach; ?>
+<?php 
+	}
+?>
 </div>
