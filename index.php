@@ -218,7 +218,6 @@ foreach([
 			'session',
 			'user',
 			'groups',
-			'breadcrumb',
 			'router'
 		] as $library
 	)

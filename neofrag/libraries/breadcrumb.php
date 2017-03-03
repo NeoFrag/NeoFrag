@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Breadcrumb extends Core
+class Breadcrumb extends Library
 {
 	private $_links = [];
 	
@@ -32,7 +32,7 @@ class Breadcrumb extends Core
 		}
 		else
 		{
-			array_unshift($links, [$this->load->module->get_title(), $this->load->module->name == 'pages' ? $this->url->request : $this->load->module->name.'.html', $this->load->module->icon ?: 'fa-map-marker']);
+			array_unshift($links, [NeoFrag()->module->get_title(), NeoFrag()->module->name == 'pages' ? $this->url->request : NeoFrag()->module->name.'.html', NeoFrag()->module->icon ?: 'fa-map-marker']);
 		}
 
 		return $links;
@@ -42,12 +42,12 @@ class Breadcrumb extends Core
 	{
 		if ($title === '')
 		{
-			$title = !empty($this->load->module->load->data['module_title']) ? $this->load->module->load->data['module_title'] : '';
+			$title = !empty(NeoFrag()->module->load->data['module_title']) ? NeoFrag()->module->load->data['module_title'] : '';
 		}
 
 		if ($title !== '')
 		{
-			$this->_links[] = [$title, $link ?: $this->url->request, $icon ?: (!empty($this->load->module->load->data['module_icon']) ? $this->load->module->load->data['module_icon'] : $this->load->module->icon)];
+			$this->_links[] = [$title, $link ?: $this->url->request, $icon ?: (!empty(NeoFrag()->module->load->data['module_icon']) ? NeoFrag()->module->load->data['module_icon'] : NeoFrag()->module->icon)];
 		}
 
 		return $this;
@@ -55,6 +55,6 @@ class Breadcrumb extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.5
-./neofrag/core/breadcrumb.php
+NeoFrag Alpha 0.1.6
+./neofrag/libraries/breadcrumb.php
 */
