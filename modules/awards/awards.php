@@ -29,6 +29,7 @@ class m_awards extends Module
 	public $version     = '1.0';
 	public $nf_version  = 'Alpha 0.1.4';
 	public $path        = __FILE__;
+	public $admin       = 'gaming';
 	public $routes      = [
 		//Index
 		'{id}/{url_title}'             => '_award',

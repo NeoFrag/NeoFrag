@@ -20,8 +20,6 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 class m_statistics_c_admin extends Controller_Module
 {
-	public $administrable = FALSE;
-
 	public function index()
 	{
 		$this	->js('statistics')

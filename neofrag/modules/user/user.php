@@ -28,6 +28,7 @@ class m_user extends Module
 	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
 	public $version       = 'Alpha 0.1';
 	public $nf_version    = 'Alpha 0.1';
+	public $admin         = FALSE;
 	public $routes        = [
 		//Index
 		'sessions{pages}'                        => 'sessions',

@@ -212,9 +212,23 @@ abstract class Module extends Loadable
 		return [];
 	}
 
-	public function is_administrable()
+	public function is_administrable(&$category = NULL)
 	{
-		return ($controller = $this->controller('admin')) && (!isset($controller->administrable) || $controller->administrable);
+		if (property_exists($this, 'admin'))
+		{
+			if (is_bool($this->admin))
+			{
+				$category = $this->admin ? 'default' : 'none';
+			}
+			else
+			{
+				$category = $this->admin;
+			}
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	public function is_authorized()

@@ -31,13 +31,16 @@ class t_admin extends Theme
 
 	public function load()
 	{
-		$content_submenu = [];
-		
+		$content_submenu = [
+			'default' => [],
+			'gaming'  => []
+		];
+
 		foreach ($this->addons->get_modules() as $module)
 		{
-			if ($module->is_administrable() && $module->is_authorized())
+			if ($module->is_administrable($category) && $category != 'none' && $module->is_authorized())
 			{
-				$content_submenu[] = [
+				$content_submenu[isset($content_submenu[$category]) ? $category : 'default'][] = [
 					'title'  => $module->get_title(),
 					'icon'   => $module->icon,
 					'url'    => 'admin/'.$module->name.'.html'
@@ -45,8 +48,10 @@ class t_admin extends Theme
 			}
 		}
 
-		array_natsort($content_submenu, function($a){
-			return $a['title'];
+		array_walk($content_submenu, function(&$a){
+			array_natsort($a, function($a){
+				return $a['title'];
+			});
 		});
 
 		if (file_exists($file = 'cache/monitoring/version.json'))
@@ -137,7 +142,12 @@ class t_admin extends Theme
 					[
 						'title' => $this('content'),
 						'icon'  => 'fa-edit',
-						'url'   => $content_submenu
+						'url'   => $content_submenu['default']
+					],
+					[
+						'title' => 'Gaming',
+						'icon'  => 'fa-gamepad',
+						'url'   => $content_submenu['gaming']
 					],
 					[
 						'title' => $this('design'),

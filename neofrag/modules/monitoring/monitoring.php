@@ -30,6 +30,7 @@ class m_monitoring extends Module
 	public $nf_version    = 'Alpha 0.1';
 	public $routes        = [];
 	public $path          = __FILE__;
+	public $admin         = FALSE;
 
 	public function need_checking()
 	{
