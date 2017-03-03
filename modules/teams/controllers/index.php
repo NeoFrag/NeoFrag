@@ -27,7 +27,7 @@ class m_teams_c_index extends Controller_Module
 		foreach ($this->model()->get_teams() as $team)
 		{
 			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'].'.html')
-									->footer(icon('fa-users').' '.$this('player', $team['users'], $team['users']));
+									->footer(icon('fa-users').' '.$this->lang('player', $team['users'], $team['users']));
 
 			if ($team['image_id'])
 			{
@@ -40,8 +40,8 @@ class m_teams_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this('teams'), 'fa-gamepad')
-								->body('<div class="text-center">'.$this('no_team_yet').'</div>')
+								->heading($this->lang('teams'), 'fa-gamepad')
+								->body('<div class="text-center">'.$this->lang('no_team_yet').'</div>')
 								->color('info');
 		}
 
@@ -71,7 +71,7 @@ class m_teams_c_index extends Controller_Module
 					]
 				])
 				->data($this->model()->get_players($team_id))
-				->no_data($this('no_players_on_team'));
+				->no_data($this->lang('no_players_on_team'));
 
 		return [
 			$this->panel()	->heading('	<div class="pull-right">

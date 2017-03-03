@@ -49,7 +49,7 @@ class m_members_c_index extends Controller_Module
 					]
 				])
 				->data($members)
-				->no_data($this('no_members'));
+				->no_data($this->lang('no_members'));
 			
 		return $this->panel()
 					->heading()
@@ -59,7 +59,7 @@ class m_members_c_index extends Controller_Module
 	public function _group($title, $members)
 	{
 		return [
-			$this->panel()->body('<h2 class="no-margin">'.$this('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this('show_all_members'))->icon('fa-close')->url('members.html')->color('danger pull-right')->compact()->outline().'</h2>'),
+			$this->panel()->body('<h2 class="no-margin">'.$this->lang('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('show_all_members'))->icon('fa-close')->url('members.html')->color('danger pull-right')->compact()->outline().'</h2>'),
 			$this->index($members)
 		];
 	}

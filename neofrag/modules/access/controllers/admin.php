@@ -25,8 +25,8 @@ class m_access_c_admin extends Controller_Module
 		if (!$modules)
 		{
 			return $this->panel()
-						->heading($this('permissions'), 'fa-unlock-alt')
-						->body($this('no_permission'));
+						->heading($this->lang('permissions'), 'fa-unlock-alt')
+						->body($this->lang('no_permission'));
 		}
 		
 		$this->js('access');
@@ -42,7 +42,7 @@ class m_access_c_admin extends Controller_Module
 						->table
 						->add_columns([
 							[
-								'title'   => $this('name'),
+								'title'   => $this->lang('name'),
 								'content' => function($data){
 									return $data['title'];
 								}
@@ -94,7 +94,7 @@ class m_access_c_admin extends Controller_Module
 	public function _edit($module, $type, $access, $id, $title = NULL)
 	{
 		$this	->title($module->get_title())
-				->subtitle($title ?: $this('permissions_management'))
+				->subtitle($title ?: $this->lang('permissions_management'))
 				->icon($module->icon)
 				->css('access')
 				->js('access')
@@ -105,7 +105,7 @@ class m_access_c_admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+							->heading($this->lang('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this->lang('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 								'module' => $module->name,
 								'type'   => $type,
 								'id'     => $id

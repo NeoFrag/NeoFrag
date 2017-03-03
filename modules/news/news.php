@@ -125,7 +125,7 @@ class m_news extends Module
 						'rules' => 'required'
 					]
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/addons.html#modules');
 
 		if ($this->form->is_valid($post))

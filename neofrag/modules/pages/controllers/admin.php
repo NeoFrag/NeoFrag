@@ -34,7 +34,7 @@ class m_pages_c_admin extends Controller_Module
 						'size'    => TRUE
 					],
 					[
-						'title'   => $this('page_title'),
+						'title'   => $this->lang('page_title'),
 						'content' => function($data){
 							return $data['published'] ? '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
 						},
@@ -61,20 +61,20 @@ class m_pages_c_admin extends Controller_Module
 					]
 				])
 				->data($pages)
-				->no_data($this('no_pages'));
+				->no_data($this->lang('no_pages'));
 						
 		return $this->panel()
-					->heading($this('list_pages'), 'fa-align-left')
+					->heading($this->lang('list_pages'), 'fa-align-left')
 					->body($this->table->display())
-					->footer($this->button_create('admin/pages/add.html', $this('create_page')));
+					->footer($this->button_create('admin/pages/add.html', $this->lang('create_page')));
 	}
 	
 	public function add()
 	{
-		$this	->subtitle($this('add_pages'))
+		$this	->subtitle($this->lang('add_pages'))
 				->form
 				->add_rules('pages')
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/pages.html');
 
 		if ($this->form->is_valid($post))
@@ -85,13 +85,13 @@ class m_pages_c_admin extends Controller_Module
 										$post['subtitle'],
 										$post['content']);
 
-			notify($this('add_success_message'));
+			notify($this->lang('add_success_message'));
 
 			redirect_back('admin/pages.html');
 		}
 		
 		return $this->panel()
-					->heading($this('add_pages'), 'fa-align-left')
+					->heading($this->lang('add_pages'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
@@ -106,7 +106,7 @@ class m_pages_c_admin extends Controller_Module
 					'content'        => $content,
 					'published'      => $published
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/pages.html');
 		
 		if ($this->form->is_valid($post))
@@ -119,22 +119,22 @@ class m_pages_c_admin extends Controller_Module
 										$post['content'],
 										$this->config->lang);
 		
-			notify($this('edit_success_message'));
+			notify($this->lang('edit_success_message'));
 
 			redirect_back('admin/pages.html');
 		}
 		
 		return $this->panel()
-					->heading($this('edit_page'), 'fa-align-left')
+					->heading($this->lang('edit_page'), 'fa-align-left')
 					->body($this->form->display());
 	}
 	
 	public function delete($page_id, $title)
 	{
-		$this	->title($this('delete_page'))
+		$this	->title($this->lang('delete_page'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_page_message', $title));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_page_message', $title));
 
 		if ($this->form->is_valid())
 		{

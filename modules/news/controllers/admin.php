@@ -22,7 +22,7 @@ class m_news_c_admin extends Controller_Module
 {
 	public function index($news)
 	{
-		$this->title($this('news'));
+		$this->title($this->lang('news'));
 
 		$news = $this	->table
 						->add_columns([
@@ -36,7 +36,7 @@ class m_news_c_admin extends Controller_Module
 								'size'    => TRUE
 							],
 							[
-								'title'   => $this('title'),
+								'title'   => $this->lang('title'),
 								'content' => function($data){
 									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
 								},
@@ -48,7 +48,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => $this('category'),
+								'title'   => $this->lang('category'),
 								'content' => function($data){
 									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
 								},
@@ -60,7 +60,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => $this('author'),
+								'title'   => $this->lang('author'),
 								'content' => function($data){
 									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : $this->lang('guest');
 								},
@@ -72,7 +72,7 @@ class m_news_c_admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => $this('date'),
+								'title'   => $this->lang('date'),
 								'content' => function($data){
 									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 								},
@@ -101,7 +101,7 @@ class m_news_c_admin extends Controller_Module
 						])
 						->sort_by(5, SORT_DESC, SORT_NUMERIC)
 						->data($news)
-						->no_data($this('no_news'))
+						->no_data($this->lang('no_news'))
 						->display();
 			
 		$categories = $this	->table
@@ -131,22 +131,22 @@ class m_news_c_admin extends Controller_Module
 							])
 							->pagination(FALSE)
 							->data($this->model('categories')->get_categories())
-							->no_data($this('no_category'))
+							->no_data($this->lang('no_category'))
 							->display();
 
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this('categories'), 'fa-align-left')
+						->heading($this->lang('categories'), 'fa-align-left')
 						->body($categories)
-						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this('create_category')) : NULL)
+						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this->lang('create_category')) : NULL)
 						->size('col-md-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this('list_news'), 'fa-file-text-o')
+						->heading($this->lang('list_news'), 'fa-file-text-o')
 						->body($news)
-						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this('add_news')) : NULL)
+						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this->lang('add_news')) : NULL)
 						->size('col-md-12 col-lg-9')
 			)
 		);
@@ -154,12 +154,12 @@ class m_news_c_admin extends Controller_Module
 	
 	public function add()
 	{
-		$this	->subtitle($this('add_news'))
+		$this	->subtitle($this->lang('add_news'))
 				->form
 				->add_rules('news', [
 					'categories' => $this->model('categories')->get_categories_list(),
 				])
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/news.html');
 
 		if ($this->form->is_valid($post))
@@ -172,19 +172,19 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										in_array('on', $post['published']));
 
-			notify($this('add_news_success_message'));
+			notify($this->lang('add_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 
 		return $this->panel()
-					->heading($this('add_news'), 'fa-file-text-o')
+					->heading($this->lang('add_news'), 'fa-file-text-o')
 					->body($this->form->display());
 	}
 
 	public function _edit($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $news_image, $category_image, $category_icon)
 	{
-		$this	->title($this('edit_news'))
+		$this	->title($this->lang('edit_news'))
 				->subtitle($title)
 				->form
 				->add_rules('news', [
@@ -197,7 +197,7 @@ class m_news_c_admin extends Controller_Module
 					'tags'         => $tags,
 					'published'    => $published
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/news.html');
 
 		if ($this->form->is_valid($post))
@@ -212,22 +212,22 @@ class m_news_c_admin extends Controller_Module
 										$post['tags'],
 										$this->config->lang);
 
-			notify($this('edit_news_success_message'));
+			notify($this->lang('edit_news_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 
 		return $this->panel()
-					->heading($this('edit_news'), 'fa-align-left')
+					->heading($this->lang('edit_news'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
 	public function delete($news_id, $title)
 	{
-		$this	->title($this('delete_news'))
+		$this	->title($this->lang('delete_news'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_news_message', $title));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_news_message', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -241,11 +241,11 @@ class m_news_c_admin extends Controller_Module
 	
 	public function _categories_add()
 	{
-		$this	->subtitle($this('add_category'))
+		$this	->subtitle($this->lang('add_category'))
 				->form
 				->add_rules('categories')
 				->add_back('admin/news.html')
-				->add_submit($this('add'));
+				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -253,26 +253,26 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 
-			notify($this('add_category_success_message'));
+			notify($this->lang('add_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 		
 		return $this->panel()
-					->heading($this('add_category'), 'fa-align-left')
+					->heading($this->lang('add_category'), 'fa-align-left')
 					->body($this->form->display());
 	}
 	
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
-		$this	->subtitle($this('category_', $title))
+		$this	->subtitle($this->lang('category_', $title))
 				->form
 				->add_rules('categories', [
 					'title' => $title,
 					'image' => $image_id,
 					'icon'  => $icon_id
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/news.html');
 		
 		if ($this->form->is_valid($post))
@@ -282,22 +282,22 @@ class m_news_c_admin extends Controller_Module
 														$post['image'],
 														$post['icon']);
 		
-			notify($this('edit_category_success_message'));
+			notify($this->lang('edit_category_success_message'));
 
 			redirect_back('admin/news.html');
 		}
 		
 		return $this->panel()
-					->heading($this('edit_category'), 'fa-align-left')
+					->heading($this->lang('edit_category'), 'fa-align-left')
 					->body($this->form->display());
 	}
 	
 	public function _categories_delete($category_id, $title)
 	{
-		$this	->title($this('delete_category'))
+		$this	->title($this->lang('delete_category'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_category_message', $title));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_category_message', $title));
 				
 		if ($this->form->is_valid())
 		{

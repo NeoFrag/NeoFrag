@@ -46,16 +46,16 @@ class m_games_c_admin extends Controller_Module
 							]
 						])
 						->data($this->model()->get_games())
-						->no_data($this('no_games'))
+						->no_data($this->lang('no_games'))
 						->pagination(FALSE)
 						->display();
 		
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this('game_list'), 'fa-gamepad')
+						->heading($this->lang('game_list'), 'fa-gamepad')
 						->body($games)
-						->footer($this->button_create('admin/games/add.html', $this('add_game')))
+						->footer($this->button_create('admin/games/add.html', $this->lang('add_game')))
 						->size('col-md-12 col-lg-4')
 			),
 			$this	->col($this->_panel_maps($maps))
@@ -65,13 +65,13 @@ class m_games_c_admin extends Controller_Module
 	
 	public function add()
 	{
-		$this	->title($this('games_maps'))
-				->subtitle($this('add_game'))
+		$this	->title($this->lang('games_maps'))
+				->subtitle($this->lang('add_game'))
 				->form
 				->add_rules('games', [
 					'games' => $this->model()->get_games_list(),
 				])
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/games.html');
 
 		if ($this->form->is_valid($post))
@@ -81,19 +81,19 @@ class m_games_c_admin extends Controller_Module
 												$post['image'],
 												$post['icon']);
 
-			notify($this('game_success_message'));
+			notify($this->lang('game_success_message'));
 			redirect('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
 		}
 
 		return $this->panel()
-					->heading($this('new_game'), 'fa-gamepad')
+					->heading($this->lang('new_game'), 'fa-gamepad')
 					->body($this->form->display());
 	}
 	
 	public function _edit($game_id, $parent_id, $image_id, $icon_id, $title, $game_name, $maps)
 	{
-		$this	->title($this('games_maps'))
-				->subtitle($this('edit_game'))
+		$this	->title($this->lang('games_maps'))
+				->subtitle($this->lang('edit_game'))
 				->form
 				->add_rules('games', [
 					'games'     => $this->model()->get_games_list(FALSE, $game_id),
@@ -102,7 +102,7 @@ class m_games_c_admin extends Controller_Module
 					'image_id'  => $image_id,
 					'icon_id'   => $icon_id
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/games.html');
 
 		$modes = $this	->table
@@ -138,7 +138,7 @@ class m_games_c_admin extends Controller_Module
 										$post['image'],
 										$post['icon']);
 		
-			notify($this('edit_game_message'));
+			notify($this->lang('edit_game_message'));
 
 			redirect_back('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
 		}
@@ -146,7 +146,7 @@ class m_games_c_admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this('edit_game_title', $title), 'fa-gamepad')
+						->heading($this->lang('edit_game_title', $title), 'fa-gamepad')
 						->body($this->form->display())
 						->size('col-md-7')
 			),
@@ -163,10 +163,10 @@ class m_games_c_admin extends Controller_Module
 	
 	public function delete($game_id, $title)
 	{
-		$this	->title($this('delete_game'))
+		$this	->title($this->lang('delete_game'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_game_message', $title));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_game_message', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -186,7 +186,7 @@ class m_games_c_admin extends Controller_Module
 					'games'   => $this->model()->get_games_list(TRUE),
 					'game_id' => $game_id
 				])
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/games.html');
 
 		if ($this->form->is_valid($post))
@@ -214,7 +214,7 @@ class m_games_c_admin extends Controller_Module
 					'title'    => $title,
 					'image_id' => $image_id
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
 
 		if ($this->form->is_valid($post))
@@ -237,7 +237,7 @@ class m_games_c_admin extends Controller_Module
 		$this	->title('Suppression d\'une carte')
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer la carte <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer la carte <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{
@@ -254,7 +254,7 @@ class m_games_c_admin extends Controller_Module
 		$this	->subtitle('Nouveau mode')
 				->form
 				->add_rules('modes')
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
 
 		if ($this->form->is_valid($post))
@@ -277,7 +277,7 @@ class m_games_c_admin extends Controller_Module
 				->add_rules('modes', [
 					'title' => $title
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
 
 		if ($this->form->is_valid($post))
@@ -297,7 +297,7 @@ class m_games_c_admin extends Controller_Module
 		$this	->title('Suppression d\'un mode')
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le mode <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le mode <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

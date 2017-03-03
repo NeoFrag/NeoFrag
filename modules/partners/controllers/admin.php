@@ -74,7 +74,7 @@ class m_partners_c_admin extends Controller_Module
 		$this	->subtitle('Ajouter un partenaire')
 				->form
 				->add_rules('partners')
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/partners.html');
 
 		if ($this->form->is_valid($post))
@@ -112,7 +112,7 @@ class m_partners_c_admin extends Controller_Module
 					'twitter'     => $twitter,
 					'code'        => $code
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/partners.html');
 
 		if ($this->form->is_valid($post))
@@ -142,7 +142,7 @@ class m_partners_c_admin extends Controller_Module
 		$this	->title('Supprimer le partenaire')
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

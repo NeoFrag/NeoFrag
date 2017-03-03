@@ -22,7 +22,7 @@ class m_comments_c_admin extends Controller_Module
 {
 	public function index($comments, $modules, $tab)
 	{
-		$this->tab->add_tab('', $this('all_comments'), function() use ($comments){
+		$this->tab->add_tab('', $this->lang('all_comments'), function() use ($comments){
 			return $this->_tab_index($comments);
 		});
 
@@ -39,13 +39,13 @@ class m_comments_c_admin extends Controller_Module
 	
 	private function _tab_index($comments, $title = NULL)
 	{
-		$this->subtitle($title === NULL ? $this('all_comments') : $title);
+		$this->subtitle($title === NULL ? $this->lang('all_comments') : $title);
 		
 		if ($title === NULL)
 		{
 			$this->table->add_columns([
 				[
-					'title'   => $this('module'),
+					'title'   => $this->lang('module'),
 					'content' => function($data){
 						return '<a href="'.url('admin/comments/'.$data['module'].'.html').'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
 					},
@@ -62,7 +62,7 @@ class m_comments_c_admin extends Controller_Module
 	
 		return $this->table->add_columns([
 			[
-				'title'   => $this('name'),
+				'title'   => $this->lang('name'),
 				'content' => function($data){
 					return $data['title'];
 				},
@@ -74,7 +74,7 @@ class m_comments_c_admin extends Controller_Module
 				}
 			],
 			[
-				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this('number_comments').'"></i>',
+				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('number_comments').'"></i>',
 				'content' => function($data){
 					return NeoFrag()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
@@ -94,7 +94,7 @@ class m_comments_c_admin extends Controller_Module
 			]
 		])
 		->data($comments)
-		->no_data($this('no_comments'))
+		->no_data($this->lang('no_comments'))
 		->sort_by(1)
 		->display();
 	}

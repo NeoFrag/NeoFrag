@@ -29,17 +29,17 @@ class w_news_c_index extends Controller_Widget
 		if (!empty($news))
 		{
 			return $this->panel()
-						->heading($this('recent_news'))
+						->heading($this->lang('recent_news'))
 						->body($this->view('index', [
 							'news' => array_slice($news, 0, 3)
 						]))
-						->footer('<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('show_more').'</a>', 'right');
+						->footer('<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('show_more').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this('recent_news'))
-						->body($this('no_news'));
+						->heading($this->lang('recent_news'))
+						->body($this->lang('no_news'));
 		}
 	}
 	
@@ -50,7 +50,7 @@ class w_news_c_index extends Controller_Widget
 		if (!empty($categories))
 		{
 			return $this->panel()
-						->heading($this('categories'))
+						->heading($this->lang('categories'))
 						->body($this->view('categories', [
 							'categories' => $categories
 						]), FALSE);
@@ -58,8 +58,8 @@ class w_news_c_index extends Controller_Widget
 		else
 		{
 			return $this->panel()
-						->heading($this('categories'))
-						->body($this('no_category'));
+						->heading($this->lang('categories'))
+						->body($this->lang('no_category'));
 		}
 	}
 }

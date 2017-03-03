@@ -32,17 +32,17 @@ class w_members_c_index extends Controller_Widget
 		if (!empty($members))
 		{
 			return $this->panel()
-						->heading($this('last_members'))
+						->heading($this->lang('last_members'))
 						->body($this->view('index', [
 							'members'  => $members
 						]), FALSE)
-						->footer('<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('members_list').'</a>', 'right');
+						->footer('<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('members_list').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this('last_members'))
-						->body($this('no_members'));
+						->heading($this->lang('last_members'))
+						->body($this->lang('no_members'));
 		}
 	}
 	
@@ -75,7 +75,7 @@ class w_members_c_index extends Controller_Widget
 
 		$output = [
 			$this	->panel()
-					->heading($this('whos_online'))
+					->heading($this->lang('whos_online'))
 					->body($this->view('online', [
 						'administrators' => $admins,
 						'members'        => $members,
@@ -89,7 +89,7 @@ class w_members_c_index extends Controller_Widget
 		{
 			$output[] = $this->view('online_modal', [
 				'name'  => 'administrators',
-				'title' => $this('admins_online'),
+				'title' => $this->lang('admins_online'),
 				'users' => $admins
 			]);
 		}
@@ -98,7 +98,7 @@ class w_members_c_index extends Controller_Widget
 		{
 			$output[] = $this->view('online_modal', [
 				'name'  => 'members',
-				'title' => $this('members_online'),
+				'title' => $this->lang('members_online'),
 				'users' => $members
 			]);
 		}

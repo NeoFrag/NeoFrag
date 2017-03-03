@@ -22,7 +22,7 @@ class m_search_c_index extends Controller_Module
 {
 	public function index($module_name = '', $page = '')
 	{
-		$this->title($this('search'));
+		$this->title($this->lang('search'));
 
 		$count  = 0;
 		$row    = [];
@@ -121,7 +121,7 @@ class m_search_c_index extends Controller_Module
 						$panels[] = $this	->panel()
 											->heading($result[0]->get_title(), $result[0]->icon, 'search/'.$result[0]->name.'.html?q='.rawurlencode($search))
 											->body(implode('<hr />', $content))
-											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this('see_all_results').'</a>' : '');
+											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
 					}
 					
 					if ($details && $pagination = $this->pagination->get_pagination())
@@ -156,7 +156,7 @@ class m_search_c_index extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this('search'), 'fa-search')
+							->heading($this->lang('search'), 'fa-search')
 							->body($this->view('index', [
 								'results'  => (bool)$count,
 								'keywords' => $search

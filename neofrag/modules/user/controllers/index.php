@@ -27,7 +27,7 @@ class m_user_c_index extends Controller_Module
 			return $this->login();
 		}
 
-		$this	->title($this('member_area'))
+		$this	->title($this->lang('member_area'))
 				->js('user')
 				->css('jquery.mCustomScrollbar.min')
 				->js('jquery.mCustomScrollbar.min');
@@ -47,7 +47,7 @@ class m_user_c_index extends Controller_Module
 
 	public function edit()
 	{
-		$this	->title($this('manage_my_account'))
+		$this	->title($this->lang('manage_my_account'))
 				->icon('fa-cogs')
 				->breadcrumb();
 
@@ -65,7 +65,7 @@ class m_user_c_index extends Controller_Module
 				'website'       => $this->user('website'),
 				'quote'         => $this->user('quote')
 			])
-			->add_submit($this('save'))
+			->add_submit($this->lang('save'))
 			->add_back('user.html');
 
 		if ($this->form->is_valid($post))
@@ -133,25 +133,25 @@ class m_user_c_index extends Controller_Module
 					'align'   => 'center'
 				],
 				[
-					'title'   => $this('ip_address'),
+					'title'   => $this->lang('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				],
 				[
-					'title'   => $this('reference'),
+					'title'   => $this->lang('reference'),
 					'content' => function($data){
 						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
 					}
 				],
 				[
-					'title'   => $this('initial_session_date'),
+					'title'   => $this->lang('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				],
 				[
-					'title'   => $this('last_activity'),
+					'title'   => $this->lang('last_activity'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
@@ -179,26 +179,26 @@ class m_user_c_index extends Controller_Module
 					'align'   => 'center'
 				],
 				[
-					'title'   => $this('ip_address'),
+					'title'   => $this->lang('ip_address'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				],
 				[
-					'title'   => $this('reference'),
+					'title'   => $this->lang('reference'),
 					'content' => function($data){
 						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
 					}
 				],
 				[
-					'title'   => $this('initial_session_date'),
+					'title'   => $this->lang('initial_session_date'),
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				]
 			])
 			->data($sessions)
-			->no_data($this('no_historic_available'));
+			->no_data($this->lang('no_historic_available'));
 		
 		return [
 			$this->row(
@@ -208,11 +208,11 @@ class m_user_c_index extends Controller_Module
 				),
 				$this->col(
 					$this	->panel()
-							->heading($this('my_active_sessions'), 'fa-shield')
+							->heading($this->lang('my_active_sessions'), 'fa-shield')
 							->body($active_sessions->display())
 							->size('col-md-8 col-lg-9'),
 					$this	->panel()
-							->heading($this('sessions_historic'), 'fa-power-off')
+							->heading($this->lang('sessions_historic'), 'fa-power-off')
 							->body($sessions_history->display())
 				)
 			)
@@ -221,9 +221,9 @@ class m_user_c_index extends Controller_Module
 	
 	public function _session_delete($session_id)
 	{
-		$this	->title($this('delete_confirmation'))
+		$this	->title($this->lang('delete_confirmation'))
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('session_delete_message'));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('session_delete_message'));
 
 		if ($this->form->is_valid())
 		{
@@ -367,35 +367,35 @@ class m_user_c_index extends Controller_Module
 
 	public function login($error = 0)
 	{
-		$this->title($this('login'));
+		$this->title($this->lang('login'));
 
 		$form_login = $this	->form
 							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 							->add_rules([
 								'login' => [
-									'label'       => $this('username'),
-									'description' => $this('username_description'),
+									'label'       => $this->lang('username'),
+									'description' => $this->lang('username_description'),
 									'type'        => 'text',
 									'rules'       => 'required|max(50)'
 								],
 								'password' => [
-									'label' => $this('password'),
+									'label' => $this->lang('password'),
 									'type'  => 'password'
 								],
 								'remember_me' => [
 									'type'   => 'checkbox',
-									'values' => ['on' => $this('remember_me')]
+									'values' => ['on' => $this->lang('remember_me')]
 								],
 								'redirect' => [
 								]
 							])
-							->add_submit($this('login'))
+							->add_submit($this->lang('login'))
 							->display_required(FALSE)
 							->save();
 
 		$rules = [
 			'username' => [
-				'label' => $this('username'),
+				'label' => $this->lang('username'),
 				'icon'  => 'fa-user',
 				'rules' => 'required',
 				'check' => function($value){
@@ -406,13 +406,13 @@ class m_user_c_index extends Controller_Module
 				}
 			],
 			'password' => [
-				'label' => $this('password'),
+				'label' => $this->lang('password'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
 				'rules' => 'required'
 			],
 			'password_confirm' => [
-				'label' => $this('password_confirmation'),
+				'label' => $this->lang('password_confirmation'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
 				'rules' => 'required',
@@ -424,7 +424,7 @@ class m_user_c_index extends Controller_Module
 				}
 			],
 			'email' => [
-				'label' => $this('email'),
+				'label' => $this->lang('email'),
 				'type'  => 'email',
 				'rules' => 'required',
 				'check' => function($value){
@@ -449,7 +449,7 @@ class m_user_c_index extends Controller_Module
 			->form
 			->add_rules($rules)
 			->add_captcha()
-			->add_submit($this('create_account'))
+			->add_submit($this->lang('create_account'))
 			->fast_mode()
 			->save();
 
@@ -462,8 +462,8 @@ class m_user_c_index extends Controller_Module
 			$rows[] = $this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this('login_required'), 'fa-warning')
-							->body($this('login_required_message'))
+							->heading($this->lang('login_required'), 'fa-warning')
+							->body($this->lang('login_required_message'))
 							->color('danger')
 				)
 			);
@@ -509,8 +509,8 @@ class m_user_c_index extends Controller_Module
 				$rows[] = $this->row(
 					$this->col(
 						$this	->panel()
-								->heading($this('invalid_login'), 'fa-warning')
-								->body($this('invalid_login_message'))
+								->heading($this->lang('invalid_login'), 'fa-warning')
+								->body($this->lang('invalid_login_message'))
 								->color('danger')
 					)
 				);
@@ -538,7 +538,7 @@ class m_user_c_index extends Controller_Module
 		$rows[] = $this->row(
 			$col = $this->col(
 						$this	->panel()
-								->heading($this('login_title'), 'fa-sign-in')
+								->heading($this->lang('login_title'), 'fa-sign-in')
 								->body($this->view('login', [
 									'form_id' => $form_login->token()
 								]))
@@ -546,8 +546,8 @@ class m_user_c_index extends Controller_Module
 					->size('col-md-6'),
 			$this	->col(
 						$this	->panel()
-								->heading($this('create_account_title'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
+								->heading($this->lang('create_account_title'), 'fa-sign-in fa-rotate-90')
+								->body($this->config->nf_registration_status == 0 ? $this->lang('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
 					)
 					->size('col-md-6')
 		);
@@ -568,12 +568,12 @@ class m_user_c_index extends Controller_Module
 
 	public function lost_password()
 	{
-		$this->title($this('forgot_password'));
+		$this->title($this->lang('forgot_password'));
 		
 		$this	->form
 				->add_rules([
 					'email' => [
-						'label' => $this('email'),
+						'label' => $this->lang('email'),
 						'type'  => 'email',
 						'rules' => 'required',
 						'check' => function($value){
@@ -584,7 +584,7 @@ class m_user_c_index extends Controller_Module
 						}
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->add_back('user.html')
 				->fast_mode();
 
@@ -592,10 +592,10 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->email
 				->to($post['email'])
-				->subject($this('forgot_password'))
+				->subject($this->lang('forgot_password'))
 				->message('default', [
 					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.$this('password_reset').'</a>';
+						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.$this->lang('password_reset').'</a>';
 					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				])
@@ -605,24 +605,24 @@ class m_user_c_index extends Controller_Module
 		}
 					
 		return $this->panel()
-					->heading($this('forgot_password'), 'fa-unlock-alt')
+					->heading($this->lang('forgot_password'), 'fa-unlock-alt')
 					->body($this->form->display());
 	}
 	
 	public function _lost_password($key_id, $user_id)
 	{
-		$this->title($this('password_reset'));
+		$this->title($this->lang('password_reset'));
 	
 		$this	->form
 				->add_rules([
 					'password' => [
-						'label' => $this('new_password'),
+						'label' => $this->lang('new_password'),
 						'icon'  => 'fa-lock',
 						'type'  => 'password',
 						'rules' => 'required'
 					],
 					'password_confirm' => [
-						'label' => $this('password_confirmation'),
+						'label' => $this->lang('password_confirmation'),
 						'icon'  => 'fa-lock',
 						'type'  => 'password',
 						'rules' => 'required',
@@ -634,7 +634,7 @@ class m_user_c_index extends Controller_Module
 						}
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->add_back('user.html')
 				->fast_mode();
 
@@ -642,9 +642,9 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->email
 				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
-				->subject($this('password_reset_confirmation_email'))
+				->subject($this->lang('password_reset_confirmation_email'))
 				->message('default', [
-					'content' => $this('password_reset_confirmation_message')
+					'content' => $this->lang('password_reset_confirmation_message')
 				])
 				->send();
 
@@ -666,7 +666,7 @@ class m_user_c_index extends Controller_Module
 		}
 					
 		return $this->panel()
-					->heading($this('password_reset'), 'fa-lock')
+					->heading($this->lang('password_reset'), 'fa-lock')
 					->body($this->form->display());
 	}
 
@@ -677,7 +677,7 @@ class m_user_c_index extends Controller_Module
 		if ($this->config->nf_http_authentication)
 		{
 			$this->ajax();
-			echo $this('not_logged_in');
+			echo $this->lang('not_logged_in');
 		}
 		else
 		{
@@ -818,10 +818,10 @@ class m_user_c_index extends Controller_Module
 	
 	public function _messages_delete($message_id, $title)
 	{
-		$this	->title($this('delete_message'))
+		$this	->title($this->lang('delete_message'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

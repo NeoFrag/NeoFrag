@@ -88,15 +88,15 @@ class t_default extends Theme
 										'display' => TRUE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this('home')),
+												'title' => utf8_htmlentities($this->lang('home')),
 												'url'   => 'index.html'
 											],
 											[
-												'title' => utf8_htmlentities($this('forum')),
+												'title' => utf8_htmlentities($this->lang('forum')),
 												'url'   => 'forum.html'
 											],
 											[
-												'title' => utf8_htmlentities($this('teams')),
+												'title' => utf8_htmlentities($this->lang('teams')),
 												'url'   => 'teams.html'
 											],
 											[
@@ -165,19 +165,19 @@ class t_default extends Theme
 										'display' => FALSE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this('news')),
+												'title' => utf8_htmlentities($this->lang('news')),
 												'url'   => 'news.html'
 											],
 											[
-												'title' => utf8_htmlentities($this('members')),
+												'title' => utf8_htmlentities($this->lang('members')),
 												'url'   => 'members.html'
 											],
 											[
-												'title' => utf8_htmlentities($this('search')),
+												'title' => utf8_htmlentities($this->lang('search')),
 												'url'   => 'search.html'
 											],
 											[
-												'title' => utf8_htmlentities($this('contact')),
+												'title' => utf8_htmlentities($this->lang('contact')),
 												'url'   => 'contact.html'
 											]
 										]
@@ -302,7 +302,7 @@ class t_default extends Theme
 									'widget'   => 'html',
 									'type'     => 'index',
 									'settings' => serialize([
-										'content' => utf8_htmlentities($this('powered_by_neofrag'))
+										'content' => utf8_htmlentities($this->lang('powered_by_neofrag'))
 									])
 								]))
 								->color('dark')

@@ -222,7 +222,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 		}
 		
 		return [
-			'danger' => [$this('zip_file_required')]
+			'danger' => [$this->lang('zip_file_required')]
 		];
 	}
 	

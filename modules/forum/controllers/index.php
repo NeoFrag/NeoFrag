@@ -32,15 +32,15 @@ class m_forum_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this('forum'), 'fa-comments')
-								->body('<div class="text-center">'.$this('no_forum').'</div>')
+								->heading($this->lang('forum'), 'fa-comments')
+								->body('<div class="text-center">'.$this->lang('no_forum').'</div>')
 								->color('info');
 		}
 		
 		if ($this->user())
 		{
 			$actions = $this->panel()
-							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
+							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
 							->color('back text-right');
 
 			array_unshift($panels, $panels[] = $actions);
@@ -60,7 +60,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = $this	->panel()
 								->body($this->view('index', [
-									'title'  => $this('subforums'),
+									'title'  => $this->lang('subforums'),
 									'forums' => $subforums
 								]), FALSE);
 		}
@@ -69,7 +69,7 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = $this	->panel()
 								->body($this->view('forum', [
-									'title'  => $this('announces'),
+									'title'  => $this->lang('announces'),
 									'icon'   => 'fa-flag',
 									'topics' => $announces
 								]), FALSE);
@@ -82,7 +82,7 @@ class m_forum_c_index extends Controller_Module
 								'topics' => $topics
 							]), FALSE);
 		
-		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">'.$this('back').'</a>';
+		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">'.$this->lang('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -91,12 +91,12 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($this->access('forum', 'category_write', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">'.$this('new_topic').'</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">'.$this->lang('new_topic').'</a>';
 		}
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('mark_all_as_read').'">'.icon('fa-eye').'</a>';
+			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>';
 		}
 
 		array_unshift($panels, $panels[] = $this->panel()
@@ -108,7 +108,7 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _new($forum_id, $title, $category_id)
 	{
-		$this	->title($this('new_topic'))
+		$this	->title($this->lang('new_topic'))
 				->_breadcrumb($category_id, $forum_id)
 				->breadcrumb()
 				->css('wbbtheme')
@@ -153,13 +153,13 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = $this->row($this->col(
 				$this	->panel()
-						->heading($this('fill_all_fields'), 'fa-warning')
+						->heading($this->lang('fill_all_fields'), 'fa-warning')
 						->color('danger')
 			));
 		}
 		
 		$panels[] = $this	->panel()
-							->heading($this('new_topic'), 'fa-file-text-o')
+							->heading($this->lang('new_topic'), 'fa-file-text-o')
 							->body($this->view('new', [
 								'form_id'     => $this->form->token(),
 								'post'        => $post,
@@ -224,7 +224,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 		
-		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">'.$this('back').'</a>';
+		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">'.$this->lang('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -240,23 +240,23 @@ class m_forum_c_index extends Controller_Module
 				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page.'.html');
 			}
 			
-			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this('reply').'</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this->lang('reply').'</a>';
 		}
 
 		if (($this->user() && $topic['user_id'] == $this->user('user_id')) || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('remove_topic').'">'.icon('fa-close').'</a>';
+			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('remove_topic').'">'.icon('fa-close').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('unlock_topic').'">'.icon('fa-unlock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('unlock_topic').'">'.icon('fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('lock_topic').'">'.icon('fa-lock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('lock_topic').'">'.icon('fa-lock').'</a>';
 			}
 		}
 
@@ -264,11 +264,11 @@ class m_forum_c_index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('unset_announce').'">'.icon('fa-flag-o').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('unset_announce').'">'.icon('fa-flag-o').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this('set_announce').'">'.icon('fa-flag').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('set_announce').'">'.icon('fa-flag').'</a>';
 			}
 		}
 
@@ -277,7 +277,7 @@ class m_forum_c_index extends Controller_Module
 			$this	->css('move')
 					->js('move');
 
-			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title).'.html').'" title="'.$this('move_topic').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
+			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title).'.html').'" title="'.$this->lang('move_topic').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
 		}
 		
 		$panels = [];
@@ -285,7 +285,7 @@ class m_forum_c_index extends Controller_Module
 		if ($is_locked)
 		{
 			$panels[] = $this	->panel()
-								->heading('<a name="reply"></a>'.$this('locked_topic'), 'fa-warning')
+								->heading('<a name="reply"></a>'.$this->lang('locked_topic'), 'fa-warning')
 								->color('danger');
 		}
 		
@@ -332,13 +332,13 @@ class m_forum_c_index extends Controller_Module
 							'rules' => 'required'
 						]
 					])
-					->add_submit($this('reply'));
+					->add_submit($this->lang('reply'));
 			
 			if ($this->form->is_valid($post))
 			{
 				$message_id = $this->model()->add_message($topic_id, $post['message']);
 
-				//notify('success', $this('add_reply_success'));
+				//notify('success', $this->lang('add_reply_success'));
 			
 				$page = '';
 			
@@ -354,13 +354,13 @@ class m_forum_c_index extends Controller_Module
 			{
 				$panels[] = $this->row($this->col(
 					$this	->panel()
-							->heading('<a name="reply"></a>'.$this('message_needed'), 'fa-warning')
+							->heading('<a name="reply"></a>'.$this->lang('message_needed'), 'fa-warning')
 							->color('danger')
 				));
 			}
 
 			$panels[] = $this	->panel()
-								->heading('<a name="reply"></a>'.$this('reply_topic'), 'fa-file-text-o')
+								->heading('<a name="reply"></a>'.$this->lang('reply_topic'), 'fa-file-text-o')
 								->body($this->view('new', [
 									'form_id'  => $this->form->token()
 								]), FALSE);
@@ -375,7 +375,7 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', [
 						'status' => (string)($is_announce ? ($is_locked ? -1 : 0) : ($is_locked ? -2 : 1))
 					]);
-		//notify('success', $this('toggle_announce_topic'));
+		//notify('success', $this->lang('toggle_announce_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
@@ -385,7 +385,7 @@ class m_forum_c_index extends Controller_Module
 					->update('nf_forum_topics', [
 						'status' => (string)($is_locked ? ($is_announce ? 1 : 0) : ($is_announce ? -2 : -1))
 					]);
-		//notify('success', $this('toggle_lock_topic'));
+		//notify('success', $this->lang('toggle_lock_topic'));
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
 	}
 	
@@ -454,7 +454,7 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $locked)
 	{
-		$this	->title($this($is_topic ? 'edit_topic' : 'edit_message'))
+		$this	->title($this->lang($is_topic ? 'edit_topic' : 'edit_message'))
 				->_breadcrumb($category_id, $forum_id)
 				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title).'.html')
 				->breadcrumb()
@@ -494,7 +494,7 @@ class m_forum_c_index extends Controller_Module
 							'message' => $post['message']
 						]);
 
-			//notify('success', $this('edit_message_success'));
+			//notify('success', $this->lang('edit_message_success'));
 
 			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title).'.html');
 		}
@@ -505,13 +505,13 @@ class m_forum_c_index extends Controller_Module
 		{
 			$panels[] = $this->row($this->col(
 				$this	->panel()
-						->heading($this($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
+						->heading($this->lang($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
 						->color('danger')
 			));
 		}
 		
 		$panels[] = $this	->panel()
-							->heading($this($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
+							->heading($this->lang($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
 							->body($this->view('new', [
 								'form_id'  => $this->form->token(),
 								'post'     => $post,
@@ -527,10 +527,10 @@ class m_forum_c_index extends Controller_Module
 	
 	public function _message_delete($message_id, $title, $topic_id, $forum_id, $is_topic)
 	{
-		$this	->title($this($is_topic ? 'delete_topic' : 'delete_message'))
+		$this	->title($this->lang($is_topic ? 'delete_topic' : 'delete_message'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $is_topic ? $this('topic_confirmation', $title) : $this('message_confirmation'));
+				->confirm_deletion($this->lang('delete_confirmation'), $is_topic ? $this->lang('topic_confirmation', $title) : $this->lang('message_confirmation'));
 
 		if ($this->form->is_valid())
 		{
@@ -598,7 +598,7 @@ class m_forum_c_index extends Controller_Module
 	public function mark_all_as_read()
 	{
 		$this->model()->mark_all_as_read();
-		//notify('success', $this('marked_as_read'));
+		//notify('success', $this->lang('marked_as_read'));
 		redirect('forum.html');
 	}
 	
@@ -609,7 +609,7 @@ class m_forum_c_index extends Controller_Module
 			$this->model()->mark_all_as_read($id);
 		}
 		
-		//notify('success', $this('forum_marked_as_read', $title));
+		//notify('success', $this->lang('forum_marked_as_read', $title));
 		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
 	}
 	
