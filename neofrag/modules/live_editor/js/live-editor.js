@@ -314,7 +314,7 @@ $(function(){
 	$('.live-editor-iframe iframe').bind('load', function(){
 		var $iframe = $(this).contents();
 		
-		$('#live-editor-map').html('<i class="fa fa-map-marker fa-fw"></i> '+$iframe.find('#live_editor').data('module-title'));
+		$('#live-editor-map').html($iframe.find('#live_editor').data('module-title'));
 		
 		$iframe.on('mouseover', '.widget, .module', function(){
 			if ($widgets.hasClass('active') && !$(this).find('.widget-hover').length){

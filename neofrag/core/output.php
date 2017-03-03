@@ -28,10 +28,11 @@ class Output extends Core
 
 		$this->data['page_title'] = $this->config->nf_name.' :: '.$this->config->nf_description;
 		$this->data['lang']       = $this->config->lang;
-		
+		$this->data['output']     = preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean());
+
 		if ($this->url->ajax())
 		{
-			$output = $this->load->module->get_output();
+			$output = $this->load->module;
 		}
 		else
 		{
@@ -41,25 +42,9 @@ class Output extends Core
 
 			$this->parse_data($this->data);
 
-			$this->data['module'] = $this->load->module->get_output();
-			
-			if ($this->url->admin)
+			if (!empty($this->data['module_title']) && $this->url->segments[0] != 'index')
 			{
-				$this->data['module'] = '<div class="module module-admin module-'.$this->load->module->name.'">'.$this->data['module'].'</div>';
-			}
-
-			if (!empty($this->data['module_title']))
-			{
-				$module_title = $this->data['module_title'];
-				
-				if ($this->url->segments[0] != 'index')
-				{
-					$this->data['page_title'] = $this->data['module_title'].' :: '.$this->config->nf_name;
-				}
-			}
-			else
-			{
-				$module_title = '';
+				$this->data['page_title'] = $this->data['module_title'].' :: '.$this->config->nf_name;
 			}
 
 			if (!empty($this->load->module->icon) || !empty($this->data['module_icon']))
@@ -68,24 +53,34 @@ class Output extends Core
 			}
 
 			notifications();
-
-			$this->data['body'] = $this->load->theme->view('body', $this->data);
-
-			if (NeoFrag::live_editor())
-			{
-				$this->data['body'] = '<div id="live_editor" data-module-title="'.($this->url->segments[0] == 'index' ? NeoFrag::loader()->lang('home') : $module_title).'"></div>'.$this->data['body'];
 			
-				$this->load	->css('font.open-sans.300.400.600.700.800')
-							->css('neofrag.live-editor');
+			if ($this->load->module->name == 'live_editor')
+			{
+				$this->data['body'] = $this->load->module;
 			}
 			else
 			{
+				$this->data['body'] = '';
+
+				if (NeoFrag::live_editor())
+				{
+					$this->data['body'] = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label($this->lang('home'), 'fa-map-marker') : $this->data['module_title']).'"></div>';
+
+					$this->load	->css('font.open-sans.300.400.600.700.800')
+								->css('neofrag.live-editor');
+				}
+
+				$this->data['body'] .= $this->load->theme->view('body', $this->data);
+
 				if ($this->load->modals)
 				{
 					$this->data['body'] .= implode($this->load->modals);
 				}
 
-				$this->data['body'] .= $this->debug->display();
+				if (!NeoFrag::live_editor())
+				{
+					$this->data['body'] .= $this->debug->display();
+				}
 			}
 
 			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring.html' && $this->module('monitoring')->need_checking())
