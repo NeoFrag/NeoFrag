@@ -18,7 +18,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Loader extends Core
+class Loader extends NeoFrag
 {
 	public $libraries   = [];
 	public $helpers     = [];
@@ -107,6 +107,6 @@ class Loader extends Core
 }
 
 /*
-NeoFrag Alpha 0.1.5.2
-./neofrag/core/loader.php
+NeoFrag Alpha 0.1.6
+./neofrag/classes/loader.php
 */
