@@ -43,7 +43,7 @@ function asset($file_path, $file_name = '')
 
 	if (!isset($content))
 	{
-		foreach (NeoFrag::loader()->paths('assets') as $path)
+		foreach (NeoFrag()->paths('assets') as $path)
 		{
 			if (!check_file($path = $path.'/'.$file_path))
 			{
@@ -62,10 +62,10 @@ function asset($file_path, $file_name = '')
 		if (in_array($ext = extension($file_path), ['css', 'js']))
 		{
 			$data = [
-				'lang' => NeoFrag::loader()->config->lang
+				'lang' => NeoFrag()->config->lang
 			];
 
-			$content = NeoFrag::loader()->view->content($content, $data);
+			$content = NeoFrag()->view->content($content, $data);
 		}
 		
 		ob_end_clean();
@@ -101,7 +101,7 @@ function path($file, $file_type = '', $paths = [])
 		
 		if (!isset($paths[$file]))
 		{
-			$paths[$file] = NeoFrag::loader()->db->select('path')
+			$paths[$file] = NeoFrag()->db->select('path')
 												->from('nf_files')
 												->where('file_id', $file)
 												->row();
@@ -118,7 +118,7 @@ function path($file, $file_type = '', $paths = [])
 
 		if (!$paths)
 		{
-			$loader = NeoFrag::loader()->theme ? NeoFrag::loader()->theme->load : NeoFrag::loader();
+			$loader = NeoFrag()->theme ? NeoFrag()->theme->load : NeoFrag();
 			$paths = $loader->paths('assets');
 		}
 

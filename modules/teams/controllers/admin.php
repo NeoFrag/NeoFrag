@@ -217,7 +217,7 @@ class m_teams_c_admin extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+							return NeoFrag()->user->link($data['user_id'], $data['username']);
 						},
 					],
 					[

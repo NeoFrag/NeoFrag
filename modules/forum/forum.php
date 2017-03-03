@@ -56,10 +56,10 @@ class m_forum extends Module
 		return [
 			'category' => [
 				'get_all' => function(){
-					return NeoFrag::loader()->db->select('category_id', 'CONCAT_WS(" ", "{lang category}", title)')->from('nf_forum_categories')->get();
+					return NeoFrag()->db->select('category_id', 'CONCAT_WS(" ", "{lang category}", title)')->from('nf_forum_categories')->get();
 				},
 				'check'   => function($category_id){
-					if (($category = NeoFrag::loader()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== [])
+					if (($category = NeoFrag()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== [])
 					{
 						return '{lang category} '.$category;
 					}

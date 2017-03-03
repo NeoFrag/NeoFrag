@@ -39,24 +39,11 @@ abstract class NeoFrag
 		'pages'      => '((?:/?(?:all|page/[0-9]+?(?:/(?:10|25|50|100))?))?)'
 	];
 
-	static public function loader()
-	{
-		static $NF;
-		
-		if ($NF === NULL)
-		{
-			global $NeoFrag;
-			$NF = $NeoFrag;
-		}
-		
-		return $NF;
-	}
-	
 	static public function live_editor()
 	{
-		if (($live_editor = post('live_editor')) && NeoFrag::loader()->user('admin'))
+		if (($live_editor = post('live_editor')) && NeoFrag()->user('admin'))
 		{
-			NeoFrag::loader()->session->set('live_editor', $live_editor);
+			NeoFrag()->session->set('live_editor', $live_editor);
 			return $live_editor;
 		}
 		
@@ -65,7 +52,7 @@ abstract class NeoFrag
 
 	public function __isset($name)
 	{
-		return isset($this->load->libraries[$name]) || isset(NeoFrag::loader()->libraries[$name]);
+		return isset($this->load->libraries[$name]) || isset(NeoFrag()->libraries[$name]);
 	}
 
 	public function __get($name)
@@ -74,9 +61,9 @@ abstract class NeoFrag
 		{
 			return $this->load->libraries[$name];
 		}
-		else if (isset(NeoFrag::loader()->libraries[$name]))
+		else if (isset(NeoFrag()->libraries[$name]))
 		{
-			return NeoFrag::loader()->libraries[$name];
+			return NeoFrag()->libraries[$name];
 		}
 		else
 		{
@@ -154,7 +141,7 @@ abstract class NeoFrag
 			return forward_static_call_array($callback ?: [$this, $match[1]], $args);
 		}
 
-		if (!$callback && is_callable($library = $this->$name ?: NeoFrag::loader()->$name))
+		if (!$callback && is_callable($library = $this->$name ?: NeoFrag()->$name))
 		{
 			$callback = $library;
 		}
@@ -199,37 +186,37 @@ abstract class NeoFrag
 
 	public function css($file, $media = 'screen')
 	{
-		NeoFrag::loader()->css[] = [$file, $media, $this->load];
+		NeoFrag()->css[] = [$file, $media, $this->load];
 		return $this;
 	}
 
 	public function js($file)
 	{
-		NeoFrag::loader()->js[] = [$file, $this->load];
+		NeoFrag()->js[] = [$file, $this->load];
 		return $this;
 	}
 
 	public function js_load($function)
 	{
-		NeoFrag::loader()->js_load[] = $function;
+		NeoFrag()->js_load[] = $function;
 		return $this;
 	}
 
 	public function module($name, $force = FALSE)
 	{
-		return $this->_load($name, 'module', 'm_'.$name, NeoFrag::loader()->modules, $name.'/'.$name, $force, function() use ($name){
+		return $this->_load($name, 'module', 'm_'.$name, NeoFrag()->modules, $name.'/'.$name, $force, function() use ($name){
 			return $this->addons->is_enabled($name, 'module') && $this->access($name, 'module_access');
 		});
 	}
 
 	public function theme($name, $force = FALSE)
 	{
-		return $this->_load($name, 'theme', 't_'.$name, NeoFrag::loader()->themes, $name.'/'.$name, $force);
+		return $this->_load($name, 'theme', 't_'.$name, NeoFrag()->themes, $name.'/'.$name, $force);
 	}
 
 	public function widget($name, $force = FALSE)
 	{
-		return $this->_load($name, 'widget', 'w_'.$name, NeoFrag::loader()->widgets, $name.'/'.$name, $force, function() use ($name){
+		return $this->_load($name, 'widget', 'w_'.$name, NeoFrag()->widgets, $name.'/'.$name, $force, function() use ($name){
 			return $this->addons->is_enabled($name, 'widget');
 		});
 	}
@@ -266,7 +253,7 @@ abstract class NeoFrag
 
 	public function authenticator($name, $enabled, $settings = [])
 	{
-		return $this->_load($name, 'authenticator', 'a_'.$name, NeoFrag::loader()->authenticators, NULL, FALSE, NULL, [$name, $enabled, $settings]);
+		return $this->_load($name, 'authenticator', 'a_'.$name, NeoFrag()->authenticators, NULL, FALSE, NULL, [$name, $enabled, $settings]);
 	}
 
 	public function helper($name)
@@ -342,9 +329,9 @@ abstract class NeoFrag
 				{
 					$lang = $this->load->langs[$path];
 				}
-				else if (isset(NeoFrag::loader()->load->langs[$path]))
+				else if (isset(NeoFrag()->load->langs[$path]))
 				{
-					$lang = NeoFrag::loader()->load->langs[$path];
+					$lang = NeoFrag()->load->langs[$path];
 				}
 				else
 				{
@@ -449,7 +436,7 @@ abstract class NeoFrag
 							->color($color)
 							->tooltip(icon('fa-clock-o').' '.round(($this->time[1] - $this->time[0]) * 1000, 2).' ms&nbsp;&nbsp;&nbsp;'.icon('fa-cogs').' '.ceil(($this->memory[1] - $this->memory[0]) / 1024).' kB');
 
-		NeoFrag::loader()->debug->timeline($output, $this->time[0], $this->time[1]);
+		NeoFrag()->debug->timeline($output, $this->time[0], $this->time[1]);
 
 		return $output;
 	}

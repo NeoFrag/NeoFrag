@@ -61,7 +61,7 @@ class Addons extends Core
 		{
 			foreach ($this->_addons[$type] as $name => $is_enabled)
 			{
-				if (($object = NeoFrag::loader()->$type($name, $get_all)) && ($is_enabled || $get_all))
+				if (($object = NeoFrag()->$type($name, $get_all)) && ($is_enabled || $get_all))
 				{
 					$list[$type][(int)$get_all][$name] = $object;
 				}
@@ -95,7 +95,7 @@ class Addons extends Core
 
 			foreach (array_keys($this->_addons['theme']) as $name)
 			{
-				if ($theme = NeoFrag::loader()->theme($name))
+				if ($theme = NeoFrag()->theme($name))
 				{
 					$list[$name] = $theme;
 				}

@@ -15,7 +15,7 @@
 			<tr data-action="<?php echo $name; ?>">
 				<td class="text-primary"><?php echo icon($access['icon']).' '.$data['loader']->lang($access['title'], NULL); ?></td>
 				<td class="access-count">
-					<?php echo NeoFrag::loader()->access->count($data['module'], $name, $data['id']); ?>
+					<?php echo NeoFrag()->access->count($data['module'], $name, $data['id']); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>

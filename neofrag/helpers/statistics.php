@@ -24,7 +24,7 @@ function statistics($name, $value = NULL, $callback = NULL)
 	
 	if ($statistics === NULL)
 	{
-		foreach (NeoFrag::loader()->db->from('nf_statistics')->get() as $stat)
+		foreach (NeoFrag()->db->from('nf_statistics')->get() as $stat)
 		{
 			$statistics[$stat['name']] = $stat['value'];
 		}
@@ -36,7 +36,7 @@ function statistics($name, $value = NULL, $callback = NULL)
 		{
 			if ($callback === NULL || call_user_func($callback, $value, $statistics[$name]))
 			{
-				NeoFrag::loader()->db	->where('name', $name)
+				NeoFrag()->db	->where('name', $name)
 										->update('nf_statistics', [
 											'value' => $value
 										]);
@@ -44,7 +44,7 @@ function statistics($name, $value = NULL, $callback = NULL)
 		}
 		else
 		{
-			NeoFrag::loader()->db->insert('nf_statistics', [
+			NeoFrag()->db->insert('nf_statistics', [
 				'name'  => $name,
 				'value' => $value
 			]);

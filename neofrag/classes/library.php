@@ -35,7 +35,7 @@ class Library extends NeoFrag
 
 	public function __wakeup()
 	{
-		$this->load = NeoFrag::loader();
+		$this->load = NeoFrag();
 	}
 
 	public function reset()

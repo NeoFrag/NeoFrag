@@ -1400,9 +1400,9 @@
     <Cell><Data ss:Type="String">neofrag/widgets/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">welcome</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Bienvenue &lt;a href=&quot;'.url('user.html').'&quot;&gt;'.NeoFrag::loader()-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
+    <Cell><Data ss:Type="String">Bienvenue &lt;a href=&quot;'.url('user.html').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Welcome &lt;a href=&quot;'.url('user.html').'&quot;&gt;'. NeoFrag::loader ()-&gt; user('username').'&lt;/a&gt;</Data><NamedCell
+    <Cell><Data ss:Type="String">Welcome &lt;a href=&quot;'.url('user.html').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -6721,9 +6721,9 @@
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">copyright_all_rights_reserved</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Copyright © '.date('Y').' - '.NeoFrag::loader()-&gt;config-&gt;nf_name.' tous droits réservés</Data><NamedCell
+    <Cell><Data ss:Type="String">Copyright © '.date('Y').' - '.$this-&gt;config-&gt;nf_name.' tous droits réservés</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Copyright © '.date('Y').' - '.NeoFrag::loader()-&gt;config-&gt;nf_name.' all rights reserved</Data><NamedCell
+    <Cell><Data ss:Type="String">Copyright © '.date('Y').' - '.$this-&gt;config-&gt;nf_name.' all rights reserved</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>

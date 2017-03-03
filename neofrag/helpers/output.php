@@ -22,16 +22,16 @@ function display($objects, $id = NULL)
 {
 	$output = '';
 	
-	if (!NeoFrag::loader()->url->ajax)
+	if (!NeoFrag()->url->ajax)
 	{
 		if (is_object($objects) && is_a($objects, 'Panel'))
 		{
-			$objects = NeoFrag::loader()->col($objects);
+			$objects = NeoFrag()->col($objects);
 		}
 		
 		if (is_object($objects) && is_a($objects, 'Col'))
 		{
-			$objects = NeoFrag::loader()->row($objects);
+			$objects = NeoFrag()->row($objects);
 		}
 	}
 	
@@ -55,28 +55,28 @@ function display($objects, $id = NULL)
 
 function output($type)
 {
-	if (in_array($type, ['css', 'js', 'js_load']) && !empty(NeoFrag::loader()->{$type}))
+	if (in_array($type, ['css', 'js', 'js_load']) && !empty(NeoFrag()->{$type}))
 	{
 		if ($type == 'css')
 		{
-			if ($v = (int)NeoFrag::loader()->config->nf_version_css)
+			if ($v = (int)NeoFrag()->config->nf_version_css)
 			{
 				$v = '?v='.$v;
 			}
 
 			$output = array_map(function($a) use ($v){
 				return '<link rel="stylesheet" href="'.path($a[0].'.css', 'css', $a[2]->paths('assets')).($v ?: '').'" type="text/css" media="'.$a[1].'" />';
-			}, NeoFrag::loader()->css);
+			}, NeoFrag()->css);
 		}
 		else if ($type == 'js')
 		{
 			$output = array_map(function($a){
 				return '<script type="text/javascript" src="'.path($a[0].'.js', 'js', $a[1]->paths('assets')).'"></script>';
-			}, NeoFrag::loader()->js);
+			}, NeoFrag()->js);
 		}
 		else if ($type == 'js_load')
 		{
-			$output = NeoFrag::loader()->js_load;
+			$output = NeoFrag()->js_load;
 		}
 
 		return implode("\r\n", array_unique($output));

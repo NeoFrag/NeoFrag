@@ -22,10 +22,10 @@ function url($url = '')
 {
 	if (substr($url, 0, 1) == '#')
 	{
-		$url = NeoFrag::loader()->url->request.$url;
+		$url = NeoFrag()->url->request.$url;
 	}
 	
-	return NeoFrag::loader()->url->base.$url;
+	return NeoFrag()->url->base.$url;
 }
 
 function redirect($location = '')
@@ -36,7 +36,7 @@ function redirect($location = '')
 
 function redirect_back($default = '')
 {
-	header('Location: '.url(NeoFrag::loader()->session->get_back() ?: $default));
+	header('Location: '.url(NeoFrag()->session->get_back() ?: $default));
 	exit;
 }
 

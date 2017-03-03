@@ -279,7 +279,7 @@ abstract class Driver
 	public function debug()
 	{
 		require_once 'lib/geshi/geshi.php';
-		return geshi_highlight($this->sql, 'sql', NULL, TRUE).(!empty($this->bind) ? '<br />'.NeoFrag::loader()->debug->table($this->bind) : '').(!empty($this->error) ? '<div class="alert alert-danger">'.$this->error.'</div>' : '');
+		return geshi_highlight($this->sql, 'sql', NULL, TRUE).(!empty($this->bind) ? '<br />'.NeoFrag()->debug->table($this->bind) : '').(!empty($this->error) ? '<div class="alert alert-danger">'.$this->error.'</div>' : '');
 	}
 }
 

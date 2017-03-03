@@ -185,7 +185,7 @@ class User extends Core
 					
 					echo $theme->view('default', [
 						'body'       => $theme->view('maintenance', [
-							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag::loader()->lang('website_under_maintenance')
+							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag()->lang('website_under_maintenance')
 						]),
 						'lang'       => $this->config->lang,
 						'css'        => output('css'),

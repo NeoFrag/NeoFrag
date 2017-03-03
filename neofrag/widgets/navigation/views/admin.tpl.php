@@ -48,7 +48,7 @@
 							array_natsort($modules);
 							
 							$modules = array_merge([
-								'index' => NeoFrag::loader()->lang('home')
+								'index' => NeoFrag()->lang('home')
 							], $modules);
 							?>
 							<div class="list-group">

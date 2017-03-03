@@ -18,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
+function NeoFrag()
+{
+	global $NeoFrag;
+	return $NeoFrag;
+}
+
 function check_file($dir, $force = FALSE)
 {
 	if ($dir === '')
@@ -100,7 +106,7 @@ function load($name)
 
 	$r = new ReflectionClass($name);
 
-	if ($debug = NeoFrag::loader() === NULL || !isset(NeoFrag::loader()->user) || !isset(NeoFrag::loader()->debug) || NeoFrag::loader()->debug->is_enabled())
+	if ($debug = NeoFrag() === NULL || !isset(NeoFrag()->user) || !isset(NeoFrag()->debug) || NeoFrag()->debug->is_enabled())
 	{
 		$memory = memory_get_usage();
 		$time   = microtime(TRUE);

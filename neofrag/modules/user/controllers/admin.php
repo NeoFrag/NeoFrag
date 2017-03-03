@@ -38,10 +38,10 @@ class m_user_c_admin extends Controller_Module
 				],
 				[
 					'content' => function($data){
-						return NeoFrag::loader()->groups->display($data['data_id']);
+						return NeoFrag()->groups->display($data['data_id']);
 					},
 					'search'  => function($data){
-						return NeoFrag::loader()->groups->display($data['data_id'], FALSE, FALSE);
+						return NeoFrag()->groups->display($data['data_id'], FALSE, FALSE);
 					}
 				],
 				[
@@ -76,7 +76,7 @@ class m_user_c_admin extends Controller_Module
 				[
 					'title'   => $this('member'),
 					'content' => function($data){
-						return NeoFrag::loader()->user->link($data['user_id'], $data['username']);
+						return NeoFrag()->user->link($data['user_id'], $data['username']);
 					},
 					'sort'    => function($data){
 						return $data['username'];
@@ -100,19 +100,19 @@ class m_user_c_admin extends Controller_Module
 				[
 					'title'   => $this('groups'),
 					'content' => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id']);
+						return NeoFrag()->groups->user_groups($data['user_id']);
 					},
 					'sort'    => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+						return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
 					},
 					'search'  => function($data){
-						return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+						return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
 					}
 				],
 				[
 					'title'   => $this('registration_date'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
 					'sort'    => function($data){
 						return $data['registration_date'];
@@ -121,7 +121,7 @@ class m_user_c_admin extends Controller_Module
 				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
 					},
 					'sort'    => function($data){
 						return $data['last_activity_date'];
@@ -228,13 +228,13 @@ class m_user_c_admin extends Controller_Module
 				[
 					'title'   => $this('arrival_date'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				],
 				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
 				],
 				[
@@ -465,7 +465,7 @@ class m_user_c_admin extends Controller_Module
 					[
 						'title'   => $this('user'),
 						'content' => function($data){
-							return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('guest').'</i>';
+							return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('guest').'</i>';
 						},
 						'search'  => function($data){
 							return $data['user_id'] ? $data['username'] : $this->lang('guest');
@@ -514,7 +514,7 @@ class m_user_c_admin extends Controller_Module
 					[
 						'title'   => $this('arrival_date'),
 						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 						},
 						'sort'    => function($data){
 							return $data['date'];
@@ -523,7 +523,7 @@ class m_user_c_admin extends Controller_Module
 					[
 						'title'   => $this('last_activity'),
 						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 						},
 						'sort'    => function($data){
 							return $data['last_activity'];
@@ -541,7 +541,7 @@ class m_user_c_admin extends Controller_Module
 					],
 					[
 						'content' => [function($data){
-							if ($data['user_id'] && $data['session_id'] != NeoFrag::loader()->session('session_id'))
+							if ($data['user_id'] && $data['session_id'] != NeoFrag()->session('session_id'))
 							{
 								return $this->button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
 							}

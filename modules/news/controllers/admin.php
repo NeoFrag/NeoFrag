@@ -62,7 +62,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => $this('author'),
 								'content' => function($data){
-									return $data['user_id'] ? NeoFrag::loader()->user->link($data['user_id'], $data['username']) : $this->lang('guest');
+									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : $this->lang('guest');
 								},
 								'sort'    => function($data){
 									return $data['username'];
@@ -74,7 +74,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => $this('date'),
 								'content' => function($data){
-									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 								},
 								'sort'    => function($data){
 									return $data['date'];
@@ -83,7 +83,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('comments').'"></i>',
 								'content' => function($data){
-									return NeoFrag::loader()->comments->admin_comments('news', $data['news_id']);
+									return NeoFrag()->comments->admin_comments('news', $data['news_id']);
 								},
 								'size'    => TRUE
 							],

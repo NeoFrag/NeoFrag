@@ -23,7 +23,7 @@ class w_module_c_index extends Controller_Widget
 	public function index($config = [])
 	{
 		$this->title($this->output->data['module_title']);
-		echo NeoFrag::loader()->module;
+		echo NeoFrag()->module;
 	}
 }
 

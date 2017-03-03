@@ -129,7 +129,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 							{
 								$type = strtolower($match[3]);
 
-								$addon = NeoFrag::loader()->$type($name = strtolower($match[2]), TRUE);
+								$addon = NeoFrag()->$type($name = strtolower($match[2]), TRUE);
 
 								if ($addon)
 								{
@@ -153,7 +153,7 @@ class m_addons_c_admin_ajax extends Controller_Module
 								{
 									dir_copy($dir, $type.'s/'.$name);
 
-									if ($addon = NeoFrag::loader()->$type($name, TRUE))
+									if ($addon = NeoFrag()->$type($name, TRUE))
 									{
 										$addon->reset();
 										

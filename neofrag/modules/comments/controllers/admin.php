@@ -76,7 +76,7 @@ class m_comments_c_admin extends Controller_Module
 			[
 				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this('number_comments').'"></i>',
 				'content' => function($data){
-					return NeoFrag::loader()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
+					return NeoFrag()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
 				'size'    => TRUE
 			],

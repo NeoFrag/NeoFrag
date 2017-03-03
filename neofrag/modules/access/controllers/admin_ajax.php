@@ -26,7 +26,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		
 		foreach (array_keys($this->groups()) as $group_id)
 		{
-			$groups[$group_id] = NeoFrag::loader()->access($module_name, $action, $id, $group_id);
+			$groups[$group_id] = NeoFrag()->access($module_name, $action, $id, $group_id);
 		}
 
 		return $this->col(
@@ -87,7 +87,7 @@ class m_access_c_admin_ajax extends Controller_Module
 						[
 						'title'   => $this('member'),
 						'content' => function($data){
-							return NeoFrag::loader()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
+							return NeoFrag()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
 						},
 						'sort'    => function($data){
 							return $data['username'];
@@ -99,13 +99,13 @@ class m_access_c_admin_ajax extends Controller_Module
 					[
 						'title'   => $this('groups'),
 						'content' => function($data){
-							return NeoFrag::loader()->groups->user_groups($data['user_id']);
+							return NeoFrag()->groups->user_groups($data['user_id']);
 						},
 						'sort'    => function($data){
-							return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+							return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
 						},
 						'search'  => function($data){
-							return NeoFrag::loader()->groups->user_groups($data['user_id'], FALSE);
+							return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
 						}
 					],
 					[
@@ -142,7 +142,7 @@ class m_access_c_admin_ajax extends Controller_Module
 							
 							if ($admins === NULL)
 							{
-								$admins = NeoFrag::loader()->groups()['admins']['users'];
+								$admins = NeoFrag()->groups()['admins']['users'];
 							}
 							
 							return in_array($data['user_id'], $admins) ? '<td></td>' : $this->view('radio', [
@@ -155,7 +155,7 @@ class m_access_c_admin_ajax extends Controller_Module
 				])
 				->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
 				->preprocessing(function($row) use ($module_name, $action, $id){
-					$row['active'] = NeoFrag::loader()->access($module_name, $action, $id, NULL, $row['user_id']);
+					$row['active'] = NeoFrag()->access($module_name, $action, $id, NULL, $row['user_id']);
 					return $row;
 				})
 				->sort_by(3, SORT_DESC)

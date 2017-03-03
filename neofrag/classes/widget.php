@@ -32,9 +32,9 @@ abstract class Widget extends Loadable
 
 	public function paths()
 	{
-		if (!empty(NeoFrag::loader()->theme))
+		if (!empty(NeoFrag()->theme))
 		{
-			if (in_array($theme_name = NeoFrag::loader()->theme->name, ['default', 'admin']))
+			if (in_array($theme_name = NeoFrag()->theme->name, ['default', 'admin']))
 			{
 				unset($theme_name);
 			}

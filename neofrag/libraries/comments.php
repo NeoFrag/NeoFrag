@@ -106,12 +106,12 @@ class Comments extends Library
 		if ($errors = $this->form->get_errors())
 		{
 			$panels[] = $this	->panel()
-								->heading('<a name="comments"></a>'.NeoFrag::loader()->lang('message_needed'), 'fa-warning')
+								->heading('<a name="comments"></a>'.NeoFrag()->lang('message_needed'), 'fa-warning')
 								->color('danger');
 		}
 		
 		$panels[] = $this	->panel()
-							->heading('<a name="comments"></a>'.NeoFrag::loader()->lang('comments', $count, $count), 'fa-comments-o')
+							->heading('<a name="comments"></a>'.NeoFrag()->lang('comments', $count, $count), 'fa-comments-o')
 							->body($output.$this->view('comments/new', [
 								'form_id' => $this->form->token()
 							]));
