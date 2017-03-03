@@ -24,12 +24,12 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 404 Not Found');
 
-		$this->title($this('unfound'));
+		$this->title($this->lang('unfound'));
 
 		return [
 			$this	->panel()
-					->heading($this('unfound'), 'fa-warning')
-					->body($this('page_unfound'))
+					->heading($this->lang('unfound'), 'fa-warning')
+					->body($this->lang('page_unfound'))
 					->color('danger'),
 			$this->panel_back()
 		];
@@ -39,12 +39,12 @@ class m_error_c_index extends Controller_Module
 	{
 		header('HTTP/1.0 401 Unauthorized');
 
-		$this->title($this('unauthorized'));
+		$this->title($this->lang('unauthorized'));
 
 		return [
 			$this	->panel()
-					->heading($this('unauthorized'), 'fa-warning')
-					->body($this('required_permissions'))
+					->heading($this->lang('unauthorized'), 'fa-warning')
+					->body($this->lang('required_permissions'))
 					->color('danger'),
 			$this->panel_back()
 		];

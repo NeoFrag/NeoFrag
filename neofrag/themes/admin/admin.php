@@ -76,28 +76,28 @@ class t_admin extends Theme
 				->js('slideout.min')
 				->add_data('menu', [
 					[
-						'title' => $this('dashboard'),
+						'title' => $this->lang('dashboard'),
 						'icon'  => 'fa-dashboard',
 						'url'   => 'admin.html'
 					],
 					[
-						'title' => $this('settings'),
+						'title' => $this->lang('settings'),
 						'icon'  => 'fa-cogs',
 						'url'   => [
 							[
-								'title'  => $this('configuration'),
+								'title'  => $this->lang('configuration'),
 								'icon'   => 'fa-wrench',
 								'url'    => 'admin/settings.html',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this('maintenance'),
+								'title'  => $this->lang('maintenance'),
 								'icon'   => 'fa-power-off',
 								'url'    => 'admin/settings/maintenance.html',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this('addons'),
+								'title'  => $this->lang('addons'),
 								'icon'   => 'fa-puzzle-piece',
 								'url'    => 'admin/addons.html',
 								'access' => $this->user('admin')
@@ -105,7 +105,7 @@ class t_admin extends Theme
 						]
 					],
 					[
-						'title' => $this('users'),
+						'title' => $this->lang('users'),
 						'icon'  => 'fa-users',
 						'url'   => [
 							[
@@ -115,7 +115,7 @@ class t_admin extends Theme
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this('sessions'),
+								'title'  => $this->lang('sessions'),
 								'icon'   => 'fa-globe',
 								'url'    => 'admin/user/sessions.html',
 								'access' => $this->user('admin')
@@ -126,13 +126,13 @@ class t_admin extends Theme
 								'url'   => 'admin/user.html'
 							),*/
 							[
-								'title'  => $this('permissions'),
+								'title'  => $this->lang('permissions'),
 								'icon'   => 'fa-unlock-alt',
 								'url'    => 'admin/access.html',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this('ban'),
+								'title'  => $this->lang('ban'),
 								'icon'   => 'fa-bomb',
 								'url'    => 'admin/user/ban.html',
 								'access' => $this->user('admin')
@@ -140,7 +140,7 @@ class t_admin extends Theme
 						]
 					],
 					[
-						'title' => $this('content'),
+						'title' => $this->lang('content'),
 						'icon'  => 'fa-edit',
 						'url'   => $content_submenu['default']
 					],
@@ -150,17 +150,17 @@ class t_admin extends Theme
 						'url'   => $content_submenu['gaming']
 					],
 					[
-						'title' => $this('design'),
+						'title' => $this->lang('design'),
 						'icon'  => 'fa-paint-brush',
 						'url'   => [
 							[
-								'title'  => $this('themes'),
+								'title'  => $this->lang('themes'),
 								'icon'   => 'fa-tint',
 								'url'    => 'admin/addons.html#themes',
 								'access' => $this->user('admin')
 							],
 							[
-								'title' => $this('liveditor'),
+								'title' => $this->lang('liveditor'),
 								'icon'  => 'fa-desktop',
 								'url'   => 'live-editor.html',
 								'access' => $this->user('admin')
@@ -180,7 +180,7 @@ class t_admin extends Theme
 						'access' => $this->user('admin')
 					],
 					[
-						'title'  => $this('about'),
+						'title'  => $this->lang('about'),
 						'icon'   => 'fa-info',
 						'url'    => 'admin/about.html',
 						'access' => $this->user('admin')

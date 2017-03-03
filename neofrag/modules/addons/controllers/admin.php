@@ -22,7 +22,7 @@ class m_addons_c_admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->title($this('addons'))
+		$this	->title($this->lang('addons'))
 				->icon('fa-puzzle-piece')
 				->css('addons')
 				->js('addons')
@@ -95,7 +95,7 @@ class m_addons_c_admin extends Controller_Module
 		$this	->title('Confirmation de suppression')
 				->subtitle($module->get_title())
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
 
 		if ($this->form->is_valid())
 		{
@@ -109,7 +109,7 @@ class m_addons_c_admin extends Controller_Module
 	public function _theme_settings($theme, $controller)
 	{
 		$this	->title($theme->get_title())
-				->subtitle($this('theme_customize'))
+				->subtitle($this->lang('theme_customize'))
 				->icon('fa-paint-brush');
 		
 		return $controller->index($theme);
@@ -120,7 +120,7 @@ class m_addons_c_admin extends Controller_Module
 		$this	->title('Confirmation de suppression')
 				->subtitle($theme->get_title())
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
 
 		if ($this->form->is_valid())
 		{

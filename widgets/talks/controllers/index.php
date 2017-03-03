@@ -41,7 +41,7 @@ class w_talks_c_index extends Controller_Widget
 		{
 			$panel->footer('<form>
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="'.$this('your_message').'" />
+									<input type="text" class="form-control" placeholder="'.$this->lang('your_message').'" />
 									<span class="input-group-btn">
 										<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
 									</span>

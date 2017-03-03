@@ -50,9 +50,9 @@ class m_talks_c_ajax extends Controller_Module
 	
 	public function delete($message_id, $talk_id)
 	{
-		$this	->title($this('delete_confirmation'))
+		$this	->title($this->lang('delete_confirmation'))
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_message_ajax'));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_message_ajax'));
 
 		if ($this->form->is_valid())
 		{

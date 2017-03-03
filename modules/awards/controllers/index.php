@@ -53,7 +53,7 @@ class m_awards_c_index extends Controller_Module
 		{
 			$panels[] = $this	->panel()
 								->heading('Palmarès', 'fa-trophy')
-								->body('<div class="text-center">'.$this('no_award_yet').'</div>')
+								->body('<div class="text-center">'.$this->lang('no_award_yet').'</div>')
 								->color('info');
 		}
 

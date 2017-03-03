@@ -23,7 +23,7 @@ class m_admin_c_admin extends Controller_Module
 	public function index()
 	{
 		$users = $this
-			->title($this('dashboard'))
+			->title($this->lang('dashboard'))
 			->js('jquery.knob')
 			->js_load('$(\'.knob\').knob();')
 			->table
@@ -52,72 +52,72 @@ class m_admin_c_admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel_box()
-							->heading($this('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news.html')
+							->heading($this->lang('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news.html')
 							->body($count)
 							->color('bg-aqua')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_news').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_news').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user.html')
+							->heading($this->lang('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user.html')
 							->body($count)
 							->color('bg-green')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_members').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_members').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this('events', $count = 0), 'fa-calendar', 'admin/events.html')//TODO
+							->heading($this->lang('events', $count = 0), 'fa-calendar', 'admin/events.html')//TODO
 							->body($count)
 							->color('bg-blue')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_events').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_events').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams.html')
+							->heading($this->lang('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams.html')
 							->body($count)
 							->color('bg-red')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_teams').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_teams').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum.html')
+							->heading($this->lang('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum.html')
 							->body($count)
 							->color('bg-teal')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_forum').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_forum').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments.html')
+							->heading($this->lang('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments.html')
 							->body($count)
 							->color('bg-maroon')
 							->size('col-md-4 col-lg-2')
-							->footer($this('manage_comments').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('manage_comments').' '.icon('fa-arrow-circle-right'))
 				)
 			),
 			$this->row(
 				$this	->col(
 							$this	->panel_widget(1),
 							$this	->panel()
-									->heading('<a href="https://neofr.ag">'.$this('nf_news').'</a>', 'fa-newspaper-o')
+									->heading('<a href="https://neofr.ag">'.$this->lang('nf_news').'</a>', 'fa-newspaper-o')
 									->body($this->view('nf_news'))
 									
 						)
 						->size('col-md-8'),
 				$this	->col(
 							$this	->panel()
-									->heading($this('connected_users'), 'fa-globe')
+									->heading($this->lang('connected_users'), 'fa-globe')
 									->body($this->view('users_online', [
 										'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
-									->footer('<a href="'.url('admin/user/sessions.html').'">'.$this('view_all_sessions').'</a>'),
+									->footer('<a href="'.url('admin/user/sessions.html').'">'.$this->lang('view_all_sessions').'</a>'),
 							$this	->panel()
-									->heading($this('last_registrations'), 'fa-users')
+									->heading($this->lang('last_registrations'), 'fa-users')
 									->body($users)
 						)
 						->size('col-md-4')
@@ -141,29 +141,29 @@ class m_admin_c_admin extends Controller_Module
 
 	public function about()
 	{
-		$this->title($this('about'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
+		$this->title($this->lang('about'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
 
 		return [
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this('lgpl_license'))
+							->heading($this->lang('lgpl_license'))
 							->body($this->view('license'))
 							->size('col-md-12 col-lg-8')
 				),
 				$this->col(
 					$this	->panel()
-							->heading($this('the_team'))
+							->heading($this->lang('the_team'))
 							->body('	<div class="row">
 											<div class="col-md-6 text-center">
 												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Michaël BILCOT "FoxLey"</b></div>
-												<span class="text-muted">'.$this('web_developer').'</span>
+												<span class="text-muted">'.$this->lang('web_developer').'</span>
 											</div>
 											<div class="col-md-6 text-center">
 												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Jérémy VALENTIN "eResnova"</b></div>
-												<span class="text-muted">'.$this('web_designer').'</span>
+												<span class="text-muted">'.$this->lang('web_designer').'</span>
 											</div>
 										</div>')
 							->size('col-md-12 col-lg-4')
@@ -174,24 +174,24 @@ class m_admin_c_admin extends Controller_Module
 
 	public function notifications()
 	{
-		$this	->title($this('notifications'))
+		$this	->title($this->lang('notifications'))
 				->icon('fa-flag');
 		
 		return $this->panel()
-					->heading($this('notifications'), 'fa-flag')
-					->body($this('unavailable_feature'))
+					->heading($this->lang('notifications'), 'fa-flag')
+					->body($this->lang('unavailable_feature'))
 					->color('info')
 					->size('col-md-12');
 	}
 	
 	public function database()
 	{
-		$this	->title($this('database'))
+		$this	->title($this->lang('database'))
 				->icon('fa-database');
 		
 		return $this->panel()
-					->heading($this('database'), 'fa-database')
-					->body($this('unavailable_feature'))
+					->heading($this->lang('database'), 'fa-database')
+					->body($this->lang('unavailable_feature'))
 					->color('info')
 					->size('col-md-12');
 	}

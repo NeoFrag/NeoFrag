@@ -34,7 +34,7 @@ class m_news_c_index extends Controller_Module
 
 			if ($news['content'])
 			{
-				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">'.$this('read_more').'</a>');
+				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">'.$this->lang('read_more').'</a>');
 			}
 
 			$panels[] = $panel;
@@ -43,8 +43,8 @@ class m_news_c_index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this('news'), 'fa-file-text-o')
-								->body('<div class="text-center">'.$this('no_news_published').'</div>')
+								->heading($this->lang('news'), 'fa-file-text-o')
+								->body('<div class="text-center">'.$this->lang('no_news_published').'</div>')
 								->color('info');
 		}
 
@@ -55,21 +55,21 @@ class m_news_c_index extends Controller_Module
 
 	public function _tag($tag, $news)
 	{
-		$this->subtitle($this('tag', $tag));
-		return $this->_filter($news, $this('news').' <small>'.$tag.'</small>');
+		$this->subtitle($this->lang('tag', $tag));
+		return $this->_filter($news, $this->lang('news').' <small>'.$tag.'</small>');
 	}
 	
 	public function _category($title, $news)
 	{
-		$this->subtitle($this('category_', $title));
-		return $this->_filter($news, $this('category_news').' <small>'.$title.'</small>');
+		$this->subtitle($this->lang('category_', $title));
+		return $this->_filter($news, $this->lang('category_news').' <small>'.$title.'</small>');
 	}
 	
 	private function _filter($news, $filter)
 	{
 		$news = $this->index($news);
 		
-		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this('show_more'))->icon('fa-close')->url('news.html')->color('danger pull-right')->compact()->outline().'</h2>'));
+		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news.html')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
 	}
@@ -108,7 +108,7 @@ class m_news_c_index extends Controller_Module
 				$this->row(
 					$this->col(
 						$this	->panel()
-								->heading($this('about_the_author'), 'fa-user')
+								->heading($this->lang('about_the_author'), 'fa-user')
 								->body($this->view('author', [
 									'user_id'  => $user_id,
 									'username' => $username,
@@ -122,7 +122,7 @@ class m_news_c_index extends Controller_Module
 					),
 					$this->col(
 						$this	->panel()
-								->heading($this('more_news_from_author'), 'fa-file-text-o')
+								->heading($this->lang('more_news_from_author'), 'fa-file-text-o')
 								->body($this->view('author_news', [
 									'news' => $this->model()->get_news_by_user($user_id, $news_id)
 								]), FALSE)

@@ -148,7 +148,7 @@ class m_awards_c_admin extends Controller_Module
 					'teams' => $this->model()->get_teams_list(),
 					'games' => $this->model()->get_games_list(),
 				])
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/awards.html');
 
 		if ($this->form->is_valid($post))
@@ -193,7 +193,7 @@ class m_awards_c_admin extends Controller_Module
 					'description'  => $description,
 					'image'        => $image_id
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/awards.html');
 
 		if ($this->form->is_valid($post))
@@ -225,7 +225,7 @@ class m_awards_c_admin extends Controller_Module
 		$this	->title('Palmarès')
 				->subtitle($name)
 				->form
-				->confirm_deletion($this('delete_confirmation'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
+				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

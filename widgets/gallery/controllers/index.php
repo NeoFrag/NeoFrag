@@ -27,28 +27,28 @@ class w_gallery_c_index extends Controller_Widget
 		if (!empty($categories))
 		{
 			return $this->panel()
-						->heading($this('ours_galleries'))
+						->heading($this->lang('ours_galleries'))
 						->body($this->view('index', [
 							'categories' => $categories
 						]), FALSE)
-						->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
+						->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this('gallery'))
-						->body($this('no_category'));
+						->heading($this->lang('gallery'))
+						->body($this->lang('no_category'));
 		}
 	}
 	
 	public function albums($settings = [])
 	{
 		return $this->panel()
-					->heading($this('ours_albums'))
+					->heading($this->lang('ours_albums'))
 					->body($this->view('gallery', [
 						'gallery' => $this->model()->get_gallery($settings['category_id'])
 					]), FALSE)
-					->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this('see_our_gallery').'</a>', 'right');
+					->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
 	}
 	
 	public function image($settings = [])
@@ -61,13 +61,13 @@ class w_gallery_c_index extends Controller_Widget
 			return $this->panel()
 						->heading($image['title'])
 						->body('<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>', FALSE)
-						->footer('<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this('details').'</a>', 'right');
+						->footer('<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('details').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this('random_picture'))
-						->body($this('no_picture'));
+						->heading($this->lang('random_picture'))
+						->body($this->lang('no_picture'));
 		}
 	}
 	
@@ -86,8 +86,8 @@ class w_gallery_c_index extends Controller_Widget
 		else
 		{
 			return $this->panel()
-						->heading($this('album'))
-						->body($this('no_picture'));
+						->heading($this->lang('album'))
+						->body($this->lang('no_picture'));
 		}
 	}
 }

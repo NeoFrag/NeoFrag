@@ -27,29 +27,29 @@ class m_contact_c_index extends Controller_Module
 		if (!$this->user())
 		{
 			$rules['email'] = [
-				'label' => $this('email'),
+				'label' => $this->lang('email'),
 				'type'  => 'email',
 				'rules' => 'required'
 			];
 		}
 		
 		$rules['subject'] = [
-			'label' => $this('subject'),
+			'label' => $this->lang('subject'),
 			'rules' => 'required'
 		];
 		
 		$rules['message'] = [
-			'label' => $this('message'),
+			'label' => $this->lang('message'),
 			'type'  => 'editor',
 			'rules' => 'required'
 		];
 		
-		$this->title($this('contact_us'))
+		$this->title($this->lang('contact_us'))
 				->form
 				->display_required(FALSE)
 				->add_rules($rules)
 				->add_captcha()
-				->add_submit(icon('fa-envelope-o').' '.$this('send'))
+				->add_submit(icon('fa-envelope-o').' '.$this->lang('send'))
 				->add_back('index.html');
 		
 		if ($this->form->is_valid($post))
@@ -57,7 +57,7 @@ class m_contact_c_index extends Controller_Module
 			$this	->email
 					->from($this->user() ? $this->user('email') : $post['email'])
 					->to($this->config->nf_contact)
-					->subject($this('contact').' :: '.$post['subject'])
+					->subject($this->lang('contact').' :: '.$post['subject'])
 					->message('default', [
 						'content' => function() use ($post){
 							return bbcode($post['message']).($this->user() ? '<br /><br /><br />'.$this->user->link() : '');
@@ -69,7 +69,7 @@ class m_contact_c_index extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this('contact_us'), 'fa-envelope-o')
+					->heading($this->lang('contact_us'), 'fa-envelope-o')
 					->body($this->form->display());
 	}
 }

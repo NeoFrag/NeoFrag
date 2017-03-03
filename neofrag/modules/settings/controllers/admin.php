@@ -22,8 +22,8 @@ class m_settings_c_admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->title($this('configuration'))
-				->subtitle($this('general_settings'))
+		$this	->title($this->lang('configuration'))
+				->subtitle($this->lang('general_settings'))
 				->icon('fa-cog');
 		
 		$modules = $pages = [];
@@ -59,23 +59,23 @@ class m_settings_c_admin extends Controller_Module
 		$this	->form
 				->add_rules([
 					'name' => [
-						'label'  => $this('site_title'),
+						'label'  => $this->lang('site_title'),
 						'value'  => $this->config->nf_name,
 						'rules'  => 'required'
 					],
 					'description' => [
-						'label'  => $this('site_description'),
+						'label'  => $this->lang('site_description'),
 						'value'  => $this->config->nf_description,
 						'rules'  => 'required'
 					],
 					'contact' => [
-						'label'  => $this('contact_email'),
+						'label'  => $this->lang('contact_email'),
 						'value'  => $this->config->nf_contact,
 						'type'   => 'email',
 						'rules'  => 'required'
 					],
 					'default_page' => [
-						'label'  => $this('default_page'),
+						'label'  => $this->lang('default_page'),
 						'values' => $pages,
 						'value'  => $this->config->nf_default_page,
 						'type'   => 'select',
@@ -92,18 +92,18 @@ class m_settings_c_admin extends Controller_Module
 						'value'  => $this->config->nf_robots_txt
 					],
 					'analytics' => [
-						'label'  => $this('code_analytics'),
+						'label'  => $this->lang('code_analytics'),
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_analytics
 					],
 					'debug' => [
-						'label'  => $this('debug_mode'),
+						'label'  => $this->lang('debug_mode'),
 						'type'   => 'radio',
 						'value'  => $this->config->nf_debug,
-						'values' => [$this('debug_disabled'), $this('debug_admins_only'), $this('debug_always')]
+						'values' => [$this->lang('debug_disabled'), $this->lang('debug_admins_only'), $this->lang('debug_always')]
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -128,7 +128,7 @@ class m_settings_c_admin extends Controller_Module
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this('general_settings'), 'fa-cog')
+								->heading($this->lang('general_settings'), 'fa-cog')
 								->body($this->form->display())
 					)
 					->size('col-md-9')
@@ -137,7 +137,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function registration()
 	{
-		$this	->title($this('configuration'))
+		$this	->title($this->lang('configuration'))
 				->subtitle('Gestions des inscriptions')
 				->icon('fa-sign-in fa-rotate-90');
 
@@ -206,7 +206,7 @@ class m_settings_c_admin extends Controller_Module
 						'type'    => 'editor'
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -239,7 +239,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function team()
 	{
-		$this	->title($this('configuration'))
+		$this	->title($this->lang('configuration'))
 				->subtitle('Notre structure')
 				->icon('fa-users');
 
@@ -283,7 +283,7 @@ class m_settings_c_admin extends Controller_Module
 						'type'        => 'textarea'
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -312,7 +312,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function socials()
 	{
-		$this	->title($this('configuration'))
+		$this	->title($this->lang('configuration'))
 				->subtitle('Réseaux sociaux')
 				->icon('fa-globe');
 
@@ -391,7 +391,7 @@ class m_settings_c_admin extends Controller_Module
 						'type'  => 'url'
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -420,7 +420,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function captcha()
 	{
-		$this	->title($this('configuration'))
+		$this	->title($this->lang('configuration'))
 				->subtitle('Sécurité anti-bots')
 				->icon('fa-shield');
 
@@ -437,7 +437,7 @@ class m_settings_c_admin extends Controller_Module
 						'type'  => 'text'
 					]
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -466,7 +466,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function email()
 	{
-		$this	->title($this('configuration'))
+		$this	->title($this->lang('configuration'))
 				->subtitle('Serveur e-mail')
 				->icon('fa-envelope-o');
 
@@ -502,7 +502,7 @@ class m_settings_c_admin extends Controller_Module
 						'size'   => 'col-md-2'
 					],
 				])
-				->add_submit($this('save'))
+				->add_submit($this->lang('save'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -531,7 +531,7 @@ class m_settings_c_admin extends Controller_Module
 
 	public function maintenance()
 	{
-		$this	->title($this('maintenance'))
+		$this	->title($this->lang('maintenance'))
 				->icon('fa-power-off')
 				->css('maintenance')
 				->js('maintenance');
@@ -544,27 +544,27 @@ class m_settings_c_admin extends Controller_Module
 				]
 			])
 			->fast_mode()
-			->add_submit($this('save'))
+			->add_submit($this->lang('save'))
 			->save();
 
 		$form_maintenance = $this->form
 			->add_rules([
 				'title' => [
-					'label' => $this('title'),
+					'label' => $this->lang('title'),
 					'type'  => 'text',
 					'value' => $this->config->nf_maintenance_title
 				],
 				'content' => [
-					'label' => $this('content'),
+					'label' => $this->lang('content'),
 					'type'  => 'editor',
 					'value' => $this->config->nf_maintenance_content
 				],
 				'logo' => [
-					'label'  => $this('logo'),
+					'label'  => $this->lang('logo'),
 					'value'  => $this->config->nf_maintenance_logo,
 					'type'   => 'file',
 					'upload' => 'maintenance',
-					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
+					'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
@@ -573,11 +573,11 @@ class m_settings_c_admin extends Controller_Module
 					}
 				],
 				'background' => [
-					'label'  => $this('background'),
+					'label'  => $this->lang('background'),
 					'value'  => $this->config->nf_maintenance_background,
 					'type'   => 'file',
 					'upload' => 'maintenance',
-					'info'   => $this('file_picture', file_upload_max_size() / 1024 / 1024),
+					'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
@@ -586,42 +586,42 @@ class m_settings_c_admin extends Controller_Module
 					}
 				],
 				'repeat' => [
-					'label'  => $this('background_repeat'),
+					'label'  => $this->lang('background_repeat'),
 					'value'  => $this->config->nf_maintenance_background_repeat,
 					'values' => [
-						'no-repeat' => $this('no'),
-						'repeat-x'  => $this('horizontally'),
-						'repeat-y'  => $this('vertically'),
-						'repeat'    => $this('both')
+						'no-repeat' => $this->lang('no'),
+						'repeat-x'  => $this->lang('horizontally'),
+						'repeat-y'  => $this->lang('vertically'),
+						'repeat'    => $this->lang('both')
 					],
 					'type'   => 'radio'
 				],
 				'positionX' => [
-					'label'  => $this('position'),
+					'label'  => $this->lang('position'),
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[0] : '',
 					'values' => [
-						'left'   => $this('left'),
-						'center' => $this('center'),
-						'right'  => $this('right')
+						'left'   => $this->lang('left'),
+						'center' => $this->lang('center'),
+						'right'  => $this->lang('right')
 					],
 					'type'   => 'radio'
 				],
 				'positionY' => [
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[1] : '',
 					'values' => [
-						'top'    => $this('top'),
-						'center' => $this('middle'),
-						'bottom' => $this('bottom')
+						'top'    => $this->lang('top'),
+						'center' => $this->lang('middle'),
+						'bottom' => $this->lang('bottom')
 					],
 					'type'   => 'radio'
 				],
 				'background_color' => [
-					'label' => $this('background_color'),
+					'label' => $this->lang('background_color'),
 					'value' => $this->config->nf_maintenance_background_color,
 					'type'  => 'colorpicker'
 				],
 				'text_color' => [
-					'label' => $this('text_color'),
+					'label' => $this->lang('text_color'),
 					'value' => $this->config->nf_maintenance_text_color,
 					'type'  => 'colorpicker'
 				],
@@ -656,7 +656,7 @@ class m_settings_c_admin extends Controller_Module
 					'type'  => 'url'
 				]
 			])
-			->add_submit($this('save'))
+			->add_submit($this->lang('save'))
 			->save();
 			
 		if ($form_opening->is_valid($post))
@@ -687,16 +687,16 @@ class m_settings_c_admin extends Controller_Module
 		return $this->row(
 			$this	->col(
 						$this	->panel()
-								->heading($this('website_status'), 'fa-power-off')
+								->heading($this->lang('website_status'), 'fa-power-off')
 								->body($this->view('maintenance')),
 						$this	->panel()
-								->heading($this('planned_opening'), 'fa-clock-o')
+								->heading($this->lang('planned_opening'), 'fa-clock-o')
 								->body($form_opening->display())
 					)
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this('customizing_maintenance_page'), 'fa-paint-brush')
+								->heading($this->lang('customizing_maintenance_page'), 'fa-paint-brush')
 								->body($form_maintenance->display())
 					)
 					->size('col-md-9')

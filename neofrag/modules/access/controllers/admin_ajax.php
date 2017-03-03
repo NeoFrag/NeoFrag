@@ -31,7 +31,7 @@ class m_access_c_admin_ajax extends Controller_Module
 
 		return $this->col(
 			$this	->panel()
-					->heading('<span class="pull-right">'.$this->button()->tooltip($this('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
+					->heading('<span class="pull-right">'.$this->button()->tooltip($this->lang('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
 					->body($this->view('details', [
 						'groups' => $groups
 					]), FALSE)
@@ -85,7 +85,7 @@ class m_access_c_admin_ajax extends Controller_Module
 		$this	->table
 				->add_columns([
 						[
-						'title'   => $this('member'),
+						'title'   => $this->lang('member'),
 						'content' => function($data){
 							return NeoFrag()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
 						},
@@ -97,7 +97,7 @@ class m_access_c_admin_ajax extends Controller_Module
 						}
 					],
 					[
-						'title'   => $this('groups'),
+						'title'   => $this->lang('groups'),
 						'content' => function($data){
 							return NeoFrag()->groups->user_groups($data['user_id']);
 						},
@@ -126,7 +126,7 @@ class m_access_c_admin_ajax extends Controller_Module
 						'td'      => FALSE
 					],
 					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('authorized_member').'">'.icon('fa-check').'</i></div>',
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('authorized_member').'">'.icon('fa-check').'</i></div>',
 						'content' => function($data){
 							return $this->view('radio', [
 								'class'  => 'success',
@@ -136,7 +136,7 @@ class m_access_c_admin_ajax extends Controller_Module
 						'td'      => FALSE
 					],
 					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this('forbidden_member').'">'.icon('fa-ban').'</i></div>',
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('forbidden_member').'">'.icon('fa-ban').'</i></div>',
 						'content' => function($data){
 							static $admins;
 							

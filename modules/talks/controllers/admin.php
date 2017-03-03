@@ -25,7 +25,7 @@ class m_talks_c_admin extends Controller_Module
 		$this	->table
 				->add_columns([
 					[
-						'title'   => $this('talks'),
+						'title'   => $this->lang('talks'),
 						'content' => function($data){
 							return $data['name'];
 						},
@@ -61,33 +61,33 @@ class m_talks_c_admin extends Controller_Module
 					]
 				])
 				->data($talks)
-				->no_data($this('no_talks'));
+				->no_data($this->lang('no_talks'));
 						
 		return $this->panel()
-					->heading($this('talks_list'), 'fa-comment-o')
+					->heading($this->lang('talks_list'), 'fa-comment-o')
 					->body($this->table->display())
-					->footer($this->button_create('admin/talks/add.html', $this('create_talk')));
+					->footer($this->button_create('admin/talks/add.html', $this->lang('create_talk')));
 	}
 	
 	public function add()
 	{
-		$this	->subtitle($this('add_talk'))
+		$this	->subtitle($this->lang('add_talk'))
 				->form
 				->add_rules('talks')
-				->add_submit($this('add'))
+				->add_submit($this->lang('add'))
 				->add_back('admin/talks.html');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->add_talk($post['title']);
 			
-			notify($this('add_success_message'));
+			notify($this->lang('add_success_message'));
 
 			redirect_back('admin/talks.html');
 		}
 		
 		return $this->panel()
-					->heading($this('add_talk'), 'fa-comment-o')
+					->heading($this->lang('add_talk'), 'fa-comment-o')
 					->body($this->form->display());
 	}
 
@@ -98,29 +98,29 @@ class m_talks_c_admin extends Controller_Module
 				->add_rules('talks', [
 					'title' => $title
 				])
-				->add_submit($this('edit'))
+				->add_submit($this->lang('edit'))
 				->add_back('admin/talks.html');
 		
 		if ($this->form->is_valid($post))
 		{	
 			$this->model()->edit_talk($talk_id, $post['title']);
 		
-			notify($this('edit_success_message'));
+			notify($this->lang('edit_success_message'));
 
 			redirect_back('admin/talks.html');
 		}
 		
 		return $this->panel()
-					->heading($this('edit_talk'), 'fa-comment-o')
+					->heading($this->lang('edit_talk'), 'fa-comment-o')
 					->body($this->form->display());
 	}
 	
 	public function delete($talk_id, $title)
 	{
-		$this	->title($this('delete_talk_title'))
+		$this	->title($this->lang('delete_talk_title'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this('delete_confirmation'), $this('delete_talk', $title));
+				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_talk', $title));
 
 		if ($this->form->is_valid())
 		{
