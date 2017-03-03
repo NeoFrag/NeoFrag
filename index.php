@@ -73,7 +73,7 @@ spl_autoload_register(function($name){
 
 	$dir = $override ? 'overrides' : 'neofrag';
 
-	if (file_exists($file = $dir.'/'.($name == 'loader' ? 'core' : 'classes').'/'.$name.'.php'))
+	if (file_exists($file = $dir.'/classes/'.$name.'.php'))
 	{
 		require_once $file;
 	}
