@@ -1,6 +1,13 @@
 <div class="addons-panel-body" data-type="widget">
-	<?php foreach ($this->addons->get_widgets(TRUE) as $widget): ?>
-	<?php
+<?php
+	$widgets = $this->addons->get_widgets(TRUE);
+
+	array_natsort($widgets, function($a){
+		return $a->get_title();
+	});
+
+	foreach ($widgets as $widget)
+	{
 		$deactivatable = $widget->is_deactivatable();
 		$removable     = $widget->is_removable();
 		
@@ -26,5 +33,7 @@
 			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/widget/'.$widget->name.'.html'); ?>
 		</div>
 	</div>
-	<?php endforeach; ?>
+<?php 
+	}
+?>
 </div>

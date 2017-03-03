@@ -36,7 +36,7 @@ class m_live_editor_c_index extends Controller_Module
 			}
 		}
 		
-		natcasesort($modules);
+		array_natsort($modules);
 		
 		$modules = array_merge([
 			'index' => NeoFrag()->lang('home')

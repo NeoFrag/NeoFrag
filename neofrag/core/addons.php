@@ -66,10 +66,6 @@ class Addons extends Core
 					$list[$type][(int)$get_all][$name] = $object;
 				}
 			}
-
-			array_natsort($list[$type][(int)$get_all], function($a){
-				return $a->get_title();
-			});
 		}
 
 		return $list[$type][(int)$get_all];
