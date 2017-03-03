@@ -157,7 +157,7 @@
 			<div id="alerts"></div>
 			<?php echo $this->view('actions', $data); ?>
 		</div>
-		<?php echo $this->output->data['module']; ?>
+		<div class="module module-admin module-<?php echo NeoFrag::loader()->module->name; ?>"><?php echo NeoFrag::loader()->module; ?></div>
 	</div>
 </div>
 <?php if (!empty($data['update'])): ?>

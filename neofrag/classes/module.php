@@ -40,6 +40,11 @@ abstract class Module extends Loadable
 	private $_output      = '';
 	private $_actions     = [];
 
+	public function __toString()
+	{
+		return $this->url->extension == 'json' ? (is_string($this->_output) ? $this->_output : json_encode($this->_output)) : $this->output->data['output'].display($this->_output);
+	}
+
 	public function paths()
 	{
 		return function(){
@@ -115,11 +120,6 @@ abstract class Module extends Loadable
 		{
 			$this->_output = $output;
 		}
-	}
-
-	public function get_output()
-	{
-		return preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()).($this->url->extension == 'json' ? (is_string($this->_output) ? $this->_output : json_encode($this->_output)) : display($this->_output));
 	}
 
 	public function add_action($url, $title, $icon = '')
