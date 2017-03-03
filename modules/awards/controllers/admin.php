@@ -53,7 +53,7 @@ class m_awards_c_admin extends Controller_Module
 							[
 								'title'   => 'Date',
 								'content' => function($data){
-									return timetostr(NeoFrag::loader()->lang('date_short'), $data['date']);
+									return timetostr(NeoFrag()->lang('date_short'), $data['date']);
 								},
 								'sort'    => function($data){
 									return $data['date'];

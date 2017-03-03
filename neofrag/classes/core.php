@@ -22,7 +22,7 @@ class Core extends Library
 {
 	public function __construct()
 	{
-		$this->load = NeoFrag::loader();
+		$this->load = NeoFrag();
 	}
 }
 

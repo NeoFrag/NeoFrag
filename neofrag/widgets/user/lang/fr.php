@@ -28,7 +28,7 @@ $lang['lost_password']    = 'Mot de passe perdu ?';
 $lang['member_area_mini'] = 'Espace membre (mini)';
 $lang['pm_compose']       = 'Rédiger';
 $lang['pm_inbox']         = 'Boîte de réception';
-$lang['welcome']          = 'Bienvenue <a href="'.url('user.html').'">'.NeoFrag::loader()->user('username').'</a>';
+$lang['welcome']          = 'Bienvenue <a href="'.url('user.html').'">'.$this->user('username').'</a>';
 
 /*
 NeoFrag Alpha 0.1.4

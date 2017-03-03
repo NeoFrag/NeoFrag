@@ -24,7 +24,8 @@ abstract class Install extends NeoFrag
 
 	public function __construct()
 	{
-		$this->load = NeoFrag::loader();
+		global $NeoFrag;
+		$this->load = $NeoFrag;
 	}
 }
 

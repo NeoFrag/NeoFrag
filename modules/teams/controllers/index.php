@@ -55,13 +55,13 @@ class m_teams_c_index extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return NeoFrag::loader()->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
+							return NeoFrag()->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
 						},
 						'size'    => TRUE
 					],
 					[
 						'content' => function($data){
-							return '<div>'.NeoFrag::loader()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'admin' : 'member').' '.$this->lang($data['online'] ? 'online' : 'offline').'</small>';
+							return '<div>'.NeoFrag()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'admin' : 'member').' '.$this->lang($data['online'] ? 'online' : 'offline').'</small>';
 						},
 					],
 					[

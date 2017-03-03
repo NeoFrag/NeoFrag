@@ -39,13 +39,13 @@ class m_live_editor_c_index extends Controller_Module
 		natcasesort($modules);
 		
 		$modules = array_merge([
-			'index' => NeoFrag::loader()->lang('home')
+			'index' => NeoFrag()->lang('home')
 		], $modules);
 
 		echo $this->view('index', [
 			'modules'       => $modules,
-			'styles_row'    => NeoFrag::loader()->theme->styles_row(),
-			'styles_widget' => NeoFrag::loader()->theme->styles_widget()
+			'styles_row'    => NeoFrag()->theme->styles_row(),
+			'styles_widget' => NeoFrag()->theme->styles_widget()
 		]);
 	}
 }

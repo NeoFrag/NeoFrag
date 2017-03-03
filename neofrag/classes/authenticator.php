@@ -34,7 +34,7 @@ abstract class Authenticator extends NeoFrag
 
 	public function __construct($name, $enabled, $settings = [])
 	{
-		$this->load      = NeoFrag::loader();
+		$this->load      = NeoFrag();
 		$this->name      = $name;
 		$this->_enabled  = $enabled;
 		$this->_settings = $settings;

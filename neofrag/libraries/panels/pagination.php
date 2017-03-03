@@ -22,7 +22,7 @@ class Panel_Pagination extends Panel
 {
 	public function __toString()
 	{
-		if ($pagination = NeoFrag::loader()->module->pagination->get_pagination())
+		if ($pagination = NeoFrag()->module->pagination->get_pagination())
 		{
 			return '<div class="pull-right">'.$pagination.'</div>';
 		}

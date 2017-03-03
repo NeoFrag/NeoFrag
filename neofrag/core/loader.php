@@ -50,9 +50,9 @@ class Loader extends Core
 	{
 		$paths = is_a($this->_paths, 'closure') ? call_user_func_array($this->_paths, []) : $this->_paths;
 
-		if (NeoFrag::loader() != $this)
+		if (NeoFrag() != $this)
 		{
-			$paths = array_merge_recursive($paths, NeoFrag::loader()->paths());
+			$paths = array_merge_recursive($paths, NeoFrag()->paths());
 		}
 
 		return $type ? $paths[$type] : $paths;

@@ -25,7 +25,7 @@ function notify($message, $type = 'success')
 		$type = 'success';
 	}
 
-	NeoFrag::loader()->session->add('notifications', [
+	NeoFrag()->session->add('notifications', [
 		'message' => $message,
 		'type'    => $type
 	]);
@@ -33,14 +33,14 @@ function notify($message, $type = 'success')
 
 function notifications()
 {
-	if ($notifications = NeoFrag::loader()->session('notifications'))
+	if ($notifications = NeoFrag()->session('notifications'))
 	{
 		foreach ($notifications as $notification)
 		{
-			NeoFrag::loader()->js_load('notify(\''.$notification['message'].'\', \''.$notification['type'].'\');');
+			NeoFrag()->js_load('notify(\''.$notification['message'].'\', \''.$notification['type'].'\');');
 		}
 
-		NeoFrag::loader()->session->destroy('notifications');
+		NeoFrag()->session->destroy('notifications');
 	}
 }
 

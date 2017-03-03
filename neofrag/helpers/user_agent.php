@@ -20,7 +20,7 @@ along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 
 function user_agent($user_agent)
 {
-	NeoFrag::loader()->js('neofrag.user-agent');
+	NeoFrag()->js('neofrag.user-agent');
 	return '<img src="'.image('ajax-loader.gif').'" data-user-agent="'.$user_agent.'" alt="" />';
 }
 

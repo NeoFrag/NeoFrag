@@ -106,14 +106,14 @@ class Config extends Core
 	{
 		if (isset($this->_configs[$name]))
 		{
-			NeoFrag::loader()->db	->where('name', $name)
+			NeoFrag()->db	->where('name', $name)
 									->update('nf_settings', [
 										'value' => $value
 									]);
 
 			if ($type)
 			{
-				NeoFrag::loader()->db	->where('name', $name)
+				NeoFrag()->db	->where('name', $name)
 										->update('nf_settings', [
 											'type' => $type
 										]);
@@ -121,7 +121,7 @@ class Config extends Core
 		}
 		else
 		{
-			NeoFrag::loader()->db->insert('nf_settings', [
+			NeoFrag()->db->insert('nf_settings', [
 				'name'  => $name,
 				'value' => $value,
 				'type'  => $type ?: 'string'

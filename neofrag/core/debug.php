@@ -206,7 +206,7 @@ class Debug extends Core
 				'tabs' => $tabs = [
 					'console'  => [$this->debug->debugbar($console),              'Console',  'fa-terminal',    $console],
 					'database' => [$this->db->debugbar($database),                'Database', 'fa-database',    $database],
-					'loader'   => [NeoFrag::loader()->debugbar('NeoFrag Loader'), 'Loader',   'fa-puzzle-piece'],
+					'loader'   => [NeoFrag()->debugbar('NeoFrag Loader'), 'Loader',   'fa-puzzle-piece'],
 					'timeline' => [$this->debug->timeline(),                      'Timeline', 'fa-clock-o'],
 					'settings' => [$this->config->debugbar(),                     'Settings', 'fa-cogs'],
 					'session'  => [$this->session->debugbar(),                    'Session',  'fa-flag'],

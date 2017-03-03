@@ -24,7 +24,7 @@ class Button_access extends Library
 	{
 		return $this->button()
 					->tooltip($title ?: $this->lang('permissions'))
-					->url('admin/access/edit/'.($access ? ($module ?: NeoFrag::loader()->module->name).'/'.$id.'-'.$access : $id).'.html')
+					->url('admin/access/edit/'.($access ? ($module ?: NeoFrag()->module->name).'/'.$id.'-'.$access : $id).'.html')
 					->icon('fa-unlock-alt')
 					->color('success')
 					->compact()

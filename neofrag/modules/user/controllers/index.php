@@ -147,18 +147,18 @@ class m_user_c_index extends Controller_Module
 				[
 					'title'   => $this('initial_session_date'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				],
 				[
 					'title'   => $this('last_activity'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
 				],
 				[
 					'content' => [function($data){
-						if ($data['session_id'] != NeoFrag::loader()->session('session_id'))
+						if ($data['session_id'] != NeoFrag()->session('session_id'))
 						{
 							return $this->button_delete('user/sessions/delete/'.$data['session_id'].'.html');
 						}
@@ -193,7 +193,7 @@ class m_user_c_index extends Controller_Module
 				[
 					'title'   => $this('initial_session_date'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag::loader()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				]
 			])
@@ -399,7 +399,7 @@ class m_user_c_index extends Controller_Module
 				'icon'  => 'fa-user',
 				'rules' => 'required',
 				'check' => function($value){
-					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('username', $value)->row())
+					if (NeoFrag()->db->select('1')->from('nf_users')->where('username', $value)->row())
 					{
 						return $this->lang('username_unavailable');
 					}
@@ -428,7 +428,7 @@ class m_user_c_index extends Controller_Module
 				'type'  => 'email',
 				'rules' => 'required',
 				'check' => function($value){
-					if (NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
+					if (NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
 					{
 						return $this->lang('email_unavailable');
 					}
@@ -577,7 +577,7 @@ class m_user_c_index extends Controller_Module
 						'type'  => 'email',
 						'rules' => 'required',
 						'check' => function($value){
-							if (!NeoFrag::loader()->db->select('1')->from('nf_users')->where('email', $value)->row())
+							if (!NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
 							{
 								return $this->lang('email_not_found');
 							}
