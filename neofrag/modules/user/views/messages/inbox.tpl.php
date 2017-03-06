@@ -9,14 +9,14 @@
 					</div>
 					<div class="media-body">
 						<small class="pull-right text-muted"><?php echo time_span($message['date']); ?></small>
-						<h5 class="no-margin"><a href="<?php echo url('user/messages/'.$message['message_id'].'/'.url_title($message['title']).'.html'); ?>"><b><?php echo mb_strimwidth($message['title'], 0, 40, '...'); ?></b></a></h5>
+						<h5 class="no-margin"><a href="<?php echo url('user/messages/'.$message['message_id'].'/'.url_title($message['title'])); ?>"><b><?php echo mb_strimwidth($message['title'], 0, 40, '...'); ?></b></a></h5>
 						<small><?php echo $this->user->link($message['user_id'], $message['username']) ?></small>
 					</div>
 				</div>
 			</td>
 			<?php if ($data['allow_delete']): ?>
 			<td class="col-md-1 text-right">
-				<?php echo $this->button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title']).'.html'); ?>
+				<?php echo $this->button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title'])); ?>
 			</td>
 			<?php endif; ?>
 		</tr>

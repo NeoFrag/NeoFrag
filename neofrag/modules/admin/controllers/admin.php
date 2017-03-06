@@ -52,7 +52,7 @@ class m_admin_c_admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news.html')
+							->heading($this->lang('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news')
 							->body($count)
 							->color('bg-aqua')
 							->size('col-md-4 col-lg-2')
@@ -60,7 +60,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user.html')
+							->heading($this->lang('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
 							->body($count)
 							->color('bg-green')
 							->size('col-md-4 col-lg-2')
@@ -68,7 +68,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('events', $count = 0), 'fa-calendar', 'admin/events.html')//TODO
+							->heading($this->lang('events', $count = 0), 'fa-calendar', 'admin/events')//TODO
 							->body($count)
 							->color('bg-blue')
 							->size('col-md-4 col-lg-2')
@@ -76,7 +76,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams.html')
+							->heading($this->lang('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams')
 							->body($count)
 							->color('bg-red')
 							->size('col-md-4 col-lg-2')
@@ -84,7 +84,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum.html')
+							->heading($this->lang('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum')
 							->body($count)
 							->color('bg-teal')
 							->size('col-md-4 col-lg-2')
@@ -92,7 +92,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments.html')
+							->heading($this->lang('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments')
 							->body($count)
 							->color('bg-maroon')
 							->size('col-md-4 col-lg-2')
@@ -115,7 +115,7 @@ class m_admin_c_admin extends Controller_Module
 										'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
-									->footer('<a href="'.url('admin/user/sessions.html').'">'.$this->lang('view_all_sessions').'</a>'),
+									->footer('<a href="'.url('admin/user/sessions').'">'.$this->lang('view_all_sessions').'</a>'),
 							$this	->panel()
 									->heading($this->lang('last_registrations'), 'fa-users')
 									->body($users)

@@ -31,7 +31,7 @@ class w_forum_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'messages' => $messages
 						]))
-						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
+						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
 		}
 		else
 		{
@@ -52,7 +52,7 @@ class w_forum_c_index extends Controller_Widget
 						->body($this->view('topics', [
 							'topics' => $topics
 						]))
-						->footer('<a href="'.url('forum.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
+						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
 		}
 		else
 		{

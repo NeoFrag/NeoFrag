@@ -4,7 +4,7 @@
 	foreach ($data['partners'] as $i => $partner): ?>
 	<div class="row">
 		<div class="col-md-12 text-center">
-			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name'].'.html'); ?>" target="_blank">
+			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']); ?>" target="_blank">
 				<?php if ($image_id = $partner['logo_'.$data['display_style']]): ?>
 				<img class="logo" src="<?php echo path($image_id); ?>" alt="" />
 				<?php else: ?>

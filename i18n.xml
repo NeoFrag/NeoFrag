@@ -1400,9 +1400,9 @@
     <Cell><Data ss:Type="String">neofrag/widgets/user/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">welcome</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Bienvenue &lt;a href=&quot;'.url('user.html').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
+    <Cell><Data ss:Type="String">Bienvenue &lt;a href=&quot;'.url('user').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Welcome &lt;a href=&quot;'.url('user.html').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
+    <Cell><Data ss:Type="String">Welcome &lt;a href=&quot;'.url('user').'&quot;&gt;'.$this-&gt;user('username').'&lt;/a&gt;</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -5445,9 +5445,9 @@
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">invalid_login_message</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Si vous avez oublié votre mot de passe, utilisez la fonction &lt;a href=&quot;'.url('user/lost-password.html').'&quot;&gt;Mot de passe oublié&lt;/a&gt;, sinon vous pouvez créer un compte ci-dessous</Data><NamedCell
+    <Cell><Data ss:Type="String">Si vous avez oublié votre mot de passe, utilisez la fonction &lt;a href=&quot;'.url('user/lost-password').'&quot;&gt;Mot de passe oublié&lt;/a&gt;, sinon vous pouvez créer un compte ci-dessous</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">If you have forgotten your password, use the &lt;a href=&quot;{base_url}user/lost-password.html&quot;&gt; forgot password&lt;/a&gt; function, otherwise you can create an account below.</Data><NamedCell
+    <Cell><Data ss:Type="String">If you have forgotten your password, use the &lt;a href=&quot;'.url('user/lost-password').'&quot;&gt; forgot password&lt;/a&gt; function, otherwise you can create an account below.</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>

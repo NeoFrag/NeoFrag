@@ -32,7 +32,7 @@ class Breadcrumb extends Library
 		}
 		else
 		{
-			array_unshift($links, [NeoFrag()->module->get_title(), NeoFrag()->module->name == 'pages' ? $this->url->request : NeoFrag()->module->name.'.html', NeoFrag()->module->icon ?: 'fa-map-marker']);
+			array_unshift($links, [NeoFrag()->module->get_title(), NeoFrag()->module->name == 'pages' ? $this->url->request : NeoFrag()->module->name, NeoFrag()->module->icon ?: 'fa-map-marker']);
 		}
 
 		return $links;

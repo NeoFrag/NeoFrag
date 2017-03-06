@@ -1,11 +1,11 @@
 <?php if ($this->user()): ?>
 	<?php if ($this->user('user_id') == $data['user_id']): ?>
 	<div class="pull-right">
-		<a class="btn btn-default" href="<?php echo url('user.html'); ?>"><?php echo icon('fa-cogs'); ?><span class="hidden-xs"> <?php echo $this->lang('manage_my_account'); ?></span></a>
+		<a class="btn btn-default" href="<?php echo url('user'); ?>"><?php echo icon('fa-cogs'); ?><span class="hidden-xs"> <?php echo $this->lang('manage_my_account'); ?></span></a>
 	</div>
 	<?php else: ?>
 	<div class="pull-right">
-		<a class="btn btn-default" href="<?php echo url('user/messages/compose/'.$data['user_id'].'/'.url_title($data['username']).'.html'); ?>"><?php echo icon('fa-envelope-o'); ?><span class="hidden-xs"> <?php echo $this->lang('send_pm'); ?></span></a>
+		<a class="btn btn-default" href="<?php echo url('user/messages/compose/'.$data['user_id'].'/'.url_title($data['username'])); ?>"><?php echo icon('fa-envelope-o'); ?><span class="hidden-xs"> <?php echo $this->lang('send_pm'); ?></span></a>
 	</div>
 	<?php endif; ?>
 <?php endif; ?>

@@ -47,7 +47,7 @@ class m_comments_c_admin extends Controller_Module
 				[
 					'title'   => $this->lang('module'),
 					'content' => function($data){
-						return '<a href="'.url('admin/comments/'.$data['module'].'.html').'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
+						return '<a href="'.url('admin/comments/'.$data['module']).'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
 					},
 					'size'    => '25%',
 					'sort'    => function($data){

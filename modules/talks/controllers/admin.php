@@ -47,13 +47,13 @@ class m_talks_c_admin extends Controller_Module
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return $this->button_update('admin/talks/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
+									return $this->button_update('admin/talks/'.$data['talk_id'].'/'.url_title($data['name']));
 								}
 							},
 							function($data){
 								if ($data['talk_id'] > 1)
 								{
-									return $this->button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']).'.html');
+									return $this->button_delete('admin/talks/delete/'.$data['talk_id'].'/'.url_title($data['name']));
 								}
 							}
 						],
@@ -66,7 +66,7 @@ class m_talks_c_admin extends Controller_Module
 		return $this->panel()
 					->heading($this->lang('talks_list'), 'fa-comment-o')
 					->body($this->table->display())
-					->footer($this->button_create('admin/talks/add.html', $this->lang('create_talk')));
+					->footer($this->button_create('admin/talks/add', $this->lang('create_talk')));
 	}
 	
 	public function add()
@@ -75,7 +75,7 @@ class m_talks_c_admin extends Controller_Module
 				->form
 				->add_rules('talks')
 				->add_submit($this->lang('add'))
-				->add_back('admin/talks.html');
+				->add_back('admin/talks');
 
 		if ($this->form->is_valid($post))
 		{
@@ -83,7 +83,7 @@ class m_talks_c_admin extends Controller_Module
 			
 			notify($this->lang('add_success_message'));
 
-			redirect_back('admin/talks.html');
+			redirect_back('admin/talks');
 		}
 		
 		return $this->panel()
@@ -99,7 +99,7 @@ class m_talks_c_admin extends Controller_Module
 					'title' => $title
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/talks.html');
+				->add_back('admin/talks');
 		
 		if ($this->form->is_valid($post))
 		{	
@@ -107,7 +107,7 @@ class m_talks_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_success_message'));
 
-			redirect_back('admin/talks.html');
+			redirect_back('admin/talks');
 		}
 		
 		return $this->panel()

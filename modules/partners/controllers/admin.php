@@ -26,7 +26,7 @@ class m_partners_c_admin extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return $this->button_sort($data['partner_id'], 'admin/ajax/partners/sort.html');
+							return $this->button_sort($data['partner_id'], 'admin/ajax/partners/sort');
 						},
 						'size'    => TRUE
 					],
@@ -51,10 +51,10 @@ class m_partners_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return $this->button_update('admin/partners/'.$data['partner_id'].'/'.$data['name'].'.html');
+								return $this->button_update('admin/partners/'.$data['partner_id'].'/'.$data['name']);
 							},
 							function($data){
-								return $this->button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name'].'.html');
+								return $this->button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name']);
 							}
 						],
 						'size'    => TRUE
@@ -66,7 +66,7 @@ class m_partners_c_admin extends Controller_Module
 		return $this->panel()
 					->heading('Liste des partenaires', 'fa-star-o')
 					->body($this->table->display())
-					->footer($this->button_create('admin/partners/add.html', 'Ajouter un partenaire'));
+					->footer($this->button_create('admin/partners/add', 'Ajouter un partenaire'));
 	}
 
 	public function add()
@@ -75,7 +75,7 @@ class m_partners_c_admin extends Controller_Module
 				->form
 				->add_rules('partners')
 				->add_submit($this->lang('add'))
-				->add_back('admin/partners.html');
+				->add_back('admin/partners');
 
 		if ($this->form->is_valid($post))
 		{
@@ -90,7 +90,7 @@ class m_partners_c_admin extends Controller_Module
 
 			notify('Partenaire ajouté avec succès');
 
-			redirect('admin/partners.html');
+			redirect('admin/partners');
 		}
 
 		return $this->panel()
@@ -113,7 +113,7 @@ class m_partners_c_admin extends Controller_Module
 					'code'        => $code
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/partners.html');
+				->add_back('admin/partners');
 
 		if ($this->form->is_valid($post))
 		{
@@ -129,7 +129,7 @@ class m_partners_c_admin extends Controller_Module
 
 			notify('Partenaire modifié avec succès');
 
-			redirect_back('admin/partners.html');
+			redirect_back('admin/partners');
 		}
 
 		return $this->panel()

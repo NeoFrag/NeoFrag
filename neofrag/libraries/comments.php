@@ -33,7 +33,7 @@ class Comments extends Library
 	{
 		if ($link)
 		{
-			return '<a href="'.url('admin/comments/'.url_title($module_name).'/'.$module_id.'.html').'">'.$this->count_comments($module_name, $module_id).'</a>';
+			return '<a href="'.url('admin/comments/'.url_title($module_name).'/'.$module_id).'">'.$this->count_comments($module_name, $module_id).'</a>';
 		}
 		else
 		{

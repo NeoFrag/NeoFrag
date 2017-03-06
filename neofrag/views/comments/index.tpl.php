@@ -13,7 +13,7 @@
 			
 			if ($this->user('admin') || ($this->user() && $this->user('user_id') == $data['user_id']))
 			{
-				$actions[] = $this->button_delete('ajax/comments/delete/'.$data['comment_id'].'.html');
+				$actions[] = $this->button_delete('ajax/comments/delete/'.$data['comment_id']);
 			}
 			
 			if ($actions)

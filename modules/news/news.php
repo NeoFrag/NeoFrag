@@ -109,7 +109,7 @@ class m_news extends Module
 		{
 			return [
 				'title' => $news,
-				'url'   => 'news/'.$news_id.'/'.url_title($news).'.html'
+				'url'   => 'news/'.$news_id.'/'.url_title($news)
 			];
 		}
 	}
@@ -126,13 +126,13 @@ class m_news extends Module
 					]
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/addons.html#modules');
+				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->config('news_per_page', $post['news_per_page']);
 			
-			redirect_back('admin/addons.html#modules');
+			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()->body($this->form->display());

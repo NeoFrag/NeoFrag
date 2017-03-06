@@ -36,10 +36,10 @@ class m_games_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/games/'.$data['game_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/games/'.$data['game_id'].'/'.$data['name']);
 									},
 									function($data){
-										return $this->button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name']);
 									}
 								],
 								'size'    => TRUE
@@ -55,7 +55,7 @@ class m_games_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('game_list'), 'fa-gamepad')
 						->body($games)
-						->footer($this->button_create('admin/games/add.html', $this->lang('add_game')))
+						->footer($this->button_create('admin/games/add', $this->lang('add_game')))
 						->size('col-md-12 col-lg-4')
 			),
 			$this	->col($this->_panel_maps($maps))
@@ -72,7 +72,7 @@ class m_games_c_admin extends Controller_Module
 					'games' => $this->model()->get_games_list(),
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/games.html');
+				->add_back('admin/games');
 
 		if ($this->form->is_valid($post))
 		{
@@ -82,7 +82,7 @@ class m_games_c_admin extends Controller_Module
 												$post['icon']);
 
 			notify($this->lang('game_success_message'));
-			redirect('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
+			redirect('admin/games/'.$game_id.'/'.url_title($post['title']));
 		}
 
 		return $this->panel()
@@ -103,7 +103,7 @@ class m_games_c_admin extends Controller_Module
 					'icon_id'   => $icon_id
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/games.html');
+				->add_back('admin/games');
 
 		$modes = $this	->table
 						->add_columns([
@@ -116,10 +116,10 @@ class m_games_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/games/modes/edit/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_update('admin/games/modes/edit/'.$data['mode_id'].'/'.url_title($data['title']));
 									},
 									function($data){
-										return $this->button_delete('admin/games/modes/delete/'.$data['mode_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_delete('admin/games/modes/delete/'.$data['mode_id'].'/'.url_title($data['title']));
 									}
 								],
 								'size'    => TRUE
@@ -140,7 +140,7 @@ class m_games_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_game_message'));
 
-			redirect_back('admin/games/'.$game_id.'/'.url_title($post['title']).'.html');
+			redirect_back('admin/games/'.$game_id.'/'.url_title($post['title']));
 		}
 		
 		return $this->row(
@@ -154,7 +154,7 @@ class m_games_c_admin extends Controller_Module
 						$this	->panel()
 								->heading('Modes', 'fa-cog')
 								->body($modes)
-								->footer($this->button_create('admin/games/modes/add/'.$game_id.'/'.url_title($title).'.html',  'Ajouter un mode')),
+								->footer($this->button_create('admin/games/modes/add/'.$game_id.'/'.url_title($title),  'Ajouter un mode')),
 						$this->_panel_maps($maps, $game_id, $title)
 					)
 					->size('col-md-5')
@@ -187,7 +187,7 @@ class m_games_c_admin extends Controller_Module
 					'game_id' => $game_id
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/games.html');
+				->add_back('admin/games');
 
 		if ($this->form->is_valid($post))
 		{
@@ -195,7 +195,7 @@ class m_games_c_admin extends Controller_Module
 											$post['title'],
 											$post['image']);
 
-			redirect_back('admin/games/'.$game_id.'/'.($game ?: $this->db->select('name')->from('nf_games')->where('game_id', $game_id)->row()).'.html');
+			redirect_back('admin/games/'.$game_id.'/'.($game ?: $this->db->select('name')->from('nf_games')->where('game_id', $game_id)->row()));
 		}
 
 		return $this->panel()
@@ -215,7 +215,7 @@ class m_games_c_admin extends Controller_Module
 					'image_id' => $image_id
 				])
 				->add_submit($this->lang('edit'))
-				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
+				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
 		if ($this->form->is_valid($post))
 		{
@@ -255,7 +255,7 @@ class m_games_c_admin extends Controller_Module
 				->form
 				->add_rules('modes')
 				->add_submit($this->lang('add'))
-				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
+				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
 		if ($this->form->is_valid($post))
 		{
@@ -278,7 +278,7 @@ class m_games_c_admin extends Controller_Module
 					'title' => $title
 				])
 				->add_submit($this->lang('edit'))
-				->add_back($back = 'admin/games/'.$game_id.'/'.$game.'.html');
+				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
 		if ($this->form->is_valid($post))
 		{
@@ -322,16 +322,16 @@ class m_games_c_admin extends Controller_Module
 							$game_id ? NULL : [
 								'title'   => 'Jeu',
 								'content' => function($data){
-									return ($data['icon_id'] ? '<img src="'.path($data['icon_id']).'" alt="" /> ' : '').'<a href="'.url('admin/games/'.$data['game_id'].'/'.$data['name'].'.html').'">'.$data['game_title'].'</a>';
+									return ($data['icon_id'] ? '<img src="'.path($data['icon_id']).'" alt="" /> ' : '').'<a href="'.url('admin/games/'.$data['game_id'].'/'.$data['name']).'">'.$data['game_title'].'</a>';
 								}
 							],
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_update('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']));
 									},
 									function($data){
-										return $this->button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']).'.html');
+										return $this->button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']));
 									}
 								],
 								'size'    => TRUE
@@ -344,7 +344,7 @@ class m_games_c_admin extends Controller_Module
 		return $this->panel()
 					->heading('Cartes', 'fa-map-o')
 					->body($maps)
-					->footer($this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : '').'.html',  'Ajouter une carte'));
+					->footer($this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : ''),  'Ajouter une carte'));
 	}
 }
 

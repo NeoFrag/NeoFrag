@@ -40,7 +40,7 @@ class m_forum_c_index extends Controller_Module
 		if ($this->user())
 		{
 			$actions = $this->panel()
-							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read.html').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
+							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
 							->color('back text-right');
 
 			array_unshift($panels, $panels[] = $actions);
@@ -82,7 +82,7 @@ class m_forum_c_index extends Controller_Module
 								'topics' => $topics
 							]), FALSE);
 		
-		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum.html')).'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum')).'">'.$this->lang('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -91,12 +91,12 @@ class m_forum_c_index extends Controller_Module
 		
 		if ($this->access('forum', 'category_write', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title).'.html').'">'.$this->lang('new_topic').'</a>';
+			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title)).'">'.$this->lang('new_topic').'</a>';
 		}
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>';
+			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>';
 		}
 
 		array_unshift($panels, $panels[] = $this->panel()
@@ -144,7 +144,7 @@ class m_forum_c_index extends Controller_Module
 
 			notify('Sujet ajouté');
 
-			redirect('forum/topic/'.$topic_id.'/'.url_title($post['title']).'.html');
+			redirect('forum/topic/'.$topic_id.'/'.url_title($post['title']));
 		}
 		
 		$panels = [];
@@ -224,7 +224,7 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 		
-		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title).'.html').'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('back').'</a>';
 		
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -237,7 +237,7 @@ class m_forum_c_index extends Controller_Module
 		
 			if ($nb_messages > $this->pagination->get_items_per_page() && $this->pagination->get_page() != ($last_page = ceil($nb_messages / $this->pagination->get_items_per_page())))
 			{
-				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page.'.html');
+				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page);
 			}
 			
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this->lang('reply').'</a>';
@@ -245,18 +245,18 @@ class m_forum_c_index extends Controller_Module
 
 		if (($this->user() && $topic['user_id'] == $this->user('user_id')) || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('remove_topic').'">'.icon('fa-close').'</a>';
+			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('remove_topic').'">'.icon('fa-close').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('unlock_topic').'">'.icon('fa-unlock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('unlock_topic').'">'.icon('fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('lock_topic').'">'.icon('fa-lock').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('lock_topic').'">'.icon('fa-lock').'</a>';
 			}
 		}
 
@@ -264,11 +264,11 @@ class m_forum_c_index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('unset_announce').'">'.icon('fa-flag-o').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('unset_announce').'">'.icon('fa-flag-o').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title).'.html').'" data-toggle="tooltip" title="'.$this->lang('set_announce').'">'.icon('fa-flag').'</a>';
+				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('set_announce').'">'.icon('fa-flag').'</a>';
 			}
 		}
 
@@ -277,7 +277,7 @@ class m_forum_c_index extends Controller_Module
 			$this	->css('move')
 					->js('move');
 
-			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title).'.html').'" title="'.$this->lang('move_topic').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
+			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('move_topic').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
 		}
 		
 		$panels = [];
@@ -347,7 +347,7 @@ class m_forum_c_index extends Controller_Module
 					$page = '/page/'.ceil($nb_messages / $this->pagination->get_items_per_page());
 				}
 
-				redirect('forum/topic/'.$topic_id.'/'.url_title($title).$page.'.html#message_'.$message_id);
+				redirect('forum/topic/'.$topic_id.'/'.url_title($title).$page.'#'.$message_id);
 			}
 			
 			if ($errors = $this->form->get_errors())
@@ -376,7 +376,7 @@ class m_forum_c_index extends Controller_Module
 						'status' => (string)($is_announce ? ($is_locked ? -1 : 0) : ($is_locked ? -2 : 1))
 					]);
 		//notify('success', $this->lang('toggle_announce_topic'));
-		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
+		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
 	}
 	
 	public function _topic_lock($topic_id, $title, $is_announce, $is_locked)
@@ -386,7 +386,7 @@ class m_forum_c_index extends Controller_Module
 						'status' => (string)($is_locked ? ($is_announce ? 1 : 0) : ($is_announce ? -2 : -1))
 					]);
 		//notify('success', $this->lang('toggle_lock_topic'));
-		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
+		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
 	}
 	
 	public function _topic_move($topic_id, $title, $forum_id)
@@ -449,14 +449,14 @@ class m_forum_c_index extends Controller_Module
 			//notify('success', ....);
 		}
 
-		redirect('forum/topic/'.$topic_id.'/'.url_title($title).'.html');
+		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
 	}
 	
 	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $locked)
 	{
 		$this	->title($this->lang($is_topic ? 'edit_topic' : 'edit_message'))
 				->_breadcrumb($category_id, $forum_id)
-				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title).'.html')
+				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title))
 				->breadcrumb()
 				->css('wbbtheme')
 				->js('jquery.wysibb.min')
@@ -496,7 +496,7 @@ class m_forum_c_index extends Controller_Module
 
 			//notify('success', $this->lang('edit_message_success'));
 
-			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title).'.html');
+			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title));
 		}
 		
 		$panels = [];
@@ -599,7 +599,7 @@ class m_forum_c_index extends Controller_Module
 	{
 		$this->model()->mark_all_as_read();
 		//notify('success', $this->lang('marked_as_read'));
-		redirect('forum.html');
+		redirect('forum');
 	}
 	
 	public function _mark_all_as_read($forum_id, $title)
@@ -610,24 +610,24 @@ class m_forum_c_index extends Controller_Module
 		}
 		
 		//notify('success', $this->lang('forum_marked_as_read', $title));
-		redirect('forum/'.$forum_id.'/'.url_title($title).'.html');
+		redirect('forum/'.$forum_id.'/'.url_title($title));
 	}
 	
 	private function _breadcrumb($category_id, $forum_id)
 	{
 		if ($category = $this->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row())
 		{
-			$this->breadcrumb($category, 'forum.html');
+			$this->breadcrumb($category, 'forum');
 		}
 		
 		if (list($title, $parent_forum_id) = array_values($this->db->select('title', 'IF(is_subforum = "1", parent_id, 0)')->from('nf_forum')->where('forum_id', $forum_id)->row()))
 		{
 			if ($parent_forum_id && $parent_forum = $this->db->select('title')->from('nf_forum')->where('forum_id', $parent_forum_id)->row())
 			{
-				$this->breadcrumb($parent_forum, 'forum/'.$parent_forum_id.'/'.url_title($parent_forum).'.html');
+				$this->breadcrumb($parent_forum, 'forum/'.$parent_forum_id.'/'.url_title($parent_forum));
 			}
 			
-			$this->breadcrumb($title, 'forum/'.$forum_id.'/'.url_title($title).'.html');
+			$this->breadcrumb($title, 'forum/'.$forum_id.'/'.url_title($title));
 		}
 		
 		return $this;

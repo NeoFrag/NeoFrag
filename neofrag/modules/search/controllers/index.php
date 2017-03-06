@@ -119,9 +119,9 @@ class m_search_c_index extends Controller_Module
 					if ($content)
 					{
 						$panels[] = $this	->panel()
-											->heading($result[0]->get_title(), $result[0]->icon, 'search/'.$result[0]->name.'.html?q='.rawurlencode($search))
+											->heading($result[0]->get_title(), $result[0]->icon, 'search/'.$result[0]->name.'?q='.rawurlencode($search))
 											->body(implode('<hr />', $content))
-											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'.html?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
+											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
 					}
 					
 					if ($details && $pagination = $this->pagination->get_pagination())
@@ -133,7 +133,7 @@ class m_search_c_index extends Controller_Module
 				
 				if (!$panels)
 				{
-					redirect('search.html?q='.rawurlencode($search));
+					redirect('search?q='.rawurlencode($search));
 				}
 
 				$row[] = $this->row(

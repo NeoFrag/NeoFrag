@@ -12,7 +12,7 @@
 				<?php echo $this->lang('remember_me'); ?>
 			</label>
 		</div>
-		<a href="<?php echo url('user/lost-password.html'); ?>" class="btn btn-link"><?php echo $this->lang('forgot_password'); ?></a>
+		<a href="<?php echo url('user/lost-password'); ?>" class="btn btn-link"><?php echo $this->lang('forgot_password'); ?></a>
 		<input type="hidden" name="<?php echo $data['form_id']; ?>[redirect]" value="" />
 		<input type="submit" class="btn btn-primary" value="<?php echo $this->lang('login'); ?>" />
 	</div>

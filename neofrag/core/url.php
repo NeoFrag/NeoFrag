@@ -29,10 +29,10 @@ class Url extends Core
 
 		$this->_const['host']              = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
 		$this->_const['base']              = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-		$this->_const['request']           = preg_replace('#^'.preg_quote($this->_const['base'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) ?: 'index.html';
+		$this->_const['request']           = preg_replace('#^'.preg_quote($this->_const['base'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) ?: 'index';
 		$this->_const['extension']         = extension($this->_const['request']);
-		$this->_const['extension_allowed'] = $this->_const['extension'] == 'html';
-		$this->_const['segments']          = explode('/', substr($this->_const['request'], 0, - strlen($this->_const['extension']) - 1));
+		$this->_const['extension_allowed'] = $this->_const['extension'] == '';
+		$this->_const['segments']          = explode('/', $this->_const['extension'] ? substr($this->_const['request'], 0, - strlen($this->_const['extension']) - 1) : $this->_const['request']);
 
 		if (preg_match('/^(humans|robots)\.txt$/', $this->_const['request'], $match))
 		{
@@ -69,7 +69,7 @@ class Url extends Core
 	{
 		return 	$this->ajax ||
 				($this->ajax_header && $this->ajax_allowed) ||
-				($this->extension_allowed && $this->extension != 'html');
+				($this->extension_allowed && $this->extension != '');
 	}
 
 	public function external($external)

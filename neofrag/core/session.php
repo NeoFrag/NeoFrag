@@ -93,7 +93,7 @@ class Session extends Core
 	{
 		if (!is_asset() && !$this->url->ajax && !$this->url->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
-			if (in_array($this->_get_url(), ['index.html', 'admin.html']) || empty($_SERVER['HTTP_REFERER']))
+			if (in_array($this->_get_url(), ['index', 'admin']) || empty($_SERVER['HTTP_REFERER']))
 			{
 				$this->_user_data['session']['history'] = [];
 			}
@@ -280,7 +280,7 @@ class Session extends Core
 		{
 			$url = $this->url->request;
 			
-			if (preg_match('#('.($patern = implode('|', [self::$route_patterns['pages'], self::$route_patterns['page']])).')\.html$#', $url, $match) && $match[1])
+			if (preg_match('#('.($patern = implode('|', [self::$route_patterns['pages'], self::$route_patterns['page']])).')#', $url, $match) && $match[1])
 			{
 				$url = preg_replace('#'.$patern.'#', '', $url);
 			}

@@ -32,7 +32,7 @@ class m_error extends Module
 	
 	public function load()
 	{
-		$this->url->extension = 'html';
+		$this->url->extension = '';
 	}
 }
 

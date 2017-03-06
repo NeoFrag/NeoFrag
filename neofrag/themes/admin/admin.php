@@ -43,7 +43,7 @@ class t_admin extends Theme
 				$content_submenu[isset($content_submenu[$category]) ? $category : 'default'][] = [
 					'title'  => $module->get_title(),
 					'icon'   => $module->icon,
-					'url'    => 'admin/'.$module->name.'.html'
+					'url'    => 'admin/'.$module->name
 				];
 			}
 		}
@@ -78,7 +78,7 @@ class t_admin extends Theme
 					[
 						'title' => $this->lang('dashboard'),
 						'icon'  => 'fa-dashboard',
-						'url'   => 'admin.html'
+						'url'   => 'admin'
 					],
 					[
 						'title' => $this->lang('settings'),
@@ -87,19 +87,19 @@ class t_admin extends Theme
 							[
 								'title'  => $this->lang('configuration'),
 								'icon'   => 'fa-wrench',
-								'url'    => 'admin/settings.html',
+								'url'    => 'admin/settings',
 								'access' => $this->user('admin')
 							],
 							[
 								'title'  => $this->lang('maintenance'),
 								'icon'   => 'fa-power-off',
-								'url'    => 'admin/settings/maintenance.html',
+								'url'    => 'admin/settings/maintenance',
 								'access' => $this->user('admin')
 							],
 							[
 								'title'  => $this->lang('addons'),
 								'icon'   => 'fa-puzzle-piece',
-								'url'    => 'admin/addons.html',
+								'url'    => 'admin/addons',
 								'access' => $this->user('admin')
 							]
 						]
@@ -111,30 +111,30 @@ class t_admin extends Theme
 							[
 								'title'  => 'Membres / Groupes',
 								'icon'   => 'fa-users',
-								'url'    => 'admin/user.html',
+								'url'    => 'admin/user',
 								'access' => $this->user('admin')
 							],
 							[
 								'title'  => $this->lang('sessions'),
 								'icon'   => 'fa-globe',
-								'url'    => 'admin/user/sessions.html',
+								'url'    => 'admin/user/sessions',
 								'access' => $this->user('admin')
 							],
 							/*array(
 								'title' => 'Profil',
 								'icon'  => 'fa-user',
-								'url'   => 'admin/user.html'
+								'url'   => 'admin/user'
 							),*/
 							[
 								'title'  => $this->lang('permissions'),
 								'icon'   => 'fa-unlock-alt',
-								'url'    => 'admin/access.html',
+								'url'    => 'admin/access',
 								'access' => $this->user('admin')
 							],
 							[
 								'title'  => $this->lang('ban'),
 								'icon'   => 'fa-bomb',
-								'url'    => 'admin/user/ban.html',
+								'url'    => 'admin/user/ban',
 								'access' => $this->user('admin')
 							]
 						]
@@ -156,13 +156,13 @@ class t_admin extends Theme
 							[
 								'title'  => $this->lang('themes'),
 								'icon'   => 'fa-tint',
-								'url'    => 'admin/addons.html#themes',
+								'url'    => 'admin/addons#themes',
 								'access' => $this->user('admin')
 							],
 							[
 								'title' => $this->lang('liveditor'),
 								'icon'  => 'fa-desktop',
-								'url'   => 'live-editor.html',
+								'url'   => 'live-editor',
 								'access' => $this->user('admin')
 							]
 						]
@@ -170,19 +170,19 @@ class t_admin extends Theme
 					[
 						'title'  => 'Monitoring'.$this->module('monitoring')->display(),
 						'icon'   => 'fa-heartbeat',
-						'url'    => 'admin/monitoring.html',
+						'url'    => 'admin/monitoring',
 						'access' => $this->user('admin')
 					],
 					[
 						'title'  => 'Statistiques',
 						'icon'   => 'fa-bar-chart',
-						'url'    => 'admin/statistics.html',
+						'url'    => 'admin/statistics',
 						'access' => $this->user('admin')
 					],
 					[
 						'title'  => $this->lang('about'),
 						'icon'   => 'fa-info',
-						'url'    => 'admin/about.html',
+						'url'    => 'admin/about',
 						'access' => $this->user('admin')
 					]
 				]);

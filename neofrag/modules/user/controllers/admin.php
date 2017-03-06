@@ -30,7 +30,7 @@ class m_user_c_admin extends Controller_Module
 			->add_columns([
 				[
 					'content' => function($data){
-						return $data['auto'] != 'neofrag' ? $this->button_sort($data['data_id'], 'admin/ajax/user/groups/sort.html') : NULL;
+						return $data['auto'] != 'neofrag' ? $this->button_sort($data['data_id'], 'admin/ajax/user/groups/sort') : NULL;
 					},
 					'size'    => TRUE
 				],
@@ -50,7 +50,7 @@ class m_user_c_admin extends Controller_Module
 				],
 				[
 					'content' => function($data){
-							return $this->button_update('admin/user/groups/edit/'.$data['url'].'.html');
+							return $this->button_update('admin/user/groups/edit/'.$data['url']);
 					},
 					'size'    => TRUE
 				],
@@ -58,7 +58,7 @@ class m_user_c_admin extends Controller_Module
 					'content' => function($data){
 						if (!$data['auto'])
 						{
-							return $this->button_delete('admin/user/groups/delete/'.$data['url'].'.html');
+							return $this->button_delete('admin/user/groups/delete/'.$data['url']);
 						}
 					},
 					'size'    => TRUE
@@ -131,16 +131,16 @@ class m_user_c_admin extends Controller_Module
 							return $this->button()
 										->tooltip($this->lang('ban'))
 										->icon('fa-ban')
-										->url('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']).'.html')
+										->url('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']))
 										->color('warning')
 										->compact()
 										->outline();
 						},
 						function($data){
-							return $this->button_update('admin/user/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+							return $this->button_update('admin/user/'.$data['user_id'].'/'.url_title($data['username']));
 						},
 						function($data){
-							return $this->button_delete('admin/user/delete/'.$data['user_id'].'/'.url_title($data['username']).'.html');
+							return $this->button_delete('admin/user/delete/'.$data['user_id'].'/'.url_title($data['username']));
 						}
 					]
 				]
@@ -153,7 +153,7 @@ class m_user_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('groups'), 'fa-users')
 						->body($table_groups->display())
-						->footer($this->button_create('admin/user/groups/add.html', $this->lang('add_group')))
+						->footer($this->button_create('admin/user/groups/add', $this->lang('add_group')))
 						->size('col-md-12 col-lg-3')
 			),
 			$this->col(
@@ -186,7 +186,7 @@ class m_user_c_admin extends Controller_Module
 				'quote'         => $quote
 			])
 			->add_submit($this->lang('edit'))
-			->add_back('admin/user.html')
+			->add_back('admin/user')
 			->save();
 			
 		$form_groups = $this
@@ -238,7 +238,7 @@ class m_user_c_admin extends Controller_Module
 				[
 					'content' => [
 						function($data){
-							return $this->button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
+							return $this->button_delete('admin/user/sessions/delete/'.$data['session_id']);
 						}
 					]
 				]
@@ -266,7 +266,7 @@ class m_user_c_admin extends Controller_Module
 			
 			notify('Membre édité');
 
-			redirect_back('admin/user.html');
+			redirect_back('admin/user');
 		}
 		else if ($form_groups->is_valid($post))
 		{
@@ -277,7 +277,7 @@ class m_user_c_admin extends Controller_Module
 
 			notify('Groupes du membre édités');
 
-			redirect_back('admin/user.html');
+			redirect_back('admin/user');
 		}
 		
 		return $this->row(
@@ -341,7 +341,7 @@ class m_user_c_admin extends Controller_Module
 				->subtitle($this->lang('add'))
 				->form
 				->add_rules('groups')
-				->add_back('admin/user.html')
+				->add_back('admin/user')
 				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
@@ -356,7 +356,7 @@ class m_user_c_admin extends Controller_Module
 
 			notify($this->lang('group_added'));
 
-			redirect_back('admin/user.html');
+			redirect_back('admin/user');
 		}
 
 		return $this->panel()
@@ -377,7 +377,7 @@ class m_user_c_admin extends Controller_Module
 					'hidden' => $hidden,
 					'auto'   => $auto
 				])
-				->add_back('admin/user.html')
+				->add_back('admin/user')
 				->add_submit($this->lang('edit'));
 
 		if ($this->form->is_valid($post))
@@ -406,7 +406,7 @@ class m_user_c_admin extends Controller_Module
 
 			notify($this->lang('group_edited'));
 
-			redirect_back('admin/user.html');
+			redirect_back('admin/user');
 		}
 
 		return $this->panel()
@@ -541,7 +541,7 @@ class m_user_c_admin extends Controller_Module
 						'content' => [function($data){
 							if ($data['user_id'] && $data['session_id'] != NeoFrag()->session('session_id'))
 							{
-								return $this->button_delete('admin/user/sessions/delete/'.$data['session_id'].'.html');
+								return $this->button_delete('admin/user/sessions/delete/'.$data['session_id']);
 							}
 						}]
 					]

@@ -36,7 +36,7 @@ class m_pages_c_admin extends Controller_Module
 					[
 						'title'   => $this->lang('page_title'),
 						'content' => function($data){
-							return $data['published'] ? '<a href="'.url($data['name'].'.html').'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
+							return $data['published'] ? '<a href="'.url($data['name']).'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
 						},
 						'sort'    => function($data){
 							return $data['title'];
@@ -48,13 +48,13 @@ class m_pages_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return $data['published'] ? $this->button()->tooltip($this->lang('view_page'))->icon('fa-eye')->url($data['name'].'.html')->compact()->outline() : '';
+								return $data['published'] ? $this->button()->tooltip($this->lang('view_page'))->icon('fa-eye')->url($data['name'])->compact()->outline() : '';
 							},
 							function($data){
-								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']));
 							},
 							function($data){
-								return $this->button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']).'.html');
+								return $this->button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']));
 							}
 						],
 						'size'    => TRUE
@@ -66,7 +66,7 @@ class m_pages_c_admin extends Controller_Module
 		return $this->panel()
 					->heading($this->lang('list_pages'), 'fa-align-left')
 					->body($this->table->display())
-					->footer($this->button_create('admin/pages/add.html', $this->lang('create_page')));
+					->footer($this->button_create('admin/pages/add', $this->lang('create_page')));
 	}
 	
 	public function add()
@@ -75,7 +75,7 @@ class m_pages_c_admin extends Controller_Module
 				->form
 				->add_rules('pages')
 				->add_submit($this->lang('add'))
-				->add_back('admin/pages.html');
+				->add_back('admin/pages');
 
 		if ($this->form->is_valid($post))
 		{
@@ -87,7 +87,7 @@ class m_pages_c_admin extends Controller_Module
 
 			notify($this->lang('add_success_message'));
 
-			redirect_back('admin/pages.html');
+			redirect_back('admin/pages');
 		}
 		
 		return $this->panel()
@@ -107,7 +107,7 @@ class m_pages_c_admin extends Controller_Module
 					'published'      => $published
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/pages.html');
+				->add_back('admin/pages');
 		
 		if ($this->form->is_valid($post))
 		{	
@@ -121,7 +121,7 @@ class m_pages_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_success_message'));
 
-			redirect_back('admin/pages.html');
+			redirect_back('admin/pages');
 		}
 		
 		return $this->panel()

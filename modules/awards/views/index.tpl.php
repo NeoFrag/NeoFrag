@@ -63,7 +63,7 @@
 						</td>
 						<td><?php echo $award['platform']; ?></td>
 						<td>
-							<a href="<?php echo url('awards/'.$award['award_id'].'/'.url_title($award['name']).'.html'); ?>"><?php echo $award['name']; ?></a>
+							<a href="<?php echo url('awards/'.$award['award_id'].'/'.url_title($award['name'])); ?>"><?php echo $award['name']; ?></a>
 						</td>
 						<td>
 							<?php if ($award['location']): ?><div><span data-toggle="tooltip" title="Lieu"><?php echo icon('fa-map-marker').' '.$award['location']; ?></span></div><?php endif; ?>

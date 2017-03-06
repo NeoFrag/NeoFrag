@@ -20,10 +20,10 @@
 					</div>
 					<?php endif; ?>
 					<?php if (!empty($data['forum_id'])): ?>
-					<a href="<?php echo url($this->session->get_back() ?: 'forum/'.$data['forum_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default"><?php echo $this->lang('back'); ?></a>
+					<a href="<?php echo url($this->session->get_back() ?: 'forum/'.$data['forum_id'].'/'.url_title($data['title'])); ?>" class="btn btn-default"><?php echo $this->lang('back'); ?></a>
 					<button type="submit" class="btn btn-primary"><?php echo $this->lang('post_topic'); ?></button>
 					<?php elseif (!empty($data['topic_id'])): ?>
-					<a href="<?php echo url($this->session->get_back() ?: 'forum/topic/'.$data['topic_id'].'/'.url_title($data['title']).'.html'); ?>" class="btn btn-default"><?php echo $this->lang('back'); ?></a>
+					<a href="<?php echo url($this->session->get_back() ?: 'forum/topic/'.$data['topic_id'].'/'.url_title($data['title'])); ?>" class="btn btn-default"><?php echo $this->lang('back'); ?></a>
 					<button type="submit" class="btn btn-primary"><?php echo $this->lang($data['is_topic'] ? 'modify_topic' : 'modify_message'); ?></button>
 					<?php else: ?>
 					<button type="submit" class="btn btn-primary"><?php echo $this->lang('reply_topic'); ?></button>

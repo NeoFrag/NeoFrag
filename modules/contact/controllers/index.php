@@ -50,7 +50,7 @@ class m_contact_c_index extends Controller_Module
 				->add_rules($rules)
 				->add_captcha()
 				->add_submit(icon('fa-envelope-o').' '.$this->lang('send'))
-				->add_back('index.html');
+				->add_back('index');
 		
 		if ($this->form->is_valid($post))
 		{

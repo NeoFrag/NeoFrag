@@ -83,7 +83,7 @@ class Output extends Core
 				}
 			}
 
-			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring.html' && $this->module('monitoring')->need_checking())
+			if (!$this->url->ajax() && $this->user('admin') && $this->url->request != 'admin/monitoring' && $this->module('monitoring')->need_checking())
 			{
 				$this->js_load('$.post(\''.url('admin/ajax/monitoring.json').'\', {refresh: false});');
 			}

@@ -33,7 +33,7 @@ class w_news_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'news' => array_slice($news, 0, 3)
 						]))
-						->footer('<a href="'.url('news.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('show_more').'</a>', 'right');
+						->footer('<a href="'.url('news').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('show_more').'</a>', 'right');
 		}
 		else
 		{

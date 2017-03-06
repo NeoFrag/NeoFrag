@@ -35,12 +35,12 @@
 			<?php if ($settings) echo $this	->button()
 											->tooltip('Configurer')
 											->icon('fa-wrench')
-											->url('admin/addons/module/'.$module->name.'.html')
+											->url('admin/addons/module/'.$module->name)
 											->color('warning')
 											->compact()
 											->outline(); ?>
 			<?php if ($access) echo $this->button_access($module->name); ?>
-			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/module/'.$module->name.'.html'); ?>
+			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/module/'.$module->name); ?>
 		</div>
 	</div>
 <?php 

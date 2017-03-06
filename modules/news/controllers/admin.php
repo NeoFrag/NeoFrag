@@ -38,7 +38,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => $this->lang('title'),
 								'content' => function($data){
-									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
+									return '<a href="'.url('news/'.$data['news_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['title'];
@@ -50,7 +50,7 @@ class m_news_c_admin extends Controller_Module
 							[
 								'title'   => $this->lang('category'),
 								'content' => function($data){
-									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['category_title'];
@@ -90,10 +90,10 @@ class m_news_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->is_authorized('modify_news') ? $this->button_update('admin/news/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
+										return $this->is_authorized('modify_news') ? $this->button_update('admin/news/'.$data['news_id'].'/'.url_title($data['title'])) : NULL;
 									},
 									function($data){
-										return $this->is_authorized('delete_news') ? $this->button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title']).'.html') : NULL;
+										return $this->is_authorized('delete_news') ? $this->button_delete('admin/news/delete/'.$data['news_id'].'/'.url_title($data['title'])) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -108,7 +108,7 @@ class m_news_c_admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name']).'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
 									},
 									'search'  => function($data){
 										return $data['title'];
@@ -120,10 +120,10 @@ class m_news_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return $this->is_authorized('modify_news_category') ? $this->button_update('admin/news/categories/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
+											return $this->is_authorized('modify_news_category') ? $this->button_update('admin/news/categories/'.$data['category_id'].'/'.$data['name']) : NULL;
 										},
 										function($data){
-											return $this->is_authorized('delete_news_category') ? $this->button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html') : NULL;
+											return $this->is_authorized('delete_news_category') ? $this->button_delete('admin/news/categories/delete/'.$data['category_id'].'/'.$data['name']) : NULL;
 										}
 									],
 									'size'    => TRUE
@@ -139,14 +139,14 @@ class m_news_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('categories'), 'fa-align-left')
 						->body($categories)
-						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add.html', $this->lang('create_category')) : NULL)
+						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add', $this->lang('create_category')) : NULL)
 						->size('col-md-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('list_news'), 'fa-file-text-o')
 						->body($news)
-						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add.html', $this->lang('add_news')) : NULL)
+						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add', $this->lang('add_news')) : NULL)
 						->size('col-md-12 col-lg-9')
 			)
 		);
@@ -160,7 +160,7 @@ class m_news_c_admin extends Controller_Module
 					'categories' => $this->model('categories')->get_categories_list(),
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/news.html');
+				->add_back('admin/news');
 
 		if ($this->form->is_valid($post))
 		{
@@ -174,7 +174,7 @@ class m_news_c_admin extends Controller_Module
 
 			notify($this->lang('add_news_success_message'));
 
-			redirect_back('admin/news.html');
+			redirect_back('admin/news');
 		}
 
 		return $this->panel()
@@ -198,7 +198,7 @@ class m_news_c_admin extends Controller_Module
 					'published'    => $published
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/news.html');
+				->add_back('admin/news');
 
 		if ($this->form->is_valid($post))
 		{
@@ -214,7 +214,7 @@ class m_news_c_admin extends Controller_Module
 
 			notify($this->lang('edit_news_success_message'));
 
-			redirect_back('admin/news.html');
+			redirect_back('admin/news');
 		}
 
 		return $this->panel()
@@ -244,7 +244,7 @@ class m_news_c_admin extends Controller_Module
 		$this	->subtitle($this->lang('add_category'))
 				->form
 				->add_rules('categories')
-				->add_back('admin/news.html')
+				->add_back('admin/news')
 				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
@@ -255,7 +255,7 @@ class m_news_c_admin extends Controller_Module
 
 			notify($this->lang('add_category_success_message'));
 
-			redirect_back('admin/news.html');
+			redirect_back('admin/news');
 		}
 		
 		return $this->panel()
@@ -273,7 +273,7 @@ class m_news_c_admin extends Controller_Module
 					'icon'  => $icon_id
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/news.html');
+				->add_back('admin/news');
 		
 		if ($this->form->is_valid($post))
 		{
@@ -284,7 +284,7 @@ class m_news_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_category_success_message'));
 
-			redirect_back('admin/news.html');
+			redirect_back('admin/news');
 		}
 		
 		return $this->panel()

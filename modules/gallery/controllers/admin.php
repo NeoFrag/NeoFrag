@@ -36,7 +36,7 @@ class m_gallery_c_admin extends Controller_Module
 							[
 								'title'   => $this->lang('album'),
 								'content' => function($data){
-									return $data['published'] ? '<a href="'.url('gallery/album/'.$data['gallery_id'].'/'.$data['name'].'.html').'">'.$data['title'].'</a>' : $data['title'];
+									return $data['published'] ? '<a href="'.url('gallery/album/'.$data['gallery_id'].'/'.$data['name']).'">'.$data['title'].'</a>' : $data['title'];
 								},
 								'sort'    => function($data){
 									return $data['title'];
@@ -48,7 +48,7 @@ class m_gallery_c_admin extends Controller_Module
 							[
 								'title'   => $this->lang('category'),
 								'content' => function($data){
-									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name'].'.html').'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['category_title'];
@@ -75,10 +75,10 @@ class m_gallery_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/gallery/'.$data['gallery_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/gallery/'.$data['gallery_id'].'/'.$data['name']);
 									},
 									function($data){
-										return $this->button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name']);
 									}
 								],
 								'size'    => TRUE
@@ -98,7 +98,7 @@ class m_gallery_c_admin extends Controller_Module
 								],
 								[
 									'content' => function($data){
-										return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html').'">'.$data['title'].'</a>';
+										return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['name']).'">'.$data['title'].'</a>';
 									},
 									'search'  => function($data){
 										return $data['title'];
@@ -107,10 +107,10 @@ class m_gallery_c_admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return $this->button_update('admin/gallery/categories/'.$data['category_id'].'/'.$data['name'].'.html');
+											return $this->button_update('admin/gallery/categories/'.$data['category_id'].'/'.$data['name']);
 										},
 										function($data){
-											return $this->button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name'].'.html');
+											return $this->button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name']);
 										}
 									],
 									'size'    => TRUE
@@ -126,14 +126,14 @@ class m_gallery_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('categories'), 'fa-book')
 						->body($categories)
-						->footer($this->button_create('admin/gallery/categories/add.html', $this->lang('add_category')))
+						->footer($this->button_create('admin/gallery/categories/add', $this->lang('add_category')))
 						->size('col-md-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('list_album_photos'), 'fa-photo')
 						->body($gallery)
-						->footer($this->button_create('admin/gallery/add.html', $this->lang('add_album')))
+						->footer($this->button_create('admin/gallery/add', $this->lang('add_album')))
 						->size('col-md-12 col-lg-8')
 			)
 		);
@@ -146,7 +146,7 @@ class m_gallery_c_admin extends Controller_Module
 				->add_rules('album', [
 					'categories' => $this->model()->get_categories_list(),
 				])
-				->add_back('admin/gallery.html')
+				->add_back('admin/gallery')
 				->add_submit($this->lang('create_album_btn'));
 				
 		if ($this->form->is_valid($post))
@@ -159,7 +159,7 @@ class m_gallery_c_admin extends Controller_Module
 
 			notify($this->lang('album_added'));
 			
-			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']).'.html');
+			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']));
 		}
 		
 		return $this->panel()
@@ -187,7 +187,7 @@ class m_gallery_c_admin extends Controller_Module
 								'gallery_id'  => $gallery_id
 							])
 							->add_submit($this->lang('edit'))
-							->add_back('admin/gallery.html')
+							->add_back('admin/gallery')
 							->save();
 							
 		$form_image = $this	->form
@@ -257,15 +257,15 @@ class m_gallery_c_admin extends Controller_Module
 												return $this->button()
 															->tooltip($this->lang('see_image'))
 															->icon('fa-eye')
-															->url('gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html')
+															->url('gallery/image/'.$data['image_id'].'/'.url_title($data['title']))
 															->compact()
 															->outline();
 											},
 											function($data){
-												return $this->button_update('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												return $this->button_update('admin/gallery/image/'.$data['image_id'].'/'.url_title($data['title']));
 											},
 											function($data){
-												return $this->button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']).'.html');
+												return $this->button_delete('admin/gallery/image/delete/'.$data['image_id'].'/'.url_title($data['title']));
 											}
 										],
 										'align'   => 'right',
@@ -288,7 +288,7 @@ class m_gallery_c_admin extends Controller_Module
 
 			notify($this->lang('album_edited'));
 
-			redirect_back('admin/gallery.html');
+			redirect_back('admin/gallery');
 		}
 		else if ($form_image->is_valid($post))
 		{
@@ -348,7 +348,7 @@ class m_gallery_c_admin extends Controller_Module
 		$this	->subtitle($this->lang('add_category'))
 				->form
 				->add_rules('categories')
-				->add_back('admin/gallery.html')
+				->add_back('admin/gallery')
 				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
@@ -359,7 +359,7 @@ class m_gallery_c_admin extends Controller_Module
 
 			notify($this->lang('category_added'));
 
-			redirect_back('admin/gallery.html');
+			redirect_back('admin/gallery');
 		}
 		
 		return $this->panel()
@@ -377,7 +377,7 @@ class m_gallery_c_admin extends Controller_Module
 					'icon'  => $icon_id
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/gallery.html');
+				->add_back('admin/gallery');
 		
 		if ($this->form->is_valid($post))
 		{
@@ -388,7 +388,7 @@ class m_gallery_c_admin extends Controller_Module
 		
 			notify($this->lang('category_edited'));
 
-			redirect_back('admin/gallery.html');
+			redirect_back('admin/gallery');
 		}
 		
 		return $this->panel()
@@ -429,7 +429,7 @@ class m_gallery_c_admin extends Controller_Module
 					'description' => $description
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title).'.html');
+				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title));
 		
 		if ($this->form->is_valid($post))
 		{
@@ -451,7 +451,7 @@ class m_gallery_c_admin extends Controller_Module
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title).'.html').'</div>'.$this->lang('preview_image'), 'fa-photo')
+						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('preview_image'), 'fa-photo')
 						->body(function($data) use ($image_id, $title, $description, $thumbnail_file_id){
 							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
 						})

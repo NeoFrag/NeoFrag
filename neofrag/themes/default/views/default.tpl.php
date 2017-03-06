@@ -21,7 +21,7 @@
 		<nav class="navbar no-margin bg-danger">
 			<div class="container">
 				<p class="navbar-text"><?php echo icon('fa-power-off').' '.$this->lang('website_down_for_maintenance'); ?></p>
-				<a href="<?php echo url('admin/settings/maintenance.html'); ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo $this->lang('open_website'); ?></a>
+				<a href="<?php echo url('admin/settings/maintenance'); ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo $this->lang('open_website'); ?></a>
 			</div>
 		</nav>
 	<?php endif; ?>

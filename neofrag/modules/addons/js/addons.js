@@ -1,7 +1,7 @@
 $(function(){
 	var load_addons = function($addon){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/addons.html'); ?>',
+			url: '<?php echo url('admin/ajax/addons'); ?>',
 			type: 'POST',
 			data: {
 				'addon': $addon.data('addon')
@@ -215,7 +215,7 @@ $(function(){
 					settings[$(this).attr('name')] = $(this).val();
 				});
 
-				$.post('<?php echo url('admin/ajax/addons/authenticator/update.html'); ?>', {name: name, settings: settings}, function(data){
+				$.post('<?php echo url('admin/ajax/addons/authenticator/update'); ?>', {name: name, settings: settings}, function(data){
 					$modal.modal('hide');
 					
 					$modal.on('hidden.bs.modal', function(){

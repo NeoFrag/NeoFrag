@@ -64,7 +64,7 @@ class User extends Core
 					{
 						$this->login((int)$user['user_id'], FALSE);
 
-						if ($this->url->request == 'user/logout.html')
+						if ($this->url->request == 'user/logout')
 						{
 							redirect();
 						}
@@ -140,7 +140,7 @@ class User extends Core
 				$this	->config('nf_maintenance', FALSE, 'bool')
 						->config('nf_maintenance_opening', '');
 			}
-			else if (!$this('admin') && $this->url->request != 'user/logout.html')
+			else if (!$this('admin') && $this->url->request != 'user/logout')
 			{
 				header('HTTP/1.0 503 Service Unavailable');
 				
@@ -304,7 +304,7 @@ class User extends Core
 			$username = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->row();
 		}
 
-		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('user/'.$user_id.'/'.url_title($username).'.html').'">'.$prefix.$username.'</a>';
+		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('user/'.$user_id.'/'.url_title($username)).'">'.$prefix.$username.'</a>';
 	}
 	
 	public function avatar($avatar = 0, $sex = '', $user_id = NULL, $username = '')

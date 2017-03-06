@@ -58,7 +58,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 		
 		return [$error];
@@ -68,7 +68,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 
 		if ($user_id = $this->model()->check_key($key_id))
@@ -81,7 +81,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if ($this->user())
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 
 		$provider = str_replace('-', '_', strtolower($provider));
@@ -101,7 +101,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if (!$this->user())
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 		
 		return [];
@@ -117,7 +117,7 @@ class m_user_c_checker extends Controller_Module
 		}
 		else
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 	}
 
@@ -148,7 +148,7 @@ class m_user_c_checker extends Controller_Module
 	{
 		if (!$this->user())
 		{
-			redirect('user.html');
+			redirect('user');
 		}
 		else
 		{

@@ -121,10 +121,10 @@ class m_awards_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/awards/'.$data['award_id'].'/'.url_title($data['name']).'.html');
+										return $this->button_update('admin/awards/'.$data['award_id'].'/'.url_title($data['name']));
 									},
 									function($data){
-										return $this->button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']).'.html');
+										return $this->button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']));
 									}
 								],
 								'size'    => TRUE
@@ -137,7 +137,7 @@ class m_awards_c_admin extends Controller_Module
 		return $this->panel()
 					->heading('Liste des palmarès', 'fa-trophy')
 					->body($awards)
-					->footer($this->button_create('admin/awards/add.html', 'Ajouter un palmarès'));
+					->footer($this->button_create('admin/awards/add', 'Ajouter un palmarès'));
 	}
 
 	public function add()
@@ -149,7 +149,7 @@ class m_awards_c_admin extends Controller_Module
 					'games' => $this->model()->get_games_list(),
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/awards.html');
+				->add_back('admin/awards');
 
 		if ($this->form->is_valid($post))
 		{
@@ -166,7 +166,7 @@ class m_awards_c_admin extends Controller_Module
 
 			notify('Palmarès ajouté avec succès');
 
-			redirect_back('admin/awards.html');
+			redirect_back('admin/awards');
 		}
 
 		return $this->panel()
@@ -194,7 +194,7 @@ class m_awards_c_admin extends Controller_Module
 					'image'        => $image_id
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/awards.html');
+				->add_back('admin/awards');
 
 		if ($this->form->is_valid($post))
 		{
@@ -212,7 +212,7 @@ class m_awards_c_admin extends Controller_Module
 
 			notify('Palmarès édité avec succès');
 
-			redirect_back('admin/awards.html');
+			redirect_back('admin/awards');
 		}
 
 		return $this->panel()

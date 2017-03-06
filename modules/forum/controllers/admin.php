@@ -25,8 +25,8 @@ class m_forum_c_admin extends Controller_Module
 		$this	->subtitle($this->lang('forums_list'))
 				->css('forum')
 				->js('forum')
-				->add_action('admin/forum/categories/add.html', $this->lang('add_category'), 'fa-plus')
-				->add_action('admin/forum/add.html',            $this->lang('add_forum'),    'fa-plus');
+				->add_action('admin/forum/categories/add', $this->lang('add_category'), 'fa-plus')
+				->add_action('admin/forum/add',            $this->lang('add_forum'),    'fa-plus');
 		
 		$panels = [];
 		
@@ -55,7 +55,7 @@ class m_forum_c_admin extends Controller_Module
 					'categories' => $this->model()->get_categories_list(),
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/forum.html');
+				->add_back('admin/forum');
 
 		if ($this->form->is_valid($post))
 		{
@@ -66,7 +66,7 @@ class m_forum_c_admin extends Controller_Module
 
 			notify($this->lang('add_forum_success'));
 
-			redirect_back('admin/forum.html');
+			redirect_back('admin/forum');
 		}
 
 		return $this->panel()
@@ -87,7 +87,7 @@ class m_forum_c_admin extends Controller_Module
 					'url'          => $url
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/forum.html');
+				->add_back('admin/forum');
 
 		if ($this->form->is_valid($post))
 		{
@@ -124,7 +124,7 @@ class m_forum_c_admin extends Controller_Module
 
 			notify($this->lang('edit_forum_success'));
 
-			redirect_back('admin/forum.html');
+			redirect_back('admin/forum');
 		}
 
 		return $this->panel()
@@ -154,7 +154,7 @@ class m_forum_c_admin extends Controller_Module
 		$this	->subtitle($this->lang('add_category'))
 				->form
 				->add_rules('categories')
-				->add_back('admin/forum.html')
+				->add_back('admin/forum')
 				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
@@ -163,7 +163,7 @@ class m_forum_c_admin extends Controller_Module
 
 			notify($this->lang('add_category_success'));
 
-			redirect_back('admin/forum.html');
+			redirect_back('admin/forum');
 		}
 		
 		return $this->panel()
@@ -180,7 +180,7 @@ class m_forum_c_admin extends Controller_Module
 					'title' => $title
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/forum.html');
+				->add_back('admin/forum');
 		
 		if ($this->form->is_valid($post))
 		{
@@ -188,7 +188,7 @@ class m_forum_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_category_success'));
 
-			redirect_back('admin/forum.html');
+			redirect_back('admin/forum');
 		}
 		
 		return $this->panel()

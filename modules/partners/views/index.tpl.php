@@ -3,7 +3,7 @@ $count = count($data['partners']);
 foreach ($data['partners'] as $i => $partner): ?>
 	<div class="row">
 		<div class="col-md-5 text-center" style="padding-right: 15px;">
-			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name'].'.html'); ?>" target="_blank" class="thumbnail" style="padding: 10px;">
+			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']); ?>" target="_blank" class="thumbnail" style="padding: 10px;">
 				<?php if ($partner[$this->config->partners_logo_display]): ?>
 				<img src="<?php echo path($partner[$this->config->partners_logo_display]); ?>" class="img-responsive" alt="" />
 				<?php else: ?>
@@ -12,7 +12,7 @@ foreach ($data['partners'] as $i => $partner): ?>
 			</a>
 		</div>
 		<div class="col-md-7">
-			<div class="pull-right"><a class="text-muted" href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name'].'.html'); ?>" target="_blank"><?php echo preg_replace('_https?://_', '', $partner['website']); ?></a></div>
+			<div class="pull-right"><a class="text-muted" href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']); ?>" target="_blank"><?php echo preg_replace('_https?://_', '', $partner['website']); ?></a></div>
 			<h4>À propos de <b><?php echo $partner['title']; ?></b></h4>
 			<ul class="list-inline">
 				<?php if ($partner['facebook']) echo '<li><a href="'.$partner['facebook'].'" class="btn-primary" target="_blank" data-toggle="tooltip" title="Facebook">'.icon('fa-facebook').'</a></li>'; ?>

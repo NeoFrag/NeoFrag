@@ -105,7 +105,7 @@ abstract class Authenticator extends NeoFrag
 						->tooltip($this->title)
 						->icon($this->icon)
 						->style('background-color', $this->color)
-						->url('user/auth/'.url_title($this->name).'.html');
+						->url('user/auth/'.url_title($this->name));
 
 		return '<div class="btn-auth">'.$button.'</div>';
 	}
@@ -113,7 +113,7 @@ abstract class Authenticator extends NeoFrag
 	protected function _params()
 	{
 		return [
-			'callback' => $this->url->host.url('user/auth/'.url_title($this->name).'.html')
+			'callback' => $this->url->host.url('user/auth/'.url_title($this->name))
 		];
 	}
 }

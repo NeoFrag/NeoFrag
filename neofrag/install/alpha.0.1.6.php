@@ -144,6 +144,8 @@ class i_0_1_6 extends Install
 				'order'    => $i
 			]);
 		}
+
+		$this->config('nf_version_css', time());
 	}
 }
 

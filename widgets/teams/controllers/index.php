@@ -35,7 +35,7 @@ class w_teams_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'teams'    => $teams
 						]), FALSE)
-						->footer('<a href="'.url('teams.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_all_teams').'</a>', 'right');
+						->footer('<a href="'.url('teams').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_all_teams').'</a>', 'right');
 		}
 		else
 		{

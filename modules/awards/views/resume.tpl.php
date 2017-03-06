@@ -30,7 +30,7 @@
 			<tbody>
 				<?php foreach ($data['teams'] as $team): ?>
 				<tr>
-					<td><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name'].'.html'); ?>"><?php echo $team['team_title']; ?></a></td>
+					<td><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']); ?>"><?php echo $team['team_title']; ?></a></td>
 					<td class="text-center"><?php echo $team['total_gold']; ?></td>
 					<td class="text-center"><?php echo $team['total_silver']; ?></td>
 					<td class="text-center"><?php echo $team['total_bronze']; ?></td>

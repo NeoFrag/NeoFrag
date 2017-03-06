@@ -36,7 +36,7 @@ class w_members_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'members'  => $members
 						]), FALSE)
-						->footer('<a href="'.url('members.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('members_list').'</a>', 'right');
+						->footer('<a href="'.url('members').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('members_list').'</a>', 'right');
 		}
 		else
 		{

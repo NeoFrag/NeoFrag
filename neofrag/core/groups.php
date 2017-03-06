@@ -210,7 +210,7 @@ class Groups extends Core
 			return $this->label()
 						->title($this->_groups[$group_id]['title'])
 						->icon($this->_groups[$group_id]['icon'])
-						->url_if($link, 'members/group/'.$this->_groups[$group_id]['url'].'.html')
+						->url_if($link, 'members/group/'.$this->_groups[$group_id]['url'])
 						->color($this->_groups[$group_id]['color']);
 		}
 		else

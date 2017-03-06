@@ -50,7 +50,7 @@ class m_awards extends Module
 		{
 			return [
 				'title' => $award,
-				'url'   => 'awards/'.$award_id.'/'.url_title($award).'.html'
+				'url'   => 'awards/'.$award_id.'/'.url_title($award)
 			];
 		}
 	}
