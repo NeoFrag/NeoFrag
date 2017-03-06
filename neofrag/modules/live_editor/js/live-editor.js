@@ -69,7 +69,7 @@ var modal_settings = function(title, settings, callback){
 
 		$('#live-editor-settings').html('');
 		
-		$.post('<?php echo url('ajax/live-editor/widget-admin.html'); ?>', data, function(data){
+		$.post('<?php echo url('ajax/live-editor/widget-admin'); ?>', data, function(data){
 			if (data){
 				$('#live-editor-settings').html(data);
 			}
@@ -355,7 +355,7 @@ $(function(){
 				
 				var $zone = $this.parents('[data-disposition-id]:first');
 				
-				$.post('<?php echo url('ajax/live-editor/zone-fork.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/zone-fork'); ?>', {
 					disposition_id: $zone.data('disposition-id'),
 					url: $iframe[0].location.pathname,
 					live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -384,7 +384,7 @@ $(function(){
 			var $this = $(this).parents('[data-disposition-id]:first');
 			$('.live-editor-save').show();
 			
-			$.post('<?php echo url('ajax/live-editor/row-add.html'); ?>', {
+			$.post('<?php echo url('ajax/live-editor/row-add'); ?>', {
 				disposition_id: $this.data('disposition-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
@@ -417,7 +417,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/row-move.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/row-move'); ?>', {
 					disposition_id: $(this).data('disposition-id'),
 					row_id: ui.item.find('.row:first').data('row-id'),
 					position: $(this).find('.live-editor-row').index(ui.item)
@@ -435,7 +435,7 @@ $(function(){
 			modal_style('<?php echo $this->lang('row_design'); ?>', $row, '.live-editor-styles-row', function(style){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/row-style.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/row-style'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id'),
 					style: style
@@ -454,7 +454,7 @@ $(function(){
 			
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/row-delete.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/row-delete'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id')
 				}, function(){
@@ -470,7 +470,7 @@ $(function(){
 			var $row = $(this).parents('.live-editor-row-header:first').next('[data-row-id]:first');
 			$('.live-editor-save').show();
 			
-			$.post('<?php echo url('ajax/live-editor/col-add.html'); ?>', {
+			$.post('<?php echo url('ajax/live-editor/col-add'); ?>', {
 				disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 				row_id: $row.data('row-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -507,7 +507,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/col-move.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/col-move'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).data('row-id'),
 					col_id: ui.item.data('col-id'),
@@ -529,7 +529,7 @@ $(function(){
 				
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/col-size.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/col-size'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id'),
@@ -548,7 +548,7 @@ $(function(){
 			modal_delete('<?php echo $this->lang('col_delete_message'); ?>', function(){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/col-delete.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/col-delete'); ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $this.parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id')
@@ -570,7 +570,7 @@ $(function(){
 				widget_id: -1
 			};
 		
-			$.post('<?php echo url('ajax/live-editor/widget-settings.html'); ?>', data, function(html){
+			$.post('<?php echo url('ajax/live-editor/widget-settings'); ?>', data, function(html){
 				modal_settings('<?php echo $this->lang('new_widget'); ?>', html, function(settings){
 					$.extend(data, settings);
 					$.extend(data, {
@@ -579,7 +579,7 @@ $(function(){
 				
 					$('.live-editor-save').show();
 					
-					$.post('<?php echo url('ajax/live-editor/widget-add.html'); ?>', data, function(data){
+					$.post('<?php echo url('ajax/live-editor/widget-add'); ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -609,7 +609,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/widget-move.html'); ?>', {
+				$.post('<?php echo url('ajax/live-editor/widget-move'); ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $(this).data('col-id'),
@@ -638,7 +638,7 @@ $(function(){
 				
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/widget-style.html'); ?>', data).always(function(){
+				$.post('<?php echo url('ajax/live-editor/widget-style'); ?>', data).always(function(){
 					$('.live-editor-save').hide();
 				});
 			});
@@ -654,13 +654,13 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 	
-			$.post('<?php echo url('ajax/live-editor/widget-settings.html'); ?>', data, function(html){
+			$.post('<?php echo url('ajax/live-editor/widget-settings'); ?>', data, function(html){
 				modal_settings('<?php echo $this->lang('widget_settings'); ?>', html, function(settings){
 					$.extend(data, settings);
 				
 					$('.live-editor-save').show();
 					
-					$.post('<?php echo url('ajax/live-editor/widget-update.html'); ?>', data, function(data){
+					$.post('<?php echo url('ajax/live-editor/widget-update'); ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -690,7 +690,7 @@ $(function(){
 			modal_delete('<?php echo $this->lang('widget_delete_message'); ?>', function(){
 				$('.live-editor-save').show();
 				
-				$.post('<?php echo url('ajax/live-editor/widget-delete.html'); ?>', data, function(){
+				$.post('<?php echo url('ajax/live-editor/widget-delete'); ?>', data, function(){
 					$widget.remove();
 					$('.live-editor-save').hide();
 				});

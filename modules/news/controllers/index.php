@@ -29,12 +29,12 @@ class m_news_c_index extends Controller_Module
 			$news['introduction'] = bbcode($news['introduction']);
 
 			$panel = $this	->panel()
-							->heading($news['title'], 'fa-file-text-o', 'news/'.$news['news_id'].'/'.url_title($news['title']).'.html')
+							->heading($news['title'], 'fa-file-text-o', 'news/'.$news['news_id'].'/'.url_title($news['title']))
 							->body($this->view('index', $news));
 
 			if ($news['content'])
 			{
-				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html').'">'.$this->lang('read_more').'</a>');
+				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title'])).'">'.$this->lang('read_more').'</a>');
 			}
 
 			$panels[] = $panel;
@@ -69,7 +69,7 @@ class m_news_c_index extends Controller_Module
 	{
 		$news = $this->index($news);
 		
-		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news.html')->color('danger pull-right')->compact()->outline().'</h2>'));
+		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
 	}

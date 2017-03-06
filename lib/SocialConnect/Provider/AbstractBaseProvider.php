@@ -78,7 +78,7 @@ abstract class AbstractBaseProvider
      */
     public function getRedirectUrl()
     {
-        return $this->getRedirectUri() . '/' . $this->getName() . '.html';
+        return $this->getRedirectUri() . '/' . $this->getName();
     }
 
     /**

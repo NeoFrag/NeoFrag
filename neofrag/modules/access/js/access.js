@@ -4,7 +4,7 @@ $(function(){
 		
 		if (!$access.hasClass('info')){
 			$.ajax({
-				url: '<?php echo url('admin/ajax/access.html'); ?>',
+				url: '<?php echo url('admin/ajax/access'); ?>',
 				type: 'POST',
 				data: {
 					'module': $('[name="module"]').val(),
@@ -133,7 +133,7 @@ $(function(){
 	
 	$(document).on('click', '.access-users', function(){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/access/users.html'); ?>',
+			url: '<?php echo url('admin/ajax/access/users'); ?>',
 			type: 'POST',
 			data: {
 				'module': $('[name="module"]').val(),
@@ -175,7 +175,7 @@ $(function(){
 	
 	$(document).on('click', '.modal-access-reset .btn-info', function(){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/access/reset.html'); ?>',
+			url: '<?php echo url('admin/ajax/access/reset'); ?>',
 			type: 'POST',
 			data: {
 				'module': $(this).data('module'),

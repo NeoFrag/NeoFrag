@@ -26,12 +26,12 @@ class m_teams_c_index extends Controller_Module
 		
 		foreach ($this->model()->get_teams() as $team)
 		{
-			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'].'.html')
+			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'])
 									->footer(icon('fa-users').' '.$this->lang('player', $team['users'], $team['users']));
 
 			if ($team['image_id'])
 			{
-				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name'].'.html').'"><img class="img-responsive" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
+				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-responsive" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
 			}
 
 			$panels[] = $panel;
@@ -77,7 +77,7 @@ class m_teams_c_index extends Controller_Module
 			$this->panel()	->heading('	<div class="pull-right">
 											<span class="label label-default">'.$game.'</span>
 										</div>
-										<a href="'.url('teams/'.$team_id.'/'.$name.'.html').'">'.$title.'</a>',
+										<a href="'.url('teams/'.$team_id.'/'.$name).'">'.$title.'</a>',
 										$icon_id ?: $game_icon ?: 'fa-gamepad'
 							)
 							->body($this->view('index', [
@@ -88,7 +88,7 @@ class m_teams_c_index extends Controller_Module
 								'description' => bbcode($description),
 								'users'       => $this->table->display()
 							]), FALSE),
-			$this->panel_back('teams.html')
+			$this->panel_back('teams')
 		];
 	}
 }

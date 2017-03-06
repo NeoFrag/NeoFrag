@@ -20,7 +20,7 @@
 							echo '<div class="pull-right">'.$this->pagination->display(url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title'])), ceil($topic['count_messages'] / $this->config->forum_messages_per_page), 'xs').'</div>';
 						}
 					?>
-					<h4 class="no-margin"><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title']).'.html'); ?>"><?php echo $topic['title']; ?></a></h4>
+					<h4 class="no-margin"><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title'])); ?>"><?php echo $topic['title']; ?></a></h4>
 					<div><?php echo icon('fa-user').' '.($topic['user_id'] ? $this->user->link($topic['user_id'], $topic['username']) : '<i>'.$this->lang('guest').'</i>').' '.icon('fa-clock-o').' '.time_span($topic['date']); ?></div>
 				</td>
 				<td>
@@ -29,7 +29,7 @@
 				</td>
 				<td>
 					<?php if ($topic['count_messages']): ?>
-					<div><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title']).($topic['count_messages'] > $this->config->forum_messages_per_page ? '/page/'.ceil($topic['count_messages'] / $this->config->forum_messages_per_page) : '').'.html#message_'.$topic['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener(strip_tags(str_replace('<br />', ' ', bbcode($topic['message']))), 35); ?></a></div>
+					<div><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title']).($topic['count_messages'] > $this->config->forum_messages_per_page ? '/page/'.ceil($topic['count_messages'] / $this->config->forum_messages_per_page) : '').'#'.$topic['last_message_id']); ?>"><?php echo icon('fa-comment-o').' '.str_shortener(strip_tags(str_replace('<br />', ' ', bbcode($topic['message']))), 35); ?></a></div>
 						<div><?php echo icon('fa-user').' '.($topic['last_user_id'] ? $this->user->link($topic['last_user_id'], $topic['last_username']) : '<i>'.$this->lang('guest').'</i>').' '.icon('fa-clock-o').' '.time_span($topic['last_message_date']); ?></div>
 					<?php else: ?>
 						<?php echo $this->lang('no_answer'); ?>

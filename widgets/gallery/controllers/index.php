@@ -31,7 +31,7 @@ class w_gallery_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'categories' => $categories
 						]), FALSE)
-						->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
+						->footer('<a href="'.url('gallery').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
 		}
 		else
 		{
@@ -48,13 +48,13 @@ class w_gallery_c_index extends Controller_Widget
 					->body($this->view('gallery', [
 						'gallery' => $this->model()->get_gallery($settings['category_id'])
 					]), FALSE)
-					->footer('<a href="'.url('gallery.html').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
+					->footer('<a href="'.url('gallery').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
 	}
 	
 	public function image($settings = [])
 	{
 		$image = $this->model()->get_random_image($settings['gallery_id']);
-		$href  = url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html');
+		$href  = url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']));
 		
 		if (!empty($image['file_id']))
 		{

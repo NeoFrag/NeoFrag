@@ -3,7 +3,7 @@
 		<a href="<?php echo url(); ?>" class="btn btn-default back-to visible-xs"><?php echo icon('fa-sign-out'); ?></a>
 		<a href="#" class="btn btn-default touch-menu visible-xs"><?php echo icon('fa-bars'); ?></a>
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<?php echo url('admin.html'); ?>"><b>NeoFrag</b> CMS<span class="nf-version"><?php echo NEOFRAG_VERSION; ?></span></a>
+			<a class="navbar-brand" href="<?php echo url('admin'); ?>"><b>NeoFrag</b> CMS<span class="nf-version"><?php echo NEOFRAG_VERSION; ?></span></a>
 		</div>
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">
@@ -33,9 +33,9 @@
 									<?php echo icon('fa-user').' '.icon('fa-angle-down'); ?>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo url('user.html'); ?>"><?php echo icon('fa-user').$this->lang('my_account'); ?></a></li>
-									<li><a href="<?php echo url('user/edit.html'); ?>"><?php echo icon('fa-cogs').$this->lang('manage_my_account'); ?></a></li>
-									<li><a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html'); ?>"><?php echo icon('fa-eye').$this->lang('view_my_profile'); ?></a></li>
+									<li><a href="<?php echo url('user'); ?>"><?php echo icon('fa-user').$this->lang('my_account'); ?></a></li>
+									<li><a href="<?php echo url('user/edit'); ?>"><?php echo icon('fa-cogs').$this->lang('manage_my_account'); ?></a></li>
+									<li><a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($this->user('username'))); ?>"><?php echo icon('fa-eye').$this->lang('view_my_profile'); ?></a></li>
 								</ul>
 							</div>
 							<!--<div class="btn-group">
@@ -49,7 +49,7 @@
 									<li><a href="#"><?php echo icon('fa-file-text-o'); ?>Rédiger</a></li>
 								</ul>
 							</div>-->
-							<a href="<?php echo url('user/logout.html'); ?>" class="btn btn-user-logout" ><?php echo icon('fa-close'); ?></a>
+							<a href="<?php echo url('user/logout'); ?>" class="btn btn-user-logout" ><?php echo icon('fa-close'); ?></a>
 						</div>
 					</div>
 				</li>
@@ -81,9 +81,9 @@
 		{
 			foreach ($link['url'] as $sublink)
 			{
-				if (preg_match('#^(.*?)\.html#', $sublink['url'], $match) && preg_match('#^'.$match[1].'(?:\.|/)#', $this->url->request))
+				if (strpos($this->url->request, $sublink['url']) === 0)
 				{
-					$actives[] = $match[1].'.html';
+					$actives[] = $sublink['url'];
 				}
 			}
 		}
@@ -141,14 +141,14 @@
 				<h1 class="page-header"><?php echo $this->output->data['module_title']; if (!empty($this->output->data['module_subtitle'])) echo '<small>'.$this->output->data['module_subtitle'].'</small>'; ?></h1>
 				<div class="page-actions pull-right">
 					<?php if ($data['module_method'] == 'index' && NeoFrag()->module->get_permissions('default') && $this->module('access')->is_authorized()): ?>
-						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.NeoFrag()->module->name.'.html'); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
+						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.NeoFrag()->module->name); ?>"><?php echo icon('fa-unlock-alt'); ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif; ?>
 					<?php if (method_exists(NeoFrag()->module, 'settings') && $this->module('addons')->is_authorized()): ?>
-						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name.'.html'); ?>"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> <?php echo $this->lang('configuration'); ?></span></a>
+						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name); ?>"><?php echo icon('fa-wrench'); ?><span class="hidden-sm"> <?php echo $this->lang('configuration'); ?></span></a>
 					<?php endif; ?>
 					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
 					<?php NeoFrag()->js('neofrag.help'); ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request); ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method'].'.html'; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo $this->lang('help'); ?></span></a>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request); ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method']; ?>"><?php echo icon('fa-life-bouy'); ?><span class="hidden-sm"> <?php echo $this->lang('help'); ?></span></a>
 					<?php endif; ?>
 				</div>
 			</div>

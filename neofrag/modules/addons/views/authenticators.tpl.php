@@ -25,7 +25,7 @@
 							->compact()
 							->outline().
 					'&nbsp;'.
-					$this	->button_sort($authenticator->name, 'admin/ajax/addons/authenticator/sort.html', '.addons-panel-body', '.addon-item')
+					$this	->button_sort($authenticator->name, 'admin/ajax/addons/authenticator/sort', '.addons-panel-body', '.addon-item')
 							->color('default');
 			?>
 		</div>

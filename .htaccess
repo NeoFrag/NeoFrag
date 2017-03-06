@@ -22,5 +22,8 @@ AddDefaultCharset UTF-8
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule .* - [L,QSA]
 
+	RewriteCond %{REQUEST_URI} \.html
+	RewriteRule (.*)\.html(.*) $1$2 [R=301,L]
+
 	RewriteRule .* index.php [E=REMOTE_USER:%{HTTP:Authorization},L,QSA]
 </IfModule>

@@ -28,13 +28,8 @@ class m_live_editor_c_ajax extends Controller_Module
 		{
 			$url = '/';
 		}
-		
-		if (extension($url) == 'html')
-		{
-			$url = substr($url, 0, -5).'/*';
-		}
-		
-		$url = explode('/', $url);
+
+		$url = explode('/', $url.'/*');
 
 		if (!empty($url[0]))
 		{

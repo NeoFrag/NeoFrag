@@ -29,7 +29,7 @@
 				<p>
 					La plus récompensée<br />
 					<?php if ($data['best_team_awards']): ?>
-						<b><a href="<?php echo url('awards/team/'.$data['best_team_awards'][0]['team_id'].'/'.$data['best_team_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_team_awards'][0]['team_title']; ?></a></b>
+						<b><a href="<?php echo url('awards/team/'.$data['best_team_awards'][0]['team_id'].'/'.$data['best_team_awards'][0]['name']); ?>"><?php echo $data['best_team_awards'][0]['team_title']; ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif; ?>
@@ -40,7 +40,7 @@
 				<p>
 					Meilleur classement<br />
 					<?php if ($data['best_team']): ?>
-						<b><a href="<?php echo url('awards/team/'.$data['best_team'][0]['team_id'].'/'.$data['best_team'][0]['name'].'.html'); ?>"><?php echo $data['best_team'][0]['team_title']; ?></a></b>
+						<b><a href="<?php echo url('awards/team/'.$data['best_team'][0]['team_id'].'/'.$data['best_team'][0]['name']); ?>"><?php echo $data['best_team'][0]['team_title']; ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif; ?>
@@ -51,7 +51,7 @@
 				<p>
 					Meilleur jeu<br />
 					<?php if ($data['best_game_awards']): ?>
-						<b><a href="<?php echo url('awards/game/'.$data['best_game_awards'][0]['game_id'].'/'.$data['best_game_awards'][0]['name'].'.html'); ?>"><?php echo $data['best_game_awards'][0]['game_title']; ?></a></b>
+						<b><a href="<?php echo url('awards/game/'.$data['best_game_awards'][0]['game_id'].'/'.$data['best_game_awards'][0]['name']); ?>"><?php echo $data['best_game_awards'][0]['game_title']; ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif; ?>
@@ -74,7 +74,7 @@
 		<tbody>
 			<?php foreach ($data['teams'] as $team): ?>
 			<tr>
-				<td class="col-md-6 v-align"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name'].'.html'); ?>"><?php echo $team['team_title']; ?></a></td>
+				<td class="col-md-6 v-align"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']); ?>"><?php echo $team['team_title']; ?></a></td>
 				<td class="text-center">
 					<input class="knob" type="text" value="<?php echo $team['total_gold']; ?>" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-min="0" data-max="<?php echo ($team['total_gold'] + $team['total_silver'] + $team['total_bronze'] + $team['total_other']); ?>" data-width="50" data-height="40" data-fgColor="#F0B036" data-displayInput="true" data-readonly="true" autocomplete="off" />
 				</td>

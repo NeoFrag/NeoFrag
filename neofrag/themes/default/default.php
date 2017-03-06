@@ -89,27 +89,27 @@ class t_default extends Theme
 										'links'   => [
 											[
 												'title' => utf8_htmlentities($this->lang('home')),
-												'url'   => 'index.html'
+												'url'   => ''
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('forum')),
-												'url'   => 'forum.html'
+												'url'   => 'forum'
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('teams')),
-												'url'   => 'teams.html'
+												'url'   => 'teams'
 											],
 											[
 												'title' => utf8_htmlentities('Photos'),
-												'url'   => 'gallery.html'
+												'url'   => 'gallery'
 											],
 											[
 												'title' => utf8_htmlentities('Partenaires'),
-												'url'   => 'partners.html'
+												'url'   => 'partners'
 											],
 											[
 												'title' => utf8_htmlentities('Palmarès'),
-												'url'   => 'awards.html'
+												'url'   => 'awards'
 											]
 										]
 									])
@@ -166,19 +166,19 @@ class t_default extends Theme
 										'links'   => [
 											[
 												'title' => utf8_htmlentities($this->lang('news')),
-												'url'   => 'news.html'
+												'url'   => 'news'
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('members')),
-												'url'   => 'members.html'
+												'url'   => 'members'
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('search')),
-												'url'   => 'search.html'
+												'url'   => 'search'
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('contact')),
-												'url'   => 'contact.html'
+												'url'   => 'contact'
 											]
 										]
 									])

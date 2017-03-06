@@ -43,7 +43,7 @@ foreach ($data['messages'] as $i => $message)
 		<?php
 			if (($this->user() && $this->user('user_id') == $message['user_id']) || $this->access('talks', 'delete', $message['talk_id']))
 			{
-				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.$this->button_delete('ajax/talks/delete/'.$message['message_id'].'.html').'</div>';
+				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.$this->button_delete('ajax/talks/delete/'.$message['message_id']).'</div>';
 			}
 		?>
 		<h4 class="media-heading">

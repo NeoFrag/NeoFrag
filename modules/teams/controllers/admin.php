@@ -28,20 +28,20 @@ class m_teams_c_admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $this->button_sort($data['team_id'], 'admin/ajax/teams/sort.html');
+									return $this->button_sort($data['team_id'], 'admin/ajax/teams/sort');
 								},
 								'size'    => TRUE
 							],
 							[
 								'title'   => $this->lang('teams'),
 								'content' => function($data){
-									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name'].'.html').'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name']).'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
 								}
 							],
 							[
 								'title'   => $this->lang('game'),
 								'content' => function($data){
-									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game'].'.html').'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
+									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game']).'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
 								}
 							],
 							[
@@ -54,10 +54,10 @@ class m_teams_c_admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/teams/'.$data['team_id'].'/'.$data['name'].'.html');
+										return $this->button_update('admin/teams/'.$data['team_id'].'/'.$data['name']);
 									},
 									function($data){
-										return $this->button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name'].'.html');
+										return $this->button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name']);
 									}
 								],
 								'size'    => TRUE
@@ -71,22 +71,22 @@ class m_teams_c_admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return $this->button_sort($data['role_id'], 'admin/ajax/teams/roles/sort.html');
+										return $this->button_sort($data['role_id'], 'admin/ajax/teams/roles/sort');
 									},
 									'size'    => TRUE
 								],
 								[
 									'content' => function($data){
-										return '<a href="'.url('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html').'">'.$data['title'].'</a>';
+										return '<a href="'.url('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
 									}
 								],
 								[
 									'content' => [
 										function($data){
-											return $this->button_update('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+											return $this->button_update('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']));
 										},
 										function($data){
-											return $this->button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']).'.html');
+											return $this->button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']));
 										}
 									],
 									'size'    => TRUE
@@ -102,14 +102,14 @@ class m_teams_c_admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('roles'), 'fa-sitemap')
 						->body($roles)
-						->footer($this->button_create('admin/teams/roles/add.html', $this->lang('add_role')))
+						->footer($this->button_create('admin/teams/roles/add', $this->lang('add_role')))
 						->size('col-md-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('list_teams'), 'fa-gamepad')
 						->body($teams)
-						->footer($this->button_create('admin/teams/add.html', $this->lang('add_team')))
+						->footer($this->button_create('admin/teams/add', $this->lang('add_team')))
 						->size('col-md-12 col-lg-8')
 			)
 		);
@@ -123,7 +123,7 @@ class m_teams_c_admin extends Controller_Module
 					'games' => $this->model()->get_games_list()
 				])
 				->add_submit($this->lang('add'))
-				->add_back('admin/teams.html');
+				->add_back('admin/teams');
 
 		if ($this->form->is_valid($post))
 		{
@@ -135,7 +135,7 @@ class m_teams_c_admin extends Controller_Module
 
 			notify($this->lang('add_team_success_message'));
 
-			redirect('admin/teams/'.$team_id.'/'.url_title($post['title']).'.html');
+			redirect('admin/teams/'.$team_id.'/'.url_title($post['title']));
 		}
 
 		return $this->panel()
@@ -167,7 +167,7 @@ class m_teams_c_admin extends Controller_Module
 								'description'  => $description
 							])
 							->add_submit($this->lang('edit'))
-							->add_back('admin/teams.html')
+							->add_back('admin/teams')
 							->save();
 		
 		$form_users = $this	->form
@@ -200,7 +200,7 @@ class m_teams_c_admin extends Controller_Module
 
 			notify($this->lang('edit_team_success_message'));
 
-			redirect_back('admin/teams.html');
+			redirect_back('admin/teams');
 		}
 		else if ($form_users->is_valid($post))
 		{
@@ -228,7 +228,7 @@ class m_teams_c_admin extends Controller_Module
 					[
 						'content' => [
 							function($data) use ($team_id, $name){
-								return $this->button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id'].'.html');
+								return $this->button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id']);
 							}
 						],
 						'size'    => TRUE
@@ -281,7 +281,7 @@ class m_teams_c_admin extends Controller_Module
 		$this	->subtitle($this->lang('add_role'))
 				->form
 				->add_rules('roles')
-				->add_back('admin/teams.html')
+				->add_back('admin/teams')
 				->add_submit($this->lang('add'));
 
 		if ($this->form->is_valid($post))
@@ -290,7 +290,7 @@ class m_teams_c_admin extends Controller_Module
 
 			notify($this->lang('add_role_success_message'));
 
-			redirect_back('admin/teams.html');
+			redirect_back('admin/teams');
 		}
 		
 		return $this->panel()
@@ -306,7 +306,7 @@ class m_teams_c_admin extends Controller_Module
 					'title' => $title
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/teams.html');
+				->add_back('admin/teams');
 		
 		if ($this->form->is_valid($post))
 		{
@@ -314,7 +314,7 @@ class m_teams_c_admin extends Controller_Module
 		
 			notify($this->lang('edit_role_success_message'));
 
-			redirect_back('admin/teams.html');
+			redirect_back('admin/teams');
 		}
 		
 		return $this->panel()

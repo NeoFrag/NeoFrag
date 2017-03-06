@@ -26,7 +26,7 @@ class Router extends Core
 	{
 		$segments = ['error'];
 
-		if ((in_array($this->url->extension, ['html', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->url->request))
+		if ((in_array($this->url->extension, ['', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->url->request))
 		{
 			$segments = $this->url->segments;
 			
@@ -35,7 +35,7 @@ class Router extends Core
 				$segments = array_merge(explode('/', $this->config->nf_default_page), array_offset_left($segments));
 			}
 			
-			if ($this->url->admin && $this->url->request != 'admin.html')
+			if ($this->url->admin && $this->url->request != 'admin')
 			{
 				$segments = array_offset_left($segments);
 			}

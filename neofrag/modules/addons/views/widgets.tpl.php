@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div class="item-action">
-			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/widget/'.$widget->name.'.html'); ?>
+			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/widget/'.$widget->name); ?>
 		</div>
 	</div>
 <?php 

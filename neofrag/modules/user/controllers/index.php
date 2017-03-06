@@ -66,7 +66,7 @@ class m_user_c_index extends Controller_Module
 				'quote'         => $this->user('quote')
 			])
 			->add_submit($this->lang('save'))
-			->add_back('user.html');
+			->add_back('user');
 
 		if ($this->form->is_valid($post))
 		{
@@ -91,7 +91,7 @@ class m_user_c_index extends Controller_Module
 							->delete('nf_sessions');
 			}
 
-			redirect_back('user/'.$this->user('user_id').'/'.url_title($this->user('username')).'.html');
+			redirect_back('user/'.$this->user('user_id').'/'.url_title($this->user('username')));
 		}
 
 		return [
@@ -160,7 +160,7 @@ class m_user_c_index extends Controller_Module
 					'content' => [function($data){
 						if ($data['session_id'] != NeoFrag()->session('session_id'))
 						{
-							return $this->button_delete('user/sessions/delete/'.$data['session_id'].'.html');
+							return $this->button_delete('user/sessions/delete/'.$data['session_id']);
 						}
 					}]
 				]
@@ -362,7 +362,7 @@ class m_user_c_index extends Controller_Module
 			trigger_error($e->getMessage(), E_USER_WARNING);
 		}
 
-		redirect('user.html');
+		redirect('user');
 	}
 
 	public function login($error = 0)
@@ -480,7 +480,7 @@ class m_user_c_index extends Controller_Module
 			if ($user_id == -1)
 			{
 				//TODO
-				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="'.url('user/activate.html').'" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
+				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="'.url('user/activate').'" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
 			}
 			else if ($user_id > 0 && $this->password->is_valid($password.$salt, $hash, (bool)$salt))
 			{
@@ -585,7 +585,7 @@ class m_user_c_index extends Controller_Module
 					]
 				])
 				->add_submit($this->lang('save'))
-				->add_back('user.html')
+				->add_back('user')
 				->fast_mode();
 
 		if ($this->form->is_valid($post))
@@ -595,13 +595,13 @@ class m_user_c_index extends Controller_Module
 				->subject($this->lang('forgot_password'))
 				->message('default', [
 					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key'].'.html').'">'.$this->lang('password_reset').'</a>';
+						return '<a href="'.url('user/lost-password/'.$data['key']).'">'.$this->lang('password_reset').'</a>';
 					},
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				])
 				->send();
 			
-			redirect_back('user.html');
+			redirect_back('user');
 		}
 					
 		return $this->panel()
@@ -635,7 +635,7 @@ class m_user_c_index extends Controller_Module
 					]
 				])
 				->add_submit($this->lang('save'))
-				->add_back('user.html')
+				->add_back('user')
 				->fast_mode();
 
 		if ($this->form->is_valid($post))
@@ -662,7 +662,7 @@ class m_user_c_index extends Controller_Module
 				}
 			}
 			
-			redirect_back('user.html');
+			redirect_back('user');
 		}
 					
 		return $this->panel()
@@ -743,7 +743,7 @@ class m_user_c_index extends Controller_Module
 		{
 			$this->model('messages')->reply($message_id, $post['message']);
 
-			redirect('user/messages/'.$message_id.'/'.url_title($title).'.html');
+			redirect('user/messages/'.$message_id.'/'.url_title($title));
 		}
 
 		return [
@@ -797,7 +797,7 @@ class m_user_c_index extends Controller_Module
 		{
 			if ($message_id = $this->model('messages')->insert_message($post['recipients'], $post['title'], $post['message']))
 			{
-				redirect('user/messages/'.$message_id.'/'.url_title($post['title']).'.html');
+				redirect('user/messages/'.$message_id.'/'.url_title($post['title']));
 			}
 		}
 		
@@ -846,7 +846,7 @@ class m_user_c_index extends Controller_Module
 			$this	->panel()
 					->heading($username, 'fa-user')
 					->body($this->view('profile_public', $this->model()->get_user_profile($user_id))),
-			$this->panel_back($this->module('members') ? 'members.html' : '')
+			$this->panel_back($this->module('members') ? 'members' : '')
 		];
 	}
 
@@ -931,7 +931,7 @@ class m_user_c_index extends Controller_Module
 		return $this->panel()
 					->heading('Messagerie privée', 'fa-envelope-o')
 					->body($this->view('messages/menu'), FALSE)
-					->footer('<a href="'.url('user.html').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>', 'left')
+					->footer('<a href="'.url('user').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>', 'left')
 					->size('col-md-4 col-lg-3');
 	}
 }

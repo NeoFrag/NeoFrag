@@ -55,13 +55,13 @@ class m_partners extends Module
 					]
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/addons.html#modules');
+				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->config('partners_logo_display', $post['partners_logo_display']);
 			
-			redirect_back('admin/addons.html#modules');
+			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()->body($this->form->display());

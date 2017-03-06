@@ -17,7 +17,7 @@
 	<div id="gallery-vignettes" class="row">
 		<?php foreach ($data['images'] as $image): ?>
 		<div class="image-item">
-			<a class="thumbnail" href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']).'.html'); ?>">
+			<a class="thumbnail" href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title'])); ?>">
 				<img class="img-responsive" src="<?php echo path($image['thumbnail_file_id']); ?>" alt="" />
 			</a>
 		</div>

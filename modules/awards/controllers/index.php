@@ -32,7 +32,7 @@ class m_awards_c_index extends Controller_Module
 									'total_silver' => $this->model()->count_awards(2, NULL, NULL),
 									'total_bronze' => $this->model()->count_awards(3, NULL, NULL)
 								]))
-								->footer('<a href="'.url('awards/statistics.html').'">'.icon('fa-line-chart').' Voir toutes nos statistiques</a>');
+								->footer('<a href="'.url('awards/statistics').'">'.icon('fa-line-chart').' Voir toutes nos statistiques</a>');
 
 		$panels = [];
 

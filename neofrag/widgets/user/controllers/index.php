@@ -31,7 +31,7 @@ class w_user_c_index extends Controller_Widget
 						->body($this->view('logged', [
 							'username' => $this->user('username')
 						]), FALSE)
-						->footer('<a href="'.url('user/logout.html').'">'.icon('fa-close').' '.$this->lang('logout').'</a>');
+						->footer('<a href="'.url('user/logout').'">'.icon('fa-close').' '.$this->lang('logout').'</a>');
 		}
 		else
 		{
@@ -46,7 +46,7 @@ class w_user_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'form_id' => $this->form->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 						]))
-						->footer('<a href="'.url('user.html').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this->lang('create_account').'</a>');
+						->footer('<a href="'.url('user').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this->lang('create_account').'</a>');
 		}
 	}
 	
@@ -73,7 +73,7 @@ class w_user_c_index extends Controller_Widget
 					->body($this->view('messages_inbox', [
 						'messages' => $messages
 					]), FALSE)
-					->footer('<a class="btn btn-default" href="'.url('user/messages.html').'">'.icon('fa-inbox').' '.$this->lang('pm_inbox').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose.html').'">'.icon('fa-edit').' '.$this->lang('pm_compose').'</a>');
+					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fa-inbox').' '.$this->lang('pm_inbox').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fa-edit').' '.$this->lang('pm_compose').'</a>');
 	}
 }
 

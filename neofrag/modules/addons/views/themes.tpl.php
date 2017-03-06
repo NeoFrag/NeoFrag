@@ -13,10 +13,10 @@
 							<small><?php echo $theme->version; ?></small>
 							<span class="pull-right">
 							<?php if (($checker = $theme->controller('admin')) && $checker->has_method('index')): ?>
-								<a class="btn btn-outline btn-info btn-xs" href="<?php echo url('admin/addons/theme/'.$theme->name.'.html'); ?>" title="<?php echo $this->lang('personalize'); ?>" data-toggle="tooltip"><?php echo icon('fa-paint-brush'); ?></a>
+								<a class="btn btn-outline btn-info btn-xs" href="<?php echo url('admin/addons/theme/'.$theme->name); ?>" title="<?php echo $this->lang('personalize'); ?>" data-toggle="tooltip"><?php echo icon('fa-paint-brush'); ?></a>
 							<?php endif; ?>
 							<button class="btn btn-outline btn-warning btn-xs" title="<?php echo $this->lang('reinstall_to_default'); ?>" data-toggle="tooltip"><?php echo icon('fa-refresh'); ?></button>
-							<?php if ($theme->is_removable()) echo $this->button_delete('admin/addons/delete/theme/'.$theme->name.'.html'); ?>
+							<?php if ($theme->is_removable()) echo $this->button_delete('admin/addons/delete/theme/'.$theme->name); ?>
 							</span>
 						</h3>
 						<p><?php echo $theme->lang($theme->description, NULL); ?></p>

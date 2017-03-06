@@ -323,7 +323,7 @@ class Table extends Library
 			if ($this->_pagination && !empty($this->pagination) && $this->pagination->count() > 10)
 			{
 				$output .= '<div class="form-group pull-left">
-								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')+\'.html\'" autocomplete="off">
+								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')" autocomplete="off">
 									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag()->lang('results', 10, 10).'</option>
 									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag()->lang('results', 25, 25).'</option>
 									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag()->lang('results', 50, 50).'</option>

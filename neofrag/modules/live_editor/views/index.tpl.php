@@ -1,12 +1,12 @@
 <form target="live-editor-iframe" action="<?php echo url(); ?>" method="post">
 	<input type="hidden" name="live_editor" value="<?php echo $live_editor = $this->session('live_editor') ?: NeoFrag::LIVE_EDITOR ^ NeoFrag::WIDGETS; ?>" />
 	<nav class="live-editor-navbar">
-		<a class="logo" href="<?php echo url('live-editor.html'); ?>"></a>
+		<a class="logo" href="<?php echo url('live-editor'); ?>"></a>
 		<a class="modules-links" data-toggle="collapse" href="#modules-links-collapse" aria-expanded="false"><?php echo icon('fa-link').' '.$this->lang('navigation').' '.icon('fa-angle-down'); ?></a>
 		<div id="modules-links-collapse" class="collapse">
 			<ul class="list-unstyled no-margin">
 				<?php foreach ($data['modules'] as $name => $title): ?>
-					<li><a href="<?php echo url($name.'.html'); ?>"><?php echo $title; ?></a></li>
+					<li><a href="<?php echo url($name); ?>"><?php echo $title; ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>

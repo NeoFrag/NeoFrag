@@ -43,7 +43,7 @@ $lang['group_edited']                        = 'Groupe modifié';
 $lang['history']                             = 'Historique';
 $lang['initial_session_date']                = 'Date d\'arrivée';
 $lang['invalid_login']                       = 'Identifiants incorrects !';
-$lang['invalid_login_message']               = 'Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password.html').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous';
+$lang['invalid_login_message']               = 'Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous';
 $lang['invalid_password']                    = 'Mot de passe incorrect';
 $lang['last_pages_visited']                  = 'Dernières pages visitées';
 $lang['list_active_sessions']                = 'Liste des sessions actives';

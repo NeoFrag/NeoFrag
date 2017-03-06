@@ -151,14 +151,14 @@ class m_forum extends Module
 					]
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/addons.html#modules');
+				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))
 		{
 			$this	->config('forum_topics_per_page',   $post['topics_per_page'])
 					->config('forum_messages_per_page', $post['messages_per_page']);
 			
-			redirect_back('admin/addons.html#modules');
+			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()->body($this->form->display());

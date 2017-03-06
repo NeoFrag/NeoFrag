@@ -53,7 +53,7 @@
 							?>
 							<div class="list-group">
 								<?php foreach ($modules as $name => $title): ?>
-									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $title; ?>" data-link-url="<?php echo $name; ?>.html"><?php echo $title; ?></a>
+									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $title; ?>" data-link-url="<?php echo $name; ?>"><?php echo $title; ?></a>
 								<?php endforeach; ?>
 							</div>
 							<div class="panel-body">
@@ -106,7 +106,7 @@
 						<div id="type-page" class="panel-collapse collapse" role="tabpanel">
 							<div class="list-group">
 								<?php foreach ($pages as $page): ?>
-									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $page['title']; ?>" data-link-url="<?php echo $page['name']; ?>.html"><?php echo $page['title']; ?></a>
+									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $page['title']; ?>" data-link-url="<?php echo $page['name']; ?>"><?php echo $page['title']; ?></a>
 								<?php endforeach; ?>
 							</div>
 							<div class="panel-body">

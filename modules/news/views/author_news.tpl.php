@@ -3,7 +3,7 @@
 	<?php foreach ($data['news'] as $news): ?>
 	<li class="list-group-item">
 		<span class="label label-default pull-right"><?php echo $news['category_title']; ?></span>
-		<a href="<?php echo url('news/'.$news['news_id'].'/'.url_title($news['title']).'.html'); ?>"><?php echo str_shortener($news['title'], 35); ?></a>
+		<a href="<?php echo url('news/'.$news['news_id'].'/'.url_title($news['title'])); ?>"><?php echo str_shortener($news['title'], 35); ?></a>
 	</li>
 	<?php endforeach; ?>
 </ul>

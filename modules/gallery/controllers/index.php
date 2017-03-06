@@ -29,7 +29,7 @@ class m_gallery_c_index extends Controller_Module
 		foreach ($this->model()->get_categories() as $category)
 		{
 			$panels[] = $this	->panel()
-								->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'].'.html')
+								->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'])
 								->body($this->view('index', [
 									'category_image' => $category['image_id'],
 									'gallery'        => $this->model()->get_gallery($category['category_id'])
@@ -53,7 +53,7 @@ class m_gallery_c_index extends Controller_Module
 
 		return [
 			$this	->panel()
-					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name.'.html')
+					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name)
 					->body($this->view('index', [
 						'category_image' => $image_id,
 						'gallery'        => $this->model()->get_gallery($category_id)
@@ -68,7 +68,7 @@ class m_gallery_c_index extends Controller_Module
 				->js('modal-carousel');
 		
 		$panels = [$this->panel()
-						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name.'.html').'">'.$category_title.'</a></div>'.$title, 'fa-photo')
+						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
 						->body($this->view('gallery', [
 							'title'           => $title,
 							'description'     => $description,
@@ -116,7 +116,7 @@ class m_gallery_c_index extends Controller_Module
 		}
 
 		$panel = $this	->panel()
-						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name.'.html').'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
+						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
 						->body($this->view('image', [
 							'image_id'          => $image_id,
 							'file_id'           => $file_id,

@@ -57,7 +57,7 @@ class m_gallery extends Module
 		{
 			return [
 				'title' => $image,
-				'url'   => 'gallery/image/'.$image_id.'/'.url_title($image).'.html'
+				'url'   => 'gallery/image/'.$image_id.'/'.url_title($image)
 			];
 		}
 	}
