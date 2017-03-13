@@ -170,7 +170,7 @@ $NeoFrag = load('loader', [
 	]
 ]);
 
-$NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoFrag->js = $NeoFrag->js_load = [];
+$NeoFrag->modules = $NeoFrag->themes = $NeoFrag->widgets = $NeoFrag->css = $NeoFrag->js = $NeoFrag->js_load = $NeoFrag->modals = [];
 
 $NeoFrag->module = $NeoFrag->theme = NULL;
 
