@@ -80,6 +80,11 @@ class Output extends Core
 			}
 			else
 			{
+				if ($this->load->modals)
+				{
+					$this->data['body'] .= implode($this->load->modals);
+				}
+
 				$this->data['body'] .= $this->debug->display();
 			}
 
