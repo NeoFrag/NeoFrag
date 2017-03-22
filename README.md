@@ -52,4 +52,4 @@ Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visit
 - Signalez-nous les bugs que vous remarquez sur [notre forum](https://neofr.ag) ou via [Github](https://github.com/NeoFragCMS/neofrag-cms/issues).
 - Suivez [@NeoFragCMS](https://twitter.com/NeoFragCMS) sur Twitter
 
-Copyright © 2015 Michaël BILCOT & Jérémy VALENTIN
+Copyright © 2015 - 2017 Michaël BILCOT & Jérémy VALENTIN
