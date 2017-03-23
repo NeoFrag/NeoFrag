@@ -730,6 +730,77 @@ INSERT INTO `nf_partners_lang` VALUES(1, 'fr', 'NeoFrag', 'NeoFrag est un CMS (s
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `nf_recruits`
+--
+
+DROP TABLE IF EXISTS `nf_recruits`;
+CREATE TABLE IF NOT EXISTS `nf_recruits` (
+  `recruit_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `introduction` text NOT NULL,
+  `description` text NOT NULL,
+  `requierments` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `size` int(11) NOT NULL,
+  `role` varchar(60) NOT NULL,
+  `icon` varchar(60) NOT NULL,
+  `date_end` date DEFAULT NULL,
+  `closed` enum('0','1') NOT NULL DEFAULT '0',
+  `team_id` int(11) UNSIGNED DEFAULT NULL,
+  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`recruit_id`),
+  KEY `image_id` (`image_id`),
+  KEY `user_id` (`user_id`),
+  KEY `team_id` (`team_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_recruits_candidacies`
+--
+
+DROP TABLE IF EXISTS `nf_recruits_candidacies`;
+CREATE TABLE IF NOT EXISTS `nf_recruits_candidacies` (
+  `candidacy_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `recruit_id` int(11) UNSIGNED NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) UNSIGNED DEFAULT NULL,
+  `pseudo` varchar(60) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `presentation` text NOT NULL,
+  `motivations` text NOT NULL,
+  `experiences` text NOT NULL,
+  `status` enum('1','2','3') NOT NULL DEFAULT '1',
+  `reply` text,
+  PRIMARY KEY (`candidacy_id`),
+  KEY `recruit_id` (`recruit_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_recruits_candidacies_votes`
+--
+
+DROP TABLE IF EXISTS `nf_recruits_candidacies_votes`;
+CREATE TABLE IF NOT EXISTS `nf_recruits_candidacies_votes` (
+  `vote_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `candidacy_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `vote` enum('0','1') NOT NULL DEFAULT '0',
+  `comment` text NOT NULL,
+  PRIMARY KEY (`vote_id`),
+  KEY `candidacy_id` (`candidacy_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `nf_search_keywords`
 --
 
@@ -870,6 +941,11 @@ INSERT INTO `nf_settings` VALUES('nf_maintenance_twitter', '', '', '', 'string')
 INSERT INTO `nf_settings` VALUES('nf_maintenance_google-plus', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_maintenance_steam', '', '', '', 'string');
 INSERT INTO `nf_settings` VALUES('nf_maintenance_twitch', '', '', '', 'string');
+INSERT INTO `nf_settings` VALUES('recruits_alert', '', '', '1', 'bool');
+INSERT INTO `nf_settings` VALUES('recruits_hide_unavailable', '', '', '1', 'bool');
+INSERT INTO `nf_settings` VALUES('recruits_per_page', '', '', '5', 'int');
+INSERT INTO `nf_settings` VALUES('recruits_send_mail', '', '', '1', 'bool');
+INSERT INTO `nf_settings` VALUES('recruits_send_mp', '', '', '1', 'bool');
 
 -- --------------------------------------------------------
 
@@ -918,6 +994,8 @@ INSERT INTO `nf_settings_addons` VALUES('news', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('pages', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('partners', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('partners', 'widget', '1');
+INSERT INTO `nf_settings_addons` VALUES('recruits', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('recruits', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('search', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('search', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('settings', 'module', '1');
@@ -1318,7 +1396,7 @@ INSERT INTO `nf_widgets` VALUES(1, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s
 INSERT INTO `nf_widgets` VALUES(2, 'breadcrumb', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(3, 'search', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(4, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(5, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:0;s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:4:"news";}i:1;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:7:"members";}i:2;a:2:{s:5:"title";s:10:"Rechercher";s:3:"url";s:6:"search";}i:3;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:7:"contact";}}}');
+INSERT INTO `nf_widgets` VALUES(5, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:0;s:5:"links";a:5:{i:0;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:4:"news";}i:1;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:7:"members";}i:2;a:2:{s:5:"title";s:11:"Recrutement";s:3:"url";s:8:"recruits";}i:3;a:2:{s:5:"title";s:10:"Rechercher";s:3:"url";s:6:"search";}i:4;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:7:"contact";}}}');
 INSERT INTO `nf_widgets` VALUES(6, 'partners', 'column', NULL, 'a:1:{s:13:"display_style";s:5:"light";}');
 INSERT INTO `nf_widgets` VALUES(7, 'user', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(8, 'news', 'categories', NULL, NULL);
@@ -1557,6 +1635,28 @@ ALTER TABLE `nf_partners`
 ALTER TABLE `nf_partners_lang`
   ADD CONSTRAINT `nf_partners_lang_ibfk_1` FOREIGN KEY (`partner_id`) REFERENCES `nf_partners` (`partner_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_partners_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_recruits`
+--
+ALTER TABLE `nf_recruits`
+  ADD CONSTRAINT `nf_recruits_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `nf_recruits_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `nf_recruits_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_recruits_candidacies`
+--
+ALTER TABLE `nf_recruits_candidacies`
+  ADD CONSTRAINT `nf_recruits_candidacies_ibfk_1` FOREIGN KEY (`recruit_id`) REFERENCES `nf_recruits` (`recruit_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_recruits_candidacies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_recruits_candidacies_votes`
+--
+ALTER TABLE `nf_recruits_candidacies_votes`
+  ADD CONSTRAINT `nf_recruits_candidacies_votes_ibfk_1` FOREIGN KEY (`candidacy_id`) REFERENCES `nf_recruits_candidacies` (`candidacy_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_recruits_candidacies_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_sessions`

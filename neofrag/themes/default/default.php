@@ -173,6 +173,10 @@ class t_default extends Theme
 												'url'   => 'members'
 											],
 											[
+												'title' => utf8_htmlentities('Recrutement'),
+												'url'   => 'recruits'
+											],
+											[
 												'title' => utf8_htmlentities($this->lang('search')),
 												'url'   => 'search'
 											],

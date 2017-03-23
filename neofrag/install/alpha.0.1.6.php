@@ -101,7 +101,12 @@ class i_0_1_6 extends Install
 			'nf_maintenance_twitter'             => ['', 'string'],
 			'nf_maintenance_google-plus'         => ['', 'string'],
 			'nf_maintenance_steam'               => ['', 'string'],
-			'nf_maintenance_twitch'              => ['', 'string']
+			'nf_maintenance_twitch'              => ['', 'string'],
+			'recruits_alert'                     => [TRUE, 'bool'],
+			'recruits_hide_unavailable'          => [TRUE, 'bool'],
+			'recruits_per_page'                  => [5, 'int'],
+			'recruits_send_mail'                 => [TRUE, 'bool'],
+			'recruits_send_mp'                   => [TRUE, 'bool']
 		];
 
 		foreach ($default_settings as $name => $setting)
@@ -134,7 +139,63 @@ class i_0_1_6 extends Install
 						KEY `user_id` (`user_id`),
 						CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 						CONSTRAINT `nf_users_auth_ibfk_2` FOREIGN KEY (`authenticator`) REFERENCES `nf_settings_authenticators` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-					) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_recruits` (
+					  `recruit_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `title` varchar(100) NOT NULL,
+					  `introduction` text NOT NULL,
+					  `description` text NOT NULL,
+					  `requierments` text NOT NULL,
+					  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					  `user_id` int(11) unsigned NOT NULL,
+					  `size` int(11) NOT NULL,
+					  `role` varchar(60) NOT NULL,
+					  `icon` varchar(60) NOT NULL,
+					  `date_end` date DEFAULT NULL,
+					  `closed` enum(\'0\',\'1\') NOT NULL DEFAULT \'0\',
+					  `team_id` int(11) unsigned DEFAULT NULL,
+					  `image_id` int(11) unsigned DEFAULT NULL,
+					  PRIMARY KEY (`recruit_id`),
+					  KEY `image_id` (`image_id`),
+					  KEY `user_id` (`user_id`),
+					  KEY `team_id` (`team_id`),
+					  CONSTRAINT `nf_recruits_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+					  CONSTRAINT `nf_recruits_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+					  CONSTRAINT `nf_recruits_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_recruits_candidacies` (
+					  `candidacy_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `recruit_id` int(11) unsigned NOT NULL,
+					  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					  `user_id` int(11) unsigned DEFAULT NULL,
+					  `pseudo` varchar(60) NOT NULL,
+					  `email` varchar(100) NOT NULL,
+					  `date_of_birth` date DEFAULT NULL,
+					  `presentation` text NOT NULL,
+					  `motivations` text NOT NULL,
+					  `experiences` text NOT NULL,
+					  `status` enum(\'1\',\'2\',\'3\') NOT NULL DEFAULT \'1\',
+					  `reply` text,
+					  PRIMARY KEY (`candidacy_id`),
+					  KEY `recruit_id` (`recruit_id`),
+					  KEY `user_id` (`user_id`),
+					  CONSTRAINT `nf_recruits_candidacies_ibfk_1` FOREIGN KEY (`recruit_id`) REFERENCES `nf_recruits` (`recruit_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_recruits_candidacies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_recruits_candidacies_votes` (
+					  `vote_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `candidacy_id` int(11) unsigned NOT NULL,
+					  `user_id` int(11) unsigned NOT NULL,
+					  `vote` enum(\'0\',\'1\') NOT NULL DEFAULT \'0\',
+					  `comment` text NOT NULL,
+					  PRIMARY KEY (`vote_id`),
+					  KEY `candidacy_id` (`candidacy_id`),
+					  KEY `user_id` (`user_id`),
+					  CONSTRAINT `nf_recruits_candidacies_votes_ibfk_1` FOREIGN KEY (`candidacy_id`) REFERENCES `nf_recruits_candidacies` (`candidacy_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_recruits_candidacies_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'recruits\', \'module\', \'1\')')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'recruits\', \'widget\', \'1\')');
 
 		foreach (['facebook', 'twitter', 'google', 'battle_net', 'steam', 'twitch', 'github', 'linkedin'] as $i => $name)
 		{
