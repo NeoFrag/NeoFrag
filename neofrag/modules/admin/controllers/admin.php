@@ -68,7 +68,7 @@ class m_admin_c_admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('events', $count = 0), 'fa-calendar', 'admin/events')//TODO
+							->heading($this->lang('events', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fa-calendar', 'admin/events')
 							->body($count)
 							->color('bg-blue')
 							->size('col-md-4 col-lg-2')

@@ -1,0 +1,33 @@
+.widget-events .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+	border-color: rgba(0,0,0,.1);
+}
+
+.widget-events .fc-unthemed .fc-today {
+    background: rgba(255,255,255,.5);
+}
+
+.widget-events td.fc-today.fc-state-highlight {
+	font-weight: bold;
+}
+
+.widget-events .fc .fc-toolbar h2:first-letter {
+	text-transform: uppercase;
+}
+
+.widget-events .fc-day-grid-event .fc-content {
+	color: #fff;
+}
+
+.widget-events .row.vcenter {
+	display: table;
+}
+
+.widget-events .vcenter {
+	display: table-cell;
+	float: none;
+	vertical-align: middle;
+}
+
+.widget-events a.label {
+	color: #fff !important;
+}

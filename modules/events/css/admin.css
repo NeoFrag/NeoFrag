@@ -1,0 +1,34 @@
+.module-admin.module-events .fc .fc-toolbar {
+	position: relative;
+	margin: -38px 10px 10px 37px;
+}.module-admin.module-events .fc .fc-toolbar h2:first-letter {	text-transform: uppercase;}
+
+.module-admin.module-events .fc .fc-toolbar h2 {
+	font-weight: 600;
+	font-size: 14px;
+	padding: 5px 0 3px;
+	font-family: 'Open Sans', sans-serif;
+	color: #4B5A6D;
+	text-overflow: ellipsis;
+}
+
+.module-admin.module-events .fc table {
+    width: calc(100% + 1px);
+}
+
+.module-admin.module-events .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+	border-color: #edeef1;
+}
+
+.module-admin.module-events th.fc-day-header.fc-widget-header {
+	color: #A6ACB3;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 5px 0;
+}
+
+.module-admin.module-events .fc-event {
+	border-radius: 1px;
+}

@@ -100,8 +100,8 @@ class t_default extends Theme
 												'url'   => 'teams'
 											],
 											[
-												'title' => utf8_htmlentities('Photos'),
-												'url'   => 'gallery'
+												'title' => utf8_htmlentities('Matchs'),
+												'url'   => 'events/matches'
 											],
 											[
 												'title' => utf8_htmlentities('Partenaires'),
@@ -175,6 +175,10 @@ class t_default extends Theme
 											[
 												'title' => utf8_htmlentities('Recrutement'),
 												'url'   => 'recruits'
+											],
+											[
+												'title' => utf8_htmlentities('Photos'),
+												'url'   => 'gallery'
 											],
 											[
 												'title' => utf8_htmlentities($this->lang('search')),

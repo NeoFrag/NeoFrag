@@ -106,7 +106,9 @@ class i_0_1_6 extends Install
 			'recruits_hide_unavailable'          => [TRUE, 'bool'],
 			'recruits_per_page'                  => [5, 'int'],
 			'recruits_send_mail'                 => [TRUE, 'bool'],
-			'recruits_send_mp'                   => [TRUE, 'bool']
+			'recruits_send_mp'                   => [TRUE, 'bool'],
+			'events_alert_mp'                    => [TRUE, 'bool'],
+			'events_per_page'                    => [10, 'int']
 		];
 
 		foreach ($default_settings as $name => $setting)
@@ -195,7 +197,95 @@ class i_0_1_6 extends Install
 					  CONSTRAINT `nf_recruits_candidacies_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
 					->execute('INSERT INTO `nf_settings_addons` VALUES(\'recruits\', \'module\', \'1\')')
-					->execute('INSERT INTO `nf_settings_addons` VALUES(\'recruits\', \'widget\', \'1\')');
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'recruits\', \'widget\', \'1\')')
+					->execute('CREATE TABLE `nf_events_types` (
+					  `type_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `type` smallint(5) unsigned NOT NULL DEFAULT \'0\',
+					  `title` varchar(100) NOT NULL,
+					  `color` varchar(20) NOT NULL,
+					  `icon` varchar(20) NOT NULL,
+					  PRIMARY KEY (`type_id`)
+					) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;')
+					->execute('INSERT INTO `nf_events_types` (`type_id`, `type`, `title`, `color`, `icon`) VALUES
+						(1, 1, \'Entrainement\', \'success\', \'fa-gamepad\'),
+						(2, 1, \'Match amical\', \'info\', \'fa-angellist\'),
+						(3, 1, \'Match officiel\', \'warning\', \'fa-trophy\'),
+						(4, 0, \'IRL\', \'primary\', \'fa-glass\'),
+						(5, 0, \'Divers\', \'default\', \'fa-comments\'),
+						(6, 1, \'Réunion\', \'danger\', \'fa-briefcase\');')
+					->execute('CREATE TABLE `nf_events` (
+					  `event_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `type_id` int(11) unsigned NOT NULL,
+					  `user_id` int(11) unsigned NOT NULL,
+					  `image_id` int(11) unsigned DEFAULT NULL,
+					  `title` varchar(100) NOT NULL,
+					  `description` text NOT NULL,
+					  `private_description` text NOT NULL,
+					  `location` text NOT NULL,
+					  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+					  `date_end` timestamp NULL DEFAULT NULL,
+					  `published` enum(\'0\',\'1\') NOT NULL DEFAULT \'0\',
+					  PRIMARY KEY (`event_id`),
+					  KEY `user_id` (`user_id`),
+					  KEY `type_id` (`type_id`) USING BTREE,
+					  KEY `image_id` (`image_id`),
+					  CONSTRAINT `nf_events_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `nf_events_types` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_events_matches_opponents` (
+					  `opponent_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `image_id` int(11) unsigned DEFAULT NULL,
+					  `title` varchar(100) NOT NULL,
+					  `website` varchar(100) NOT NULL,
+					  `country` varchar(5) NOT NULL,
+					  PRIMARY KEY (`opponent_id`),
+					  KEY `image_id` (`image_id`),
+					  CONSTRAINT `nf_events_matches_opponents_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_events_matches` (
+					  `event_id` int(11) unsigned NOT NULL,
+					  `team_id` int(11) unsigned NOT NULL,
+					  `opponent_id` int(11) unsigned NOT NULL,
+					  `mode_id` int(11) unsigned DEFAULT NULL,
+					  `webtv` varchar(100) NOT NULL,
+					  `website` varchar(100) NOT NULL,
+					  PRIMARY KEY (`event_id`),
+					  KEY `opponent_id` (`opponent_id`),
+					  KEY `mode_id` (`mode_id`),
+					  KEY `team_id` (`team_id`),
+					  CONSTRAINT `nf_events_matches_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_matches_ibfk_2` FOREIGN KEY (`opponent_id`) REFERENCES `nf_events_matches_opponents` (`opponent_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_matches_ibfk_3` FOREIGN KEY (`mode_id`) REFERENCES `nf_games_modes` (`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_events_matches_rounds` (
+					  `round_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+					  `event_id` int(11) unsigned NOT NULL,
+					  `map_id` int(11) unsigned DEFAULT NULL,
+					  `score1` int(11) NOT NULL,
+					  `score2` int(11) NOT NULL,
+					  PRIMARY KEY (`round_id`),
+					  KEY `event_id` (`event_id`),
+					  KEY `map_id` (`map_id`),
+					  CONSTRAINT `nf_events_matches_rounds_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `nf_games_maps` (`map_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_matches_rounds_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('CREATE TABLE `nf_events_participants` (
+					  `event_id` int(10) unsigned NOT NULL,
+					  `user_id` int(10) unsigned NOT NULL,
+					  `status` smallint(6) unsigned NOT NULL,
+					  PRIMARY KEY (`event_id`,`user_id`),
+					  KEY `user_id` (`user_id`),
+					  CONSTRAINT `nf_events_participants_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_events_participants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+					->execute('INSERT INTO `nf_access` VALUES(NULL, 1, \'events\', \'access_events_type\')')
+					->execute('INSERT INTO `nf_access` VALUES(NULL, 2, \'events\', \'access_events_type\')')
+					->execute('INSERT INTO `nf_access` VALUES(NULL, 3, \'events\', \'access_events_type\')')
+					->execute('INSERT INTO `nf_access` VALUES(NULL, 4, \'events\', \'access_events_type\')')
+					->execute('INSERT INTO `nf_access` VALUES(NULL, 5, \'events\', \'access_events_type\')')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'events\', \'module\', \'1\')')
+					->execute('INSERT INTO `nf_settings_addons` VALUES(\'events\', \'widget\', \'1\')');
 
 		foreach (['facebook', 'twitter', 'google', 'battle_net', 'steam', 'twitch', 'github', 'linkedin'] as $i => $name)
 		{

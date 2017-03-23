@@ -52,6 +52,11 @@ INSERT INTO `nf_access` VALUES(7, 1, 'forum', 'category_delete');
 INSERT INTO `nf_access` VALUES(8, 1, 'forum', 'category_announce');
 INSERT INTO `nf_access` VALUES(9, 1, 'forum', 'category_lock');
 INSERT INTO `nf_access` VALUES(10, 1, 'forum', 'category_move');
+INSERT INTO `nf_access` VALUES(11, 1, 'events', 'access_events_type');
+INSERT INTO `nf_access` VALUES(12, 2, 'events', 'access_events_type');
+INSERT INTO `nf_access` VALUES(13, 3, 'events', 'access_events_type');
+INSERT INTO `nf_access` VALUES(14, 4, 'events', 'access_events_type');
+INSERT INTO `nf_access` VALUES(15, 5, 'events', 'access_events_type');
 
 -- --------------------------------------------------------
 
@@ -173,6 +178,128 @@ INSERT INTO `nf_dispositions` VALUES(9, 'default', 'forum/*', 2, 'a:1:{i:0;O:3:"
 INSERT INTO `nf_dispositions` VALUES(10, 'default', 'news/_news/*', 0, 'a:2:{i:0;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-white";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:2:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:27;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";s:8:"col-md-8";}}}i:1;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:28;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";s:8:"col-md-4";}}}}}i:1;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-light";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:29;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";N;}}}}}}');
 INSERT INTO `nf_dispositions` VALUES(11, 'default', 'user/*', 0, 'a:2:{i:0;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-white";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:2:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:30;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";s:8:"col-md-8";}}}i:1;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:31;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";s:8:"col-md-4";}}}}}i:1;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-light";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:32;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";N;}}}}}}');
 INSERT INTO `nf_dispositions` VALUES(12, 'default', 'search/*', 0, 'a:2:{i:0;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-white";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:2:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:33;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";s:8:"col-md-8";}}}i:1;N;}}i:1;O:3:"Row":3:{s:9:"\0*\0_style";s:9:"row-light";s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:3:"Col":3:{s:8:"\0*\0_size";N;s:6:"\0*\0_id";N;s:12:"\0*\0_children";a:1:{i:0;O:12:"Panel_widget":8:{s:6:"\0*\0_id";N;s:10:"\0*\0_widget";i:34;s:11:"\0*\0_heading";a:0:{}s:10:"\0*\0_footer";a:0:{}s:8:"\0*\0_body";N;s:13:"\0*\0_body_tags";N;s:9:"\0*\0_color";N;s:8:"\0*\0_size";N;}}}}}}');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events`
+--
+
+DROP TABLE IF EXISTS `nf_events`;
+CREATE TABLE IF NOT EXISTS `nf_events` (
+  `event_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `private_description` text NOT NULL,
+  `location` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_end` timestamp NULL DEFAULT NULL,
+  `published` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`event_id`),
+  KEY `user_id` (`user_id`),
+  KEY `type_id` (`type_id`) USING BTREE,
+  KEY `image_id` (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events_matches`
+--
+
+DROP TABLE IF EXISTS `nf_events_matches`;
+CREATE TABLE IF NOT EXISTS `nf_events_matches` (
+  `event_id` int(11) UNSIGNED NOT NULL,
+  `team_id` int(11) UNSIGNED NOT NULL,
+  `opponent_id` int(11) UNSIGNED NOT NULL,
+  `mode_id` int(11) UNSIGNED DEFAULT NULL,
+  `webtv` varchar(100) NOT NULL,
+  `website` varchar(100) NOT NULL,
+  PRIMARY KEY (`event_id`),
+  KEY `opponent_id` (`opponent_id`),
+  KEY `mode_id` (`mode_id`),
+  KEY `team_id` (`team_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events_matches_opponents`
+--
+
+DROP TABLE IF EXISTS `nf_events_matches_opponents`;
+CREATE TABLE IF NOT EXISTS `nf_events_matches_opponents` (
+  `opponent_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) UNSIGNED DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `website` varchar(100) NOT NULL,
+  `country` varchar(5) NOT NULL,
+  PRIMARY KEY (`opponent_id`),
+  KEY `image_id` (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events_matches_rounds`
+--
+
+DROP TABLE IF EXISTS `nf_events_matches_rounds`;
+CREATE TABLE IF NOT EXISTS `nf_events_matches_rounds` (
+  `round_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) UNSIGNED NOT NULL,
+  `map_id` int(11) UNSIGNED DEFAULT NULL,
+  `score1` int(11) NOT NULL,
+  `score2` int(11) NOT NULL,
+  PRIMARY KEY (`round_id`),
+  KEY `event_id` (`event_id`),
+  KEY `map_id` (`map_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events_participants`
+--
+
+DROP TABLE IF EXISTS `nf_events_participants`;
+CREATE TABLE IF NOT EXISTS `nf_events_participants` (
+  `event_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `status` smallint(6) UNSIGNED NOT NULL,
+  PRIMARY KEY (`event_id`,`user_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nf_events_types`
+--
+
+DROP TABLE IF EXISTS `nf_events_types`;
+CREATE TABLE IF NOT EXISTS `nf_events_types` (
+  `type_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `title` varchar(100) NOT NULL,
+  `color` varchar(20) NOT NULL,
+  `icon` varchar(20) NOT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `nf_events_types`
+--
+
+INSERT INTO `nf_events_types` VALUES(1, 1, 'Entrainement', 'success', 'fa-gamepad');
+INSERT INTO `nf_events_types` VALUES(2, 1, 'Match amical', 'info', 'fa-angellist');
+INSERT INTO `nf_events_types` VALUES(3, 1, 'Match officiel', 'warning', 'fa-trophy');
+INSERT INTO `nf_events_types` VALUES(4, 0, 'IRL', 'primary', 'fa-glass');
+INSERT INTO `nf_events_types` VALUES(5, 0, 'Divers', 'default', 'fa-comments');
+INSERT INTO `nf_events_types` VALUES(6, 1, 'Réunion', 'danger', 'fa-briefcase');
 
 -- --------------------------------------------------------
 
@@ -946,6 +1073,8 @@ INSERT INTO `nf_settings` VALUES('recruits_hide_unavailable', '', '', '1', 'bool
 INSERT INTO `nf_settings` VALUES('recruits_per_page', '', '', '5', 'int');
 INSERT INTO `nf_settings` VALUES('recruits_send_mail', '', '', '1', 'bool');
 INSERT INTO `nf_settings` VALUES('recruits_send_mp', '', '', '1', 'bool');
+INSERT INTO `nf_settings` VALUES('events_alert_mp', '', '', '1', 'string');
+INSERT INTO `nf_settings` VALUES('events_per_page', '', '', '10', 'string');
 
 -- --------------------------------------------------------
 
@@ -976,6 +1105,8 @@ INSERT INTO `nf_settings_addons` VALUES('contact', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('default', 'theme', '1');
 INSERT INTO `nf_settings_addons` VALUES('error', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('error', 'widget', '1');
+INSERT INTO `nf_settings_addons` VALUES('events', 'module', '1');
+INSERT INTO `nf_settings_addons` VALUES('events', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'module', '1');
 INSERT INTO `nf_settings_addons` VALUES('forum', 'widget', '1');
 INSERT INTO `nf_settings_addons` VALUES('gallery', 'module', '1');
@@ -1396,7 +1527,7 @@ INSERT INTO `nf_widgets` VALUES(1, 'talks', 'index', NULL, 'a:1:{s:7:"talk_id";s
 INSERT INTO `nf_widgets` VALUES(2, 'breadcrumb', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(3, 'search', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(4, 'module', 'index', NULL, NULL);
-INSERT INTO `nf_widgets` VALUES(5, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:0;s:5:"links";a:5:{i:0;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:4:"news";}i:1;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:7:"members";}i:2;a:2:{s:5:"title";s:11:"Recrutement";s:3:"url";s:8:"recruits";}i:3;a:2:{s:5:"title";s:10:"Rechercher";s:3:"url";s:6:"search";}i:4;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:7:"contact";}}}');
+INSERT INTO `nf_widgets` VALUES(5, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:0;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:17:"Actualit&eacute;s";s:3:"url";s:4:"news";}i:1;a:2:{s:5:"title";s:7:"Membres";s:3:"url";s:7:"members";}i:2;a:2:{s:5:"title";s:11:"Recrutement";s:3:"url";s:8:"recruits";}i:3;a:2:{s:5:"title";s:6:"Photos";s:3:"url";s:7:"gallery";}i:4;a:2:{s:5:"title";s:10:"Rechercher";s:3:"url";s:6:"search";}i:5;a:2:{s:5:"title";s:7:"Contact";s:3:"url";s:7:"contact";}}}');
 INSERT INTO `nf_widgets` VALUES(6, 'partners', 'column', NULL, 'a:1:{s:13:"display_style";s:5:"light";}');
 INSERT INTO `nf_widgets` VALUES(7, 'user', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(8, 'news', 'categories', NULL, NULL);
@@ -1406,13 +1537,13 @@ INSERT INTO `nf_widgets` VALUES(11, 'forum', 'topics', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(12, 'news', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(13, 'members', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(14, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
-INSERT INTO `nf_widgets` VALUES(15, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:0:"";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:5:"forum";}i:2;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:5:"teams";}i:3;a:2:{s:5:"title";s:6:"Photos";s:3:"url";s:7:"gallery";}i:4;a:2:{s:5:"title";s:11:"Partenaires";s:3:"url";s:8:"partners";}i:5;a:2:{s:5:"title";s:15:"Palmar&egrave;s";s:3:"url";s:6:"awards";}}}');
+INSERT INTO `nf_widgets` VALUES(15, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:0:"";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:5:"forum";}i:2;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:5:"teams";}i:3;a:2:{s:5:"title";s:6:"Matchs";s:3:"url";s:14:"events/matches";}i:4;a:2:{s:5:"title";s:11:"Partenaires";s:3:"url";s:8:"partners";}i:5;a:2:{s:5:"title";s:15:"Palmar&egrave;s";s:3:"url";s:6:"awards";}}}');
 INSERT INTO `nf_widgets` VALUES(16, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(17, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:4:{i:0;a:2:{s:5:"title";s:8:"Facebook";s:3:"url";s:1:"#";}i:1;a:2:{s:5:"title";s:7:"Twitter";s:3:"url";s:1:"#";}i:2;a:2:{s:5:"title";s:6:"Origin";s:3:"url";s:1:"#";}i:3;a:2:{s:5:"title";s:5:"Steam";s:3:"url";s:1:"#";}}}');
 INSERT INTO `nf_widgets` VALUES(18, 'members', 'online_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(19, 'html', 'index', NULL, 'a:1:{s:7:"content";s:98:"[center]Propuls&eacute; par [url=https://neofr.ag]NeoFrag CMS[/url] version Alpha 0.1.5.3[/center]";}');
 INSERT INTO `nf_widgets` VALUES(20, 'header', 'index', NULL, 'a:5:{s:5:"align";s:11:"text-center";s:5:"title";s:0:"";s:11:"description";s:0:"";s:11:"color-title";s:0:"";s:17:"color-description";s:7:"#DC351E";}');
-INSERT INTO `nf_widgets` VALUES(21, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:0:"";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:5:"forum";}i:2;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:5:"teams";}i:3;a:2:{s:5:"title";s:6:"Photos";s:3:"url";s:7:"gallery";}i:4;a:2:{s:5:"title";s:11:"Partenaires";s:3:"url";s:8:"partners";}i:5;a:2:{s:5:"title";s:15:"Palmar&egrave;s";s:3:"url";s:6:"awards";}}}');
+INSERT INTO `nf_widgets` VALUES(21, 'navigation', 'index', NULL, 'a:2:{s:7:"display";b:1;s:5:"links";a:6:{i:0;a:2:{s:5:"title";s:7:"Accueil";s:3:"url";s:0:"";}i:1;a:2:{s:5:"title";s:5:"Forum";s:3:"url";s:5:"forum";}i:2;a:2:{s:5:"title";s:14:"&Eacute;quipes";s:3:"url";s:5:"teams";}i:3;a:2:{s:5:"title";s:6:"Matchs";s:3:"url";s:14:"events/matches";}i:4;a:2:{s:5:"title";s:11:"Partenaires";s:3:"url";s:8:"partners";}i:5;a:2:{s:5:"title";s:15:"Palmar&egrave;s";s:3:"url";s:6:"awards";}}}');
 INSERT INTO `nf_widgets` VALUES(22, 'user', 'index_mini', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(23, 'slider', 'index', NULL, NULL);
 INSERT INTO `nf_widgets` VALUES(24, 'breadcrumb', 'index', NULL, NULL);
@@ -1460,6 +1591,42 @@ ALTER TABLE `nf_comments`
   ADD CONSTRAINT `nf_comments_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `nf_comments` (`comment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nf_comments_ibfk_3` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_events`
+--
+ALTER TABLE `nf_events`
+  ADD CONSTRAINT `nf_events_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `nf_events_types` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Contraintes pour la table `nf_events_matches`
+--
+ALTER TABLE `nf_events_matches`
+  ADD CONSTRAINT `nf_events_matches_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_matches_ibfk_2` FOREIGN KEY (`opponent_id`) REFERENCES `nf_events_matches_opponents` (`opponent_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_matches_ibfk_3` FOREIGN KEY (`mode_id`) REFERENCES `nf_games_modes` (`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_events_matches_opponents`
+--
+ALTER TABLE `nf_events_matches_opponents`
+  ADD CONSTRAINT `nf_events_matches_opponents_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `nf_files` (`file_id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Contraintes pour la table `nf_events_matches_rounds`
+--
+ALTER TABLE `nf_events_matches_rounds`
+  ADD CONSTRAINT `nf_events_matches_rounds_ibfk_1` FOREIGN KEY (`map_id`) REFERENCES `nf_games_maps` (`map_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_matches_rounds_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `nf_events_participants`
+--
+ALTER TABLE `nf_events_participants`
+  ADD CONSTRAINT `nf_events_participants_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nf_events_participants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `nf_files`
