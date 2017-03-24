@@ -45,7 +45,7 @@ class m_members_c_index extends Controller_Module
 						},
 						'size'    => TRUE,
 						'align'   => 'right',
-						'class'   => 'v-align'
+						'class'   => 'vcenter'
 					]
 				])
 				->data($members)

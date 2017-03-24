@@ -30,10 +30,6 @@ tr.navbar-inner:before, tr.navbar-inner:after {
 	margin-top: 25px;
 }
 
-table.table td.v-align {
-	vertical-align: middle;
-}
-
 .img-flag {
 	margin-right: 5px;
 }
@@ -172,4 +168,14 @@ table.table td.v-align {
 }
 .text-maroon {
     color: #85144b !important;
+}
+
+.row.vcenter {
+	display: table;
+}
+
+.vcenter {
+	display: table-cell;
+	float: none;
+	vertical-align: middle;
 }

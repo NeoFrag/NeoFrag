@@ -74,7 +74,7 @@
 		<tbody>
 			<?php foreach ($data['teams'] as $team): ?>
 			<tr>
-				<td class="col-md-6 v-align"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']); ?>"><?php echo $team['team_title']; ?></a></td>
+				<td class="col-md-6 vcenter"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']); ?>"><?php echo $team['team_title']; ?></a></td>
 				<td class="text-center">
 					<input class="knob" type="text" value="<?php echo $team['total_gold']; ?>" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-min="0" data-max="<?php echo ($team['total_gold'] + $team['total_silver'] + $team['total_bronze'] + $team['total_other']); ?>" data-width="50" data-height="40" data-fgColor="#F0B036" data-displayInput="true" data-readonly="true" autocomplete="off" />
 				</td>
