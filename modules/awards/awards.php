@@ -57,6 +57,6 @@ class m_awards extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/awards/awards.php
 */

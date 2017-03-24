@@ -58,7 +58,7 @@ ob_start();
 define('NEOFRAG_CMS',     dirname(__FILE__));
 define('NEOFRAG_MEMORY',  memory_get_peak_usage());
 define('NEOFRAG_TIME',    microtime(TRUE));
-define('NEOFRAG_VERSION', 'Alpha 0.1.5.3');
+define('NEOFRAG_VERSION', 'Alpha 0.1.6');
 
 ini_set('default_charset', 'UTF8');
 ini_set('mbstring.func_overload', 7);
@@ -230,9 +230,81 @@ foreach([
 	}
 }
 
+if (isset($NeoFrag->config->nf_dispositions_upgrade) && !$NeoFrag->config->nf_dispositions_upgrade)
+{
+	foreach ($NeoFrag->db->from('nf_dispositions')->get() as $disposition)
+	{
+		$rows = unserialize(preg_replace('/O:\d+:"(Row|Col|Widget_View)"/', 'O:8:"stdClass"', preg_replace_callback('/s:\d+:"(.(?:Row|Col|Widget_View).+?)";/', function($a){
+			return 's:'.strlen($a = preg_replace('/.*_(.+?)$/', '\1', $a[1])).':"'.$a.'";';
+		}, $disposition['disposition'])));
+
+		$new_disposition = [];
+
+		foreach ($rows as $row)
+		{
+			$cols = [];
+
+			if (!empty($row->cols))
+			{
+				foreach ($row->cols as $col)
+				{
+					$widgets = [];
+
+					if (!empty($col->widgets))
+					{
+						foreach ($col->widgets as $widget)
+						{
+							$new_widget = $NeoFrag->panel_widget($widget->widget_id);
+
+							if (!empty($widget->style))
+							{
+								$new_widget->color(str_replace('panel-', '', $widget->style));
+							}
+
+							$widgets[] = $new_widget;
+						}
+					}
+
+					$new_col = call_user_func_array([$NeoFrag, 'col'], $widgets);
+
+					if (!empty($col->size))
+					{
+						$new_col->size($col->size);
+					}
+
+					$cols[] = $new_col;
+				}
+			}
+
+			$new_row = call_user_func_array([$NeoFrag, 'row'], $cols);
+
+			if (!empty($row->style))
+			{
+				$new_row->style($row->style);
+			}
+
+			$new_disposition[] = $new_row;
+		}
+
+		$NeoFrag->db	->where('disposition_id', $disposition['disposition_id'])
+						->update('nf_dispositions', [
+							'disposition' => serialize($new_disposition)
+						]);
+
+		$NeoFrag->config('nf_dispositions_upgrade', TRUE, 'bool');
+	}
+
+	dir_create('authenticators');
+
+	foreach (['facebook', 'twitter', 'google', 'battle_net', 'steam', 'twitch', 'github', 'linkedin'] as $name)
+	{
+		$NeoFrag->network('https://raw.githubusercontent.com/NeoFragCMS/neofrag-cms/master/authenticators/'.$name.'.php')->stream('authenticators/'.$name.'.php');
+	}
+}
+
 echo $NeoFrag->router()->output;
 
 /*
-NeoFrag Alpha 0.1.5.3
+NeoFrag Alpha 0.1.6
 ./index.php
 */

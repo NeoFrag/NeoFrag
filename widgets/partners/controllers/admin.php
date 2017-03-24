@@ -44,6 +44,6 @@ class w_partners_c_admin extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./widgets/partners/controllers/admin.php
 */

@@ -81,6 +81,6 @@ $lang['user_delete_message']                 = 'Are you sure you want to delete 
 $lang['username_description']                = 'You can login with your email address or even your screen name.';
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/user/lang/en.php
 */

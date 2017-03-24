@@ -90,6 +90,6 @@ class m_games_m_modes extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/games/models/modes.php
 */

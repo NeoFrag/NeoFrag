@@ -29,6 +29,6 @@ class Model extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/model.php
 */

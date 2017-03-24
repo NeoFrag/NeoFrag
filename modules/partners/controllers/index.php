@@ -43,6 +43,6 @@ class m_partners_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/partners/controllers/index.php
 */

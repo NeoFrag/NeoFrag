@@ -27,6 +27,6 @@ class w_slider_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./widgets/slider/controllers/index.php
 */

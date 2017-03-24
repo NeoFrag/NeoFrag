@@ -107,6 +107,6 @@ class i_0_1_1 extends Install
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/install/alpha.0.1.1.php
 */

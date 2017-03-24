@@ -154,6 +154,6 @@ $rules = array_merge($rules, [
 ]);
 
 /*
-NeoFrag Alpha 0.1.5.2
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/user/forms/user.php
 */

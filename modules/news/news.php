@@ -140,6 +140,6 @@ class m_news extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/news/news.php
 */

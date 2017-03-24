@@ -167,6 +167,6 @@ class m_search_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5.3
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/search/controllers/index.php
 */

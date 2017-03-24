@@ -105,6 +105,6 @@ abstract class Loadable extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/loadable.php
 */

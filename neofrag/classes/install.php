@@ -30,6 +30,6 @@ abstract class Install extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/install.php
 */

@@ -349,6 +349,6 @@ class m_games_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/games/controllers/admin.php
 */

@@ -80,6 +80,6 @@ class m_access_c_admin_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/access/controllers/admin_checker.php
 */

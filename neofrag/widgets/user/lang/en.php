@@ -31,6 +31,6 @@ $lang['pm_inbox']         = 'Inbox';
 $lang['welcome']          = 'Welcome <a href="'.url('user').'">'.$this->user('username').'</a>';
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.6
 ./neofrag/widgets/user/lang/en.php
 */

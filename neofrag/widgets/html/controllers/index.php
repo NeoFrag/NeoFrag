@@ -32,6 +32,6 @@ class w_html_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/widgets/html/controllers/index.php
 */

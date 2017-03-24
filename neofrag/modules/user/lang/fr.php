@@ -81,6 +81,6 @@ $lang['user_delete_message']                 = 'Êtes-vous sûr(e) de vouloir su
 $lang['username_description']                = 'Vous pouvez vous identifier avec votre adresse mail ou bien votre pseudonyme';
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/user/lang/fr.php
 */

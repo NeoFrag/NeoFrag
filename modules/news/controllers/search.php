@@ -50,6 +50,6 @@ class m_news_c_search extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/news/controllers/search.php
 */

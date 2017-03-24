@@ -25,6 +25,6 @@ function geolocalisation($address_ip)
 }
 
 /*
-NeoFrag Alpha 0.1.2
+NeoFrag Alpha 0.1.6
 ./neofrag/helpers/geolocalisation.php
 */

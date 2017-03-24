@@ -33,6 +33,6 @@ class m_admin extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/admin/admin.php
 */

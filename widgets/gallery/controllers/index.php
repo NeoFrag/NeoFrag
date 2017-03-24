@@ -93,6 +93,6 @@ class w_gallery_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./widgets/gallery/controllers/index.php
 */

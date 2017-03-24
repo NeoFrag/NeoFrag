@@ -62,6 +62,6 @@ class m_user_m_groups extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/user/models/groups.php
 */

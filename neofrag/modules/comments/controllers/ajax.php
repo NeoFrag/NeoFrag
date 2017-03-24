@@ -49,6 +49,6 @@ class m_comments_c_ajax extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/comments/controllers/ajax.php
 */

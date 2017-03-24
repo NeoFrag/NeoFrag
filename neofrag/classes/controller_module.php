@@ -46,6 +46,6 @@ abstract class Controller_Module extends Controller
 }
 
 /*
-NeoFrag Alpha 0.1.4
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/controller_module.php
 */

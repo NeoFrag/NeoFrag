@@ -84,6 +84,6 @@ function output($type)
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/helpers/output.php
 */

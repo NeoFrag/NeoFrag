@@ -65,6 +65,6 @@ class Library extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.5.2
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/library.php
 */

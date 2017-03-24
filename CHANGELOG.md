@@ -1,5 +1,82 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.6](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.6) (2017-03-26)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.3...alpha0.1.6)
+
+**Classes**
+
+- [Library] Reset method returns $this
+- [Library] Updating internal id when libraries are reset
+- [Loader] Is a Class now
+- [Module] Replace get_output() by __toString() method
+- [Module] UTF-8 BOM removing
+- [NeoFrag] Adding magic methods static_... and ..._if
+- [NeoFrag] Displaying errors when __call and __get methods failed
+- [NeoFrag] Removing camelcase for library names
+- [Translatable] Is removed
+
+**Core**
+
+- [Access] Authorizations use groups hierarchy (so the ambiguity notion is removed)
+- [Addons] Removing addons sort
+- [Db] Adding REPLACE instruction
+- [Output] Merging template and output core libraries
+- [Router] Improving router call and removing useless code
+- [Url] Adding new core library
+
+**Helpers**
+
+- [Countries] Adding countries / flags data
+- [User_Agent] Update crawlers list
+
+**Libraries**
+
+- [Breadcrumb] Is a Library now
+- [Button] Adding new library instead of helper
+- [File] Adding method to generate unique filename
+- [Html] Adding new library
+- [Label] Adding new library
+- [Modal] Adding new library
+- [MySQLDump] Fix escaping colnames and convert float format
+- [Network] Adding new library instead of helper
+- [Pagination] Adding $_GET params on links
+
+**Modules**
+
+- [Events] Adding new module
+- [Forum] Keeping form data if errors occur when create or edit topic
+- [Games] Adding get_modes_list() method
+- [Monitoring] If download failed, monitoring is not anymore blocked and display results
+- [Recruits] Adding new module
+- [Teams] Improvement for events module
+- [User] Groups can be hidden
+- [User] Groups can be hierarchized
+
+**NeoFrag**
+
+- .htaccess -MultiViews and some comments to help users
+- Adding authenticators (Battle.net, Facebook, GitHub, Google, Linkedin, Steam, Twitch, Twitter)
+- Adding vcenter css
+- Autoload library classes
+- Classes Zone, Row, Col, Panel, Panel_Box, Panel_Pagination, Widget_View, Button_Back are now libraries
+- Every .html url extension is removed
+- Globals $loader and $NeoFrag are removed of views (and $this can be used)
+- Improving objects call (Module, Theme, Widget, Controller, Model, helper, view, lang and form)
+- Inheriting libraries are grouped in the same folder
+- Overall fixing of tiny errors
+- Replace __autoload by spl_autoload_register
+- Replace NeoFrag::loader() by NeoFrag()
+
+**Themes**
+
+- [Admin] Modules are now categorized (default and gaming)
+- [Default] Improving geolocalisation and user-agent API calls
+
+**Plugins updates**
+
+- Font Awesome v4.7
+- PHPMailer v5.2.22
+
 ## [Alpha 0.1.5.3](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.5.3) (2016-12-17)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.2...alpha0.1.5.3)
 

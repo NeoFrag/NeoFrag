@@ -31,6 +31,6 @@ $lang['offline']          = 'offline';
 $lang['show_all_members'] = 'See all members';
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/members/lang/en.php
 */

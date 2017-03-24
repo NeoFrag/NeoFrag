@@ -67,6 +67,6 @@ class m_pages extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/pages/pages.php
 */

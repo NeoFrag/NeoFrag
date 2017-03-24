@@ -51,6 +51,6 @@ class m_live_editor_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5.2
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/live_editor/controllers/index.php
 */

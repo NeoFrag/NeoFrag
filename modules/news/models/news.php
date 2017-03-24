@@ -160,6 +160,6 @@ class m_news_m_news extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./modules/news/models/news.php
 */

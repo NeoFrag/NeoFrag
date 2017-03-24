@@ -453,6 +453,6 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.5.2
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/monitoring/controllers/admin_ajax.php
 */

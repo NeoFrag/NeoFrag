@@ -259,6 +259,6 @@ if (!function_exists('datetime2sql'))
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/lang/en.php
 */

@@ -78,6 +78,6 @@ abstract class Controller extends NeoFrag
 }
 
 /*
-NeoFrag Alpha 0.1.5.2
+NeoFrag Alpha 0.1.6
 ./neofrag/classes/controller.php
 */

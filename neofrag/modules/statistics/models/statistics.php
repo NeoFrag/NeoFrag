@@ -51,6 +51,6 @@ class m_statistics_m_statistics extends Model
 }
 
 /*
-NeoFrag Alpha 0.1.5
+NeoFrag Alpha 0.1.6
 ./neofrag/modules/statistics/models/statistics.php
 */
