@@ -32,6 +32,24 @@ class m_games_m_modes extends Model
 						->get();
 	}
 
+	public function get_modes_list()
+	{
+		$modes = [];
+
+		foreach ($this->db	->select('m.mode_id', 'm.title', 'gl.title as game_title', 'gl2.title as game_title2')
+							->from('nf_games_modes m')
+							->join('nf_games g',        'm.game_id = g.game_id')
+							->join('nf_games_lang gl',  'm.game_id = gl.game_id')
+							->join('nf_games_lang gl2', 'g.parent_id = gl2.game_id')
+							->order_by('If(g.parent_id IS NULL, gl.title, CONCAT(gl2.title, gl.title))', 'm.title')
+							->get() as $mode)
+		{
+			$modes[$mode['mode_id']] = $mode['title'].' ('.implode(' - ', array_filter([$mode['game_title2'], $mode['game_title']])).')';
+		}
+
+		return $modes;
+	}
+
 	public function check_mode($mode_id, $title)
 	{
 		$mode = $this->db->from('nf_games_modes')
