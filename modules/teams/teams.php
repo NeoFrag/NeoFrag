@@ -60,7 +60,7 @@ class m_teams extends Module
 			$groups[$team['team_id']] = [
 				'name'  => $team['name'],
 				'title' => $team['title'],
-				'users' => array_map('intval', explode(',', $team['users']))
+				'users' => array_filter(array_map('intval', explode(',', $team['users'])))
 			];
 		}
 		

@@ -35,7 +35,24 @@ class m_teams_m_teams extends Model
 						->order_by('t.order', 't.team_id')
 						->get();
 	}
-	
+
+	public function get_teams_list()
+	{
+		$teams = [];
+
+		foreach ($this->db	->select('t.team_id', 'tl.title', 'gl.title as game_title')
+							->from('nf_teams t')
+							->join('nf_teams_lang tl', 't.team_id = tl.team_id')
+							->join('nf_games_lang gl', 't.game_id = gl.game_id')
+							->order_by('gl.title', 'tl.title')
+							->get() as $team)
+		{
+			$teams[$team['team_id']] = $team['title'].' ('.$team['game_title'].')';
+		}
+
+		return $teams;
+	}
+
 	public function get_games_list()
 	{
 		$list = [];
