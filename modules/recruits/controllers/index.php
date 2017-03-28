@@ -81,7 +81,7 @@ class m_recruits_c_index extends Controller_Module
 	{
 		$this->title($title);
 
-		if (($this->access('recruits', 'recruit_postulate', $recruit_id)) && ($date_end == '0000-00-00' || strtotime($date_end) > time()))
+		if (($this->access('recruits', 'recruit_postulate', $recruit_id)) && ($date_end == '0000-00-00' || strtotime($date_end) > time() || $date_end == NULL))
 		{
 			if ($candidacy = $this->model()->postulated($this->user('user_id'), $recruit_id, $title))
 			{
@@ -172,7 +172,7 @@ class m_recruits_c_index extends Controller_Module
 		}
 		else
 		{
-			if ($candidacies_accepted < $size && $closed == FALSE && ($date_end == '0000-00-00' || strtotime($date_end) > time()))
+			if ($candidacies_accepted < $size && $closed == FALSE && ($date_end == '0000-00-00' || strtotime($date_end) > time() || $date_end == NULL))
 			{
 				$this	->form
 						->add_rules($rules = [
