@@ -26,7 +26,7 @@ class m_recruits_c_index extends Controller_Module
 
 		foreach ($recruits as $recruit)
 		{
-			if (($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] != '0000-00-00' && strtotime($recruit['date_end']) < time())) && !$this->config->recruits_hide_unavailable)
+			if (($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] != '0000-00-00' && strtotime($recruit['date_end']) < time() && $recruit['date_end'] != NULL)) && !$this->config->recruits_hide_unavailable)
 			{
 				$panels[] = $this	->panel()
 									->heading($recruit['title'], $recruit['icon'] ?: 'fa-bullhorn')
