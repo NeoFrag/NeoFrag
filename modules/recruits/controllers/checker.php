@@ -72,7 +72,7 @@ class m_recruits_c_checker extends Controller_Module
 	{
 		if ($recruit = $this->model()->check_recruit($recruit_id, $title))
 		{
-			if ($this->access('recruits', 'recruit_postulate', $recruit['recruit_id']) && !$recruit['closed'] && ($recruit['candidacies_accepted'] < $recruit['size']) && (($recruit['date_end'] == '0000-00-00') || (strtotime($recruit['date_end'] || $recruit['date_end'] == NULL) > time())))
+			if ($this->access('recruits', 'recruit_postulate', $recruit['recruit_id']) && !$recruit['closed'] && ($recruit['candidacies_accepted'] < $recruit['size']) && (($recruit['date_end'] == '0000-00-00') || (strtotime($recruit['date_end']) > time() || $recruit['date_end'] == NULL)))
 			{
 				return [
 					'recruit_id'           => $recruit['recruit_id'],
