@@ -75,33 +75,35 @@ $(function(){
 		}
 	});
 	
-	$('.btn.install').not('.disabled').click(function(){
-		var formData = new FormData();
-		formData.append('file', $('input[type="file"].install')[0].files[0]);
-		
-		$('.btn.install').data('title', $('.btn.install').html());
-		$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse'); ?> Veuillez patienter')
-		
-		$.ajax({
-			url: '<?php echo url('admin/ajax/addons/install.json'); ?>',
-			type: 'POST',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: formData,
-			success: function(data){
-				$.each(data, function(type, message){
-					notify(message, type);
-				});
-				
-				$('input[type="file"].install').val('').trigger('change');
+	$('.btn.install').click(function(){
+		if (!$(this).hasClass('disabled')){
+			var formData = new FormData();
+			formData.append('file', $('input[type="file"].install')[0].files[0]);
+			
+			$('.btn.install').data('title', $('.btn.install').html());
+			$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse'); ?> Veuillez patienter')
+			
+			$.ajax({
+				url: '<?php echo url('admin/ajax/addons/install.json'); ?>',
+				type: 'POST',
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: formData,
+				success: function(data){
+					$.each(data, function(type, message){
+						notify(message, type);
+					});
+					
+					$('input[type="file"].install').val('').trigger('change');
 
-				$('.btn.install').html($('.btn.install').data('title'));
-				
-				hashChange();
-			}
-		});
-		
+					$('.btn.install').html($('.btn.install').data('title'));
+					
+					hashChange();
+				}
+			});
+		}
+
 		return false;
 	});
 	
