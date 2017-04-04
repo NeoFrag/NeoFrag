@@ -281,7 +281,7 @@ class m_recruits_c_index extends Controller_Module
 					}
 					else
 					{
-						redirect('recruits.html');
+						redirect('recruits');
 					}
 				}
 

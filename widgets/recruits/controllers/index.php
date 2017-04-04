@@ -31,7 +31,7 @@ class w_recruits_c_index extends Controller_Widget
 						->body($this->view('index', [
 							'recruits' => $recruits
 						]), FALSE)
-						->footer('<a href="'.url('recruits.html').'">'.icon('fa-arrow-circle-o-right').' Voir toutes les annonces</a>');
+						->footer('<a href="'.url('recruits').'">'.icon('fa-arrow-circle-o-right').' Voir toutes les annonces</a>');
 		}
 		else
 		{

@@ -87,7 +87,7 @@ class m_recruits extends Module
 					]
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/addons.html#modules');
+				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))
 		{
@@ -97,7 +97,7 @@ class m_recruits extends Module
 					->config('recruits_send_mp', in_array('mp', $post['recruits_send']))
 					->config('recruits_send_mail', in_array('mail', $post['recruits_send']));
 
-			redirect_back('admin/addons.html#modules');
+			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()

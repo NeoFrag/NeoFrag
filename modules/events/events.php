@@ -72,14 +72,14 @@ class m_events extends Module
 					]
 				])
 				->add_submit($this->lang('edit'))
-				->add_back('admin/addons.html#modules');
+				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))
 		{
 			$this	->config('events_per_page', $post['events_per_page'])
 					->config('events_alert_mp', in_array('on', $post['events_alert_mp']));
 
-			redirect_back('admin/addons.html#modules');
+			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()

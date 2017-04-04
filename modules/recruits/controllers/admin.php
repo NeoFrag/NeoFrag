@@ -115,7 +115,7 @@ class m_recruits_c_admin extends Controller_Module
 				$this	->panel()
 						->heading('Liste des offres', 'fa-bullhorn')
 						->body($recruits)
-						->footer($this->is_authorized('add_recruit') ? $this->button_create('admin/recruits/add.html', 'Créer une offre') : NULL)
+						->footer($this->is_authorized('add_recruit') ? $this->button_create('admin/recruits/add', 'Créer une offre') : NULL)
 						->size('col-md-8 col-lg-9')
 			)
 		);
@@ -129,7 +129,7 @@ class m_recruits_c_admin extends Controller_Module
 					'teams' => $this->model()->get_teams_list()
 				])
 				->add_submit('Ajouter')
-				->add_back('admin/recruits.html');
+				->add_back('admin/recruits');
 
 		if ($this->form->is_valid($post))
 		{
@@ -147,7 +147,7 @@ class m_recruits_c_admin extends Controller_Module
 
 			notify('Offre de recrutement ajoutée avec succès');
 
-			redirect_back('admin/recruits.html');
+			redirect_back('admin/recruits');
 		}
 
 		return $this->panel()
@@ -177,7 +177,7 @@ class m_recruits_c_admin extends Controller_Module
 					'image_id'     => $image_id
 				])
 				->add_submit('Modifier')
-				->add_back('admin/recruits.html');
+				->add_back('admin/recruits');
 
 		if ($this->form->is_valid($post))
 		{
@@ -196,7 +196,7 @@ class m_recruits_c_admin extends Controller_Module
 
 			notify('Offre de recrutement modifiée avec succès');
 
-			redirect_back('admin/recruits.html');
+			redirect_back('admin/recruits');
 		}
 
 		return $this->row(
