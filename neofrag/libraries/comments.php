@@ -52,18 +52,20 @@ class Comments extends Library
 
 	public function display($module_name, $module_id)
 	{
-		$this	->css('neofrag.comments')
-				->js('neofrag.comments')
-				->form
-				->add_rules([
-					'comment_id' => [
-					],
-					'comment' => [
-						'rules' => 'required'
-					]
-				]);
-		
-		if ($this->form->is_valid($post))
+		$this->form->save();
+
+		$form = $this	->css('neofrag.comments')
+						->js('neofrag.comments')
+						->form
+						->add_rules([
+							'comment_id' => [
+							],
+							'comment' => [
+								'rules' => 'required'
+							]
+						]);
+
+		if ($form->is_valid($post))
 		{
 			$parent_id = NULL;
 			
@@ -103,7 +105,7 @@ class Comments extends Library
 		
 		$panels = [];
 		
-		if ($errors = $this->form->get_errors())
+		if ($errors = $form->get_errors())
 		{
 			$panels[] = $this	->panel()
 								->heading('<a name="comments"></a>'.NeoFrag()->lang('message_needed'), 'fa-warning')
@@ -113,7 +115,7 @@ class Comments extends Library
 		$panels[] = $this	->panel()
 							->heading('<a name="comments"></a>'.NeoFrag()->lang('comments', $count, $count), 'fa-comments-o')
 							->body($output.$this->view('comments/new', [
-								'form_id' => $this->form->token()
+								'form_id' => $form->token()
 							]));
 		
 		return display($panels);
