@@ -57,7 +57,7 @@ $rules = [
 	],
 	'date_end' => [
 		'label'       => 'Date de clôture',
-		'value'       => ($this->form->value('date_end') != '0000-00-00') ? $this->form->value('date_end') : '',
+		'value'       => $this->form->value('date_end'),
 		'type'        => 'date',
 		'check'       => function($value){
 			if ($value && strtotime($value) < strtotime(date('Y-m-d')))

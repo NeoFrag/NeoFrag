@@ -2,7 +2,7 @@
 	<?php foreach ($data['recruits'] as $recruit): ?>
 	<li class="list-group-item">
 		<div class="pull-right">
-			<?php if ($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] != '0000-00-00' && strtotime($recruit['date_end']) < time())): ?>
+			<?php if ($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] && strtotime($recruit['date_end']) < time())): ?>
 				<span class="label label-danger">Clôturée</span>
 			<?php else: ?>
 				<?php if ($recruit['team_id']): ?>

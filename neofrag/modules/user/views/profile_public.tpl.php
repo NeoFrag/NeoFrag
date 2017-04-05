@@ -28,7 +28,7 @@
 			<td class="col-lg-9 col-md-8 col-xs-7"><?php echo time_span($data['last_activity_date']); ?></td>
 		</tr>
 		<?php endif; ?>
-		<?php if (!empty($data['date_of_birth']) && $data['date_of_birth'] != '0000-00-00'): ?>
+		<?php if (!empty($data['date_of_birth'])): ?>
 		<tr>
 			<td class="col-lg-3 col-md-4 col-xs-5"><b><?php echo icon('fa-birthday-cake').' '.$this->lang('birth_date'); ?></b></td>
 			<td class="col-lg-9 col-md-8 col-xs-7"><?php echo timetostr($this->lang('date_short'), $data['date_of_birth']).' '.$this->lang('age', $age = date_diff(date_create($data['date_of_birth']), date_create('today'))->y, $age); ?></td>

@@ -47,7 +47,7 @@ class w_recruits_c_index extends Controller_Widget
 
 		if (!empty($recruit))
 		{
-			if (!$recruit['closed'] && ($recruit['candidacies_accepted'] < $recruit['size']) && (($recruit['date_end'] == '0000-00-00') || (strtotime($recruit['date_end']) > time())))
+			if (!$recruit['closed'] && ($recruit['candidacies_accepted'] < $recruit['size']) && (!$recruit['date_end'] || strtotime($recruit['date_end']) > time()))
 			{
 				return $this->panel()
 							->heading('Recrutement')

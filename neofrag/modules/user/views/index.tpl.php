@@ -6,7 +6,7 @@
 		<p><?php echo ($data['sex'] == 'male' ? icon('fa-male') : icon('fa-female')).' '.$data['first_name'].' '.$data['last_name']; ?></p>
 		<?php endif; ?>
 
-		<?php if (!empty($data['date_of_birth']) && $data['date_of_birth'] != '0000-00-00'): ?>
+		<?php if (!empty($data['date_of_birth'])): ?>
 		<p><?php echo icon('fa-birthday-cake').' '.timetostr($this->lang('date_short'), $data['date_of_birth']).' '.$this->lang('age', $age = date_diff(date_create($data['date_of_birth']), date_create('today'))->y, $age); ?></p>
 		<?php endif; ?>
 

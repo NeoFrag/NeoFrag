@@ -12,7 +12,7 @@
 			<?php endif; ?>
 			<li><b>Rôle:</b> <?php echo $data['role']; ?></li>
 			<li><b><?php echo $data['size'] > 1 ? 'Places disponibles:' : 'Place disponible:'; ?></b> <?php echo $data['size']; ?></li>
-			<?php if ($data['date_end'] && $data['date_end'] != '0000-00-00'): ?>
+			<?php if ($data['date_end']): ?>
 			<li><b>Expiration:</b> <?php echo timetostr('%e %b %Y', $data['date_end']); ?></li>
 			<?php endif; ?>
 		</ul>

@@ -20,7 +20,7 @@
 		<span class="pull-right"><b><?php echo ($data['size']); ?></b></span>
 		<?php echo icon('fa-users').' '.($data['size'] > 1 ? 'Postes disponibles' : 'Poste disponible'); ?>
 	</li>
-	<?php if ($data['date_end'] && $data['date_end'] != '0000-00-00'): ?>
+	<?php if ($data['date_end']): ?>
 	<li class="list-group-item">
 		<span class="pull-right"><b><?php echo timetostr('%e %b %Y', $data['date_end']); ?></b></span>
 		<?php echo icon('fa-calendar-o'); ?> Date limite

@@ -39,7 +39,7 @@ class m_recruits_c_admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										if ($data['closed'] || ($data['candidacies_accepted'] >= $data['size']) || ($data['date_end'] != '0000-00-00' && strtotime($data['date_end']) < time()))
+										if ($data['closed'] || ($data['candidacies_accepted'] >= $data['size']) || ($data['date_end'] && strtotime($data['date_end']) < time()))
 										{
 											return '<i class="fa fa-circle-o" data-toggle="tooltip" title="Offre clôturée" style="color: #535353;"></i>';
 										}
