@@ -18,35 +18,30 @@ You should have received a copy of the GNU Lesser General Public License
 along with NeoFrag. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-class Panel_Box extends Panel
+class i_0_1_6_1 extends Install
 {
-	protected $_color;
-
-	public function __toString()
+	public function up()
 	{
-		$this->css('neofrag.panel-box');
+		foreach ($this->db->from('nf_dispositions')->get() as $disposition)
+		{
+			$this->db	->where('disposition_id', $disposition['disposition_id'])
+						->update('nf_dispositions', [
+							'disposition' => preg_replace_callback('/s:\d+:"((.)\*\2_color)";(.*?;)/', function($a){
+								$style = unserialize($a[3]);
 
-		return '<div class="small-box '.$this->_color.'">
-					<div class="inner">
-						<h3>'.$this->_body.'</h3>
-						<p>'.$this->_heading[0]->title().'</p>
-					</div>
-					<div class="icon">'.$this->_heading[0]->icon().'</div>
-					<a class="small-box-footer" href="'.$this->_heading[0]->url().'">
-						'.$this->_footer[0]->title().'
-					</a>
-				</div>';
+								if ($style && !preg_match('/^panel-/', $style))
+								{
+									$style = 'panel-'.$style;
+								}
+
+								return 's:'.strlen($a = $a[2].'*'.$a[2].'_style').':"'.$a.'";'.serialize($style);
+							}, $disposition['disposition'])
+						]);
+		}
 	}
-
-	public function color($color)
-	{
-		$this->_color = $color;
-		return $this;
-	}
-
 }
 
 /*
-NeoFrag Alpha 0.1.6
-./neofrag/libraries/panels/box.php
+NeoFrag Alpha 0.1.6.1
+./neofrag/install/alpha.0.1.6.1.php
 */

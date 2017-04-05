@@ -168,7 +168,7 @@ class m_live_editor_c_ajax extends Controller_Module
 	
 	public function widget_style($disposition_id, $disposition, $row_id, $col_id, $widget_id, $style)
 	{
-		$disposition[$row_id]->children()[$col_id]->children()[$widget_id]->color($style);
+		$disposition[$row_id]->children()[$col_id]->children()[$widget_id]->style($style);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	

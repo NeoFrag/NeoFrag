@@ -198,12 +198,12 @@ class t_default extends Theme
 												'display_style' => 'light'
 											])
 										]))
-										->color('dark'),
+										->style('panel-dark'),
 								$this	->panel_widget($this->db->insert('nf_widgets', [
 											'widget' => 'user',
 											'type'   => 'index'
 										]))
-										->color('dark'),
+										->style('panel-dark'),
 								$this->panel_widget($this->db->insert('nf_widgets', [
 									'widget' => 'news',
 									'type'   => 'categories'
@@ -219,7 +219,7 @@ class t_default extends Theme
 											'widget' => 'members',
 											'type'   => 'online'
 										]))
-										->color('red')
+										->style('panel-red')
 							)
 							->size('col-md-4')
 				)
@@ -240,7 +240,7 @@ class t_default extends Theme
 									'widget' => 'news',
 									'type'   => 'index'
 								]))
-								->color('dark')
+								->style('panel-dark')
 								->size('col-md-4')
 					),
 					$this->col(
@@ -248,7 +248,7 @@ class t_default extends Theme
 									'widget' => 'members',
 									'type'   => 'index'
 								]))
-								->color('red')
+								->style('panel-red')
 								->size('col-md-4')
 					)
 				)
@@ -313,7 +313,7 @@ class t_default extends Theme
 										'content' => utf8_htmlentities($this->lang('powered_by_neofrag'))
 									])
 								]))
-								->color('dark')
+								->style('panel-dark')
 					)
 				)
 				->style('row-default')
@@ -356,7 +356,7 @@ class t_default extends Theme
 										'widget' => 'forum',
 										'type'   => 'statistics'
 									]))
-									->color('red')
+									->style('panel-red')
 									->size('col-md-4')
 						),
 						$this->col(
@@ -364,7 +364,7 @@ class t_default extends Theme
 										'widget' => 'forum',
 										'type'   => 'activity'
 									]))
-									->color('dark')
+									->style('panel-dark')
 									->size('col-md-8')
 						)
 					)

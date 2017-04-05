@@ -64,9 +64,9 @@ class Panel_widget extends Panel
 						$a->title($widget_data['title']);
 					}
 
-					if (!empty($this->_color))
+					if (!empty($this->_style))
 					{
-						$a->color($this->_color);
+						$a->style($this->_style);
 					}
 				}
 

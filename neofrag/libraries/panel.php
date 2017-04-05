@@ -24,7 +24,7 @@ class Panel extends Library
 	protected $_footer  = [];
 	protected $_body;
 	protected $_body_tags;
-	protected $_color;
+	protected $_style;
 	protected $_size;
 
 	public function __invoke()
@@ -51,9 +51,12 @@ class Panel extends Library
 			$output .= $this->_body_tags ? '<div class="panel-body">'.$this->_body.'</div>' : $this->_body;
 		}
 
-		return '<div class="panel panel-'.($this->_color ?: 'default').'">
-					'.$output.($this->_footer ? $this->button->static_footer($this->_footer)->append_attr('class', 'panel-footer') : '').'
-				</div>';
+		return $this->html()
+					->attr('class', 'panel')
+					->append_attr('class', $this->_style ?: 'panel-default')
+					->content($output)
+					->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'panel-footer'))
+					->__toString();
 	}
 
 	public function title($label = '', $icon = '', $url = '')
@@ -107,7 +110,13 @@ class Panel extends Library
 
 	public function color($color)
 	{
-		$this->_color = $color;
+		$this->_style = 'panel-'.$color;
+		return $this;
+	}
+
+	public function style($style)
+	{
+		$this->_style = $style;
 		return $this;
 	}
 
