@@ -112,6 +112,12 @@ class Html extends Library
 		$this->_content = $content;
 		return $this;
 	}
+
+	public function append_content($content)
+	{
+		$this->_content .= $content;
+		return $this;
+	}
 }
 
 /*
