@@ -179,7 +179,7 @@ class Output extends Core
 
 	public function parse_data(&$data)
 	{
-		array_walk_recursive($data, function($a) use (&$data){
+		array_walk_recursive($data, function(&$a) use (&$data){
 			$a = $this->parse($a, $data);
 		});
 	}
