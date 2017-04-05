@@ -161,7 +161,7 @@ class m_live_editor_c_ajax extends Controller_Module
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 	
-	public function widget_admin($widget_name, $type, $settings = NULL)
+	public function widget_admin($widget_name, $type, $settings = [])
 	{
 		return $this->widget($widget_name)->get_admin($type, $settings);
 	}

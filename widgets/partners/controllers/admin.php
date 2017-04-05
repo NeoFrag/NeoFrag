@@ -22,24 +22,12 @@ class w_partners_c_admin extends Controller
 {
 	public function index($settings = [])
 	{
-		if (empty($settings['id']))
-		{
-			$settings['id'] = unique_id();
-		}
-
-		return $this->view('admin_index', [
-			'display_style'  => $settings['display_style'],
-			'display_number' => $settings['display_number'],
-			'display_height' => $settings['display_height'],
-			'id'             => $settings['id']
-		]);
+		return $this->view('admin_index', $settings);
 	}
 
 	public function column($settings = [])
 	{
-		return $this->view('admin_column', [
-			'display_style'  => $settings['display_style']
-		]);
+		return $this->view('admin_column', $settings);
 	}
 }
 
