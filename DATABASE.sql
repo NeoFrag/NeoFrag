@@ -872,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `nf_recruits` (
   `size` int(11) NOT NULL,
   `role` varchar(60) NOT NULL,
   `icon` varchar(60) NOT NULL,
-  `date_end` date DEFAULT '0000-00-00',
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
   `closed` enum('0','1') NOT NULL DEFAULT '0',
   `team_id` int(11) UNSIGNED DEFAULT NULL,
   `image_id` int(11) UNSIGNED DEFAULT NULL,
