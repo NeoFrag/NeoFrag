@@ -190,7 +190,7 @@ class m_recruits_c_index extends Controller_Module
 							],
 							'date_of_birth' => [
 								'label' => 'Date de naissance',
-								'value' => $this->user('date_of_birth') && $this->user('date_of_birth') != '0000-00-00' ? timetostr($this->lang('date_short'), strtotime($this->user('date_of_birth'))) : '',
+								'value' => $this->user('date_of_birth') && $this->user('date_of_birth') != '0000-00-00' ? $this->user('date_of_birth') : '',
 								'type'  => 'date',
 								'check' => function($value){
 									if ($value && strtotime($value) > strtotime(date('Y-m-d')))
