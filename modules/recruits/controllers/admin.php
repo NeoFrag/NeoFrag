@@ -804,6 +804,6 @@ class m_recruits_c_admin extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/recruits/controllers/admin.php
 */

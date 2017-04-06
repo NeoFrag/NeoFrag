@@ -1,5 +1,29 @@
 # NeoFrag CMS Change Log
 
+## [Alpha 0.1.6.1](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.6.1) (2017-04-07)
+[Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.6...alpha0.1.6.1)
+
+**Core**
+
+- [Output] Forgotten &
+
+**Libraries**
+
+- [Email] Fix external url
+- [Html] Adding append_content method
+- [Panel] Adding style field
+
+**Modules**
+
+- [Addons] Fix install button
+- [Events] Fix comment adding
+- [LiveEditor] Default value for widget settings is []
+
+**NeoFrag**
+
+- Every .html url extension is removed
+- Fix 0000-00-00 dates
+
 ## [Alpha 0.1.6](https://github.com/NeoFragCMS/neofrag-cms/tree/alpha0.1.6) (2017-03-26)
 [Change Log](https://github.com/NeoFragCMS/neofrag-cms/compare/alpha0.1.5.3...alpha0.1.6)
 

@@ -186,6 +186,6 @@ class m_recruits extends Module
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/recruits/recruits.php
 */

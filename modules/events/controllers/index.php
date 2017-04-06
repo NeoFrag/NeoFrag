@@ -266,6 +266,6 @@ class m_events_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/events/controllers/index.php
 */

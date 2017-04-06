@@ -344,6 +344,6 @@ class m_recruits_c_index extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/recruits/controllers/index.php
 */

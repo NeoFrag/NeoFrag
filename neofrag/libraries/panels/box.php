@@ -47,6 +47,6 @@ class Panel_Box extends Panel
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./neofrag/libraries/panels/box.php
 */

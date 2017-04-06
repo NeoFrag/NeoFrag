@@ -126,6 +126,6 @@ class Email extends Library
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./neofrag/libraries/email.php
 */

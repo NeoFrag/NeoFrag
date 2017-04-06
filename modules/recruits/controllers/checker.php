@@ -128,6 +128,6 @@ class m_recruits_c_checker extends Controller_Module
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/recruits/controllers/checker.php
 */

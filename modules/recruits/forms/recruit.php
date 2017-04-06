@@ -105,6 +105,6 @@ $rules = [
 ];
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./modules/recruits/forms/recruit.php
 */

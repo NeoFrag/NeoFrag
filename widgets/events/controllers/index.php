@@ -153,6 +153,6 @@ class w_events_c_index extends Controller_Widget
 }
 
 /*
-NeoFrag Alpha 0.1.6
+NeoFrag Alpha 0.1.6.1
 ./widgets/events/controllers/index.php
 */
