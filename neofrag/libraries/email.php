@@ -115,9 +115,9 @@ class Email extends Library
 		$mail->Body    = $this->view('emails/'.$this->_view, $this->_data);
 		$mail->AltBody = $this->view('emails/'.$this->_view.'.txt', $this->_data);
 
-		$this->url->external(FALSE);
-
 		$result = $mail->send();
+
+		$this->url->external(FALSE);
 
 		$this->reset();
 
