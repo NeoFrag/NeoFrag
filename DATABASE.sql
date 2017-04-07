@@ -819,6 +819,63 @@ CREATE TABLE `nf_groups_lang` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nf_i18n`
+--
+
+DROP TABLE IF EXISTS `nf_i18n`;
+CREATE TABLE `nf_i18n` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lang_id` int(10) unsigned NOT NULL,
+  `model` varchar(100) DEFAULT NULL,
+  `model_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lang_id` (`lang_id`,`model`,`model_id`,`name`) USING BTREE,
+  KEY `lang_id_2` (`lang_id`),
+  KEY `model` (`model`),
+  KEY `model_id` (`model_id`),
+  KEY `name` (`name`),
+  CONSTRAINT `nf_i18n_ibfk_1` FOREIGN KEY (`lang_id`) REFERENCES `nf_addon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nf_log_db`
+--
+
+DROP TABLE IF EXISTS `nf_log_db`;
+CREATE TABLE `nf_log_db` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `action` enum('0','1','2') NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `primaries` varchar(100) DEFAULT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nf_log_i18n`
+--
+
+DROP TABLE IF EXISTS `nf_log_i18n`;
+CREATE TABLE `nf_log_i18n` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `language` char(2) NOT NULL,
+  `key` char(32) NOT NULL,
+  `locale` text NOT NULL,
+  `file` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `language` (`language`,`key`,`file`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nf_news`
 --
 
@@ -1381,6 +1438,23 @@ CREATE TABLE `nf_teams_users` (
   CONSTRAINT `nf_teams_users_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_teams_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_teams_users_ibfk_3` FOREIGN KEY (`role_id`) REFERENCES `nf_teams_roles` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nf_tracking`
+--
+
+DROP TABLE IF EXISTS `nf_tracking`;
+CREATE TABLE `nf_tracking` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `model_id` int(10) unsigned DEFAULT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`model`,`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
