@@ -33,6 +33,13 @@
 				<?php endif; ?>
 			</td>
 		</tr>
+		<?php if (!empty($data['edit_by'])): ?>
+    		<tr>
+     			<td class="col-md-12" colspan="2">
+        			<?php echo $this->lang('edit_by').' '.$this->user->link($data['edit_by']).' '.strtolower(time_span($data['edit_date'])).'. '.($data['edit_reason'] ? $this->lang('simple_reason').': '.$data['edit_reason'] : ''); ?>
+        		</td>
+    		</tr>
+        	<?php endif; ?>
 	</tbody>
 </table>
 </div>
