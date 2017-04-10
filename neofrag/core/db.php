@@ -65,6 +65,11 @@ class Db extends Core
 				}
 				else
 				{
+					if (isset($config['init']) && is_a($config['init'], 'closure'))
+					{
+						call_user_func($config['init'], $connect);
+					}
+
 					$this->_connected = TRUE;
 					$this->debug->log('DB '.$config['hostname'].' '.$config['database'].' ('.$config['driver'].')');
 				}
