@@ -452,7 +452,7 @@ class m_forum_c_index extends Controller_Module
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
 	}
 	
-	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $locked)
+	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $edit_reason, $locked)
 	{
 		$this	->title($this->lang($is_topic ? 'edit_topic' : 'edit_message'))
 				->_breadcrumb($category_id, $forum_id)
@@ -467,7 +467,9 @@ class m_forum_c_index extends Controller_Module
 					'message' => [
 						'type'  => 'editor',
 						'rules' => 'required'
-					]
+					],
+         				'edit_reason' => [
+          				]
 				]);
 		
 		if ($is_topic)
@@ -491,7 +493,10 @@ class m_forum_c_index extends Controller_Module
 			
 			$this->db	->where('message_id', $message_id)
 						->update('nf_forum_messages', [
-							'message' => $post['message']
+							'message' => $post['message'],
+							'edit_by' => $this->user('user_id'),
+              						'edit_reason' => $post['edit_reason'],
+              						'edit_date' => now()
 						]);
 
 			//notify('success', $this->lang('edit_message_success'));
@@ -519,6 +524,7 @@ class m_forum_c_index extends Controller_Module
 								'is_topic' => $is_topic,
 								'title'    => $title,
 								'message'  => $message,
+								'edit_reason' => $edit_reason,
 								'user_id'  => $user_id
 							]), FALSE);
 		
