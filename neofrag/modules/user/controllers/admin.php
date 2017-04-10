@@ -266,10 +266,7 @@ class m_user_c_admin extends Controller_Module
 			
 			if ($post['password_new'])
 			{
-				$this->model()->update_password($post['password_new']);
-				$this->db	->where('user_id', $this->user('user_id'))
-							->where('session_id <>', $this->session->get_session_id())
-							->delete('nf_sessions');
+				$this->model()->update_password_admin($post['password_new'], $post['username']);
 			}
 			
 			notify('Membre édité');
