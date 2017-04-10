@@ -65,6 +65,28 @@ if (!NeoFrag()->url->admin)
 	]);
 }
 
+if (NeoFrag()->url->admin)
+{
+	$rules = array_merge($rules, [
+		'password_new' => [
+			'label' => '{lang new_password}',
+			'icon'  => 'fa-lock',
+			'type'  => 'password'
+		],
+		'password_confirm' => [
+			'label' => '{lang password_confirmation}',
+			'icon'  => 'fa-lock',
+			'type'  => 'password',
+			'check' => function($value, $post){
+				if ($post['password_new'] != $value)
+				{
+					return '{password_not_match}';
+				}
+			}
+		]
+	]);
+}
+
 $rules = array_merge($rules, [
 	'email' => [
 		'label' => '{lang email}',
