@@ -40,7 +40,7 @@
         		<?php echo $this->lang('edit_by').' '.$this->user->link($message['edit_by']).' '.strtolower(time_span($message['edit_date'])).'. '.($message['edit_reason'] ? $this->lang('simple_reason').': '.$message['edit_reason'] : ''); ?>
         		</td>
     		</tr>
-        <?php endif; ?>
+        	<?php endif; ?>
 		<?php endforeach; ?>
 	</tbody>
 	</table>
