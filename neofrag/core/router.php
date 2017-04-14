@@ -35,7 +35,7 @@ class Router extends Core
 			{
 				$this->url->admin = FALSE;
 
-				if ($this->user())
+				if ($this->user->id)
 				{
 					$segments = ['error', 'unauthorized'];
 				}
@@ -177,7 +177,7 @@ class Router extends Core
 	{
 		if ($error == NeoFrag::UNAUTHORIZED)
 		{
-			if ($this->user())
+			if ($this->user->id)
 			{
 				$this->_load(['error', 'unauthorized']);
 			}

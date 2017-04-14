@@ -1,6 +1,6 @@
 <div class="media popover-user">
 	<div class="media-left">
-		<?php echo $this->user->avatar($avatar, $sex, $user_id, $username) ?>
+		<?php echo $this->model2('user', $user_id)->avatar() ?>
 	</div>
 	<div class="media-body">
 		<h4 class="media-heading"><?php echo $first_name.' '.$last_name ?> <b><?php echo $username ?></b></h4>

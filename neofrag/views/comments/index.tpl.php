@@ -1,17 +1,17 @@
 <div id="comment-<?php echo $id ?>" class="media<?php if ($parent_id !== NULL) echo ' comments-child' ?>">
 	<div class="media-left">
-		<?php echo $this->user->avatar($avatar, $sex, $user_id, $username) ?>
+		<?php echo $this->model2('user', $user_id)->avatar() ?>
 	</div>
 	<div class="media-body">
 		<?php
 			$actions = [];
 
-			if ($this->user() && $parent_id == NULL)
+			if ($this->user->id && $parent_id == NULL)
 			{
 				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$id.'">'.icon('fa-mail-reply').' '.$this->lang('reply').'</a>';
 			}
 
-			if ($this->user('admin') || ($this->user() && $this->user('user_id') == $user_id))
+			if ($this->user->admin || ($this->user->id && $this->user->id == $user_id))
 			{
 				$actions[] = $this->button_delete('ajax/comments/delete/'.$id);
 			}

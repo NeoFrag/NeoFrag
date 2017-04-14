@@ -1,6 +1,6 @@
 <ul class="list-unstyled text-center">
 	<li>
-		<?php echo $this->user->avatar($avatar, $sex) ?>
+		<?php echo $this->user->avatar() ?>
 	</li>
 	<li>
 		<h4 class="no-margin"><b><?php echo $this->user->link($user_id, $username) ?></b></h4>

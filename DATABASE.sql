@@ -131,7 +131,7 @@ CREATE TABLE `nf_comment` (
   KEY `user_id` (`user_id`),
   KEY `module` (`module`),
   CONSTRAINT `nf_comment_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `nf_comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_comment_ibfk_3` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -207,7 +207,7 @@ CREATE TABLE `nf_events` (
   KEY `type_id` (`type_id`) USING BTREE,
   KEY `image_id` (`image_id`),
   CONSTRAINT `nf_events_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `nf_events_types` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_events_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_events_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_events_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -286,7 +286,7 @@ CREATE TABLE `nf_events_participants` (
   PRIMARY KEY (`event_id`,`user_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_events_participants_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `nf_events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_events_participants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_events_participants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -333,7 +333,7 @@ CREATE TABLE `nf_file` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `path` (`path`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_file_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_file_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
@@ -412,7 +412,7 @@ CREATE TABLE `nf_forum_messages` (
   KEY `topic_id` (`topic_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_forum_messages_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `nf_forum_topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_forum_messages_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_forum_messages_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -441,7 +441,7 @@ CREATE TABLE `nf_forum_read` (
   `forum_id` int(11) unsigned NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`,`forum_id`),
-  CONSTRAINT `nf_forum_read_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_forum_read_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -483,7 +483,7 @@ CREATE TABLE `nf_forum_topics_read` (
   PRIMARY KEY (`topic_id`,`user_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_forum_topics_read_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `nf_forum_topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_forum_topics_read_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_forum_topics_read_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -499,7 +499,7 @@ CREATE TABLE `nf_forum_track` (
   PRIMARY KEY (`topic_id`,`user_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_forum_track_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `nf_forum_topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_forum_track_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_forum_track_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -748,7 +748,7 @@ CREATE TABLE `nf_news` (
   KEY `category_id` (`category_id`),
   KEY `user_id` (`user_id`),
   KEY `image_id` (`image_id`),
-  CONSTRAINT `nf_news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_news_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `nf_news_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `nf_news_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -956,7 +956,7 @@ CREATE TABLE `nf_recruits` (
   KEY `team_id` (`team_id`),
   CONSTRAINT `nf_recruits_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `nf_recruits_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-  CONSTRAINT `nf_recruits_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_recruits_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -983,7 +983,7 @@ CREATE TABLE `nf_recruits_candidacies` (
   KEY `recruit_id` (`recruit_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_recruits_candidacies_ibfk_1` FOREIGN KEY (`recruit_id`) REFERENCES `nf_recruits` (`recruit_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_recruits_candidacies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_recruits_candidacies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1003,7 +1003,7 @@ CREATE TABLE `nf_recruits_candidacies_votes` (
   KEY `candidacy_id` (`candidacy_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_recruits_candidacies_votes_ibfk_1` FOREIGN KEY (`candidacy_id`) REFERENCES `nf_recruits_candidacies` (`candidacy_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_recruits_candidacies_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_recruits_candidacies_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1037,7 +1037,7 @@ CREATE TABLE `nf_sessions` (
   `remember_me` enum('0','1') NOT NULL DEFAULT '0',
   UNIQUE KEY `session_id` (`session_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1060,7 +1060,7 @@ CREATE TABLE `nf_sessions_history` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `nf_sessions_history_ibfk_2` (`session_id`),
-  CONSTRAINT `nf_sessions_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_sessions_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_sessions_history_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_sessions` (`session_id`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -1431,19 +1431,19 @@ CREATE TABLE `nf_teams_users` (
   KEY `user_id` (`user_id`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `nf_teams_users_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_teams_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_teams_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_teams_users_ibfk_3` FOREIGN KEY (`role_id`) REFERENCES `nf_teams_roles` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_users`
+-- Table structure for table `nf_user`
 --
 
-DROP TABLE IF EXISTS `nf_users`;
-CREATE TABLE `nf_users` (
-  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `nf_user`;
+CREATE TABLE `nf_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` varchar(34) NOT NULL,
   `salt` varchar(32) NOT NULL,
@@ -1453,20 +1453,44 @@ CREATE TABLE `nf_users` (
   `admin` enum('0','1') NOT NULL DEFAULT '0',
   `language` varchar(5) DEFAULT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `language` (`language`),
   KEY `deleted` (`deleted`),
-  CONSTRAINT `nf_users_ibfk_1` FOREIGN KEY (`language`) REFERENCES `nf_settings_languages` (`code`) ON DELETE SET NULL ON UPDATE SET NULL
+  CONSTRAINT `nf_user_ibfk_1` FOREIGN KEY (`language`) REFERENCES `nf_settings_languages` (`code`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `nf_users`
+-- Dumping data for table `nf_user`
 --
 
-INSERT INTO `nf_users` (`user_id`, `username`, `password`, `salt`, `email`, `registration_date`, `last_activity_date`, `admin`, `language`, `deleted`) VALUES
+INSERT INTO `nf_user` (`id`, `username`, `password`, `salt`, `email`, `registration_date`, `last_activity_date`, `admin`, `language`, `deleted`) VALUES
 (1, 'admin', '$H$92EwygSmbdXunbIvoo/V91MWcnHqzX/', '', 'noreply@neofrag.com', CURRENT_TIMESTAMP, NULL, '1', NULL, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nf_user_profile`
+--
+
+DROP TABLE IF EXISTS `nf_user_profile`;
+CREATE TABLE `nf_user_profile` (
+  `user_id` int(11) unsigned NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `avatar` int(11) unsigned DEFAULT NULL,
+  `signature` text NOT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
+  `location` varchar(100) NOT NULL,
+  `quote` varchar(100) NOT NULL,
+  `website` varchar(100) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `avatar` (`avatar`),
+  CONSTRAINT `nf_user_profile_ibfk_2` FOREIGN KEY (`avatar`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `nf_user_profile_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1481,7 +1505,7 @@ CREATE TABLE `nf_users_auth` (
   `id` varchar(250) NOT NULL,
   PRIMARY KEY (`authenticator`,`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_users_auth_ibfk_2` FOREIGN KEY (`authenticator`) REFERENCES `nf_settings_authenticators` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1497,7 +1521,7 @@ CREATE TABLE `nf_users_groups` (
   `group_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`user_id`,`group_id`),
   KEY `group_id` (`group_id`),
-  CONSTRAINT `nf_users_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_users_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_users_groups_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `nf_groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1516,7 +1540,7 @@ CREATE TABLE `nf_users_keys` (
   PRIMARY KEY (`key_id`),
   KEY `user_id` (`user_id`),
   KEY `session_id` (`session_id`),
-  CONSTRAINT `nf_users_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_users_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_users_keys_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_sessions` (`session_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1553,7 +1577,7 @@ CREATE TABLE `nf_users_messages_recipients` (
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`message_id`),
   KEY `message_id` (`message_id`),
-  CONSTRAINT `nf_users_messages_recipients_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_users_messages_recipients_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_users_messages_recipients_ibfk_2` FOREIGN KEY (`message_id`) REFERENCES `nf_users_messages` (`message_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1574,31 +1598,7 @@ CREATE TABLE `nf_users_messages_replies` (
   KEY `message_id` (`message_id`,`user_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_users_messages_replies_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `nf_users_messages` (`message_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_users_messages_replies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nf_users_profiles`
---
-
-DROP TABLE IF EXISTS `nf_users_profiles`;
-CREATE TABLE `nf_users_profiles` (
-  `user_id` int(11) unsigned NOT NULL,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `avatar` int(11) unsigned DEFAULT NULL,
-  `signature` text NOT NULL,
-  `date_of_birth` date DEFAULT NULL,
-  `sex` enum('male','female') DEFAULT NULL,
-  `location` varchar(100) NOT NULL,
-  `quote` varchar(100) NOT NULL,
-  `website` varchar(100) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `avatar` (`avatar`),
-  CONSTRAINT `nf_users_profiles_ibfk_2` FOREIGN KEY (`avatar`) REFERENCES `nf_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `nf_users_profiles_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_users_messages_replies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1617,7 +1617,7 @@ CREATE TABLE `nf_votes` (
   KEY `module` (`module`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `nf_votes_ibfk_1` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

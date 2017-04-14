@@ -16,7 +16,7 @@ class Groups extends Core
 	{
 		parent::__construct();
 
-		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
+		$users = $this->db->select('id', 'admin')->from('nf_user')->where('deleted', FALSE)->get();
 
 		$this->_groups = [
 			'admins' => [
@@ -25,7 +25,7 @@ class Groups extends Core
 				'color'  => 'danger',
 				'icon'   => 'fa-rocket',
 				'hidden' => FALSE,
-				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
+				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return $a['admin'];}))),
 				'auto'   => 'neofrag'
 			],
 			'members' => [
@@ -34,7 +34,7 @@ class Groups extends Core
 				'color'  => 'success',
 				'icon'   => 'fa-user',
 				'hidden' => FALSE,
-				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
+				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return !$a['admin'];}))),
 				'auto'   => 'neofrag'
 			],
 			'visitors' => [
@@ -48,11 +48,11 @@ class Groups extends Core
 			]
 		];
 
-		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
+		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.id) AS users', 'g.auto')
 							->from('nf_groups g')
 							->join('nf_groups_lang gl',  'gl.group_id = g.group_id')
 							->join('nf_users_groups ug', 'ug.group_id = g.group_id')
-							->join('nf_users u',         'ug.user_id  = u.user_id AND u.deleted = "0"')
+							->join('nf_user u',          'ug.user_id  = u.id AND u.deleted = "0"')
 							->where('gl.lang', $this->config->lang, 'OR')
 							->where('gl.lang', NULL)
 							->group_by('g.group_id')
@@ -179,7 +179,7 @@ class Groups extends Core
 
 		foreach ($this->_groups as $group_id => $group)
 		{
-			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user('admin') && $this->url->admin)))
+			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user->admin && $this->url->admin)))
 			{
 				$groups[] = $this->display($group_id, $label);
 			}

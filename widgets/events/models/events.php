@@ -37,11 +37,11 @@ class Events extends Model
 	{
 		$types = array_keys($this->model('types')->get_types());
 
-		$this->db	->select('e.event_id', 'e.title', 'e.type_id', 't.title as type_title', 't.type', 't.color', 't.icon', 'e.date', 'e.date_end', 'e.description', 'e.private_description', 'e.location', 'e.image_id', 'e.published', 'u.user_id', 'u.username', 'COUNT(mr.round_id) as nb_rounds', 'm.webtv', 'm.website')
+		$this->db	->select('e.event_id', 'e.title', 'e.type_id', 't.title as type_title', 't.type', 't.color', 't.icon', 'e.date', 'e.date_end', 'e.description', 'e.private_description', 'e.location', 'e.image_id', 'e.published', 'u.id as user_id', 'u.username', 'COUNT(mr.round_id) as nb_rounds', 'm.webtv', 'm.website')
 					->from('nf_events e')
 					->join('nf_events_types t',           'e.type_id = t.type_id')
 					->join('nf_events_participants p',    'e.event_id = p.event_id')
-					->join('nf_users u',                  'u.user_id = e.user_id')
+					->join('nf_user u',                   'u.id = e.user_id')
 					->join('nf_events_matches m',         'e.event_id = m.event_id')
 					->join('nf_events_matches_rounds mr', 'e.event_id = mr.event_id');
 
@@ -75,7 +75,7 @@ class Events extends Model
 		}
 		else
 		{
-			$this->db->where('t.type_id', $types, 'OR', 'p.user_id', $this->user('user_id'));
+			$this->db->where('t.type_id', $types, 'OR', 'p.user_id', $this->user->id);
 		}
 
 		if (!$this->url->admin)

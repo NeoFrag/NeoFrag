@@ -78,19 +78,19 @@ class Admin extends Theme
 								'title'  => $this->lang('configuration'),
 								'icon'   => 'fa-wrench',
 								'url'    => 'admin/settings',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							[
 								'title'  => $this->lang('maintenance'),
 								'icon'   => 'fa-power-off',
 								'url'    => 'admin/settings/maintenance',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							[
 								'title'  => $this->lang('addons'),
 								'icon'   => 'fa-puzzle-piece',
 								'url'    => 'admin/addons',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							]
 						]
 					],
@@ -102,13 +102,13 @@ class Admin extends Theme
 								'title'  => 'Membres / Groupes',
 								'icon'   => 'fa-users',
 								'url'    => 'admin/user',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							[
 								'title'  => $this->lang('sessions'),
 								'icon'   => 'fa-globe',
 								'url'    => 'admin/user/sessions',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							/*array(
 								'title' => 'Profil',
@@ -119,13 +119,13 @@ class Admin extends Theme
 								'title'  => $this->lang('permissions'),
 								'icon'   => 'fa-unlock-alt',
 								'url'    => 'admin/access',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							[
 								'title'  => $this->lang('ban'),
 								'icon'   => 'fa-bomb',
 								'url'    => 'admin/user/ban',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							]
 						]
 					],
@@ -147,13 +147,13 @@ class Admin extends Theme
 								'title'  => $this->lang('themes'),
 								'icon'   => 'fa-tint',
 								'url'    => 'admin/addons#themes',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							],
 							[
 								'title' => $this->lang('liveditor'),
 								'icon'  => 'fa-desktop',
 								'url'   => 'live-editor',
-								'access' => $this->user('admin')
+								'access' => $this->user->admin
 							]
 						]
 					],
@@ -161,19 +161,19 @@ class Admin extends Theme
 						'title'  => 'Monitoring'.$this->module('monitoring')->display(),
 						'icon'   => 'fa-heartbeat',
 						'url'    => 'admin/monitoring',
-						'access' => $this->user('admin')
+						'access' => $this->user->admin
 					],
 					[
 						'title'  => 'Statistiques',
 						'icon'   => 'fa-bar-chart',
 						'url'    => 'admin/statistics',
-						'access' => $this->user('admin')
+						'access' => $this->user->admin
 					],
 					[
 						'title'  => $this->lang('about'),
 						'icon'   => 'fa-info',
 						'url'    => 'admin/about',
-						'access' => $this->user('admin')
+						'access' => $this->user->admin
 					]
 				]);
 

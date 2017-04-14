@@ -137,7 +137,7 @@ class Checker extends Controller_Module
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
 		{
-			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $this->user() && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $this->user->id && $message['user_id'] == $this->user->id))
 			{
 				return $message;
 			}
@@ -161,7 +161,7 @@ class Checker extends Controller_Module
 
 		if ($message && $title == url_title($message['title']))
 		{
-			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user->id && $message['user_id'] == $this->user->id))
 			{
 				return [$message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']];
 			}
@@ -172,7 +172,7 @@ class Checker extends Controller_Module
 
 	public function mark_all_as_read()
 	{
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			$this->error->unauthorized();
 		}
@@ -184,7 +184,7 @@ class Checker extends Controller_Module
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && $forum['url'] === NULL)
 		{
-			if ($this->user() && $this->access('forum', 'category_read', $forum['category_id']))
+			if ($this->user->id && $this->access('forum', 'category_read', $forum['category_id']))
 			{
 				return [$forum_id, $title];
 			}

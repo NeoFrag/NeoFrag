@@ -1,11 +1,7 @@
 <?php foreach ($news as $news): ?>
 <div class="media">
 	<div class="media-left">
-	<?php if ($news['user_id']): ?>
-		<?php echo $this->user->avatar($news['avatar'], $news['sex'], $news['user_id'], $news['username']) ?>
-	<?php else: ?>
-		<?php echo $this->user->avatar(NULL) ?>
-	<?php endif ?>
+		<?php echo $this->model2('user', $news['user_id'])->avatar() ?>
 	</div>
 	<div class="media-body">
 		<h4 class="media-heading"><a href="<?php echo url('news/'.$news['news_id'].'/'.url_title($news['title'])) ?>"><?php echo $news['title'] ?></a></h4>

@@ -12,7 +12,7 @@ class Index extends Controller_Module
 {
 	public function index()
 	{
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			return $this->login();
 		}
@@ -43,17 +43,17 @@ class Index extends Controller_Module
 
 		$this->form
 			->add_rules('user', [
-				'username'      => $this->user('username'),
-				'email'         => $this->user('email'),
-				'first_name'    => $this->user('first_name'),
-				'last_name'     => $this->user('last_name'),
-				'avatar'        => $this->user('avatar'),
-				'signature'     => $this->user('signature'),
-				'date_of_birth' => $this->user('date_of_birth'),
-				'sex'           => $this->user('sex'),
-				'location'      => $this->user('location'),
-				'website'       => $this->user('website'),
-				'quote'         => $this->user('quote')
+				'username'      => $this->user->username,
+				'email'         => $this->user->email,
+				'first_name'    => $this->user->profile()->first_name,
+				'last_name'     => $this->user->profile()->last_name,
+				'avatar'        => $this->user->profile()->avatar->id,
+				'signature'     => $this->user->profile()->signature,
+				'date_of_birth' => $this->user->profile()->date_of_birth,
+				'sex'           => $this->user->profile()->sex,
+				'location'      => $this->user->profile()->location,
+				'website'       => $this->user->profile()->website,
+				'quote'         => $this->user->profile()->quote
 			])
 			->add_submit($this->lang('save'))
 			->add_back('user');
@@ -76,12 +76,12 @@ class Index extends Controller_Module
 			{
 				$this->model()->update_password($post['password_new']);
 
-				$this->db	->where('user_id', $this->user('user_id'))
+				$this->db	->where('user_id', $this->user->id)
 							->where('session_id <>', $this->session->get_session_id())
 							->delete('nf_sessions');
 			}
 
-			redirect_back('user/'.$this->user('user_id').'/'.url_title($this->user('username')));
+			redirect_back('user/'.$this->user->id.'/'.url_title($this->user->username));
 		}
 
 		return [
@@ -283,7 +283,7 @@ class Index extends Controller_Module
 						$data['avatar'] = 0;
 					}
 
-					while ($data['username'] && $this->db->select('1')->from('nf_users')->where('username', $data['username'])->row())
+					while ($data['username'] && $this->db->select('1')->from('nf_user')->where('username', $data['username'])->row())
 					{
 						$data['username'] = 'guest'.time();
 					}
@@ -293,7 +293,7 @@ class Index extends Controller_Module
 						$data['language'] = '';
 					}
 
-					if ($data['email'] && (!is_valid_email($data['email']) || $this->db->select('1')->from('nf_users')->where('email', $data['email'])->row()))
+					if ($data['email'] && (!is_valid_email($data['email']) || $this->db->select('1')->from('nf_user')->where('email', $data['email'])->row()))
 					{
 						$data['email'] = '';
 					}
@@ -303,7 +303,7 @@ class Index extends Controller_Module
 						$data['website'] = '';
 					}
 
-					$user_id = $this->db->insert('nf_users', [
+					$user_id = $this->db->insert('nf_user', [
 						'username' => utf8_htmlentities($data['username']) ?: NULL,
 						'password' => '',
 						'salt'     => '',
@@ -324,7 +324,7 @@ class Index extends Controller_Module
 
 					if ($data['first_name'] || $data['last_name'] || $data['avatar'] || $data['signature'] || $data['date_of_birth'] || $data['sex'] ||  $data['location'] ||  $data['website'])
 					{
-						$this->db->insert('nf_users_profiles', [
+						$this->db->insert('nf_user_profile', [
 							'user_id'       => $user_id,
 							'first_name'    => utf8_htmlentities($data['first_name']) ?: '',
 							'last_name'     => utf8_htmlentities($data['last_name'])  ?: '',
@@ -389,7 +389,7 @@ class Index extends Controller_Module
 				'icon'  => 'fa-user',
 				'rules' => 'required',
 				'check' => function($value){
-					if (NeoFrag()->db->select('1')->from('nf_users')->where('username', $value)->row())
+					if (NeoFrag()->db->select('1')->from('nf_user')->where('username', $value)->row())
 					{
 						return $this->lang('username_unavailable');
 					}
@@ -418,7 +418,7 @@ class Index extends Controller_Module
 				'type'  => 'email',
 				'rules' => 'required',
 				'check' => function($value){
-					if (NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
+					if (NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
 					{
 						return $this->lang('email_unavailable');
 					}
@@ -477,8 +477,8 @@ class Index extends Controller_Module
 			{
 				if (!$salt)
 				{
-					$this->db	->where('user_id', $user_id)
-								->update('nf_users', [
+					$this->db	->where('id', $user_id)
+								->update('nf_user', [
 									'password' => $this->password->encrypt($password.($salt = unique_id())),
 									'salt'     => $salt
 								]);
@@ -509,7 +509,7 @@ class Index extends Controller_Module
 		}
 		else if ($form_registration->is_valid($post) && $this->config->nf_registration_status == 0)
 		{
-			$user_id = $this->db->insert('nf_users', [
+			$user_id = $this->db->insert('nf_user', [
 				'username' => $post['username'],
 				'password' => $this->password->encrypt($post['password'].($salt = unique_id())),
 				'salt'     => $salt,
@@ -568,7 +568,7 @@ class Index extends Controller_Module
 						'type'  => 'email',
 						'rules' => 'required',
 						'check' => function($value){
-							if (!NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
+							if (!NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
 							{
 								return $this->lang('email_not_found');
 							}
@@ -588,7 +588,7 @@ class Index extends Controller_Module
 					'content' => function($data){
 						return '<a href="'.url('user/lost-password/'.$data['key']).'">'.$this->lang('password_reset').'</a>';
 					},
-					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
+					'key'     => $this->model()->add_key($this->db->select('id')->from('nf_user')->where('email', $post['email'])->row())
 				])
 				->send();
 
@@ -632,7 +632,7 @@ class Index extends Controller_Module
 		if ($this->form->is_valid($post))
 		{
 			$this->email
-				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
+				->to($this->db->select('email')->from('nf_user')->where('id', $user_id)->row())
 				->subject($this->lang('password_reset_confirmation_email'))
 				->message('default', [
 					'content' => $this->lang('password_reset_confirmation_message')
@@ -816,7 +816,7 @@ class Index extends Controller_Module
 
 		if ($this->form->is_valid())
 		{
-			$this->db	->where('user_id', $this->user('user_id'))
+			$this->db	->where('user_id', $this->user->id)
 						->where('message_id', $message_id)
 						->update('nf_users_messages_recipients', [
 							'date'    => now(),
@@ -847,7 +847,7 @@ class Index extends Controller_Module
 
 		return $this->panel()
 					->heading('Mon profil', 'fa-user')
-					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))))
+					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user->id)))
 					->size('col-md-4 col-lg-3');
 	}
 
@@ -855,18 +855,18 @@ class Index extends Controller_Module
 	{
 		if ($user_id === NULL)
 		{
-			$user_id = $this->user('user_id');
+			$user_id = $this->user->id;
 
 			$infos = [
-				'registration_date'  => $this->user('registration_date'),
-				'last_activity_date' => $this->user('last_activity_date')
+				'registration_date'  => $this->user->registration_date,
+				'last_activity_date' => $this->user->last_activity_date
 			];
 		}
 		else
 		{
 			$infos = $this->db	->select('registration_date', 'last_activity_date')
-								->from('nf_users')
-								->where('user_id', $user_id)
+								->from('nf_user')
+								->where('id', $user_id)
 								->where('deleted', FALSE)
 								->row();
 		}
@@ -884,7 +884,7 @@ class Index extends Controller_Module
 
 		if ($user_id === NULL)
 		{
-			$user_id = $this->user('user_id');
+			$user_id = $this->user->id;
 		}
 
 		$user_activity = [];
@@ -896,13 +896,13 @@ class Index extends Controller_Module
 				return $this->access('forum', 'category_read', $a);
 			});
 
-			$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
+			$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.id as user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
 										->from('nf_forum_messages m')
-										->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
-										->join('nf_forum          f',  't.forum_id = f.forum_id')
+										->join('nf_forum_topics   t',  'm.topic_id  = t.topic_id')
+										->join('nf_forum          f',  't.forum_id  = f.forum_id')
 										->join('nf_forum          f2', 'f.parent_id = f2.forum_id AND f.is_subforum = "1"')
-										->join('nf_users          u',  'm.user_id = u.user_id AND u.deleted = "0"')
-										->join('nf_users_profiles up', 'u.user_id = up.user_id')
+										->join('nf_user           u',  'm.user_id   = u.id AND u.deleted = "0"')
+										->join('nf_user_profile   up', 'u.id        = up.user_id')
 										->where('m.user_id', $user_id)
 										->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
 										->order_by('m.date DESC')

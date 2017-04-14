@@ -14,4 +14,4 @@ $lang['lost_password']    = 'Mot de passe perdu ?';
 $lang['member_area_mini'] = 'Espace membre (mini)';
 $lang['pm_compose']       = 'Rédiger';
 $lang['pm_inbox']         = 'Boîte de réception';
-$lang['welcome']          = 'Bienvenue <a href="'.url('user').'">'.$this->user('username').'</a>';
+$lang['welcome']          = 'Bienvenue <a href="'.url('user').'">'.$this->user->username.'</a>';

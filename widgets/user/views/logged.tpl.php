@@ -12,7 +12,7 @@
 		<?php echo icon('fa-cogs') ?> <a href="<?php echo url('user/edit') ?>"><?php echo $this->lang('manage_my_account') ?></a>
 	</li>
 	<li class="list-group-item">
-		<?php echo icon('fa-eye') ?> <a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($username)) ?>"><?php echo $this->lang('view_my_profile') ?></a>
+		<?php echo icon('fa-eye') ?> <a href="<?php echo url('user/'.$this->user->id.'/'.url_title($username)) ?>"><?php echo $this->lang('view_my_profile') ?></a>
 	</li>
 	<li class="list-group-item">
 		<?php if ($messages = $this->user->get_messages()): ?><span class="label label-danger pull-right"><?php echo $messages ?></span><?php endif ?>

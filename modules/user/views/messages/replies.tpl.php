@@ -2,7 +2,7 @@
 <?php if ($i) echo '<hr />' ?>
 <div class="media message">
 	<div class="media-left">
-		<?php echo $this->user->avatar($reply['avatar'], $reply['sex'], $reply['user_id'], $reply['username']) ?>
+		<?php echo $this->model2('user', $reply['user_id'])->avatar() ?>
 	</div>
 	<div class="media-body">
 		<small class="pull-right text-muted"><?php echo time_span($reply['date']) ?></small>

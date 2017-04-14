@@ -1,6 +1,6 @@
 <div class="media">
 	<div class="media-left">
-		<?php echo $this->user->avatar($avatar, $sex, $user_id, $username) ?>
+		<?php echo $this->model2('user', $user_id)->avatar() ?>
 	</div>
 	<div class="media-body">
 		<div><?php echo $this->user->link($user_id, $username) ?></div>

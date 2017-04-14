@@ -14,4 +14,4 @@ $lang['lost_password']    = 'Lost password?';
 $lang['member_area_mini'] = 'Space (mini) Member';
 $lang['pm_compose']       = 'Write';
 $lang['pm_inbox']         = 'Inbox';
-$lang['welcome']          = 'Welcome <a href="'.url('user').'">'.$this->user('username').'</a>';
+$lang['welcome']          = 'Welcome <a href="'.url('user').'">'.$this->user->username.'</a>';

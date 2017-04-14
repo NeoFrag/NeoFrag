@@ -12,14 +12,14 @@ class Index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		if ($this->user())
+		if ($this->user->id)
 		{
 			$this->css('user');
 
 			return $this->panel()
 						->heading($this->lang('member_area'))
 						->body($this->view('logged', [
-							'username' => $this->user('username')
+							'username' => $this->user->username
 						]), FALSE)
 						->footer('<a href="'.url('user/logout').'">'.icon('fa-close').' '.$this->lang('logout').'</a>');
 		}
@@ -51,10 +51,10 @@ class Index extends Controller_Widget
 								->from('nf_users_messages_recipients mr')
 								->join('nf_users_messages_replies r', 'r.message_id = mr.message_id')
 								->join('nf_users_messages m', 'm.message_id = mr.message_id')
-								->join('nf_users u', 'u.user_id = m.user_id')
-								->join('nf_users_profiles up', 'up.user_id = u.user_id')
-								->where('r.user_id <>', $this->user('user_id'))
-								->where('mr.user_id', $this->user('user_id'))
+								->join('nf_user u', 'u.id = m.user_id')
+								->join('nf_user_profile up', 'up.user_id = u.id')
+								->where('r.user_id <>', $this->user->id)
+								->where('mr.user_id', $this->user->id)
 								->where('IFNULL(r.read, mr.read)', FALSE)
 								->get();
 

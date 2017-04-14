@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav <?php echo !empty($align) ? $align : 'navbar-right' ?>">
-	<?php if ($this->user()): ?>
+	<?php if ($this->user->id): ?>
 		<li><p class="navbar-text"><?php echo $this->lang('welcome') ?></p></li>
 		<li data-toggle="tooltip" title="Gérer mon compte"><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs') ?></a></li>
 		<li data-toggle="tooltip" title="Messagerie">

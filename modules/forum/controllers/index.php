@@ -27,7 +27,7 @@ class Index extends Controller_Module
 								->color('info');
 		}
 
-		if ($this->user())
+		if ($this->user->id)
 		{
 			$actions = $this->panel()
 							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
@@ -84,7 +84,7 @@ class Index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-primary" href="'.url('forum/new/'.$forum_id.'/'.url_title($title)).'">'.$this->lang('new_topic').'</a>';
 		}
 
-		if ($this->user())
+		if ($this->user->id)
 		{
 			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>';
 		}
@@ -172,14 +172,14 @@ class Index extends Controller_Module
 
 		$is_last_page = $nb_messages <= $this->pagination->get_items_per_page() || $this->pagination->get_page() == ceil($nb_messages / $this->pagination->get_items_per_page());
 
-		if ($this->user())
+		if ($this->user->id)
 		{
 			$last_message_date = $messages ? end($messages)['date'] : $topic['date'];
-			$last_message_read = $this->db->select('UNIX_TIMESTAMP(date)')->from('nf_forum_topics_read')->where('user_id', $this->user('user_id'))->where('topic_id', $topic_id)->row();
+			$last_message_read = $this->db->select('UNIX_TIMESTAMP(date)')->from('nf_forum_topics_read')->where('user_id', $this->user->id)->where('topic_id', $topic_id)->row();
 
 			$forum_read = $this->db	->select('MAX(UNIX_TIMESTAMP(date))')
 									->from('nf_forum_read')
-									->where('user_id', $this->user('user_id'))
+									->where('user_id', $this->user->id)
 									->where('forum_id', [0, $forum_id])
 									->row();
 
@@ -195,11 +195,11 @@ class Index extends Controller_Module
 			if (empty($last_message_read) || $last_message_read < $last_message_date)
 			{
 				$this->db	->where('topic_id', $topic_id)
-							->where('user_id', $this->user('user_id'))
+							->where('user_id', $this->user->id)
 							->delete('nf_forum_topics_read');
 
 				$this->db->insert('nf_forum_topics_read', [
-					'user_id'  => $this->user('user_id'),
+					'user_id'  => $this->user->id,
 					'topic_id' => $topic_id,
 					'date'     => date('Y-m-d H:i:s', $last_message_date)
 				]);
@@ -233,7 +233,7 @@ class Index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this->lang('reply').'</a>';
 		}
 
-		if (($this->user() && $topic['user_id'] == $this->user('user_id')) || $this->access('forum', 'category_delete', $category_id))
+		if (($this->user->id && $topic['user_id'] == $this->user->id) || $this->access('forum', 'category_delete', $category_id))
 		{
 			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('remove_topic').'">'.icon('fa-close').'</a>';
 		}

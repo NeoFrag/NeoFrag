@@ -1,4 +1,4 @@
-<?php if ($this->user()): ?>
+<?php if ($this->user->id): ?>
 <div class="media">
 	<div class="media-left">
 		<?php echo $this->user->avatar() ?>

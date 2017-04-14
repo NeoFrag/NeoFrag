@@ -9,7 +9,7 @@
 				<?php foreach ($users as $user): ?>
 				<div class="media">
 					<div class="media-left">
-						<?php echo $this->user->avatar($user['avatar'], $user['sex'], $user['user_id'], $user['username']) ?>
+						<?php echo $this->model2('user', $user['user_id'])->avatar() ?>
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading"><?php echo $this->user->link($user['user_id'], $user['username']) ?></h4>

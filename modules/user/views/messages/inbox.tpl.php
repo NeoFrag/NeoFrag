@@ -5,7 +5,7 @@
 			<td class="col-md-10">
 				<div class="media message">
 					<div class="media-left">
-						<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']) ?>
+						<?php echo $this->model2('user', $message['user_id'])->avatar() ?>
 					</div>
 					<div class="media-body">
 						<small class="pull-right text-muted"><?php echo time_span($message['date']) ?></small>

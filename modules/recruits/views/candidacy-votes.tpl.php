@@ -15,7 +15,7 @@
 	<div class="well">
 		<div class="media">
 			<div class="media-left">
-				<?php echo $this->user->avatar($vote['avatar'], $vote['sex']) ?>
+				<?php echo $this->user->avatar() ?>
 			</div>
 			<div class="media-body">
 				<div class="pull-right">
