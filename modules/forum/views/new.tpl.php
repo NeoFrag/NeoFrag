@@ -8,7 +8,7 @@
 			<?php endif ?>
 			<tr>
 				<td class="col-md-3 col-sm-2 hidden-xs">
-					<?php echo $this->output->module()->get_profile(!empty($user_id) ? $user_id : $this->user('user_id')) ?>
+					<?php echo $this->output->module()->get_profile(!empty($user_id) ? $user_id : $this->user->id) ?>
 				</td>
 				<td class="text-left col-md-9 col-sm-10">
 					<div class="form-group">

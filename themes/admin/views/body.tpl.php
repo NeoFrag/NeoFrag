@@ -22,10 +22,10 @@
 				<li class="sidebar-user">
 					<div class="row">
 						<div class="col-md-3 col-xs-12">
-							<?php echo $this->user->avatar($this->user('avatar'), $this->user('sex')) ?>
+							<?php echo $this->user->avatar() ?>
 						</div>
 						<div class="col-md-9 col-xs-12">
-							<span class="user-name"><b><?php echo $this->user('username') ?></b></span>
+							<span class="user-name"><b><?php echo $this->user->username ?></b></span>
 						</div>
 						<div class="col-md-9 col-xs-12">
 							<div class="btn-group">
@@ -35,7 +35,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo url('user') ?>"><?php echo icon('fa-user').$this->lang('Mon espace') ?></a></li>
 									<li><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs').$this->lang('Gérer mon compte') ?></a></li>
-									<li><a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($this->user('username'))) ?>"><?php echo icon('fa-eye').$this->lang('Voir mon profil') ?></a></li>
+									<li><a href="<?php echo url('user/'.$this->user->id.'/'.url_title($this->user->username)) ?>"><?php echo icon('fa-eye').$this->lang('Voir mon profil') ?></a></li>
 								</ul>
 							</div>
 							<!--<div class="btn-group">

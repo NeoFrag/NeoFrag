@@ -175,11 +175,11 @@ class Index extends Controller_Module
 		if ($this->user())
 		{
 			$last_message_date = $messages ? end($messages)['date'] : $topic['date'];
-			$last_message_read = $this->db->select('UNIX_TIMESTAMP(date)')->from('nf_forum_topics_read')->where('user_id', $this->user('user_id'))->where('topic_id', $topic_id)->row();
+			$last_message_read = $this->db->select('UNIX_TIMESTAMP(date)')->from('nf_forum_topics_read')->where('user_id', $this->user->id)->where('topic_id', $topic_id)->row();
 
 			$forum_read = $this->db	->select('MAX(UNIX_TIMESTAMP(date))')
 									->from('nf_forum_read')
-									->where('user_id', $this->user('user_id'))
+									->where('user_id', $this->user->id)
 									->where('forum_id', [0, $forum_id])
 									->row();
 
@@ -195,11 +195,11 @@ class Index extends Controller_Module
 			if (empty($last_message_read) || $last_message_read < $last_message_date)
 			{
 				$this->db	->where('topic_id', $topic_id)
-							->where('user_id', $this->user('user_id'))
+							->where('user_id', $this->user->id)
 							->delete('nf_forum_topics_read');
 
 				$this->db->insert('nf_forum_topics_read', [
-					'user_id'  => $this->user('user_id'),
+					'user_id'  => $this->user->id,
 					'topic_id' => $topic_id,
 					'date'     => date('Y-m-d H:i:s', $last_message_date)
 				]);
@@ -233,7 +233,7 @@ class Index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-primary" href="'.$page.'#reply">'.$this->lang('Répondre').'</a>';
 		}
 
-		if (($this->user() && $topic['user_id'] == $this->user('user_id')) || $this->access('forum', 'category_delete', $category_id))
+		if (($this->user() && $topic['user_id'] == $this->user->id) || $this->access('forum', 'category_delete', $category_id))
 		{
 			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fa-close').'</a>';
 		}

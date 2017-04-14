@@ -24,11 +24,11 @@ class Participants extends Model
 
 	public function get_participants($event_id)
 	{
-		return $this->db->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'ep.status')
+		return $this->db->select('u.id as user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'ep.status')
 						->from('nf_events_participants ep')
-						->join('nf_users               u',  'ep.user_id = u.user_id AND u.deleted = "0"', 'INNER')
-						->join('nf_users_profiles      up', 'u.user_id  = up.user_id')
-						->join('nf_session            s',  'u.user_id       = s.user_id')
+						->join('nf_user                u',  'ep.user_id = u.id AND u.deleted = "0"', 'INNER')
+						->join('nf_user_profile        up', 'u.id       = up.user_id')
+						->join('nf_session             s',  'u.id       = s.user_id')
 						->where('ep.event_id', $event_id)
 						->group_by('u.username')
 						->order_by('ep.status', 'u.username')
@@ -86,7 +86,7 @@ class Participants extends Model
 			]);
 		}
 
-		if ($this->config->events_alert_mp && ($users = array_diff($users, [$this->user('user_id')])))
+		if ($this->config->events_alert_mp && ($users = array_diff($users, [$this->user->id])))
 		{
 			$message_id = $this->db	->ignore_foreign_keys()
 									->insert('nf_users_messages', [
@@ -95,7 +95,7 @@ class Participants extends Model
 
 			$reply_id = $this->db	->insert('nf_users_messages_replies', [
 										'message_id' => $message_id,
-										'user_id'    => $this->user('user_id'),
+										'user_id'    => $this->user->id,
 										'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Vous êtes invité à participer à l\'événement <b>'.$title.'</b>.<br /><br />Pour indiquer votre disponibilité, <a href="'.url('events/'.$event_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
 									]);
 

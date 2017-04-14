@@ -88,7 +88,7 @@
 <?php
 if (!empty($show_details) && $list_participants && $private_description):
 	foreach ($list_participants as $participant):
-		if ($this->user('admin') || ($participant['user_id'] == $this->user('user_id'))): ?>
+		if ($this->user->admin || ($participant['user_id'] == $this->user->id)): ?>
 			<div class="panel-body">
 				<?php echo bbcode($private_description) ?>
 			</div>
@@ -119,7 +119,7 @@ endif;
 		<?php
 		if (!empty($show_details) && $list_participants && $location):
 			foreach ($list_participants as $participant):
-				if ($this->user('admin') || ($participant['user_id'] == $this->user('user_id'))): ?>
+				if ($this->user->admin || ($participant['user_id'] == $this->user->id)): ?>
 					<div style="padding-top: 5px;"><?php if (($location = explode("\n", $location))) echo '<li>'.$this->label(current($location), 'fa-map-marker')->popover_if(count($location) > 1, bbcode($location)).'</li>' ?></div>
 					<?php
 					break;

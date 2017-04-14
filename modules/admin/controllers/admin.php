@@ -25,7 +25,7 @@ class Admin extends Controller_Module
 				],
 				[
 					'content' => function($data){
-						return NeoFrag()->user->link($data['user_id'], $data['username']);
+						return NeoFrag()->user->link($data['id'], $data['username']);
 					}
 				],
 				[
@@ -35,7 +35,7 @@ class Admin extends Controller_Module
 					'class'   => 'text-right'
 				]
 			])
-			->data($this->db->from('nf_users')->where('deleted', FALSE)->order_by('user_id DESC')->limit(5)->get())
+			->data($this->db->from('nf_user')->where('deleted', FALSE)->order_by('id DESC')->limit(5)->get())
 			->display();
 
 		return $this->array(
@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Membre|Membres', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
+							->heading($this->lang('Membre|Membres', $count = $this->db->select('COUNT(*)')->from('nf_user')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
 							->body($count)
 							->color('bg-green')
 							->size('col-4 col-lg-2')

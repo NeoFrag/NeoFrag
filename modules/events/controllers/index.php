@@ -104,37 +104,37 @@ class Index extends Controller_Module
 
 	public function _event($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type, $mode_id, $webtv, $website, $mode_title)
 	{
-		$table = $this	->title($title)
-						->breadcrumb($title)
-						->table()
-						->add_columns([
-							[
-								'content' => function($data){
-									return $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
-								},
-								'size'    => TRUE
-							],
-							[
-								'content' => function($data){
-									return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
-								}
-							],
-							[
-								'align'   => 'right',
-								'content' => function($data) use ($event_id, $title){
-									return $data['user_id'] == $this->user('user_id') ? $this->model('participants')->buttons_status($event_id, $title, $data['status']) : $this->model('participants')->label_status($data['status']);
-								}
-							]
-						])
-						->add_columns_if($this->user('admin'), [[
-								'content' => function($data) use ($event_id, $title){
-									return $this->button_delete('events/participant/delete/'.$event_id.'/'.url_title($title).'/'.$data['user_id']);
-								},
-								'size'    => TRUE
-							]
-						])
-						->data($this->model('participants')->get_participants($event_id))
-						->no_data('Aucun participant pour cet événement');
+		$this	->title($title)
+				->breadcrumb($title)
+				->table()
+				->add_columns([
+					[
+						'content' => function($data){
+							return NeoFrag()->model2('user', $data['user_id'])->avatar();
+						},
+						'size'    => TRUE
+					],
+					[
+						'content' => function($data){
+							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+						}
+					],
+					[
+						'align'   => 'right',
+						'content' => function($data) use ($event_id, $title){
+							return $data['user_id'] == $this->user->id ? $this->model('participants')->buttons_status($event_id, $title, $data['status']) : $this->model('participants')->label_status($data['status']);
+						}
+					]
+				])
+				->add_columns_if($this->user->admin, [[
+						'content' => function($data) use ($event_id, $title){
+							return $this->button_delete('events/participant/delete/'.$event_id.'/'.url_title($title).'/'.$data['user_id']);
+						},
+						'size'    => TRUE
+					]
+				])
+				->data($this->model('participants')->get_participants($event_id))
+				->no_data('Aucun participant pour cet événement');
 
 		$match = $type == 1 ? $this->model('matches')->get_match_info($event_id) : NULL;
 
@@ -145,7 +145,7 @@ class Index extends Controller_Module
 							->order_by('r.round_id')
 							->get();
 
-		if ($this->user('admin'))
+		if ($this->user->admin)
 		{
 			$this->js('participants');
 
@@ -156,11 +156,11 @@ class Index extends Controller_Module
 
 			$users = [];
 
-			foreach ($this->db->select('user_id', 'username')->from('nf_users')->where_if($participants, 'user_id NOT', $participants)->where('deleted', FALSE)->get() as $user)
+			foreach ($this->db->select('id', 'username')->from('nf_user')->where_if($participants, 'id NOT', $participants)->where('deleted', FALSE)->get() as $user)
 			{
-				if ($this->access('events', 'access_events_type', $type_id, NULL, $user['user_id']))
+				if ($this->access('events', 'access_events_type', $type_id, NULL, $user['id']))
 				{
-					$users[$user['user_id']] = $user['username'];
+					$users[$user['id']] = $user['username'];
 				}
 			}
 
@@ -228,7 +228,7 @@ class Index extends Controller_Module
 	public function _participant_add($event_id, $title, $status)
 	{
 		$this->db	->where('event_id', $event_id)
-					->where('user_id', $this->user('user_id'))
+					->where('user_id', $this->user->id)
 					->update('nf_events_participants', [
 						'status' => $status
 					]);

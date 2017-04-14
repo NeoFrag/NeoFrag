@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_members(), $page)];
+		return [$this->model2('user')->collection()->paginate($page)];
 	}
 
 	public function _group()
@@ -22,7 +22,7 @@ class Checker extends Module_Checker
 
 		if ($group = $this->groups->check_group($args))
 		{
-			return [$group['title'], $group['users'] ? $this->pagination->get_data($this->model()->get_members($group['users']), $page) : []];
+			return [$group['title'], $group['users'] ? $this->model2('user')->collection()->where('id', $group['users'])->paginate($page) : []];
 		}
 	}
 }

@@ -14,11 +14,11 @@ class Forum extends Model
 	{
 		$forums = $this->_get_forum();
 
-		return $this->db->select('m.message_id', 'm.topic_id', 'm.message', 'm.date', 't.title as topic_title', 'u.user_id', 'u.username', 'up.avatar', 'up.sex')
+		return $this->db->select('m.message_id', 'm.topic_id', 'm.message', 'm.date', 't.title as topic_title', 'u.id as user_id', 'u.username', 'up.avatar', 'up.sex')
 						->from('nf_forum_messages m')
 						->join('nf_forum_topics t',    'm.topic_id = t.topic_id')
-						->join('nf_users u',           'u.user_id  = m.user_id AND u.deleted = "0"')
-						->join('nf_users_profiles up', 'up.user_id = m.user_id')
+						->join('nf_user u',            'u.id       = m.user_id AND u.deleted = "0"')
+						->join('nf_user_profile up', 'up.user_id = m.user_id')
 						->where('t.forum_id', $forums)
 						->order_by('m.date DESC')
 						->limit(3)
@@ -29,11 +29,11 @@ class Forum extends Model
 	{
 		$forums = $this->_get_forum();
 
-		return $this->db->select('t.topic_id', 't.title', 'm.message_id', 'u.user_id', 'm.date', 'u.username', 'up.avatar', 'up.sex', 't.count_messages')
+		return $this->db->select('t.topic_id', 't.title', 'm.message_id', 'u.id as user_id', 'm.date', 'u.username', 'up.avatar', 'up.sex', 't.count_messages')
 						->from('nf_forum_messages m')
 						->join('nf_forum_topics t',    'm.topic_id = t.topic_id')
-						->join('nf_users u',           'u.user_id  = m.user_id AND u.deleted = "0"')
-						->join('nf_users_profiles up', 'up.user_id = m.user_id')
+						->join('nf_user u',            'u.id  = m.user_id AND u.deleted = "0"')
+						->join('nf_user_profile up', 'up.user_id = m.user_id')
 						->where('t.forum_id', $forums)
 						->group_by('t.topic_id')
 						->order_by('m.date DESC')

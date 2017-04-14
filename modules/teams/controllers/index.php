@@ -46,7 +46,7 @@ class Index extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return NeoFrag()->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
+									return NeoFrag()->model2('user', $data['user_id'])->avatar();
 								},
 								'size'    => TRUE
 							],

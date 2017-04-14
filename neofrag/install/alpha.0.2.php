@@ -292,5 +292,43 @@ class i_0_2 extends NeoFrag
 							])
 						]);
 		}
+
+		//User
+		$this->db	->execute('ALTER TABLE `nf_users` CHANGE `user_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
+					->execute('ALTER TABLE `nf_users` ADD `data` TEXT NOT NULL AFTER `language`')
+					->execute('RENAME TABLE `nf_users` TO `nf_user`')
+					->execute('RENAME TABLE `nf_users_profiles` TO `nf_user_profile`')
+					->execute('ALTER TABLE `nf_user_profile` ADD `cover` INT(11) UNSIGNED NULL DEFAULT NULL AFTER `avatar`')
+					->execute('ALTER TABLE `nf_user_profile` ADD `country` VARCHAR(100) NOT NULL AFTER `sex`')
+					->execute('ALTER TABLE `nf_user_profile` ADD `linkedin` VARCHAR(100) NOT NULL AFTER `website`, ADD `github` VARCHAR(100) NOT NULL AFTER `linkedin`, ADD `instagram` VARCHAR(100) NOT NULL AFTER `github`, ADD `twitch` VARCHAR(100) NOT NULL AFTER `instagram`');
+
+		$this->db	->execute('ALTER TABLE `nf_users_keys` DROP FOREIGN KEY nf_users_keys_ibfk_2')
+					->execute('RENAME TABLE `nf_users_keys` TO `nf_user_token`')
+					->execute('ALTER TABLE `nf_user_token` CHANGE `key_id` `id` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL')
+					->execute('ALTER TABLE `nf_user_token` DROP `session_id`, DROP `date`')
+					->execute('CREATE TABLE `nf_user_auth` (
+					  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+					  `user_id` int(11) unsigned NOT NULL,
+					  `authenticator_id` int(11) unsigned NOT NULL,
+					  `key` varchar(100) NOT NULL,
+					  `username` varchar(100) DEFAULT NULL,
+					  `avatar` varchar(100) DEFAULT NULL,
+					  PRIMARY KEY (`id`),
+					  UNIQUE KEY `user_id` (`user_id`,`authenticator_id`,`key`),
+					  KEY `authenticator_id` (`authenticator_id`),
+					  CONSTRAINT `nf_user_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+					  CONSTRAINT `nf_user_auth_ibfk_2` FOREIGN KEY (`authenticator_id`) REFERENCES `nf_addon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+					) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8');
+
+		foreach ($this->db->from('nf_users_auth')->get() as $auth)
+		{
+			$this->db	->insert('nf_user_auth', [
+							'user_id'          => $auth['user_id'],
+							'authenticator_id' => $this->db->select('id')->from('nf_addon')->where('name', $auth['authenticator'])->where('type_id', 5)->row(),
+							'key'              => $auth['id']
+						]);
+		}
+
+		$this->db->execute('DROP TABLE nf_users_auth');
 	}
 }

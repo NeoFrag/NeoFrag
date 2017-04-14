@@ -17,7 +17,7 @@ class Ajax_Checker extends Module_Checker
 							->where('comment_id', (int)$comment_id)
 							->row();
 
-		if ($comment && ($this->user('admin') || ($this->user() && $comment['user_id'] == $this->user('user_id'))))
+		if ($comment && ($this->user->admin || ($this->user() && $comment['user_id'] == $this->user->id)))
 		{
 			return [$comment_id, $comment['module_id'], $comment['module']];
 		}

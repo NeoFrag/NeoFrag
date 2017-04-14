@@ -66,7 +66,7 @@ class Comments extends Library
 
 			$comment_id = $this->db->insert('nf_comments', [
 				'parent_id' => $parent_id,
-				'user_id'   => $this->user('user_id'),
+				'user_id'   => $this->user->id,
 				'module_id' => $module_id,
 				'module'    => $module_name,
 				'content'   => $post['comment']
@@ -75,10 +75,10 @@ class Comments extends Library
 			redirect($this->url->request.'#comment-'.$comment_id);
 		}
 
-		$comments = $this->db	->select('c.comment_id', 'c.parent_id', 'u.user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')
+		$comments = $this->db	->select('c.comment_id', 'c.parent_id', 'u.id as user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')
 								->from('nf_comments c')
-								->join('nf_users u', 'u.user_id = c.user_id AND u.deleted = "0"')
-								->join('nf_users_profiles up', 'u.user_id = up.user_id')
+								->join('nf_user u', 'u.id = c.user_id AND u.deleted = "0"')
+								->join('nf_user_profile up', 'u.id = up.user_id')
 								->where('module', $module_name)
 								->where('module_id', $module_id)
 								->order_by('IFNULL(c.parent_id, c.comment_id) DESC')

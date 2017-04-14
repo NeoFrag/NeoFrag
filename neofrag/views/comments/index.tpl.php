@@ -1,6 +1,6 @@
 <div id="comment-<?php echo $comment_id ?>" class="media<?php if ($parent_id !== NULL) echo ' comments-child' ?>">
 	<div class="media-left">
-		<?php echo $this->user->avatar($avatar, $sex, $user_id, $username) ?>
+		<?php echo NeoFrag()->model2('user', $user_id)->avatar() ?>
 	</div>
 	<div class="media-body">
 		<?php
@@ -11,7 +11,7 @@
 				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$comment_id.'">'.icon('fa-mail-reply').' '.$this->lang('Répondre').'</a>';
 			}
 
-			if ($this->user('admin') || ($this->user() && $this->user('user_id') == $user_id))
+			if ($this->user->admin || ($this->user() && $this->user->id == $user_id))
 			{
 				$actions[] = $this->button_delete('ajax/comments/delete/'.$comment_id);
 			}

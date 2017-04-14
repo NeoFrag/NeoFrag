@@ -8,7 +8,7 @@
 			<div class="modal-body">
 				<?php foreach ($users as $user): ?>
 				<div class="media">
-					<?php echo $this->user->avatar($user['avatar'], $user['sex'], $user['user_id'], $user['username']) ?>
+					<?php echo NeoFrag()->model2('user', $user['user_id'])->avatar() ?>
 					<div class="media-body">
 						<?php echo $this->user->link($user['user_id'], $user['username']) ?>
 						<?php echo icon('fa-clock-o').' '.time_span($user['last_activity']) ?>

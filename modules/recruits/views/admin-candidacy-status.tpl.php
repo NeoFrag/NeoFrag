@@ -1,6 +1,7 @@
 <?php if(!empty($votes)): ?>
 	<?php foreach ($votes as $k => $vote): ?>
 		<div class="media">
+			<?php echo $this->user->avatar() ?>
 			<div class="media-body">
 				<div class="pull-right">
 					<span class="badge<?php echo $vote['vote'] ? ' badge-success' : ' badge-danger' ?>" style="display: inline-block"><?php echo $vote['vote'] ? icon('fa-thumbs-o-up').' Favorable' : icon('fa-thumbs-o-down').' Défavorable' ?></span>
