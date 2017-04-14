@@ -12,13 +12,13 @@ class News extends Model
 {
 	public function get_news($filter = '', $filter_data = '')
 	{
-		$this->db	->select('n.*', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'c.name as category_name', 'cl.title as category_title', 'u.user_id', 'u.username', 'up.avatar', 'up.sex')
+		$this->db	->select('n.*', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'c.name as category_name', 'cl.title as category_title', 'u.id as user_id', 'u.username', 'up.avatar', 'up.sex')
 					->from('nf_news n')
 					->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
 					->join('nf_news_categories c',       'n.category_id = c.category_id')
 					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
-					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
-					->join('nf_users_profiles up',       'up.user_id    = u.user_id')
+					->join('nf_user u',                  'n.user_id     = u.id AND u.deleted = "0"')
+					->join('nf_user_profile up',       'up.user_id    = u.id')
 					->where('nl.lang', $this->config->lang->info()->name)
 					->where('cl.lang', $this->config->lang->info()->name)
 					->order_by('n.date DESC');
@@ -67,14 +67,14 @@ class News extends Model
 			$lang = $this->config->lang->info()->name;
 		}
 
-		$this->db	->select('n.news_id', 'n.category_id', 'u.user_id', 'n.image_id', 'n.date', 'n.published', 'n.views', 'n.vote', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'c.name as category_name', 'cl.title as category_title', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'u.username', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'up.quote', 'up.avatar', 'up.sex')
+		$this->db	->select('n.news_id', 'n.category_id', 'u.id as user_id', 'n.image_id', 'n.date', 'n.published', 'n.views', 'n.vote', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'c.name as category_name', 'cl.title as category_title', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'u.username', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'up.quote', 'up.avatar', 'up.sex')
 						->from('nf_news n')
 						->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
 						->join('nf_news_categories c',       'n.category_id = c.category_id')
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
-						->join('nf_users u',                 'u.user_id     = n.user_id AND u.deleted = "0"')
-						->join('nf_users_profiles up',       'u.user_id     = up.user_id')
-						->join('nf_session        s',        'u.user_id     = s.user_id')
+						->join('nf_user u',                  'u.id          = n.user_id AND u.deleted = "0"')
+						->join('nf_user_profile up',         'u.id          = up.user_id')
+						->join('nf_session        s',        'u.id          = s.user_id')
 						->where('n.news_id', $news_id)
 						->where('nl.lang', $lang)
 						->where('cl.lang', $lang);
@@ -100,7 +100,7 @@ class News extends Model
 	{
 		$news_id = $this->db->insert('nf_news', [
 								'category_id' => $category_id,
-								'user_id'     => $this->user('user_id'),
+								'user_id'     => $this->user->id,
 								'image_id'    => $image_id,
 								'published'   => $published
 							]);

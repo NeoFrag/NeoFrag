@@ -147,7 +147,7 @@ class Forum extends Model
 										!$forum_id ? 'f.count_messages + SUM(IFNULL(f2.count_messages, 0)) as count_messages' : 'f.count_messages',
 										!$forum_id ? 'f.count_topics   + SUM(IFNULL(f2.count_topics, 0))   as count_topics'   : 'f.count_topics',
 										'f.last_message_id',
-										'u.user_id',
+										'u.id as user_id',
 										'u.username',
 										't.topic_id',
 										't.title as last_title',
@@ -160,7 +160,7 @@ class Forum extends Model
 									->from('nf_forum f')
 									->join('nf_forum_messages m', 'm.message_id = f.last_message_id')
 									->join('nf_forum_topics t',   't.topic_id = m.topic_id')
-									->join('nf_users u',          'u.user_id = m.user_id AND u.deleted = "0"')
+									->join('nf_user u',           'u.id = m.user_id AND u.deleted = "0"')
 									->join('nf_forum_url u2',     'u2.forum_id = f.forum_id')
 									->group_by('f.forum_id')
 									->order_by('f.order', 'f.forum_id')
@@ -206,10 +206,10 @@ class Forum extends Model
 									't.views',
 									't.count_messages',
 									't.last_message_id',
-									'u1.user_id',
+									'u1.id as user_id',
 									'u1.username',
 									'm1.date',
-									'u2.user_id as last_user_id',
+									'u2.id as last_user_id',
 									'u2.username as last_username',
 									'm2.date as last_message_date',
 									'm2.message',
@@ -219,8 +219,8 @@ class Forum extends Model
 						->from('nf_forum_topics   t')
 						->join('nf_forum_messages m1', 't.message_id = m1.message_id')
 						->join('nf_forum_messages m2', 't.last_message_id = m2.message_id')
-						->join('nf_users u1',          'u1.user_id = m1.user_id AND u1.deleted = "0"')
-						->join('nf_users u2',          'u2.user_id = m2.user_id AND u2.deleted = "0"')
+						->join('nf_user u1',           'u1.id = m1.user_id AND u1.deleted = "0"')
+						->join('nf_user u2',           'u2.id = m2.user_id AND u2.deleted = "0"')
 						->where('t.forum_id', $forum_id)
 						->order_by('IFNULL(m2.date, m1.date) DESC')
 						->get();
@@ -229,7 +229,7 @@ class Forum extends Model
 		{
 			$forum_read = $this->db	->select('MAX(UNIX_TIMESTAMP(date))')
 									->from('nf_forum_read')
-									->where('user_id', $this->user('user_id'))
+									->where('user_id', $this->user->id)
 									->where('forum_id', [0, $forum_id])
 									->row();
 
@@ -239,7 +239,7 @@ class Forum extends Model
 									->from('nf_forum_topics_read r')
 									->join('nf_forum_topics t', 't.topic_id = r.topic_id')
 									->where('t.forum_id', $forum_id)
-									->where('r.user_id', $this->user('user_id'))
+									->where('r.user_id', $this->user->id)
 									->get() as $read)
 			{
 				$topics_read[$read['topic_id']] = strtotime($read['date']);
@@ -371,7 +371,7 @@ class Forum extends Model
 
 		$message_id = $this->db	->insert('nf_forum_messages', [
 									'topic_id' => $topic_id,
-									'user_id'  => $this->user('user_id'),
+									'user_id'  => $this->user->id,
 									'message'  => $message
 								]);
 
@@ -390,7 +390,7 @@ class Forum extends Model
 
 		$this->db	->insert('nf_forum_topics_read', [
 						'topic_id' => $topic_id,
-						'user_id'  => $this->user('user_id')
+						'user_id'  => $this->user->id
 					]);
 
 		$this->get_topics($forum_id);
@@ -405,7 +405,7 @@ class Forum extends Model
 
 		$message_id = $this->db->insert('nf_forum_messages', [
 			'topic_id' => (int)$topic_id,
-			'user_id'  => $this->user('user_id'),
+			'user_id'  => $this->user->id,
 			'message'  => $message
 		]);
 
@@ -421,13 +421,13 @@ class Forum extends Model
 						'count_messages'  => $topic['count_messages'] + 1
 					]);
 
-		$this->db	->where('user_id', $this->user('user_id'))
+		$this->db	->where('user_id', $this->user->id)
 					->where('topic_id', $topic_id)
 					->delete('nf_forum_topics_read');
 
 		$this->db	->insert('nf_forum_topics_read', [
 						'topic_id' => $topic_id,
-						'user_id'  => $this->user('user_id')
+						'user_id'  => $this->user->id
 					]);
 
 		$this->get_topics($topic['forum_id']);
@@ -510,26 +510,26 @@ class Forum extends Model
 
 		if ($forum_id)
 		{
-			$this->db	->where('r.user_id', $this->user('user_id'))
+			$this->db	->where('r.user_id', $this->user->id)
 						->where('t.topic_id = r.topic_id')
 						->where('t.forum_id', $forum_id)
 						->delete('r', 'nf_forum_topics_read as r, nf_forum_topics as t');
 
-			$this->db	->where('user_id', $this->user('user_id'))
+			$this->db	->where('user_id', $this->user->id)
 						->where('forum_id', $forum_id)
 						->delete('nf_forum_read');
 		}
 		else
 		{
-			$this->db	->where('user_id', $this->user('user_id'))
+			$this->db	->where('user_id', $this->user->id)
 						->delete('nf_forum_topics_read');
 
-			$this->db	->where('user_id', $this->user('user_id'))
+			$this->db	->where('user_id', $this->user->id)
 						->delete('nf_forum_read');
 		}
 
 		$this->db->insert('nf_forum_read', [
-			'user_id'  => $this->user('user_id'),
+			'user_id'  => $this->user->id,
 			'forum_id' => $forum_id
 		]);
 	}
@@ -589,13 +589,13 @@ class Forum extends Model
 
 			foreach ($this->db	->select('forum_id', 'date')
 								->from('nf_forum_read')
-								->where('user_id', $this->user('user_id'))
+								->where('user_id', $this->user->id)
 								->get() as $read)
 			{
 				$forum_reads[$read['forum_id']] = strtotime($read['date']);
 			}
 
-			$registration_date = strtotime($this->user('registration_date'));
+			$registration_date = strtotime($this->user->registration_date);
 			if (!isset($forum_reads[0]) || $registration_date > $forum_reads[0])
 			{
 				$forum_reads[0] = $registration_date;

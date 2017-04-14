@@ -25,7 +25,7 @@ class Index extends Controller_Module
 			}
 			else
 			{
-				if ($candidacy = $this->model()->postulated($this->user('user_id'), $recruit['recruit_id'], $recruit['title']))
+				if ($candidacy = $this->model()->postulated($this->user->id, $recruit['recruit_id'], $recruit['title']))
 				{
 					$footer = '<a href="'.url('recruits/candidacy/'.$candidacy['candidacy_id'].'/'.url_title($recruit['title'])).'" class="btn btn-primary">'.icon('fa-briefcase').' Voir ma candidature</a>';
 				}
@@ -73,7 +73,7 @@ class Index extends Controller_Module
 
 		if (($this->access('recruits', 'recruit_postulate', $recruit_id)) && (!$date_end || strtotime($date_end) > time()))
 		{
-			if ($candidacy = $this->model()->postulated($this->user('user_id'), $recruit_id, $title))
+			if ($candidacy = $this->model()->postulated($this->user->id, $recruit_id, $title))
 			{
 				$href                  = '<a href="'.url('recruits/candidacy/'.$candidacy['candidacy_id'].'/'.url_title($candidacy['title'])).'" class="btn btn-success">'.icon('fa-eye').' Voir ma candidature</a>';
 				$recruit['postulated'] = TRUE;
@@ -155,7 +155,7 @@ class Index extends Controller_Module
 
 	public function _postulate($recruit_id, $title, $introduction, $description, $requierments, $date, $recruit_user_id, $size, $role, $icon, $date_end, $closed, $team_id, $image_id, $username, $avatar, $sex, $candidacies, $candidacies_pending, $candidacies_accepted, $candidacies_declined, $team_name)
 	{
-		if ($candidacy = $this->model()->postulated($this->user('user_id'), $recruit_id, $title))
+		if ($candidacy = $this->model()->postulated($this->user->id, $recruit_id, $title))
 		{
 			return $this->panel()
 						->heading('Déposer ma candidature', 'fa-black-tie')
@@ -171,19 +171,19 @@ class Index extends Controller_Module
 						->add_rules($rules = [
 							'pseudo' => [
 								'label' => 'Votre pseudo',
-								'value' => $this->user('username'),
+								'value' => $this->user->username,
 								'type'  => 'text',
 								'rules' => 'required'
 							],
 							'email' => [
 								'label' => 'Adresse email',
-								'value' => $this->user('email'),
+								'value' => $this->user->email,
 								'type'  => 'email',
 								'rules' => 'required'
 							],
 							'date_of_birth' => [
 								'label' => 'Date de naissance',
-								'value' => $this->user('date_of_birth'),
+								'value' => $this->user->date_of_birth,
 								'type'  => 'date',
 								'check' => function($value){
 									if ($value && strtotime($value) > strtotime(date('Y-m-d')))
@@ -212,25 +212,25 @@ class Index extends Controller_Module
 				if ($this->form()->is_valid($post))
 				{
 					$candidacy_id = $this->model()->send_candidacy(	$recruit_id,
-																	$this->user('user_id'),
-																	$this->user('username') ?: $post['pseudo'],
-																	$this->user('email')    ?: $post['email'],
+																	$this->user->id,
+																	$this->user->username ?: $post['pseudo'],
+																	$this->user->email    ?: $post['email'],
 																	$post['date_of_birth'],
 																	$post['presentation'],
 																	$post['motivations'],
 																	$post['experiences']);
 
-					if ($this->config->recruits_alert && $this->user())
+					if ($this->config->recruits_alert && $this->user->id)
 					{
 						$users =  $this->db	->select('*')
-											->from('nf_users')
+											->from('nf_user')
 											->where('deleted', FALSE)
 											->get();
 
 						$recipients = [];
 						foreach ($users as $user)
 						{
-							if ($this->access('recruits', 'candidacy_vote', 0, NULL, $user['user_id']) || $this->access('recruits', 'candidacy_reply', 0, NULL, $user['user_id']))
+							if ($this->access('recruits', 'candidacy_vote', 0, NULL, $user['id']) || $this->access('recruits', 'candidacy_reply', 0, NULL, $user['id']))
 							{
 								$recipients[] = $user;
 							}
@@ -245,8 +245,8 @@ class Index extends Controller_Module
 
 							$reply_id = $this->db	->insert('nf_users_messages_replies', [
 														'message_id' => $message_id,
-														'user_id'    => $this->user('user_id'),
-														'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Une nouvelle candidature vient d\'être déposée par '.($this->user() ? $user['username'] : $post['pseudo']).'.<br /><br />Pour la visualiser, <a href="'.url('admin/recruits/candidacy/'.$candidacy_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
+														'user_id'    => $this->user->id,
+														'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Une nouvelle candidature vient d\'être déposée par '.($this->user->id ? $user['username'] : $post['pseudo']).'.<br /><br />Pour la visualiser, <a href="'.url('admin/recruits/candidacy/'.$candidacy_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
 													]);
 
 							$this->db	->where('message_id', $message_id)
@@ -258,7 +258,7 @@ class Index extends Controller_Module
 							foreach ($recipients as $recipient)
 							{
 								$this->db->insert('nf_users_messages_recipients', [
-									'user_id'    => $recipient['user_id'],
+									'user_id'    => $recipient['id'],
 									'message_id' => $message_id,
 									'date'       => NULL
 								]);

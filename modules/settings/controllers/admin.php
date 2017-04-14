@@ -125,8 +125,8 @@ class Admin extends Controller_Module
 				->subtitle('Gestions des inscriptions')
 				->icon('fa-sign-in fa-rotate-90');
 
-		$users = $this->db	->select('user_id', 'username')
-							->from('nf_users')
+		$users = $this->db	->select('id as user_id', 'username')
+							->from('nf_user')
 							->where('deleted', FALSE)
 							->order_by('username')
 							->get();

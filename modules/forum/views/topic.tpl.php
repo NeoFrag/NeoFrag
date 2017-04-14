@@ -18,7 +18,7 @@
 			<td class="text-left col-md-9">
 				<div class="padding-top">
 					<div class="pull-right">
-					<?php if (($this->user() && $this->user('user_id') == $user_id) || $this->access('forum', 'category_modify', $category_id)): ?>
+					<?php if (($this->user() && $this->user->id == $user_id) || $this->access('forum', 'category_modify', $category_id)): ?>
 						<a href="<?php echo url('forum/message/edit/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary"><?php echo icon('fa-edit') ?></a>
 						<a href="<?php echo url('forum/message/delete/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary delete"><?php echo icon('fa-close') ?></a>
 					<?php endif ?>

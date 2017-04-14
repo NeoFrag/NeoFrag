@@ -14,7 +14,7 @@ class Groups extends Core
 
 	public function __construct()
 	{
-		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
+		$users = $this->db->select('id', 'admin')->from('nf_user')->where('deleted', FALSE)->get();
 
 		$this->_groups = [
 			'admins' => [
@@ -23,7 +23,7 @@ class Groups extends Core
 				'color'  => 'danger',
 				'icon'   => 'fa-rocket',
 				'hidden' => FALSE,
-				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return $a['admin'];}))),
+				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return $a['admin'];}))),
 				'auto'   => 'neofrag'
 			],
 			'members' => [
@@ -32,7 +32,7 @@ class Groups extends Core
 				'color'  => 'success',
 				'icon'   => 'fa-user',
 				'hidden' => FALSE,
-				'users'  => array_map('intval', array_map(function($a){return intval($a['user_id']);}, array_filter($users, function($a){return !$a['admin'];}))),
+				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return !$a['admin'];}))),
 				'auto'   => 'neofrag'
 			],
 			'visitors' => [
@@ -174,7 +174,7 @@ class Groups extends Core
 
 		foreach ($this->_groups as $group_id => $group)
 		{
-			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user('admin') && $this->url->admin)))
+			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user->admin && $this->url->admin)))
 			{
 				$groups[] = $this->display($group_id, $label);
 			}

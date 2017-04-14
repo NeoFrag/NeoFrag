@@ -11,5 +11,5 @@ return [
 	'7741ccea' => 'Lost password?',
 	'8a431149' => 'Inbox',
 	'bd0fa24a' => 'Logout',
-	'c983be27' => 'Welcome <a href="'.url('user').'">'.$this->user('username').'</a>'
+	'c983be27' => 'Welcome <a href="'.url('user').'">'.$this->user->username.'</a>'
 ];

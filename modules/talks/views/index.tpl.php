@@ -29,11 +29,7 @@ foreach ($messages as $i => $message)
 	ob_start();
 ?>
 	<div class="media-<?php echo $media ?>">
-		<?php if ($message['user_id']): ?>
-			<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']) ?>
-		<?php else: ?>
-			<?php echo $this->user->avatar(NULL) ?>
-		<?php endif ?>
+		<?php echo NeoFrag()->model2('user', $message['user_id'])->avatar() ?>
 	</div>
 <?php
 	$avatar = ob_get_clean();
@@ -41,7 +37,7 @@ foreach ($messages as $i => $message)
 ?>
 	<div class="media-body<?php if ($media == 'right') echo ' text-right' ?>">
 		<?php
-			if (($this->user() && $this->user('user_id') == $message['user_id']) || $this->access('talks', 'delete', $message['talk_id']))
+			if (($this->user() && $this->user->id == $message['user_id']) || $this->access('talks', 'delete', $message['talk_id']))
 			{
 				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.$this->button_delete('ajax/talks/delete/'.$message['message_id']).'</div>';
 			}

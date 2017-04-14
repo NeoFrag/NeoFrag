@@ -98,7 +98,7 @@ class Checker extends Module_Checker
 
 		if ($candidacy = $this->model()->check_candidacy($candidacy_id, $title))
 		{
-				if ($this->user('user_id') == $candidacy['user_id'])
+			if ($this->user->id == $candidacy['user_id'])
 			{
 				return $candidacy;
 			}

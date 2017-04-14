@@ -50,7 +50,7 @@ class Admin_Checker extends Module_Checker
 	{
 		$this->ajax();
 
-		if (($team = $this->model()->check_team($team_id, $name)) && $user = $this->db->select('u.user_id', 'u.username')->from('nf_teams_users tu')->join('nf_users u', 'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')->where('tu.team_id', $team['team_id'])->where('tu.user_id', $user_id)->row())
+		if (($team = $this->model()->check_team($team_id, $name)) && $user = $this->db->select('u.id as user_id', 'u.username')->from('nf_teams_users tu')->join('nf_user u', 'tu.user_id = u.id AND u.deleted = "0"', 'INNER')->where('tu.team_id', $team['team_id'])->where('tu.user_id', $user_id)->row())
 		{
 			return array_merge([$team['team_id']], $user);
 		}

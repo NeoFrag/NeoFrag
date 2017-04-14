@@ -10,7 +10,7 @@ $rules = [
 		'value' => $username = $this->form()->value('username'),
 		'rules' => 'required',
 		'check' => function($value) use ($username){
-			if ($value != $username && NeoFrag()->db->select('1')->from('nf_users')->where('username', $value)->row())
+			if ($value != $username && NeoFrag()->db->select('1')->from('nf_user')->where('username', $value)->row())
 			{
 				return $this->lang('Identifiant déjà utilisé');
 			}
@@ -26,7 +26,7 @@ if (!NeoFrag()->url->admin)
 			'icon'  => 'fa-lock',
 			'type'  => 'password',
 			'check' => function($value, $post){
-				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag()->password->is_valid($value.($salt = NeoFrag()->user('salt')), NeoFrag()->user('password'), (bool)$salt))
+				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag()->password->is_valid($value.($salt = NeoFrag()->user->salt), NeoFrag()->user->password, (bool)$salt))
 				{
 					return $this->lang('Mot de passe incorrect');
 				}
@@ -58,7 +58,7 @@ $rules = array_merge($rules, [
 		'type'  => 'email',
 		'rules' => 'required',
 		'check' => function($value) use ($email){
-			if ($value != $email && NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
+			if ($value != $email && NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
 			{
 				return $this->lang('Addresse email déjà utilisée');
 			}

@@ -12,8 +12,8 @@ class Index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		$members = $this->db->select('user_id', 'username', 'registration_date')
-							->from('nf_users')
+		$members = $this->db->select('id as user_id', 'username', 'registration_date')
+							->from('nf_user')
 							->where('deleted', FALSE)
 							->order_by('registration_date DESC')
 							->limit(5)
@@ -41,12 +41,12 @@ class Index extends Controller_Widget
 		$admins = $members = [];
 		$nb_admins = $nb_members = 0;
 
-		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
+		foreach ($this->db	->select('u.id as user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
 							->from('nf_session s')
-							->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')
-							->join('nf_users_profiles up', 'u.user_id = up.user_id')
+							->join('nf_user u', 'u.id = s.user_id AND u.deleted = "0"', 'INNER')
+							->join('nf_user_profile up', 'u.id = up.user_id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
-							->group_by('u.user_id')
+							->group_by('u.id')
 							->order_by('u.username')
 							->get() as $user)
 		{

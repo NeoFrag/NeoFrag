@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function index()
 	{
-		if (!$this->user('admin'))
+		if (!$this->user->admin)
 		{
 			$this->error->unauthorized();
 		}

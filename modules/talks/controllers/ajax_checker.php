@@ -60,7 +60,7 @@ class Ajax_Checker extends Module_Checker
 
 		if ($message)
 		{
-			if ($this->access('talks', 'delete', $message['talk_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('talks', 'delete', $message['talk_id']) || ($this->user() && $message['user_id'] == $this->user->id))
 			{
 				return [$message_id, $message['talk_id']];
 			}

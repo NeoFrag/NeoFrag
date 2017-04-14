@@ -25,21 +25,21 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
 							</div>
-							<input type="text" class="form-control" name="settings[color-title]" value="<?php if (isset($title)) echo $color-title ?>" placeholder="#000000" /><!-- //TODO color picker -->
+							<input type="text" class="form-control" name="settings[color-title]" value="<?php if (isset(${'color-title'})) echo ${'color-title'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="settings-description" class="col-sm-3 control-label"><?php echo $this->lang('Description') ?></label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" name="settings[description]" value="<?php if (isset($title)) echo $description ?>" id="settings-description" placeholder="<?php echo $this->lang('Description par défaut') ?>" />
+						<input type="text" class="form-control" name="settings[description]" value="<?php if (isset($description)) echo $description ?>" id="settings-description" placeholder="<?php echo $this->lang('Description par défaut') ?>" />
 					</div>
 					<div class="col-sm-3">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
 							</div>
-							<input type="text" class="form-control" name="settings[color-description]" value="<?php if (isset($title)) echo $color-description ?>" placeholder="#000000" /><!-- //TODO color picker -->
+							<input type="text" class="form-control" name="settings[color-description]" value="<?php if (isset(${'color-description'})) echo ${'color-description'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
 						</div>
 					</div>
 				</div>

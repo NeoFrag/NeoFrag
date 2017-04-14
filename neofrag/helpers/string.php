@@ -111,9 +111,9 @@ function strtolink($string, $is_html = FALSE)
 
 		if ($users === NULL)
 		{
-			foreach (NeoFrag()->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get() as $user)
+			foreach (NeoFrag()->db->select('id', 'username')->from('nf_user')->where('deleted', FALSE)->get() as $user)
 			{
-				$users[$user['user_id']] = $user['username'];
+				$users[$user['id']] = $user['username'];
 			}
 		}
 

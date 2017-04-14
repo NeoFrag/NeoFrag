@@ -24,12 +24,12 @@ class Search extends Controller_Module
 
 	public function search()
 	{
-		$this->db	->select('n.news_id', 'n.date', 'nl.title', 'nl.introduction', 'nl.content', 'u.user_id', 'u.username', 'c.category_id', 'cl.title as category')
+		$this->db	->select('n.news_id', 'n.date', 'nl.title', 'nl.introduction', 'nl.content', 'u.id as user_id', 'u.username', 'c.category_id', 'cl.title as category')
 					->from('nf_news n')
 					->join('nf_news_lang nl',            'n.news_id     = nl.news_id')
 					->join('nf_news_categories c',       'n.category_id = c.category_id')
 					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
-					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
+					->join('nf_user u',                  'n.user_id     = u.id AND u.deleted = "0"')
 					->where('nl.lang', $this->config->lang->info()->name)
 					->where('cl.lang', $this->config->lang->info()->name)
 					->where('n.published', TRUE)

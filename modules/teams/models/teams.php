@@ -12,11 +12,11 @@ class Teams extends Model
 {
 	public function get_teams()
 	{
-		return $this->db->select('t.team_id', 't.name', 'tl.title', 't.image_id', 't.icon_id', 'COUNT(DISTINCT u.user_id) as users', 't.game_id', 'g.name as game', 'gl.title as game_title', 'g.icon_id as game_icon')
+		return $this->db->select('t.team_id', 't.name', 'tl.title', 't.image_id', 't.icon_id', 'COUNT(DISTINCT u.id) as users', 't.game_id', 'g.name as game', 'gl.title as game_title', 'g.icon_id as game_icon')
 						->from('nf_teams t')
 						->join('nf_teams_lang tl',  't.team_id  = tl.team_id')
 						->join('nf_teams_users tu', 't.team_id  = tu.team_id')
-						->join('nf_users u',        'tu.user_id = u.user_id AND u.deleted = "0"')
+						->join('nf_user u',         'tu.user_id = u.id AND u.deleted = "0"')
 						->join('nf_games g',        'g.game_id  = t.game_id')
 						->join('nf_games_lang gl',  'g.game_id  = gl.game_id')
 						->where('tl.lang', $this->config->lang->info()->name)
@@ -57,12 +57,12 @@ class Teams extends Model
 
 	public function get_players($team_id)
 	{
-		return $this->db->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
+		return $this->db->select('u.id as user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
 						->from('nf_teams_users    tu')
-						->join('nf_users          u',  'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')
-						->join('nf_users_profiles up', 'u.user_id  = up.user_id')
+						->join('nf_user           u',  'tu.user_id = u.id AND u.deleted = "0"', 'INNER')
+						->join('nf_user_profile up', 'u.id       = up.user_id')
 						->join('nf_teams_roles    r',  'r.role_id  = tu.role_id')
-						->join('nf_session        s',  'u.user_id  = s.user_id')
+						->join('nf_session        s',  'u.id       = s.user_id')
 						->where('tu.team_id', $team_id)
 						->group_by('u.username')
 						->order_by('r.order', 'r.role_id', 'u.username')

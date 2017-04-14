@@ -137,7 +137,7 @@ class Checker extends Module_Checker
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
 		{
-			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $this->user() && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_modify', $message['category_id']) || (!$message['locked'] && $this->user->id && $message['user_id'] == $this->user->id))
 			{
 				return $message;
 			}
@@ -161,7 +161,7 @@ class Checker extends Module_Checker
 
 		if ($message && $title == url_title($message['title']))
 		{
-			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
+			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user->id))
 			{
 				return [$message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']];
 			}

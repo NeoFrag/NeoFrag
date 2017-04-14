@@ -18,7 +18,6 @@ class Ajax extends Controller_Module
 		foreach ($this->db	->select('e.event_id as id', 'e.title', 't.color', 't.icon', 'e.date as start', 'e.date_end as end')
 							->from('nf_events e')
 							->join('nf_events_types t', 'e.type_id = t.type_id')
-							->join('nf_users u',        'u.user_id = e.user_id')
 							->where('(date >=',    $_GET['start'], 'AND', 'date <=',     $_GET['end'], 'OR')
 							->where('date_end >=', $_GET['start'], 'AND', 'date_end <=', $_GET['end'], 'OR')
 							->where('date <',      $_GET['start'], 'AND', 'date_end >',  $_GET['end'], ') AND')

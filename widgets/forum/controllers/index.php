@@ -66,7 +66,7 @@ class Index extends Controller_Widget
 
 	public function activity($config = [])
 	{
-		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_session s')->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->get();
+		$users = $this->db->select('DISTINCT u.id as user_id', 'u.username')->from('nf_session s')->join('nf_user u', 'u.id = s.user_id AND u.deleted = "0"', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->get();
 
 		array_natsort($users, function($a){
 			return $a['username'];

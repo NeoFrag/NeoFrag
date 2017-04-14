@@ -48,7 +48,7 @@ class Access extends Core
 
 		if (	$group_id == 'admins' ||
 				($user_id !== NULL && in_array('admins', $this->groups($user_id))) ||
-				($group_id === NULL && $user_id === NULL && $this->user('admin')) ||
+				($group_id === NULL && $user_id === NULL && $this->user->admin) ||
 				$access === TRUE
 			)
 		{
@@ -70,7 +70,7 @@ class Access extends Core
 			}
 		}
 
-		$user_groups = $user_id || $this->user() ? $this->groups($user_id ?: $this->user('user_id')) : ['visitors'];
+		$user_groups = $user_id || $this->user() ? $this->groups($user_id ?: $this->user->id) : ['visitors'];
 		$default     = array_sum($authorized) ? $authorized[0] > $authorized[1] : TRUE;
 		$groups      = [];
 
@@ -84,7 +84,7 @@ class Access extends Core
 			{
 				return (bool)$permission['authorized'];
 			}
-			else if ($permission['type'] == 'user'  && $group_id === NULL && $permission['entity'] == ($user_id ?: $this->user('user_id')))
+			else if ($permission['type'] == 'user'  && $group_id === NULL && $permission['entity'] == ($user_id ?: $this->user->id))
 			{
 				return (int)(bool)$permission['authorized'];
 			}
@@ -115,7 +115,7 @@ class Access extends Core
 	{
 		$count = array_fill(0, 2, 0);
 
-		foreach ($this->db->select('user_id')->from('nf_users')->where('deleted', FALSE)->get() as $user_id)
+		foreach ($this->db->select('id')->from('nf_user')->where('deleted', FALSE)->get() as $user_id)
 		{
 			$access = $this($module, $action, $id, NULL, $user_id);
 			$count[(int)$access]++;
@@ -201,11 +201,11 @@ class Access extends Core
 		{
 			$allowed = FALSE;
 
-			if ($this->user('admin'))
+			if ($this->user->admin)
 			{
 				$allowed = TRUE;
 			}
-			else if (isset($this->groups($this->user('user_id'))[1]))
+			else if (isset($this->groups($this->user->id)[1]))
 			{
 				foreach ($this->model2('addon')->get('module') as $module)
 				{

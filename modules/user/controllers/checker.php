@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function edit()
 	{
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			$this->error->unconnected();
 		}
@@ -22,7 +22,7 @@ class Checker extends Module_Checker
 
 	public function sessions($page = '')
 	{
-		if ($this->user())
+		if ($this->user->id)
 		{
 			return [$this->module->pagination->get_data($this->user->get_sessions_history(), $page)];
 		}
@@ -34,11 +34,11 @@ class Checker extends Module_Checker
 	{
 		$this->ajax();
 
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			$this->error->unconnected();
 		}
-		else if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user('user_id'))->where('id', $session_id)->row())
+		else if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user->id)->where('id', $session_id)->row())
 		{
 			return [$session_id];
 		}
@@ -89,7 +89,7 @@ class Checker extends Module_Checker
 
 	public function logout()
 	{
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			redirect('user');
 		}
@@ -99,7 +99,7 @@ class Checker extends Module_Checker
 
 	private function _messages($page, $box)
 	{
-		if ($this->user())
+		if ($this->user->id)
 		{
 			$this->css('inbox');
 
@@ -136,7 +136,7 @@ class Checker extends Module_Checker
 
 	public function _messages_compose($user_id = NULL, $username = NULL)
 	{
-		if (!$this->user())
+		if (!$this->user->id)
 		{
 			redirect('user');
 		}
@@ -144,7 +144,7 @@ class Checker extends Module_Checker
 		{
 			if ($user_id && $username)
 			{
-				if (($user = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->where('username <>', NULL)->where('deleted', FALSE)->row()) && $username == url_title($user))
+				if (($user = $this->db->select('username')->from('nf_user')->where('id', $user_id)->where('username <>', NULL)->where('deleted', FALSE)->row()) && $username == url_title($user))
 				{
 					$username = $user;
 				}

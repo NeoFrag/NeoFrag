@@ -1,5 +1,5 @@
 <?php if ($this->user()): ?>
-	<?php if ($this->user('user_id') == $user_id): ?>
+	<?php if ($this->user->id == $user_id): ?>
 	<div class="pull-right">
 		<a class="btn btn-default" href="<?php echo url('user') ?>"><?php echo icon('fa-cogs') ?><span class="hidden-xs"> <?php echo $this->lang('Gérer mon compte') ?></span></a>
 	</div>
