@@ -17,9 +17,9 @@ class Statistics extends Model
 
 		$i = 0;
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if ($controller = $module->controller('statistics'))
+			if ($controller = @$module->controller('statistics'))
 			{
 				foreach ($controller->statistics() as $name => $statistic)
 				{

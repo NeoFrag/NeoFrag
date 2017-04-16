@@ -90,20 +90,20 @@ class Groups extends Core
 			}
 		}
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach ($this->model2('addon')->get('module') as $module)
 		{
 			if (method_exists($module, 'groups'))
 			{
 				foreach ($module->groups() as $id => $group)
 				{
-					$group_id = url_title($module->name.'_'.$id);
+					$group_id = url_title($module->info()->name.'_'.$id);
 
 					$this->_groups[$group_id]         = !empty($this->_groups[$group_id]) ? array_merge($group, $this->_groups[$group_id]) : $group;
-					$this->_groups[$group_id]['auto'] = 'module_'.$module->name;
+					$this->_groups[$group_id]['auto'] = 'module_'.$module->info()->name;
 
 					if (empty($this->_groups[$group_id]['icon']))
 					{
-						$this->_groups[$group_id]['icon'] = $module->icon;
+						$this->_groups[$group_id]['icon'] = $module->info()->icon;
 					}
 
 					if (empty($this->_groups[$group_id]['color']))

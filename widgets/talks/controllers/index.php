@@ -23,8 +23,8 @@ class Index extends Controller_Widget
 				->css('jquery.mCustomScrollbar.min');
 
 		$panel = $this	->panel()
-						->body('<div data-talk-id="'.$settings['talk_id'].'">'.$this->view('index', [
-							'messages' => $this->model()->get_messages($settings['talk_id'])
+						->body('<div data-talk-id="'.$settings['talk_id'].'">'.$this->module('talks')->view('index', [
+							'messages' => $this->module('talks')->model()->get_messages($settings['talk_id'])
 						]).'</div>');
 
 		if ($this->access('talks', 'write', $settings['talk_id']))

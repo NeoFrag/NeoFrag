@@ -25,7 +25,7 @@ class Index extends Controller_Widget
 		}
 		else
 		{
-			if ($authenticators = $this->addons->get_authenticators())
+			if ($authenticators = NeoFrag()->model2('addon')->get('authenticator')->filter('is_enabled')->__toArray())
 			{
 				$this	->css('auth')
 						->css('auth_mini');

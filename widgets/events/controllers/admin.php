@@ -14,7 +14,7 @@ class Admin extends Controller_Widget
 	{
 		return $this->view('admin_events', [
 			'type_id' => isset($settings['type_id']) ? $settings['type_id'] : 0,
-			'types'   => $this->model('types')->get_types()
+			'types'   => $this->module('events')->model('types')->get_types()
 		]);
 	}
 

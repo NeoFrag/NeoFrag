@@ -12,112 +12,51 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->title($this->lang('addons'))
-				->icon('fa-puzzle-piece')
-				->css('addons')
-				->js('addons')
-				->css('delete')
-				->js('delete')
-				->css('table')
-				->js('table')
-				->js('sortable');
+		$addons = array_filter(NeoFrag()->collection('addon')->get(), function($addon){
+			if ($controller = $addon->controller())
+			{
+				$actions = $addon->addon()->__actions = $controller->__actions()->filter(function($action) use ($addon){
+					return !isset($action[4]) || $action[4]($addon->addon());
+				});
 
-		return $this->row(
-			$this	->col(
-						$this	->panel()
-								->heading('<div class="pull-right"><small>(max. '.(file_upload_max_size() / 1024 / 1024).' Mo)</small></div>Ajouter un composant', 'fa-plus')
-								->body('<input type="file" id="install-input" class="install" accept=".zip" /><label for="install-input" id="install-input-label"><p>'.icon('fa-upload fa-3x').'</p><span class="legend">Choisissez votre archive</span><br /><small class="text-muted">(format .zip)</small></label>')
-								->footer($this	->button()
-												->title('Installer')
-												->icon('fa-plus')
-												->color('info btn-block install disabled')
-												->outline()),
-						$this	->panel()
-								->heading('Composants du site', 'fa-puzzle-piece')
-								->body($this->view('addons', [
-									'addons' => [
-										'modules' => [
-											'title' => 'Modules',
-											'icon'  => 'fa-edit'
-										],
-										'themes' => [
-											'title' => 'Thèmes',
-											'icon'  => 'fa-tint'
-										],
-										'widgets' => [
-											'title' => 'Widgets',
-											'icon'  => 'fa-cubes'
-										],
-										'languages' => [
-											'title' => 'Langues',
-											'icon'  => 'fa-book'
-										],
-										'authenticators' => [
-											'title' => 'Authentificateurs',
-											'icon'  => 'fa-user-circle'
-										]/*,
-										'smileys' => array(
-											'title' => 'Smileys',
-											'icon'  => 'fa-smile-o'
-										),
-										'bbcodes' => array(
-											'title' => 'BBcodes',
-											'icon'  => 'fa-code'
-										)*/
-									]
-								]), FALSE)
-					)
-					->size('col-md-4 col-lg-3')
-		);
+				return !$actions->empty();
+			}
+		});
+
+
+		$types = array_count_values(array_map(function($a){
+			return $a->type->id;
+		}, $addons));
+
+		usort($addons, function($a, $b) use ($types){
+			if ($types[$a->type->id] > $types[$b->type->id])
+			{
+				return 1;
+			}
+			else if ($types[$a->type->id] < $types[$b->type->id])
+			{
+				return -1;
+			}
+			else
+			{
+				return str_nat($a, $b, function($a){
+					return $a->type->name.$a->addon()->info()->title;
+				});
+			}
+		});
+
+		$this->add_action($this->button('Ajouter', 'fa-plus', 'primary')->modal_ajax('admin/ajax/addons/install'));
+
+		return $this->css('addons')
+					//->js('mixitup.min')
+					//->js_load('mixitup($("#addons")[0]);')
+					->view('admin', [
+						'addons' => $addons
+					]);
 	}
 
-	public function _module_settings($module)
+	public function _action($addon, $controller, $action)
 	{
-		$this	->title($module->get_title())
-				->subtitle('Configuration')
-				->icon('fa-wrench');
-
-		return $module->settings();
-	}
-
-	public function _module_delete($module)
-	{
-		$this	->title('Confirmation de suppression')
-				->subtitle($module->get_title())
-				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
-
-		if ($this->form->is_valid())
-		{
-			$module->uninstall();
-			return 'OK';
-		}
-
-		echo $this->form->display();
-	}
-
-	public function _theme_settings($theme, $controller)
-	{
-		$this	->title($theme->get_title())
-				->subtitle($this->lang('theme_customize'))
-				->icon('fa-paint-brush');
-
-		return $controller->index($theme);
-	}
-
-	public function _theme_delete($theme)
-	{
-		$this	->title('Confirmation de suppression')
-				->subtitle($theme->get_title())
-				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
-
-		if ($this->form->is_valid())
-		{
-			$theme->uninstall();
-			return 'OK';
-		}
-
-		echo $this->form->display();
+		return $controller->$action($addon, $this);
 	}
 }

@@ -62,10 +62,7 @@ class Router extends Core
 
 		array_shift($segments);
 
-		if (method_exists($module, 'load'))
-		{
-			$module->load();
-		}
+		$module->__init();
 
 		//Méthode par défault
 		if (empty($segments))
@@ -77,7 +74,7 @@ class Router extends Core
 			return $this->_load(['error']);
 		}
 		//Méthode définie par routage
-		else if (!empty($module->routes))
+		else if (!empty($module->info()->routes))
 		{
 			$method = $module->get_method($segments);
 		}
@@ -152,7 +149,7 @@ class Router extends Core
 			try
 			{
 				$module->add_data('module_title', $module->get_title());
-				$module->add_data('module_icon', $module->icon);
+				$module->add_data('module_icon', $module->info()->icon);
 				$module->add_data('module_method', $method);
 
 				$output = $controller->method($method, $segments);

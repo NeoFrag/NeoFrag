@@ -10,7 +10,7 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Admin extends Controller
 {
-	public function index($theme)
+	public function index()
 	{
 		$this	->js('admin')
 				->form
@@ -101,7 +101,7 @@ class Admin extends Controller
 			$this	->col(
 						$this	->panel()
 								->body($this->view('admin/menu', [
-									'theme_name' => $theme->name
+									'theme_name' => $this->__caller->info()->name
 								]), FALSE)
 					)
 					->size('col-md-4 col-lg-3'),
@@ -109,7 +109,7 @@ class Admin extends Controller
 						$this	->panel()
 								->heading($this->lang('dashboard'), 'fa-cog')
 								->body($this->view('admin/index', [
-									'theme'           => $theme,
+									'theme'           => $this->__caller,
 									'form_background' => $this->form->display()
 								]))
 					)

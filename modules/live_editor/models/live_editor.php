@@ -36,30 +36,16 @@ class Live_Editor extends Model
 	{
 		$widgets = [];
 
-		$f = function($d) use (&$f, &$widgets){
-			if (!$d)
+		$disposition->each($f = function($a) use (&$f, &$widgets){
+			if (is_a($a, 'NF\NeoFrag\Displayables\Widget'))
 			{
-				return;
+				$widgets[] = $a->widget_id();
 			}
-
-			if (method_exists($d, 'children'))
+			else if ($a)
 			{
-				$d = $d->children();
+				$a->each($f);
 			}
-			else if (method_exists($d, 'widget_id'))
-			{
-				$widgets[] = $d->widget_id();
-				return;
-			}
-			else if (!is_array($d))
-			{
-				$d = [$d];
-			}
-
-			array_walk($d, $f);
-		};
-
-		$f($disposition);
+		});
 
 		if ($widgets)
 		{
@@ -91,19 +77,14 @@ class Live_Editor extends Model
 
 	public function get_widgets(&$widgets, &$types)
 	{
-		foreach ($this->addons->get_widgets() as $widget)
+		foreach (NeoFrag()->model2('addon')->get('widget') as $widget)
 		{
-			if ($widget->name == 'error')
-			{
-				continue;
-			}
+			$widgets[$name = $widget->info()->name] = $widget->info()->title;
 
-			$widgets[$widget->name] = $widget->get_title();
-
-			if (!empty($widget->types))
+			if (!empty($widget->info()->types))
 			{
-				$types[$widget->name] = $widget->lang($widget->types, NULL);
-				array_natsort($types[$widget->name]);
+				$types[$name] = $widget->info()->types;
+				array_natsort($types[$name]);
 			}
 		}
 

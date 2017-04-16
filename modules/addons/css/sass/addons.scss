@@ -1,0 +1,78 @@
+#addons {
+	margin-top: 1rem;
+	margin-bottom: -30px;
+
+	.card {
+		margin-bottom: 30px;
+
+		.card-body {
+			padding: 10px;
+		}
+
+		.badge {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			font-size: 65%;
+		}
+
+		.icon, .image {
+			height: 100px;
+		}
+
+		.image {
+			background-size: auto 100%;
+			background-position: 50% 50%;
+		}
+
+		.icon {
+			background: #ccc;
+			line-height: 100px;
+			text-align: center;
+			vertical-align: middle;
+
+			.fa {
+				background: #fff;
+				border-radius: 50%;
+				font-size: 30px;
+				line-height: 65px;
+				height: 65px;
+				width: 65px;
+				vertical-align: middle;
+			}
+		}
+
+		.dropdown {
+			.dropdown-toggle {
+				border-radius: 50%;
+				font-size: 75%;
+				color: #666;
+				position: absolute;
+				top: 5px;
+				right: 1px;
+				text-align: center;
+				line-height: 15px;
+				height: 15px;
+				width: 15px;
+				vertical-align: middle;
+			}
+		}
+
+		h6 {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin: 10px 0 0;
+			line-height: 19px;
+			min-height: 19px;
+			font-weight: 600;
+			font-size: 14px;
+
+			&.disabled {
+				color: #bebebe;
+				font-style: italic;
+			}
+		}
+	}
+}
+

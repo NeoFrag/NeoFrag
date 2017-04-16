@@ -12,7 +12,7 @@ class Index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		if ($awards = $this->model()->get_awards())
+		if ($awards = $this->module('award')->model()->get_awards())
 		{
 			$this->css('awards');
 
@@ -33,7 +33,7 @@ class Index extends Controller_Widget
 
 	public function best_team($settings = [])
 	{
-		if ($best_team = $this->model()->get_best_team_awards())
+		if ($best_team = $this->module('award')->model()->get_best_team_awards())
 		{
 			return $this->panel()
 						->heading('Palmarès')
@@ -55,7 +55,7 @@ class Index extends Controller_Widget
 
 	public function best_game($settings = [])
 	{
-		if ($best_game = $this->model()->get_best_game_awards())
+		if ($best_game = $this->module('award')->model()->get_best_game_awards())
 		{
 			return $this->panel()
 						->heading('Palmarès')

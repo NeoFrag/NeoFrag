@@ -14,7 +14,7 @@ class Index extends Controller_Widget
 	{
 		$this->js('partners');
 
-		$partners = $this->model()->get_partners();
+		$partners = $this->module('partners')->model()->get_partners();
 
 		if (!empty($partners))
 		{
@@ -37,7 +37,7 @@ class Index extends Controller_Widget
 		$this	->css('partners')
 				->js('partners');
 
-		$partners = $this->model()->get_partners();
+		$partners = $this->module('partners')->model()->get_partners();
 
 		if (!empty($partners))
 		{

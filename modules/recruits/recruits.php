@@ -10,91 +10,73 @@ use NF\NeoFrag\Addons\Module;
 
 class Recruits extends Module
 {
-	public $title       = 'Recrutements';
-	public $description = '';
-	public $icon        = 'fa-bullhorn';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = '1.0';
-	public $nf_version  = 'Alpha 0.1.6';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{page}'                                  => 'index',
-		'{id}/{url_title}'                        => '_recruit',
-		'postulate/{id}/{url_title}'              => '_postulate',
-		'candidacy/{id}/{url_title}'              => '_candidacy',
-		//Admin
-		'admin{pages}'                            => 'index',
-		'admin/{id}/{url_title}'                  => '_edit',
-		'admin/candidacies/{id}/{url_title}'      => '_candidacies',
-		'admin/candidacy/{id}/{url_title}'        => '_candidacies_edit',
-		'admin/candidacy/delete/{id}/{url_title}' => '_candidacies_delete'
-	];
-
-	public function settings()
+	protected function __info()
 	{
-		$this	->form
-				->add_rules([
-					[
-						'label'       => 'Paramètres des offres',
-						'type'        => 'legend'
-					],
-					'recruits_per_page' => [
-						'label'       => 'Nombre d\'offre par page',
-						'value'       => $this->config->recruits_per_page ?: '5',
-						'type'        => 'number',
-						'rules'       => 'required',
-						'size'        => 'col-md-2'
-					],
-					'recruits_hide_unavailable' => [
-						'type'        => 'checkbox',
-						'checked'     => ['on' => $this->config->recruits_hide_unavailable],
-						'values'      => ['on' => 'Masquer les offres indisponibles']
-					],
-					'recruits_alert' => [
-						'type'        => 'checkbox',
-						'checked'     => ['on' => $this->config->recruits_alert],
-						'values'      => ['on' => 'Être avertis par message privé des nouvelles candidatures']
-					],
-					[
-						'label'       => 'Réponse aux candidats',
-						'type'        => 'legend'
-					],
-					'recruits_send' => [
-						'label'       => 'Avertir les postulants',
-						'type'        => 'checkbox',
-						'checked'     => [
-							'mp'   => $this->config->recruits_send_mp,
-							'mail' => $this->config->recruits_send_mail
-						],
-						'values'      => [
-							'mp'   => 'Par message privé',
-							'mail' => 'Par e-mail'
-						]
-					]
-				])
-				->add_submit($this->lang('edit'))
-				->add_back('admin/addons#modules');
-
-		if ($this->form->is_valid($post))
-		{
-			$this	->config('recruits_per_page', $post['recruits_per_page'])
-					->config('recruits_hide_unavailable', in_array('on', $post['recruits_hide_unavailable']))
-					->config('recruits_alert', in_array('on', $post['recruits_alert']))
-					->config('recruits_send_mp', in_array('mp', $post['recruits_send']))
-					->config('recruits_send_mail', in_array('mail', $post['recruits_send']));
-
-			redirect_back('admin/addons#modules');
-		}
-
-		return $this->panel()
-					->body($this->form->display());
+		return [
+			'title'       => 'Recrutements',
+			'description' => '',
+			'icon'        => 'fa-bullhorn',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.2'
+			],
+			'routes'      => [
+				//Index
+				'{page}'                                  => 'index',
+				'{id}/{url_title}'                        => '_recruit',
+				'postulate/{id}/{url_title}'              => '_postulate',
+				'candidacy/{id}/{url_title}'              => '_candidacy',
+				//Admin
+				'admin{pages}'                            => 'index',
+				'admin/{id}/{url_title}'                  => '_edit',
+				'admin/candidacies/{id}/{url_title}'      => '_candidacies',
+				'admin/candidacy/{id}/{url_title}'        => '_candidacies_edit',
+				'admin/candidacy/delete/{id}/{url_title}' => '_candidacies_delete'
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->legend('Paramètres des offres')
+							->rule($this->form_number('recruits_per_page')
+										->title('Nombre d\'offre par page')
+										->value($this->config->recruits_per_page ?: '5')
+							)
+							->rule($this->form_checkbox('recruits_hide_unavailable')
+										->data(['on' => 'Masquer les offres indisponibles'])
+										->value([$this->config->recruits_hide_unavailable ? 'on' : NULL])
+							)
+							->rule($this->form_checkbox('recruits_alert')
+										->data(['on' => 'Être avertis par message privé des nouvelles candidatures'])
+										->value([$this->config->recruits_alert ? 'on' : NULL])
+							)
+							->legend('Réponse aux candidats')
+							->rule($this->form_checkbox('recruits_send')
+										->data([
+											'mp'   => 'Par message privé',
+											'mail' => 'Par e-mail'
+										])
+										->value([
+											$this->config->recruits_send_mp ? 'mp' : NULL,
+											$this->config->recruits_send_mail ? 'mail' : NULL
+										])
+							)
+							->success(function($data){
+								$this	->config('recruits_per_page', $data['recruits_per_page'])
+										->config('recruits_hide_unavailable', in_array('on', $data['recruits_hide_unavailable']))
+										->config('recruits_alert', in_array('on', $data['recruits_alert']))
+										->config('recruits_send_mp', in_array('mp', $data['recruits_send']))
+										->config('recruits_send_mail', in_array('mail', $data['recruits_send']));
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
+		];
 	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'default' => [

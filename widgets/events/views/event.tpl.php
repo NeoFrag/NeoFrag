@@ -7,7 +7,7 @@
 				<h5 class="no-margin">
 					<a href="<?php echo url('events/team/'.$data['match']['team_id'].'/'.$data['match']['team']['name']) ?>">
 					<?php if ($icon = path($data['match']['team']['icon_id'])) echo '<img src="'.path($icon).'" style="margin-right: 10px;" alt="" />' ?>
-					<?php echo $data['match']['team']['title'].' '.$this->model('matches')->display_scores($data['match']['scores'], $color) ?>
+					<?php echo $data['match']['team']['title'].' '.$this->module('events')->model('matches')->display_scores($data['match']['scores'], $color) ?>
 					</a>
 				</h5>
 			</div>
@@ -27,7 +27,7 @@
 			<?php endif ?>
 			<div class="text-left col-xs-<?php echo $data['match']['opponent']['image_id'] ? 4 : 5 ?> vcenter">
 				<h5 class="no-margin">
-					<?php echo '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title'])).'">'.$this->model('matches')->display_scores($data['match']['scores'], $color, TRUE).' '.$data['match']['opponent']['title'].'</a>' ?>
+					<?php echo '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title'])).'">'.$this->module('events')->model('matches')->display_scores($data['match']['scores'], $color, TRUE).' '.$data['match']['opponent']['title'].'</a>' ?>
 				</h5>
 			</div>
 		</div>

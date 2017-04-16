@@ -18,7 +18,7 @@ class Admin extends Controller_Module
 
 		$modules = $pages = [];
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
 			if ($module->is_administrable())
 			{
@@ -27,12 +27,12 @@ class Admin extends Controller_Module
 		}
 
 		array_natsort($modules, function($a){
-			return $a->get_title();
+			return $a->info()->title;
 		});
 
 		foreach ($modules as $module)
 		{
-			$pages[$module->name] = $module->get_title();
+			$pages[$module->name] = $module->info()->title;
 
 			if ($module->name == 'pages')
 			{

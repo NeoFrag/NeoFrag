@@ -227,7 +227,7 @@ $(function(){
 			});
 
 			$modal.on('hidden.bs.modal', function(){
-				$modal.find('.btn-success').unbind('click');
+				$modal.find('.btn-success').off('click');
 			});
 
 			$modal.modal();

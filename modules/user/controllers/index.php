@@ -542,7 +542,7 @@ class Index extends Controller_Module
 					->size('col-md-6')
 		);
 
-		if ($authenticators = $this->addons->get_authenticators())
+		if ($authenticators = NeoFrag()->model2('addon')->get('authenticator'))
 		{
 			$this->css('auth');
 

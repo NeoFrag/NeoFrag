@@ -4,7 +4,7 @@
 	<li class="list-group-item">
 		<div class="row">
 			<div class="col-md-1">
-				<?php echo $this->model('matches')->display_scores($match['match']['scores'], $color) ?>
+				<?php echo $this->module('events')->model('matches')->display_scores($match['match']['scores'], $color) ?>
 			</div>
 			<?php if ($match['match']['opponent']['image_id']): ?>
 			<div class="text-center col-md-1">

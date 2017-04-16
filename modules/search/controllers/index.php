@@ -45,9 +45,9 @@ class Index extends Controller_Module
 					[$keywords,     'LIKE',     'OR']
 				];
 
-				foreach ($this->addons->get_modules() as $module)
+				foreach (NeoFrag()->model2('addon')->get('module') as $module)
 				{
-					if (($search_controller = $module->controller('search')) && ($columns = $search_controller->search()))
+					if (($search_controller = @$module->controller('search')) && ($columns = $search_controller->search()))
 					{
 						foreach ($queries as $query)
 						{
@@ -79,7 +79,7 @@ class Index extends Controller_Module
 			if ($count)
 			{
 				array_natsort($results, function($a){
-					return $a[0]->get_title();
+					return $a[0]->info()->title;
 				});
 
 				$panels = [];
@@ -89,7 +89,7 @@ class Index extends Controller_Module
 					$content = [];
 					$details = FALSE;
 
-					if (($name = url_title($result[0]->name)) == $module_name)
+					if (($name = url_title($result[0]->info()->name)) == $module_name)
 					{
 						foreach ($this->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
@@ -109,9 +109,9 @@ class Index extends Controller_Module
 					if ($content)
 					{
 						$panels[] = $this	->panel()
-											->heading($result[0]->get_title(), $result[0]->icon, 'search/'.$result[0]->name.'?q='.rawurlencode($search))
+											->heading($result[0]->info()->title, $result[0]->info()->icon, 'search/'.$result[0]->info()->name.'?q='.rawurlencode($search))
 											->body(implode('<hr />', $content))
-											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
+											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
 					}
 
 					if ($details && $pagination = $this->pagination->get_pagination())
