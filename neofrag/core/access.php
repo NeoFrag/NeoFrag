@@ -207,7 +207,7 @@ class Access extends Core
 			}
 			else if (isset($this->groups($this->user('user_id'))[1]))
 			{
-				foreach ($this->addons->get_modules() as $module)
+				foreach ($this->model2('addon')->get('module') as $module)
 				{
 					if ($module->is_authorized())
 					{

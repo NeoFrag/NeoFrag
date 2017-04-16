@@ -6,7 +6,7 @@
 			<?php
 			echo icon('fa-crosshairs');
 
-			$match = $this->model('matches')->get_match_info($event['event_id']);
+			$match = $this->module('events')->model('matches')->get_match_info($event['event_id']);
 
 			$opponent = '&nbsp;'.$match['opponent']['title'];
 
@@ -19,7 +19,7 @@
 			?>
 			<div class="pull-right">
 				<?php if ($event['nb_rounds'] > 0): ?>
-					<?php echo $this->model('matches')->display_scores($match['scores'], $color) ?>
+					<?php echo $this->module('events')->model('matches')->display_scores($match['scores'], $color) ?>
 					<span class="<?php echo $color ?>"><?php echo $match['scores'][0] ?>:<?php echo $match['scores'][1] ?></span>
 				<?php else: ?>
 					<i>À jouer</i>

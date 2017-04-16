@@ -14,7 +14,7 @@ class Checker extends Widget_Checker
 	{
 		if (in_array($settings['type_id'], array_map(function($a){
 			return $a['type_id'];
-		}, $this->model('types')->get_types())))
+		}, $this->module('events')->model('types')->get_types())))
 		{
 			return [
 				'type_id' => $settings['type_id']

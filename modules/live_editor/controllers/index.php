@@ -18,11 +18,11 @@ class Index extends Controller_Module
 
 		$modules = [];
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
 			if ($module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
 			{
-				$modules[$module->name] = $module->get_title();
+				$modules[$module->name] = $module->info()->title;
 			}
 		}
 

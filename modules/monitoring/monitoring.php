@@ -10,17 +10,18 @@ use NF\NeoFrag\Addons\Module;
 
 class Monitoring extends Module
 {
-	public $title         = 'Monitoring';
-	public $description   = '';
-	public $icon          = 'fa-heartbeat';
-	public $link          = 'http://www.neofrag.com';
-	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version       = 'Alpha 0.1';
-	public $nf_version    = 'Alpha 0.1';
-	public $routes        = [];
-	public $path          = __FILE__;
-	public $admin         = FALSE;
+	protected function __info()
+	{
+		return [
+			'title'       => 'Monitoring',
+			'description' => '',
+			'icon'        => 'fa-heartbeat',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => FALSE
+		];
+	}
 
 	public function need_checking()
 	{

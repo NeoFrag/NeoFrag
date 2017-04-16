@@ -10,24 +10,24 @@ use NF\NeoFrag\Addons\Theme;
 
 class Default_ extends Theme
 {
-	public $title       = '{lang default_theme}';
-	public $description = '{lang default_theme_description}';
-	public $thumbnail   = 'themes/default/images/thumbnail.png';
-	public $link        = 'http://www.neofrag.fr';
-	public $author      = 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $zones       = ['{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}'];
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('default_theme'),
+			'description' => '{lang default_theme_description}',
+			'thumbnail'   => 'themes/default/images/thumbnail.png',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'zones'       => ['{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}']
+		];
+	}
 
-	public function load()
+	public function __init()
 	{
 		$this	->css('font.open-sans.300.400.600.700.800')
 				->css('font.economica.400.700')
 				->css('style');
-
-		return parent::load();
 	}
 
 	public function styles_row()

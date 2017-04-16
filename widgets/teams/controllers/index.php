@@ -14,7 +14,7 @@ class Index extends Controller_Widget
 	{
 		$this->css('teams');
 
-		$teams = array_filter($this->model()->get_teams(), function($a){
+		$teams = array_filter($this->module('teams')->model()->get_teams(), function($a){
 			return $a['image_id'];
 		});
 

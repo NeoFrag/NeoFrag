@@ -35,7 +35,7 @@ class Events extends Model
 
 	public function get_events($filter = '', $filter_data = '')
 	{
-		$types = array_keys($this->model('types')->get_types());
+		$types = array_keys($this->module('events')->model('types')->get_types());
 
 		$this->db	->select('e.event_id', 'e.title', 'e.type_id', 't.title as type_title', 't.type', 't.color', 't.icon', 'e.date', 'e.date_end', 'e.description', 'e.private_description', 'e.location', 'e.image_id', 'e.published', 'u.user_id', 'u.username', 'COUNT(mr.round_id) as nb_rounds', 'm.webtv', 'm.website')
 					->from('nf_events e')

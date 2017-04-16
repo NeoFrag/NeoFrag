@@ -10,50 +10,44 @@ use NF\NeoFrag\Addons\Module;
 
 class Partners extends Module
 {
-	public $title       = 'Partenaires';
-	public $description = '';
-	public $icon        = 'fa-star-o';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1.4';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{id}/{url_title}'        => '_partner',
-
-		//Admin
-		'admin/{id}/{url_title*}' => '_edit'
-	];
-
-	public function settings()
+	protected function __info()
 	{
-		$this	->form
-				->add_rules([
-					'partners_logo_display' => [
-						'label'       => 'Logo',
-						'value'       => $this->config->partners_logo_display,
-						'values'      => [
-							'logo_dark'  => 'Foncé',
-							'logo_light' => 'Clair'
-						],
-						'type'        => 'radio',
-						'description' => 'Utilisez les logos clairs s\'ils sont affichés sur un fond foncé',
-						'size'        => 'col-md-4'
-					]
-				])
-				->add_submit($this->lang('edit'))
-				->add_back('admin/addons#modules');
+		return [
+			'title'       => 'Partenaires',
+			'description' => '',
+			'icon'        => 'fa-star-o',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.2'
+			],
+			'routes'      => [
+				//Index
+				'{id}/{url_title}'        => '_partner',
 
-		if ($this->form->is_valid($post))
-		{
-			$this->config('partners_logo_display', $post['partners_logo_display']);
-
-			redirect_back('admin/addons#modules');
-		}
-
-		return $this->panel()->body($this->form->display());
+				//Admin
+				'admin/{id}/{url_title*}' => '_edit'
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->rule($this->form_radio('partners_logo_display')
+										->title('Logo')
+										->info('Utilisez les logos clairs s\'ils sont affichés sur un fond foncé')
+										->value($this->config->partners_logo_display)
+										->data([
+											'logo_dark'  => 'Foncé',
+											'logo_light' => 'Clair'
+										])
+							)
+							->success(function($data){
+								$this->config('partners_logo_display', $data['partners_logo_display']);
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
+		];
 	}
 }

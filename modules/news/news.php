@@ -10,32 +10,50 @@ use NF\NeoFrag\Addons\Module;
 
 class News extends Module
 {
-	public $title       = '{lang news}';
-	public $description = '';
-	public $icon        = 'fa-file-text-o';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{page}'                                   => 'index',
-		'{id}/{url_title}'                         => '_news',
-		'tag/{url_title}{pages}'                   => '_tag',
-		'category/{id}/{url_title}{pages}'         => '_category',
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('news'),
+			'description' => '',
+			'icon'        => 'fa-file-text-o',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.2'
+			],
+			'routes'      => [
+				//Index
+				'{page}'                                   => 'index',
+				'{id}/{url_title}'                         => '_news',
+				'tag/{url_title}{pages}'                   => '_tag',
+				'category/{id}/{url_title}{pages}'         => '_category',
 
-		//Admin
-		'admin{pages}'                             => 'index',
-		'admin/{id}/{url_title}'                   => '_edit',
-		'admin/categories/add'                     => '_categories_add',
-		'admin/categories/{id}/{url_title}'        => '_categories_edit',
-		'admin/categories/delete/{id}/{url_title}' => '_categories_delete'
-	];
+				//Admin
+				'admin{pages}'                             => 'index',
+				'admin/{id}/{url_title}'                   => '_edit',
+				'admin/categories/add'                     => '_categories_add',
+				'admin/categories/{id}/{url_title}'        => '_categories_edit',
+				'admin/categories/delete/{id}/{url_title}' => '_categories_delete'
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->rule($this->form_number('news_per_page')
+										->title('Actualités par page')
+										->value($this->config->news_per_page)
+							)
+							->success(function($data){
+								$this->config('news_per_page', $data['news_per_page']);
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
+		];
+	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'default' => [
@@ -102,29 +120,5 @@ class News extends Module
 				'url'   => 'news/'.$news_id.'/'.url_title($news)
 			];
 		}
-	}
-
-	public function settings()
-	{
-		$this	->form
-				->add_rules([
-					'news_per_page' => [
-						'label' => '{lang news_per_page}',
-						'value' => $this->config->news_per_page,
-						'type'  => 'number',
-						'rules' => 'required'
-					]
-				])
-				->add_submit($this->lang('edit'))
-				->add_back('admin/addons#modules');
-
-		if ($this->form->is_valid($post))
-		{
-			$this->config('news_per_page', $post['news_per_page']);
-
-			redirect_back('admin/addons#modules');
-		}
-
-		return $this->panel()->body($this->form->display());
 	}
 }

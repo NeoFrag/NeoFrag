@@ -14,20 +14,20 @@ class Admin_Checker extends Module_Checker
 	{
 		$modules = $objects = [];
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
 			foreach ($module->get_permissions() as $type => $access)
 			{
 				if (!empty($access['get_all']) && $get_all = call_user_func($access['get_all']))
 				{
-					$modules[$module->name] = [$module, $module->icon, $type, $access];
-					$objects[$module->name] = $get_all;
+					$modules[$module->info()->name] = [$module, $module->info()->icon, $type, $access];
+					$objects[$module->info()->name] = $get_all;
 				}
 			}
 		}
 
 		array_natsort($modules, function($a){
-			return $a[0]->get_title();
+			return $a[0]->info()->title;
 		});
 
 		foreach ($modules as $module_name => $module)
@@ -62,7 +62,7 @@ class Admin_Checker extends Module_Checker
 
 		list($id, $type) = explode('-', $access);
 
-		if (($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
+		if ($module && ($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
 		{
 			return [$module, $type, $access['access'], $id, isset($title) ? $module->lang($title, NULL) : NULL];
 		}

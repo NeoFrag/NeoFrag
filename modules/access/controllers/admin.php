@@ -25,9 +25,9 @@ class Admin extends Controller_Module
 		{
 			list($module, $icon, $type, $all_access) = $module;
 
-			$title = $module->get_title();
+			$title = $module->info()->title;
 
-			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), function() use ($objects, $title, $module, $type, $all_access){
+			$this->tab->add_tab($module_name, icon($icon).' '.$module->info()->title, function() use ($objects, $title, $module, $type, $all_access){
 				$this	->subtitle($title)
 						->table
 						->add_columns([
@@ -48,7 +48,7 @@ class Admin extends Controller_Module
 									[
 										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
 										'content' => function($data) use ($module, $action){
-											return NeoFrag()->access->count($module->name, $action, $data['id']);
+											return $this->access->count($module->info()->name, $action, $data['id']);
 										},
 										'class'   => 'col-md-1'
 									]
@@ -62,13 +62,13 @@ class Admin extends Controller_Module
 									'content' => [
 										function($data) use ($module, $type){
 											return $this->button()->tooltip($this->lang('reset'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
-												'module' => $module->name,
+												'module' => $module->info()->name,
 												'type'   => $type,
 												'id'     => $data['id']
 											]);
 										},
 										function($data) use ($module, $type){
-											return $this->button_access($data['id'], $type, $module->name, $this->lang('edit'));
+											return $this->button_access($data['id'], $type, $module->info()->name, $this->lang('edit'));
 										}
 									]
 								]
@@ -83,9 +83,9 @@ class Admin extends Controller_Module
 
 	public function _edit($module, $type, $access, $id, $title = NULL)
 	{
-		$this	->title($module->get_title())
+		$this	->title($module->info()->title)
 				->subtitle($title ?: $this->lang('permissions_management'))
-				->icon($module->icon)
+				->icon($module->info()->icon)
 				->css('access')
 				->js('access')
 				->css('table')
@@ -96,13 +96,13 @@ class Admin extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading($this->lang('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this->lang('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
-								'module' => $module->name,
+								'module' => $module->info()->name,
 								'type'   => $type,
 								'id'     => $id
 							]).'</div>', 'fa-unlock-alt')
 							->body($this->view('index', [
-								'loader' => $module->load,
-								'module' => $module->name,
+								'loader' => $module,
+								'module' => $module->info()->name,
 								'type'   => $type,
 								'id'     => $id,
 								'access' => $access

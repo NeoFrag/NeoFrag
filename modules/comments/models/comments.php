@@ -55,7 +55,7 @@ class Comments extends Model
 			$comment = $module->comments($module_id);
 
 			$comment['module_title'] = $module->get_title();
-			$comment['icon']         = $module->icon;
+			$comment['icon']         = $module->info()->icon;
 
 			return $comment;
 		}

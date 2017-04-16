@@ -10,73 +10,66 @@ use NF\NeoFrag\Addons\Module;
 
 class Events extends Module
 {
-	public $title       = 'Événements';
-	public $description = '';
-	public $icon        = 'fa-calendar';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1.6';
-	public $nf_version  = 'Alpha 0.1.6';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{page}'                                    => 'index',
-		'standards{page}'                           => 'standards',
-		'matches{page}'                             => 'matches',
-		'upcoming{page}'                            => 'upcoming',
-		'{id}/{url_title}'                          => '_event',
-		'type/{id}/{url_title}{page}'               => '_type',
-		'team/{id}/{url_title}{page}'               => '_team',
-		'participant/{id}/{url_title}/{id}'         => '_participant_add',
-		'participant/delete/{id}/{url_title}/{id}'  => '_participant_delete',
-
-		//Ajax
-		'ajax/{id}/{url_title}'                     => '_event',
-
-		//Admin
-		'admin{pages}'                              => 'index',
-		'admin/{id}/{url_title}'                    => '_edit',
-		'admin/types/add'                           => '_types_add',
-		'admin/types/{id}/{url_title}'              => '_types_edit',
-		'admin/types/delete/{id}/{url_title}'       => '_types_delete',
-		'admin/rounds/delete/{id}/{url_title}/{id}' => '_round_delete'
-	];
-
-	public function settings()
+	protected function __info()
 	{
-		$this	->form
-				->add_rules([
-					'events_per_page' => [
-						'label'       => 'Nombre d\'événement par page',
-						'value'       => $this->config->events_per_page ?: '10',
-						'type'        => 'number',
-						'rules'       => 'required',
-						'size'        => 'col-md-2'
-					],
-					'events_alert_mp' => [
-						'type'        => 'checkbox',
-						'checked'     => ['on' => $this->config->events_alert_mp],
-						'values'      => ['on' => 'Être averti par message privé des invitations']
-					]
-				])
-				->add_submit($this->lang('edit'))
-				->add_back('admin/addons#modules');
+		return [
+			'title'       => 'Événements',
+			'description' => '',
+			'icon'        => 'fa-calendar',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.2'
+			],
+			'routes'      => [
+				//Index
+				'{page}'                                    => 'index',
+				'standards{page}'                           => 'standards',
+				'matches{page}'                             => 'matches',
+				'upcoming{page}'                            => 'upcoming',
+				'{id}/{url_title}'                          => '_event',
+				'type/{id}/{url_title}{page}'               => '_type',
+				'team/{id}/{url_title}{page}'               => '_team',
+				'participant/{id}/{url_title}/{id}'         => '_participant_add',
+				'participant/delete/{id}/{url_title}/{id}'  => '_participant_delete',
 
-		if ($this->form->is_valid($post))
-		{
-			$this	->config('events_per_page', $post['events_per_page'])
-					->config('events_alert_mp', in_array('on', $post['events_alert_mp']));
+				//Ajax
+				'ajax/{id}/{url_title}'                     => '_event',
 
-			redirect_back('admin/addons#modules');
-		}
-
-		return $this->panel()
-					->body($this->form->display());
+				//Admin
+				'admin{pages}'                              => 'index',
+				'admin/{id}/{url_title}'                    => '_edit',
+				'admin/types/add'                           => '_types_add',
+				'admin/types/{id}/{url_title}'              => '_types_edit',
+				'admin/types/delete/{id}/{url_title}'       => '_types_delete',
+				'admin/rounds/delete/{id}/{url_title}/{id}' => '_round_delete'
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->rule($this->form_number('events_per_page')
+										->title('Nombre d\'événement par page')
+										->value($this->config->events_per_page ?: '10')
+							)
+							->rule($this->form_checkbox('events_alert_mp')
+										->data([
+											'on' => 'Être averti par message privé des invitations'
+										])
+										->value([$this->config->events_alert_mp ? 'on' : NULL])
+							)
+							->success(function($data){
+								$this	->config('events_per_page', $data['events_per_page'])
+										->config('events_alert_mp', in_array('on', $data['events_alert_mp']));
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
+		];
 	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'default' => [

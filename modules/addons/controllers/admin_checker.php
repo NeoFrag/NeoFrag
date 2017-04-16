@@ -10,39 +10,19 @@ use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
 class Admin_Checker extends Module_Checker
 {
-	public function _module_settings($name)
+	public function _action($action, $id, $title)
 	{
-		if (($module = $this->module($name)) && method_exists($module, 'settings'))
+		if (($addon = NeoFrag()->model2('addon', $id)->check(str_replace('-', '_', $title))) &&
+			($controller = $addon->controller()))
 		{
-			return [$module];
-		}
-	}
+			$actions = $controller->__actions();
 
-	public function _module_delete($name)
-	{
-		$this->ajax();
+			if (isset($actions[$action]) && (!isset($actions[$action][4]) || $actions[$action][4]($addon->addon())))
+			{
+				$this->ajax_if(!empty($actions[$action][3]));
 
-		if (($module = $this->module($name)) && $module->is_removable())
-		{
-			return [$module];
-		}
-	}
-
-	public function _theme_settings($name)
-	{
-		if (($theme = $this->theme($name)) && ($controller = $theme->controller('admin')) && $controller->has_method('index'))
-		{
-			return [$theme, $controller];
-		}
-	}
-
-	public function _theme_delete($name)
-	{
-		$this->ajax();
-
-		if (($theme = $this->theme($name)) && $theme->is_removable())
-		{
-			return [$theme];
+				return [$addon->addon(), $controller, $action];
+			}
 		}
 	}
 }

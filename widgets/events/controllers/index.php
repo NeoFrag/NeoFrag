@@ -75,10 +75,10 @@ class Index extends Controller_Widget
 
 		$data = [
 			'type'         => $types[$event['type_id']],
-			'participants' => $this->model('participants')->count_participants($event['event_id'])
+			'participants' => $this->module('events')->model('participants')->count_participants($event['event_id'])
 		];
 
-		if ($data['type']['type'] == 1 && ($match = $this->model('matches')->get_match_info($event['event_id'])))//Matches
+		if ($data['type']['type'] == 1 && ($match = $this->module('events')->model('matches')->get_match_info($event['event_id'])))//Matches
 		{
 			$data['match'] = $match;
 		}
@@ -99,7 +99,7 @@ class Index extends Controller_Widget
 		{
 			foreach ($matches as $key => $match)
 			{
-				$matches[$key]['match'] = $this->model('matches')->get_match_info($match['event_id']);
+				$matches[$key]['match'] = $this->module('events')->model('matches')->get_match_info($match['event_id']);
 
 				if (!$this->access('events', 'access_events_type', $matches[$key]['type_id']))
 				{
@@ -124,7 +124,7 @@ class Index extends Controller_Widget
 		{
 			foreach ($matches as $key => $match)
 			{
-				$matches[$key]['match'] = $this->model('matches')->get_match_info($match['event_id']);
+				$matches[$key]['match'] = $this->module('events')->model('matches')->get_match_info($match['event_id']);
 
 				if (!$this->access('events', 'access_events_type', $matches[$key]['type_id']))
 				{

@@ -58,13 +58,23 @@ class Config extends Core
 
 		$this->update('');
 
-		$nf_languages = $this->db	->select('code')
+		/*$nf_languages = $this->db	->select('code')
 									->from('nf_settings_languages')
 									->order_by('order')
-									->get();
+									->get();*/
 
 		//TODO
-		$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge(/*[$this->session('language')], */preg_replace('/^(.+?)[;-].*/', '\1', explode(',', !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '')))), $nf_languages), $nf_languages));
+		//$this->_configs['langs'] = array_unique(array_merge(array_intersect(array_filter(array_merge(/*[$this->session('language')], */preg_replace('/^(.+?)[;-].*/', '\1', explode(',', !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '')))), $nf_languages), $nf_languages));
+
+		$langs = array_filter($this->model2('addon')->get('language'), function($a){
+			return $a;// || $a->settings()->enabled;//TODO
+		});
+
+		usort($langs, function($a, $b){
+			return strnatcmp($a->settings()->order, $b->settings()->order);
+		});
+
+		$this->_configs['langs'] = $langs;
 
 		$this->update('default');
 

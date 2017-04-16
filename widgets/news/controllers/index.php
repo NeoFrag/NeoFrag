@@ -12,7 +12,7 @@ class Index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		$news = array_filter($this->model()->get_news(), function($a){
+		$news = array_filter($this->module('news')->model()->get_news(), function($a){
 			return $a['published'];
 		});
 
@@ -35,7 +35,7 @@ class Index extends Controller_Widget
 
 	public function categories($config = [])
 	{
-		$categories = $this->model('categories')->get_categories();
+		$categories = $this->module('news')->model('categories')->get_categories();
 
 		if (!empty($categories))
 		{

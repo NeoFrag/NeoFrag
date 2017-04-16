@@ -28,8 +28,7 @@ CREATE TABLE `nf_access` (
   `action` varchar(100) NOT NULL,
   PRIMARY KEY (`access_id`),
   UNIQUE KEY `module_id` (`id`,`module`,`action`),
-  KEY `module` (`module`),
-  CONSTRAINT `nf_access_ibfk_1` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `module` (`module`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
@@ -86,6 +85,113 @@ INSERT INTO `nf_access_details` (`access_id`, `entity`, `type`, `authorized`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nf_addon`
+--
+
+DROP TABLE IF EXISTS `nf_addon`;
+CREATE TABLE `nf_addon` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) unsigned DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `data` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`,`type_id`),
+  KEY `type_id` (`type_id`),
+  CONSTRAINT `nf_addon_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `nf_addon_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `nf_addon`
+--
+
+INSERT INTO `nf_addon` (`id`, `type_id`, `name`, `data`) VALUES
+(1, NULL, 'authenticator', NULL),
+(2, 1, 'access', 'a:1:{s:7:\"enabled\";b:1;}'),
+(3, 1, 'addons', 'a:1:{s:7:\"enabled\";b:1;}'),
+(4, 1, 'admin', 'a:1:{s:7:\"enabled\";b:1;}'),
+(5, 1, 'awards', 'a:1:{s:7:\"enabled\";b:1;}'),
+(6, 1, 'comments', 'a:1:{s:7:\"enabled\";b:1;}'),
+(7, 1, 'contact', 'a:1:{s:7:\"enabled\";b:1;}'),
+(8, 1, 'events', 'a:1:{s:7:\"enabled\";b:1;}'),
+(9, 1, 'forum', 'a:1:{s:7:\"enabled\";b:1;}'),
+(10, 1, 'gallery', 'a:1:{s:7:\"enabled\";b:1;}'),
+(11, 1, 'games', 'a:1:{s:7:\"enabled\";b:1;}'),
+(12, 1, 'live_editor', 'a:1:{s:7:\"enabled\";b:1;}'),
+(13, 1, 'members', 'a:1:{s:7:\"enabled\";b:1;}'),
+(14, 1, 'monitoring', 'a:1:{s:7:\"enabled\";b:1;}'),
+(15, 1, 'news', 'a:1:{s:7:\"enabled\";b:1;}'),
+(16, 1, 'pages', 'a:1:{s:7:\"enabled\";b:1;}'),
+(17, 1, 'partners', 'a:1:{s:7:\"enabled\";b:1;}'),
+(18, 1, 'recruits', 'a:1:{s:7:\"enabled\";b:1;}'),
+(19, 1, 'search', 'a:1:{s:7:\"enabled\";b:1;}'),
+(20, 1, 'settings', 'a:1:{s:7:\"enabled\";b:1;}'),
+(21, 1, 'statistics', 'a:1:{s:7:\"enabled\";b:1;}'),
+(22, 1, 'talks', 'a:1:{s:7:\"enabled\";b:1;}'),
+(23, 1, 'teams', 'a:1:{s:7:\"enabled\";b:1;}'),
+(24, 1, 'user', 'a:1:{s:7:\"enabled\";b:1;}'),
+(25, 2, 'admin', NULL),
+(26, 2, 'default', NULL),
+(27, 3, 'awards', 'a:1:{s:7:\"enabled\";b:1;}'),
+(28, 3, 'breadcrumb', 'a:1:{s:7:\"enabled\";b:1;}'),
+(29, 3, 'events', 'a:1:{s:7:\"enabled\";b:1;}'),
+(30, 3, 'forum', 'a:1:{s:7:\"enabled\";b:1;}'),
+(31, 3, 'gallery', 'a:1:{s:7:\"enabled\";b:1;}'),
+(32, 3, 'header', 'a:1:{s:7:\"enabled\";b:1;}'),
+(33, 3, 'html', 'a:1:{s:7:\"enabled\";b:1;}'),
+(34, 3, 'members', 'a:1:{s:7:\"enabled\";b:1;}'),
+(35, 3, 'module', 'a:1:{s:7:\"enabled\";b:1;}'),
+(36, 3, 'navigation', 'a:1:{s:7:\"enabled\";b:1;}'),
+(37, 3, 'news', 'a:1:{s:7:\"enabled\";b:1;}'),
+(38, 3, 'partners', 'a:1:{s:7:\"enabled\";b:1;}'),
+(39, 3, 'recruits', 'a:1:{s:7:\"enabled\";b:1;}'),
+(40, 3, 'search', 'a:1:{s:7:\"enabled\";b:1;}'),
+(41, 3, 'slider', 'a:1:{s:7:\"enabled\";b:1;}'),
+(42, 3, 'talks', 'a:1:{s:7:\"enabled\";b:1;}'),
+(43, 3, 'teams', 'a:1:{s:7:\"enabled\";b:1;}'),
+(44, 3, 'user', 'a:1:{s:7:\"enabled\";b:1;}'),
+(45, 4, 'de', 'a:2:{s:5:\"order\";i:3;s:7:\"enabled\";b:1;}'),
+(46, 4, 'en', 'a:2:{s:5:\"order\";i:2;s:7:\"enabled\";b:1;}'),
+(47, 4, 'es', 'a:2:{s:5:\"order\";i:4;s:7:\"enabled\";b:1;}'),
+(48, 4, 'fr', 'a:2:{s:5:\"order\";i:1;s:7:\"enabled\";b:1;}'),
+(49, 4, 'it', 'a:2:{s:5:\"order\";i:5;s:7:\"enabled\";b:1;}'),
+(50, 4, 'pt', 'a:2:{s:5:\"order\";i:6;s:7:\"enabled\";b:1;}'),
+(51, 5, 'battle_net', 'a:4:{s:5:\"order\";i:3;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(52, 5, 'facebook', 'a:4:{s:5:\"order\";i:0;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(53, 5, 'github', 'a:4:{s:5:\"order\";i:6;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(54, 5, 'google', 'a:4:{s:5:\"order\";i:2;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(55, 5, 'linkedin', 'a:4:{s:5:\"order\";i:7;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(56, 5, 'steam', 'a:4:{s:5:\"order\";i:4;s:7:\"enabled\";b:0;s:3:\"dev\";a:1:{s:3:\"key\";s:0:\"\";}s:4:\"prod\";a:1:{s:3:\"key\";s:0:\"\";}}'),
+(57, 5, 'twitch', 'a:4:{s:5:\"order\";i:5;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(58, 5, 'twitter', 'a:4:{s:5:\"order\";i:1;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
+(59, 3, 'copyright', 'a:1:{s:7:\"enabled\";b:1;}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nf_addon_type`
+--
+
+DROP TABLE IF EXISTS `nf_addon_type`;
+CREATE TABLE `nf_addon_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `nf_addon_type`
+--
+
+INSERT INTO `nf_addon_type` (`id`, `name`) VALUES
+(1, 'module'),
+(2, 'theme'),
+(3, 'widget'),
+(4, 'language'),
+(5, 'authenticator');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nf_awards`
 --
 
@@ -131,8 +237,7 @@ CREATE TABLE `nf_comments` (
   KEY `user_id` (`user_id`),
   KEY `module` (`module`),
   CONSTRAINT `nf_comments_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `nf_comments` (`comment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_comments_ibfk_3` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -569,8 +674,7 @@ CREATE TABLE `nf_gallery_categories_lang` (
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_gallery_categories_lang_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_gallery_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_gallery_categories_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_gallery_categories_lang_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_gallery_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -615,8 +719,7 @@ CREATE TABLE `nf_gallery_lang` (
   `description` text NOT NULL,
   PRIMARY KEY (`gallery_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_gallery_lang_ibfk_1` FOREIGN KEY (`gallery_id`) REFERENCES `nf_gallery` (`gallery_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_gallery_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_gallery_lang_ibfk_1` FOREIGN KEY (`gallery_id`) REFERENCES `nf_gallery` (`gallery_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -654,8 +757,7 @@ CREATE TABLE `nf_games_lang` (
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`game_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_games_lang_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `nf_games` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_games_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_games_lang_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `nf_games` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -724,8 +826,7 @@ CREATE TABLE `nf_groups_lang` (
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`group_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_groups_lang_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `nf_groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_groups_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_groups_lang_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `nf_groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -799,8 +900,7 @@ CREATE TABLE `nf_news_categories_lang` (
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`category_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_news_categories_lang_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_news_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_news_categories_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_news_categories_lang_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `nf_news_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -826,8 +926,7 @@ CREATE TABLE `nf_news_lang` (
   `tags` text NOT NULL,
   PRIMARY KEY (`news_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_news_lang_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `nf_news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_news_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_news_lang_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `nf_news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -867,8 +966,7 @@ CREATE TABLE `nf_pages_lang` (
   `content` text NOT NULL,
   PRIMARY KEY (`page_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_pages_lang_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `nf_pages` (`page_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_pages_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_pages_lang_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `nf_pages` (`page_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -917,8 +1015,7 @@ CREATE TABLE `nf_partners_lang` (
   `description` text NOT NULL,
   PRIMARY KEY (`partner_id`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_partners_lang_ibfk_1` FOREIGN KEY (`partner_id`) REFERENCES `nf_partners` (`partner_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_partners_lang_ibfk_2` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_partners_lang_ibfk_1` FOREIGN KEY (`partner_id`) REFERENCES `nf_partners` (`partner_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
@@ -1165,141 +1262,6 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_settings_addons`
---
-
-DROP TABLE IF EXISTS `nf_settings_addons`;
-CREATE TABLE `nf_settings_addons` (
-  `name` varchar(100) NOT NULL,
-  `type` enum('module','theme','widget') NOT NULL,
-  `is_enabled` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`name`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `nf_settings_addons`
---
-
-INSERT INTO `nf_settings_addons` (`name`, `type`, `is_enabled`) VALUES
-('access', 'module', '1'),
-('addons', 'module', '1'),
-('admin', 'module', '1'),
-('awards', 'module', '1'),
-('awards', 'widget', '1'),
-('breadcrumb', 'widget', '1'),
-('comments', 'module', '1'),
-('contact', 'module', '1'),
-('default', 'theme', '1'),
-('error', 'module', '1'),
-('error', 'widget', '1'),
-('events', 'module', '1'),
-('events', 'widget', '1'),
-('forum', 'module', '1'),
-('forum', 'widget', '1'),
-('gallery', 'module', '1'),
-('gallery', 'widget', '1'),
-('games', 'module', '1'),
-('header', 'widget', '1'),
-('html', 'widget', '1'),
-('live_editor', 'module', '1'),
-('members', 'module', '1'),
-('members', 'widget', '1'),
-('module', 'widget', '1'),
-('monitoring', 'module', '1'),
-('navigation', 'widget', '1'),
-('news', 'module', '1'),
-('news', 'widget', '1'),
-('pages', 'module', '1'),
-('partners', 'module', '1'),
-('partners', 'widget', '1'),
-('recruits', 'module', '1'),
-('recruits', 'widget', '1'),
-('search', 'module', '1'),
-('search', 'widget', '1'),
-('settings', 'module', '1'),
-('slider', 'widget', '1'),
-('statistics', 'module', '1'),
-('talks', 'module', '1'),
-('talks', 'widget', '1'),
-('teams', 'module', '1'),
-('teams', 'widget', '1'),
-('user', 'module', '1'),
-('user', 'widget', '1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nf_settings_authenticators`
---
-
-DROP TABLE IF EXISTS `nf_settings_authenticators`;
-CREATE TABLE `nf_settings_authenticators` (
-  `name` varchar(100) NOT NULL,
-  `settings` text NOT NULL,
-  `is_enabled` enum('0','1') NOT NULL DEFAULT '0',
-  `order` smallint(5) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `nf_settings_authenticators`
---
-
-INSERT INTO `nf_settings_authenticators` (`name`, `settings`, `is_enabled`, `order`) VALUES
-('battle_net', 'a:0:{}', '0', 3),
-('facebook', 'a:0:{}', '0', 0),
-('github', 'a:0:{}', '0', 6),
-('google', 'a:0:{}', '0', 2),
-('linkedin', 'a:0:{}', '0', 7),
-('steam', 'a:0:{}', '0', 4),
-('twitch', 'a:0:{}', '0', 5),
-('twitter', 'a:0:{}', '0', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nf_settings_languages`
---
-
-DROP TABLE IF EXISTS `nf_settings_languages`;
-CREATE TABLE `nf_settings_languages` (
-  `code` varchar(5) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `flag` varchar(100) NOT NULL,
-  `order` smallint(6) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `nf_settings_languages`
---
-
-INSERT INTO `nf_settings_languages` (`code`, `name`, `flag`, `order`) VALUES
-('de', 'Deutsch', 'de.png', 3),
-('en', 'English', 'gb.png', 2),
-('es', 'Español', 'es.png', 4),
-('fr', 'Français', 'fr.png', 1),
-('it', 'Italiano', 'it.png', 5),
-('pt', 'Português', 'pt.png', 6);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nf_settings_smileys`
---
-
-DROP TABLE IF EXISTS `nf_settings_smileys`;
-CREATE TABLE `nf_settings_smileys` (
-  `smiley_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `file_id` int(11) unsigned NOT NULL,
-  `code` varchar(15) NOT NULL,
-  PRIMARY KEY (`smiley_id`),
-  UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `nf_statistics`
 --
 
@@ -1398,7 +1360,6 @@ CREATE TABLE `nf_teams_lang` (
   `description` text NOT NULL,
   PRIMARY KEY (`team_id`,`lang`),
   KEY `lang` (`lang`),
-  CONSTRAINT `nf_teams_lang_ibfk_1` FOREIGN KEY (`lang`) REFERENCES `nf_settings_languages` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_teams_lang_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `nf_teams` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1457,8 +1418,7 @@ CREATE TABLE `nf_users` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `language` (`language`),
-  KEY `deleted` (`deleted`),
-  CONSTRAINT `nf_users_ibfk_1` FOREIGN KEY (`language`) REFERENCES `nf_settings_languages` (`code`) ON DELETE SET NULL ON UPDATE SET NULL
+  KEY `deleted` (`deleted`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
@@ -1634,8 +1594,7 @@ CREATE TABLE `nf_widgets` (
   `title` varchar(100) DEFAULT NULL,
   `settings` text,
   PRIMARY KEY (`widget_id`),
-  KEY `widget_name` (`widget`),
-  CONSTRAINT `nf_widgets_ibfk_1` FOREIGN KEY (`widget`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `widget_name` (`widget`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
