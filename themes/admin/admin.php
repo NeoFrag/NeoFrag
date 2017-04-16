@@ -10,29 +10,33 @@ use NF\NeoFrag\Addons\Theme;
 
 class Admin extends Theme
 {
-	public $title       = '{lang administration}';
-	public $description = '';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
+	protected function __info()
+	{
+		return [
+			'title'       => 'Administration',
+			'description' => '{lang default_theme_description}',
+			'thumbnail'   => 'themes/default/images/thumbnail.png',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'zones'       => ['{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}']
+		];
+	}
 
-	public function load()
+	public function __init()
 	{
 		$content_submenu = [
 			'default' => [],
 			'gaming'  => []
 		];
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach ($this->model2('addon')->get('module') as $module)
 		{
 			if ($module->is_administrable($category) && $category != 'none' && $module->is_authorized())
 			{
 				$content_submenu[isset($content_submenu[$category]) ? $category : 'default'][] = [
 					'title'  => $module->get_title(),
-					'icon'   => $module->icon,
+					'icon'   => $module->info()->icon,
 					'url'    => 'admin/'.$module->name
 				];
 			}
@@ -176,8 +180,6 @@ class Admin extends Theme
 						'access' => $this->user->admin
 					]
 				]);
-
-		return parent::load();
 	}
 
 	public function styles_row()

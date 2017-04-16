@@ -4,14 +4,23 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_steam extends Authenticator
+class A_Authenticator_Steam extends Authenticator
 {
-	protected $_keys = ['key'];
+	protected function __info()
+	{
+		return [
+			'title'   => 'Steam',
+			'icon'    => 'fa-steam',
+			'color'   => '#171a21',
+			'help'    => 'http://steamcommunity.com/dev/apikey',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
-	public $title = 'Steam';
-	public $color = '#171a21';
-	public $icon  = 'fa-steam';
-	public $help  = 'http://steamcommunity.com/dev/apikey';
+	protected $_keys = ['key'];
 
 	public function config()
 	{

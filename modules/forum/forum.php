@@ -10,39 +10,45 @@ use NF\NeoFrag\Addons\Module;
 
 class Forum extends Module
 {
-	public $title       = '{lang forum}';
-	public $description = '';
-	public $icon        = 'fa-comments';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{id}/{url_title}{page}'                   => '_forum',
-		'new/{id}/{url_title}'                     => '_new',
-		'topic/{id}/{url_title}{page}'             => '_topic',
-		'delete/{id}/{url_title}'                  => '_topic_delete',
-		'announce/{id}/{url_title}'                => '_topic_announce',
-		'lock/{id}/{url_title}'                    => '_topic_lock',
-		'topic/move/{id}/{url_title}'              => '_topic_move',
-		'ajax/topic/move/{id}/{url_title}'         => '_topic_move',
-		'message/edit/{id}/{url_title}'            => '_message_edit',
-		'message/delete/{id}/{url_title}'          => '_message_delete',
-		'mark-all-as-read/{id}/{url_title}'        => '_mark_all_as_read',
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('forum'),
+			'description' => '',
+			'icon'        => 'fa-comments',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				//Index
+				'{id}/{url_title}{page}'                   => '_forum',
+				'new/{id}/{url_title}'                     => '_new',
+				'topic/{id}/{url_title}{page}'             => '_topic',
+				'delete/{id}/{url_title}'                  => '_topic_delete',
+				'announce/{id}/{url_title}'                => '_topic_announce',
+				'lock/{id}/{url_title}'                    => '_topic_lock',
+				'topic/move/{id}/{url_title}'              => '_topic_move',
+				'ajax/topic/move/{id}/{url_title}'         => '_topic_move',
+				'message/edit/{id}/{url_title}'            => '_message_edit',
+				'message/delete/{id}/{url_title}'          => '_message_delete',
+				'mark-all-as-read/{id}/{url_title}'        => '_mark_all_as_read',
 
-		//Admin
-		'admin/{id}/{url_title}'                   => '_edit',
-		'admin/categories/add'                     => '_categories_add',
-		'admin/categories/{id}/{url_title}'        => '_categories_edit',
-		'admin/categories/delete/{id}/{url_title}' => '_categories_delete',
-		'admin/ajax/categories/move'               => '_categories_move'
-	];
+				//Admin
+				'admin/{id}/{url_title}'                   => '_edit',
+				'admin/categories/add'                     => '_categories_add',
+				'admin/categories/{id}/{url_title}'        => '_categories_edit',
+				'admin/categories/delete/{id}/{url_title}' => '_categories_delete',
+				'admin/ajax/categories/move'               => '_categories_move'
+			]
+		];
+	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'category' => [
@@ -79,37 +85,37 @@ class Forum extends Module
 				],
 				'access'  => [
 					[
-						'title'  => '{lang category}',
+						'title'  => $this->lang('category'),
 						'icon'   => 'fa-navicon',
 						'access' => [
 							'category_read' => [
-								'title' => '{lang read}',
+								'title' => $this->lang('read'),
 								'icon'  => 'fa-eye'
 							],
 							'category_write' => [
-								'title' => '{lang write}',
+								'title' => $this->lang('write'),
 								'icon'  => 'fa-reply'
 							]
 						]
 					],
 					[
-						'title'  => '{lang moderation}',
+						'title'  => $this->lang('moderation'),
 						'icon'   => 'fa-user',
 						'access' => [
 							'category_modify' => [
-								'title' => '{lang edit_topic_message}',
+								'title' => $this->lang('edit_topic_message'),
 								'icon'  => 'fa-edit'
 							],
 							'category_delete' => [
-								'title' => '{lang remove_topic_message}',
+								'title' => $this->lang('remove_topic_message'),
 								'icon'  => 'fa-trash-o'
 							],
 							'category_announce' => [
-								'title' => '{lang set_topic_announce}',
+								'title' => $this->lang('set_topic_announce'),
 								'icon'  => 'fa-flag'
 							],
 							'category_lock' => [
-								'title' => '{lang lock_a_topic}',
+								'title' => $this->lang('lock_a_topic'),
 								'icon'  => 'fa-lock'
 							],
 							'category_move' => [
@@ -154,7 +160,7 @@ class Forum extends Module
 		return $this->panel()->body($this->form->display());
 	}
 
-	public function load()
+	public function __init()
 	{
 		if (!$this->url->admin && !$this->url->ajax)
 		{

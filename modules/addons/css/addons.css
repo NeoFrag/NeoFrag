@@ -1,140 +1,65 @@
-[data-addon], [data-radio], .access-radio {
-	cursor: pointer;
+#addons {
+	margin-top: 25px;
 }
 
-table.table-access th, table.table-access td {
-	padding: 9px 11px !important;
-}
-
-table.table-access td.no-padding {
-	padding: 5px !important;
-}
-
-table.table-access .label {
-	font-size: 11px;
-}
-
-.thumbnail-theme {
-	display: inline-block;
-	margin-bottom: 10px;
-}
-
-@media (max-width: 1170px)
-{
-	.thumbnail-theme .caption h3 {
-		margin-top: 3px;
-	}
-}
-
-@media (min-width: 1170px)
-{
-	.thumbnail-theme .caption h3 {
-		margin-top: 10px;
-	}
-}
-
-#install-input {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
+.thumbnail .label {
 	position: absolute;
-	z-index: -1;
+	top: 10px;
+	left: 18px;
+	font-size: 65%;
 }
 
-#install-input + label {
-	background-color: #F3F3F4;
-	border: 1px solid transparent;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 14px;
-	font-weight: 600;
-	padding: 10px;
+.thumbnail .icon, .thumbnail .image {
+	height: 100px;
+}
+
+.thumbnail .image {
+	background-size: auto 100%;
+	background-position: 50% 50%;
+}
+
+.thumbnail .icon {
+	background: #ccc;
+	line-height: 100px;
 	text-align: center;
-	width: 100%;
-}
-
-#install-input:focus + label,
-#install-input + label:hover {
-	background-color: #fff;
-	border-color: #25C7F0;
-}
-
-#install-input:focus + label {
-	outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
-}
-
-.addons-panel-body {
-	background-color: #EDEEF1;
-	padding: 10px;
-}
-
-.addon-item {
-	background-color: #fff;
-	border: 1px solid #e7eaec;
-	padding: 10px 12px;
-	position: relative;
-}
-
-.addon-item + .addon-item {
-	margin-top: 10px;
-}
-
-.addon-item .item-status, .item-status-switch, .item-status-icon, .addon-item .item-name, .addon-item .item-action {
-	display: inline-block;
 	vertical-align: middle;
 }
 
-.addon-item .item-status .item-status-icon {
-	background-color: #ccc;
-	border-radius: 100%;
-	color: #fff;
-	padding: 12px;
+.thumbnail .icon .fa {
+	background: #fff;
+	border-radius: 50%;
+	font-size: 30px;
+	line-height: 65px;
+	height: 65px;
+	width: 65px;
+	vertical-align: middle;
 }
 
-.addon-item.active .item-status-icon {
-	background-color: #5CB85C;
-}
-
-.addon-item .item-status-switch {
-	border-right: 1px solid #e7eaec;
-	font-size: 16px;
-	-webkit-transition: width 0.7s ease-in-out, opacity 0.5s ease-in-out;
-	-moz-transition: width 0.7s ease-in-out, opacity 0.5s ease-in-out;
-	-o-transition: width 0.7s ease-in-out, opacity 0.5s ease-in-out;
-	transition: width 0.7s ease-in-out, opacity 0.5s ease-in-out;
-	height: 35px;
-	line-height: 36px;
-	opacity: 0;
-	overflow: hidden;
-	text-align: center;
-	width: 0px;
-}
-
-.addon-item .item-status:hover .item-status-switch, .addon-item .item-name:hover .item-status-switch {
-	-webkit-transition: width 0.7s ease-in-out, opacity 1s ease-in-out;
-	-moz-transition: width 0.7s ease-in-out, opacity 1s ease-in-out;
-	-o-transition: width 0.7s ease-in-out, opacity 1s ease-in-out;
-	transition: width 0.7s ease-in-out, opacity 1s ease-in-out;
-	opacity: 1;
-	width: 45px;
-	overflow: visible;
-}
-
-.addon-item .item-name {
-	font-size: 14px;
-	line-height: 1.25;
-	margin-left: 10px;
-}
-
-.addon-item .item-name i.fa {
-	color: #9CA8B9;
-	margin-right: 5px;
-}
-
-.addon-item .item-action {
+.thumbnail .dropdown .dropdown-toggle {
+	background: #fff;
+	border-radius: 50%;
+	font-size: 75%;
+	color: #ccc;
 	position: absolute;
-	right: 12px;
-	top: 19px;
+	top: 5px;
+	right: 5px;
+	text-align: center;
+	line-height: 15px;
+	height: 15px;
+	width: 15px;
+	vertical-align: middle;
+}
+
+.thumbnail h6 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 5px 0 0;
+	line-height: 28px;
+	min-height: 28px;
+}
+
+.thumbnail h6.disabled {
+	color: #bebebe;
+	font-style: italic;
 }

@@ -10,16 +10,22 @@ use NF\NeoFrag\Addons\Widget;
 
 class Recruits extends Widget
 {
-	public $title       = 'Recrutement';
-	public $description = '';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1.4';
-	public $nf_version  = 'Alpha 0.1.4';
-	public $path        = __FILE__;
-	public $types       = [
-		'index'   => 'Dernières annonces',
-		'recruit' => 'Une annonce en détail'
-	];
+	protected function __info()
+	{
+		return [
+			'title'       => 'Recrutement',
+			'description' => '',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'types'       => [
+				'index'   => 'Dernières annonces',
+				'recruit' => 'Une annonce en détail'
+			]
+		];
+	}
 }

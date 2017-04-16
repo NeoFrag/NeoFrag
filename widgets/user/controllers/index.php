@@ -25,7 +25,7 @@ class Index extends Controller_Widget
 		}
 		else
 		{
-			if ($authenticators = $this->addons->get_authenticators())
+			if ($authenticators = $this->model2('addon')->get('authenticator'))
 			{
 				$this	->css('auth')
 						->css('auth_mini');

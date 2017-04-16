@@ -90,7 +90,7 @@ class Groups extends Core
 			}
 		}
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach ($this->model2('addon')->get('module') as $module)
 		{
 			if (method_exists($module, 'groups'))
 			{
@@ -103,7 +103,7 @@ class Groups extends Core
 
 					if (empty($this->_groups[$group_id]['icon']))
 					{
-						$this->_groups[$group_id]['icon'] = $module->icon;
+						$this->_groups[$group_id]['icon'] = $module->info()->icon;
 					}
 
 					if (empty($this->_groups[$group_id]['color']))

@@ -10,28 +10,34 @@ use NF\NeoFrag\Addons\Module;
 
 class Teams extends Module
 {
-	public $title       = '{lang teams_title}';
-	public $description = '';
-	public $icon        = 'fa-gamepad';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $admin       = 'gaming';
-	public $routes      = [
-		//Index
-		'{id}/{url_title}'                           => '_team',
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('teams_title'),
+			'description' => '',
+			'icon'        => 'fa-gamepad',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => 'gaming',
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				//Index
+				'{id}/{url_title}'                           => '_team',
 
-		//Admin
-		'admin/{id}/{url_title*}'                    => '_edit',
-		'admin/roles/add'                            => '_roles_add',
-		'admin/roles/{id}/{url_title*}'              => '_roles_edit',
-		'admin/roles/delete/{id}/{url_title}'        => '_roles_delete',
-		'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
-		'admin/ajax/roles/sort'                      => '_roles_sort'
-	];
+				//Admin
+				'admin/{id}/{url_title*}'                    => '_edit',
+				'admin/roles/add'                            => '_roles_add',
+				'admin/roles/{id}/{url_title*}'              => '_roles_edit',
+				'admin/roles/delete/{id}/{url_title}'        => '_roles_delete',
+				'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
+				'admin/ajax/roles/sort'                      => '_roles_sort'
+			]
+		];
+	}
 
 	public function groups()
 	{

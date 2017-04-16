@@ -10,29 +10,35 @@ use NF\NeoFrag\Addons\Module;
 
 class Recruits extends Module
 {
-	public $title       = 'Recrutements';
-	public $description = '';
-	public $icon        = 'fa-bullhorn';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = '1.0';
-	public $nf_version  = 'Alpha 0.1.6';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{page}'                                  => 'index',
-		'{id}/{url_title}'                        => '_recruit',
-		'postulate/{id}/{url_title}'              => '_postulate',
-		'candidacy/{id}/{url_title}'              => '_candidacy',
-		//Admin
-		'admin{pages}'                            => 'index',
-		'admin/{id}/{url_title}'                  => '_edit',
-		'admin/candidacies/{id}/{url_title}'      => '_candidacies',
-		'admin/candidacy/{id}/{url_title}'        => '_candidacies_edit',
-		'admin/candidacy/delete/{id}/{url_title}' => '_candidacies_delete'
-	];
+	protected function __info()
+	{
+		return [
+			'title'       => 'Recrutements',
+			'description' => '',
+			'icon'        => 'fa-bullhorn',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				//Index
+				'{page}'                                  => 'index',
+				'{id}/{url_title}'                        => '_recruit',
+				'postulate/{id}/{url_title}'              => '_postulate',
+				'candidacy/{id}/{url_title}'              => '_candidacy',
+				//Admin
+				'admin{pages}'                            => 'index',
+				'admin/{id}/{url_title}'                  => '_edit',
+				'admin/candidacies/{id}/{url_title}'      => '_candidacies',
+				'admin/candidacy/{id}/{url_title}'        => '_candidacies_edit',
+				'admin/candidacy/delete/{id}/{url_title}' => '_candidacies_delete'
+			]
+		];
+	}
 
 	public function settings()
 	{
@@ -94,7 +100,7 @@ class Recruits extends Module
 					->body($this->form->display());
 	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'default' => [

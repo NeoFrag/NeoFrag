@@ -18,7 +18,7 @@ class Admin extends Controller_Module
 
 		$modules = $pages = [];
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach ($this->model2('addon')->get('module') as $module)
 		{
 			if ($module->is_administrable())
 			{

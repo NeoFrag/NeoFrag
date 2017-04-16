@@ -10,39 +10,45 @@ use NF\NeoFrag\Addons\Module;
 
 class Events extends Module
 {
-	public $title       = 'Événements';
-	public $description = '';
-	public $icon        = 'fa-calendar';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1.6';
-	public $nf_version  = 'Alpha 0.1.6';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{page}'                                    => 'index',
-		'standards{page}'                           => 'standards',
-		'matches{page}'                             => 'matches',
-		'upcoming{page}'                            => 'upcoming',
-		'{id}/{url_title}'                          => '_event',
-		'type/{id}/{url_title}{page}'               => '_type',
-		'team/{id}/{url_title}{page}'               => '_team',
-		'participant/{id}/{url_title}/{id}'         => '_participant_add',
-		'participant/delete/{id}/{url_title}/{id}'  => '_participant_delete',
+	protected function __info()
+	{
+		return [
+			'title'       => 'Événements',
+			'description' => '',
+			'icon'        => 'fa-calendar',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				//Index
+				'{page}'                                    => 'index',
+				'standards{page}'                           => 'standards',
+				'matches{page}'                             => 'matches',
+				'upcoming{page}'                            => 'upcoming',
+				'{id}/{url_title}'                          => '_event',
+				'type/{id}/{url_title}{page}'               => '_type',
+				'team/{id}/{url_title}{page}'               => '_team',
+				'participant/{id}/{url_title}/{id}'         => '_participant_add',
+				'participant/delete/{id}/{url_title}/{id}'  => '_participant_delete',
 
-		//Ajax
-		'ajax/{id}/{url_title}'                     => '_event',
+				//Ajax
+				'ajax/{id}/{url_title}'                     => '_event',
 
-		//Admin
-		'admin{pages}'                              => 'index',
-		'admin/{id}/{url_title}'                    => '_edit',
-		'admin/types/add'                           => '_types_add',
-		'admin/types/{id}/{url_title}'              => '_types_edit',
-		'admin/types/delete/{id}/{url_title}'       => '_types_delete',
-		'admin/rounds/delete/{id}/{url_title}/{id}' => '_round_delete'
-	];
+				//Admin
+				'admin{pages}'                              => 'index',
+				'admin/{id}/{url_title}'                    => '_edit',
+				'admin/types/add'                           => '_types_add',
+				'admin/types/{id}/{url_title}'              => '_types_edit',
+				'admin/types/delete/{id}/{url_title}'       => '_types_delete',
+				'admin/rounds/delete/{id}/{url_title}/{id}' => '_round_delete'
+			]
+		];
+	}
 
 	public function settings()
 	{
@@ -76,7 +82,7 @@ class Events extends Module
 					->body($this->form->display());
 	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'default' => [

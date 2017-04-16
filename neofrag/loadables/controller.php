@@ -10,6 +10,20 @@ use NF\NeoFrag\NeoFrag;
 
 abstract class Controller extends NeoFrag implements \NF\NeoFrag\Loadable
 {
+	static protected $_objects = [];
+
+	static public function __load($caller, $args = [])
+	{
+		$name = array_shift($args);
+
+		if (!isset(static::$_objects[$caller_name = get_class($caller)][$name]))
+		{
+			static::$_objects[$caller_name][$name] = $caller->___load('controllers', $name, [$caller]);
+		}
+
+		return static::$_objects[$caller_name][$name];
+	}
+
 	protected $_caller;
 
 	public function __construct($caller)

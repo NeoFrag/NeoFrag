@@ -10,22 +10,28 @@ use NF\NeoFrag\Addons\Module;
 
 class Talks extends Module
 {
-	public $title       = '{lang talks}';
-	public $description = '';
-	public $icon        = 'fa-comment-o';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		'admin{pages}'            => 'index',
-		'admin/{id}/{url_title*}' => '_edit'
-	];
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('talks'),
+			'description' => '',
+			'icon'        => 'fa-comment-o',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				'admin{pages}'            => 'index',
+				'admin/{id}/{url_title*}' => '_edit'
+			]
+		];
+	}
 
-	public static function permissions()
+	public function permissions()
 	{
 		return [
 			'talk' => [
@@ -50,25 +56,25 @@ class Talks extends Module
 				],
 				'access'  => [
 					[
-						'title'  => '{lang talks}',
+						'title'  => $this->lang('talks'),
 						'icon'   => 'fa-comment-o',
 						'access' => [
 							'read' => [
-								'title' => '{lang read}',
+								'title' => $this->lang('read'),
 								'icon'  => 'fa-eye'
 							],
 							'write' => [
-								'title' => '{lang write}',
+								'title' => $this->lang('write'),
 								'icon'  => 'fa-reply'
 							]
 						]
 					],
 					[
-						'title'  => '{lang moderation}',
+						'title'  => $this->lang('moderation'),
 						'icon'   => 'fa-user',
 						'access' => [
 							'delete' => [
-								'title' => '{lang delete_message}',
+								'title' => $this->lang('delete_message'),
 								'icon'  => 'fa-trash-o'
 							]
 						]

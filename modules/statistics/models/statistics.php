@@ -17,7 +17,7 @@ class Statistics extends Model
 
 		$i = 0;
 
-		foreach ($this->addons->get_modules() as $module)
+		foreach ($this->model2('addon')->get('module') as $module)
 		{
 			if ($controller = $module->controller('statistics'))
 			{

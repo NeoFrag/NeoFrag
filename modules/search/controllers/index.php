@@ -45,7 +45,7 @@ class Index extends Controller_Module
 					[$keywords,     'LIKE',     'OR']
 				];
 
-				foreach ($this->addons->get_modules() as $module)
+				foreach ($this->model2('addon')->get('module') as $module)
 				{
 					if (($search_controller = $module->controller('search')) && ($columns = $search_controller->search()))
 					{

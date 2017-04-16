@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_github extends Authenticator
+class A_Authenticator_Github extends Authenticator
 {
-	public $title = 'GitHub';
-	public $color = '#24292e';
-	public $icon  = 'fa-github';
-	public $help  = 'https://github.com/settings/applications/new';
+	protected function __info()
+	{
+		return [
+			'title'   => 'GitHub',
+			'icon'    => 'fa-github',
+			'color'   => '#24292e',
+			'help'    => 'https://github.com/settings/applications/new',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function data(&$params = [])
 	{

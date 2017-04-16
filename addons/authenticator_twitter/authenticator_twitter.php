@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_twitter extends Authenticator
+class A_Authenticator_Twitter extends Authenticator
 {
-	public $title = 'Twitter';
-	public $color = '#1da1f2';
-	public $icon  = 'fa-twitter';
-	public $help  = 'https://apps.twitter.com/app/new';
+	protected function __info()
+	{
+		return [
+			'title'   => 'Twitter',
+			'icon'    => 'fa-twitter',
+			'color'   => '#1da1f2',
+			'help'    => 'https://apps.twitter.com/app/new',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function config()
 	{

@@ -10,19 +10,25 @@ use NF\NeoFrag\Addons\Module;
 
 class Members extends Module
 {
-	public $title         = '{lang members_list}';
-	public $description   = '';
-	public $icon          = 'fa-users';
-	public $link          = 'http://www.neofrag.com';
-	public $author        = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence       = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version       = 'Alpha 0.1';
-	public $nf_version    = 'Alpha 0.1';
-	public $path          = __FILE__;
-	public $routes        = [
-		'{pages}'                                   => 'index',
-		'group/(admins|members){pages}'             => '_group',
-		'group/{url_title}-{id}/{url_title}{pages}' => '_group',
-		'group/{id}/{url_title}{pages}'             => '_group'
-	];
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('members_list'),
+			'description' => '',
+			'icon'        => 'fa-users',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'routes'      => [
+				'{pages}'                                   => 'index',
+				'group/(admins|members){pages}'             => '_group',
+				'group/{url_title}-{id}/{url_title}{pages}' => '_group',
+				'group/{id}/{url_title}{pages}'             => '_group'
+			]
+		];
+	}
 }

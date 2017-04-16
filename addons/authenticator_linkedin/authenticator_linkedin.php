@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_battle_net extends Authenticator
+class A_Authenticator_Linkedin extends Authenticator
 {
-	public $title = 'Battle.net';
-	public $color = '#19547c';
-	public $icon  = 'fa-bold';
-	public $help  = 'https://dev.battle.net/apps/register';
+	protected function __info()
+	{
+		return [
+			'title'   => 'LinkedIn',
+			'icon'    => 'fa-linkedin',
+			'color'   => '#0077B5',
+			'help'    => 'https://www.linkedin.com/secure/developer?newapp=',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function config()
 	{
@@ -28,17 +37,17 @@ class a_battle_net extends Authenticator
 			return function($data){
 				return [
 					'id'            => $data->id,
-					'username'      => preg_replace('/#\d+$/', '', $data->battletag),
-					'email'         => '',
-					'first_name'    => '',
-					'last_name'     => '',
+					'username'      => $data->firstName.$data->lastName,
+					'email'         => $data->emailAddress,
+					'first_name'    => $data->firstName,
+					'last_name'     => $data->lastName,
 					'date_of_birth' => '',
 					'sex'           => '',
 					'language'      => '',
 					'location'      => '',
 					'signature'     => '',
 					'website'       => '',
-					'avatar'        => ''
+					'avatar'        => $data->pictureUrl
 				];
 			};
 		}

@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_facebook extends Authenticator
+class A_Authenticator_Facebook extends Authenticator
 {
-	public $title = 'Facebook';
-	public $color = '#3b5998';
-	public $icon  = 'fa-facebook';
-	public $help  = 'https://developers.facebook.com/';
+	protected function __info()
+	{
+		return [
+			'title'   => 'Facebook',
+			'icon'    => 'fa-facebook',
+			'color'   => '#3b5998',
+			'help'    => 'https://developers.facebook.com/',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function config()
 	{

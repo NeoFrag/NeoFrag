@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_google extends Authenticator
+class A_Authenticator_Google extends Authenticator
 {
-	public $title = 'Google';
-	public $color = '#db4437';
-	public $icon  = 'fa-google';
-	public $help  = 'https://console.developers.google.com/apis/credentials';
+	protected function __info()
+	{
+		return [
+			'title'   => 'Google',
+			'icon'    => 'fa-google',
+			'color'   => '#db4437',
+			'help'    => 'https://console.developers.google.com/apis/credentials',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function config()
 	{

@@ -10,18 +10,24 @@ use NF\NeoFrag\Addons\Widget;
 
 class Gallery extends Widget
 {
-	public $title       = '{lang galleries}';
-	public $description = '';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Jérémy Valentin <jeremy.valentin@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $types       = [
-		'index'  => '{lang categories_list}',
-		'albums' => '{lang albums_from_category}',
-		'image'  => '{lang random_picture}',
-		'slider' => '{lang album_slide}'
-	];
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('galleries'),
+			'description' => '',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'version'     => '1.0',
+			'depends'     => [
+				'neofrag' => 'Alpha 0.1.7'
+			],
+			'types'       => [
+				'index'  => '{lang categories_list}',
+				'albums' => '{lang albums_from_category}',
+				'image'  => '{lang random_picture}',
+				'slider' => '{lang album_slide}'
+			]
+		];
+	}
 }

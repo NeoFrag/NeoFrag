@@ -10,24 +10,26 @@ use NF\NeoFrag\Addons\Module;
 
 class Pages extends Module
 {
-	public $title       = '{lang pages}';
-	public $description = '';
-	public $icon        = 'fa-file-o';
-	public $link        = 'http://www.neofrag.com';
-	public $author      = 'Michaël Bilcot <michael.bilcot@neofrag.com>';
-	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';
-	public $version     = 'Alpha 0.1';
-	public $nf_version  = 'Alpha 0.1';
-	public $path        = __FILE__;
-	public $admin       = TRUE;
-	public $routes      = [
-		//Index
-		'{url_title}'             => '_index',
+	protected function __info()
+	{
+		return [
+			'title'       => $this->lang('pages'),
+			'description' => '',
+			'icon'        => 'fa-file-o',
+			'link'        => 'https://neofr.ag',
+			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
+			'license'     => 'LGPLv3 <https://neofr.ag/license>',
+			'admin'       => TRUE,
+			'routes'      => [
+				//Index
+				'{url_title}'             => '_index',
 
-		//Admin
-		'admin{pages}'            => 'index',
-		'admin/{id}/{url_title*}' => '_edit'
-	];
+				//Admin
+				'admin{pages}'            => 'index',
+				'admin/{id}/{url_title*}' => '_edit'
+			]
+		];
+	}
 
 	public function get_title($new_title = NULL)
 	{
@@ -49,7 +51,7 @@ class Pages extends Module
 		}
 		else if ($title === NULL)
 		{
-			$title = $this->lang($this->title, NULL);
+			$title = $this->lang($this->info()->title, NULL);
 		}
 
 		return $title;

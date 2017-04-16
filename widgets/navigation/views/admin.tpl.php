@@ -36,7 +36,7 @@
 							<?php
 							$modules = [];
 
-							foreach ($this->addons->get_modules(TRUE) as $module)
+							foreach ($this->model2('addon')->get('module') as $module)
 							{
 								//TODO
 								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'live_editor', 'pages', 'settings', 'games', 'talks']))

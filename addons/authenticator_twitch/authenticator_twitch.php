@@ -4,12 +4,21 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class a_twitch extends Authenticator
+class A_Authenticator_Twitch extends Authenticator
 {
-	public $title = 'Twitch';
-	public $color = '#6441a4';
-	public $icon  = 'fa-twitch';
-	public $help  = 'https://www.twitch.tv/kraken/oauth2/clients/new';
+	protected function __info()
+	{
+		return [
+			'title'   => 'Twitch',
+			'icon'    => 'fa-twitch',
+			'color'   => '#6441a4',
+			'help'    => 'https://www.twitch.tv/kraken/oauth2/clients/new',
+			'version' => '1.0',
+			'depends' => [
+				'addon/authenticator' => '1.0'
+			]
+		];
+	}
 
 	public function config()
 	{

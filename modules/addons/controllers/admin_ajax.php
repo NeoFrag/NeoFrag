@@ -242,7 +242,7 @@ class Admin_Ajax extends Controller_Module
 		return $this->panel()
 					->heading('Liste des langues', 'fa-book')
 					->body($this->view('languages', [
-						'languages' => $this->addons->get_languages()
+						'languages' => $this->model2('addon')->get('language')
 					]), FALSE);
 	}
 
@@ -251,7 +251,7 @@ class Admin_Ajax extends Controller_Module
 		return $this->panel()
 					->heading('Liste des authentificateurs', 'fa-user-circle')
 					->body($this->view('authenticators', [
-						'authenticators' => $this->addons->get_authenticators(TRUE)
+						'authenticators' => $this->model2('addon')->get('authenticator')
 					]), FALSE);
 	}
 

@@ -4,8 +4,34 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-abstract class Authenticator extends NeoFrag
+namespace NF\NeoFrag\Addons;
+
+use NF\NeoFrag\Loadables\Addon;
+
+abstract class Authenticator extends Addon
 {
+	static public function __label()
+	{
+		return ['Authentificateurs', 'Authentificateur', 'fa-lock', 'info'];
+	}
+
+	public function __actions()
+	{
+		return [
+			['enable',   'Activer',       'fa-check',   'success'],
+			['disable',  'Désactiver',    'fa-times',   'muted'],
+			['settings', 'Configuration', 'fa-wrench',  'warning'],
+			NULL,
+			['reset',    'Réinitialiser', 'fa-refresh', 'danger'],
+			['delete',   'Désinstaller',  'fa-remove',  'danger']
+		];
+	}
+
+	protected function __info()
+	{
+		return [];
+	}
+
 	protected $_enabled;
 	protected $_settings;
 	protected $_keys = ['id', 'secret'];
@@ -18,12 +44,25 @@ abstract class Authenticator extends NeoFrag
 
 	abstract public function data(&$params = []);
 
-	public function __construct($name, $enabled, $settings = [])
+	/*public function __construct($name, $enabled, $settings = [])
 	{
-		$this->load      = NeoFrag();
 		$this->name      = $name;
 		$this->_enabled  = $enabled;
 		$this->_settings = $settings;
+	}*/
+	public function __construct($name, $type, $path = '', $settings = [])
+	{
+		$this->load = NeoFrag();
+		$this->name = $name;
+		$this->type = $type;
+
+		$this->__info = [
+			'name' => $name,
+			'type' => $type,
+			'path' => $path
+		];
+
+		$this->__settings = (object)$settings;
 	}
 
 	public function is_setup()
@@ -70,11 +109,11 @@ abstract class Authenticator extends NeoFrag
 			$this->_settings[$key] = !empty($settings[$key]) ? $settings[$key] : '';
 		}
 
-		$this->db	->where('name', $this->name)
-					->update('nf_settings_authenticators', [
-						'settings'   => serialize($this->_settings),
-						'is_enabled' => $this->is_setup()
-					]);
+		NeoFrag()->db	->where('name', $this->name)
+						->update('nf_settings_authenticators', [
+							'settings'   => serialize($this->_settings),
+							'is_enabled' => $this->is_setup()
+						]);
 	}
 
 	public function config()
