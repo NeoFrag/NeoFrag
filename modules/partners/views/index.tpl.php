@@ -5,7 +5,7 @@ foreach ($partners as $i => $partner): ?>
 		<div class="col-5 text-center" style="padding-right: 15px;">
 			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']) ?>" target="_blank" class="thumbnail" style="padding: 10px;">
 				<?php if ($partner[$this->config->partners_logo_display]): ?>
-				<img src="<?php echo path($partner[$this->config->partners_logo_display]) ?>" class="img-fluid" alt="" />
+				<img src="<?php echo NeoFrag()->model2('file', $partner[$this->config->partners_logo_display])->path() ?>" class="img-fluid" alt="" />
 				<?php else: ?>
 				<h3 class="m-0"><?php echo $partner['title'] ?></h3>
 				<?php endif ?>

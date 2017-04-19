@@ -25,13 +25,13 @@ class Admin extends Controller_Module
 							[
 								'title'   => $this->lang('Équipe'),
 								'content' => function($data){
-									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name']).'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name']).'"><img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" alt="" /> '.$data['title'].'</a>';
 								}
 							],
 							[
 								'title'   => $this->lang('Jeux'),
 								'content' => function($data){
-									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game']).'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
+									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game']).'"><img src="'.NeoFrag()->model2('file', $data['game_icon'])->path().'" alt="" /> '.$data['game_title'].'</a>';
 								}
 							],
 							[

@@ -65,7 +65,7 @@ class Maps extends Model
 
 	public function delete_map($map_id)
 	{
-		$this->file->delete($this->db->select('image_id')->from('nf_games_maps')->where('map_id', $map_id)->row());
+		NeoFrag()->model2('file', $this->db->select('image_id')->from('nf_games_maps')->where('map_id', $map_id)->row())->delete();
 
 		$this->db	->where('map_id', $map_id)
 					->delete('nf_games_maps');

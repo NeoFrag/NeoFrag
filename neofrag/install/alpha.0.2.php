@@ -330,5 +330,9 @@ class i_0_2 extends NeoFrag
 		}
 
 		$this->db->execute('DROP TABLE nf_users_auth');
+
+		//File
+		$this->db	->execute('ALTER TABLE `nf_files` CHANGE `file_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
+					->execute('RENAME TABLE `nf_files` TO `nf_file`');
 	}
 }

@@ -1,5 +1,5 @@
 <?php if (!empty($image_id)): ?>
-<img class="img-fluid" src="<?php echo path($image_id) ?>" alt="" />
+<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="" />
 <?php endif ?>
 <?php if (!empty($description)): ?>
 <div class="panel-body">
@@ -18,7 +18,7 @@
 		<?php foreach ($images as $image): ?>
 		<div class="image-item">
 			<a class="thumbnail" href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>">
-				<img class="img-fluid" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" />
+				<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image['thumbnail_file_id'])->path() ?>" alt="" />
 			</a>
 		</div>
 		<?php endforeach ?>
@@ -40,7 +40,7 @@
 					<div class="carousel-inner" role="listbox">
 						<?php foreach ($carousel_images as $image): ?>
 						<div class="item <?php echo !isset($active) ? $active = ' active' : '' ?>">
-							<img src="<?php echo path($image['file_id']) ?>" alt="" />
+							<img src="<?php echo NeoFrag()->model2('file', $image['file_id'])->path() ?>" alt="" />
 							<div class="carousel-caption">
 								<h3><?php echo $image['title'] ?></h3>
 								<?php echo $image['description'] ?>

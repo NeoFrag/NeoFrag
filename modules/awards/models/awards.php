@@ -223,7 +223,7 @@ class Awards extends Model
 
 	public function delete_awards($award_id)
 	{
-		$this->file->delete($this->db->select('image_id')->from('nf_awards')->where('award_id', $award_id)->row());
+		NeoFrag()->model2('file', $this->db->select('image_id')->from('nf_awards')->where('award_id', $award_id)->row())->delete();
 
 		$this->db	->where('award_id', $award_id)
 					->delete('nf_awards');

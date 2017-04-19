@@ -5,7 +5,7 @@
 				<?php echo icon('fa-bars') ?>
 			</button>
 			<?php if ($this->config->nf_maintenance_logo): ?>
-			<img src="<?php echo path($this->config->nf_maintenance_logo) ?>" class="logo" alt="" />
+			<img src="<?php echo NeoFrag()->model2('file', $this->config->nf_maintenance_logo)->path() ?>" class="logo" alt="" />
 			<?php else: ?>
 			<span class="navbar-brand"><?php echo $this->config->nf_name ?></span>
 			<?php endif ?>

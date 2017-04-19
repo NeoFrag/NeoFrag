@@ -5,7 +5,7 @@
 		<div class="row">
 			<?php if ($match['match']['opponent']['image_id']): ?>
 			<div class="text-center col-1">
-				<img src="<?php echo path($match['match']['opponent']['image_id']) ?>" class="img-fluid" alt="" />
+				<img src="<?php echo NeoFrag()->model2('file', $match['match']['opponent']['image_id'])->path() ?>" class="img-fluid" alt="" />
 			</div>
 			<?php endif ?>
 			<div class="col-<?php echo $match['match']['opponent']['image_id'] ? 7 : 8 ?>">

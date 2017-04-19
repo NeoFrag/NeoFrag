@@ -121,7 +121,10 @@ class Teams extends Model
 
 	public function delete_team($team_id)
 	{
-		$this->file->delete($this->db->select('image_id', 'icon_id')->from('nf_teams')->where('team_id', $team_id)->row());
+		foreach ($this->db->select('image_id', 'icon_id')->from('nf_teams')->where('team_id', $team_id)->row() as $file_id)
+		{
+			NeoFrag()->model2('file', $file_id)->delete();
+		}
 
 		$this->groups->delete('teams', $team_id);
 
