@@ -107,10 +107,15 @@ class Games extends Model
 			$files[] = $game['icon_id'];
 		}
 
-		$this->file->delete(array_merge(
+		$files = array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_games')->where('game_id', $game_id)->row()),
 			array_filter($files)
-		));
+		);
+
+		foreach ($files as $file)
+		{
+			NeoFrag()->model2('file', $file)->delete();
+		}
 
 		foreach ($this->db->select('team_id')->from('nf_teams')->where('game_id', $game_id)->get() as $team_id)
 		{

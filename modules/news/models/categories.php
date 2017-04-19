@@ -85,10 +85,15 @@ class Categories extends Model
 
 	public function delete_category($category_id)
 	{
-		$this->file->delete(array_merge(
+		$files = array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_news_categories')->where('category_id', $category_id)->row()),
 			$this->db->select('image_id')->from('nf_news')->where('category_id', $category_id)->get()
-		));
+		);
+
+		foreach ($files as $file)
+		{
+			NeoFrag()->model2('file', $file)->delete();
+		}
 
 		$this->db	->where('category_id', $category_id)
 					->delete('nf_news_categories');

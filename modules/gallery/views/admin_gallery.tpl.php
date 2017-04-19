@@ -16,9 +16,9 @@
 			<?php foreach ($images as $image): ?>
 				<div class="gallery-item">
 					<div class="thumbnail">
-					<a class="thumbnail-link" data-toggle="tooltip" title="<?php echo $this->lang('Visualiser') ?>" data-image="<?php echo path($image['file_id']) ?>" data-title="<?php echo $image['title'] ?>" data-description="<?php echo $image['description'] ?>"><img class="img-fluid" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" /></a>
+					<a class="thumbnail-link" data-toggle="tooltip" title="<?php echo $this->lang('Visualiser') ?>" data-image="<?php echo NeoFrag()->model2('file', $image['file_id'])->path() ?>" data-title="<?php echo $image['title'] ?>" data-description="<?php echo $image['description'] ?>"><img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image['thumbnail_file_id'])->path() ?>" alt="" /></a>
 						<div class="actions">
-						<a href="<?php echo url('admin/gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>" class="btn btn-outline btn-info btn-xs" data-toggle="tooltip" title="<?php echo $this->lang('Éditer') ?>"><?php echo icon('fa-pencil') ?></a>
+						<a href="<?php echo url('admin/gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>" class="btn btn-outline btn-info btn-xs" data-toggle="tooltip" title="<?php echo $this->lang('Ã‰diter') ?>"><?php echo icon('fa-pencil') ?></a>
 						<?php echo $this->button_delete('admin/gallery/image/delete/'.$image['image_id'].'/'.url_title($image['title'])) ?>
 						</div>
 					</div>

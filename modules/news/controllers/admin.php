@@ -40,7 +40,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => $this->lang('Catégorie'),
 								'content' => function($data){
-									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+									return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.NeoFrag()->model2('file', $data['category_icon'])->path().'" alt="" /> '.$data['category_title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['category_title'];
@@ -98,7 +98,7 @@ class Admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name']).'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
+										return '<a href="'.url('admin/news/categories/'.$data['category_id'].'/'.$data['name']).'"><img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" alt="" /> '.$data['title'].'</a>';
 									},
 									'search'  => function($data){
 										return $data['title'];

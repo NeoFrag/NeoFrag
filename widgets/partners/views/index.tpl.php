@@ -36,7 +36,7 @@
 				<div class="col-<?php echo ceil(12 / $display_number) ?> partner-item">
 					<a href="<?php echo url('partners/'.$partners[$i]['partner_id'].'/'.$partners[$i]['name']) ?>" target="_blank">
 						<?php if ($image_id = $partners[$i]['logo_'.$display_style]): ?>
-						<img class="logo" src="<?php echo path($image_id) ?>" alt="" />
+						<img class="logo" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="" />
 						<?php else: ?>
 						<?php echo $partners[$i]['title'] ?>
 						<?php endif ?>

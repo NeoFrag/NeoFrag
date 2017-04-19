@@ -1,7 +1,7 @@
 <div class="row">
 	<?php if ($image_id): ?>
 	<div class="col-4">
-		<a class="thumbnail" href="<?php echo url('recruits/'.$recruit_id.'/'.url_title($title)) ?>"><img class="img-fluid" src="<?php echo path($image_id) ?>" alt="" /></a>
+		<a class="thumbnail" href="<?php echo url('recruits/'.$recruit_id.'/'.url_title($title)) ?>"><img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="" /></a>
 	</div>
 	<?php endif ?>
 	<div class="col-<?php echo $image_id ? '8' : '12' ?>">

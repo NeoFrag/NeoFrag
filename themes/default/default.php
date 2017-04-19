@@ -366,7 +366,7 @@ class Default_ extends Theme
 
 	public function uninstall($remove = TRUE)
 	{
-		$this->file->delete($this->config->default_background);
+		NeoFrag()->model2('file', $this->config->default_background)->delete();
 		$this->db->where('name LIKE', 'default_%')->delete('nf_settings');
 		return parent::uninstall($remove);
 	}

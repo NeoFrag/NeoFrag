@@ -121,7 +121,7 @@ img.logo {
 	height: auto;
 	padding: 100px 0;
 	text-align: center;
-	background: url('<?php echo $this->config->nf_maintenance_background ? path($this->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg') ?>') <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat' ?> <?php echo $this->config->nf_maintenance_background_position ?: 'top center' ?>;
+	background: url('<?php echo $this->config->nf_maintenance_background ? $this->model2('file', $this->config->nf_maintenance_background)->path() : image('backgrounds/maintenance.jpg') ?>') <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat' ?> <?php echo $this->config->nf_maintenance_background_position ?: 'top center' ?>;
 }
 
 .intro .intro-body {

@@ -21,7 +21,7 @@ class Index extends Controller_Module
 
 			if ($team['image_id'])
 			{
-				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-fluid" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
+				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-fluid" src="'.NeoFrag()->model2('file', $team['image_id'])->path().'" alt="" /></a>', FALSE);
 			}
 
 			$panels->append($panel);
@@ -93,7 +93,7 @@ class Index extends Controller_Module
 								'content' => function($data){
 									if ($data['match']['opponent']['image_id'])
 									{
-										return '<img src="'.path($data['match']['opponent']['image_id']).'" style="max-height: 35px; max-width: 50px;" alt="" />';
+										return '<img src="'.NeoFrag()->model2('file', $data['match']['opponent']['image_id'])->path().'" style="max-height: 35px; max-width: 50px;" alt="" />';
 									}
 									else
 									{

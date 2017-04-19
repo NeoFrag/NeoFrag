@@ -116,7 +116,7 @@ class Recruits extends Model
 
 	public function delete_recruit($recruit_id)
 	{
-		$this->file->delete($this->db->select('image_id')->from('nf_recruit')->where('recruit_id', $recruit_id)->row());
+		NeoFrag()->model2('file', $this->db->select('image_id')->from('nf_recruit')->where('recruit_id', $recruit_id)->row())->delete();
 
 		$this->db	->where('recruit_id', $recruit_id)
 					->delete('nf_recruits');

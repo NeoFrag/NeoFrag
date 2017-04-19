@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									$output = '<img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'];
+									$output = '<img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" alt="" /> '.$data['title'];
 									return $data['parent_id'] ? '<span style="padding-left: 35px;">'.$output.'</span>' : $output;
 								},
 								'search'  => function($data){
@@ -312,7 +312,7 @@ class Admin extends Controller_Module
 							$game_id ? NULL : [
 								'title'   => 'Jeu',
 								'content' => function($data){
-									return ($data['icon_id'] ? '<img src="'.path($data['icon_id']).'" alt="" /> ' : '').'<a href="'.url('admin/games/'.$data['game_id'].'/'.$data['name']).'">'.$data['game_title'].'</a>';
+									return ($data['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" alt="" /> ' : '').'<a href="'.url('admin/games/'.$data['game_id'].'/'.$data['name']).'">'.$data['game_title'].'</a>';
 								}
 							],
 							[

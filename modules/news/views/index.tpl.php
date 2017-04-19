@@ -1,6 +1,6 @@
 <?php if ($image): ?>
 	<div class="pull-left mr-4">
-		<a href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><img class="img-thumbnail" src="<?php echo path($image) ?>" alt="" /></a>
+		<a href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><img class="img-thumbnail" src="<?php echo NeoFrag()->model2('file', $image)->path() ?>" alt="" /></a>
 	</div>
 <?php endif ?>
 <p class="news-detail">

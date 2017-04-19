@@ -1,5 +1,5 @@
 <?php if ($image_id): ?>
-	<img class="img-fluid" src="<?php echo path($image_id) ?>" alt="" />
+	<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="" />
 <?php endif ?>
 <div class="panel-body">
 	<div class="well text-center">
