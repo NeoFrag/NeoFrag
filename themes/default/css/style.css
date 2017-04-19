@@ -1,5 +1,5 @@
 body {
-	background-image: url('<?php echo $this->config->default_background ? path($this->config->default_background) : '../images/backgrounds/default.jpg' ?>');
+	background-image: url('<?php echo $this->config->default_background ? $this->model2('file', $this->config->default_background)->path() : '../images/backgrounds/default.jpg' ?>');
 	background-position: <?php echo $this->config->default_background_position ?>;
 	background-repeat: <?php echo $this->config->default_background_repeat ?>;
 	background-attachment: <?php echo $this->config->default_background_attachment ?>;

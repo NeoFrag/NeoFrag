@@ -204,13 +204,13 @@ class Form extends Library
 					{
 						if (!empty($post[$var]) && $post[$var] == 'delete' && !empty($options['value']))
 						{
-							$this->file->delete($options['value']);
+							$this->model2('file', $options['value'])->delete();
 							$options['value'] = $post[$var] = 0;
 						}
 
 						if (!empty($files['tmp_name'][$var]))
 						{
-							if (!($post[$var] = $this->file->upload($files, isset($options['upload']) ? $options['upload'] : NULL, $filename, isset($options['value']) ? $options['value'] : NULL, $var)))
+							if (!($post[$var] = NeoFrag()->model2('file')->static_uploaded_file($files, isset($options['upload']) ? $options['upload'] : NULL, isset($options['value']) ? $options['value'] : NULL, $var)->id))
 							{
 								$this->_errors[$var] = NeoFrag()->lang('file_transfer_error');
 								return FALSE;
@@ -676,7 +676,7 @@ class Form extends Library
 					$input = '	<div class="row">
 									<div class="col-md-3">
 										<div class="thumbnail no-margin">
-											<img src="'.url($this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row()).'" alt="" />
+											<img src="'.url($this->db->select('path')->from('nf_file')->where('id', $options['value'])->row()).'" alt="" />
 											<div class="caption text-center">
 												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->token().'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag()->lang('remove').'</a>
 											</div>

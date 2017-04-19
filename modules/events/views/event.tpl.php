@@ -1,11 +1,11 @@
-<a href="<?php echo $link = url('events/'.$event_id.'/'.url_title($title)) ?>"><img src="<?php echo path($image_id) ?>" class="img-responsive" alt="" /></a>
+<a href="<?php echo $link = url('events/'.$event_id.'/'.url_title($title)) ?>"><img src="<?php echo $this->model2('file', $image_id)->path() ?>" class="img-responsive" alt="" /></a>
 <?php if (!empty($match['opponent']))://Matches ?>
 <div class="panel-body text-center">
 	<div class="row vcenter">
 		<div class="text-right col-xs-5 vcenter">
 			<h3 class="no-margin">
 				<a href="<?php echo url('events/team/'.$match['team_id'].'/'.$match['team']['name']) ?>">
-				<?php if ($icon = path($match['team']['icon_id'])) echo '<img src="'.path($icon).'" style="margin-right: 10px;" alt="" />' ?>
+				<?php if ($icon = $this->model2('file', $match['team']['icon_id'])->path()) echo '<img src="'.$this->model2('file', $icon)->path().'" style="margin-right: 10px;" alt="" />' ?>
 				<?php echo $match['team']['title'].' '.$this->model('matches')->display_scores($match['scores'], $color) ?>
 				</a>
 			</h3>
@@ -21,7 +21,7 @@
 		<?php endif ?>
 		<?php if ($match['opponent']['image_id']): ?>
 		<div class="text-right col-xs-1 vcenter">
-			<img src="<?php echo path($match['opponent']['image_id']) ?>" class="img-responsive" alt="" />
+			<img src="<?php echo $this->model2('file', $match['opponent']['image_id'])->path() ?>" class="img-responsive" alt="" />
 		</div>
 		<?php endif ?>
 		<div class="text-left col-xs-<?php echo $match['opponent']['image_id'] ? 4 : 5 ?> vcenter">
@@ -58,7 +58,7 @@
 			<div class="row vcenter">
 				<?php if ($rounds[$i]['image_id']): ?>
 				<div class="col-xs-2 vcenter">
-					<img src="<?php echo path($rounds[$i]['image_id']) ?>" class="img-responsive" alt="" />
+					<img src="<?php echo $this->model2('file', $rounds[$i]['image_id'])->path() ?>" class="img-responsive" alt="" />
 				</div>
 				<?php endif ?>
 				<div class="col-xs-<?php echo $rounds[$i]['image_id'] ? '3' : '5' ?> vcenter">

@@ -1,5 +1,5 @@
 <?php if ($image_id): ?>
-<a href="<?php echo url('teams/'.$team_id.'/'.$name) ?>"><img class="img-responsive" src="<?php echo path($image_id) ?>" alt="" /></a>
+<a href="<?php echo url('teams/'.$team_id.'/'.$name) ?>"><img class="img-responsive" src="<?php echo $this->model2('file', $image_id)->path() ?>" alt="" /></a>
 <?php endif ?>
 <div class="panel-body">
 	<?php if ($description): ?>

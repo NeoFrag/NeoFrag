@@ -5,7 +5,7 @@ foreach ($partners as $i => $partner): ?>
 		<div class="col-md-5 text-center" style="padding-right: 15px;">
 			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']) ?>" target="_blank" class="thumbnail" style="padding: 10px;">
 				<?php if ($partner[$this->config->partners_logo_display]): ?>
-				<img src="<?php echo path($partner[$this->config->partners_logo_display]) ?>" class="img-responsive" alt="" />
+				<img src="<?php echo $this->model2('file', $partner[$this->config->partners_logo_display])->path() ?>" class="img-responsive" alt="" />
 				<?php else: ?>
 				<h3 class="no-margin"><?php echo $partner['title'] ?></h3>
 				<?php endif ?>

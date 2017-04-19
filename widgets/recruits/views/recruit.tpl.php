@@ -1,5 +1,5 @@
 <?php if ($image_id): ?>
-<img class="img-responsive" src="<?php echo path($image_id) ?>" alt="" />
+<img class="img-responsive" src="<?php echo $this->model2('file', $image_id)->path() ?>" alt="" />
 <?php endif ?>
 <div class="panel-body">
 	<p><big><?php echo icon($icon) ?> <a href="<?php echo url('recruits/'.$recruit_id.'/'.url_title($title)) ?>"><?php echo $title ?></a></big></p>

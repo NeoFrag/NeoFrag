@@ -8,7 +8,7 @@
 			</div>
 			<?php if ($match['match']['opponent']['image_id']): ?>
 			<div class="text-center col-md-1">
-				<img src="<?php echo path($match['match']['opponent']['image_id']) ?>" class="img-responsive" alt="" />
+				<img src="<?php echo $this->model2('file', $match['match']['opponent']['image_id'])->path() ?>" class="img-responsive" alt="" />
 			</div>
 			<?php endif ?>
 			<div class="text-left col-md-<?php echo $match['match']['opponent']['image_id'] ? 7 : 8 ?>">

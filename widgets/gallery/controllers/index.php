@@ -50,7 +50,7 @@ class Index extends Controller_Widget
 		{
 			return $this->panel()
 						->heading($image['title'])
-						->body('<a href="'.$href.'"><img class="img-responsive" src="'.path($image['file_id']).'" alt="" /></a>', FALSE)
+						->body('<a href="'.$href.'"><img class="img-responsive" src="'.$this->model2('file', $image['file_id'])->path().'" alt="" /></a>', FALSE)
 						->footer('<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('details').'</a>', 'right');
 		}
 		else

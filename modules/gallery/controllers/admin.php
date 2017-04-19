@@ -38,7 +38,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => $this->lang('category'),
 								'content' => function($data){
-									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
+									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.$this->model2('file', $data['category_icon'])->path().'" alt="" /> '.$data['category_title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['category_title'];
@@ -82,7 +82,7 @@ class Admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return '<img src="'.path($data['icon_id']).'" alt="" />';
+										return '<img src="'.$this->model2('file', $data['icon_id'])->path().'" alt="" />';
 									},
 									'size'    => TRUE
 								],
@@ -209,7 +209,7 @@ class Admin extends Controller_Module
 								->add_columns([
 									[
 										'content' => function($data){
-											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$this->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$this->lang('view').'" data-image="'.$this->model2('file', $data['file_id'])->path().'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.$this->model2('file', $data['thumbnail_file_id'])->path().'" alt="" /></a>';
 										},
 										'size'    => TRUE
 									],
@@ -440,7 +440,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('preview_image'), 'fa-photo')
 						->body(function($data) use ($image_id, $title, $description, $thumbnail_file_id){
-							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.$this->model2('file', $thumbnail_file_id)->path().'" alt="" /></a>';
 						})
 						->size('col-md-4 col-lg-3')
 			)

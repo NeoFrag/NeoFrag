@@ -1,6 +1,6 @@
 <?php if ($image): ?>
 	<div class="pull-left">
-		<a class="thumbnail" href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><img class="img-responsive" src="<?php echo path($image) ?>" alt="" /></a>
+		<a class="thumbnail" href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><img class="img-responsive" src="<?php echo $this->model2('file', $image)->path() ?>" alt="" /></a>
 	</div>
 <?php endif ?>
 <p class="news-detail">
