@@ -4,84 +4,44 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-abstract class Driver
+namespace NF\NeoFrag;
+
+class Driver_Query
 {
-	static protected $db;
-	static protected $keywords = ['read', 'order'];
-
-	static public function query($request)
-	{
-		static $check_foreign_keys;
-
-		$request = new static($request);
-
-		if (!$check_foreign_keys && empty($request->ignore_foreign_keys))
-		{
-			static::check_foreign_keys($check_foreign_keys = TRUE);
-		}
-		else if ($check_foreign_keys !== FALSE && !empty($request->ignore_foreign_keys))
-		{
-			static::check_foreign_keys($check_foreign_keys = FALSE);
-		}
-
-		$time = microtime(TRUE);
-
-		$request->build_sql()->execute();
-
-		$request->time = microtime(TRUE) - $time;
-
-		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
-		$request->file = relative_path($backtrace[2]['file']);
-		$request->line = $backtrace[2]['line'];
-
-		return $request;
-	}
-
-	static protected function escape_keywords($string)
-	{
-		if (in_array(strtolower($string), static::$keywords))
-		{
-			return '`'.$string.'`';
-		}
-		else
-		{
-			return $string;
-		}
-	}
-
-	abstract static public function connect($hostname, $username, $password, $database);
-	abstract static public function get_info();
-	abstract static public function get_size();
-	abstract static public function escape_string($string);
-	abstract static public function check_foreign_keys($check);
-	abstract static public function fetch($check, $type = 'assoc');
-	abstract static public function free($check);
-	abstract static public function lock($tables);
-	abstract static public function unlock($tables);
-	abstract static public function tables();
-	abstract static public function table_create($table);
-	abstract static public function table_columns($table);
-
-	abstract protected function execute();
-	abstract protected function bind($value);
-
-	abstract public function get();
-	abstract public function row();
-	abstract public function results();
-	abstract public function last_id();
-	abstract public function affected_rows();
-
+	public $driver;
 	public $bind = [];
 
-	public function __construct($request)
+	public function __construct($driver, $request)
 	{
+		$this->driver = $driver;
+
 		foreach ($request as $key => $value)
 		{
 			$this->$key = $value;
 		}
 	}
 
-	protected function build_sql()
+	public function __call($name, $args)
+	{
+		return call_user_func_array([$this->driver, $name], array_merge([$this], $args));
+	}
+
+	public function __debugInfo()
+	{
+		$debug = [];
+
+		foreach (['sql', 'bind', 'error'] as $var)
+		{
+			if (isset($this->$var))
+			{
+				$debug[$var] = $this->$var;
+			}
+		}
+
+		return $debug;
+	}
+
+	public function build_sql()
 	{
 		if (!empty($this->query))
 		{
@@ -91,15 +51,15 @@ abstract class Driver
 		{
 			$this->sql = !empty($this->insert) ? 'INSERT INTO '.$this->insert : 'REPLACE INTO '.$this->replace;
 
-			$this->sql .= ' ('.implode(', ', array_map('static::escape_keywords', array_keys($this->values))).') VALUES ('.implode(', ', array_map(function($a){
-				return $this->bind($a);
+			$this->sql .= ' ('.implode(', ', array_map([$this->driver, 'escape_keywords'], array_keys($this->values))).') VALUES ('.implode(', ', array_map(function($a){
+				return $this->driver->bind($this, $a);
 			}, $this->values)).')';
 		}
 		else
 		{
 			if (!empty($this->from))
 			{
-				$this->sql = 	'SELECT '.(!empty($this->select) ? implode(', ', array_map('static::escape_keywords', $this->select)) : '*').' '.
+				$this->sql = 	'SELECT '.(!empty($this->select) ? implode(', ', array_map([$this->driver, 'escape_keywords'], $this->select)) : '*').' '.
 								'FROM '.$this->from;
 
 				if (!empty($this->join))
@@ -115,7 +75,7 @@ abstract class Driver
 				{
 					foreach ($this->set as $key => $value)
 					{
-						$sets[] = static::escape_keywords($key).' = '.$this->bind($value);
+						$sets[] = $this->driver->escape_keywords($key).' = '.$this->driver->bind($this, $value);
 					}
 				}
 				else
@@ -197,7 +157,7 @@ abstract class Driver
 
 				if (!empty($this->order_by))
 				{
-					$this->sql .= ' ORDER BY '.implode(', ', array_map('static::escape_keywords', $this->order_by));
+					$this->sql .= ' ORDER BY '.implode(', ', array_map([$this->driver, 'escape_keywords'], $this->order_by));
 				}
 
 				if (!empty($this->limit))
@@ -214,17 +174,17 @@ abstract class Driver
 	{
 		if (!property_exists($where, 'value'))
 		{
-			$sql = static::escape_keywords($where->name);
+			$sql = $this->driver->escape_keywords($where->name);
 		}
 		else if (is_array($where->value))
 		{
-			$sql = static::escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
+			$sql = $this->driver->escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
 				return $this->bind($a);
 			}, $where->value)).')';
 		}
 		else
 		{
-			if (preg_match('/^(.+?) FIND_IN_SET$/', static::escape_keywords($where->name), $match))
+			if (preg_match('/^(.+?) FIND_IN_SET$/', $this->driver->escape_keywords($where->name), $match))
 			{
 				$sql = 'FIND_IN_SET('.$this->bind($where->value).', '.$match[1].')';
 			}
@@ -241,7 +201,7 @@ abstract class Driver
 					$op   = '=';
 				}
 
-				$sql = static::escape_keywords($name);
+				$sql = $this->driver->escape_keywords($name);
 
 				if ($where->value === NULL)
 				{

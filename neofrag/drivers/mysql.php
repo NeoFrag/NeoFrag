@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Driver_mysql extends Driver
+namespace NF\NeoFrag\Drivers;
+
+use NF\NeoFrag\Driver;
+
+class Mysql extends Driver
 {
 	static private $_database;
 	static private $_time_zone;
@@ -27,7 +31,7 @@ class Driver_mysql extends Driver
 			mysql_query('SET time_zone = "+00:00"');
 			mysql_query('SET time_zone = "'.(self::$_time_zone = date_create(mysql_fetch_row(mysql_query('SELECT NOW()'))[0])->diff(date_create())->format('%R%H:%I')).'"');
 
-			return TRUE;
+			return self::$db;
 		}
 	}
 
