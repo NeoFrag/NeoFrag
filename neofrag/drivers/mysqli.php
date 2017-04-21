@@ -10,29 +10,28 @@ use NF\NeoFrag\Driver;
 
 class Mysqli extends Driver
 {
-	static private $_database;
-	static private $_time_zone;
-	static private $_stmt = [];
+	protected $db;
+	protected $stmt = [];
 
-	static public function connect($hostname, $username, $password, $database)
+	public function connect()
 	{
-		if ((self::$db = @mysqli_connect($hostname, $username, $password, $database)) !== FALSE)
+		$this->db = @new \mysqli($this->info->hostname, $this->info->username, $this->info->password, $this->info->database);
+
+		if (!$this->db->connect_error)
 		{
-			self::$_database = $database;
+			$this->db->set_charset('utf8');
 
-			self::$db->set_charset('utf8');
+			$this->db->query('SET time_zone = "+00:00"');
+			$this->db->query('SET time_zone = "'.($this->info->time_zone = date_create($this->db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I')).'"');
 
-			self::$db->query('SET time_zone = "+00:00"');
-			self::$db->query('SET time_zone = "'.(self::$_time_zone = date_create(self::$db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I')).'"');
-
-			return TRUE;
+			return $this->db;
 		}
 	}
 
-	static public function get_info()
+	public function get_info()
 	{
 		$server  = 'MySQL';
-		$version = self::$db->server_info;
+		$version = $this->db->server_info;
 
 		if (preg_match('/-([0-9.]+?)-(MariaDB)/', $version, $match))
 		{
@@ -44,19 +43,19 @@ class Mysqli extends Driver
 		}
 
 		return [
-			'name'      => self::$_database,
-			'time_zone' => self::$_time_zone,
+			'name'      => $this->info->database,
+			'time_zone' => $this->info->time_zone,
 			'server'    => $server,
 			'version'   => $version,
-			'innodb'    => ($result = self::$db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], ['DEFAULT', 'YES'])
+			'innodb'    => ($result = $this->db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], ['DEFAULT', 'YES'])
 		];
 	}
 
-	static public function get_size()
+	public function get_size()
 	{
 		$total = 0;
 
-		$sql = self::$db->query('SHOW TABLE STATUS LIKE "nf\_%"');
+		$sql = $this->db->query('SHOW TABLE STATUS LIKE "nf\_%"');
 		while ($table = $sql->fetch_object())
 		{
 			$total += $table->Data_length + $table->Index_length;
@@ -65,46 +64,58 @@ class Mysqli extends Driver
 		return $total;
 	}
 
-	static public function escape_string($string)
+	public function escape_keywords($string)
 	{
-		return self::$db->real_escape_string($string);
-	}
-
-	static public function check_foreign_keys($check)
-	{
-		return self::$db->query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
-	}
-
-	static public function fetch($results, $type = 'assoc')
-	{
-		if ($results[1]->fetch())
+		if (in_array(strtolower($string), ['key', 'read', 'order']))
 		{
-			return self::_get_result($results[0]);
+			return '`'.$string.'`';
+		}
+		else
+		{
+			return $string;
 		}
 	}
 
-	static public function free($results)
+	public function escape_string($string)
+	{
+		return $this->db->real_escape_string($string);
+	}
+
+	public function check_foreign_keys($check)
+	{
+		return $this->db->query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
+	}
+
+	public function fetch($results, $type = 'assoc')
+	{
+		if ($results[1]->fetch())
+		{
+			return $this->_row($results[0]);
+		}
+	}
+
+	public function free($results)
 	{
 		$results[1]->free_result();
 	}
 
-	static public function lock($tables)
+	public function lock($tables)
 	{
-		self::$db->query('LOCK TABLES '.implode(', ', array_map(function($a){
+		$this->db->query('LOCK TABLES '.implode(', ', array_map(function($a){
 			return '`'.$a.'` READ';
 		}, $tables)));
 	}
 
-	static public function unlock($tables)
+	public function unlock($tables)
 	{
-		self::$db->query('UNLOCK TABLES');
+		$this->db->query('UNLOCK TABLES');
 	}
 
-	static public function tables()
+	public function tables()
 	{
 		$tables = [];
 
-		$sql = self::$db->query('SHOW TABLE STATUS LIKE "nf\_%"');
+		$sql = $this->db->query('SHOW TABLE STATUS LIKE "nf\_%"');
 		while ($table = $sql->fetch_object())
 		{
 			$tables[] = $table->Name;
@@ -113,11 +124,11 @@ class Mysqli extends Driver
 		return $tables;
 	}
 
-	static public function table_create($table)
+	public function table_create($table)
 	{
 		$result = '';
 
-		$sql = self::$db->query('SHOW CREATE TABLE `'.$table.'`');
+		$sql = $this->db->query('SHOW CREATE TABLE `'.$table.'`');
 		if ($row = $sql->fetch_object())
 		{
 			$result = $row->{'Create Table'};
@@ -126,11 +137,11 @@ class Mysqli extends Driver
 		return $result;
 	}
 
-	static public function table_columns($table)
+	public function table_columns($table)
 	{
 		$columns = [];
 
-		$sql = self::$db->query('SHOW COLUMNS FROM `'.$table.'`');
+		$sql = $this->db->query('SHOW COLUMNS FROM `'.$table.'`');
 		while ($column = $sql->fetch_object())
 		{
 			$columns[$column->Field] = $column->Type;
@@ -139,138 +150,145 @@ class Mysqli extends Driver
 		return $columns;
 	}
 
-	protected function execute()
+	public function execute($request)
 	{
-		if (!isset(self::$_stmt[$this->sql]))
+		if (!isset($this->stmt[$request->sql]))
 		{
-			self::$_stmt[$this->sql] = self::$db->prepare($this->sql);
+			$this->stmt[$request->sql] = $this->db->prepare($request->sql);
 		}
 
-		$this->stmt = self::$_stmt[$this->sql];
-
-		if ($this->stmt)
+		if ($request->stmt = $this->stmt[$request->sql])
 		{
-			if (!empty($this->bind) && ($count = count($this->bind)) > 1)
+			if (!empty($request->bind))
 			{
-				$bind = $this->bind;
+				$args = [];
+				$bind = $request->bind;
 
-				foreach (range(0, $count - 1) as $i)
+				foreach ($bind as $i => $value)
 				{
-					$bind[$i] = &$bind[$i];
+					if ($i)
+					{
+						$args[] = &$bind[$i];
+					}
+					else
+					{
+						$args[] = $bind[$i];
+					}
 				}
 
-				call_user_func_array([$this->stmt, 'bind_param'], $bind);
+				call_user_func_array([$request->stmt, 'bind_param'], $args);
 			}
 
-			if ($this->stmt->execute())
+			if ($request->stmt->execute())
 			{
 				return;
 			}
 		}
 
-		$this->error = self::$db->error;
+		$request->error = $this->db->error;
 	}
 
-	protected function bind($value)
+	public function bind($request, $value)
 	{
-		if (empty($this->bind))
-		{
-			$this->bind = [''];
-		}
-
 		if ($value === NULL)
 		{
 			return 'NULL';
 		}
-		else if (is_bool($value))
+
+		if (empty($request->bind))
+		{
+			$request->bind = [''];
+		}
+
+		if (is_bool($value))
 		{
 			$value = (int)$value;
 
-			$this->bind[0] .= 's';
+			$request->bind[0] .= 's';
 		}
 		else if (is_integer($value))
 		{
-			$this->bind[0] .= 'i';
+			$request->bind[0] .= 'i';
 		}
 		else if (is_float($value))
 		{
-			$this->bind[0] .= 'd';
+			$request->bind[0] .= 'd';
 		}
 		else
 		{
-			$this->bind[0] .= 's';
+			$request->bind[0] .= 's';
 		}
 
-		$this->bind[] = $value;
+		$request->bind[] = $value;
 
 		return '?';
 	}
 
-	public function get()
+	public function get($request)
 	{
-		return $this->_get_results(function(&$row){
+		return $this->_get_results($request, function($request, &$row){
 			$results = [];
 
-			while ($this->stmt->fetch())
+			while ($request->stmt->fetch())
 			{
-				$results[] = self::_get_result($row);
+				$results[] = $this->_row($row);
 			}
 
 			return $results;
 		});
 	}
 
-	public function row()
+	public function row($request)
 	{
-		return $this->_get_results(function(&$row){
-			if ($this->stmt->fetch())
+		return $this->_get_results($request, function($request, &$row){
+			if ($request->stmt->fetch())
 			{
 				return $row;
 			}
 		});
 	}
 
-	public function results()
+	public function results($request)
 	{
-		return $this->_get_results(function(&$row){
-			return [$row, $this->stmt];
+		return $this->_get_results($request, function($request, &$row){
+			return [$row, $request->stmt];
 		}, FALSE);
 	}
 
-	public function last_id()
+	public function last_id($request)
 	{
-		return $this->stmt->insert_id;
+		return $request->stmt->insert_id;
 	}
 
-	public function affected_rows()
+	public function affected_rows($request)
 	{
-		return $this->stmt->affected_rows;
+		return $request->stmt->affected_rows;
 	}
 
-	static private function _get_result($row)
+	private function _row($row)
 	{
 		return array_map(function($a){
 			return $a;
 		}, $row);
 	}
 
-	private function _get_results($callback, $free_results = TRUE)
+	private function _get_results($request, $callback, $free_results = TRUE)
 	{
 		$result = $params = [];
-		$md = $this->stmt->result_metadata();
+		$md = $request->stmt->result_metadata();
 
 		while ($field = $md->fetch_field())
 		{
 			$params[] = &$result[$field->name];
 		}
 
-		call_user_func_array([$this->stmt, 'bind_result'], $params);
+		call_user_func_array([$request->stmt, 'bind_result'], $params);
 
-		$return = $callback($result);
+		$return = $callback($request, $result);
 
 		if ($free_results)
 		{
-			$this->stmt->free_result();
+			$request->stmt->free_result();
 		}
 
 		return $return ?: [];

@@ -31,7 +31,7 @@ class Mysql extends Driver
 			mysql_query('SET time_zone = "+00:00"');
 			mysql_query('SET time_zone = "'.(self::$_time_zone = date_create(mysql_fetch_row(mysql_query('SELECT NOW()'))[0])->diff(date_create())->format('%R%H:%I')).'"');
 
-			return TRUE;
+			return self::$db;
 		}
 	}
 
@@ -168,8 +168,7 @@ class Mysql extends Driver
 
 		if ($value === NULL)
 		{
-			$return = '%s';
-			$value  = 'NULL';
+			return 'NULL';
 		}
 		else if (is_bool($value))
 		{
