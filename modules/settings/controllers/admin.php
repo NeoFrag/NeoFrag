@@ -85,12 +85,6 @@ class Admin extends Controller_Module
 						'label'  => $this->lang('Code analytics'),
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_analytics
-					],
-					'debug' => [
-						'label'  => $this->lang('Mode débug'),
-						'type'   => 'radio',
-						'value'  => $this->config->nf_debug,
-						'values' => [$this->lang('Désactivé'), $this->lang('Administrateurs seulement'), $this->lang('Toujours')]
 					]
 				])
 				->add_submit($this->lang('Valider'))

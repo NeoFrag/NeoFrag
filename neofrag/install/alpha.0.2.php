@@ -226,5 +226,8 @@ class i_0_2 extends NeoFrag
 
 		//Vote
 		$this->db->execute('DROP TABLE nf_votes');
+
+		//Debug
+		$this->db->where('name', 'nf_debug')->delete('nf_settings');
 	}
 }
