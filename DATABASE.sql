@@ -1101,7 +1101,6 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_contact', '', '', 'noreply@neofrag.com', 'string'),
 ('nf_cookie_expire', '', '', '1 hour', 'string'),
 ('nf_cookie_name', '', '', 'session', 'string'),
-('nf_debug', '', '', '0', 'int'),
 ('nf_default_page', 'default', '', 'news', 'string'),
 ('nf_default_theme', 'default', '', 'default', 'string'),
 ('nf_description', 'default', '', 'ALPHA 0.1.6.1', 'string'),

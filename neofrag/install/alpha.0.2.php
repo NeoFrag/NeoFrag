@@ -8,6 +8,8 @@ class i_0_2 extends Install
 {
 	public function up()
 	{
+		$this->db->where('name', 'nf_debug')->delete('nf_settings');
+
 		//Comment
 		$this->db	->execute('ALTER TABLE `nf_comments` CHANGE `comment_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
 					->execute('RENAME TABLE `nf_comments` TO `nf_comment`');

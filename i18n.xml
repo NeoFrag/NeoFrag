@@ -52,7 +52,7 @@
    <NamedRange ss:Name="_FilterDatabase" ss:RefersTo="='NeoFrag CMS'!R1C1:R719C8"
     ss:Hidden="1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="724" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="720" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="210"
    ss:DefaultRowHeight="15">
    <Row ss:Height="18">
@@ -1701,15 +1701,6 @@
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_always</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Toujours</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Always</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
     <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">configuration</Data><NamedCell
@@ -2074,16 +2065,6 @@
     <Cell><Data ss:Type="String">Derniers sujets</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Latest topics</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_disabled</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Désactivé</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Disabled</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -2631,16 +2612,6 @@
     <Cell><Data ss:Type="String">Erreur de transfert</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Transfer error</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_admins_only</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Administrateurs seulement</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Admins only</Data><NamedCell
       ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
@@ -4417,16 +4388,6 @@
     <Cell><Data ss:Type="String">middle</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Milieu</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
     <Cell><Data ss:Type="String">Medium</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">neofrag/modules/settings/lang/</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">debug_mode</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Mode débug</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
-    <Cell><Data ss:Type="String">Debug mode</Data><NamedCell
-      ss:Name="_FilterDatabase"/></Cell>
    </Row>
    <Row>
     <Cell><Data ss:Type="String">neofrag/lang/</Data><NamedCell
