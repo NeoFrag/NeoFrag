@@ -12,45 +12,21 @@ class Index extends Controller_Module
 {
 	public function index($members)
 	{
-		$this	->table()
-				->add_columns([
-					[
-						'content' => function($data){
-						return $data->avatar();
-						},
-						'size'    => TRUE
-					],
-					[
-						'title'   => 'Membre',
-						'content' => function($data){
-						return '<div>'.$data->link().'</div><small>'.icon('fa-circle '.($data->is_online() ? 'text-green' : 'text-gray')).' '.$this->lang($data->admin ? 'admin' : 'member').' '.$this->lang($data->is_online() ? 'online' : 'offline').'</small>';
-						},
-						'search'  => function($data){
-							return $data->username;
-						}
-					],
-					[
-						'content' => function($data){
+		return $this->table2($members, $this->lang('Il n\'y a pas encore de membre dans ce groupe'))
+					->col('', 'avatar')
+					->col(function($data){
+						return '<div>'.$data->link().'</div><small>'.icon('fa-circle '.($data->is_online() ? 'text-green' : 'text-gray')).' '.$this->lang($data->admin ? 'Administrateur' : 'Membre').' '.$this->lang($data->is_online() ? 'en ligne' : 'hors ligne').'</small>';
+					})
+					->col(function($data){
 						return $this->user() && $this->user->id != $data->id ? $this->button()->icon('fa-envelope-o')->url('user/messages/compose/'.$data->id.'/'.url_title($data->username))->compact()->outline() : '';
-						},
-						'size'    => TRUE,
-						'align'   => 'right',
-						'class'   => 'vcenter'
-					]
-				])
-				->data($members)
-				->no_data($this->lang('Il n\'y a pas encore de membre dans ce groupe'));
-
-		return $this->panel()
-					->heading()
-					->body($this->table()->display());
+					})
+					->panel();
 	}
 
 	public function _group($title, $members)
 	{
-		return [
-			$this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fa-close')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'),
-			$this->index($members)
-		];
+		return $this->array
+					->append($this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fa-close')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'))
+					->append($this->index($members));
 	}
 }
