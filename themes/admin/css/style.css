@@ -471,6 +471,7 @@ li.sidebar-user ul.dropdown-menu > li > a i.fa {
 	font-family: 'Open Sans', sans-serif;
 	color: #4B5A6D;
 	text-overflow: ellipsis;
+	float: left;
 }
 
 .panel-title > i.fa {
@@ -508,10 +509,9 @@ li.sidebar-user ul.dropdown-menu > li > a i.fa {
 	margin-bottom: 10px;
 }
 
-.panel-heading .btn.btn-xs {
-	position: absolute;
-	margin-top: -3px;
-	margin-left: -26px;
+.panel-heading .btn-xs {
+	margin-left: 10px;
+	margin-top: 2px;
 }
 
 .table-event-legend span.label {
