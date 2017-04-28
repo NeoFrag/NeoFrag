@@ -12,38 +12,15 @@ class Index extends Controller_Module
 {
 	public function index($members)
 	{
-		$this	->table
-				->add_columns([
-					[
-						'content' => function($data){
-						return $data->avatar();
-						},
-						'size'    => TRUE
-					],
-					[
-						'title'   => 'Membre',
-						'content' => function($data){
+		return $this->table2($members, $this->lang('no_members'))
+					->col('', 'avatar')
+					->col(function($data){
 						return '<div>'.$data->link().'</div><small>'.icon('fa-circle '.($data->is_online() ? 'text-green' : 'text-gray')).' '.$this->lang($data->admin ? 'admin' : 'member').' '.$this->lang($data->is_online() ? 'online' : 'offline').'</small>';
-						},
-						'search'  => function($data){
-							return $data->username;
-						}
-					],
-					[
-						'content' => function($data){
+					})
+					->col(function($data){
 						return $this->user->id && $this->user->id != $data->id ? $this->button()->icon('fa-envelope-o')->url('user/messages/compose/'.$data->id.'/'.url_title($data->username))->compact()->outline() : '';
-						},
-						'size'    => TRUE,
-						'align'   => 'right',
-						'class'   => 'vcenter'
-					]
-				])
-				->data($members)
-				->no_data($this->lang('no_members'));
-
-		return $this->panel()
-					->heading()
-					->body($this->table->display());
+					})
+					->panel();
 	}
 
 	public function _group($title, $members)
