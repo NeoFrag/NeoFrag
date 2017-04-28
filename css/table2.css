@@ -1,0 +1,39 @@
+.panel-table .panel-heading .table-search {
+	float: right;
+	border: 0;
+	outline: 0;
+	margin-top: 5px;
+	padding-right: 15px;
+}
+
+.panel-table .panel-heading .form-control-feedback {
+	top: 11px;
+	right: 8px;
+}
+
+.panel-table .panel-footer {
+	overflow: auto;
+}
+
+.panel-table .panel-footer .pagination {
+	float: right;
+	margin: 5px 0;
+}
+
+.panel-table .panel-footer .pagination .btn {
+	padding: 3px 7px;
+	min-width: 25px;
+}
+
+.panel-table .panel-footer .pagination .btn + .btn {
+	margin-left: 5px;
+}
+
+.panel-table .table .compact {
+	width: 45px;
+}
+
+.panel-table .table .compact + .compact {
+	padding-left: 0;
+	width: 37px;
+}
