@@ -49,7 +49,7 @@ class Panel extends Library
 						->attr('class', 'card')
 						->append_attr_if($this->_style, 'class', $this->_style)
 						->content($output)
-						->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'card-footer'));
+						->append_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'card-footer'));
 
 		foreach ($this->_data as $key => $value)
 		{

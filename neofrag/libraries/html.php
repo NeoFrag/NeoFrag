@@ -13,7 +13,7 @@ class Html extends Library
 	protected $_tag       = 'div';
 	protected $_end_tag   = TRUE;
 	protected $_attrs     = [];
-	protected $_content   = '';
+	protected $_content   = [];
 	protected $_template  = [];
 	protected $_container;
 
@@ -36,9 +36,9 @@ class Html extends Library
 
 	public function __toString()
 	{
-		$tag       = $this->_tag;
-		$attrs     = $this->_attrs;
-		$content   = $this->_content;
+		$tag     = $this->_tag;
+		$attrs   = $this->_attrs;
+		$content = $this->content();
 
 		if ($this->_template)
 		{
@@ -46,11 +46,6 @@ class Html extends Library
 			{
 				call_user_func_array($template, [&$content, &$attrs, &$tag]);
 			}
-		}
-
-		if (is_array($content))
-		{
-			$content = implode($content);
 		}
 
 		array_walk($attrs, function(&$value, $key){
@@ -69,11 +64,6 @@ class Html extends Library
 
 	public function __get($name)
 	{
-		if ($name == 'content')
-		{
-			return $this->_content;
-		}
-
 		return isset($this->_attrs[$name]) ? $this->_attrs[$name] : parent::__get($name);
 	}
 
@@ -108,9 +98,15 @@ class Html extends Library
 		return implode($this->_content);
 	}
 
-	public function append_content($content)
+	public function prepend($content)
 	{
-		$this->_content .= $content;
+		array_unshift($this->_content, $content);
+		return $this;
+	}
+
+	public function append($content)
+	{
+		array_push($this->_content, $content);
 		return $this;
 	}
 }
