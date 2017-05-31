@@ -114,10 +114,9 @@ class Index extends Controller_Module
 											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
 					}
 
-					if ($details && $pagination = $this->pagination->get_pagination())
+					if ($details)
 					{
-						$panels[] = $this	->panel()
-											->body($pagination, FALSE);
+						$panels[] = $this->panel_pagination();
 					}
 				}
 

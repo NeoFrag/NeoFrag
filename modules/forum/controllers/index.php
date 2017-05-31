@@ -72,7 +72,7 @@ class Index extends Controller_Module
 								'topics' => $topics
 							]), FALSE);
 
-		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum')).'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default pull-left" href="'.url(($this->session->get_back() ?: 'forum')).'">'.$this->lang('back').'</a>';
 
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -90,7 +90,7 @@ class Index extends Controller_Module
 		}
 
 		array_unshift($panels, $panels[] = $this->panel()
-												->body($content, FALSE)
+												->body($content.'<div class="clearfix"></div>', FALSE)
 												->color('back'));
 
 		return $panels;
@@ -214,7 +214,7 @@ class Index extends Controller_Module
 			}
 		}
 
-		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default pull-left" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('back').'</a>';
 
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -289,7 +289,7 @@ class Index extends Controller_Module
 							])), FALSE);
 
 		$actions = $this->panel()
-						->body($content, FALSE)
+						->body($content.'<div class="clearfix"></div>', FALSE)
 						->color('back');
 
 		if (!empty($messages))

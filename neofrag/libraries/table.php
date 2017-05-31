@@ -328,9 +328,9 @@ class Table extends Library
 							</div>';
 			}
 
-			if ($this->_pagination && !empty($this->pagination) && ($pagination = $this->pagination->get_pagination()) != '')
+			if ($this->_pagination && !empty($this->pagination) && ($pagination = $this->pagination->get_pagination()))
 			{
-				$output .= '<div class="form-group pull-right">'.$pagination.'</div>';
+				$output .= $pagination;
 			}
 
 			$count = count($this->_data);
