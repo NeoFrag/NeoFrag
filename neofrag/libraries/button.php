@@ -17,27 +17,16 @@ class Button extends Label
 	{
 		$output = NeoFrag()->html();
 
-		if (($n = count($buttons)) > 1)
+		if ($buttons)
 		{
 			$footers = [];
 
 			foreach ($buttons as $footer)
 			{
-				$footers[$footer->align() ?: $align][] = $footer;
+				$footers[] = method_exists($footer, 'align') ? $footer->append_attr('class', 'pull-'.$footer->align() ?: $align) : $footer;
 			}
 
-			array_walk($footers, function(&$footer, $align){
-				$footer = NeoFrag()	->html()
-									->attr('class', 'text-'.$align)
-									->content($footer);
-			});
-
 			$output->content($footers);
-		}
-		else if ($n)
-		{
-			$output	->attr('class', 'text-'.($buttons[0]->align() ?: $align))
-					->content($buttons[0]);
 		}
 
 		return $output;
