@@ -26,14 +26,17 @@ class Panel extends Library
 	{
 		$output = '';
 
-		foreach ($this->_heading as $h)
+		if ($this->_heading)
 		{
-			$output .= '<h4 class="card-title">'.$h.'</h4>';
-		}
+			$headers = $this->_heading;
 
-		if ($output)
-		{
-			$output = '<div class="card-header">'.$output.'</div>';
+			$headers[] = $this	->html('h4')
+								->attr('class', 'card-title')
+								->content(array_shift($headers));
+
+			$output = $this	->button
+							->static_footer($headers, 'left')
+							->append_attr('class', 'card-header');
 		}
 
 		if ($this->_body)
@@ -41,13 +44,19 @@ class Panel extends Library
 			$output .= $this->_body_tags ? '<div class="card-body">'.$this->_body.'</div>' : $this->_body;
 		}
 
-		return $this->html()
+		$table = $this	->html()
 						->attr('class', 'card')
 						->append_attr_if($this->_style, 'class', $this->_style)
 						->content($output)
-					->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'card-footer'))
-					->__toString();
+						->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'card-footer'));
+
+		foreach ($this->_data as $key => $value)
+		{
+			$table->attr('data-'.$key, $value);
 		}
+
+		return (string)$table;
+	}
 
 	public function title($label = '', $icon = '')
 	{
@@ -99,7 +108,9 @@ class Panel extends Library
 	{
 		if (!is_a($footer, 'NF\NeoFrag\Libraries\Html'))
 		{
-			$footer = $this->button()->title($footer)->align($align);
+			$footer = $this	->button()
+							->title($footer)
+							->align($align);
 		}
 
 		$this->_footer[] = $footer;
