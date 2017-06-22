@@ -15,6 +15,7 @@ class Modal extends Library
 	protected $_body;
 	protected $_body_tags;
 	protected $_size;
+	protected $_template;
 	protected $_callback;
 
 	public function __invoke($title, $icon = '')
@@ -63,15 +64,55 @@ class Modal extends Library
 							->content($content);
 		}
 
+		if ($this->_template)
+		{
+			call_user_func_array($this->_template, [&$content]);
+		}
+
 		$content = $this->html()
 						->attr('class', 'modal-content')
 						->content($content);
 
-		return '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
+		$content = '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
 					<div class="modal-dialog'.($this->_size ? ' modal-'.$this->_size : '').'">
 						'.$content.'
 					</div>
 				</div>';
+
+		if ($this->url->ajax())
+		{
+			if ($js_load = output('js_load'))
+			{
+				$content .= '<script type="text/javascript">
+								$(function(){
+									'.$js_load.'
+								});
+							</script>';
+			}
+
+			$output = [
+				'content' => $content
+			];
+
+			if ($css = output('css'))
+			{
+				$output['css'] = $css;
+			}
+
+			if ($js = $this->output->data->get('js'))
+			{
+				$output['js'] = array_unique(array_map(function($a){
+					return $a->path();
+				}, $js));
+			}
+
+			return (string)$this->json($output);
+		}
+		else
+		{
+			$this->js('modal');
+			return $content;
+		}
 	}
 
 	public function body($body, $add_body_tags = TRUE)
@@ -167,6 +208,14 @@ class Modal extends Library
 		]);
 	}
 
+	public function ajax($url)
+	{
+		$this	->js('modal')
+				->js_load('modal(\''.$url.'\');');
+
+		return $this;
+	}
+
 	public function callback($callback)
 	{
 		if (!is_a($callback, 'NF\NeoFrag\Libraries\Form2'))
@@ -179,6 +228,12 @@ class Modal extends Library
 
 		$this->_callback = $callback;
 
+		return $this;
+	}
+
+	public function template($template)
+	{
+		$this->_template = $template;
 		return $this;
 	}
 }
