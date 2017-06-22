@@ -54,11 +54,46 @@ class Modal extends Library
 						->attr('class', 'modal-content')
 						->content($content);
 
-		return '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
+		$content = '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
 					<div class="modal-dialog'.($this->_size ? ' modal-'.$this->_size : '').'" role="document">
 						'.$content.'
 					</div>
 				</div>';
+
+		if ($this->url->ajax())
+		{
+			if ($js_load = output('js_load'))
+			{
+				$content .= '<script type="text/javascript">
+								$(function(){
+									'.$js_load.'
+								});
+							</script>';
+			}
+
+			$output = [
+				'content' => $content
+			];
+
+			if ($css = output('css'))
+			{
+				$output['css'] = $css;
+			}
+
+			if ($js = $this->output->data->get('js'))
+			{
+				$output['js'] = array_map(function($a){
+					return $a->path();
+				}, $js);
+			}
+
+			return (string)$this->json($output);
+		}
+		else
+		{
+			$this->js('modal');
+			return $content;
+		}
 	}
 
 	public function body($body, $add_body_tags = TRUE)
@@ -154,5 +189,13 @@ class Modal extends Library
 		$this->output->json([
 			'modal' => 'dispose'
 		]);
+	}
+
+	public function ajax($url)
+	{
+		$this	->js('modal')
+				->js_load('modal(\''.$url.'\');');
+
+		return $this;
 	}
 }
