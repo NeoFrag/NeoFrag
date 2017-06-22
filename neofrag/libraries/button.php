@@ -128,4 +128,14 @@ class Button extends Label
 						'target' => '#'.$modal->id
 					]);
 	}
+
+	public function modal_ajax($url)
+	{
+		$this->js('modal');
+
+		return $this->url('#')
+					->data([
+						'modal-ajax' => url($url)
+					]);
+	}
 }
