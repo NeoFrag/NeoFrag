@@ -105,13 +105,29 @@ class Html extends Library
 
 	public function prepend_content($content)
 	{
-		$this->_content = $content.$this->_content;
+		if (is_array($this->_content))
+		{
+			array_unshift($this->_content, $content);
+		}
+		else
+		{
+			$this->_content = $content.$this->_content;
+		}
+
 		return $this;
 	}
 
 	public function append_content($content)
 	{
-		$this->_content .= $content;
+		if (is_array($this->_content))
+		{
+			array_push($this->_content, $content);
+		}
+		else
+		{
+			$this->_content .= $content;
+		}
+
 		return $this;
 	}
 }
