@@ -10,7 +10,7 @@ use NF\NeoFrag\Library;
 
 class Delete extends Library
 {
-	public function __invoke($url, $title = NULL)
+	public function __invoke($url = '', $title = NULL)
 	{
 		return $this->css('delete')
 					->js('delete')
@@ -19,7 +19,7 @@ class Delete extends Library
 					->url($url)
 					->icon('fa-remove')
 					->color('danger')
-					->style('delete')
+					->style_if($url, 'delete')//TODO
 					->compact()
 					->outline();
 	}

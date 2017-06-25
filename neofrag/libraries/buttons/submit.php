@@ -10,7 +10,7 @@ use NF\NeoFrag\Libraries\Button;
 
 class Submit extends Button
 {
-	public function __invoke($title = '')
+	public function __invoke($title = '', $color = 'primary')
 	{
 		parent::__invoke();
 
@@ -20,6 +20,6 @@ class Submit extends Button
 		};
 
 		return $this->title($title ?: $this->lang('Valider'))
-					->color('primary');
+					->color($color);
 	}
 }

@@ -10,13 +10,14 @@ use NF\NeoFrag\Library;
 
 class Create extends Library
 {
-	public function __invoke($url, $title, $icon = 'fa-plus')
+	public function __invoke($url = '', $title = '', $icon = 'fa-plus')
 	{
 		return $this->button()
 					->title($title)
 					->url($url)
 					->icon($icon)
 					->color('primary')
-					->outline();
+					->outline()
+					->compact();
 	}
 }

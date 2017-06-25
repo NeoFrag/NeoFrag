@@ -10,7 +10,7 @@ use NF\NeoFrag\Library;
 
 class Update extends Library
 {
-	public function __invoke($url, $title = '')
+	public function __invoke($url = '', $title = '')
 	{
 		return $this->button()
 					->tooltip($title ?: $this->lang('Éditer'))
