@@ -8,7 +8,7 @@ function url($url = '')
 {
 	if (substr($url, 0, 1) == '#')
 	{
-		$url = NeoFrag()->url->request.$url;
+		return $url;
 	}
 
 	return NeoFrag()->url->base.$url;
