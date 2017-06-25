@@ -28,8 +28,17 @@ function redirect_back($default = '')
 
 function refresh()
 {
-	header('Location: '.$_SERVER['REQUEST_URI']);
-	exit;
+	if (NeoFrag()->url->ajax())
+	{
+		NeoFrag()->output->json([
+			'success' => 'refresh'
+		]);
+	}
+	else
+	{
+		header('Location: '.$_SERVER['REQUEST_URI']);
+		exit;
+	}
 }
 
 function urltolink($url)
