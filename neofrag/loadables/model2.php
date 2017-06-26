@@ -60,6 +60,10 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 	}
 
+	static protected function __route($route)
+	{
+	}
+
 	static protected function field()
 	{
 		return new \NF\NeoFrag\Field;

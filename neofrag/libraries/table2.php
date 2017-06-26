@@ -69,6 +69,20 @@ class Table2 extends Library
 		);
 	}
 
+	public function update()
+	{
+		return $this->compact(function($model){
+			return $model->route()->button_update();
+		});
+	}
+
+	public function delete()
+	{
+		return $this->compact(function($model){
+			return $model->route()->button_delete();
+		});
+	}
+
 	public function panel()
 	{
 		$table  = (string)$this;

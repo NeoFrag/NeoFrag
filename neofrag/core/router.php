@@ -82,6 +82,30 @@ class Router extends Core
 			$method = $module->get_method($segments);
 		}
 
+		//Routage via crud
+		if (!isset($method) && !empty($module->info()->crud))
+		{
+			foreach ($module->info()->crud as $model)
+			{
+				if (($model = $module->model2($model)) && ($route = $model->route()))
+				{
+					try
+					{
+						if ($output = $route->execute($segments))
+						{
+							$module->append_output($output);
+							return;
+						}
+					}
+					catch (Exception $error)
+					{
+						$this->_check($error->getMessage());
+						return;
+					}
+				}
+			}
+		}
+
 		//Routage automatique
 		if (!isset($method))
 		{
