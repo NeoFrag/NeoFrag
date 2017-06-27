@@ -122,7 +122,9 @@ class Index extends Controller_Module
 
 		return $this->array
 					->append($this->row($this->col($panel)))
-					->append($this->comments->display('gallery', $image_id))
+					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $image_id){
+						return $comments('gallery', $image_id);
+					})
 					->append($this->panel_back());
 	}
 }

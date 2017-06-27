@@ -123,8 +123,12 @@ class Events extends Model
 
 	public function delete($event_id)
 	{
-		$this	->file		->delete($this->db->select('image_id')->from('nf_events')->where('event_id', $event_id)->row())
-				->comments	->delete('events', $event_id);
+		$this->file->delete($this->db->select('image_id')->from('nf_events')->where('event_id', $event_id)->row());
+
+		if ($comments = $this->module('comments'))
+		{
+			$comments->delete('events', $event_id);
+		}
 
 		$this->db	->where('event_id', $event_id)
 					->delete('nf_events');

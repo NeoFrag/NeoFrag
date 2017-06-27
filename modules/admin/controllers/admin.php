@@ -82,7 +82,7 @@ class Admin extends Controller_Module
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Commentaire|Commentaires', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments')
+							->heading($this->lang('Commentaire|Commentaires', $count = $this->db->select('COUNT(*)')->from('nf_comment')->row()), 'fa-comments-o', 'admin/comments')
 							->body($count)
 							->color('bg-maroon')
 							->size('col-4 col-lg-2')
