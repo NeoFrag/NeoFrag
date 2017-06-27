@@ -1,4 +1,4 @@
-<div id="comment-<?php echo $comment_id ?>" class="media<?php if ($parent_id !== NULL) echo ' comments-child' ?>">
+<div id="comment-<?php echo $id ?>" class="media<?php if ($parent_id !== NULL) echo ' comments-child' ?>">
 	<div class="media-left">
 		<?php echo $this->user->avatar($avatar, $sex, $user_id, $username) ?>
 	</div>
@@ -8,12 +8,12 @@
 
 			if ($this->user() && $parent_id == NULL)
 			{
-				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$comment_id.'">'.icon('fa-mail-reply').' '.$this->lang('reply').'</a>';
+				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$id.'">'.icon('fa-mail-reply').' '.$this->lang('reply').'</a>';
 			}
 
 			if ($this->user('admin') || ($this->user() && $this->user('user_id') == $user_id))
 			{
-				$actions[] = $this->button_delete('ajax/comments/delete/'.$comment_id);
+				$actions[] = $this->button_delete('ajax/comments/delete/'.$id);
 			}
 
 			if ($actions)

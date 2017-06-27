@@ -13,7 +13,7 @@ class Comments extends Library
 	public function count_comments($module_name, $module_id)
 	{
 		return $this->db->select('COUNT(*)')
-						->from('nf_comments')
+						->from('nf_comment')
 						->where('module', $module_name)
 						->where('module_id', $module_id)
 						->row();
@@ -35,7 +35,7 @@ class Comments extends Library
 	{
 		$this->db	->where('module', $module_name)
 					->where('module_id', $module_id)
-					->delete('nf_comments');
+					->delete('nf_comment');
 
 		return $this;
 	}
@@ -57,12 +57,12 @@ class Comments extends Library
 		{
 			$parent_id = NULL;
 
-			if (!empty($post['comment_id']) && $this->db->select('COUNT(*)')->from('nf_comments')->where('module', $module_name)->where('module_id', $module_id)->where('parent_id', NULL)->where('comment_id', $post['comment_id'])->row() == 1)
+			if (!empty($post['comment_id']) && $this->db->select('COUNT(*)')->from('nf_comment')->where('module', $module_name)->where('module_id', $module_id)->where('parent_id', NULL)->where('id', $post['comment_id'])->row() == 1)
 			{
 				$parent_id = $post['comment_id'];
 			}
 
-			$comment_id = $this->db->insert('nf_comments', [
+			$comment_id = $this->db->insert('nf_comment', [
 				'parent_id' => $parent_id,
 				'user_id'   => $this->user('user_id'),
 				'module_id' => $module_id,
@@ -73,13 +73,13 @@ class Comments extends Library
 			redirect($this->url->request.'#comment-'.$comment_id);
 		}
 
-		$comments = $this->db	->select('c.comment_id', 'c.parent_id', 'u.user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')
-								->from('nf_comments c')
+		$comments = $this->db	->select('c.id', 'c.parent_id', 'u.user_id', 'c.module_id', 'c.module', 'c.content', 'c.date', 'u.username', 'up.avatar', 'up.sex')
+								->from('nf_comment c')
 								->join('nf_users u', 'u.user_id = c.user_id AND u.deleted = "0"')
 								->join('nf_users_profiles up', 'u.user_id = up.user_id')
 								->where('module', $module_name)
 								->where('module_id', $module_id)
-								->order_by('IFNULL(c.parent_id, c.comment_id) DESC')
+								->order_by('IFNULL(c.parent_id, c.id) DESC')
 								->get();
 
 		$output = '';
