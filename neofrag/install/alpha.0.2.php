@@ -338,5 +338,9 @@ class i_0_2 extends NeoFrag
 		//Talks
 		$this->db	->execute('ALTER TABLE nf_talks CONVERT TO CHARACTER SET utf8')
 					->execute('ALTER TABLE nf_talks_messages CONVERT TO CHARACTER SET utf8');
+
+		//Comment
+		$this->db	->execute('ALTER TABLE `nf_comments` CHANGE `comment_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
+					->execute('RENAME TABLE `nf_comments` TO `nf_comment`');
 	}
 }

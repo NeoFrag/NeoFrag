@@ -43,7 +43,9 @@
 	<div class="pull-right">
 		<ul class="list-inline m-0">
 			<li><a href="<?php echo $link.'#participants' ?>"><?php echo icon('fa-users').' '.$participants ?></a></li>
-			<li><a href="<?php echo $link.'#comments' ?>"><?php echo icon('fa-comments-o').' '.$this->comments->count_comments('events', $event_id) ?></a></li>
+			<?php if (($comments = $this->module('comments')) && $comments->is_enabled()): ?>
+				<li><?php echo $comments->link('events', $event_id, 'events/'.$event_id.'/'.url_title($title)) ?></li>
+			<?php endif ?>
 		</ul>
 	</div>
 	<ul class="list-inline m-0">

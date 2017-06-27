@@ -134,7 +134,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Commentaires"></i>',
 								'content' => function($data){
-									return NeoFrag()->comments->admin_comments('events', $data['event_id']);
+									return $this->module('comments')->admin('events', $data['event_id']);
 								},
 								'size'    => TRUE
 							],

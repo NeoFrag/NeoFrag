@@ -221,7 +221,9 @@ class Index extends Controller_Module
 														->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
 														->body($this->table()->display())
 					)
-					->append($this->comments->display('events', $event_id))
+					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $event_id){
+						return $comments('events', $event_id);
+					})
 					->append($this->button_back());
 	}
 

@@ -13,8 +13,8 @@ class Ajax_Checker extends Module_Checker
 	public function delete($comment_id)
 	{
 		$comment = $this->db->select('user_id', 'module_id', 'module')
-							->from('nf_comments')
-							->where('comment_id', (int)$comment_id)
+							->from('nf_comment')
+							->where('id', (int)$comment_id)
 							->row();
 
 		if ($comment && ($this->user->admin || ($this->user() && $comment['user_id'] == $this->user->id)))

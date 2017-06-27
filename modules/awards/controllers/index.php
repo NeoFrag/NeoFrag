@@ -93,7 +93,9 @@ class Index extends Controller_Module
 										'game_title'   => $game_title
 									]), FALSE)
 					)
-					->append($this->comments->display('awards', $award_id))
+					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $award_id){
+						return $comments('awards', $award_id);
+					})
 					->append($this->panel_back());
 	}
 

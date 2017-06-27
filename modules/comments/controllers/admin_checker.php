@@ -10,25 +10,8 @@ use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
 class Admin_Checker extends Module_Checker
 {
-	public function index($tab = '', $page = '')
+	public function index($page = '')
 	{
-		$comments = $this->model()->get_comments();
-		$modules  = [];
-
-		foreach ($comments as $i => $comment)
-		{
-			$modules[$comment['module']] = [$comment['module_title'], $comment['icon']];
-
-			if (!in_array($tab, ['', $comment['module']]))
-			{
-				unset($comments[$i]);
-			}
-		}
-
-		array_natsort($modules, function($a){
-			return $a[0];
-		});
-
-		return [$this->module->pagination->get_data($comments, $page), $modules, $tab];
+		return [$this->collection('comment')->paginate($page)];
 	}
 }

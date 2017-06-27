@@ -220,24 +220,24 @@ CREATE TABLE `nf_awards` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_comments`
+-- Table structure for table `nf_comment`
 --
 
-DROP TABLE IF EXISTS `nf_comments`;
-CREATE TABLE `nf_comments` (
-  `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `nf_comment`;
+CREATE TABLE `nf_comment` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) unsigned DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `module_id` int(11) unsigned NOT NULL,
   `module` varchar(100) NOT NULL,
   `content` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`comment_id`),
+  PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `user_id` (`user_id`),
   KEY `module` (`module`),
-  CONSTRAINT `nf_comments_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `nf_comments` (`comment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_comment_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `nf_comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

@@ -136,8 +136,12 @@ class News extends Model
 
 	public function delete_news($news_id)
 	{
-		$this	->file		->delete($this->db->select('image_id')->from('nf_news')->where('news_id', $news_id)->row())
-				->comments	->delete('news', $news_id);
+		$this->file->delete($this->db->select('image_id')->from('nf_news')->where('news_id', $news_id)->row());
+
+		if ($comments = $this->module('comments'))
+		{
+			$comments->delete('news', $news_id);
+		}
 
 		$this->db	->where('news_id', $news_id)
 					->delete('nf_news');
