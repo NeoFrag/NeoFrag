@@ -1,16 +1,16 @@
-<?php if (!empty($data['category_image'])): ?>
-<img class="img-fluid" src="<?php echo path($data['category_image']) ?>" alt="" />
+<?php if (!empty($category_image)): ?>
+<img class="img-fluid" src="<?php echo path($category_image) ?>" alt="" />
 <?php endif ?>
 <div class="panel-body">
-	<?php if (!empty($data['gallery'])): ?>
+	<?php if (!empty($gallery)): ?>
 	<div class="row">
-		<?php foreach ($data['gallery'] as $album): ?>
+		<?php foreach ($gallery as $album): ?>
 			<div class="col-12">
 				<h4><a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title'])) ?>"><?php echo $album['title'] ?></a></h4>
 				<a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title'])) ?>" class="gallery-item thumbnail" style="background-image: url('<?php echo path(!empty($album['image']) ? $album['image'] : $this->db->select('file_id')->from('nf_gallery_images')->where('gallery_id', $album['gallery_id'])->order_by('RAND()')->limit(1)->row()) ?>');">
 					<div class="black-caption-hover">
 						<div class="black-caption-hover-content">
-							<h4 class="no-margin"><?php echo icon('fa-eye').' '.$this->lang('Ouvrir l\'album') ?></h4>
+							<h4 class="m-0"><?php echo icon('fa-eye').' '.$this->lang('Ouvrir l\'album') ?></h4>
 						</div>
 					</div>
 					<div class="caption">

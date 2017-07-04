@@ -1,7 +1,7 @@
-<input type="hidden" name="module" value="<?php echo $data['module'] ?>" />
-<input type="hidden" name="type" value="<?php echo $data['type'] ?>" />
-<input type="hidden" name="id" value="<?php echo $data['id'] ?>" />
-<?php foreach ($data['access'] as $category): ?>
+<input type="hidden" name="module" value="<?php echo $module ?>" />
+<input type="hidden" name="type" value="<?php echo $type ?>" />
+<input type="hidden" name="id" value="<?php echo $id ?>" />
+<?php foreach ($access as $category): ?>
 <div class="table-responsive">
 	<table class="table table-hover">
 		<thead>
@@ -15,7 +15,7 @@
 			<tr data-action="<?php echo $name ?>">
 				<td class="text-primary"><?php echo icon($access['icon']).' '.$access['title'] ?></td>
 				<td class="access-count">
-					<?php echo NeoFrag()->access->count($data['module'], $name, $data['id']) ?>
+					<?php echo NeoFrag()->access->count($module, $name, $id) ?>
 				</td>
 			</tr>
 			<?php endforeach ?>

@@ -1,4 +1,4 @@
-<?php if (!empty($data['images'])): ?>
+<?php if (!empty($images)): ?>
 	<div class="pull-right">
 		<div class="btn-group" role="group">
 			<button type="button" class="btn btn-default active" id="gallery-display-vignettes" data-toggle="tooltip" data-container="body" title="<?php echo $this->lang('Vignettes') ?>"><?php echo icon('fa-photo') ?></button>
@@ -6,14 +6,14 @@
 		</div>
 	</div>
 	<div class="text-left">
-		<h4><?php echo icon('fa-photo').' '.$this->lang('Liste') ?> <small><?php echo $this->lang('<b>%d</b> image|<b>%d</b> images', $count = count($data['images']), $count) ?></small></h4>
+		<h4><?php echo icon('fa-photo').' '.$this->lang('Liste') ?> <small><?php echo $this->lang('<b>%d</b> image|<b>%d</b> images', $count = count($images), $count) ?></small></h4>
 	</div>
 	<div class="vignettes-content">
 		<div id="gallery-table">
-			<?php echo $data['gallery_table'] ?>
+			<?php echo $gallery_table ?>
 		</div>
 		<div id="gallery-vignettes" class="row">
-			<?php foreach ($data['images'] as $image): ?>
+			<?php foreach ($images as $image): ?>
 				<div class="gallery-item">
 					<div class="thumbnail">
 					<a class="thumbnail-link" data-toggle="tooltip" title="<?php echo $this->lang('Visualiser') ?>" data-image="<?php echo path($image['file_id']) ?>" data-title="<?php echo $image['title'] ?>" data-description="<?php echo $image['description'] ?>"><img class="img-fluid" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" /></a>

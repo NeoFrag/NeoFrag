@@ -5,7 +5,7 @@
 		<a class="modules-links" data-toggle="collapse" href="#modules-links-collapse" aria-expanded="false"><?php echo icon('fa-link').' '.$this->lang('Navigation').' '.icon('fa-angle-down') ?></a>
 		<div id="modules-links-collapse" class="collapse">
 			<ul class="list-unstyled m-0">
-				<?php foreach ($data['modules'] as $name => $title): ?>
+				<?php foreach ($modules as $name => $title): ?>
 					<li><a href="<?php echo url($name) ?>"><?php echo $title ?></a></li>
 				<?php endforeach ?>
 			</ul>
@@ -37,10 +37,10 @@
 <?php echo icon('fa-floppy-o live-editor-save') ?>
 <h4 id="live-editor-map"><?php echo icon('fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?></h4>
 <div class="live-editor-styles-row">
-	<?php echo $data['styles_row'] ?>
+	<?php echo $styles_row ?>
 </div>
 <div class="live-editor-styles-widget">
-	<?php echo $data['styles_widget'] ?>
+	<?php echo $styles_widget ?>
 </div>
 <div class="live-editor-iframe">
 	<iframe name="live-editor-iframe" src=""></iframe>

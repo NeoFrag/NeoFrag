@@ -9,9 +9,9 @@
 					<label for="settings-events" class="col-sm-3 control-label">Type</label>
 					<div class="col-sm-6">
 						<select class="form-control" name="settings[type_id]" id="settings-events">
-							<option value="0"<?php if ($data['type_id'] == 0) echo ' selected="selected"' ?>>Tous</option>
-							<?php foreach ($data['types'] as $type): ?>
-								<option value="<?php echo $type['type_id'] ?>"<?php if ($data['type_id'] == $type['type_id']) echo ' selected="selected"' ?>><?php echo $type['title'] ?></option>
+							<option value="0"<?php if ($type_id == 0) echo ' selected="selected"' ?>>Tous</option>
+							<?php foreach ($types as $type): ?>
+								<option value="<?php echo $type['type_id'] ?>"<?php if ($type_id == $type['type_id']) echo ' selected="selected"' ?>><?php echo $type['title'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>

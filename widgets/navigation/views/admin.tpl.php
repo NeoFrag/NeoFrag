@@ -7,13 +7,13 @@
 	</ul>
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">
-			<ul class="list-group no-margin">
-			<?php foreach (isset($data['links']) ? $data['links'] : [] as $link): ?>
+			<ul class="list-group m-0">
+			<?php foreach (isset($links) ? $links : [] as $link): ?>
 				<li class="list-group-item">
 					<input type="hidden" name="settings[title][]" id="edit-title" value="<?php echo $link['title'] ?>" />
 					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url'] ?>" />
 					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent' ?>" />
-					<ul class="list-inline no-margin">
+					<ul class="list-inline m-0">
 						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>
 						<li><span data-toggle="tooltip" title="<?php echo $link['url'] ?>"><?php echo icon('fa-link') ?></span></li>
 						<li><?php echo $link['title'] ?></li>
@@ -24,7 +24,7 @@
 		</div>
 		<div id="add-link" class="tab-pane" role="tabpanel">
 			<div class="form-horizontal">
-				<div class="panel-group no-margin" id="accordion">
+				<div class="panel-group m-0" id="accordion">
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -188,10 +188,10 @@
 					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('Orientation') ?></label>
 					<div class="col-sm-5">
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="0"<?php if (empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('Verticale') ?>
+							<input type="radio" name="settings[display]" value="0"<?php if (empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Verticale') ?>
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="1"<?php if (!empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('Horizontale') ?>
+							<input type="radio" name="settings[display]" value="1"<?php if (!empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Horizontale') ?>
 						</label>
 					</div>
 				</div>
@@ -270,7 +270,7 @@
 						<input type="hidden" name="settings[title][]" id="edit-title" value="'+title+'" />\
 						<input type="hidden" name="settings[url][]" id="edit-url" value="'+url+'" />\
 						<input type="hidden" name="settings[target][]" id="edit-target" value="'+target+'" />\
-						<ul class="list-inline no-margin">\
+						<ul class="list-inline m-0">\
 							<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>\
 							<li><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fa-link') ?></span></li>\
 							<li>'+title+'</li>\

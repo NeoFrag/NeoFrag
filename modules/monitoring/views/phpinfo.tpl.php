@@ -5,21 +5,21 @@
 	</tr>
 	<tr>
 		<td width="20%">Serveur PHP</td>
-		<td><?php echo $data['php_server'] ?></td>
+		<td><?php echo $php_server ?></td>
 	</tr>
 	<tr>
 		<td><?php echo $this->lang('Serveur web') ?></td>
-		<td><?php echo $data['web_server'] ?></td>
+		<td><?php echo $web_server ?></td>
 	</tr>
 	<tr>
 		<td><?php echo $this->lang('Serveur de bases de données') ?></td>
-		<td><?php echo $data['databases_server'] ?></td>
+		<td><?php echo $databases_server ?></td>
 	</tr>
 	<tr>
 		<td><?php echo $this->lang('Extensions chargées') ?></td>
 		<td>
 			<ul class="extensions">
-			<?php foreach ($data['extensions'] as $extension): ?>
+			<?php foreach ($extensions as $extension): ?>
 				<li><a href="#module_<?php echo $extension ?>"><?php echo icon('fa-puzzle-piece').' '.$extension ?></a></li>
 			<?php endforeach ?>
 			</ul>

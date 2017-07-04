@@ -1,6 +1,6 @@
-<?php if ($data['type'] && !$this->url->admin): ?>
+<?php if ($type && !$this->url->admin): ?>
 <ul class="list-inline pull-right m-0">
-	<li><?php echo $this->label($data['type']['title'], $data['type']['icon'], $data['type']['color']) ?></li>
+	<li><?php echo $this->label($type['title'], $type['icon'], $type['color']) ?></li>
 </ul>
 <?php endif ?>
 <ul class="list-inline m-0">

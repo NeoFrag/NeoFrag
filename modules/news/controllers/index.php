@@ -59,7 +59,7 @@ class Index extends Controller_Module
 	{
 		$news = $this->index($news);
 
-		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
+		array_unshift($news, $this->panel()->body('<h2 class="m-0">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
 	}
