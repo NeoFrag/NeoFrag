@@ -53,7 +53,7 @@
 						</div>
 					</div>
 				</li>
-				<?php if (!empty($data['update'])): ?>
+				<?php if (!empty($update)): ?>
 					<li class="sidebar-update">
 						<div class="row">
 							<div class="col-md-12 col-xs-12 text-center">
@@ -61,7 +61,7 @@
 							<div class="col-md-12 col-xs-12 text-center">
 								<h5>
 									Nouvelle mise à jour !
-									<small>NeoFrag <?php echo $data['update']->version ?></small>
+									<small>NeoFrag <?php echo $update->version ?></small>
 								</h5>
 							</div>
 						</div>
@@ -75,7 +75,7 @@
 <?php
 	$actives  = [];
 
-	foreach ($data['menu'] as $link)
+	foreach ($menu as $link)
 	{
 		if (is_array($link['url']))
 		{
@@ -93,7 +93,7 @@
 		return strlen($a) < strlen($b);
 	});
 
-	foreach ($data['menu'] as $link)
+	foreach ($menu as $link)
 	{
 		if (is_array($link['url']))
 		{
@@ -140,15 +140,15 @@
 			<div class="col-lg-12">
 				<h1 class="page-header"><?php echo $this->output->data['module_title']; if (!empty($this->output->data['module_subtitle'])) echo '<small>'.$this->output->data['module_subtitle'].'</small>' ?></h1>
 				<div class="page-actions pull-right">
-					<?php if ($data['module_method'] == 'index' && NeoFrag()->module->get_permissions('default') && $this->module('access')->is_authorized()): ?>
+					<?php if ($module_method == 'index' && NeoFrag()->module->get_permissions('default') && $this->module('access')->is_authorized()): ?>
 						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-unlock-alt') ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif ?>
 					<?php if (method_exists(NeoFrag()->module, 'settings') && $this->module('addons')->is_authorized()): ?>
 						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('Configuration') ?></span></a>
 					<?php endif ?>
-					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
+					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($module_method)): ?>
 					<?php NeoFrag()->js('help') ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method'] ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('Aide') ?></span></a>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$module_method ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('Aide') ?></span></a>
 					<?php endif ?>
 				</div>
 			</div>
@@ -160,18 +160,18 @@
 		<div class="module module-admin module-<?php echo NeoFrag()->module->name ?>"><?php echo NeoFrag()->module ?></div>
 	</div>
 </div>
-<?php if (!empty($data['update'])): ?>
+<?php if (!empty($update)): ?>
 	<div id="modal-update" class="modal fade">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Mise à jour de NeoFrag <?php echo version_format(NEOFRAG_VERSION).' '.icon('fa-chevron-right').' '.version_format($data['update']->version) ?></h4>
+					<h4 class="modal-title" id="myModalLabel">Mise à jour de NeoFrag <?php echo version_format(NEOFRAG_VERSION).' '.icon('fa-chevron-right').' '.version_format($update->version) ?></h4>
 				</div>
 				<div class="modal-body">
-					<?php if (!empty($data['update']->features)): ?>
+					<?php if (!empty($update->features)): ?>
 						<div class="update-features">
-							<?php echo $data['update']->features ?>
+							<?php echo $update->features ?>
 						</div>
 						<hr />
 					<?php endif ?>

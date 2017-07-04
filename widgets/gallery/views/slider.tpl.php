@@ -1,6 +1,6 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 	<div class="carousel-inner" role="listbox">
-		<?php foreach ($data['images'] as $image): ?>
+		<?php foreach ($images as $image): ?>
 		<div class="item<?php echo !isset($active) ? $active = ' active' : '' ?>">
 			<a href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>"><img class="img-fluid" src="<?php echo path($image['file_id']) ?>" data-toggle="tooltip" title="<?php echo $image['title'] ?>" alt="" /></a>
 		</div>

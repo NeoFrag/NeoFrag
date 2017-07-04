@@ -1,22 +1,22 @@
-<?php if ($data['stats-team'] || $data['stats-game']): ?>
-	<?php if ($data['image_id']): ?>
-		<img class="img-fluid" src="<?php echo path($data['image_id']) ?>" alt="" />
+<?php if (${'stats-team'} || ${'stats-game'}): ?>
+	<?php if ($image_id): ?>
+		<img class="img-fluid" src="<?php echo path($image_id) ?>" alt="" />
 	<?php endif ?>
 	<div class="panel-body">
 		<div class="well text-center">
-			<h4><?php echo $data['stats-team'] ? 'Palmarès de cette équipe' : 'Palmarès sur ce jeu' ?></h4>
+			<h4><?php echo ${'stats-team'} ? 'Palmarès de cette équipe' : 'Palmarès sur ce jeu' ?></h4>
 			<ul class="list-inline m-0">
 				<li>
 					<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy fa-2x trophy-gold') ?></span><br />
-					<b><?php echo $data['total_gold'][0].($data['total_gold'][0] > 1 ? ' trophées' : ' trophée') ?></b>
+					<b><?php echo $total_gold[0].($total_gold[0] > 1 ? ' trophées' : ' trophée') ?></b>
 				</li>
 				<li>
 					<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy fa-2x trophy-silver') ?></span><br />
-					<b><?php echo $data['total_silver'][0].($data['total_silver'][0] > 1 ? ' trophées' : ' trophée') ?></b>
+					<b><?php echo $total_silver[0].($total_silver[0] > 1 ? ' trophées' : ' trophée') ?></b>
 				</li>
 				<li>
 					<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy fa-2x trophy-bronze') ?></span><br />
-					<b><?php echo $data['total_bronze'][0].($data['total_bronze'][0] > 1 ? ' trophées' : ' trophée') ?></b>
+					<b><?php echo $total_bronze[0].($total_bronze[0] > 1 ? ' trophées' : ' trophée') ?></b>
 				</li>
 			</ul>
 		</div>
@@ -35,8 +35,8 @@
 			</thead>
 			<tbody>
 				<?php
-				if ($data['awards']):
-					foreach ($data['awards'] as $award): ?>
+				if ($awards):
+					foreach ($awards as $award): ?>
 					<tr>
 						<td>
 							<span data-toggle="tooltip" title="<?php echo timetostr($this->lang('%A %e %B %Y'), $award['date']) ?>"><?php echo icon('fa-calendar-o') ?></span>

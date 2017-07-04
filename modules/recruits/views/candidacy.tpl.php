@@ -1,10 +1,10 @@
-Envoyée le <b><?php echo timetostr('%e %b %Y', $data['date']) ?></b>, pour<?php echo $data['team_id'] ? ' rejoindre l\'équipe <b>'.$data['team_name'].'</b> au poste de <b>'.$data['role'].'</b>' : ' le poste de <b>'.$data['role'].'</b>' ?>
+Envoyée le <b><?php echo timetostr('%e %b %Y', $date) ?></b>, pour<?php echo $team_id ? ' rejoindre l\'équipe <b>'.$team_name.'</b> au poste de <b>'.$role.'</b>' : ' le poste de <b>'.$role.'</b>' ?>
 <hr />
 <h4>Présentation</h4>
-<?php echo $data['presentation'] ? $data['presentation'] : 'Non renseigné.' ?>
+<?php echo $presentation ? $presentation : 'Non renseigné.' ?>
 <hr />
 <h4>Motivations</h4>
-<?php echo $data['motivations'] ? $data['motivations'] : 'Non renseigné.' ?>
+<?php echo $motivations ? $motivations : 'Non renseigné.' ?>
 <hr />
 <h4>Expériences</h4>
-<?php echo $data['experiences'] ? $data['experiences'] : 'Non renseigné.' ?>
+<?php echo $experiences ? $experiences : 'Non renseigné.' ?>

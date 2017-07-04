@@ -1,21 +1,21 @@
-<?php if (!empty($data['image_id'])): ?>
-<img class="img-fluid" src="<?php echo path($data['image_id']) ?>" alt="" />
+<?php if (!empty($image_id)): ?>
+<img class="img-fluid" src="<?php echo path($image_id) ?>" alt="" />
 <?php endif ?>
-<?php if (!empty($data['description'])): ?>
+<?php if (!empty($description)): ?>
 <div class="panel-body">
-	<?php echo bbcode($data['description']) ?>
+	<?php echo bbcode($description) ?>
 </div>
 <?php endif ?>
-<?php if (!empty($data['images'])): ?>
+<?php if (!empty($images)): ?>
 <div class="panel-footer">
 	<ul class="list-inline pull-right">
 		<li><a href="#" data-toggle="modal" data-target="#modalGallery"><?php echo icon('fa-play-circle-o').' '.$this->lang('Lancer le diaporama') ?></a></li>
 	</ul>
 	<ul class="list-inline">
-		<li><h4 class="m-0"><?php echo icon('fa-photo').' '.$this->lang('<b>%d</b> image|<b>%d</b> images', $data['total_images'], $data['total_images']) ?></h4></li>
+		<li><h4 class="m-0"><?php echo icon('fa-photo').' '.$this->lang('<b>%d</b> image|<b>%d</b> images', $total_images, $total_images) ?></h4></li>
 	</ul>
 	<div id="gallery-vignettes" class="row">
-		<?php foreach ($data['images'] as $image): ?>
+		<?php foreach ($images as $image): ?>
 		<div class="image-item">
 			<a class="thumbnail" href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>">
 				<img class="img-fluid" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" />
@@ -23,22 +23,22 @@
 		</div>
 		<?php endforeach ?>
 	</div>
-	<div class="text-right"><?php echo $data['pagination'] ?></div>
+	<div class="text-right"><?php echo $pagination ?></div>
 </div>
 <?php endif ?>
-<?php if (!empty($data['carousel_images'])): ?>
+<?php if (!empty($carousel_images)): ?>
 <div id="modalGallery" class="modal fade modal-fullscreen force-fullscreen" tabindex="-1" role="dialog" aria-labelledby="modalGallery">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="pull-right"><h4 class="modal-title"><?php echo icon('fa-photo').' '.$this->lang('<b>%d</b> image|<b>%d</b> images', $data['total_images'], $data['total_images']) ?></h4></div>
-				<h4 class="modal-title"><?php echo icon('fa-play-circle-o') ?> <b><?php echo $this->lang('Diaporama') ?></b> <?php echo $data['title'] ?></h4>
+				<div class="pull-right"><h4 class="modal-title"><?php echo icon('fa-photo').' '.$this->lang('<b>%d</b> image|<b>%d</b> images', $total_images, $total_images) ?></h4></div>
+				<h4 class="modal-title"><?php echo icon('fa-play-circle-o') ?> <b><?php echo $this->lang('Diaporama') ?></b> <?php echo $title ?></h4>
 			</div>
 			<div class="modal-body no-padding">
 				<hr class="transition-timer-carousel-progress-bar" />
 				<div id="carousel-gallery" class="carousel carousel-fit slide" data-ride="carousel">
 					<div class="carousel-inner" role="listbox">
-						<?php foreach ($data['carousel_images'] as $image): ?>
+						<?php foreach ($carousel_images as $image): ?>
 						<div class="item <?php echo !isset($active) ? $active = ' active' : '' ?>">
 							<img src="<?php echo path($image['file_id']) ?>" alt="" />
 							<div class="carousel-caption">
@@ -50,7 +50,7 @@
 					</div>
 					<a class="left carousel-control" href="#carousel-gallery" role="button" data-slide="prev">
 						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only"><?php echo $this->lang('Précédente') ?></span>
+						<span class="sr-only"><?php echo $this->lang('PrÃ©cÃ©dente') ?></span>
 					</a>
 					<a class="right carousel-control" href="#carousel-gallery" role="button" data-slide="next">
 						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<a href="#carousel-gallery" role="button" data-slide="prev" class="btn btn-default" data-toggle="tooltip" title="<?php echo $this->lang('Précédente') ?>"><?php echo icon('fa-angle-left') ?></a>
+				<a href="#carousel-gallery" role="button" data-slide="prev" class="btn btn-default" data-toggle="tooltip" title="<?php echo $this->lang('PrÃ©cÃ©dente') ?>"><?php echo icon('fa-angle-left') ?></a>
 				<div class="btn-group" role="group">
 					<button type="button" id="playButton" class="btn btn-default" data-toggle="tooltip" data-container="body" title="<?php echo $this->lang('Lecture') ?>"><?php echo icon('fa-play-circle') ?></button>
 					<button type="button" id="pauseButton" class="btn btn-default" data-toggle="tooltip" data-container="body" title="<?php echo $this->lang('Pause') ?>"><?php echo icon('fa-pause') ?></button>

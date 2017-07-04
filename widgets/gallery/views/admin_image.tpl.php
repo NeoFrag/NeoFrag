@@ -9,9 +9,9 @@
 					<label for="settings-gallery" class="col-sm-3 control-label"><?php echo $this->lang('Image aléatoire') ?></label>
 					<div class="col-sm-6">
 						<select class="form-control" name="settings[gallery_id]" id="settings-gallery">
-							<option value="0"<?php if ($data['gallery_id'] == 0) echo ' selected="selected"' ?>><?php $this->lang('Toutes') ?></option>
-							<?php foreach ($data['gallery'] as $gallery): ?>
-								<option value="<?php echo $gallery['gallery_id'] ?>"<?php if ($data['gallery_id'] == $gallery['gallery_id']) echo ' selected="selected"' ?>><?php echo $gallery['title'] ?></option>
+							<option value="0"<?php if ($gallery_id == 0) echo ' selected="selected"' ?>><?php $this->lang('Toutes') ?></option>
+							<?php foreach ($gallery as $gallery): ?>
+								<option value="<?php echo $gallery['gallery_id'] ?>"<?php if ($gallery_id == $gallery['gallery_id']) echo ' selected="selected"' ?>><?php echo $gallery['title'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>

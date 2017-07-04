@@ -537,7 +537,7 @@ class Index extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading($this->lang('Pas encore inscrit ?'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this->lang('<p>Créez votre compte maintenant pour profiter pleinement du site</p>').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
+								->body($this->config->nf_registration_status == 0 ? $this->lang('<p>Créez votre compte maintenant pour profiter pleinement du site</p>').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning m-0">Les inscriptions sur notre site sont fermées...</div>')
 					)
 					->size('col-md-6')
 		);

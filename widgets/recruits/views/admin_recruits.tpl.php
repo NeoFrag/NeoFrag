@@ -9,8 +9,8 @@
 					<label for="settings-recruits" class="col-sm-3 control-label">Offre à afficher</label>
 					<div class="col-sm-6">
 						<select class="form-control" name="settings[recruit_id]" id="settings-recruits">
-							<?php foreach ($data['recruits'] as $recruit): ?>
-								<option value="<?php echo $recruit['recruit_id'] ?>"<?php if ($data['recruit_id'] == $recruit['recruit_id']) echo ' selected="selected"' ?>><?php echo $recruit['title'] ?></option>
+							<?php foreach ($recruits as $recruit): ?>
+								<option value="<?php echo $recruit['recruit_id'] ?>"<?php if ($recruit_id == $recruit['recruit_id']) echo ' selected="selected"' ?>><?php echo $recruit['title'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>

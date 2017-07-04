@@ -21,14 +21,19 @@ class View extends Library
 		return $this;
 	}
 
-	public function content($content, $data = [])
+	public function content($__content, $data = [])
 	{
-		if (in_string('<?php', $content))
+		if (in_string('<?php', $__content))
 		{
-			$content = eval('ob_start(); ?>'.$content.'<?php return ob_get_clean();');
+			foreach ($data as $var => $value)
+			{
+				$$var = $value;
+			}
+
+			$__content = eval('ob_start(); ?>'.$__content.'<?php return ob_get_clean();');
 		}
 
-		return $content;
+		return $__content;
 	}
 
 	public function __toString()

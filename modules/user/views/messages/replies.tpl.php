@@ -1,4 +1,4 @@
-<?php foreach ($data['replies'] as $i => $reply): ?>
+<?php foreach ($replies as $i => $reply): ?>
 <?php if ($i) echo '<hr />' ?>
 <div class="media message">
 	<?php echo $this->user->avatar($reply['avatar'], $reply['sex'], $reply['user_id'], $reply['username']) ?>	</div>

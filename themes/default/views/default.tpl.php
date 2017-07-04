@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo $data['lang'] ?>">
+<html lang="<?php echo $lang ?>">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="<?php echo css('font-awesome-override.css') ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('default.css') ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('notify.css') ?>" type="text/css" media="screen" />
-<?php echo $data['css'] ?>
+<?php echo $css ?>
 <script type="text/javascript" src="<?php echo js('jquery-1.11.2.min.js') ?>"></script>
 <script type="text/javascript" src="<?php echo js('jquery-ui.min.js') ?>"></script>
-<title><?php echo $data['page_title'] ?></title>
+<title><?php echo $page_title ?></title>
 </head>
 <body>
 	<?php if ($this->config->nf_maintenance && !$this->url->admin && isset($this->user) && $this->user('admin') && NeoFrag()->module->name != 'live_editor'): ?>
@@ -25,12 +25,12 @@
 			</div>
 		</nav>
 	<?php endif ?>
-	<?php echo $data['body'] ?>
+	<?php echo $body ?>
 	<script type="text/javascript" src="<?php echo js('bootstrap.min.js') ?>"></script>
 	<script type="text/javascript" src="<?php echo js('bootstrap-notify.min.js') ?>"></script>
 	<script type="text/javascript" src="<?php echo js('notify.js') ?>"></script>
 	<script type="text/javascript" src="<?php echo js('user.js') ?>"></script>
-	<?php echo $data['js'] ?>
+	<?php echo $js ?>
 	<script type="text/javascript">
 	$(function(){
 		$('body').trigger('nf.load');
@@ -45,7 +45,7 @@
 			selector: '[data-toggle=tooltip]'
 		});
 
-		<?php echo $data['js_load'] ?>
+		<?php echo $js_load ?>
 	});
 	<?php echo $this->config->nf_analytics ?>
 	</script>

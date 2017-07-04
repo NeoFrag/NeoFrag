@@ -1,4 +1,4 @@
-<?php foreach ($data['news'] as $news): ?>
+<?php foreach ($news as $news): ?>
 <div class="media">
 	<?php if ($news['user_id']): ?>
 		<?php echo $this->user->avatar($news['avatar'], $news['sex'], $news['user_id'], $news['username']) ?>

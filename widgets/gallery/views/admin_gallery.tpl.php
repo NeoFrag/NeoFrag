@@ -9,8 +9,8 @@
 					<label for="settings-category" class="col-sm-3 control-label"><?php echo $this->lang('Galerie à afficher') ?></label>
 					<div class="col-sm-6">
 						<select class="form-control" name="settings[category_id]" id="settings-category">
-							<?php foreach ($data['categories'] as $category): ?>
-								<option value="<?php echo $category['category_id'] ?>"<?php if ($data['category_id'] == $category['category_id']) echo ' selected="selected"' ?>><?php echo $category['title'] ?></option>
+							<?php foreach ($categories as $category): ?>
+								<option value="<?php echo $category['category_id'] ?>"<?php if ($category_id == $category['category_id']) echo ' selected="selected"' ?>><?php echo $category['title'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>

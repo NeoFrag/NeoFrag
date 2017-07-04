@@ -12,7 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($data['groups'] as $group_id => $active): ?>
+			<?php foreach ($groups as $group_id => $active): ?>
 			<tr data-group="<?php echo $group_id ?>">
 				<td><?php echo $this->groups->display($group_id) ?></td>
 				<?php echo $this->view('radio', ['class' => 'success', 'active' => $active]) ?>

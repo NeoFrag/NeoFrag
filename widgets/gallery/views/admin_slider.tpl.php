@@ -9,8 +9,8 @@
 					<label for="settings-gallery" class="col-sm-3 control-label"><?php echo $this->lang('Galerie') ?></label>
 					<div class="col-sm-9">
 						<select class="form-control" name="settings[gallery_id]" id="settings-gallery">
-							<?php foreach ($data['gallery'] as $gallery): ?>
-								<option value="<?php echo $gallery['gallery_id'] ?>"<?php if ($data['gallery_id'] == $gallery['gallery_id']) echo ' selected="selected"' ?>><?php echo $gallery['title'] ?></option>
+							<?php foreach ($gallery as $gallery): ?>
+								<option value="<?php echo $gallery['gallery_id'] ?>"<?php if ($gallery_id == $gallery['gallery_id']) echo ' selected="selected"' ?>><?php echo $gallery['title'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>

@@ -1,10 +1,10 @@
 <?php
-$count = count($data['messages']);
+$count = count($messages);
 
-if (!empty($data['user_id']) && !empty($data['position']))
+if (!empty($user_id) && !empty($position))
 {
-	$user_id = $data['user_id'];
-	$media   = $data['position'];
+	$user_id = $user_id;
+	$media   = $position;
 
 	if ($count)
 	{
@@ -12,7 +12,7 @@ if (!empty($data['user_id']) && !empty($data['position']))
 	}
 }
 
-foreach ($data['messages'] as $i => $message)
+foreach ($messages as $i => $message)
 {
 	if (!isset($user_id) || $user_id != $message['user_id'])
 	{
@@ -80,6 +80,6 @@ foreach ($data['messages'] as $i => $message)
 	$user_id = $message['user_id'];
 }
 ?>
-<?php if (!$count && empty($data['user_id']) && empty($data['position'])): ?>
+<?php if (!$count && empty($user_id) && empty($position)): ?>
 	<div class="text-center"><?php echo $this->lang('Aucun message dans la discussion') ?></div>
 <?php endif ?>

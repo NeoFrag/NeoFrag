@@ -1,4 +1,4 @@
-<?php foreach ($data['messages'] as $message): ?>
+<?php foreach ($messages as $message): ?>
 <div class="media">
 	<?php if ($message['user_id']): ?>
 		<?php echo $this->user->avatar($message['avatar'], $message['sex'], $message['user_id'], $message['username']) ?>

@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav <?php echo !empty($data['align']) ? $data['align'] : 'navbar-right' ?>">
+<ul class="nav navbar-nav <?php echo !empty($align) ? $align : 'navbar-right' ?>">
 	<?php if ($this->user()): ?>
 		<li><p class="navbar-text"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user('username').'</a>') ?></p></li>
 		<li data-toggle="tooltip" title="Gérer mon compte"><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs') ?></a></li>

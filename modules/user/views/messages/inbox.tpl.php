@@ -1,5 +1,5 @@
 <table class="table inbox m-0">
-	<?php foreach ($data['messages'] as $message): ?>
+	<?php foreach ($messages as $message): ?>
 		<tr<?php echo $message['unread'] ? ' class="unread"' : '' ?>>
 			<td class="col-1 text-center"><?php echo icon($message['unread'] ? 'fa-envelope text-primary' : 'fa-envelope-o text-muted') ?></td>
 			<td class="col-10">
@@ -12,7 +12,7 @@
 					</div>
 				</div>
 			</td>
-			<?php if ($data['allow_delete']): ?>
+			<?php if ($allow_delete): ?>
 			<td class="col-1 text-right">
 				<?php echo $this->button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title'])) ?>
 			</td>

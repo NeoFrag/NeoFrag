@@ -28,7 +28,7 @@
 <section class="intro">
 	<div class="intro-body">
 		<div class="container">
-			<h1 class="brand-heading"><?php echo $data['page_title'] ?></h1>
+			<h1 class="brand-heading"><?php echo $page_title ?></h1>
 			<p class="intro-text"><?php echo bbcode($this->config->nf_maintenance_content) ?: $this->lang('Notre site est momentanément indisponible,<br />nous vous invitons à revenir dans un instant...') ?></p>
 			<?php if ($this->config->nf_maintenance_opening): ?>
 				<?php echo $this->lang('Réouverture prévue dans') ?>
