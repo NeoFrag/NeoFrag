@@ -1,4 +1,4 @@
-<textarea class="form-control editor" name="settings[content]" rows="6"><?php if (isset($data['content'])) echo $data['content'] ?></textarea>
+<textarea class="form-control editor" name="settings[content]" rows="6"><?php if (isset($content)) echo $content ?></textarea>
 <script type="text/javascript" src="<?php echo js('jquery.wysibb.min.js') ?>"></script>
 <script type="text/javascript" src="<?php echo js('jquery.wysibb.fr.js') ?>"></script>
 <script type="text/javascript">

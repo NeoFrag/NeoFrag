@@ -1,6 +1,6 @@
-<?php if ($data['matches']): ?>
+<?php if ($matches): ?>
 <ul class="list-group">
-	<?php foreach ($data['matches'] as $match): ?>
+	<?php foreach ($matches as $match): ?>
 	<li class="list-group-item">
 		<div class="row">
 			<div class="col-md-1">

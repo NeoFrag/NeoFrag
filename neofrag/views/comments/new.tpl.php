@@ -5,10 +5,10 @@
 	</div>
 	<div class="media-body">
 		<form action="" method="post">
-			<input type="hidden" name="<?php echo $data['form_id'] ?>[comment_id]" value="" />
+			<input type="hidden" name="<?php echo $form_id ?>[comment_id]" value="" />
 			<div class="form-group">
-				<label for="<?php echo $data['form_id'] ?>[comment]"><?php echo $this->lang('my_comment') ?></label>
-				<textarea name="<?php echo $data['form_id'] ?>[comment]" class="form-control" rows="3"></textarea>
+				<label for="<?php echo $form_id ?>[comment]"><?php echo $this->lang('my_comment') ?></label>
+				<textarea name="<?php echo $form_id ?>[comment]" class="form-control" rows="3"></textarea>
 			</div>
 			<button type="submit" class="btn btn-primary"><?php echo $this->lang('send') ?></button>
 		</form>

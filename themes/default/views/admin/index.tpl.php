@@ -8,20 +8,20 @@
 				<h2><?php echo $this->lang('theme_administration') ?></h2>
 				<dl class="dl-horizontal no-margin">
 					<dt><?php echo $this->lang('theme_title') ?></dt>
-					<dd><?php echo $data['theme']->get_title() ?></dd>
+					<dd><?php echo $theme->get_title() ?></dd>
 					<dt><?php echo $this->lang('description') ?></dt>
-					<dd><?php echo $data['theme']->lang($data['theme']->description, NULL) ?></dd>
+					<dd><?php echo $theme->lang($theme->description, NULL) ?></dd>
 					<dt><?php echo $this->lang('version') ?></dt>
-					<dd><?php echo $data['theme']->version ?></dd>
+					<dd><?php echo $theme->version ?></dd>
 					<dt><?php echo $this->lang('authors') ?></dt>
-					<dd><?php echo utf8_htmlentities($data['theme']->author) ?></dd>
+					<dd><?php echo utf8_htmlentities($theme->author) ?></dd>
 					<dt><?php echo $this->lang('license') ?></dt>
-					<dd><a href="https://neofr.ag/license.html" target="_blank"><?php echo $data['theme']->licence ?></a></dd>
+					<dd><a href="https://neofr.ag/license.html" target="_blank"><?php echo $theme->licence ?></a></dd>
 				</dl>
 			</div>
 		</div>
 	</div>
 	<div class="tab-pane" data-tab="background">
-		<?php echo $data['form_background'] ?>
+		<?php echo $form_background ?>
 	</div>
 </div>

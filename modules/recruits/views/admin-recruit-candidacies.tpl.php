@@ -6,13 +6,13 @@
 	</ul>
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="pending">
-			<?php echo $data['table_pending'] ?>
+			<?php echo $table_pending ?>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="accepted">
-			<?php echo $data['table_accepted'] ?>
+			<?php echo $table_accepted ?>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="declined">
-			<?php echo $data['table_declined'] ?>
+			<?php echo $table_declined ?>
 		</div>
 	</div>
 </div>

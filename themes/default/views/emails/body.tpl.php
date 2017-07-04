@@ -1,6 +1,6 @@
-<h3><?php echo $data['module_title'] ?></h3>
+<h3><?php echo $module_title ?></h3>
 <br />
-<?php echo $data['content'] ?>
+<?php echo $content ?>
 <br />
 <br />
 <br />

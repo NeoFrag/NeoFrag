@@ -4,19 +4,19 @@
 		<li>
 			<div class="well">
 				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span><br />
-				<?php echo $data['total_gold'][0].($data['total_gold'][0] > 1 ? ' trophées' : ' trophée') ?>
+				<?php echo $total_gold[0].($total_gold[0] > 1 ? ' trophées' : ' trophée') ?>
 			</div>
 		</li>
 		<li>
 			<div class="well">
 				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span><br />
-				<?php echo $data['total_silver'][0].($data['total_silver'][0] > 1 ? ' trophées' : ' trophée') ?>
+				<?php echo $total_silver[0].($total_silver[0] > 1 ? ' trophées' : ' trophée') ?>
 			</div>
 		</li>
 		<li>
 			<div class="well">
 				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span><br />
-				<?php echo $data['total_bronze'][0].($data['total_bronze'][0] > 1 ? ' trophées' : ' trophée') ?>
+				<?php echo $total_bronze[0].($total_bronze[0] > 1 ? ' trophées' : ' trophée') ?>
 			</div>
 		</li>
 	</ul>
@@ -28,8 +28,8 @@
 				<h1><?php echo icon('fa-trophy') ?></h1>
 				<p>
 					La plus récompensée<br />
-					<?php if ($data['best_team_awards']): ?>
-						<b><a href="<?php echo url('awards/team/'.$data['best_team_awards'][0]['team_id'].'/'.$data['best_team_awards'][0]['name']) ?>"><?php echo $data['best_team_awards'][0]['team_title'] ?></a></b>
+					<?php if ($best_team_awards): ?>
+						<b><a href="<?php echo url('awards/team/'.$best_team_awards[0]['team_id'].'/'.$best_team_awards[0]['name']) ?>"><?php echo $best_team_awards[0]['team_title'] ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif ?>
@@ -39,8 +39,8 @@
 				<h1><?php echo icon('fa-star-o') ?></h1>
 				<p>
 					Meilleur classement<br />
-					<?php if ($data['best_team']): ?>
-						<b><a href="<?php echo url('awards/team/'.$data['best_team'][0]['team_id'].'/'.$data['best_team'][0]['name']) ?>"><?php echo $data['best_team'][0]['team_title'] ?></a></b>
+					<?php if ($best_team): ?>
+						<b><a href="<?php echo url('awards/team/'.$best_team[0]['team_id'].'/'.$best_team[0]['name']) ?>"><?php echo $best_team[0]['team_title'] ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif ?>
@@ -50,8 +50,8 @@
 				<h1><?php echo icon('fa-gamepad') ?></h1>
 				<p>
 					Meilleur jeu<br />
-					<?php if ($data['best_game_awards']): ?>
-						<b><a href="<?php echo url('awards/game/'.$data['best_game_awards'][0]['game_id'].'/'.$data['best_game_awards'][0]['name']) ?>"><?php echo $data['best_game_awards'][0]['game_title'] ?></a></b>
+					<?php if ($best_game_awards): ?>
+						<b><a href="<?php echo url('awards/game/'.$best_game_awards[0]['game_id'].'/'.$best_game_awards[0]['name']) ?>"><?php echo $best_game_awards[0]['game_title'] ?></a></b>
 					<?php else: ?>
 						-
 					<?php endif ?>
@@ -72,7 +72,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($data['teams'] as $team): ?>
+			<?php foreach ($teams as $team): ?>
 			<tr>
 				<td class="col-md-6 vcenter"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']) ?>"><?php echo $team['team_title'] ?></a></td>
 				<td class="text-center">
@@ -89,7 +89,7 @@
 				</td>
 			</tr>
 			<?php endforeach ?>
-			<?php if (!$data['teams']): ?>
+			<?php if (!$teams): ?>
 			<tr>
 				<td class="text-center" colspan="5">Aucun classement</td>
 			</tr>

@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion" role="tablist">
-	<?php foreach ($this->groups() as $group_id => $group): if (empty($group['users']) || !($users = array_intersect_key($data['users'], array_flip($group['users'])))) continue ?>
+	<?php foreach ($this->groups() as $group_id => $group): if (empty($group['users']) || !($users = array_intersect_key($users, array_flip($group['users'])))) continue ?>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab">
 				<h4 class="panel-title">
@@ -14,7 +14,7 @@
 					<?php foreach ($users as $user_id => $username): ?>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="<?php echo $data['form_id'] ?>[users][]" value="<?php echo $user_id ?>" /> <?php echo $username ?>
+								<input type="checkbox" name="<?php echo $form_id ?>[users][]" value="<?php echo $user_id ?>" /> <?php echo $username ?>
 							</label>
 						</div>
 					<?php endforeach ?>

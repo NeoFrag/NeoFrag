@@ -4,15 +4,15 @@
 		<ul class="list-inline no-margin">
 			<li>
 				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_gold'][0] ?></h4>
+				<h4 class="no-margin"><?php echo $total_gold[0] ?></h4>
 			</li>
 			<li>
 				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_silver'][0] ?></h4>
+				<h4 class="no-margin"><?php echo $total_silver[0] ?></h4>
 			</li>
 			<li>
 				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_bronze'][0] ?></h4>
+				<h4 class="no-margin"><?php echo $total_bronze[0] ?></h4>
 			</li>
 		</ul>
 	</div>
@@ -28,7 +28,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($data['teams'] as $team): ?>
+				<?php foreach ($teams as $team): ?>
 				<tr>
 					<td><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']) ?>"><?php echo $team['team_title'] ?></a></td>
 					<td class="text-center"><?php echo $team['total_gold'] ?></td>

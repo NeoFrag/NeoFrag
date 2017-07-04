@@ -2,13 +2,13 @@
 	<table class="table table-hover">
 		<thead class="forum-heading">
 			<tr>
-				<th colspan="2" class="col-md-7"><h4 class="no-margin"><?php echo icon($data['icon']).' '.$data['title'] ?></h4></th>
+				<th colspan="2" class="col-md-7"><h4 class="no-margin"><?php echo icon($icon).' '.$title ?></h4></th>
 				<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('statistics') ?></span></h4></th>
 				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('last_message') ?></span></h4></th>
 			</tr>
 		</thead>
 		<tbody class="forum-content">
-			<?php foreach ($data['topics'] as $topic): ?>
+			<?php foreach ($topics as $topic): ?>
 			<tr>
 				<td class="col-md-1 text-center">
 					<?php echo $topic['icon'] ?>
@@ -37,7 +37,7 @@
 				</td>
 			</tr>
 			<?php endforeach ?>
-			<?php if (empty($data['topics'])): ?>
+			<?php if (empty($topics)): ?>
 			<tr>
 				<td colspan="4" class="text-center"><h4><?php echo $this->lang('no_message') ?></h4></td>
 			</tr>

@@ -1,5 +1,5 @@
 <div class="addons-panel-body" data-type="authenticator">
-	<?php foreach ($data['authenticators'] as $authenticator): ?>
+	<?php foreach ($authenticators as $authenticator): ?>
 	<div class="addon-item<?php echo ($enabled = $authenticator->is_enabled()) ? ' active' : '' ?>" data-name="<?php echo $authenticator->name ?>">
 		<div class="item-status">
 			<div class="item-status-icon">

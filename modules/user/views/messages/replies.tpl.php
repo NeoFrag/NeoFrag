@@ -1,4 +1,4 @@
-<?php foreach ($data['replies'] as $i => $reply): ?>
+<?php foreach ($replies as $i => $reply): ?>
 <?php if ($i) echo '<hr />' ?>
 <div class="media message">
 	<div class="media-left">

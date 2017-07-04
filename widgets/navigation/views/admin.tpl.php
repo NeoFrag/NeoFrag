@@ -8,7 +8,7 @@
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">
 			<ul class="list-group no-margin">
-			<?php foreach (isset($data['links']) ? $data['links'] : [] as $link): ?>
+			<?php foreach (isset($links) ? $links : [] as $link): ?>
 				<li class="list-group-item">
 					<input type="hidden" name="settings[title][]" id="edit-title" value="<?php echo $link['title'] ?>" />
 					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url'] ?>" />
@@ -188,10 +188,10 @@
 					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('orientation') ?></label>
 					<div class="col-sm-5">
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="0"<?php if (empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('vertical') ?>
+							<input type="radio" name="settings[display]" value="0"<?php if (empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('vertical') ?>
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="1"<?php if (!empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('horizontal') ?>
+							<input type="radio" name="settings[display]" value="1"<?php if (!empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('horizontal') ?>
 						</label>
 					</div>
 				</div>

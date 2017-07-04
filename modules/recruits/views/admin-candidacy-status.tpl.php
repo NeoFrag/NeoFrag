@@ -1,5 +1,5 @@
-<?php if(!empty($data['votes'])): ?>
-	<?php foreach ($data['votes'] as $k => $vote): ?>
+<?php if(!empty($votes)): ?>
+	<?php foreach ($votes as $k => $vote): ?>
 		<div class="media">
 			<div class="media-left">
 				<?php echo $this->user->avatar($vote['avatar'], $vote['sex']) ?>
@@ -12,8 +12,8 @@
 				<?php echo bbcode($vote['comment']) ?>
 			</div>
 		</div>
-		<?php end($data['votes']) ?>
-		<?php $lastElementKey = key($data['votes']) ?>
+		<?php end($votes) ?>
+		<?php $lastElementKey = key($votes) ?>
 		<?php echo ($k != $lastElementKey) ? '<hr style="margin-top: 12px; margin-bottom: 12px;"/>' : '' ?>
 	<?php endforeach ?>
 <?php else: ?>

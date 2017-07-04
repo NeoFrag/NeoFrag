@@ -1,6 +1,6 @@
 <?php
-$count = count($data['partners']);
-foreach ($data['partners'] as $i => $partner): ?>
+$count = count($partners);
+foreach ($partners as $i => $partner): ?>
 	<div class="row">
 		<div class="col-md-5 text-center" style="padding-right: 15px;">
 			<a href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']) ?>" target="_blank" class="thumbnail" style="padding: 10px;">

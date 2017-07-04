@@ -6,13 +6,13 @@
 				<h4 class="modal-title">Informations détaillée</h4>
 			</div>
 			<div class="modal-body">
-				<?php echo display($data['phpinfo']) ?>
+				<?php echo display($phpinfo) ?>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="row">
-	<?php foreach ($data['check'] as $check): ?>
+	<?php foreach ($check as $check): ?>
 		<div class="col-md-12 col-lg-6">
 			<table class="table table-hover">
 				<thead>

@@ -1,6 +1,6 @@
-<?php echo $data['module_title'] ?>
+<?php echo $module_title ?>
 
-<?php echo $data['content'] ?>
+<?php echo $content ?>
 
 
 <?php echo $this->config->nf_name ?>

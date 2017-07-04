@@ -1,6 +1,6 @@
-<?php if ($data['events']): ?>
+<?php if ($events): ?>
 <ul class="list-group">
-	<?php foreach ($data['events'] as $event): ?>
+	<?php foreach ($events as $event): ?>
 	<li class="list-group-item">
 		<?php if ($event['type'] == 1): ?>
 			<?php

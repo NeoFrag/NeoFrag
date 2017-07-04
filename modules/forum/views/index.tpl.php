@@ -1,23 +1,23 @@
 <div class="table-responsive">
-	<table class="table table-hover"<?php if ($this->url->admin) echo ' data-category-id="'.$data['category_id'].'"' ?>>
+	<table class="table table-hover"<?php if ($this->url->admin) echo ' data-category-id="'.$category_id.'"' ?>>
 		<thead class="forum-heading">
 			<tr>
 				<th colspan="2">
-					<h4 class="no-margin"><?php echo icon('fa-navicon').' '.$data['title'] ?></h4>
+					<h4 class="no-margin"><?php echo icon('fa-navicon').' '.$title ?></h4>
 				</th>
 				<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('statistics') ?></span></h4></th>
 				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('last_message') ?></span></h4></th>
 				<?php if ($this->url->admin): ?>
 				<th class="col-md-1 text-right">
-					<?php echo $this->button_access($data['category_id'], 'category') ?>
-					<?php echo $this->button_update('admin/forum/categories/'.$data['category_id'].'/'.url_title($data['title'])) ?>
-					<?php echo $this->button_delete('admin/forum/categories/delete/'.$data['category_id'].'/'.url_title($data['title'])) ?>
+					<?php echo $this->button_access($category_id, 'category') ?>
+					<?php echo $this->button_update('admin/forum/categories/'.$category_id.'/'.url_title($title)) ?>
+					<?php echo $this->button_delete('admin/forum/categories/delete/'.$category_id.'/'.url_title($title)) ?>
 				</th>
 				<?php endif ?>
 			</tr>
 		</thead>
 		<tbody class="forum-content">
-			<?php foreach ($data['forums'] as $forum): ?>
+			<?php foreach ($forums as $forum): ?>
 			<tr<?php if ($this->url->admin) echo ' data-forum-id="'.$forum['forum_id'].'"' ?>>
 				<td class="text-center">
 					<?php echo $forum['icon'] ?>
@@ -68,7 +68,7 @@
 				<?php endif ?>
 			</tr>
 			<?php endforeach ?>
-			<?php if (empty($data['forums'])): ?>
+			<?php if (empty($forums)): ?>
 			<tr>
 				<td colspan="4" class="text-center"><h4><?php echo $this->lang('no_forum') ?></h4></td>
 			</tr>

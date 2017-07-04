@@ -1,10 +1,10 @@
-<?php if (!empty($data['category_image'])): ?>
-<img class="img-responsive" src="<?php echo path($data['category_image']) ?>" alt="" />
+<?php if (!empty($category_image)): ?>
+<img class="img-responsive" src="<?php echo path($category_image) ?>" alt="" />
 <?php endif ?>
 <div class="panel-body">
-	<?php if (!empty($data['gallery'])): ?>
+	<?php if (!empty($gallery)): ?>
 	<div class="row">
-		<?php foreach ($data['gallery'] as $album): ?>
+		<?php foreach ($gallery as $album): ?>
 			<div class="col-md-12">
 				<h4><a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title'])) ?>"><?php echo $album['title'] ?></a></h4>
 				<a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title'])) ?>" class="gallery-item thumbnail" style="background-image: url('<?php echo path(!empty($album['image']) ? $album['image'] : $this->db->select('file_id')->from('nf_gallery_images')->where('gallery_id', $album['gallery_id'])->order_by('RAND()')->limit(1)->row()) ?>');">

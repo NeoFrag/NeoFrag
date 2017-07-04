@@ -1,5 +1,5 @@
 <ul class="list-group">
-	<?php foreach ($data['awards'] as $award): ?>
+	<?php foreach ($awards as $award): ?>
 	<li class="list-group-item">
 		<div class="pull-right">
 			<span data-toggle="tooltip" title="<?php echo $award['place'] ?>"><?php echo icon('fa-map-marker') ?></span>

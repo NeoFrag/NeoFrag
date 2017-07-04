@@ -1,5 +1,5 @@
 <ul class="list-group">
-	<?php foreach ($data['recruits'] as $recruit): ?>
+	<?php foreach ($recruits as $recruit): ?>
 	<li class="list-group-item">
 		<div class="pull-right">
 			<?php if ($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] && strtotime($recruit['date_end']) < time())): ?>

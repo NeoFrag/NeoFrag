@@ -1,4 +1,4 @@
-<?php foreach ($data['messages'] as $message): ?>
+<?php foreach ($messages as $message): ?>
 <div class="media">
 	<div class="media-left">
 	<?php if ($message['user_id']): ?>

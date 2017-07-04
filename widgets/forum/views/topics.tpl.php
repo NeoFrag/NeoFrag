@@ -1,4 +1,4 @@
-<?php foreach ($data['topics'] as $topic): ?>
+<?php foreach ($topics as $topic): ?>
 <div class="media">
 	<div class="media-left">
 	<?php if ($topic['user_id']): ?>

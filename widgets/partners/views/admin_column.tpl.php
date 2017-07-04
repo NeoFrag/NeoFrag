@@ -9,8 +9,8 @@
 					<label for="settings-display_style" class="col-sm-5 control-label">Style des logos</label>
 					<div class="col-sm-6">
 						<select class="form-control" name="settings[display_style]" id="settings-display_style">
-							<option value="light"<?php if (!isset($data['display_style']) || $data['display_style'] == 'light') echo ' selected="selected"' ?>>Logo clair</option>
-							<option value="dark"<?php if (isset($data['display_style']) && $data['display_style'] == 'dark') echo ' selected="selected"' ?>>Logo foncé</option>
+							<option value="light"<?php if (!isset($display_style) || $display_style == 'light') echo ' selected="selected"' ?>>Logo clair</option>
+							<option value="dark"<?php if (isset($display_style) && $display_style == 'dark') echo ' selected="selected"' ?>>Logo foncé</option>
 						</select>
 					</div>
 				</div>

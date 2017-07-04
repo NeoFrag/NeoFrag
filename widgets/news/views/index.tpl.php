@@ -1,4 +1,4 @@
-<?php foreach ($data['news'] as $news): ?>
+<?php foreach ($news as $news): ?>
 <div class="media">
 	<div class="media-left">
 	<?php if ($news['user_id']): ?>
