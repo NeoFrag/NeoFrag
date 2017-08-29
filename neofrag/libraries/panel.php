@@ -49,10 +49,19 @@ class Panel extends Library
 					->__toString();
 		}
 
-	public function title($label = '', $icon = '', $url = '')
+	public function title($label = '', $icon = '')
 	{
-		$this->_heading = [];
-		return call_user_func_array([$this, 'heading'], func_get_args());
+		if ($this->_heading)
+		{
+			$this->_heading[0]	->title_if($label, $label)
+								->icon_if($icon, $icon);
+		}
+		else
+		{
+			$this->heading($label, $icon);
+		}
+
+		return $this;
 	}
 
 	public function heading($label = '', $icon = '', $url = '')
