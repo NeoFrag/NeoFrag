@@ -58,15 +58,10 @@ class Panel extends Library
 		return (string)$table;
 	}
 
-	public function title($label = '', $icon = '', $url = '')
+	public function title($label = '', $icon = '')
 	{
-		$headers = $this->_heading;
-
-		$this->_heading = [];
-
-		call_user_func_array([$this, 'heading'], func_get_args());
-
-		$this->_heading = array_merge($this->_heading, array_slice($headers, 1));
+		$this->_heading[0]	->title_if($label, $label)
+							->icon_if($icon, $icon);
 
 		return $this;
 	}
