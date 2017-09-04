@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_news_c_index extends Controller_Module
+namespace NF\Modules\News\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Index extends Controller_Module
 {
 	public function index($news)
 	{

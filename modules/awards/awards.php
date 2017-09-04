@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_awards extends Module
+namespace NF\Modules\Awards;
+
+use NF\NeoFrag\Addons\Module;
+
+class Awards extends Module
 {
 	public $title       = 'Palmarès';
 	public $description = '';

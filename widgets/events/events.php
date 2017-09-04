@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_events extends Widget
+namespace NF\Widgets\Events;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Events extends Widget
 {
 	public $title       = 'Événements';
 	public $description = '';

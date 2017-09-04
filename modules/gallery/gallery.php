@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_gallery extends Module
+namespace NF\Modules\Gallery;
+
+use NF\NeoFrag\Addons\Module;
+
+class Gallery extends Module
 {
 	public $title       = '{lang gallery_module}';
 	public $description = '';

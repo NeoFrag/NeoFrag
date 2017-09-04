@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Modal extends Library
 {
 	protected $_header;
@@ -14,7 +18,7 @@ class Modal extends Library
 
 	public function __invoke($title, $icon = '')
 	{
-		$this->_header = is_a($title, 'Label') ? $title : $this->label($title, $icon);
+		$this->_header = is_a($title, 'NF\\NeoFrag\\Libraries\\Label') ? $title : $this->label($title, $icon);
 
 		return NeoFrag()->modals[] = $this->reset();
 	}
@@ -72,7 +76,7 @@ class Modal extends Library
 
 	public function primary($button = '', $color = 'primary')
 	{
-		if (!is_a($button, 'Button'))
+		if (!is_a($button, 'NF\\NeoFrag\\Libraries\\Button'))
 		{
 			$button = parent::button()
 							->title($button ?: $this->lang('save'))
@@ -88,7 +92,7 @@ class Modal extends Library
 	{
 		$this->_form = TRUE;
 
-		if (!is_a($button, 'Button'))
+		if (!is_a($button, 'NF\\NeoFrag\\Libraries\\Button'))
 		{
 			$button = parent::button_submit()
 							->title($button ?: $this->lang('save'))

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_events_m_participants extends Model
+namespace NF\Modules\Events\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Participants extends Model
 {
 	private $_status = [
 		['En attente', 'info',    'fa-question'],

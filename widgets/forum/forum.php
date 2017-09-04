@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_forum extends Widget
+namespace NF\Widgets\Forum;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Forum extends Widget
 {
 	public $title       = '{lang forum}';
 	public $description = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum_m_forum extends Model
+namespace NF\Modules\Forum\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Forum extends Model
 {
 	public function get_categories_list($forum_id = NULL)
 	{

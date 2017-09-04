@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_members_c_checker extends Controller_Module
+namespace NF\Widgets\Members\Controllers;
+
+class Checker extends Controller_Module
 {
 	public function online_mini($settings = [])
 	{

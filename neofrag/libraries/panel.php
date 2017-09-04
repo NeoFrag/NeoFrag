@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Panel extends Library
 {
 	protected $_heading = [];
@@ -55,7 +59,7 @@ class Panel extends Library
 	{
 		if (func_num_args())
 		{
-			if (!is_a($label, 'Label'))
+			if (!is_a($label, 'NF\\NeoFrag\\Libraries\\Label'))
 			{
 				$label = $this	->button()
 								->title($label)
@@ -84,7 +88,7 @@ class Panel extends Library
 
 	public function footer($footer = '', $align = 'center')
 	{
-		if (!is_a($footer, 'Button'))
+		if (!is_a($footer, 'NF\\NeoFrag\\Libraries\\Button'))
 		{
 			$footer = $this->button()->title($footer)->align($align);
 		}

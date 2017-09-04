@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_slider extends Widget
+namespace NF\Widgets\Slider;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Slider extends Widget
 {
 	public $title       = '{lang slider}';
 	public $description = '';

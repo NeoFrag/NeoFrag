@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_partners_c_admin_checker extends Controller_Module
+namespace NF\Modules\Partners\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin_Checker extends Controller_Module
 {
 	public function _edit($partner_id, $name)
 	{

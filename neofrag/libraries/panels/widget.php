@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Panel_widget extends Panel
+namespace NF\NeoFrag\Libraries\Panels;
+
+use NF\NeoFrag\Libraries\Panel;
+
+class Widget extends Panel
 {
 	protected $_id;
 	protected $_widget;

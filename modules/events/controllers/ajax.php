@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_events_c_ajax extends Controller_Module
+namespace NF\Modules\Events\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Ajax extends Controller_Module
 {
 	public function index()
 	{

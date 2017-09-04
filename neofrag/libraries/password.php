@@ -30,6 +30,10 @@
 # requirements (there can be none), but merely suggestions.
 #
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Password extends Library
 {
 	private $_itoa64;
@@ -38,8 +42,10 @@ class Password extends Library
 	private $_random_state;
 	private $_salt;
 
-	public function __construct($config)
+	public function __construct($caller, $config)
 	{
+		parent::__construct($caller);
+
 		$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$this->_salt  = $config['salt'];
 

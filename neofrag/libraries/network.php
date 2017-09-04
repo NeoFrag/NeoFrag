@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Network extends Library
 {
 	protected $_auth;
@@ -14,8 +18,10 @@ class Network extends Library
 	protected $_type;
 	protected $_url;
 
-	public function __construct($config = [])
+	public function __construct($caller, $config)
 	{
+		parent::__construct($caller);
+
 		$this->_ssl_check = $config['ssl_check'];
 		$this->_timeout   = $config['timeout'];
 	}

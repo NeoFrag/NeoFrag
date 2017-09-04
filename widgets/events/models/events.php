@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_events_m_events extends Model
+namespace NF\Widgets\Events\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Events extends Model
 {
 	public function check_event($event_id)
 	{

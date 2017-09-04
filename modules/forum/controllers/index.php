@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum_c_index extends Controller_Module
+namespace NF\Modules\Forum\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Index extends Controller_Module
 {
 	public function index()
 	{
@@ -387,14 +391,14 @@ class m_forum_c_index extends Controller_Module
 			}
 		}
 
-		$this->load	->form
-					->set_id('3a27fa5555e6f34491793733f32169db')
-					->add_rules([
-						'forum_id' => [
-							'type'   => 'radio',
-							'values' => array_flip($forums)
-						]
-					]);
+		$this	->form
+				->set_id('3a27fa5555e6f34491793733f32169db')
+				->add_rules([
+					'forum_id' => [
+						'type'   => 'radio',
+						'values' => array_flip($forums)
+					]
+				]);
 
 		if ($this->form->is_valid($post) && $forum_id != $post['forum_id'])
 		{

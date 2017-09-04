@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_gallery_c_admin extends Controller
+namespace NF\Widgets\Gallery\Controllers;
+
+class Admin extends Controller
 {
 	public function albums($settings = [])
 	{

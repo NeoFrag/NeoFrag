@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_partners extends Module
+namespace NF\Modules\Partners;
+
+use NF\NeoFrag\Addons\Module;
+
+class Partners extends Module
 {
 	public $title       = 'Partenaires';
 	public $description = '';

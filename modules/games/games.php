@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_games extends Module
+namespace NF\Modules\Games;
+
+use NF\NeoFrag\Addons\Module;
+
+class Games extends Module
 {
 	public $title       = '{lang games_maps}';
 	public $description = '';

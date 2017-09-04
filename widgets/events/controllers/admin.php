@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_events_c_admin extends Controller
+namespace NF\Widgets\Events\Controllers;
+
+class Admin extends Controller
 {
 	public function events($settings = [])
 	{

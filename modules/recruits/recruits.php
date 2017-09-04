@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_recruits extends Module
+namespace NF\Modules\Recruits;
+
+use NF\NeoFrag\Addons\Module;
+
+class Recruits extends Module
 {
 	public $title       = 'Recrutements';
 	public $description = '';

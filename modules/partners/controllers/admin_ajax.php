@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_partners_c_admin_ajax extends Controller
+namespace NF\Modules\Partners\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin_Ajax extends Controller_Module
 {
 	public function sort($partner_id, $position)
 	{

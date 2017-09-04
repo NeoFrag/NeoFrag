@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_events_m_types extends Model
+namespace NF\Modules\Events\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Types extends Model
 {
 	public function check_type($type_id, $title)
 	{

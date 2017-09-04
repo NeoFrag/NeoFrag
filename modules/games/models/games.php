@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_games_m_games extends Model
+namespace NF\Modules\Games\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Games extends Model
 {
 	public function check_game($game_id, $name, $lang = 'default')
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_sort extends Library
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Library;
+
+class Sort extends Library
 {
 	public function __invoke($id, $url, $parent = 'table', $items = 'tr')
 	{

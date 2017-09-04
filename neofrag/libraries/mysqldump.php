@@ -12,7 +12,11 @@
  * @license    New BSD License
  * @version    1.0
  */
-class MySQLDump extends Library
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
+class Mysqldump extends Library
 {
 	const MAX_SQL_SIZE = 50000;
 

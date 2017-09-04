@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_dropdown extends Button
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Libraries\Button;
+
+class Dropdown extends Button
 {
 	protected $_dropdown = [];
 

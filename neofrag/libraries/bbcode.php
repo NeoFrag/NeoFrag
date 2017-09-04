@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class BBCode extends Library
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
+class Bbcode extends Library
 {
 	private $_bbcode = [
 		'\[(b|bold|strong)\](.*?)\[/\1\]'                   => '<b>\2</b>',

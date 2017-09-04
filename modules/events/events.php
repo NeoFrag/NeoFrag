@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_events extends Module
+namespace NF\Modules\Events;
+
+use NF\NeoFrag\Addons\Module;
+
+class Events extends Module
 {
 	public $title       = 'Événements';
 	public $description = '';

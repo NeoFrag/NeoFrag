@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_talks_c_checker extends Controller_Widget
+namespace NF\Widgets\Talks\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+
+class Checker extends Controller_Widget
 {
 	public function index($settings = [])
 	{

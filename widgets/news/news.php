@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_news extends Widget
+namespace NF\Widgets\News;
+
+use NF\NeoFrag\Addons\Widget;
+
+class News extends Widget
 {
 	public $title       = '{lang news}';
 	public $description = '';

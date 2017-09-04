@@ -25,33 +25,10 @@ function asset($file_path, $file_name = '')
 	{
 		$content = file_get_contents($file_path);
 		$date    = filemtime($file_path);
-	}
 
-	if (!isset($content))
-	{
-		foreach (NeoFrag()->paths('assets') as $path)
-		{
-			if (!check_file($path = $path.'/'.$file_path))
-			{
-				continue;
-			}
-
-			$content = file_get_contents($path);
-			$date    = filemtime($path);
-
-			break;
-		}
-	}
-
-	if (isset($content))
-	{
 		if (in_array($ext = extension($file_path), ['css', 'js']))
 		{
-			$data = [
-				'lang' => NeoFrag()->config->lang
-			];
-
-			$content = NeoFrag()->view->content($content, $data);
+			$content = NeoFrag()->view->content($content);
 		}
 
 		ob_end_clean();
@@ -79,72 +56,38 @@ function asset($file_path, $file_name = '')
 	}
 }
 
-function path($file, $file_type = '', $paths = [])
+function path($file, $file_type = '', $caller = NULL)
 {
-	if (func_num_args() == 1)
+	if (is_valid_url($file))
 	{
-		static $paths = [];
-
-		if (!isset($paths[$file]))
-		{
-			$paths[$file] = NeoFrag()->db->select('path')
-												->from('nf_files')
-												->where('file_id', $file)
-												->row();
-		}
-
-		return $paths[$file] ? url($paths[$file]) : '';
+		return $file;
 	}
-	else
+
+	if (!in_array($file_type, ['images', 'css', 'js']))
 	{
-		if (is_valid_url($file))
-		{
-			return $file;
-		}
-
-		if (!$paths)
-		{
-			$loader = NeoFrag()->theme ? NeoFrag()->theme->load : NeoFrag();
-			$paths = $loader->paths('assets');
-		}
-
-		if (!in_array($file_type, ['images', 'css', 'js']))
-		{
-			return url($file_type.'/'.$file);
-		}
-
-		//json_encode backslashe les /
-		$file = str_replace('\/', '/', $file);
-
-		static $assets;
-
-		if (!isset($assets[$checksum = md5(serialize($paths))][$file_type][$file]))
-		{
-			foreach ($paths as $path)
-			{
-				if (check_file($file_path = $path.'/'.$file_type.'/'.$file))
-				{
-					return $assets[$checksum][$file_type][$file] = url($file_path);
-				}
-			}
-		}
-		else
-		{
-			return $assets[$checksum][$file_type][$file];
-		}
-
-		if (check_file($file))
-		{
-			return url($file);
-		}
-
 		return url($file_type.'/'.$file);
 	}
+
+	if (!$caller)
+	{
+		$caller = \Neofrag();
+	}
+
+	if ($path = $caller->__path('assets', $file_type.'/'.$file))
+	{
+		return url($path);
+	}
+	else if (check_file($file))
+	{
+		return url($file);
+	}
+
+	return url($file_type.'/'.$file);
 }
 
-function image($file)
+function image($file, $caller = NULL)
 {
-	return path($file, 'images');
+	return path($file, 'images', $caller);
 }
 
 function css($file)

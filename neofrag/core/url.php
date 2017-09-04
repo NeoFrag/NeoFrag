@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Core;
+
+use NF\NeoFrag\Core;
+
 class Url extends Core
 {
 	private $_external = FALSE;

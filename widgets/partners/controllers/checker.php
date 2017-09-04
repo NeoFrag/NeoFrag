@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_partners_c_checker extends Controller
+namespace NF\Widgets\Partners\Controllers;
+
+class Checker extends Controller
 {
 	public function index($settings = [])
 	{

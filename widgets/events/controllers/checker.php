@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_events_c_checker extends Controller
+namespace NF\Widgets\Events\Controllers;
+
+class Checker extends Controller
 {
 	public function events($settings = [])
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_events_c_index extends Controller_Widget
+namespace NF\Widgets\Events\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+
+class Index extends Controller_Widget
 {
 	public function index($settings = [])
 	{

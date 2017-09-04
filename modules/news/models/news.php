@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_news_m_news extends Model
+namespace NF\Modules\News\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class News extends Model
 {
 	public function get_news($filter = '', $filter_data = '')
 	{

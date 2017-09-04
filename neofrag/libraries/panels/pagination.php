@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Panel_Pagination extends Panel
+namespace NF\NeoFrag\Libraries\Panels;
+
+use NF\NeoFrag\Libraries\Panel;
+
+class Pagination extends Panel
 {
 	public function __toString()
 	{

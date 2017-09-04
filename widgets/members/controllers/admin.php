@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_members_c_admin extends Controller_Module
+namespace NF\Widgets\Members\Controllers;
+
+class Admin extends Controller_Module
 {
 	public function online_mini($settings = [])
 	{

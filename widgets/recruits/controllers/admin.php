@@ -4,7 +4,9 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_recruits_c_admin extends Controller
+namespace NF\Widgets\Recruits\Controllers;
+
+class Admin extends Controller
 {
 	public function recruit($settings = [])
 	{

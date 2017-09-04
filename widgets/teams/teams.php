@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_teams extends Widget
+namespace NF\Widgets\Teams;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Teams extends Widget
 {
 	public $title       = '{lang teams}';
 	public $description = '';
