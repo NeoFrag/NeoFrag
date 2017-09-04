@@ -88,8 +88,8 @@ class Admin extends Controller_Module
 				->icon($module->icon)
 				->css('access')
 				->js('access')
-				->css('neofrag.table')
-				->js('neofrag.table');
+				->css('table')
+				->js('table');
 
 		return [
 			$this->row(

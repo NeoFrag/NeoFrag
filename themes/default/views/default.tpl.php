@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<?php echo css('font-awesome.min.css') ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('font-awesome-override.css') ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo css('default.css') ?>" type="text/css" media="screen" />
-<link rel="stylesheet" href="<?php echo css('neofrag.notify.css') ?>" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo css('notify.css') ?>" type="text/css" media="screen" />
 <?php echo $data['css'] ?>
 <script type="text/javascript" src="<?php echo js('jquery-1.11.2.min.js') ?>"></script>
 <script type="text/javascript" src="<?php echo js('jquery-ui.min.js') ?>"></script>
@@ -28,8 +28,8 @@
 	<?php echo $data['body'] ?>
 	<script type="text/javascript" src="<?php echo js('bootstrap.min.js') ?>"></script>
 	<script type="text/javascript" src="<?php echo js('bootstrap-notify.min.js') ?>"></script>
-	<script type="text/javascript" src="<?php echo js('neofrag.notify.js') ?>"></script>
-	<script type="text/javascript" src="<?php echo js('neofrag.user.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo js('notify.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo js('user.js') ?>"></script>
 	<?php echo $data['js'] ?>
 	<script type="text/javascript">
 	$(function(){

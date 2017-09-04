@@ -6,7 +6,7 @@
 
 function user_agent($user_agent)
 {
-	NeoFrag()->js('neofrag.user-agent');
+	NeoFrag()->js('user-agent');
 	return '<img src="'.image('ajax-loader.gif').'" data-user-agent="'.$user_agent.'" alt="" />';
 }
 

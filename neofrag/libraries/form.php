@@ -421,7 +421,7 @@ class Form extends Library
 
 		if ($has_upload = $this->_has_upload())
 		{
-			$this->js('neofrag.file');
+			$this->js('file');
 		}
 
 		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->url->request).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>

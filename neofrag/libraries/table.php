@@ -80,8 +80,8 @@ class Table extends Library
 
 	public function display()
 	{
-		NeoFrag()	->css('neofrag.table')
-							->js('neofrag.table');
+		NeoFrag()	->css('table')
+							->js('table');
 
 		$output = '';
 		$search = trim(post('search'));

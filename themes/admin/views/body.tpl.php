@@ -147,7 +147,7 @@
 						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('configuration') ?></span></a>
 					<?php endif ?>
 					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
-					<?php NeoFrag()->js('neofrag.help') ?>
+					<?php NeoFrag()->js('help') ?>
 					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method'] ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('help') ?></span></a>
 					<?php endif ?>
 				</div>
