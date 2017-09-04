@@ -166,7 +166,7 @@ class Index extends Controller_Module
 		$this	->title($title)
 				->_breadcrumb($category_id, $forum_id)
 				->breadcrumb()
-				->js('neofrag.delete');
+				->js('delete');
 
 		$last_message_read = NULL;
 

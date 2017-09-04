@@ -16,11 +16,11 @@ class Admin extends Controller_Module
 				->icon('fa-puzzle-piece')
 				->css('addons')
 				->js('addons')
-				->css('neofrag.delete')
-				->js('neofrag.delete')
-				->css('neofrag.table')
-				->js('neofrag.table')
-				->js('neofrag.sortable');
+				->css('delete')
+				->js('delete')
+				->css('table')
+				->js('table')
+				->js('sortable');
 
 		return $this->row(
 			$this	->col(

@@ -44,8 +44,8 @@ class Comments extends Library
 	{
 		$this->form->save();
 
-		$form = $this	->css('neofrag.comments')
-						->js('neofrag.comments')
+		$form = $this	->css('comments')
+						->js('comments')
 						->form
 						->add_rules([
 							'comment_id' => [
