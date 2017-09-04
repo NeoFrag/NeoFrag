@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_awards_m_awards extends Model
+namespace NF\Modules\Awards\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Awards extends Model
 {
 	public function get_years()
 	{

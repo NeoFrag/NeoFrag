@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_pages_m_pages extends Model
+namespace NF\Modules\Pages\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Pages extends Model
 {
 	public function get_pages()
 	{

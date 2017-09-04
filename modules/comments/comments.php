@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_comments extends Module
+namespace NF\Modules\Comments;
+
+use NF\NeoFrag\Addons\Module;
+
+class Comments extends Module
 {
 	public $title       = '{lang comments}';
 	public $description = '';

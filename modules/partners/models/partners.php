@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_partners_m_partners extends Model
+namespace NF\Modules\Partners\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Partners extends Model
 {
 	public function get_partners()
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum extends Module
+namespace NF\Modules\Forum;
+
+use NF\NeoFrag\Addons\Module;
+
+class Forum extends Module
 {
 	public $title       = '{lang forum}';
 	public $description = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_forum_m_forum extends Model
+namespace NF\Widgets\Forum\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Forum extends Model
 {
 	public function get_last_messages()
 	{

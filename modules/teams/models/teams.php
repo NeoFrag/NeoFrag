@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_teams_m_teams extends Model
+namespace NF\Modules\Teams\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Teams extends Model
 {
 	public function get_teams()
 	{

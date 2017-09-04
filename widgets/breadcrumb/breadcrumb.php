@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_breadcrumb extends Widget
+namespace NF\Widgets\Breadcrumb;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Breadcrumb extends Widget
 {
 	public $title       = '{lang breadcrumb}';
 	public $description = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_recruits extends Widget
+namespace NF\Widgets\Recruits;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Recruits extends Widget
 {
 	public $title       = 'Recrutement';
 	public $description = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_m_user extends Model
+namespace NF\Modules\User\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class User extends Model
 {
 	/* -1	-> Compte qui n'a pas été activé par mail
 	 * 0	-> Compte inconnu

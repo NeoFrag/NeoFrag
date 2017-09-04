@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user extends Module
+namespace NF\Modules\User;
+
+use NF\NeoFrag\Addons\Module;
+
+class User extends Module
 {
 	public $title         = '{lang member_area}';
 	public $description   = '';

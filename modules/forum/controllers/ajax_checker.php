@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum_c_ajax_checker extends Controller
+namespace NF\Modules\Forum\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Ajax_Checker extends Module_Checker
 {
 	public function _topic_move($topic_id, $title)
 	{

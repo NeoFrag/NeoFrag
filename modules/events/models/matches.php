@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_events_m_matches extends Model
+namespace NF\Modules\Events\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Matches extends Model
 {
 	public function get_match_info($event_id)
 	{

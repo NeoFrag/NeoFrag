@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_recruits_c_checker extends Controller_Module
+namespace NF\Modules\Recruits\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Checker extends Module_Checker
 {
 	public function index($page = '')
 	{

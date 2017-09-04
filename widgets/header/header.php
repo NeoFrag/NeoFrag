@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_header extends Widget
+namespace NF\Widgets\Header;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Header extends Widget
 {
 	public $title       = '{lang header}';
 	public $description = '';

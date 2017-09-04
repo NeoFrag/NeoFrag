@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_m_messages extends Model
+namespace NF\Modules\User\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Messages extends Model
 {
 	public function get_messages_inbox($box = 'inbox')
 	{

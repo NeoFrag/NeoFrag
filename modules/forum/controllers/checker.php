@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum_c_checker extends Controller
+namespace NF\Modules\Forum\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Checker extends Module_Checker
 {
 	public function _forum($forum_id, $title, $page = '')
 	{

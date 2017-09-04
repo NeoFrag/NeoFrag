@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_monitoring_m_monitoring extends Model
+namespace NF\Modules\Monitoring\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Monitoring extends Model
 {
 	public $folders = ['addons', 'backups', 'cache', 'config', 'css', 'fonts', 'images', 'js', 'lib', 'logs', 'modules', 'neofrag', 'overrides', 'themes', 'upload', 'widgets'];
 

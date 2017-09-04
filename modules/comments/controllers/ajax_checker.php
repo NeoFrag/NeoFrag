@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_comments_c_ajax_checker extends Controller_Module
+namespace NF\Modules\Comments\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Ajax_Checker extends Module_Checker
 {
 	public function delete($comment_id)
 	{

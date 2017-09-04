@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_statistics_m_statistics extends Model
+namespace NF\Modules\Statistics\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Statistics extends Model
 {
 	public function get_statistics($filters = NULL)
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_access_m_access extends Model
+namespace NF\Modules\Access\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Access extends Model
 {
 	public function add($module, $action, $id, $type, $entities, $authorized)
 	{

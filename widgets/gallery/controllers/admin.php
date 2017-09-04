@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_gallery_c_admin extends Controller
+namespace NF\Widgets\Gallery\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+
+class Admin extends Controller_Widget
 {
 	public function albums($settings = [])
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_games_m_modes extends Model
+namespace NF\Modules\Games\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Modes extends Model
 {
 	public function get_modes($game_id = NULL)
 	{

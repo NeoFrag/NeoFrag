@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_talks extends Module
+namespace NF\Modules\Talks;
+
+use NF\NeoFrag\Addons\Module;
+
+class Talks extends Module
 {
 	public $title       = '{lang talks}';
 	public $description = '';

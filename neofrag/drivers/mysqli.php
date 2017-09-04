@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Driver_mysqli extends Driver
+namespace NF\NeoFrag\Drivers;
+
+use NF\NeoFrag\Driver;
+
+class Mysqli extends Driver
 {
 	static private $_database;
 	static private $_time_zone;

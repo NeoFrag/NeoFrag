@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_talks_m_talks extends Model
+namespace NF\Modules\Talks\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Talks extends Model
 {
 	public function get_messages($talks_id, $message_id = 0, $limit = FALSE)
 	{

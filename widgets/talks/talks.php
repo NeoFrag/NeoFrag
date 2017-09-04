@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_talks extends Widget
+namespace NF\Widgets\Talks;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Talks extends Widget
 {
 	public $title       = '{lang talks}';
 	public $description = '';

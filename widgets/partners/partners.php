@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_partners extends Widget
+namespace NF\Widgets\Partners;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Partners extends Widget
 {
 	public $title       = 'Partenaires';
 	public $description = '';

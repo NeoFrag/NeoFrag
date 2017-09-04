@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_c_ajax_checker extends Controller_Module
+namespace NF\Modules\User\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Ajax_Checker extends Module_Checker
 {
 	public function _member($user_id, $username)
 	{

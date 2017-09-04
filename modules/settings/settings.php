@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_settings extends Module
+namespace NF\Modules\Settings;
+
+use NF\NeoFrag\Addons\Module;
+
+class Settings extends Module
 {
 	public $title         = '{lang settings}';
 	public $description   = '';

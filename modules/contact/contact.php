@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_contact extends Module
+namespace NF\Modules\Contact;
+
+use NF\NeoFrag\Addons\Module;
+
+class Contact extends Module
 {
 	public $title         = '{lang contact}';
 	public $description   = '';

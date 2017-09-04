@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_addons extends Module
+namespace NF\Modules\Addons;
+
+use NF\NeoFrag\Addons\Module;
+
+class Addons extends Module
 {
 	public $title         = 'Composants';
 	public $description   = '';

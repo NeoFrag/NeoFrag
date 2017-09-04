@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_live_editor_m_live_editor extends Model
+namespace NF\Modules\Live_Editor\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Live_Editor extends Model
 {
 	public function get_disposition($disposition_id, &$theme, &$page, &$zone)
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_gallery_c_checker extends Controller_Module
+namespace NF\Modules\Gallery\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Checker extends Module_Checker
 {
 	public function _gallery($gallery_id, $name, $page = '')
 	{

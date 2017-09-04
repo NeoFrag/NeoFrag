@@ -4,6 +4,8 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag;
+
 abstract class Driver
 {
 	static protected $db;

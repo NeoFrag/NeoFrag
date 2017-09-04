@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_navigation_c_checker extends Controller_Widget
+namespace NF\Widgets\Navigation\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget_Checker;
+
+class Checker extends Widget_Checker
 {
 	public function index($settings = [])
 	{

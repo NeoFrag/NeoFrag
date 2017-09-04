@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_access extends Library
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Library;
+
+class Access extends Library
 {
 	public function __invoke($id, $access = '', $module = '', $title = '')
 	{

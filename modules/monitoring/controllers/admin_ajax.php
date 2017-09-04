@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_monitoring_c_admin_ajax extends Controller_Module
+namespace NF\Modules\Monitoring\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin_Ajax extends Controller_Module
 {
 	private $_notifications = [];
 
@@ -405,8 +409,8 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			$this->_flush(0, $value);
 		});
 
-		$zip = new ZipArchive();
-		$zip->open($file.'.zip', ZipArchive::CREATE);
+		$zip = new \ZipArchive;
+		$zip->open($file.'.zip', \ZipArchive::CREATE);
 
 		$zip->addFile($dump, 'DATABASE.sql');
 

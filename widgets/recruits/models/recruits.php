@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_recruits_m_recruits extends Model
+namespace NF\Widgets\Recruits\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Recruits extends Model
 {
 	public function get_last_recruits()
 	{

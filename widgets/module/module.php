@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_module extends Widget
+namespace NF\Widgets\Module;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Module extends Widget
 {
 	public $title       = '{lang module}';
 	public $description = '';

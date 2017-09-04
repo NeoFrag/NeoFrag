@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Form extends Library
 {
 	static private $types = [
@@ -60,7 +64,16 @@ class Form extends Library
 		{
 			$this->_values = $values;
 
-			$rules = $this->form($rules);
+			$paths = [];
+
+			if ($path = $this->__caller->__path('forms', $rules.'.php', $paths))
+			{
+				include $path;
+			}
+			else
+			{
+				trigger_error('Unfound form: '.$rules.' in paths ['.implode(';', $paths).']', E_USER_WARNING);
+			}
 		}
 
 		foreach ($rules as $var => $options)

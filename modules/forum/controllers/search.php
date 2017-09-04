@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_forum_c_search extends Controller
+namespace NF\Modules\Forum\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Search extends Controller_Module
 {
 	public function index($result, $keywords)
 	{

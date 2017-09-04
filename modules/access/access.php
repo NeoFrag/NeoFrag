@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_access extends Module
+namespace NF\Modules\Access;
+
+use NF\NeoFrag\Addons\Module;
+
+class Access extends Module
 {
 	public $title         = '{lang permissions}';
 	public $description   = '';

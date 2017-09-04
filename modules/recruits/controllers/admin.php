@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_recruits_c_admin extends Controller_Module
+namespace NF\Modules\Recruits\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin extends Controller_Module
 {
 	public function index($recruits)
 	{
@@ -514,28 +518,28 @@ class m_recruits_c_admin extends Controller_Module
 	{
 		$this->subtitle($title);
 
-		$reply_form = $this->load	->form
-									->add_rules($rules = [
-										'reply' => [
-											'label'  => 'Votre réponse',
-											'value'  => $reply,
-											'type'   => 'editor',
-											'rules'  => 'required'
-										],
-										'status' => [
-											'label'  => 'Décision',
-											'value'  => $status,
-											'values' => [
-												'1' => 'En attente',
-												'2' => 'Acceptée',
-												'3' => 'Refusée'
-											],
-											'type'   => 'radio',
-											'rules'  => 'required'
-										]
-									])
-									->add_submit('Envoyer la réponse')
-									->save();
+		$reply_form = $this	->form
+							->add_rules($rules = [
+								'reply' => [
+									'label'  => 'Votre réponse',
+									'value'  => $reply,
+									'type'   => 'editor',
+									'rules'  => 'required'
+								],
+								'status' => [
+									'label'  => 'Décision',
+									'value'  => $status,
+									'values' => [
+										'1' => 'En attente',
+										'2' => 'Acceptée',
+										'3' => 'Refusée'
+									],
+									'type'   => 'radio',
+									'rules'  => 'required'
+								]
+							])
+							->add_submit('Envoyer la réponse')
+							->save();
 
 		if ($reply_form->is_valid($post))
 		{
@@ -776,14 +780,14 @@ class m_recruits_c_admin extends Controller_Module
 
 			if ($this->config->recruits_send_mail && $candidacy['email'])
 			{
-				$this->load	->email
-							->from($this->config->nf_contact ? $this->config->nf_contact : $this->user('email'))
-							->to($candidacy['email'])
-							->subject('Candidature :: '.$candidacy['title'])
-							->message('default', [
+				$this	->email
+						->from($this->config->nf_contact ? $this->config->nf_contact : $this->user('email'))
+						->to($candidacy['email'])
+						->subject('Candidature :: '.$candidacy['title'])
+						->message('default', [
 								'content' => bbcode($reply).($this->user() ? '<br /><br /><br />'.$this->user->link() : '')
-							])
-							->send();
+						])
+						->send();
 			}
 		}
 	}

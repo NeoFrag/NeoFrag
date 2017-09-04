@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_monitoring extends Module
+namespace NF\Modules\Monitoring;
+
+use NF\NeoFrag\Addons\Module;
+
+class Monitoring extends Module
 {
 	public $title         = 'Monitoring';
 	public $description   = '';

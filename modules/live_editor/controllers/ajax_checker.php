@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_live_editor_c_ajax_checker extends Controller_Module
+namespace NF\Modules\Live_Editor\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Ajax_Checker extends Module_Checker
 {
 	public function zone_fork()
 	{

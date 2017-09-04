@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_awards extends Widget
+namespace NF\Widgets\Awards;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Awards extends Widget
 {
 	public $title       = 'Palmarès';
 	public $description = '';

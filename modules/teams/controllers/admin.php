@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_teams_c_admin extends Controller_Module
+namespace NF\Modules\Teams\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin extends Controller_Module
 {
 	public function index()
 	{

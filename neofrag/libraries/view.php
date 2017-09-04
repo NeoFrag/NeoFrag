@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class View extends Library
 {
 	protected $_name;
@@ -29,22 +33,14 @@ class View extends Library
 
 	public function __toString()
 	{
-		foreach ($paths = $this->load->paths('views') as $dir)
+		$paths = [];
+
+		if ($path = $this->__caller->__path('views', $this->_name.'.tpl.php', $paths))
 		{
-			if (check_file($path = $dir.'/'.$this->_name.'.tpl.php'))
-			{
-				$data = array_merge($this->_data, $this->load->data);
-
-				if ($this->debug->is_enabled())
-				{
-					$this->load->views[] = [$path, $this->_name.'.tpl.php', $data];
-				}
-
-				return $this->content(file_get_contents($path), $data);
-			}
+			return $this->content(file_get_contents($path), $this->_data);
 		}
 
-		trigger_error('Unfound view: '.$this->_name.' in paths ['.implode(', ', array_filter($paths)).']', E_USER_WARNING);
+		trigger_error('Unfound view: '.$this->_name.' in paths ['.implode(';', $paths).']', E_USER_WARNING);
 
 		return '';
 	}

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_html extends Widget
+namespace NF\Widgets\Html;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Html extends Widget
 {
 	public $title       = '{lang free_content_html_code}';
 	public $description = '';

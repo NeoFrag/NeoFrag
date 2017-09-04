@@ -4,6 +4,8 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
 class Label extends Html
 {
 	protected $_title;

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_news extends Module
+namespace NF\Modules\News;
+
+use NF\NeoFrag\Addons\Module;
+
+class News extends Module
 {
 	public $title       = '{lang news}';
 	public $description = '';

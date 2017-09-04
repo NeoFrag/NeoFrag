@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_back extends Library
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Library;
+
+class Back extends Library
 {
 	public function __invoke($url = '', $title = '')
 	{

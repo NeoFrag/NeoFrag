@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Panel_back extends Panel
+namespace NF\NeoFrag\Libraries\Panels;
+
+use NF\NeoFrag\Libraries\Panel;
+
+class Back extends Panel
 {
 	private $_url;
 

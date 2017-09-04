@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_c_ajax extends Controller_Module
+namespace NF\Modules\User\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Ajax extends Controller_Module
 {
 	public function _member($user_id, $username)
 	{

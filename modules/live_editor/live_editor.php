@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_live_editor extends Module
+namespace NF\Modules\Live_Editor;
+
+use NF\NeoFrag\Addons\Module;
+
+class Live_Editor extends Module
 {
 	public $title         = '{lang live_editor}';
 	public $description   = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_settings_c_admin_ajax extends Controller_Module
+namespace NF\Modules\Settings\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin_Ajax extends Controller_Module
 {
 	public function maintenance()
 	{

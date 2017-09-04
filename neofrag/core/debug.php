@@ -4,6 +4,10 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Core;
+
+use NF\NeoFrag\Core;
+
 class Debug extends Core
 {
 	const INFO       = 0;

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_delete extends Library
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Library;
+
+class Delete extends Library
 {
 	public function __invoke($url, $title = NULL)
 	{

@@ -4,11 +4,15 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class t_default extends Theme
+namespace NF\Themes\Default_;
+
+use NF\NeoFrag\Addons\Theme;
+
+class Default_ extends Theme
 {
 	public $title       = '{lang default_theme}';
 	public $description = '{lang default_theme_description}';
-	public $thumbnail   = 'neofrag/themes/default/images/thumbnail.png';
+	public $thumbnail   = 'themes/default/images/thumbnail.png';
 	public $link        = 'http://www.neofrag.fr';
 	public $author      = 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>';
 	public $licence     = 'http://www.neofrag.com/license.html LGPLv3';

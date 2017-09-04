@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_recruits_c_checker extends Controller
+namespace NF\Widgets\Recruits\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget_Checker;
+
+class Checker extends Widget_Checker
 {
 	public function recruit($settings = [])
 	{

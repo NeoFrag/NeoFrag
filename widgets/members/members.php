@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_members extends Widget
+namespace NF\Widgets\Members;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Members extends Widget
 {
 	public $title       = '{lang members}';
 	public $description = '';

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_gallery extends Widget
+namespace NF\Widgets\Gallery;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Gallery extends Widget
 {
 	public $title       = '{lang galleries}';
 	public $description = '';

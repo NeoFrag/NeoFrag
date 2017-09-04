@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_comments_c_admin_checker extends Controller
+namespace NF\Modules\Comments\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Admin_Checker extends Module_Checker
 {
 	public function index($tab = '', $page = '')
 	{

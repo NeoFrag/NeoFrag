@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_admin extends Module
+namespace NF\Modules\Admin;
+
+use NF\NeoFrag\Addons\Module;
+
+class Admin extends Module
 {
 	public $title         = '{lang administration}';
 	public $description   = '';

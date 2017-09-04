@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_statistics extends Module
+namespace NF\Modules\Statistics;
+
+use NF\NeoFrag\Addons\Module;
+
+class Statistics extends Module
 {
 	public $title         = 'Statistiques';
 	public $description   = '';

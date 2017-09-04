@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_comments_m_comments extends Model
+namespace NF\Modules\Comments\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Comments extends Model
 {
 	private $_modules = [];
 

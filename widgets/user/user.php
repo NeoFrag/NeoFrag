@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_user extends Widget
+namespace NF\Widgets\User;
+
+use NF\NeoFrag\Addons\Widget;
+
+class User extends Widget
 {
 	public $title       = '{lang member_area}';
 	public $description = '';

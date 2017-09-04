@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_statistics_c_admin_ajax_checker extends Controller_Module
+namespace NF\Modules\Statistics\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Admin_Ajax_Checker extends Module_Checker
 {
 	public function index()
 	{
@@ -13,11 +17,11 @@ class m_statistics_c_admin_ajax_checker extends Controller_Module
 			$this->extension('json');
 
 			$periods = [
-				'hour'  => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m-%d %H")'; },                                     'Y-m-d H', new DateInterval('PT1H'), function(&$a) { $a = $a->setTime(0, 0); }],
-				'day'   => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m-%d")'; },                                        'Y-m-d',   new DateInterval('P1D')],
-				'week'  => [function($a){ return 'CONCAT_WS("-", DATE_FORMAT('.$a.', "%x"), LPAD(WEEK('.$a.', 3), 2, 0))'; }, 'o-W',     new DateInterval('P1W'),  function(&$a) { $a = $a->modify('previous week'); }],
-				'month' => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m")'; },                                           'Y-m',     new DateInterval('P1M'),  function(&$a) { $a = $a->modify('first day of'); }],
-				'year'  => [function($a){ return 'DATE_FORMAT('.$a.', "%Y")'; },                                              'Y',       new DateInterval('P1Y'),  function(&$a) { $a = $a->modify('01 january'); }]
+				'hour'  => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m-%d %H")'; },                                     'Y-m-d H', new \DateInterval('PT1H'), function(&$a) { $a = $a->setTime(0, 0); }],
+				'day'   => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m-%d")'; },                                        'Y-m-d',   new \DateInterval('P1D')],
+				'week'  => [function($a){ return 'CONCAT_WS("-", DATE_FORMAT('.$a.', "%x"), LPAD(WEEK('.$a.', 3), 2, 0))'; }, 'o-W',     new \DateInterval('P1W'),  function(&$a) { $a = $a->modify('previous week'); }],
+				'month' => [function($a){ return 'DATE_FORMAT('.$a.', "%Y-%m")'; },                                           'Y-m',     new \DateInterval('P1M'),  function(&$a) { $a = $a->modify('first day of'); }],
+				'year'  => [function($a){ return 'DATE_FORMAT('.$a.', "%Y")'; },                                              'Y',       new \DateInterval('P1Y'),  function(&$a) { $a = $a->modify('01 january'); }]
 			];
 
 			$start = date_create_from_format('d/m/Y', $check['start']);

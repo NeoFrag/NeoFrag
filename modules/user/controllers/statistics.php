@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_c_statistics extends Controller_Module
+namespace NF\Modules\User\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Statistics extends Controller_Module
 {
 	public function statistics()
 	{

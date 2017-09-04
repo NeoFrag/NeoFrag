@@ -4,18 +4,24 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag\Libraries;
+
+use NF\NeoFrag\Library;
+
 class Network extends Library
 {
 	protected $_auth;
-	protected $_header    = [];
+	protected $_header = [];
 	protected $_method;
 	protected $_ssl_check = TRUE;
 	protected $_timeout   = 1;
 	protected $_type;
 	protected $_url;
 
-	public function __construct($config = [])
+	public function __construct($caller, $config = [])
 	{
+		parent::__construct($caller);
+
 		foreach (['ssl_check', 'timeout'] as $var)
 		{
 			if (array_key_exists($var, $config))

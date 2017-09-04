@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_user_c_admin_ajax_checker extends Controller
+namespace NF\Modules\User\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Admin_Ajax_Checker extends Module_Checker
 {
 	public function _groups_sort()
 	{

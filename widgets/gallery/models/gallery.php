@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_gallery_m_gallery extends Model
+namespace NF\Widgets\Gallery\Models;
+
+use NF\NeoFrag\Loadables\Model;
+
+class Gallery extends Model
 {
 	public function get_gallery($category_id = FALSE)
 	{

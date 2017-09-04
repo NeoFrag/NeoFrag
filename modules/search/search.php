@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_search extends Module
+namespace NF\Modules\Search;
+
+use NF\NeoFrag\Addons\Module;
+
+class Search extends Module
 {
 	public $title         = '{lang search}';
 	public $description   = '';

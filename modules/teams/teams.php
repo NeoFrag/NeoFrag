@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_teams extends Module
+namespace NF\Modules\Teams;
+
+use NF\NeoFrag\Addons\Module;
+
+class Teams extends Module
 {
 	public $title       = '{lang teams_title}';
 	public $description = '';

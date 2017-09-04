@@ -4,7 +4,7 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_members_m_members extends Model
+class M_Members_M_Members extends Model
 {
 	public function get_members($users = NULL)
 	{

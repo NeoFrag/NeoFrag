@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_teams_c_checker extends Controller_Module
+namespace NF\Modules\Teams\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
+
+class Checker extends Module_Checker
 {
 	public function _team($team_id, $name)
 	{

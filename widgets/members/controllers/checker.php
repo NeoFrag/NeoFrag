@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_members_c_checker extends Controller_Module
+namespace NF\Widgets\Members\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget_Checker;
+
+class Checker extends Widget_Checker
 {
 	public function online_mini($settings = [])
 	{

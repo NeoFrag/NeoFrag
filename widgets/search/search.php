@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_search extends Widget
+namespace NF\Widgets\Search;
+
+use NF\NeoFrag\Addons\Widget;
+
+class Search extends Widget
 {
 	public $title       = '{lang search}';
 	public $description = '';

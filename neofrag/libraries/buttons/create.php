@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_create extends Library
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Library;
+
+class Create extends Library
 {
 	public function __invoke($url, $title, $icon = 'fa-plus')
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_pages extends Module
+namespace NF\Modules\Pages;
+
+use NF\NeoFrag\Addons\Module;
+
+class Pages extends Module
 {
 	public $title       = '{lang pages}';
 	public $description = '';
@@ -27,9 +31,9 @@ class m_pages extends Module
 
 	public function get_title($new_title = NULL)
 	{
-		if (!empty($this->load->data['module_title']))
+		if (!empty($this->data['module_title']))
 		{
-			return $this->load->data['module_title'];
+			return $this->data['module_title'];
 		}
 
 		/* TODO

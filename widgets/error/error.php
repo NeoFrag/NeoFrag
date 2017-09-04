@@ -4,7 +4,7 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_error extends Widget
+class W_Error extends Widget
 {
 	public $title       = '{lang error}';
 	public $description = '';

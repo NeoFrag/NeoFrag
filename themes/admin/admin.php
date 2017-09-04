@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class t_admin extends Theme
+namespace NF\Themes\Admin;
+
+use NF\NeoFrag\Addons\Theme;
+
+class Admin extends Theme
 {
 	public $title       = '{lang administration}';
 	public $description = '';

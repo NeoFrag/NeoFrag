@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class w_html_c_admin extends Controller_Widget
+namespace NF\Widgets\Html\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+
+class Admin extends Controller_Widget
 {
 	public function index($settings = [])
 	{

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_access_c_admin extends Controller_Module
+namespace NF\Modules\Access\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Admin extends Controller_Module
 {
 	public function index($objects, $modules, $tab)
 	{

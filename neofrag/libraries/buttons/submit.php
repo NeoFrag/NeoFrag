@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Button_submit extends Button
+namespace NF\NeoFrag\Libraries\Buttons;
+
+use NF\NeoFrag\Libraries\Button;
+
+class Submit extends Button
 {
 	public function __invoke($title = '')
 	{

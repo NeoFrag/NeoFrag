@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class m_search_c_index extends Controller_Module
+namespace NF\Modules\Search\Controllers;
+
+use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+
+class Index extends Controller_Module
 {
 	public function index($module_name = '', $page = '')
 	{

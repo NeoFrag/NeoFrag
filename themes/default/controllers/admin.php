@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class t_default_c_admin extends Controller
+namespace NF\Themes\Default_\Controllers;
+
+use NF\NeoFrag\Loadables\Controller;
+
+class Admin extends Controller
 {
 	public function index($theme)
 	{
