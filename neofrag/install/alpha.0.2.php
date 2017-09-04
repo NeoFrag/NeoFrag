@@ -44,5 +44,9 @@ class i_0_2 extends Install
 		{
 
 		}
+
+		//Talks
+		$this->db	->execute('ALTER TABLE nf_talks CONVERT TO CHARACTER SET utf8')
+					->execute('ALTER TABLE nf_talks_messages CONVERT TO CHARACTER SET utf8');
 	}
 }
