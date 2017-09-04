@@ -334,5 +334,9 @@ class i_0_2 extends NeoFrag
 		//File
 		$this->db	->execute('ALTER TABLE `nf_files` CHANGE `file_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
 					->execute('RENAME TABLE `nf_files` TO `nf_file`');
+
+		//Talks
+		$this->db	->execute('ALTER TABLE nf_talks CONVERT TO CHARACTER SET utf8')
+					->execute('ALTER TABLE nf_talks_messages CONVERT TO CHARACTER SET utf8');
 	}
 }
