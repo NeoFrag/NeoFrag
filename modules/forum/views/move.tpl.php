@@ -11,13 +11,13 @@
 						<?php
 							foreach ($data['categories'] as $category_id => $category)
 							{
-								echo '	<li><h3 class="no-margin">'.icon('fa-navicon').' '.$category['title'].'</h3></li>
+								echo '	<li><h3 class="m-0">'.icon('fa-navicon').' '.$category['title'].'</h3></li>
 										<li>
 											<ul class="forum-tree forum-tree-forums">';
 
 								foreach ($category['forums'] as $forum_id => $forum)
 								{
-									echo '	<li><h4 class="no-margin"><label><input type="radio" name="'.($token = $this->form->token('3a27fa5555e6f34491793733f32169db')).'[forum_id]" value="'.$forum_id.'"'.($forum_id == $data['forum_id'] ? ' checked="checked"' : '').' />'.icon('fa-comments-o').' '.$forum['title'].'</label></h4></li>';
+									echo '	<li><h4 class="m-0"><label><input type="radio" name="'.($token = $this->form->token('3a27fa5555e6f34491793733f32169db')).'[forum_id]" value="'.$forum_id.'"'.($forum_id == $data['forum_id'] ? ' checked="checked"' : '').' />'.icon('fa-comments-o').' '.$forum['title'].'</label></h4></li>';
 
 									if ($forum['subforums'])
 									{

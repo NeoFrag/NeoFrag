@@ -14,7 +14,7 @@
 			</div>
 			<form action="<?php echo url('admin/ajax/gallery/image/add/'.$data['gallery_id'].'/'.$data['name']) ?>" method="post" class="dropzone" id="gallery-dropzone" role="form">
 				<div class="pull-right label-dropzone">
-					<span class="label label-info" style="padding: 4px 5px;" data-toggle="tooltip" title="<?php echo $this->lang('click_select_images') ?>">&nbsp;<?php echo icon('fa-info') ?>&nbsp;</span>
+					<span class="badge badge-info" style="padding: 4px 5px;" data-toggle="tooltip" title="<?php echo $this->lang('click_select_images') ?>">&nbsp;<?php echo icon('fa-info') ?>&nbsp;</span>
 				</div>
 			</form>
 			<button type="button" class="btn btn-primary btn-lg btn-block" id="gallery-dropzone-add"><?php echo icon('fa-cloud-upload').' '.$this->lang('dropzone_upload_btn') ?></button>

@@ -1,4 +1,4 @@
-<ul class="list-inline no-margin">
+<ul class="list-inline m-0">
 	<li class="col-md-3">
 		<b><?php echo $this->lang('registration_date') ?></b><br />
 		<?php echo time_span($data['registration_date']) ?>

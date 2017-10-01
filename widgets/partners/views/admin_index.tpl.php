@@ -30,7 +30,9 @@
 					<div class="col-sm-3">
 						<div class="input-group">
 							<input type="number" class="form-control" name="settings[display_height]" id="settings-display_height" value="<?php echo isset($data['display_height']) ? $data['display_height'] : '140' ?>" />
-							<div class="input-group-addon">px</div>
+							<div class="input-group-append">
+								<span class="input-group-text">px</span>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -104,7 +104,7 @@ class Ajax extends Controller_Module
 
 	public function col_add($disposition_id, $disposition, $row_id)
 	{
-		$disposition[$row_id]->append($col = $this->col()->size('col-md-4'));
+		$disposition[$row_id]->append($col = $this->col()->size('col-4'));
 		$this->model()->set_disposition($disposition_id, $disposition);
 
 		return $col->id(array_last_key($disposition[$row_id]->children()));
@@ -118,7 +118,7 @@ class Ajax extends Controller_Module
 
 	public function col_size($disposition_id, $disposition, $row_id, $col_id, $size)
 	{
-		$disposition[$row_id]->children()[$col_id]->size('col-md-'.min(12, max($size, 1)));
+		$disposition[$row_id]->children()[$col_id]->size('col-'.min(12, max($size, 1)));
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 

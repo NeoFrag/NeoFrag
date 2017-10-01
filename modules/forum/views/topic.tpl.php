@@ -6,7 +6,7 @@
 				<div class="pull-right">
 					<?php echo icon('fa-eye').' '.$this->lang('views', $data['views'], $data['views']) ?>
 				</div>
-				<h4 class="no-margin"><?php echo icon('fa-file-text-o').' '.$data['title'] ?></h4>
+				<h4 class="m-0"><?php echo icon('fa-file-text-o').' '.$data['title'] ?></h4>
 			</th>
 		</tr>
 	</thead>

@@ -35,7 +35,7 @@ class Index extends Controller_Module
 				}
 
 				$panels[] = $this	->panel()
-									->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="label label-default">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
+									->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-default">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
 									->body($this->view('index', [
 										'recruit_id'   => $recruit['recruit_id'],
 										'title'        => $recruit['title'],
@@ -143,9 +143,9 @@ class Index extends Controller_Module
 																'team_name' => $team_name
 															]), FALSE)
 						)
-						->size('col-md-6'),
+						->size('col-6'),
 				$this	->col($postulate_panel)
-						->size('col-md-6')
+						->size('col-6')
 			)
 		];
 	}
@@ -243,7 +243,7 @@ class Index extends Controller_Module
 							$reply_id = $this->db	->insert('nf_users_messages_replies', [
 														'message_id' => $message_id,
 														'user_id'    => $this->user('user_id'),
-														'message'    => '<div class="alert alert-info no-margin"><b>Message automatique.</b><br />Une nouvelle candidature vient d\'être déposée par '.($this->user() ? $user['username'] : $post['pseudo']).'.<br /><br />Pour la visualiser, <a href="'.url('admin/recruits/candidacy/'.$candidacy_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
+														'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Une nouvelle candidature vient d\'être déposée par '.($this->user() ? $user['username'] : $post['pseudo']).'.<br /><br />Pour la visualiser, <a href="'.url('admin/recruits/candidacy/'.$candidacy_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
 													]);
 
 							$this->db	->where('message_id', $message_id)

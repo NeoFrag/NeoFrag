@@ -117,14 +117,14 @@ class Admin extends Controller_Module
 						->heading($this->lang('categories'), 'fa-book')
 						->body($categories)
 						->footer($this->button_create('admin/gallery/categories/add', $this->lang('add_category')))
-						->size('col-md-12 col-lg-4')
+						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('list_album_photos'), 'fa-photo')
 						->body($gallery)
 						->footer($this->button_create('admin/gallery/add', $this->lang('add_album')))
-						->size('col-md-12 col-lg-8')
+						->size('col-12 col-lg-8')
 			)
 		);
 	}
@@ -297,7 +297,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading(/* //TODO '<div class="pull-right"><code data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode">[gallery-'.$gallery_id.']</code></div>*/$this->lang('edit_album_title'), 'fa-photo')
 						->body($form_album->display())
-						->size('col-md-12 col-lg-7')
+						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
@@ -311,7 +311,7 @@ class Admin extends Controller_Module
 							'images'        => $images,
 							'gallery_table' => $gallery_table->display()
 						]))
-						->size('col-md-12 col-lg-5')
+						->size('col-12 col-lg-5')
 			)
 		);
 	}
@@ -437,15 +437,15 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('edit_image_title'), 'fa-photo')
 						->body($this->form->display())
-						->size('col-md-8 col-lg-9')
+						->size('col-8 col-lg-9')
 			),
 			$this->col(
 				$this	->panel()
 						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('preview_image'), 'fa-photo')
 						->body(function($data) use ($image_id, $title, $description, $thumbnail_file_id){
-							return '<a class="thumbnail thumbnail-link no-margin" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+							return '<a class="thumbnail thumbnail-link m-0" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
 						})
-						->size('col-md-4 col-lg-3')
+						->size('col-4 col-lg-3')
 			)
 		);
 	}

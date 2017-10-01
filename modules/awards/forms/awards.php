@@ -27,7 +27,7 @@ $rules = [
 				return $this->lang('invalid_birth_date');
 			}
 		},
-		'size'  => 'col-md-3',
+		'size'  => 'col-3',
 		'rules' => 'required'
 	],
 	'team' => [
@@ -35,7 +35,7 @@ $rules = [
 		'value'  => $this->form->value('team_id'),
 		'values' => $this->form->value('teams'),
 		'type'   => 'select',
-		'size'   => 'col-md-4',
+		'size'   => 'col-4',
 		'rules'  => 'required'
 	],
 	'game' => [
@@ -43,7 +43,7 @@ $rules = [
 		'value'  => $this->form->value('game_id'),
 		'values' => $this->form->value('games'),
 		'type'   => 'select',
-		'size'   => 'col-md-4',
+		'size'   => 'col-4',
 		'rules'  => 'required'
 	],
 	'platform' => [
@@ -60,7 +60,7 @@ $rules = [
 			'Xbox One' => 'Xbox One'
 		],
 		'type'   => 'select',
-		'size'   => 'col-md-2',
+		'size'   => 'col-2',
 		'rules'  => 'required'
 	],
 	'ranking' => [
@@ -68,7 +68,7 @@ $rules = [
 		'icon'  => 'fa-trophy',
 		'value' => $this->form->value('ranking'),
 		'type'  => 'number',
-		'size'  => 'col-md-2',
+		'size'  => 'col-2',
 		'rules' => 'required'
 	],
 	'participants' => [
@@ -76,7 +76,7 @@ $rules = [
 		'icon'  => 'fa-users',
 		'value' => $this->form->value('participants'),
 		'type'  => 'number',
-		'size'  => 'col-md-2',
+		'size'  => 'col-2',
 		'rules' => 'required'
 	],
 	'description' => [

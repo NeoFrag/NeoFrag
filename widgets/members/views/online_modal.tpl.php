@@ -8,11 +8,9 @@
 			<div class="modal-body">
 				<?php foreach ($data['users'] as $user): ?>
 				<div class="media">
-					<div class="media-left">
-						<?php echo $this->user->avatar($user['avatar'], $user['sex'], $user['user_id'], $user['username']) ?>
-					</div>
+					<?php echo $this->user->avatar($user['avatar'], $user['sex'], $user['user_id'], $user['username']) ?>
 					<div class="media-body">
-						<h4 class="media-heading"><?php echo $this->user->link($user['user_id'], $user['username']) ?></h4>
+						<?php echo $this->user->link($user['user_id'], $user['username']) ?>
 						<?php echo icon('fa-clock-o').' '.time_span($user['last_activity']) ?>
 					</div>
 				</div>

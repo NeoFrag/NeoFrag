@@ -8,7 +8,7 @@ $('.thumbnail-link').on('click', function() {
 						<h4 class="modal-title"><i class="fa fa-photo fa-fw"></i> '+$(this).data('title')+'</h4>\
 					</div>\
 					<div class="modal-body text-center no-padding">\
-						<img class="img-responsive" src="'+$(this).data('image')+'" alt=""/>\
+						<img class="img-fluid" src="'+$(this).data('image')+'" alt=""/>\
 					</div>\
 					<div class="modal-footer">\
 						<div class="pull-left text-left">\
@@ -22,7 +22,7 @@ $('.thumbnail-link').on('click', function() {
 
 	$modal.on('shown.bs.modal', function(){
 		if ($('.image-preview').width() < $('#modal-preview > .modal-dialog > .modal-content').width()){
-			$('.image-preview').removeClass('img-responsive');
+			$('.image-preview').removeClass('img-fluid');
 		}
 	});
 

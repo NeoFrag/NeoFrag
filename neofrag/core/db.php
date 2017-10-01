@@ -392,7 +392,7 @@ class Db extends Core
 		foreach ($this->requests as $i => $request)
 		{
 			$result .= '	<tr>
-								<td class="col-md-1"><b>'.($i + 1).'</b><div class="pull-right"><span class="label label-'.(!empty($request->error) ? 'danger' : 'success').'">'.round($request->time * 1000, 3).' ms</span></div></td>
+								<td class="col-md-1"><b>'.($i + 1).'</b><div class="pull-right"><span class="badge badge-'.(!empty($request->error) ? 'danger' : 'success').'">'.round($request->time * 1000, 3).' ms</span></div></td>
 								<td class="col-md-8">'.$request->debug().'</td>
 								<td class="col-md-3 text-right">'.$request->file.' <code>'.$request->line.'</code></td>
 							</tr>';
@@ -404,14 +404,14 @@ class Db extends Core
 		if (!empty($this->requests))
 		{
 			$result .= '	<tr>
-								<td><b>Total</b><div class="pull-right"><span class="label label-success">'.round($total_time * 1000, 3).' ms</span></div></td>
+								<td><b>Total</b><div class="pull-right"><span class="badge badge-success">'.round($total_time * 1000, 3).' ms</span></div></td>
 								<td colspan="2"></td>
 							</tr>';
 		}
 
 		$result .= '</table>';
 
-		$output = '<span class="label label-'.($total_errors > 0 ? 'danger' : 'success').'">'.($total_errors ?: $i + 1).'</span>';
+		$output = '<span class="badge badge-'.($total_errors > 0 ? 'danger' : 'success').'">'.($total_errors ?: $i + 1).'</span>';
 
 		return $result;
 	}

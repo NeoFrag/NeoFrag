@@ -96,7 +96,7 @@ class Participants extends Model
 			$reply_id = $this->db	->insert('nf_users_messages_replies', [
 										'message_id' => $message_id,
 										'user_id'    => $this->user('user_id'),
-										'message'    => '<div class="alert alert-info no-margin"><b>Message automatique.</b><br />Vous êtes invité à participer à l\'événement <b>'.$title.'</b>.<br /><br />Pour indiquer votre disponibilité, <a href="'.url('events/'.$event_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
+										'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Vous êtes invité à participer à l\'événement <b>'.$title.'</b>.<br /><br />Pour indiquer votre disponibilité, <a href="'.url('events/'.$event_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
 									]);
 
 			$this->db	->where('message_id', $message_id)

@@ -13,7 +13,7 @@
 </div>
 <div class="row">
 	<?php foreach ($data['check'] as $check): ?>
-		<div class="col-md-12 col-lg-6">
+		<div class="col-12 col-lg-6">
 			<table class="table table-hover">
 				<thead>
 					<tr>

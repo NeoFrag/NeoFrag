@@ -5,7 +5,7 @@
 			<span data-toggle="tooltip" title="<?php echo $award['place'] ?>"><?php echo icon('fa-map-marker') ?></span>
 			<a href="<?php echo url('awards/'.$award['award_id'].'/'.url_title($award['name'])) ?>"><?php echo str_shortener($award['name'], 20) ?></a>
 		</div>
-		<ul class="list-inline no-margin">
+		<ul class="list-inline m-0">
 			<li>
 				<?php
 				if ($award['ranking'] == 1)

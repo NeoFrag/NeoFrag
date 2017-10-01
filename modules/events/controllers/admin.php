@@ -164,14 +164,14 @@ class Admin extends Controller_Module
 								->body($types)
 								->footer($this->is_authorized('add_events_type') ? $this->button_create('admin/events/types/add', 'Créer un type d\'événement') : NULL)
 					)
-					->size('col-md-4 col-lg-3'),
+					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Liste des événements', 'fa-calendar')
 								->body('<div class="panel-footer">'.$this->_filters().'</div><div class="panel-body">'.$events.'</div>', FALSE)
 								->footer($this->is_authorized('add_event') ? $this->button_create('admin/events/add', 'Créer un événement') : NULL)
 					)
-					->size('col-md-8 col-lg-9')
+					->size('col-8 col-lg-9')
 		);
 	}
 
@@ -344,19 +344,19 @@ class Admin extends Controller_Module
 										'label'  => 'Carte',
 										'type'   => 'select',
 										'values' => $maps,
-										'size'   => 'col-md-5'
+										'size'   => 'col-5'
 									],
 									'score1' => [
 										'label'  => 'Notre score',
 										'type'   => 'number',
 										'rules'  => 'required',
-										'size'   => 'col-md-3'
+										'size'   => 'col-3'
 									],
 									'score2' => [
 										'label'  => 'Score adverse',
 										'type'   => 'number',
 										'rules'  => 'required',
-										'size'   => 'col-md-3'
+										'size'   => 'col-3'
 									]
 								])
 								->add_submit('Valider')
@@ -482,7 +482,7 @@ class Admin extends Controller_Module
 
 			return $this->row(
 				$this	->col($alert, $panel)
-						->size('col-md-8'),
+						->size('col-8'),
 				$this	->col(
 							$this	->panel()
 									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fa-plus')->modal($modal_opponent).'</div>', 'fa-info-circle')
@@ -492,7 +492,7 @@ class Admin extends Controller_Module
 									->body($this->table->display())
 									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
 						)
-						->size('col-md-4')
+						->size('col-4')
 			);
 		}
 		else

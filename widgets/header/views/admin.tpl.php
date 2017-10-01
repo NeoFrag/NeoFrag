@@ -22,7 +22,9 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<div class="input-group-addon"><?php echo icon('fa-paint-brush') ?></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
+							</div>
 							<input type="text" class="form-control" name="settings[color-title]" value="<?php if (isset($data['title'])) echo $data['color-title'] ?>" placeholder="#000000" /><!-- //TODO color picker -->
 						</div>
 					</div>
@@ -34,7 +36,9 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="input-group">
-							<div class="input-group-addon"><?php echo icon('fa-paint-brush') ?></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
+							</div>
 							<input type="text" class="form-control" name="settings[color-description]" value="<?php if (isset($data['title'])) echo $data['color-description'] ?>" placeholder="#000000" /><!-- //TODO color picker -->
 						</div>
 					</div>

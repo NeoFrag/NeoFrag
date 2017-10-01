@@ -16,7 +16,7 @@ $rules = [
 		'value'       => $this->form->value('team_id'),
 		'values'      => $this->form->value('teams'),
 		'type'        => 'select',
-		'size'        => 'col-md-4',
+		'size'        => 'col-4',
 		'description' => 'Laisser vide pour ne pas associer d\'équipe.<br />Si une candidature est acceptée, le joueur sera automatiquement ajoutée dans l\'équipe sélectionnée avec le rôle associé'
 	],
 	'role' => [
@@ -25,7 +25,7 @@ $rules = [
 		'type'        => 'text',
 		'icon'        => 'fa-sitemap',
 		'description' => 'Exemple: Joueurs, Manager, etc...',
-		'size'        => 'col-md-4',
+		'size'        => 'col-4',
 		'rules'       => 'required'
 	],
 	'icon' => [
@@ -38,7 +38,7 @@ $rules = [
 		'label'       => 'Nombre de place',
 		'value'       => $this->form->value('size') ?: '1',
 		'type'        => 'number',
-		'size'        => 'col-md-2',
+		'size'        => 'col-2',
 		'rules'       => 'required'
 	],
 	'date_end' => [
@@ -51,7 +51,7 @@ $rules = [
 				return 'Vraiment ?! 2.1 Gigowatt !';
 			}
 		},
-		'size'        => 'col-md-4',
+		'size'        => 'col-4',
 		'description' => 'Laisser vide pour créer une offre permanente'
 	],
 	'image' => [

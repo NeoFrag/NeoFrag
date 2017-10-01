@@ -16,7 +16,7 @@ class Bbcode extends Library
 		'\[(u|underline)\](.*?)\[/\1\]'                     => '<u>\2</u>',
 		'\[(s|strike)\](.*?)\[/\1\]'                        => '<strike>\2</strike>',
 		'\[(sup|sub|tr|td)\](.*?)\[/\1\]'                   => '<\1>\2</\1>',
-		'\[img\](.*?)\[/img\]'                              => '<img class="img-responsive" src="\1" alt="" />',
+		'\[img\](.*?)\[/img\]'                              => '<img class="img-fluid" src="\1" alt="" />',
 		'\[video\]([a-zA-Z0-9_-]{6,11})\[/video\]'          => '<iframe src="https://www.youtube.com/embed/\1" width="640" height="480" frameborder="0"></iframe>',
 		'\[url\](.*?)\[/url\]'                              => '<a href="\1">\1</a>',
 		'\[url=(.*?)\](.*?)\[/url\]'                        => '<a href="\1">\2</a>',

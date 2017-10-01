@@ -28,26 +28,26 @@ class Panel extends Library
 
 		foreach ($this->_heading as $h)
 		{
-			$output .= '<h3 class="panel-title">'.$h.'</h3>';
+			$output .= '<h4 class="card-title">'.$h.'</h4>';
 		}
 
 		if ($output)
 		{
-			$output = '<div class="panel-heading">'.$output.'</div>';
+			$output = '<div class="card-header">'.$output.'</div>';
 		}
 
 		if ($this->_body)
 		{
-			$output .= $this->_body_tags ? '<div class="panel-body">'.$this->_body.'</div>' : $this->_body;
+			$output .= $this->_body_tags ? '<div class="card-body">'.$this->_body.'</div>' : $this->_body;
 		}
 
 		return $this->html()
-					->attr('class', 'panel')
-					->append_attr('class', $this->_style ?: 'panel-default')
-					->content($output)
-					->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'panel-footer'))
+						->attr('class', 'card')
+						->append_attr_if($this->_style, 'class', $this->_style)
+						->content($output)
+					->append_content_if($this->_footer, $this->button->static_footer($this->_footer)->append_attr('class', 'card-footer'))
 					->__toString();
-	}
+		}
 
 	public function title($label = '', $icon = '', $url = '')
 	{
@@ -100,7 +100,7 @@ class Panel extends Library
 
 	public function color($color)
 	{
-		$this->_style = 'panel-'.$color;
+		$this->_style = 'border-'.$color;
 		return $this;
 	}
 

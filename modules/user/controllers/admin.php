@@ -144,13 +144,13 @@ class Admin extends Controller_Module
 						->heading($this->lang('groups'), 'fa-users')
 						->body($table_groups->display())
 						->footer($this->button_create('admin/user/groups/add', $this->lang('add_group')))
-						->size('col-md-12 col-lg-3')
+						->size('col-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('members'), 'fa-users')
 						->body($table_users->display())
-						->size('col-md-12 col-lg-9')
+						->size('col-12 col-lg-9')
 			)
 		);
 	}
@@ -275,7 +275,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('edit_member'), 'fa-user')
 						->body($form_member->display())
-						->size('col-md-12 col-lg-7')
+						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
@@ -284,11 +284,11 @@ class Admin extends Controller_Module
 							'user_id' => $member_id,
 							'form_id' => $form_groups->token()
 						]))
-						->size('col-md-12 col-lg-5'),
+						->size('col-12 col-lg-5'),
 				$this	->panel()
 						->heading($this->lang('active_sessions'), 'fa-globe')
 						->body($sessions)
-						->size('col-md-12 col-lg-5')
+						->size('col-12 col-lg-5')
 			)
 		);
 	}
@@ -322,7 +322,7 @@ class Admin extends Controller_Module
 					->heading($this->lang('ban_title'), 'fa-bomb')
 					->body($this->lang('unavailable_feature'))
 					->color('info')
-					->size('col-md-12');
+					->size('col-12');
 	}
 
 	public function _groups_add()
@@ -352,7 +352,7 @@ class Admin extends Controller_Module
 		return $this->panel()
 					->heading($this->lang('add_group'), 'fa-users')
 					->body($this->form->display())
-					->size('col-md-12');
+					->size('col-12');
 	}
 
 	public function _groups_edit($group_id, $name, $title, $color, $icon, $hidden, $auto)
@@ -402,7 +402,7 @@ class Admin extends Controller_Module
 		return $this->panel()
 					->heading($this->lang('edit_group_title'), 'fa-users')
 					->body($this->form->display())
-					->size('col-md-12');
+					->size('col-12');
 	}
 
 	public function _groups_delete($group_id, $title)

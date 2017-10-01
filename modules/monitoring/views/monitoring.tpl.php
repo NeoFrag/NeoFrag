@@ -9,15 +9,15 @@
 </div>
 <div class="panel-body">
 	<div class="row">
-		<div class="col-md-4 monitoring-legend">
+		<div class="col monitoring-legend">
 			<h3 id="monitoring-info"><?php echo icon('fa-spinner fa-spin') ?></h3>
 			<span class="span-legend"><?php echo icon('fa-exclamation-circle text-blue') ?> Conseils</span>
 		</div>
-		<div class="col-md-4 monitoring-legend">
+		<div class="col monitoring-legend">
 			<h3 id="monitoring-warning"><?php echo icon('fa-spinner fa-spin') ?></h3>
 			<span class="span-legend"><?php echo icon('fa-bolt text-orange') ?> Anomalies</span>
 		</div>
-		<div class="col-md-4 monitoring-legend">
+		<div class="col monitoring-legend">
 			<h3 id="monitoring-danger"><?php echo icon('fa-spinner fa-spin') ?></h3>
 			<span class="span-legend"><?php echo icon('fa-bug text-red') ?> Erreurs</span>
 		</div>

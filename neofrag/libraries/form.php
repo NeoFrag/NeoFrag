@@ -424,7 +424,7 @@ class Form extends Library
 			$this->js('file');
 		}
 
-		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->url->request).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
+		$output .= '<form action="'.url($this->url->request).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
 						<fieldset>';
 
 		$post = post($this->token());
@@ -438,37 +438,44 @@ class Form extends Library
 
 			if ($display = $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL))
 			{
-				$output .= '<div class="form-group'.(isset($this->_errors[$var]) ? ' has-error' : '').(isset($options['type']) && $options['type'] == 'legend' ? ' legend' : '').'">';
-
-				if ($this->_fast_mode || $type == 'legend')
+				if ($type == 'legend')
 				{
 					$output .= $display;
 				}
 				else
 				{
-					$output .= '<label class="control-label col-md-3"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->token().'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $this->lang($options['label'], NULL) : '');
+					$output .= '<div class="form-group row'.(isset($this->_errors[$var]) ? ' has-error' : '').'">';
 
-					if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
+					if ($this->_fast_mode)
 					{
-						$output .= '<em>*</em>';
+						$output .= $display;
+					}
+					else
+					{
+						$output .= '<label class="col-sm-3 col-form-label col-form-label-sm"'.(!in_array($type, ['radio', 'checkbox']) ? ' for="form_'.$this->token().'_'.$var.'"' : '').$this->_display_popover($var, $options, $icons).'>'.$icons.' '.(!empty($options['label']) ? $options['label'] : '');
+
+						if (isset($options['rules']) && in_array('required', $options['rules']) && $this->_display_required)
+						{
+							$output .= '<em>*</em>';
+						}
+
+						$output .= '</label><div class="'.(!empty($options['size']) && preg_match('/^col-([1-9])$/', $options['size'], $match) ? 'col-'.$match[1] : 'col-sm-9').'">'.$display.'</div>';
 					}
 
-					$output .= '</label><div class="'.(!empty($options['size']) && preg_match('/^col-md-([1-9])$/', $options['size'], $match) ? 'col-md-'.$match[1] : 'col-md-9').'">'.$display.'</div>';
+					$output .= '</div>';
 				}
-
-				$output .= '</div>';
 			}
 		}
 
 		if ($this->_display_captcha)
 		{
 			NeoFrag()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang.'&_=');
-			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-md-offset-3 col-md-9').'">'.$this->captcha->display().'</div></div>';
+			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-offset-3 col-9').'">'.$this->captcha->display().'</div></div>';
 		}
 
 		if ($this->_display_required)
 		{
-			$output .= '<div class="form-group"><div class="col-md-offset-3 col-md-9"><em class="text-muted">'.NeoFrag()->lang('required_fields').'</em></div></div>';
+			$output .= '<div class="form-group"><div class="col-offset-3 col-9"><em class="text-muted">'.NeoFrag()->lang('required_fields').'</em></div></div>';
 		}
 
 		if (!empty($this->_buttons))
@@ -477,7 +484,7 @@ class Form extends Library
 
 			if (!$this->_fast_mode)
 			{
-				$output .= '<div class="col-md-offset-3 col-md-9">';
+				$output .= '<div class="col-offset-3 col-9">';
 			}
 
 			foreach ($this->_buttons as $i => $button)
@@ -629,7 +636,7 @@ class Form extends Library
 
 			NeoFrag()	->css('bootstrap-colorpicker.min')
 								->js('bootstrap-colorpicker.min')
-								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: '.json_encode(get_colors()).'});');
+								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-prepend,input", colorSelectors: '.json_encode(get_colors()).'});');
 		}
 
 		$output = '';
@@ -637,7 +644,7 @@ class Form extends Library
 		if (isset($options['icon']))
 		{
 			$output .= '<div class="input-group'.(!empty($classes) ? ' '.implode(' ', $classes) : '').'">
-				<span class="input-group-addon">'.($options['icon'] ? icon($options['icon']) : '<i></i>').'</span>';
+				<div class="input-group-prepend"><span class="input-group-text">'.($options['icon'] ? icon($options['icon']) : '<i></i>').'</span></div>';
 		}
 
 		$placeholder = '';
@@ -679,15 +686,15 @@ class Form extends Library
 				else
 				{
 					$input = '	<div class="row">
-									<div class="col-md-3">
-										<div class="thumbnail no-margin">
+									<div class="col-3">
+										<div class="thumbnail m-0">
 											<img src="'.url($this->db->select('path')->from('nf_files')->where('file_id', $options['value'])->row()).'" alt="" />
 											<div class="caption text-center">
 												<a class="btn btn-outline btn-danger btn-xs form-file-delete" href="#" data-input="'.$this->token().'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag()->lang('remove').'</a>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-9">
+									<div class="col-9">
 										'.$input.'
 									</div>
 								</div>';
@@ -701,7 +708,7 @@ class Form extends Library
 		{
 			if (in_array('color', $classes))
 			{
-				$output .= '<span class="input-group-addon"><span class="fa fa-eyedropper"></span></span>';
+				$output .= '<div class="input-group-append"><span class="input-group-text"><span class="fa fa-eyedropper"></span></span></div>';
 			}
 
 			$output .= '</div>';
@@ -896,7 +903,7 @@ class Form extends Library
 
 	private function _display_legend($var, $options, $post)
 	{
-		return $output = '<div class="form-legend">'.(!empty($options['label']) ? $this->lang($options['label'], NULL) : '').'</div>';
+		return '<legend>'.(!empty($options['label']) ? $options['label'] : '').'</legend>';
 	}
 
 	private function _has_upload()

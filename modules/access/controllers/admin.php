@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 										'content' => function($data) use ($module, $action){
 											return $this->access->count($module->info()->name, $action, $data['id']);
 										},
-										'class'   => 'col-md-1'
+										'class'   => 'col-1'
 									]
 								]);
 					}
@@ -107,7 +107,7 @@ class Admin extends Controller_Module
 								'id'     => $id,
 								'access' => $access
 							]))
-							->size('col-md-12 col-lg-5')
+							->size('col-12 col-lg-5')
 				)
 			),
 			$this->panel_back()

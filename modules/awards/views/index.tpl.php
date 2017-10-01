@@ -1,11 +1,11 @@
 <?php if ($data['stats-team'] || $data['stats-game']): ?>
 	<?php if ($data['image_id']): ?>
-		<img class="img-responsive" src="<?php echo path($data['image_id']) ?>" alt="" />
+		<img class="img-fluid" src="<?php echo path($data['image_id']) ?>" alt="" />
 	<?php endif ?>
 	<div class="panel-body">
 		<div class="well text-center">
 			<h4><?php echo $data['stats-team'] ? 'Palmarès de cette équipe' : 'Palmarès sur ce jeu' ?></h4>
-			<ul class="list-inline no-margin">
+			<ul class="list-inline m-0">
 				<li>
 					<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy fa-2x trophy-gold') ?></span><br />
 					<b><?php echo $data['total_gold'][0].($data['total_gold'][0] > 1 ? ' trophées' : ' trophée') ?></b>
@@ -24,13 +24,13 @@
 <div class="panel-body">
 <?php endif ?>
 	<div class="table-responsive">
-		<table class="table table-hover no-margin">
+		<table class="table table-hover m-0">
 			<thead>
 				<tr>
-					<th class="col-md-1"></th>
-					<th class="col-md-1 text-center"><span data-toggle="tooltip" title="Classement"><?php echo icon('fa-trophy') ?></span></th>
-					<th class="col-md-2"><span data-toggle="tooltip" title="Plateforme"><?php echo icon('fa-tv') ?></span></th>
-					<th class="col-md-8" colspan="2">Événement</th>
+					<th class="col-1"></th>
+					<th class="col-1 text-center"><span data-toggle="tooltip" title="Classement"><?php echo icon('fa-trophy') ?></span></th>
+					<th class="col-2"><span data-toggle="tooltip" title="Plateforme"><?php echo icon('fa-tv') ?></span></th>
+					<th class="col-8" colspan="2">Événement</th>
 				</tr>
 			</thead>
 			<tbody>

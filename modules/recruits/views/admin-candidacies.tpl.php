@@ -1,6 +1,6 @@
 <div class="panel-body text-center">
 <?php if ($data['total_pending']): ?>
-	<h1 class="no-margin"><?php echo icon('fa-clock-o') ?></h1>
+	<h1 class="m-0"><?php echo icon('fa-clock-o') ?></h1>
 	<a href="<?php echo url('admin/recruits/pending') ?>"><b><?php echo $data['total_pending'].($data['total_pending'] > 1 ? ' candidatures' : ' candidature') ?></b></a> en <?php echo $data['total_pending'] > 1 ? 'attentes' : 'attente' ?>
 <?php else: ?>
 	Aucune candidature en attente...

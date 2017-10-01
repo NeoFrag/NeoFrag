@@ -46,10 +46,10 @@ class Admin extends Controller_Module
 						->heading($this->lang('game_list'), 'fa-gamepad')
 						->body($games)
 						->footer($this->button_create('admin/games/add', $this->lang('add_game')))
-						->size('col-md-12 col-lg-4')
+						->size('col-12 col-lg-4')
 			),
 			$this	->col($this->_panel_maps($maps))
-					->size('col-md-12 col-lg-8')
+					->size('col-12 col-lg-8')
 		);
 	}
 
@@ -138,7 +138,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('edit_game_title', $title), 'fa-gamepad')
 						->body($this->form->display())
-						->size('col-md-7')
+						->size('col-7')
 			),
 			$this	->col(
 						$this	->panel()
@@ -147,7 +147,7 @@ class Admin extends Controller_Module
 								->footer($this->button_create('admin/games/modes/add/'.$game_id.'/'.url_title($title),  'Ajouter un mode')),
 						$this->_panel_maps($maps, $game_id, $title)
 					)
-					->size('col-md-5')
+					->size('col-5')
 		);
 	}
 

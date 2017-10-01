@@ -39,11 +39,11 @@ class Admin extends Controller_Module
 			{
 				if ($match[1])
 				{
-					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center no-margin">'.$match[1].'</h1>' : '');
+					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center m-0">'.$match[1].'</h1>' : '');
 				}
 
 				$phpinfo[] = $this		->panel()
-										->heading($match[2] ? '<h2 class="text-center no-margin">'.$match[2].'</h2>' : '')
+										->heading($match[2] ? '<h2 class="text-center m-0">'.$match[2].'</h2>' : '')
 										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE);
 			}
 		}
@@ -59,16 +59,16 @@ class Admin extends Controller_Module
 								]))
 								->color('default panel-infos')
 					)
-					->size('col-md-4 col-lg-3'),
+					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this->row(
 							$this	->col(
 										$this	->panel()
 												->heading('<div class="pull-right"><a class="btn btn-xs btn-default refresh">'.icon('fa-refresh').'</a></div>Notifications', 'fa-bell-o')
-												->body('<table class="table table-notifications no-margin"></table>')
+												->body('<table class="table table-notifications m-0"></table>')
 												->color('default panel-notifications')
 									)
-									->size('col-md-6 col-lg-8'),
+									->size('col-6 col-lg-8'),
 							$this	->col(
 										$this	->panel()
 												->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
@@ -76,7 +76,7 @@ class Admin extends Controller_Module
 												->footer($this->view('storage-footer'))
 												->color('default panel-storage')
 									)
-									->size('col-md-6 col-lg-4')
+									->size('col-6 col-lg-4')
 						),
 						$this->row(
 							$this->col(
@@ -86,7 +86,7 @@ class Admin extends Controller_Module
 							)
 						)
 					)
-					->size('col-md-8 col-lg-9')
+					->size('col-8 col-lg-9')
 		);
 	}
 }

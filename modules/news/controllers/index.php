@@ -59,7 +59,7 @@ class Index extends Controller_Module
 	{
 		$news = $this->index($news);
 
-		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
+		array_unshift($news, $this->panel()->body('<h2 class="m-0">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
 	}
@@ -108,7 +108,7 @@ class Index extends Controller_Module
 									'online'   => $online,
 									'quote'    => $quote
 								]))
-								->size('col-md-6')
+								->size('col-6')
 					),
 					$this->col(
 						$this	->panel()
@@ -116,7 +116,7 @@ class Index extends Controller_Module
 								->body($this->view('author_news', [
 									'news' => $this->model()->get_news_by_user($user_id, $news_id)
 								]), FALSE)
-								->size('col-md-6')
+								->size('col-6')
 					)
 				),
 				$this->comments->display('news', $news_id)

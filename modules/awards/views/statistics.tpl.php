@@ -24,7 +24,7 @@
 <table class="table table-bordered">
 	<tbody>
 		<tr>
-			<td class="col-md-4 text-center">
+			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-trophy') ?></h1>
 				<p>
 					La plus récompensée<br />
@@ -35,7 +35,7 @@
 					<?php endif ?>
 				</p>
 			</td>
-			<td class="col-md-4 text-center">
+			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-star-o') ?></h1>
 				<p>
 					Meilleur classement<br />
@@ -46,7 +46,7 @@
 					<?php endif ?>
 				</p>
 			</td>
-			<td class="col-md-4 text-center">
+			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-gamepad') ?></h1>
 				<p>
 					Meilleur jeu<br />
@@ -61,10 +61,10 @@
 	</tbody>
 </table>
 <div class="table-responsive">
-	<table class="table table-hover no-margin">
+	<table class="table table-hover m-0">
 		<thead>
 			<tr>
-				<th class="col-md-6"><h4 class="no-margin">Classement de nos équipes</h4></th>
+				<th class="col-6"><h4 class="m-0">Classement de nos équipes</h4></th>
 				<th class="text-center"><span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold') ?></span></th>
 				<th class="text-center"><span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver') ?></span></th>
 				<th class="text-center"><span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze') ?></span></th>
@@ -74,7 +74,7 @@
 		<tbody>
 			<?php foreach ($data['teams'] as $team): ?>
 			<tr>
-				<td class="col-md-6 vcenter"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']) ?>"><?php echo $team['team_title'] ?></a></td>
+				<td class="col-6 vcenter"><a href="<?php echo url('awards/team/'.$team['team_id'].'/'.$team['name']) ?>"><?php echo $team['team_title'] ?></a></td>
 				<td class="text-center">
 					<input class="knob" type="text" value="<?php echo $team['total_gold'] ?>" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-min="0" data-max="<?php echo ($team['total_gold'] + $team['total_silver'] + $team['total_bronze'] + $team['total_other']) ?>" data-width="50" data-height="40" data-fgColor="#F0B036" data-displayInput="true" data-readonly="true" autocomplete="off" />
 				</td>

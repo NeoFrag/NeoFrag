@@ -3,10 +3,10 @@
 		<thead class="forum-heading">
 			<tr>
 				<th colspan="2">
-					<h4 class="no-margin"><?php echo icon('fa-navicon').' '.$data['title'] ?></h4>
+					<h4 class="m-0"><?php echo icon('fa-navicon').' '.$data['title'] ?></h4>
 				</th>
-				<th class="col-md-2"><h4 class="no-margin"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('statistics') ?></span></h4></th>
-				<th class="col-md-3"><h4 class="no-margin"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('last_message') ?></span></h4></th>
+				<th class="col-md-2"><h4 class="m-0"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('statistics') ?></span></h4></th>
+				<th class="col-md-3"><h4 class="m-0"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('last_message') ?></span></h4></th>
 				<?php if ($this->url->admin): ?>
 				<th class="col-md-1 text-right">
 					<?php echo $this->button_access($data['category_id'], 'category') ?>
@@ -23,7 +23,7 @@
 					<?php echo $forum['icon'] ?>
 				</td>
 				<td class="col-md-6">
-					<h4 class="no-margin"><a href="<?php echo url('forum/'.$forum['forum_id'].'/'.url_title($forum['title'])) ?>"><?php echo $forum['title'] ?></a></h4>
+					<h4 class="m-0"><a href="<?php echo url('forum/'.$forum['forum_id'].'/'.url_title($forum['title'])) ?>"><?php echo $forum['title'] ?></a></h4>
 					<?php if ($forum['description']) echo '<div>'.$forum['description'].'</div>' ?>
 					<?php
 					if (!empty($forum['subforums']) || $this->url->admin):

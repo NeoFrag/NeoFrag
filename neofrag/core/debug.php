@@ -157,7 +157,7 @@ class Debug extends Core
 				}
 
 				$output .= '	<tr>
-									<td class="col-md-1">'.$time[0].'</td>
+									<td class="col-1">'.$time[0].'</td>
 									<td>
 										<div class="pull-left" style="height: 25px; width: '.str_replace(',', '.', floor(($time[1] - $this->_timeline[0][1]) * 100 / $total)).'%;"></div>
 										<div class="'.$class.'" style="height: 25px; display: block; padding: 0; width: '.str_replace(',', '.', max(1, floor(($time[2] - $time[1]) * 100 / $total))).'%;"></div>
@@ -219,31 +219,31 @@ class Debug extends Core
 
 			if ($type == self::INFO)
 			{
-				$type = '<span class="label label-success">Info</span>';
+				$type = '<span class="badge badge-success">Info</span>';
 			}
 			else if ($type == self::WARNING)
 			{
-				$type = '<span class="label label-warning">Warning</span>';
+				$type = '<span class="badge badge-warning">Warning</span>';
 				$warning++;
 			}
 			else if ($type == self::ERROR)
 			{
-				$type = '<span class="label label-danger">Error</span>';
+				$type = '<span class="badge badge-danger">Error</span>';
 				$error++;
 			}
 			else if ($type == self::NOTICE)
 			{
-				$type = '<span class="label label-info">Notice</span>';
+				$type = '<span class="badge badge-info">Notice</span>';
 				$notice++;
 			}
 			else if ($type == self::DEPRECATED)
 			{
-				$type = '<span class="label label-warning">Deprecated</span>';
+				$type = '<span class="badge badge-warning">Deprecated</span>';
 				$deprecated++;
 			}
 			else if ($type == self::STRICT)
 			{
-				$type = '<span class="label label-default">Strict</span>';
+				$type = '<span class="badge badge-default">Strict</span>';
 				$strict++;
 			}
 
@@ -258,23 +258,23 @@ class Debug extends Core
 
 		if ($error)
 		{
-			$output = '<span class="label label-danger">'.$error.'</span>';
+			$output = '<span class="badge badge-danger">'.$error.'</span>';
 		}
 		else if ($warning)
 		{
-			$output = '<span class="label label-warning">'.$warning.'</span>';
+			$output = '<span class="badge badge-warning">'.$warning.'</span>';
 		}
 		else if ($strict)
 		{
-			$output = '<span class="label label-default">'.$strict.'</span>';
+			$output = '<span class="badge badge-default">'.$strict.'</span>';
 		}
 		else if ($notice)
 		{
-			$output = '<span class="label label-info">'.$notice.'</span>';
+			$output = '<span class="badge badge-info">'.$notice.'</span>';
 		}
 		else if ($deprecated)
 		{
-			$output = '<span class="label label-warning">'.$deprecated.'</span>';
+			$output = '<span class="badge badge-warning">'.$deprecated.'</span>';
 		}
 
 		return $result;

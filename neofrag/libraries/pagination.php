@@ -87,11 +87,6 @@ class Pagination extends Library
 
 	public function display($base_url, $nb_pages, $size = 'sm', $items_per_page = 0, $fixed = TRUE, $current_page = 0)
 	{
-		if (!in_array($size, ['xs', 'sm', 'lg']))
-		{
-			$size = 'sm';
-		}
-
 		if ($items_per_page)
 		{
 			$nb_pages = ceil($nb_pages / $items_per_page);
@@ -125,11 +120,11 @@ class Pagination extends Library
 		{
 			if ($p == '...')
 			{
-				$buttons[] = '<span class="btn btn-default btn-'.$size.'">'.$p.'</span>';
+				$buttons[] = '<span class="btn btn-light">'.$p.'</span>';
 			}
 			else
 			{
-				$buttons[] = '<a class="btn btn-default btn-'.$size.(($current_page == $p) ? ' active' : '').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').(!empty($_GET) ? '?'.http_build_query($_GET, NULL, '&', PHP_QUERY_RFC3986) : '').'">'.$p.'</a>';
+				$buttons[] = '<a class="btn '.(($current_page == $p) ? 'btn-primary' : 'btn-light').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').(!empty($_GET) ? '?'.http_build_query($_GET, NULL, '&', PHP_QUERY_RFC3986) : '').'">'.$p.'</a>';
 			}
 		}
 

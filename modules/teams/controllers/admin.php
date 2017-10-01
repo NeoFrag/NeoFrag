@@ -93,14 +93,14 @@ class Admin extends Controller_Module
 						->heading($this->lang('roles'), 'fa-sitemap')
 						->body($roles)
 						->footer($this->button_create('admin/teams/roles/add', $this->lang('add_role')))
-						->size('col-md-12 col-lg-4')
+						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('list_teams'), 'fa-gamepad')
 						->body($teams)
 						->footer($this->button_create('admin/teams/add', $this->lang('add_team')))
-						->size('col-md-12 col-lg-8')
+						->size('col-12 col-lg-8')
 			)
 		);
 	}
@@ -233,7 +233,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('edit_team'), 'fa-gamepad')
 						->body($form_team->display())
-						->size('col-md-12 col-lg-7')
+						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
@@ -244,7 +244,7 @@ class Admin extends Controller_Module
 							'roles'   => $roles,
 							'form_id' => $form_users->token()
 						]))
-						->size('col-md-12 col-lg-5')
+						->size('col-12 col-lg-5')
 			)
 		);
 	}

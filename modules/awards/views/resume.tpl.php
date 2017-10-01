@@ -1,23 +1,23 @@
 <div class="row">
-	<div class="col-md-5 text-center">
+	<div class="col-5 text-center">
 		<h4>Tous nos podiums</h4>
-		<ul class="list-inline no-margin">
+		<ul class="list-inline m-0">
 			<li>
 				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_gold'][0] ?></h4>
+				<h4 class="m-0"><?php echo $data['total_gold'][0] ?></h4>
 			</li>
 			<li>
 				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_silver'][0] ?></h4>
+				<h4 class="m-0"><?php echo $data['total_silver'][0] ?></h4>
 			</li>
 			<li>
 				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span>
-				<h4 class="no-margin"><?php echo $data['total_bronze'][0] ?></h4>
+				<h4 class="m-0"><?php echo $data['total_bronze'][0] ?></h4>
 			</li>
 		</ul>
 	</div>
-	<div class="col-md-7">
-		<table class="table table-hover no-margin">
+	<div class="col-7">
+		<table class="table table-hover m-0">
 			<thead>
 				<tr>
 					<th>Équipes</th>

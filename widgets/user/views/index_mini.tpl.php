@@ -3,7 +3,7 @@
 		<li><p class="navbar-text"><?php echo $this->lang('welcome') ?></p></li>
 		<li data-toggle="tooltip" title="Gérer mon compte"><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs') ?></a></li>
 		<li data-toggle="tooltip" title="Messagerie">
-			<?php if ($messages = $this->user->get_messages()): ?><span class="label label-danger pull-right"><?php echo $messages ?></span><?php endif ?>
+			<?php if ($messages = $this->user->get_messages()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif ?>
 			<a href="<?php echo url('user/messages') ?>"><?php echo icon('fa-envelope-o') ?></a>
 		</li>
 		<?php if ($this->access->admin()): ?>

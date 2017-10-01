@@ -20,9 +20,9 @@ class Back extends Panel
 
 	public function __toString()
 	{
-		return $this->html()
-					->attr('class', 'panel panel-back')
-					->content($this->button_back($this->_url))
+		return $this->panel()
+					->style('transparent')
+					->body($this->button_back($this->_url))
 					->__toString();
 	}
 }
