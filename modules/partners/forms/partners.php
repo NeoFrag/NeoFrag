@@ -10,7 +10,7 @@ $rules = [
 		'value'       => $this->form->value('title'),
 		'type'        => 'text',
 		'rules'       => 'required',
-		'size'        => 'col-md-6'
+		'size'        => 'col-6'
 	],
 	'logo_light'      => [
 		'label'       => 'Logo clair',
@@ -51,21 +51,21 @@ $rules = [
 		'value'       => $this->form->value('website'),
 		'type'        => 'url',
 		'rules'       => 'required',
-		'size'        => 'col-md-5'
+		'size'        => 'col-5'
 	],
 	'facebook' => [
 		'label'       => 'Page Facebook',
 		'icon'        => 'fa-facebook',
 		'value'       => $this->form->value('facebook'),
 		'type'        => 'url',
-		'size'        => 'col-md-5'
+		'size'        => 'col-5'
 	],
 	'twitter' => [
 		'label'       => 'Page Twitter',
 		'icon'        => 'fa-twitter',
 		'value'       => $this->form->value('twitter'),
 		'type'        => 'url',
-		'size'        => 'col-md-5'
+		'size'        => 'col-5'
 	],
 	'code' => [
 		'label'       => 'Code promotionnel',
@@ -73,6 +73,6 @@ $rules = [
 		'value'       => $this->form->value('code'),
 		'type'        => 'text',
 		'description' => 'Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire',
-		'size'        => 'col-md-3'
+		'size'        => 'col-3'
 	]
 ];

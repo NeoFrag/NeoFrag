@@ -28,8 +28,8 @@ class Modal extends Library
 	public function __toString()
 	{
 		$content = '<div class="modal-header">
+						<h5 class="modal-title">'.$this->_header.'</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="'.$this->lang('close').'"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">'.$this->_header.'</h4>
 					</div>
 					<div class="modal-body">'.$this->_body.'</div>
 					'.($this->_buttons ? $this->button->static_footer($this->_buttons, 'right')->append_attr('class', 'modal-footer') : '');
@@ -47,7 +47,7 @@ class Modal extends Library
 						->content($content);
 
 		return '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
-					<div class="modal-dialog'.($this->_size ? ' modal-'.$this->_size : '').'" role="document">
+					<div class="modal-dialog'.($this->_size ? ' modal-'.$this->_size : '').'">
 						'.$content.'
 					</div>
 				</div>';
@@ -69,7 +69,7 @@ class Modal extends Library
 	{
 		array_unshift($this->_buttons, parent	::button()
 												->title($title)
-												->color('default')
+												->color('light')
 												->align('right')
 												->data('dismiss', 'modal'));
 

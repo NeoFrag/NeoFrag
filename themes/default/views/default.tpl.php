@@ -18,7 +18,7 @@
 </head>
 <body>
 	<?php if ($this->config->nf_maintenance && !$this->url->admin && isset($this->user) && $this->user('admin') && NeoFrag()->module->name != 'live_editor'): ?>
-		<nav class="navbar no-margin bg-danger">
+		<nav class="navbar m-0 bg-danger">
 			<div class="container">
 				<p class="navbar-text"><?php echo icon('fa-power-off').' '.$this->lang('website_down_for_maintenance') ?></p>
 				<a href="<?php echo url('admin/settings/maintenance') ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo $this->lang('open_website') ?></a>

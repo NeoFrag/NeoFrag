@@ -115,13 +115,13 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading($this->lang('general_settings'), 'fa-cog')
 								->body($this->form->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -183,7 +183,7 @@ class Admin extends Controller_Module
 						'values'  => $list_users,
 						'value'   => $this->config->nf_welcome_user_id,
 						'type'    => 'select',
-						'size'    => 'col-md-5'
+						'size'    => 'col-5'
 					],
 					'welcome_title' => [
 						'label'   => 'Titre du message',
@@ -218,12 +218,12 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Gestions des inscriptions', 'fa-sign-in fa-rotate-90')
 								->body($this->form->display()))
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -258,14 +258,14 @@ class Admin extends Controller_Module
 						'label'       => 'Type de structure',
 						'value'       => $this->config->nf_team_type,
 						'type'        => 'text',
-						'size'        => 'col-md-4',
+						'size'        => 'col-4',
 						'description' => '<b>Exemple:</b> Association, entreprise, marque, etc...'
 					],
 					'team_creation' => [
 						'label'       => 'Date de création',
 						'value'       => $this->config->nf_team_creation,
 						'type'        => 'date',
-						'size'        => 'col-md-4'
+						'size'        => 'col-4'
 					],
 					'team_biographie' => [
 						'label'       => 'Biographie',
@@ -290,13 +290,13 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Notre structure', 'fa-users')
 								->body($this->form->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -398,13 +398,13 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Réseaux sociaux', 'fa-globe')
 								->body($this->form->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -444,13 +444,13 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Configuration de Google reCAPTCHA', 'fa-shield')
 								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -471,13 +471,13 @@ class Admin extends Controller_Module
 						'label'  => 'Utilisateur',
 						'value'  => $this->config->nf_email_username,
 						'type'   => 'text',
-						'size'   => 'col-md-5'
+						'size'   => 'col-5'
 					],
 					'email_password' => [
 						'label'  => 'Mot de passe',
 						'value'  => $this->config->nf_email_password,
 						'type'   => 'password',
-						'size'   => 'col-md-5'
+						'size'   => 'col-5'
 					],
 					'email_secure' => [
 						'label'  => 'Sécurité',
@@ -489,7 +489,7 @@ class Admin extends Controller_Module
 						'label'  => 'Port',
 						'value'  => $this->config->nf_email_port,
 						'type'   => 'number',
-						'size'   => 'col-md-2'
+						'size'   => 'col-2'
 					]
 				])
 				->add_submit($this->lang('save'))
@@ -509,13 +509,13 @@ class Admin extends Controller_Module
 
 		return $this->row(
 			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-md-3'),
+					->size('col-3'),
 			$this->col(
 						$this	->panel()
 								->heading('Serveur e-mail', 'fa-envelope-o')
 								->body($this->form->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 
@@ -683,13 +683,13 @@ class Admin extends Controller_Module
 								->heading($this->lang('planned_opening'), 'fa-clock-o')
 								->body($form_opening->display())
 					)
-					->size('col-md-3'),
+					->size('col-3'),
 			$this	->col(
 						$this	->panel()
 								->heading($this->lang('customizing_maintenance_page'), 'fa-paint-brush')
 								->body($form_maintenance->display())
 					)
-					->size('col-md-9')
+					->size('col-9')
 		);
 	}
 }

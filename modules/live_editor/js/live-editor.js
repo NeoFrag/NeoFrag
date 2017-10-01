@@ -499,7 +499,7 @@ $(function(){
 			placeholder: 'live-editor-placeholder',
 			revert: true,
 			start: function(event, ui){
-				if (match = ui.item.prop('class').match(/(col-md-\d{1,2})/)){
+				if (match = ui.item.prop('class').match(/(col-\d{1,2})/)){
 					ui.placeholder.addClass(match[1]);
 					ui.placeholder.css('height', ui.item.height());
 				}
@@ -522,10 +522,10 @@ $(function(){
 		$iframe.on('click', '.live-editor-col .live-editor-size', function(){
 			var $col = $(this).parents('[data-col-id]:first');
 
-			if (match = $col.prop('class').match(/col-md-(\d{1,2})/)){
+			if (match = $col.prop('class').match(/col-(\d{1,2})/)){
 				var size = Math.max(1, Math.min(12, parseInt(match[1])+parseInt($(this).data('size'))));
 
-				$col.switchClass('col-md-'+match[1], 'col-md-'+size, 200);
+				$col.switchClass('col-'+match[1], 'col-'+size, 200);
 
 				$('.live-editor-save').show();
 

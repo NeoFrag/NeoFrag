@@ -1,4 +1,4 @@
-<h2 class="no-margin">GNU LESSER GENERAL PUBLIC LICENSE</h2>
+<h2 class="m-0">GNU LESSER GENERAL PUBLIC LICENSE</h2>
 <p class="text-muted"><b>Version 3, 29 June 2007</b></p>
 <p>Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/><br /> Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.</p>
 

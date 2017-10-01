@@ -58,7 +58,7 @@ class Index extends Controller_Module
 				->js('modal-carousel');
 
 		$panels = [$this->panel()
-						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
+						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
 						->body($this->view('gallery', [
 							'title'           => $title,
 							'description'     => $description,
@@ -106,7 +106,7 @@ class Index extends Controller_Module
 		}
 
 		$panel = $this	->panel()
-						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
+						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
 						->body($this->view('image', [
 							'image_id'          => $image_id,
 							'file_id'           => $file_id,

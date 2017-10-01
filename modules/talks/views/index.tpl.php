@@ -46,7 +46,7 @@ foreach ($data['messages'] as $i => $message)
 				echo '<div class="pull-'.($media == 'right' ? 'left' : 'right').'">'.$this->button_delete('ajax/talks/delete/'.$message['message_id']).'</div>';
 			}
 		?>
-		<h4 class="media-heading">
+		<h6>
 		<?php
 			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
 
@@ -57,7 +57,7 @@ foreach ($data['messages'] as $i => $message)
 
 			echo implode(' ', $title);
 		?>
-		</h4>
+		</h6>
 		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.$this->lang('removed_message').'</i>' ?>
 	</div>
 <?php

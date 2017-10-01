@@ -62,7 +62,7 @@ class Button extends Label
 
 				if ($this->_compact)
 				{
-					$class[] = 'btn-xs';
+					$class[] = 'btn-sm';
 				}
 
 				if ($this->_outline)

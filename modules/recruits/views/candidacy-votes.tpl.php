@@ -1,6 +1,6 @@
 <?php if(!empty($data['votes'])): ?>
 <div class="pull-right text-right">
-	<ul class="list-inline no-margin">
+	<ul class="list-inline m-0">
 		<li class="text-success"><?php echo $data['total_up'] ?> <?php echo icon('fa-thumbs-o-up') ?></li>
 		<li class="text-danger"><?php echo $data['total_down'] ?> <?php echo icon('fa-thumbs-o-down') ?></li>
 	</ul>
@@ -14,14 +14,11 @@
 	<?php foreach ($data['votes'] as $vote): ?>
 	<div class="well">
 		<div class="media">
-			<div class="media-left">
-				<?php echo $this->user->avatar($vote['avatar'], $vote['sex']) ?>
-			</div>
 			<div class="media-body">
 				<div class="pull-right">
-					<span class="label<?php echo $vote['vote'] ? ' label-success' : ' label-danger' ?>" style="display: inline-block"><?php echo $vote['vote'] ? icon('fa-thumbs-o-up').' Favorable' : icon('fa-thumbs-o-down').' Défavorable' ?></span>
+					<span class="badge<?php echo $vote['vote'] ? ' badge-success' : ' badge-danger' ?>" style="display: inline-block"><?php echo $vote['vote'] ? icon('fa-thumbs-o-up').' Favorable' : icon('fa-thumbs-o-down').' Défavorable' ?></span>
 				</div>
-				<h4 class="media-heading"><?php echo $this->user->link($vote['user_id'], $vote['username']) ?></h4>
+				<?php echo $this->user->link($vote['user_id'], $vote['username']) ?>
 				<?php echo bbcode($vote['comment']) ?>
 			</div>
 		</div>

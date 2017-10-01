@@ -6,7 +6,7 @@
 				<div class="pull-right">
 					<?php echo icon('fa-users').' '.$this->lang('contributors', $data['nb_users'], $data['nb_users']) ?>
 				</div>
-				<h4 class="no-margin"><?php echo icon('fa-comments-o').' '.$this->lang('forum_messages', $data['nb_messages'], $data['nb_messages']) ?></h4>
+				<h4 class="m-0"><?php echo icon('fa-comments-o').' '.$this->lang('forum_messages', $data['nb_messages'], $data['nb_messages']) ?></h4>
 			</th>
 		</tr>
 	</thead>

@@ -33,7 +33,7 @@
 				for ($partner = 1; $partner <= $max; $partner++)
 				{
 				?>
-				<div class="col-md-<?php echo ceil(12 / $data['display_number']) ?> partner-item">
+				<div class="col-<?php echo ceil(12 / $data['display_number']) ?> partner-item">
 					<a href="<?php echo url('partners/'.$data['partners'][$i]['partner_id'].'/'.$data['partners'][$i]['name']) ?>" target="_blank">
 						<?php if ($image_id = $data['partners'][$i]['logo_'.$data['display_style']]): ?>
 						<img class="logo" src="<?php echo path($image_id) ?>" alt="" />

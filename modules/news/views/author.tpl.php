@@ -1,7 +1,7 @@
 <div class="media">
-	<div class="media-left">
-		<?php echo $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']) ?>
-	</div>
+
+	<?php echo $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']) ?>
+
 	<div class="media-body">
 		<div><?php echo $this->user->link($data['user_id'], $data['username']) ?></div>
 		<p>

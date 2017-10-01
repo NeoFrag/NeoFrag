@@ -104,7 +104,7 @@ class Matches extends Model
 			$class = 'primary';
 		}
 
-		return '<span class="label label-'.$class.'">'.$score1.' - '.$score2.'</span>';
+		return '<span class="badge badge-'.$class.'">'.$score1.' - '.$score2.'</span>';
 	}
 
 	public function label_global_scores($event_id)

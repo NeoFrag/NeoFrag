@@ -24,9 +24,12 @@ class Index extends Controller_Widget
 		}
 
 		array_walk($links, function(&$value, $key) use ($count){
-			$value = '<li'.(($is_last = $key == $count - 1) ? ' class="active"' : '').'><a href="'.url($value[1]).'">'.($is_last && $value[2] !== '' ? icon($value[2]).' ' : '').$value[0].'</a></li>';
+			$value = $this->html('li')
+							->attr('class', 'breadcrumb-item')
+							->append_attr_if($is_last = $key == $count - 1, 'class', 'active')
+							->content('<a href="'.url($value[1]).'">'.($is_last && $value[2] !== '' ? icon($value[2]).' ' : '').$value[0].'</a>');
 		});
 
-		return '<ol class="breadcrumb"><li><b>'.$this->config->nf_name.'</b></li>'.implode($links).'</ol>';
+		return '<ol class="breadcrumb"><li class="breadcrumb-item"><b>'.$this->config->nf_name.'</b></li>'.implode($links).'</ol>';
 	}
 }

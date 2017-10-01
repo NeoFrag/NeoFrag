@@ -49,7 +49,7 @@ class Index extends Controller_Module
 	public function _group($title, $members)
 	{
 		return [
-			$this->panel()->body('<h2 class="no-margin">'.$this->lang('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('show_all_members'))->icon('fa-close')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'),
+			$this->panel()->body('<h2 class="m-0">'.$this->lang('group').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('show_all_members'))->icon('fa-close')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'),
 			$this->index($members)
 		];
 	}

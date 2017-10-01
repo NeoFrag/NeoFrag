@@ -17,8 +17,9 @@ class Index extends Controller_Widget
 			return;
 		}
 
-		$this	->js('talks')
-				->css('talks')
+		$this->module('talks')->js('talks');
+
+		$this->css('talks')
 				->js('jquery.mCustomScrollbar.min')
 				->css('jquery.mCustomScrollbar.min');
 
@@ -32,7 +33,7 @@ class Index extends Controller_Widget
 			$panel->footer('<form>
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="'.$this->lang('your_message').'" />
-									<span class="input-group-btn">
+									<span class="input-group-append">
 										<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
 									</span>
 								</div>

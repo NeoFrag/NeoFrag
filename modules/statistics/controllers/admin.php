@@ -26,9 +26,9 @@ class Admin extends Controller_Module
 													->fast_mode()
 													->display())
 						)
-						->size('col-md-4 col-lg-3'),
+						->size('col-4 col-lg-3'),
 				$this	->col($this->panel()->body('<div id="highcharts"></div>', FALSE))
-						->size('col-md-8 col-lg-9')
+						->size('col-8 col-lg-9')
 			)
 		];
 	}

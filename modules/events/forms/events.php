@@ -18,21 +18,21 @@ $rules = [
 		}, $this->model('types')->get_types()),
 		'value'       => $this->form->value('type_id'),
 		'type'        => 'select',
-		'size'        => 'col-md-3',
+		'size'        => 'col-3',
 		'rules'       => 'required'
 	],
 	'date' => [
 		'label'       => 'Date de début',
 		'value'       => $this->form->value('date'),
 		'type'        => 'datetime',
-		'size'        => 'col-md-3',
+		'size'        => 'col-3',
 		'rules'       => 'required'
 	],
 	'date_end' => [
 		'label'       => 'Date de fin',
 		'value'       => $this->form->value('date_end'),
 		'type'        => 'datetime',
-		'size'        => 'col-md-3',
+		'size'        => 'col-3',
 		'description' => 'Laissez vide pour ne pas indiquer de durée'
 	],
 	'description' => [

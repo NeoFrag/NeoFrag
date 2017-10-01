@@ -135,9 +135,9 @@ class Index extends Controller_Module
 											'count'    => $count
 										]), FALSE)
 							)
-							->size('col-md-3'),
+							->size('col-3'),
 					$this	->col($panels)
-							->size('col-md-9')
+							->size('col-9')
 				);
 			}
 		}

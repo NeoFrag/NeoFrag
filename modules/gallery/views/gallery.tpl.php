@@ -1,5 +1,5 @@
 <?php if (!empty($data['image_id'])): ?>
-<img class="img-responsive" src="<?php echo path($data['image_id']) ?>" alt="" />
+<img class="img-fluid" src="<?php echo path($data['image_id']) ?>" alt="" />
 <?php endif ?>
 <?php if (!empty($data['description'])): ?>
 <div class="panel-body">
@@ -12,13 +12,13 @@
 		<li><a href="#" data-toggle="modal" data-target="#modalGallery"><?php echo icon('fa-play-circle-o').' '.$this->lang('start_fullscreen_slideshow') ?></a></li>
 	</ul>
 	<ul class="list-inline">
-		<li><h4 class="no-margin"><?php echo icon('fa-photo').' '.$this->lang('images', $data['total_images'], $data['total_images']) ?></h4></li>
+		<li><h4 class="m-0"><?php echo icon('fa-photo').' '.$this->lang('images', $data['total_images'], $data['total_images']) ?></h4></li>
 	</ul>
 	<div id="gallery-vignettes" class="row">
 		<?php foreach ($data['images'] as $image): ?>
 		<div class="image-item">
 			<a class="thumbnail" href="<?php echo url('gallery/image/'.$image['image_id'].'/'.url_title($image['title'])) ?>">
-				<img class="img-responsive" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" />
+				<img class="img-fluid" src="<?php echo path($image['thumbnail_file_id']) ?>" alt="" />
 			</a>
 		</div>
 		<?php endforeach ?>

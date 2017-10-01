@@ -6,7 +6,7 @@
 		<input type="password" class="form-control" name="<?php echo $data['form_id'] ?>[password]" placeholder="<?php echo $this->lang('password') ?>" />
 	</div>
 	<div class="text-right">
-		<div class="pull-left checkbox no-margin">
+		<div class="pull-left checkbox m-0">
 			<label>
 				<input type="checkbox" name="<?php echo $data['form_id'] ?>[remember_me][]" value="on" checked="checked" />
 				<?php echo $this->lang('remember_me') ?>

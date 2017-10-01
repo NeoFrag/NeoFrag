@@ -104,14 +104,14 @@ class Default_ extends Theme
 										]
 									])
 								]))
-								->size('col-md-7')
+								->size('col-7')
 					),
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
 									'widget' => 'user',
 									'type'   => 'index_mini'
 								]))
-								->size('col-md-5')
+								->size('col-5')
 					)
 				)
 				->style('row-black');
@@ -124,14 +124,14 @@ class Default_ extends Theme
 										'widget' => 'breadcrumb',
 										'type'   => 'index'
 								]))
-								->size('col-md-8')
+								->size('col-8')
 					),
 					$search ? $this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
 									'widget' => 'search',
 									'type'   => 'index'
 								]))
-								->size('col-md-4')
+								->size('col-4')
 					) : NULL
 				)
 				->style('row-white');
@@ -145,7 +145,7 @@ class Default_ extends Theme
 									'widget' => 'module',
 									'type'   => 'index'
 								]))
-								->size('col-md-8')
+								->size('col-8')
 					),
 					$this	->col(
 								$this->panel_widget($this->db->insert('nf_widgets', [
@@ -211,7 +211,7 @@ class Default_ extends Theme
 										]))
 										->style('panel-red')
 							)
-							->size('col-md-4')
+							->size('col-4')
 				)
 				->style('row-light')
 		];
@@ -223,7 +223,7 @@ class Default_ extends Theme
 									'widget' => 'forum',
 									'type'   => 'topics'
 								]))
-								->size('col-md-4')
+								->size('col-4')
 					),
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -231,7 +231,7 @@ class Default_ extends Theme
 									'type'   => 'index'
 								]))
 								->style('panel-dark')
-								->size('col-md-4')
+								->size('col-4')
 					),
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -239,7 +239,7 @@ class Default_ extends Theme
 									'type'   => 'index'
 								]))
 								->style('panel-red')
-								->size('col-md-4')
+								->size('col-4')
 					)
 				)
 				->style('row-default')
@@ -280,14 +280,14 @@ class Default_ extends Theme
 										]
 									])
 								]))
-								->size('col-md-8')
+								->size('col-8')
 					),
 					$this->col(
 						$this->panel_widget($this->db->insert('nf_widgets', [
 							'widget' => 'members',
 							'type'   => 'online_mini'
 						]))
-						->size('col-md-4')
+						->size('col-4')
 					)
 				)
 				->style('row-default')
@@ -347,7 +347,7 @@ class Default_ extends Theme
 										'type'   => 'statistics'
 									]))
 									->style('panel-red')
-									->size('col-md-4')
+									->size('col-4')
 						),
 						$this->col(
 							$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -355,7 +355,7 @@ class Default_ extends Theme
 										'type'   => 'activity'
 									]))
 									->style('panel-dark')
-									->size('col-md-8')
+									->size('col-8')
 						)
 					)
 					->style('row-light')

@@ -1,6 +1,6 @@
 <?php if ($data['image']): ?>
-	<div class="pull-left">
-		<a class="thumbnail" href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title'])) ?>"><img class="img-responsive" src="<?php echo path($data['image']) ?>" alt="" /></a>
+	<div class="pull-left mr-4">
+		<a href="<?php echo url('news/'.$data['news_id'].'/'.url_title($data['title'])) ?>"><img class="img-thumbnail" src="<?php echo path($data['image']) ?>" alt="" /></a>
 	</div>
 <?php endif ?>
 <p class="news-detail">
@@ -15,6 +15,6 @@
 <?php if ($data['tags']): ?>
 	<hr />
 	<?php foreach (explode(',', $data['tags']) as $tag): ?>
-		<a class="label label-default news-tags" href="<?php echo url('news/tag/'.url_title($tag)) ?>"><?php echo icon('fa-tag').' '.$tag ?></a>
+		<a class="badge badge-default news-tags" href="<?php echo url('news/tag/'.url_title($tag)) ?>"><?php echo icon('fa-tag').' '.$tag ?></a>
 	<?php endforeach ?>
 <?php endif ?>

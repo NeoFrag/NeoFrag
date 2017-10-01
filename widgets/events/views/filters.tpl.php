@@ -1,4 +1,4 @@
-<ul class="list-inline no-margin">
+<ul class="list-inline m-0">
 	<li><?php echo icon('fa-sliders') ?></li>
 	<li><a href="<?php echo url(($this->url->admin) ? 'admin/events' : 'events') ?>"><?php echo ($this->url->request == 'events' || $this->url->request == 'admin/events') ? '<b>Tous</b>' : 'Tous' ?></a></li>
 	<li><a href="<?php echo url(($this->url->admin) ? 'admin/events/standards' : 'events/standards') ?>"><?php echo ($this->url->request == 'events/standards' || $this->url->request == 'admin/events/standards') ? '<b>Standards</b>' : 'Standards' ?></a></li>

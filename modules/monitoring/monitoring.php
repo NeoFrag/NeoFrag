@@ -38,7 +38,7 @@ class Monitoring extends Module
 			{
 				if ($count)
 				{
-					return '<span class="pull-right label label-'.$class.'">'.$count.'</span>';
+					return '<span class="pull-right badge badge-'.$class.'">'.$count.'</span>';
 				}
 			}
 		}

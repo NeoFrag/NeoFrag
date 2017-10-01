@@ -6,8 +6,8 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th class="col-md-8 col-sm-8 col-xs-8"><?php echo icon($category['icon']).' '.$data['loader']->lang($category['title'], NULL) ?></th>
-				<th class="col-md-4 col-sm-4 col-xs-8" colspan="2"><?php echo icon('fa-key').' '.$this->lang('access') ?></th>
+				<th class="col-8"><?php echo icon($category['icon']).' '.$data['loader']->lang($category['title'], NULL) ?></th>
+				<th class="col-8 col-sm-4" colspan="2"><?php echo icon('fa-key').' '.$this->lang('access') ?></th>
 			</tr>
 		</thead>
 		<tbody>

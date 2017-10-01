@@ -1,5 +1,5 @@
 <?php if ($data['image_id']): ?>
-<img class="img-responsive" src="<?php echo path($data['image_id']) ?>" alt="" />
+<img class="img-fluid" src="<?php echo path($data['image_id']) ?>" alt="" />
 <?php endif ?>
 <div class="panel-body">
 	<p><big><?php echo icon($data['icon']) ?> <a href="<?php echo url('recruits/'.$data['recruit_id'].'/'.url_title($data['title'])) ?>"><?php echo $data['title'] ?></a></big></p>

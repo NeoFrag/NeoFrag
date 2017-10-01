@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h4 class="no-margin"><b>Mes informations</b></h4>
+		<h4 class="m-0"><b>Mes informations</b></h4>
 		<hr />
 		<?php if ($data['first_name'] || $data['last_name']): ?>
 		<p><?php echo ($data['sex'] == 'male' ? icon('fa-male') : icon('fa-female')).' '.$data['first_name'].' '.$data['last_name'] ?></p>
@@ -23,7 +23,7 @@
 		<?php endif ?>
 	</div>
 	<div class="col-md-6">
-		<h4 class="no-margin"><b>Messagerie</b></h4>
+		<h4 class="m-0"><b>Messagerie</b></h4>
 		<hr />
 		<?php if ($messages = $this->user->get_messages()): ?>
 		<a href="<?php echo url('user/messages') ?>" class="btn btn-info btn-block btn-lg">Vous avez <?php echo $messages > 0 ? $messages.' messages non lus !' : '1 message non lu !' ?></a>

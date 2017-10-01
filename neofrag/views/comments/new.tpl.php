@@ -15,7 +15,7 @@
 	</div>
 </div>
 <?php else: ?>
-	<div class="alert alert-danger no-margin" role="alert">
+	<div class="alert alert-danger m-0" role="alert">
 		<?php echo icon('fa-ban').' '.$this->lang('comment_unlogged') ?>
 	</div>
 <?php endif ?>

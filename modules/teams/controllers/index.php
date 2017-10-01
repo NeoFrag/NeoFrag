@@ -21,7 +21,7 @@ class Index extends Controller_Module
 
 			if ($team['image_id'])
 			{
-				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-responsive" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
+				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-fluid" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
 			}
 
 			$panels[] = $panel;
@@ -100,7 +100,7 @@ class Index extends Controller_Module
 										return '';
 									}
 								},
-								'class'   => 'col-md-1 text-center vcenter'
+								'class'   => 'col-1 text-center vcenter'
 							],
 							[
 								'title'   => 'Adversaire',
@@ -138,7 +138,7 @@ class Index extends Controller_Module
 		return [
 			$this	->panel()
 					->heading('	<div class="pull-right">
-									<span class="label label-default">'.$game.'</span>
+									<span class="badge badge-default">'.$game.'</span>
 								</div>
 								<a href="'.url('teams/'.$team_id.'/'.$name).'">'.$title.'</a>',
 								$icon_id ?: $game_icon ?: 'fa-gamepad'

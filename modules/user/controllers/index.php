@@ -537,7 +537,7 @@ class Index extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading($this->lang('create_account_title'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this->lang('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
+								->body($this->config->nf_registration_status == 0 ? $this->lang('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning m-0">Les inscriptions sur notre site sont fermées...</div>')
 					)
 					->size('col-md-6')
 		);
@@ -847,7 +847,7 @@ class Index extends Controller_Module
 		return $this->panel()
 					->heading('Mon profil', 'fa-user')
 					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))))
-					->size('col-md-4 col-lg-3');
+					->size('col-4 col-lg-3');
 	}
 
 	public function _panel_infos($user_id = NULL)

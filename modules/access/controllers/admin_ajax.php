@@ -25,7 +25,7 @@ class Admin_Ajax extends Controller_Module
 					->body($this->view('details', [
 						'groups' => $groups
 					]), FALSE)
-					->size('col-md-12 col-lg-7')
+					->size('col-12 col-lg-7')
 		);
 	}
 

@@ -49,6 +49,6 @@ class Col extends Childrenable
 						</div>';
 		}
 
-		return '<div class="'.($this->_size ?: $size ?: 'col-md-12').'"'.($this->_id !== NULL ? ' data-col-id="'.$this->_id.'"' : '').'>'.$output.'</div>';
+		return '<div class="'.($this->_size ?: $size ?: 'col-12').'"'.($this->_id !== NULL ? ' data-col-id="'.$this->_id.'"' : '').'>'.$output.'</div>';
 	}
 }

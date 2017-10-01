@@ -45,7 +45,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news')
 							->body($count)
 							->color('bg-aqua')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_news').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
@@ -53,7 +53,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('members', $count = $this->db->select('COUNT(*)')->from('nf_users')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
 							->body($count)
 							->color('bg-green')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_members').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
@@ -61,7 +61,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('events', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fa-calendar', 'admin/events')
 							->body($count)
 							->color('bg-blue')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_events').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
@@ -69,7 +69,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams')
 							->body($count)
 							->color('bg-red')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_teams').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
@@ -77,7 +77,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum')
 							->body($count)
 							->color('bg-teal')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_forum').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
@@ -85,7 +85,7 @@ class Admin extends Controller_Module
 							->heading($this->lang('comments', $count = $this->db->select('COUNT(*)')->from('nf_comments')->row()), 'fa-comments-o', 'admin/comments')
 							->body($count)
 							->color('bg-maroon')
-							->size('col-md-4 col-lg-2')
+							->size('col-4 col-lg-2')
 							->footer($this->lang('manage_comments').' '.icon('fa-arrow-circle-right'))
 				)
 			),
@@ -97,7 +97,7 @@ class Admin extends Controller_Module
 									->body($this->view('nf_news'))
 
 						)
-						->size('col-md-8'),
+						->size('col-8'),
 				$this	->col(
 							$this	->panel()
 									->heading($this->lang('connected_users'), 'fa-globe')
@@ -110,7 +110,7 @@ class Admin extends Controller_Module
 									->heading($this->lang('last_registrations'), 'fa-users')
 									->body($users)
 						)
-						->size('col-md-4')
+						->size('col-4')
 			)
 		];
 	}
@@ -139,24 +139,24 @@ class Admin extends Controller_Module
 					$this	->panel()
 							->heading($this->lang('lgpl_license'))
 							->body($this->view('license'))
-							->size('col-md-12 col-lg-8')
+							->size('col-12 col-lg-8')
 				),
 				$this->col(
 					$this	->panel()
 							->heading($this->lang('the_team'))
 							->body('	<div class="row">
-											<div class="col-md-6 text-center">
-												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
+											<div class="col-6 text-center">
+												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Michaël BILCOT "FoxLey"</b></div>
 												<span class="text-muted">'.$this->lang('web_developer').'</span>
 											</div>
-											<div class="col-md-6 text-center">
-												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
+											<div class="col-6 text-center">
+												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Jérémy VALENTIN "eResnova"</b></div>
 												<span class="text-muted">'.$this->lang('web_designer').'</span>
 											</div>
 										</div>')
-							->size('col-md-12 col-lg-4')
+							->size('col-12 col-lg-4')
 				)
 			)
 		];
@@ -171,7 +171,7 @@ class Admin extends Controller_Module
 					->heading($this->lang('notifications'), 'fa-flag')
 					->body($this->lang('unavailable_feature'))
 					->color('info')
-					->size('col-md-12');
+					->size('col-12');
 	}
 
 	public function database()
@@ -183,6 +183,6 @@ class Admin extends Controller_Module
 					->heading($this->lang('database'), 'fa-database')
 					->body($this->lang('unavailable_feature'))
 					->color('info')
-					->size('col-md-12');
+					->size('col-12');
 	}
 }
