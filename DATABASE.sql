@@ -1186,12 +1186,7 @@ CREATE TABLE IF NOT EXISTS `nf_settings_languages` (
 -- Contenu de la table `nf_settings_languages`
 --
 
-INSERT INTO `nf_settings_languages` VALUES('fr', 'Français', 'fr.png', 1);
-INSERT INTO `nf_settings_languages` VALUES('en', 'English', 'gb.png', 2);
-INSERT INTO `nf_settings_languages` VALUES('de', 'Deutsch', 'de.png', 3);
-INSERT INTO `nf_settings_languages` VALUES('es', 'Español', 'es.png', 4);
-INSERT INTO `nf_settings_languages` VALUES('it', 'Italiano', 'it.png', 5);
-INSERT INTO `nf_settings_languages` VALUES('pt', 'Português', 'pt.png', 6);
+INSERT INTO `nf_settings_languages` VALUES('de', 'Deutsch', 'de.png', 1);
 
 -- --------------------------------------------------------
 
