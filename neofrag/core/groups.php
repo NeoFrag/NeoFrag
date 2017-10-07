@@ -14,8 +14,6 @@ class Groups extends Core
 
 	public function __construct()
 	{
-		parent::__construct();
-
 		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
 
 		$this->_groups = [

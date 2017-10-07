@@ -188,4 +188,6 @@ foreach ([
 	NeoFrag()->{'core_'.$core};
 }
 
+define('NEOFRAG_CORE', TRUE);
+
 echo $NeoFrag->router()->output;
