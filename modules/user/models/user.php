@@ -140,7 +140,7 @@ class User extends Model
 		$this->db->insert('nf_users_keys', [
 			'key_id'     => $key_id = unique_id($this->db->select('key_id')->from('nf_users_keys')->get()),
 			'user_id'    => $user_id,
-			'session_id' => $this->session('session_id')
+			'session_id' => $this->session->session_id
 		]);
 
 		return $key_id;
@@ -167,7 +167,7 @@ class User extends Model
 		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'up.first_name', 'up.last_name', 'up.signature', 'up.date_of_birth', 'up.location', 'up.website', 'up.quote', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
 						->from('nf_users u')
 						->join('nf_users_profiles up', 'u.user_id = up.user_id')
-						->join('nf_sessions       s',  'u.user_id = s.user_id')
+						->join('nf_session        s',  'u.user_id = s.user_id')
 						->where('u.user_id', $user_id)
 						->where('u.deleted', FALSE)
 						->row();
@@ -175,21 +175,20 @@ class User extends Model
 
 	public function check_session($session_id)
 	{
-		return $this->db	->select('s.session_id', 'u.username')
-							->from('nf_sessions s')
+		return $this->db	->select('s.id as session_id', 'u.username')
+							->from('nf_session s')
 							->join('nf_users u', 'u.user_id = s.user_id')
-							->where('s.session_id', $session_id)
+							->where('s.id', $session_id)
 							->where('u.deleted', FALSE)
 							->row();
 	}
 
 	public function get_sessions()
 	{
-		return $this->db->select('u.user_id', 'u.username', 's.session_id', 's.ip_address', 's.host_name', 's.last_activity', 's.user_data', 's.remember_me')
-						->from('nf_sessions s')
+		return $this->db->select('u.user_id', 'u.username', 's.id as session_id', '"" as ip_address', '"" as host_name', 's.last_activity', 's.data as user_data', 's.remember as remember_me')
+						->from('nf_session s')
 						->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"')
 						->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
-						->where('s.is_crawler', FALSE)
 						->order_by('s.last_activity DESC')
 						->get();
 	}
@@ -199,7 +198,7 @@ class User extends Model
 		return $this->db->select('u.user_id', 'u.username', 'u.email', 'u.registration_date', 'u.last_activity_date', 'u.admin', 'u.language', 'u.deleted', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
 						->from('nf_users u')
 						->join('nf_users_profiles up', 'u.user_id = up.user_id')
-						->join('nf_sessions       s',  'u.user_id = s.user_id')
+						->join('nf_session        s',  'u.id = s.user_id')
 						->where('u.deleted', FALSE)
 						->group_by('u.username')
 						->order_by('u.username')

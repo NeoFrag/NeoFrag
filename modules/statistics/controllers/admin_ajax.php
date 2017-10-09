@@ -32,7 +32,7 @@ class Admin_Ajax extends Controller_Module
 
 		foreach ($statistics as $name => $statistic)
 		{
-			$this->session->add('statistics', 'modules', $name);
+			$this->session->append('statistics', 'modules', $name);
 
 			$var = $statistic['data']();
 			$data = $dates;

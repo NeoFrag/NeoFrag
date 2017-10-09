@@ -102,7 +102,7 @@ class Admin extends Controller_Module
 							$this	->panel()
 									->heading($this->lang('Utilisateurs connectés'), 'fa-globe')
 									->body($this->view('users_online', [
-										'currently' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(),
+										'currently' => $this->db->select('COUNT(*)')->from('nf_session')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
 									->footer('<a href="'.url('admin/user/sessions').'">'.$this->lang('Voir toutes les sessions actives').'</a>'),

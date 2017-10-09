@@ -38,7 +38,7 @@ class Checker extends Module_Checker
 		{
 			$this->error->unconnected();
 		}
-		else if ($this->db->select('1')->from('nf_sessions')->where('user_id', $this->user('user_id'))->where('session_id', $session_id)->row())
+		else if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user('user_id'))->where('id', $session_id)->row())
 		{
 			return [$session_id];
 		}

@@ -206,5 +206,32 @@ class i_0_2 extends NeoFrag
 					->update('nf_settings', [
 						'site' => ''
 					]);
+
+		//Sessions
+		$this->db	->execute('RENAME TABLE `nf_sessions` TO `nf_session`')
+					->execute('ALTER TABLE `nf_session` CHANGE `session_id` `id` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL')
+					->execute('ALTER TABLE `nf_session` DROP `ip_address`, DROP `host_name`, DROP `is_crawler`')
+					->execute('ALTER TABLE `nf_session` CHANGE `remember_me` `remember` ENUM(\'0\',\'1\') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT \'0\' AFTER user_id')
+					->execute('ALTER TABLE `nf_session` CHANGE `user_data` `data` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL')
+					->execute('ALTER TABLE `nf_session` ADD PRIMARY KEY(`id`)')
+					->execute('ALTER TABLE `nf_session` DROP INDEX session_id');
+
+		//Sessions History
+		$this->db	->execute('ALTER TABLE `nf_sessions_history` DROP FOREIGN KEY `nf_sessions_history_ibfk_2`')
+					->execute('ALTER TABLE `nf_sessions_history` DROP `session_id`')
+					->execute('RENAME TABLE `nf_sessions_history` TO `nf_session_history`')
+					->execute('ALTER TABLE `nf_session_history` CHANGE `authenticator` `auth` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL AFTER user_agent');
+
+		foreach ($this->db->from('nf_session_history')->where('auth <>', '')->get() as $session)
+		{
+			$this->db	->where('id', $session['id'])
+						->update('nf_session_history', [
+							'auth' => serialize([
+								'authentificator' => $session['auth'],
+								'name'            => '',
+								'avatar'          => ''
+							])
+						]);
+		}
 	}
 }
