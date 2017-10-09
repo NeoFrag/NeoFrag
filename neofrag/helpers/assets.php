@@ -6,7 +6,7 @@
 
 function is_asset($extension = NULL)
 {
-	return in_array($extension ?: extension($_SERVER['REQUEST_URI']), ['png', 'jpg', 'jpeg', 'gif', 'swf', 'css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2', 'zip']);
+	return !in_array($extension ?: extension($_SERVER['REQUEST_URI']), ['', 'php', 'json', 'txt', 'xml']);
 }
 
 function icon($icon)

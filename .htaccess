@@ -4,10 +4,6 @@ DirectorySlash Off
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
-	##If your NeoFrag directory is not at http root
-	##you need to replace "/" by the correct directory, for example "RewriteBase /neofrag/"
-	RewriteBase /
-
 	RewriteRule index\.php - [L]
 
 	##Allow direct access to specific directories

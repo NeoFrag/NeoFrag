@@ -6,39 +6,23 @@
 
 function url($url = '')
 {
-	if (substr($url, 0, 1) == '#')
-	{
-		return $url;
-	}
-
-	return NeoFrag()->url->base.$url;
+	return NeoFrag()->url($url);
 }
 
 function redirect($location = '')
 {
-	header('Location: '.url($location));
-	exit;
+	return NeoFrag()->url->redirect(url($location));
 }
 
 function redirect_back($default = '')
 {
-	header('Location: '.url(NeoFrag()->session->get_back() ?: $default));
+	header('Location: '.url(NeoFrag()->url->back() ?: $default));
 	exit;
 }
 
 function refresh()
 {
-	if (NeoFrag()->url->ajax())
-	{
-		NeoFrag()->output->json([
-			'success' => 'refresh'
-		]);
-	}
-	else
-	{
-		header('Location: '.$_SERVER['REQUEST_URI']);
-		exit;
-	}
+	return NeoFrag()->url->refresh();
 }
 
 function urltolink($url)
