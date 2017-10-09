@@ -15,7 +15,7 @@ class Index extends Controller_Module
 		$this->title($this->lang('Rechercher'));
 
 		$count  = 0;
-		$row    = [];
+		$row    = $this->array;
 		$search = '';
 
 		if (!empty($_GET['q']) && ($search = rawurldecode($_GET['q'])))
@@ -82,7 +82,7 @@ class Index extends Controller_Module
 					return $a[0]->info()->title;
 				});
 
-				$panels = [];
+				$panels = $this->array;
 
 				foreach ($results as $result)
 				{
@@ -93,7 +93,7 @@ class Index extends Controller_Module
 					{
 						foreach ($this->module->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
-							$content[] = $result[1]->method('detail', [$data, $keywords]);
+							$content[] = call_user_func_array([$result[1], 'detail'], [$data, $keywords]);
 						}
 
 						$details = TRUE;
@@ -102,30 +102,30 @@ class Index extends Controller_Module
 					{
 						foreach (array_slice($result[2], 0, 3) as $data)
 						{
-							$content[] = $result[1]->method('index', [$data, $keywords]);
+							$content[] = call_user_func_array([$result[1], 'index'], [$data, $keywords]);
 						}
 					}
 
 					if ($content)
 					{
-						$panels[] = $this	->panel()
-											->heading($result[0]->info()->title, $result[0]->info()->icon, 'search/'.$result[0]->info()->name.'?q='.rawurlencode($search))
-											->body(implode('<hr />', $content))
-											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('Voir l\'ensemble des résultats').'</a>' : '');
+						$panels->append($this	->panel()
+												->heading($result[0]->info()->title, $result[0]->info()->icon, 'search/'.$result[0]->info()->name.'?q='.rawurlencode($search))
+												->body(implode('<hr />', $content))
+												->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('Voir l\'ensemble des résultats').'</a>' : ''));
 					}
 
 					if ($details)
 					{
-						$panels[] = $this->module->pagination->panel();
+						$panels->append($this->module->pagination->panel());
 					}
 				}
 
-				if (!$panels)
+				if ($panels->empty())
 				{
 					redirect('search?q='.rawurlencode($search));
 				}
 
-				$row[] = $this->row(
+				$row->append($this->row(
 					$this	->col(
 								$this	->panel()
 										->body($this->view('results', [
@@ -137,11 +137,11 @@ class Index extends Controller_Module
 							->size('col-3'),
 					$this	->col($panels)
 							->size('col-9')
-				);
+				));
 			}
 		}
 
-		return array_merge([
+		return $row->append(
 			$this->row(
 				$this->col(
 					$this	->panel()
@@ -151,6 +151,7 @@ class Index extends Controller_Module
 								'keywords' => $search
 							]))
 				)
-			)], $row);
+			)
+		);
 	}
 }

@@ -211,7 +211,7 @@ class Table extends Library
 							continue;
 						}
 
-						$value = $this->output->parse($value['search'], $data);
+						$value = $this->_parse($value['search'], $data);
 
 						foreach ($words as $word)
 						{
@@ -256,7 +256,7 @@ class Table extends Library
 						continue;
 					}
 
-					$this->_words[] = $value = $this->output->parse($value['search'], $data);
+					$this->_words[] = $value = $this->_parse($value['search'], $data);
 					$words[]        = '"'.$value.'"';
 				}
 			}
@@ -292,7 +292,7 @@ class Table extends Library
 					foreach ($this->_data as $data_id => $data)
 					{
 						$data = array_merge(['data_id' => $data_id], $data);
-						$tmp[] = $this->output->parse($this->_columns[$column]['sort'], $data);
+						$tmp[] = $this->_parse($this->_columns[$column]['sort'], $data);
 					}
 
 					$sortings[] = array_map('strtolower', $tmp);
@@ -418,14 +418,14 @@ class Table extends Library
 
 						foreach ($value['content'] as $val)
 						{
-							$actions[] = $this->output->parse($val, $data);
+							$actions[] = $this->_parse($val, $data);
 						}
 
 						$output .= '<td class="action">'.implode('&nbsp;', array_filter($actions)).'</td>';
 					}
 					else
 					{
-						$content = $this->output->parse($value['content'], $data);
+						$content = $this->_parse($value['content'], $data);
 
 						if (!isset($value['td']) || $value['td'])
 						{
@@ -482,11 +482,10 @@ class Table extends Library
 
 		if ($this->_ajax)
 		{
-			header('Content-Type: application/json; charset=UTF-8');
-			exit(json_encode([
+			return $this->json([
 				'search'  => [],//array_values(array_unique($this->_words)),
 				'content' => $output
-			]));
+			]);
 		}
 		else
 		{
@@ -534,5 +533,15 @@ class Table extends Library
 		}
 
 		return $this;
+	}
+
+	private function _parse($content, $data = [])
+	{
+		if (is_a($content, 'closure'))
+		{
+			$content = call_user_func($content, $data);
+		}
+
+		return $content;
 	}
 }

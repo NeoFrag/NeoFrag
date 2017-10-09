@@ -93,21 +93,21 @@ class Comments extends Library
 
 		$count = count($comments);
 
-		$panels = [];
+		$panels = $this->array;
 
 		if ($errors = $form->get_errors())
 		{
-			$panels[] = $this	->panel()
+			$panels->append($this	->panel()
 								->heading('<a name="comments"></a>'.NeoFrag()->lang('Veuillez remplir un message'), 'fa-warning')
-								->color('danger');
+									->color('danger'));
 		}
 
-		$panels[] = $this	->panel()
+		$panels->append($this	->panel()
 							->heading('<a name="comments"></a>'.NeoFrag()->lang('%d Commentaire|%d Commentaires', $count, $count), 'fa-comments-o')
-							->body($output.$this->view('comments/new', [
-								'form_id' => $form->token()
-							]));
+								->body($output.$this->view('comments/new', [
+									'form_id' => $form->token()
+								])));
 
-		return display($panels);
+		return $panels;
 	}
 }

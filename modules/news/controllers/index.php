@@ -12,7 +12,7 @@ class Index extends Controller_Module
 {
 	public function index($news)
 	{
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($news as $news)
 		{
@@ -27,18 +27,18 @@ class Index extends Controller_Module
 				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title'])).'">'.$this->lang('Lire la suite').'</a>');
 			}
 
-			$panels[] = $panel;
+			$panels->append($panel);
 		}
 
-		if (empty($panels))
+		if ($panels->empty())
 		{
-			$panels[] = $this	->panel()
-								->heading($this->lang('Actualités'), 'fa-file-text-o')
-								->body('<div class="text-center">'.$this->lang('Aucune actualité n\'a été publiée pour le moment').'</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading($this->lang('Actualités'), 'fa-file-text-o')
+									->body('<div class="text-center">'.$this->lang('Aucune actualité n\'a été publiée pour le moment').'</div>')
+									->color('info'));
 		}
 
-		$panels[] = $this->module->pagination->panel();
+		$panels->append($this->module->pagination->panel());
 
 		return $panels;
 	}
@@ -91,40 +91,35 @@ class Index extends Controller_Module
 							'sex'            => $sex
 						]));
 
-		if ($user_id)
-		{
-			return [
-				$this->row($this->col($news)),
-				$this->row(
-					$this->col(
-						$this	->panel()
-								->heading($this->lang('À propos de l\'auteur'), 'fa-user')
-								->body($this->view('author', [
-									'user_id'  => $user_id,
-									'username' => $username,
-									'avatar'   => $avatar,
-									'sex'      => $sex,
-									'admin'    => $admin,
-									'online'   => $online,
-									'quote'    => $quote
-								]))
-								->size('col-6')
-					),
-					$this->col(
-						$this	->panel()
-								->heading($this->lang('Autres actualités de l\'auteur'), 'fa-file-text-o')
-								->body($this->view('author_news', [
-									'news' => $this->model()->get_news_by_user($user_id, $news_id)
-								]), FALSE)
-								->size('col-6')
+		return $this->array
+					->append($this->row($this->col($news)))
+					->append_if($user_id, $this->row(
+												$this->col(
+													$this	->panel()
+															->heading($this->lang('À propos de l\'auteur'), 'fa-user')
+															->body($this->view('author', [
+																'user_id'  => $user_id,
+																'username' => $username,
+																'avatar'   => $avatar,
+																'sex'      => $sex,
+																'admin'    => $admin,
+																'online'   => $online,
+																'quote'    => $quote
+															]))
+															->size('col-6')
+												),
+												$this->col(
+													$this	->panel()
+															->heading($this->lang('Autres actualités de l\'auteur'), 'fa-file-text-o')
+															->body($this->view('author_news', [
+																'news' => $this->model()->get_news_by_user($user_id, $news_id)
+															]), FALSE)
+															->size('col-6')
+												)
+										)
 					)
-				),
-				$this->comments->display('news', $news_id)
-			];
-		}
-		else
-		{
-			return [$news, $this->comments->display('news', $news_id)];
-		}
+					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $news_id){
+						return $this->row($this->col($comments('news', $news_id)));
+					});
 	}
 }

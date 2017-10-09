@@ -138,17 +138,17 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header"><?php echo $this->output->data['module_title']; if (!empty($this->output->data['module_subtitle'])) echo '<small>'.$this->output->data['module_subtitle'].'</small>' ?></h1>
+				<h1 class="page-header"><?php echo $this->output->data->get('module', 'title'); if ($subtitle = $this->output->data->get('module', 'subtitle')) echo '<small>'.$subtitle.'</small>' ?></h1>
 				<div class="page-actions pull-right">
-					<?php if ($module_method == 'index' && NeoFrag()->module->get_permissions('default') && $this->module('access')->is_authorized()): ?>
-						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-unlock-alt') ?><span class="hidden-sm"> Permissions</span></a>
+					<?php if ($module_method == 'index' && $this->output->module()->get_permissions('default') && $this->module('access')->is_authorized()): ?>
+						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.$this->output->module()->name) ?>"><?php echo icon('fa-unlock-alt') ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif ?>
-					<?php if (method_exists(NeoFrag()->module, 'settings') && $this->module('addons')->is_authorized()): ?>
-						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('Configuration') ?></span></a>
+					<?php if (method_exists($this->output->module(), 'settings') && $this->module('addons')->is_authorized()): ?>
+						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.$this->output->module()->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('Configuration') ?></span></a>
 					<?php endif ?>
-					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($module_method)): ?>
-					<?php NeoFrag()->js('help') ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$module_method ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('Aide') ?></span></a>
+					<?php if (($help = $this->output->module()->controller('admin_help')) && $help->has_method($module_method)): ?>
+					<?php $this->js('help') ?>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.$this->output->module()->name.'/'.$module_method ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('Aide') ?></span></a>
 					<?php endif ?>
 				</div>
 			</div>
@@ -157,7 +157,7 @@
 			<div id="alerts"></div>
 			<?php echo $this->view('actions', $data) ?>
 		</div>
-		<div class="module module-admin module-<?php echo NeoFrag()->module->name ?>"><?php echo NeoFrag()->module ?></div>
+		<div class="module module-admin module-<?php echo $this->output->module()->name ?>"><?php echo $this->output->module() ?></div>
 	</div>
 </div>
 <?php if (!empty($update)): ?>

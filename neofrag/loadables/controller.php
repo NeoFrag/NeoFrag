@@ -44,35 +44,6 @@ abstract class Controller extends NeoFrag implements \NF\NeoFrag\Loadable
 		}
 	}
 
-	public function method($name, $args = [])
-	{
-		if (!is_array($args))
-		{
-			if ($args === NULL)
-			{
-				$args = [];
-			}
-			else
-			{
-				$args = [$args];
-			}
-		}
-
-		ob_start();
-		$result = call_user_func_array([$this, $name], $args);
-		$output = ob_get_clean();
-
-		if (!empty($result))
-		{
-			echo $output;
-			return $result;
-		}
-		else
-		{
-			return $output;
-		}
-	}
-
 	public function is_authorized($action)
 	{
 		return $this->access($this->__caller->info()->name, $action);

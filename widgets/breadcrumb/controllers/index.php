@@ -12,7 +12,7 @@ class Index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		$count = count($links = NeoFrag()->module->breadcrumb->get_links());
+		$count = count($links = $this->output->data->get('breadcrumb') ?: []);
 
 		if (empty($links) && $this->url->segments[0] == 'index')
 		{

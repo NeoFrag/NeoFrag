@@ -226,7 +226,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _categories_add()
@@ -296,6 +296,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

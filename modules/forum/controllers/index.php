@@ -12,19 +12,19 @@ class Index extends Controller_Module
 {
 	public function index()
 	{
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = $this->panel()->body($this->view('index', $category), FALSE);
+			$panels->append($this->panel()->body($this->view('index', $category), FALSE));
 		}
 
-		if (empty($panels))
+		if ($panels->empty())
 		{
-			$panels[] = $this	->panel()
-								->heading($this->lang('Forum'), 'fa-comments')
-								->body('<div class="text-center">'.$this->lang('Aucun forum').'</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading($this->lang('Forum'), 'fa-comments')
+									->body('<div class="text-center">'.$this->lang('Aucun forum').'</div>')
+									->color('info'));
 		}
 
 		if ($this->user())
@@ -33,7 +33,7 @@ class Index extends Controller_Module
 							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>', FALSE)
 							->color('back text-right');
 
-			array_unshift($panels, $panels[] = $actions);
+			$panels->prepend($actions)->append($actions);
 		}
 
 		return $panels;
@@ -44,33 +44,33 @@ class Index extends Controller_Module
 		$this	->title($title)
 				->_breadcrumb($category_id, $forum_id);
 
-		$panels = [];
+		$panels = $this->array;
 
 		if (!empty($subforums))
 		{
-			$panels[] = $this	->panel()
-								->body($this->view('index', [
-									'title'  => $this->lang('Sous-catégories'),
-									'forums' => $subforums
-								]), FALSE);
+			$panels->append($this	->panel()
+									->body($this->view('index', [
+										'title'  => $this->lang('Sous-catégories'),
+										'forums' => $subforums
+									]), FALSE));
 		}
 
 		if (!empty($announces))
 		{
-			$panels[] = $this	->panel()
-								->body($this->view('forum', [
-									'title'  => $this->lang('Annonces'),
-									'icon'   => 'fa-flag',
-									'topics' => $announces
-								]), FALSE);
+			$panels->append($this	->panel()
+									->body($this->view('forum', [
+										'title'  => $this->lang('Annonces'),
+										'icon'   => 'fa-flag',
+										'topics' => $announces
+									]), FALSE));
 		}
 
-		$panels[] = $this	->panel()
-							->body($this->view('forum', [
-								'title'  => $title,
-								'icon'   => 'fa-navicon',
-								'topics' => $topics
-							]), FALSE);
+		$panels->append($this	->panel()
+								->body($this->view('forum', [
+									'title'  => $title,
+									'icon'   => 'fa-navicon',
+									'topics' => $topics
+								]), FALSE));
 
 		$content = '<a class="btn btn-default" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
 
@@ -89,9 +89,11 @@ class Index extends Controller_Module
 			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>';
 		}
 
-		array_unshift($panels, $panels[] = $this->panel()
-												->body($content, FALSE)
-												->color('back'));
+		$actions = $this	->panel()
+							->body($content, FALSE)
+							->color('back');
+
+		$panels->prepend($actions)->append($actions);
 
 		return $panels;
 	}
@@ -137,26 +139,24 @@ class Index extends Controller_Module
 			redirect('forum/topic/'.$topic_id.'/'.url_title($post['title']));
 		}
 
-		$panels = [];
+		$panels = $this->array;
 
 		if ($errors = $this->form()->get_errors())
 		{
-			$panels[] = $this->row($this->col(
-				$this	->panel()
-						->heading($this->lang('Veuillez remplir tous les champs'), 'fa-warning')
-						->color('danger')
-			));
+			$panels->append($this	->panel()
+									->heading($this->lang('Veuillez remplir tous les champs'), 'fa-warning')
+									->color('danger'));
 		}
 
-		$panels[] = $this	->panel()
-							->heading($this->lang('Nouveau sujet'), 'fa-file-text-o')
-							->body($this->view('new', [
-								'form_id'     => $this->form()->token(),
-								'post'        => $post,
-								'forum_id'    => $forum_id,
-								'category_id' => $category_id,
-								'title'       => $title
-							]), FALSE);
+		$panels->append($this	->panel()
+								->heading($this->lang('Nouveau sujet'), 'fa-file-text-o')
+								->body($this->view('new', [
+									'form_id'     => $this->form()->token(),
+									'post'        => $post,
+									'forum_id'    => $forum_id,
+									'category_id' => $category_id,
+									'title'       => $title
+								]), FALSE));
 
 		return $panels;
 	}
@@ -270,23 +270,23 @@ class Index extends Controller_Module
 			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
 		}
 
-		$panels = [];
+		$panels = $this->array;
 
 		if ($is_locked)
 		{
-			$panels[] = $this	->panel()
-								->heading('<a name="reply"></a>'.$this->lang('Le sujet est verrouillé'), 'fa-warning')
-								->color('danger');
+			$panels->append($this	->panel()
+									->heading('<a name="reply"></a>'.$this->lang('Le sujet est verrouillé'), 'fa-warning')
+									->color('danger'));
 		}
 
-		$panels[] = $this	->panel()
-							->body($this->view('topic', array_merge($topic, [
-								'category_id'       => $category_id,
-								'topic_id'          => $topic_id,
-								'title'             => $title,
-								'views'             => $views,
-								'last_message_read' => $last_message_read
-							])), FALSE);
+		$panels->append($this	->panel()
+								->body($this->view('topic', array_merge($topic, [
+									'category_id'       => $category_id,
+									'topic_id'          => $topic_id,
+									'title'             => $title,
+									'views'             => $views,
+									'last_message_read' => $last_message_read
+								])), FALSE));
 
 		$actions = $this->panel()
 						->body($content, FALSE)
@@ -294,20 +294,21 @@ class Index extends Controller_Module
 
 		if (!empty($messages))
 		{
-			$panels[] = $actions;
+			$panels->append($actions);
 
-			$panels[] = $this->panel()->body($this->view('messages', [
-				'category_id'       => $category_id,
-				'topic_id'          => $topic_id,
-				'title'             => $title,
-				'nb_users'          => $nb_users,
-				'nb_messages'       => $nb_messages,
-				'messages'          => $messages,
-				'last_message_read' => $last_message_read
-			]), FALSE);
+			$panels->append($this	->panel()
+									->body($this->view('messages', [
+										'category_id'       => $category_id,
+										'topic_id'          => $topic_id,
+										'title'             => $title,
+										'nb_users'          => $nb_users,
+										'nb_messages'       => $nb_messages,
+										'messages'          => $messages,
+										'last_message_read' => $last_message_read
+									]), FALSE));
 		}
 
-		$panels[] = $actions;
+		$panels->append($actions);
 
 		if ($is_last_page && $this->access('forum', 'category_write', $category_id) && !$is_locked)
 		{
@@ -342,18 +343,17 @@ class Index extends Controller_Module
 
 			if ($errors = $this->form()->get_errors())
 			{
-				$panels[] = $this->row($this->col(
-					$this	->panel()
-							->heading('<a name="reply"></a>'.$this->lang('Veuillez remplir un message'), 'fa-warning')
-							->color('danger')
-				));
+				$panels->append($this	->panel()
+										->heading('<a name="reply"></a>'.$this->lang('Veuillez remplir un message'), 'fa-warning')
+										->color('danger')
+				);
 			}
 
-			$panels[] = $this	->panel()
-								->heading('<a name="reply"></a>'.$this->lang('Répondre au sujet'), 'fa-file-text-o')
-								->body($this->view('new', [
-									'form_id'  => $this->form()->token()
-								]), FALSE);
+			$panels->append($this	->panel()
+									->heading('<a name="reply"></a>'.$this->lang('Répondre au sujet'), 'fa-file-text-o')
+									->body($this->view('new', [
+										'form_id'  => $this->form()->token()
+									]), FALSE));
 		}
 
 		return $panels;
@@ -489,28 +489,27 @@ class Index extends Controller_Module
 			redirect('forum/topic/'.$topic_id.'/'.url_title($is_topic ? $post['title'] : $title));
 		}
 
-		$panels = [];
+		$panels = $this->array;
 
 		if ($errors = $this->form()->get_errors())
 		{
-			$panels[] = $this->row($this->col(
-				$this	->panel()
-						->heading($this->lang($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
-						->color('danger')
-			));
+			$panels->append($this	->panel()
+									->heading($this->lang($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
+									->color('danger')
+			);
 		}
 
-		$panels[] = $this	->panel()
-							->heading($this->lang($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
-							->body($this->view('new', [
-								'form_id'  => $this->form()->token(),
-								'post'     => $post,
-								'topic_id' => $topic_id,
-								'is_topic' => $is_topic,
-								'title'    => $title,
-								'message'  => $message,
-								'user_id'  => $user_id
-							]), FALSE);
+		$panels->append($this	->panel()
+								->heading($this->lang($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
+								->body($this->view('new', [
+									'form_id'  => $this->form()->token(),
+									'post'     => $post,
+									'topic_id' => $topic_id,
+									'is_topic' => $is_topic,
+									'title'    => $title,
+									'message'  => $message,
+									'user_id'  => $user_id
+								]), FALSE));
 
 		return $panels;
 	}
@@ -582,7 +581,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function mark_all_as_read()

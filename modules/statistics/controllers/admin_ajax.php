@@ -59,6 +59,6 @@ class Admin_Ajax extends Controller_Module
 			];
 		}
 
-		return $series;
+		return $this->json($series);
 	}
 }

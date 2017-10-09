@@ -330,7 +330,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _categories_add()
@@ -400,7 +400,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _image_edit($image_id, $thumbnail_file_id, $title, $description, $gallery_id, $gallery_title)
@@ -464,6 +464,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

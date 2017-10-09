@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function _index($name)
 	{
-		if ($content = $this->db->select('pl.title', 'pl.subtitle', 'pl.content')->from('nf_pages p')->join('nf_pages_lang pl', 'p.page_id = pl.page_id')->where('name', $name)->where('published', TRUE)->row())
+		if ($this->url->segments[0] != 'pages' && ($content = $this->db->select('pl.title', 'pl.subtitle', 'pl.content')->from('nf_pages p')->join('nf_pages_lang pl', 'p.page_id = pl.page_id')->where('name', $name)->where('published', TRUE)->row()))
 		{
 			return $content;
 		}

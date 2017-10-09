@@ -59,15 +59,25 @@ class Admin extends Theme
 			}
 		}
 
-		$this	->css('font.open-sans.300.400.600.700.800')
+		$this	->css('bootstrap.min')
+				->css('font-awesome.min')
+				->css('font-awesome-override')
+				->css('notify')
+				->css('font.open-sans.300.400.600.700.800')
 				->css('font.roboto.100.300.400.500.700.900')
 				->css('font.signika-negative.400.600')
 				->css('sb-admin-2')
-				->css('font-awesome.min')
 				->css('style')
+				->js('jquery-1.11.2.min')
+				->js('jquery-ui.min')
 				->js('metisMenu.min')
 				->js('navigation')
 				->js('slideout.min')
+				->js('popper.min')
+				->js('bootstrap.min')
+				->js('bootstrap-notify.min')
+				->js('notify')
+				->js('user')
 				->add_data('menu', [
 					[
 						'title' => $this->lang('Tableau de bord'),

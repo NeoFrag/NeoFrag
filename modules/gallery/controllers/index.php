@@ -14,24 +14,24 @@ class Index extends Controller_Module
 	{
 		$this->css('gallery');
 
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = $this	->panel()
-								->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'])
-								->body($this->view('index', [
-									'category_image' => $category['image_id'],
-									'gallery'        => $this->model()->get_gallery($category['category_id'])
-								]), FALSE);
+			$panels->append($this	->panel()
+									->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'])
+									->body($this->view('index', [
+										'category_image' => $category['image_id'],
+										'gallery'        => $this->model()->get_gallery($category['category_id'])
+									]), FALSE));
 		}
 
-		if (empty($panels))
+		if ($panels->empty())
 		{
-			$panels[] = $this	->panel()
-								->heading($this->lang('Galerie'), 'fa-photo')
-								->body('<div class="text-center">'.$this->lang('Aucune catégorie n\'a été créée pour le moment').'</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading($this->lang('Galerie'), 'fa-photo')
+									->body('<div class="text-center">'.$this->lang('Aucune catégorie n\'a été créée pour le moment').'</div>')
+									->color('info'));
 		}
 
 		return $panels;
@@ -39,16 +39,13 @@ class Index extends Controller_Module
 
 	public function _category($category_id, $name, $title, $image_id, $icon_id)
 	{
-		$this->css('gallery');
-
-		return [
-			$this	->panel()
+		return $this->css('gallery')
+					->panel()
 					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name)
 					->body($this->view('index', [
 						'category_image' => $image_id,
 						'gallery'        => $this->model()->get_gallery($category_id)
-					]), FALSE)
-		];
+					]), FALSE);
 	}
 
 	public function _gallery($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $image, $category_icon, $images)
@@ -57,24 +54,26 @@ class Index extends Controller_Module
 				->js('gallery')
 				->js('modal-carousel');
 
-		$panels = [$this->panel()
-						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
-						->body($this->view('gallery', [
-							'title'           => $title,
-							'description'     => $description,
-							'image_id'        => $image_id,
-							'images'          => $images,
-							'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
-							'total_images'    => count($carousel_images),
-							'pagination'      => $this->module->pagination->get_pagination()
-						]), FALSE)];
+		$panels = $this->array;
+
+		$panels->append($this	->panel()
+								->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
+								->body($this->view('gallery', [
+									'title'           => $title,
+									'description'     => $description,
+									'image_id'        => $image_id,
+									'images'          => $images,
+									'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
+									'total_images'    => count($carousel_images),
+									'pagination'      => $this->module->pagination->get_pagination()
+								]), FALSE));
 
 		if (empty($images))
 		{
-			$panels[] = $this	->panel()
-								->heading($this->lang('Photos'), 'fa-photo')
-								->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this->lang('Aucune image dans cette galerie').'</h4></div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading($this->lang('Photos'), 'fa-photo')
+									->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this->lang('Aucune image dans cette galerie').'</h4></div>')
+									->color('info'));
 		}
 
 		return $panels;
@@ -121,10 +120,9 @@ class Index extends Controller_Module
 			$panel->footer($description, 'left');
 		}
 
-		return [
-			$this->row($this->col($panel)),
-			$this->comments->display('gallery', $image_id),
-			$this->panel_back()
-		];
+		return $this->array
+					->append($this->row($this->col($panel)))
+					->append($this->comments->display('gallery', $image_id))
+					->append($this->panel_back());
 	}
 }

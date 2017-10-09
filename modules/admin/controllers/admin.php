@@ -38,7 +38,7 @@ class Admin extends Controller_Module
 			->data($this->db->from('nf_users')->where('deleted', FALSE)->order_by('user_id DESC')->limit(5)->get())
 			->display();
 
-		return [
+		return $this->array(
 			$this->row(
 				$this->col(
 					$this	->panel_box()
@@ -91,7 +91,7 @@ class Admin extends Controller_Module
 			),
 			$this->row(
 				$this	->col(
-							$this	->panel_widget(1),
+							$this	->widget(1),
 							$this	->panel()
 									->heading('<a href="https://neofr.ag">'.$this->lang('Actualité NeoFrag CMS').'</a>', 'fa-newspaper-o')
 									->body($this->view('nf_news'))
@@ -112,7 +112,7 @@ class Admin extends Controller_Module
 						)
 						->size('col-4')
 			)
-		];
+		);
 	}
 
 	public function help($module_name, $method)
@@ -121,7 +121,7 @@ class Admin extends Controller_Module
 
 		if (($module = $this->module($module_name)) && ($help = $module->controller('admin_help')) && $help->has_method($method))
 		{
-			echo $help->method($method);
+			return call_user_func_array([$help, $method]);
 		}
 	}
 
@@ -129,33 +129,31 @@ class Admin extends Controller_Module
 	{
 		$this->title($this->lang('À propos'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
 
-		return [
-			$this->row(
-				$this->col(
-					$this	->panel()
-							->heading($this->lang('Licence LGPL v3'))
-							->body($this->view('license'))
-							->size('col-12 col-lg-8')
-				),
-				$this->col(
-					$this	->panel()
-							->heading($this->lang('L\'équipe'))
-							->body('	<div class="row">
-											<div class="col-6 text-center">
-												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
-												<div><b>Michaël BILCOT "FoxLey"</b></div>
-												<span class="text-muted">'.$this->lang('Développeur web').'</span>
-											</div>
-											<div class="col-6 text-center">
-												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
-												<div><b>Jérémy VALENTIN "eResnova"</b></div>
-												<span class="text-muted">'.$this->lang('Web designer').'</span>
-											</div>
-										</div>')
-							->size('col-12 col-lg-4')
-				)
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading($this->lang('Licence LGPL v3'))
+						->body($this->view('license'))
+						->size('col-12 col-lg-8')
+			),
+			$this->col(
+				$this	->panel()
+						->heading($this->lang('L\'équipe'))
+						->body('	<div class="row">
+										<div class="col-6 text-center">
+											<p><img src="https://neofr.ag/images/team/foxley.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
+											<div><b>Michaël BILCOT "FoxLey"</b></div>
+											<span class="text-muted">'.$this->lang('Développeur web').'</span>
+										</div>
+										<div class="col-6 text-center">
+											<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
+											<div><b>Jérémy VALENTIN "eResnova"</b></div>
+											<span class="text-muted">'.$this->lang('Web designer').'</span>
+										</div>
+									</div>')
+						->size('col-12 col-lg-4')
 			)
-		];
+		);
 	}
 
 	public function notifications()

@@ -19,13 +19,7 @@ abstract class Widget extends Controller
 
 	public function title($title)
 	{
-		$this->add_data('widget_title', $title);
-		return $this;
-	}
-
-	public function subtitle($subtitle)
-	{
-		$this->add_data('widget_subtitle', $subtitle);
+		$this->widget->data->append('title', $title);
 		return $this;
 	}
 }

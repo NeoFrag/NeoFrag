@@ -32,10 +32,10 @@ class Index extends Controller_Module
 			'index' => NeoFrag()->lang('Accueil')
 		], $modules);
 
-		echo $this->view('index', [
+		return $this->view('index', [
 			'modules'       => $modules,
-			'styles_row'    => NeoFrag()->theme->styles_row(),
-			'styles_widget' => NeoFrag()->theme->styles_widget()
+			'styles_row'    => '',//$this->output->theme()->styles_row(),//TODO 0.1.7
+			'styles_widget' => ''//$this->output->theme()->styles_widget()
 		]);
 	}
 }
