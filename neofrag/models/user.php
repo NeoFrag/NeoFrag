@@ -21,7 +21,7 @@ class User extends Model2
 			'registration_date'  => self::field()->datetime(),
 			'last_activity_date' => self::field()->datetime()->null(),
 			'admin'              => self::field()->bool(),
-			'language'           => self::field()->text(5),
+			'language'           => self::field()->depends('addon', '')->null(),
 			'data'               => self::field()->serialized(),
 			'deleted'            => self::field()->bool()
 		];

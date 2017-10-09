@@ -49,4 +49,43 @@ class Ajax extends Controller_Module
 			$this->session->set('debug', 'height', $height);
 		}
 	}
+
+	public function languages()
+	{
+		if (post())
+		{
+			foreach ($this->config->langs as $language)
+			{
+				if (($name = $language->info()->name) == post('language'))
+				{
+					$lang = \NeoFrag()->model2('addon')->get('language', $name, FALSE);
+
+					if ($this->user->id)
+					{
+						$this->user->set('language', $lang->id)->update();
+					}
+					else
+					{
+						$this->session('language', $lang->id);
+					}
+
+					if ($name != $this->config->lang)
+					{
+						return $this->json([
+							'redirect' => $this->url->base.$name.substr(post('url'), strlen($this->url->base.$this->config->lang))
+						]);
+					}
+
+					break;
+				}
+			}
+		}
+		else
+		{
+			return $this->js('languages')
+						->modal('Choisir ma langue', 'fa-globe')
+						->body($this->view('languages'))
+						->cancel();
+		}
+	}
 }
