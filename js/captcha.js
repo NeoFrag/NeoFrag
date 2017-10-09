@@ -17,7 +17,7 @@ var onloadCallback = function(){
 };
 
 $(function() {
-	$.getScript('https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $this->config->lang ?>&_=');
+	$.getScript('https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $this->config->lang->info()->name ?>&_=');
 	$('body').on('nf.load', function(){
 		onloadCallback();
 	});

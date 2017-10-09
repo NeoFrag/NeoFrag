@@ -200,7 +200,7 @@ class Admin extends Controller_Module
 										$post['introduction'],
 										$post['content'],
 										$post['tags'],
-										$this->config->lang);
+										$this->config->lang->info()->name);
 
 			notify($this->lang('Actualité éditée avec succès'));
 

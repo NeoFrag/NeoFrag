@@ -19,8 +19,8 @@ class Teams extends Model
 						->join('nf_users u',        'tu.user_id = u.user_id AND u.deleted = "0"')
 						->join('nf_games g',        'g.game_id  = t.game_id')
 						->join('nf_games_lang gl',  'g.game_id  = gl.game_id')
-						->where('tl.lang', $this->config->lang)
-						->where('gl.lang', $this->config->lang)
+						->where('tl.lang', $this->config->lang->info()->name)
+						->where('gl.lang', $this->config->lang->info()->name)
 						->group_by('t.team_id')
 						->order_by('t.order', 't.team_id')
 						->get();
@@ -47,7 +47,7 @@ class Teams extends Model
 	{
 		$list = [];
 
-		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang)->get() as $game)
+		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang->info()->name)->get() as $game)
 		{
 			$list[$game['game_id']] = $game['title'];
 		}
@@ -78,7 +78,7 @@ class Teams extends Model
 							->join('nf_games_lang gl', 'g.game_id = gl.game_id')
 							->where('t.team_id', $team_id)
 							->where('t.name', $name)
-							->where('tl.lang', $this->config->lang)
+							->where('tl.lang', $this->config->lang->info()->name)
 							->row();
 	}
 
@@ -93,7 +93,7 @@ class Teams extends Model
 
 		$this->db	->insert('nf_teams_lang', [
 						'team_id'     => $team_id,
-						'lang'        => $this->config->lang,
+						'lang'        => $this->config->lang->info()->name,
 						'title'       => $title,
 						'description' => $description
 					]);
@@ -112,7 +112,7 @@ class Teams extends Model
 					]);
 
 		$this->db	->where('team_id', $team_id)
-					->where('lang', $this->config->lang)
+					->where('lang', $this->config->lang->info()->name)
 					->update('nf_teams_lang', [
 						'title'       => $title,
 						'description' => $description

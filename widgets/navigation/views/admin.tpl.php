@@ -92,7 +92,7 @@
 									->from('nf_pages p')
 									->join('nf_pages_lang pl', 'p.page_id = pl.page_id')
 									->where('p.published', TRUE)
-									->where('pl.lang', $this->config->lang)
+									->where('pl.lang', $this->config->lang->info()->name)
 									->order_by('pl.title ASC')
 									->get();
 

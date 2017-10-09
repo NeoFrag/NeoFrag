@@ -492,7 +492,7 @@ class Form extends Library
 
 		if ($this->_display_captcha)
 		{
-			NeoFrag()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang.'&_=');
+			NeoFrag()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang->info()->name.'&_=');
 			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-offset-3 col-9').'">'.$this->captcha->display().'</div></div>';
 		}
 
@@ -622,8 +622,8 @@ class Form extends Library
 			NeoFrag()	->css('bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/moment.min')
 								->js('bootstrap-datetimepicker/bootstrap-datetimepicker.min')
-								->js('bootstrap-datetimepicker/locales/'.$this->config->lang)
-								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang.'", format: "'.$types[$type].'"});');
+								->js('bootstrap-datetimepicker/locales/'.$this->config->lang->info()->name)
+								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang->info()->name.'", format: "'.$types[$type].'"});');
 
 			$classes[] = $type;
 

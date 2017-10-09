@@ -180,7 +180,7 @@ class Url extends Core
 
 		if ($this->config->langs)
 		{
-			$url = rtrim($this->config->lang.'/'.$url, '/');
+			$url = rtrim($this->config->lang->info()->name.'/'.$url, '/');
 		}
 
 		return str_replace('/#', '#', $domain.$this->base.$url);

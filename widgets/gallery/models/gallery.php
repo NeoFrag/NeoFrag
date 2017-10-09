@@ -16,7 +16,7 @@ class Gallery extends Model
 					->from('nf_gallery g')
 					->join('nf_gallery_lang gl',            'g.gallery_id  = gl.gallery_id')
 					->join('nf_gallery_images gi',          'g.gallery_id  = gi.gallery_id')
-					->where('gl.lang', $this->config->lang)
+					->where('gl.lang', $this->config->lang->info()->name)
 					->where('g.published', TRUE)
 					->group_by('g.gallery_id')
 					->order_by('g.gallery_id DESC');
@@ -57,7 +57,7 @@ class Gallery extends Model
 						->from('nf_gallery_categories c')
 						->join('nf_gallery_categories_lang cl', 'c.category_id = cl.category_id')
 						->join('nf_gallery g', 'c.category_id = g.category_id')
-						->where('cl.lang', $this->config->lang)
+						->where('cl.lang', $this->config->lang->info()->name)
 						->group_by('c.category_id')
 						->order_by('cl.title')
 						->get();

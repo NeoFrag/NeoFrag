@@ -30,8 +30,8 @@ class Search extends Controller_Module
 					->join('nf_news_categories c',       'n.category_id = c.category_id')
 					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
 					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
-					->where('nl.lang', $this->config->lang)
-					->where('cl.lang', $this->config->lang)
+					->where('nl.lang', $this->config->lang->info()->name)
+					->where('cl.lang', $this->config->lang->info()->name)
 					->where('n.published', TRUE)
 					->order_by('n.date DESC');
 

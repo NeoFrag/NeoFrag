@@ -84,7 +84,7 @@ class Recruits extends Model
 		foreach ($this->db	->select('t.team_id', 't.name', 'tl.title')
 							->from('nf_teams t')
 							->join('nf_teams_lang tl', 't.team_id = tl.team_id')
-							->where('tl.lang', $this->config->lang)
+							->where('tl.lang', $this->config->lang->info()->name)
 							->order_by('tl.title')
 							->get() as $team)
 		{
@@ -252,7 +252,7 @@ class Recruits extends Model
 						->join('nf_games_lang gl', 'g.game_id = gl.game_id')
 						->where('t.team_id', $team_id)
 						->where('t.name', $name)
-						->where('tl.lang', $this->config->lang)
+						->where('tl.lang', $this->config->lang->info()->name)
 						->row();
 	}
 

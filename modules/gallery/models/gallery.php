@@ -18,8 +18,8 @@ class Gallery extends Model
 					->join('nf_gallery_categories c',       'g.category_id = c.category_id')
 					->join('nf_gallery_categories_lang cl', 'c.category_id = cl.category_id')
 					->join('nf_gallery_images gi',          'g.gallery_id  = gi.gallery_id')
-					->where('gl.lang', $this->config->lang)
-					->where('cl.lang', $this->config->lang)
+					->where('gl.lang', $this->config->lang->info()->name)
+					->where('cl.lang', $this->config->lang->info()->name)
 					->group_by('g.gallery_id')
 					->order_by('g.gallery_id DESC');
 
@@ -40,7 +40,7 @@ class Gallery extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		$this->db	->select('g.*', 'gl.title', 'gl.description', 'c.name as category_name', 'cl.title as category_title', 'g.image_id as image', 'c.icon_id as category_icon')
@@ -79,7 +79,7 @@ class Gallery extends Model
 
 		$this->db	->insert('nf_gallery_lang', [
 						'gallery_id'  => $gallery_id,
-						'lang'        => $this->config->lang,
+						'lang'        => $this->config->lang->info()->name,
 						'title'       => $title,
 						'description' => $description
 					]);
@@ -193,7 +193,7 @@ class Gallery extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		return $this->db->select('c.category_id', 'c.name', 'cl.title', 'c.image_id', 'c.icon_id')
@@ -211,7 +211,7 @@ class Gallery extends Model
 						->from('nf_gallery_categories c')
 						->join('nf_gallery_categories_lang cl', 'c.category_id = cl.category_id')
 						->join('nf_gallery g', 'c.category_id = g.category_id')
-						->where('cl.lang', $this->config->lang)
+						->where('cl.lang', $this->config->lang->info()->name)
 						->group_by('c.category_id')
 						->order_by('cl.title')
 						->get();
@@ -241,7 +241,7 @@ class Gallery extends Model
 
 		$this->db->insert('nf_gallery_categories_lang', [
 			'category_id' => $category_id,
-			'lang'        => $this->config->lang,
+			'lang'        => $this->config->lang->info()->name,
 			'title'       => $title
 		]);
 	}
@@ -256,7 +256,7 @@ class Gallery extends Model
 					]);
 
 		$this->db	->where('category_id', $category_id)
-					->where('lang', $this->config->lang)
+					->where('lang', $this->config->lang->info()->name)
 					->update('nf_gallery_categories_lang', [
 						'title' => $title
 					]);

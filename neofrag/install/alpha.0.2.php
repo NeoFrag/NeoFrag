@@ -259,5 +259,11 @@ class i_0_2 extends NeoFrag
 							'disposition' => $update_disposition($disposition['disposition'])
 						]);
 		}
+
+		//Config
+		$this->db	->where('site', 'default')
+					->update('nf_settings', [
+						'site' => ''
+					]);
 	}
 }

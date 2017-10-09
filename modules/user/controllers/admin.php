@@ -341,7 +341,7 @@ class Admin extends Controller_Module
 				$post['color'],
 				$post['icon'],
 				in_array('on', $post['hidden']),
-				$this->config->lang
+				$this->config->lang->info()->name
 			);
 
 			notify($this->lang('Groupe ajouté'));
@@ -380,7 +380,7 @@ class Admin extends Controller_Module
 					$post['color'],
 					$post['icon'],
 					in_array('on', $post['hidden']),
-					$this->config->lang,
+					$this->config->lang->info()->name,
 					$auto
 				);
 			}

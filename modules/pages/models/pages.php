@@ -15,7 +15,7 @@ class Pages extends Model
 		return $this->db->select('p.page_id', 'p.name', 'p.published', 'pl.title', 'pl.subtitle')
 						->from('nf_pages p')
 						->join('nf_pages_lang pl', 'p.page_id = pl.page_id')
-						->where('pl.lang', $this->config->lang)
+						->where('pl.lang', $this->config->lang->info()->name)
 						->order_by('pl.title ASC')
 						->get();
 	}
@@ -24,7 +24,7 @@ class Pages extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		$this->db	->select('p.*', 'pl.title', 'pl.subtitle', 'pl.content')
@@ -59,7 +59,7 @@ class Pages extends Model
 
 		$this->db->insert('nf_pages_lang', [
 			'page_id'        => $page_id,
-			'lang'           => $this->config->lang,
+			'lang'           => $this->config->lang->info()->name,
 			'title'          => $title,
 			'subtitle'       => $subtitle,
 			'content'        => $content

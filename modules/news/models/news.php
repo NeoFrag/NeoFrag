@@ -19,8 +19,8 @@ class News extends Model
 					->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
 					->join('nf_users u',                 'n.user_id     = u.user_id AND u.deleted = "0"')
 					->join('nf_users_profiles up',       'up.user_id    = u.user_id')
-					->where('nl.lang', $this->config->lang)
-					->where('cl.lang', $this->config->lang)
+					->where('nl.lang', $this->config->lang->info()->name)
+					->where('cl.lang', $this->config->lang->info()->name)
 					->order_by('n.date DESC');
 
 		if (!empty($filter) && !empty($filter_data))
@@ -51,8 +51,8 @@ class News extends Model
 						->join('nf_news_categories c',       'n.category_id = c.category_id')
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
 						->where('n.published', TRUE)
-						->where('nl.lang', $this->config->lang)
-						->where('cl.lang', $this->config->lang)
+						->where('nl.lang', $this->config->lang->info()->name)
+						->where('cl.lang', $this->config->lang->info()->name)
 						->where('n.user_id', $user_id)
 						->where('n.news_id <>', $news_id)
 						->order_by('n.date DESC')
@@ -64,7 +64,7 @@ class News extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		$this->db	->select('n.news_id', 'n.category_id', 'u.user_id', 'n.image_id', 'n.date', 'n.published', 'n.views', 'n.vote', 'nl.title', 'nl.introduction', 'nl.content', 'nl.tags', 'c.name as category_name', 'cl.title as category_title', 'IFNULL(n.image_id, c.image_id) as image', 'c.icon_id as category_icon', 'u.username', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'up.quote', 'up.avatar', 'up.sex')
@@ -107,7 +107,7 @@ class News extends Model
 
 		$this->db	->insert('nf_news_lang', [
 						'news_id'      => $news_id,
-						'lang'         => $this->config->lang,
+						'lang'         => $this->config->lang->info()->name,
 						'title'        => $title,
 						'introduction' => $introduction,
 						'content'      => $content,

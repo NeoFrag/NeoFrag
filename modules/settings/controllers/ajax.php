@@ -35,4 +35,39 @@ class Ajax extends Controller_Module
 			$this->session->set('debug', 'height', $height);
 		}
 	}
+
+	public function languages()
+	{
+		if (post())
+		{
+			foreach ($this->config->langs as $language)
+			{
+				if (($name = $language->info()->name) == post('language'))
+				{
+					if ($this->user->id)
+					{
+						$this->user->set('language', $language->__addon)->update();
+					}
+					else
+					{
+						$this->session->set('language', $language->info()->name);
+					}
+
+					if ($name != $this->config->lang->info()->name)
+					{
+						$this->url->redirect($this->url->base.$name.substr(post('url'), strlen($this->url->base.$this->config->lang->info()->name)));
+					}
+
+					break;
+				}
+			}
+		}
+		else
+		{
+			return $this->js('languages')
+						->modal('Choisir ma langue', 'fa-globe')
+						->body($this->view('languages'))
+						->cancel();
+		}
+	}
 }

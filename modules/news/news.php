@@ -110,7 +110,7 @@ class News extends Module
 		$news = $this->db	->select('title')
 							->from('nf_news_lang')
 							->where('news_id', $news_id)
-							->where('lang', $this->config->lang)
+							->where('lang', $this->config->lang->info()->name)
 							->row();
 
 		if ($news)

@@ -1,7 +1,7 @@
 $(function(){
 	$('#calendar').fullCalendar({
 		height: 350,
-		lang: '<?php echo NeoFrag()->config->lang ?>',
+		lang: '<?php echo NeoFrag()->config->lang->info()->name ?>',
 		eventSources: '<?php echo url('ajax/events.json') ?>',
 		eventRender: function(event, element){
 			element.find('.fc-content').prepend('<i class="fa fa-fw '+event.icon+'"></i>');
