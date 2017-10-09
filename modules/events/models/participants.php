@@ -28,7 +28,7 @@ class Participants extends Model
 						->from('nf_events_participants ep')
 						->join('nf_user                u',  'ep.user_id = u.id AND u.deleted = "0"', 'INNER')
 						->join('nf_user_profile      up', 'u.id       = up.user_id')
-						->join('nf_sessions            s',  'u.id       = s.user_id')
+						->join('nf_session            s',  'u.id       = s.user_id')
 						->where('ep.event_id', $event_id)
 						->group_by('u.username')
 						->order_by('ep.status', 'u.username')

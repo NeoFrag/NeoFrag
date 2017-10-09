@@ -77,8 +77,8 @@ class Index extends Controller_Module
 				$this->model()->update_password($post['password_new']);
 
 				$this->db	->where('user_id', $this->user->id)
-							->where('session_id <>', $this->session->get_session_id())
-							->delete('nf_sessions');
+							->where('id <>', $this->session->id)
+							->delete('nf_session');
 			}
 
 			redirect_back('user/'.$this->user->id.'/'.url_title($this->user->username));
@@ -148,7 +148,7 @@ class Index extends Controller_Module
 				],
 				[
 					'content' => [function($data){
-						if ($data['session_id'] != NeoFrag()->session('session_id'))
+						if ($data['session_id'] != NeoFrag()->session->id)
 						{
 							return $this->button_delete('user/sessions/delete/'.$data['session_id']);
 						}
@@ -217,8 +217,8 @@ class Index extends Controller_Module
 
 		if ($this->form->is_valid())
 		{
-			$this->db	->where('session_id', $session_id)
-						->delete('nf_sessions');
+			$this->db	->where('id', $session_id)
+						->delete('nf_session');
 
 			return 'OK';
 		}
@@ -646,7 +646,7 @@ class Index extends Controller_Module
 
 			foreach ($this->user->get_sessions() as $session)
 			{
-				if ($session['session_id'] != $this->session('session_id'))
+				if ($session['session_id'] != $this->session->id)
 				{
 					//TODO ajouter une alerte pour ces sessions pour expliquer pk ils sont déco
 					$this->session->disconnect($session['session_id']);
