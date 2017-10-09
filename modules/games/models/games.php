@@ -14,7 +14,7 @@ class Games extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		return $this->db->select('g.game_id', 'g.parent_id', 'g.image_id', 'g.icon_id', 'gl.title', 'g.name')
@@ -33,7 +33,7 @@ class Games extends Model
 						->join('nf_games_lang gl',  'g.game_id = gl.game_id')
 						->join('nf_games g2',       'g2.game_id = g.parent_id')
 						->join('nf_games_lang gl2', 'g2.game_id = gl2.game_id')
-						->where('gl.lang', $this->config->lang)
+						->where('gl.lang', $this->config->lang->info()->name)
 						->order_by('If(g.parent_id IS NULL, gl.title, CONCAT(gl2.title, gl.title))')
 						->get();
 	}
@@ -73,7 +73,7 @@ class Games extends Model
 
 		$this->db->insert('nf_games_lang', [
 			'game_id'   => $game_id,
-			'lang'      => $this->config->lang,
+			'lang'      => $this->config->lang->info()->name,
 			'title'     => $title
 		]);
 
@@ -91,7 +91,7 @@ class Games extends Model
 					]);
 
 		$this->db	->where('game_id', $game_id)
-					->where('lang', $this->config->lang)
+					->where('lang', $this->config->lang->info()->name)
 					->update('nf_games_lang', [
 						'title'     => $title
 					]);

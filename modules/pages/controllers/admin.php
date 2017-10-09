@@ -107,7 +107,7 @@ class Admin extends Controller_Module
 										in_array('on', $post['published']),
 										$post['subtitle'],
 										$post['content'],
-										$this->config->lang);
+										$this->config->lang->info()->name);
 
 			notify($this->lang('Page éditée avec succès'));
 

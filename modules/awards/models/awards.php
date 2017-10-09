@@ -26,8 +26,8 @@ class Awards extends Model
 					->join('nf_teams_lang tl', 't.team_id = tl.team_id')
 					->join('nf_games g', 'a.game_id = g.game_id')
 					->join('nf_games_lang gl', 'a.game_id = gl.game_id')
-					->where('tl.lang', $this->config->lang)
-					->where('gl.lang', $this->config->lang)
+					->where('tl.lang', $this->config->lang->info()->name)
+					->where('gl.lang', $this->config->lang->info()->name)
 					->order_by('a.date DESC');
 
 		if (!empty($filter) && !empty($filter_data))
@@ -83,8 +83,8 @@ class Awards extends Model
 						->join('nf_games g', 'a.game_id = g.game_id')
 						->join('nf_games_lang gl', 'a.game_id = gl.game_id')
 						->where('a.award_id', $award_id)
-						->where('tl.lang', $this->config->lang)
-						->where('gl.lang', $this->config->lang)
+						->where('tl.lang', $this->config->lang->info()->name)
+						->where('gl.lang', $this->config->lang->info()->name)
 						->row();
 	}
 
@@ -95,7 +95,7 @@ class Awards extends Model
 						->join('nf_teams_lang tl', 't.team_id = tl.team_id')
 						->where('t.team_id', $team_id)
 						->where('t.name', $name)
-						->where('tl.lang', $this->config->lang)
+						->where('tl.lang', $this->config->lang->info()->name)
 						->row();
 	}
 
@@ -106,7 +106,7 @@ class Awards extends Model
 						->join('nf_games_lang gl', 'g.game_id = gl.game_id')
 						->where('g.game_id', $game_id)
 						->where('g.name', $name)
-						->where('gl.lang', $this->config->lang)
+						->where('gl.lang', $this->config->lang->info()->name)
 						->row();
 	}
 
@@ -115,7 +115,7 @@ class Awards extends Model
 		return $this->db->select('t.team_id', 't.name', 'tl.title')
 						->from('nf_teams t')
 						->join('nf_teams_lang tl', 't.team_id = tl.team_id')
-						->where('tl.lang', $this->config->lang)
+						->where('tl.lang', $this->config->lang->info()->name)
 						->order_by('tl.title')
 						->get();
 	}
@@ -140,7 +140,7 @@ class Awards extends Model
 					->from('nf_teams t')
 					->join('nf_teams_lang tl', 't.team_id = tl.team_id')
 					->join('nf_awards a', 't.team_id = a.team_id')
-					->where('tl.lang', $this->config->lang)
+					->where('tl.lang', $this->config->lang->info()->name)
 					->group_by('t.team_id')
 					->order_by('total_gold DESC', 'total_silver DESC', 'total_bronze DESC', 'total_other DESC');
 
@@ -180,7 +180,7 @@ class Awards extends Model
 	{
 		$list = [];
 
-		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang)->get() as $game)
+		foreach ($this->db->select('g.game_id', 'gl.title')->from('nf_games g')->join('nf_games_lang gl', 'gl.game_id = g.game_id')->where('g.parent_id', NULL)->where('gl.lang', $this->config->lang->info()->name)->get() as $game)
 		{
 			$list[$game['game_id']] = $game['title'];
 		}

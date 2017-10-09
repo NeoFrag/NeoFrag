@@ -14,7 +14,7 @@ class Categories extends Model
 	{
 		if ($lang == 'default')
 		{
-			$lang = $this->config->lang;
+			$lang = $this->config->lang->info()->name;
 		}
 
 		return $this->db->select('c.category_id', 'cl.title', 'c.image_id', 'c.icon_id')
@@ -32,7 +32,7 @@ class Categories extends Model
 						->from('nf_news_categories c')
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
 						->join('nf_news n', 'c.category_id = n.category_id')
-						->where('cl.lang', $this->config->lang)
+						->where('cl.lang', $this->config->lang->info()->name)
 						->group_by('c.category_id')
 						->order_by('cl.title')
 						->get();
@@ -62,7 +62,7 @@ class Categories extends Model
 
 		$this->db->insert('nf_news_categories_lang', [
 			'category_id' => $category_id,
-			'lang'        => $this->config->lang,
+			'lang'        => $this->config->lang->info()->name,
 			'title'       => $title
 		]);
 	}
@@ -77,7 +77,7 @@ class Categories extends Model
 					]);
 
 		$this->db	->where('category_id', $category_id)
-					->where('lang', $this->config->lang)
+					->where('lang', $this->config->lang->info()->name)
 					->update('nf_news_categories_lang', [
 						'title'        => $title
 					]);

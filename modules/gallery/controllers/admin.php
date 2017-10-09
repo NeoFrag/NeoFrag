@@ -274,7 +274,7 @@ class Admin extends Controller_Module
 											in_array('on', $post['published']),
 											$post['title'],
 											$post['description'],
-											$this->config->lang);
+											$this->config->lang->info()->name);
 
 			notify($this->lang('Album édité'));
 
