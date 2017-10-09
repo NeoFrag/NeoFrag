@@ -14,7 +14,7 @@ class Back extends Library
 	{
 		return $this->button()
 					->title($title ?: $this->lang('back'))
-					->url($this->session->get_back() ?: $url)
+					->url($this->url->back() ?: $url)
 					->color('default');
 	}
 }

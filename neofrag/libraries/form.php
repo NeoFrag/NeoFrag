@@ -100,7 +100,7 @@ class Form extends Library
 	{
 		array_unshift($this->_buttons, [
 			'label'  => NeoFrag()->lang('back'),
-			'action' => $this->session->get_back() ?: $url
+			'action' => $this->url->back() ?: $url
 		]);
 
 		return $this;

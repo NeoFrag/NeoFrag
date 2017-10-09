@@ -153,10 +153,7 @@ class Network extends Library
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		}
 
-		if (isset($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']))
-		{
-			curl_setopt($ch, CURLOPT_REFERER, (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-		}
+		curl_setopt($ch, CURLOPT_REFERER, $this->url->location);
 
 		$result = NULL;
 

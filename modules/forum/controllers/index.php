@@ -72,7 +72,7 @@ class Index extends Controller_Module
 								'topics' => $topics
 							]), FALSE);
 
-		$content = '<a class="btn btn-default pull-left" href="'.url(($this->session->get_back() ?: 'forum')).'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default pull-left" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('back').'</a>';
 
 		if ($pagination = $this->pagination->get_pagination())
 		{
@@ -214,7 +214,7 @@ class Index extends Controller_Module
 			}
 		}
 
-		$content = '<a class="btn btn-default pull-left" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('back').'</a>';
+		$content = '<a class="btn btn-default pull-left" href="'.url($this->url->back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('back').'</a>';
 
 		if ($pagination = $this->pagination->get_pagination())
 		{

@@ -837,10 +837,8 @@ function is_crawler()
 		}
 	}
 
-	if (($agent = trim(preg_replace('/'.$compiled['exclusions'].'/i', '', implode(' ', $agent)))) && preg_match('/'.$compiled['crawlers'].'/i', $agent, $match))
+	if (($agent = trim(preg_replace('/'.$compiled['exclusions'].'/i', '', implode(' ', $agent)))) && preg_match('/'.$compiled['crawlers'].'/i', $agent))
 	{
-		return $match[0];
+		return TRUE;
 	}
-
-	return FALSE;
 }
