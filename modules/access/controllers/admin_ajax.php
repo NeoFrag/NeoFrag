@@ -57,7 +57,7 @@ class Admin_Ajax extends Controller_Module
 
 		if ($groups)
 		{
-			$output['details'] = display($this->index($action, $title, $icon, $module_name, $id));
+			$output['details'] = $this->index($action, $title, $icon, $module_name, $id);
 		}
 		else if ($user)
 		{
@@ -67,7 +67,7 @@ class Admin_Ajax extends Controller_Module
 
 		$output['count'] = $this->access->count($module_name, $action, $id);
 
-		return $output;
+		return $this->json($output);
 	}
 
 	public function users($action, $title, $icon, $module_name, $id)

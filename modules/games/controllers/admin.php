@@ -165,7 +165,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _maps_add($game_id = NULL, $game = NULL)
@@ -236,7 +236,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _modes_add($game_id, $game)
@@ -296,7 +296,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	private function _panel_maps($maps, $game_id = NULL, $title = NULL)

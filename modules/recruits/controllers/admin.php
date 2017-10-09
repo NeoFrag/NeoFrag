@@ -232,7 +232,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function pending()
@@ -314,13 +314,13 @@ class Admin extends Controller_Module
 									->no_data('Aucune candidature en attente')
 									->display();
 
-		return [
-			$this	->panel()
-					->heading('Liste des candidatures en attentes', 'fa-black-tie')
-					->body($candidacies_pending)
-					->size('col-8'),
-			$this->panel_back()
-		];
+		return $this->array
+					->append($this	->panel()
+									->heading('Liste des candidatures en attentes', 'fa-black-tie')
+									->body($candidacies_pending)
+									->size('col-8')
+					)
+					->append($this->panel_back());
 	}
 
 	public function _candidacies($recruit_id, $recruit_title)
@@ -501,17 +501,17 @@ class Admin extends Controller_Module
 									->no_data('Aucune candidature refusée')
 									->display();
 
-		return [
-			$this	->panel()
-					->heading('Liste des candidatures', 'fa-briefcase')
-					->body($this->view('admin-recruit-candidacies', [
-										'table_pending'  => $candidacies_pending,
-										'table_accepted' => $candidacies_accepted,
-										'table_declined' => $candidacies_declined
-									]))
-					->size('col-12'),
-			$this->panel_back()
-		];
+		return $this->array
+					->append($this	->panel()
+									->heading('Liste des candidatures', 'fa-briefcase')
+									->body($this->view('admin-recruit-candidacies', [
+														'table_pending'  => $candidacies_pending,
+														'table_accepted' => $candidacies_accepted,
+														'table_declined' => $candidacies_declined
+													]))
+									->size('col-12')
+					)
+					->append($this->panel_back());
 	}
 
 	public function _candidacies_edit($candidacy_id, $date, $user_id, $pseudo, $email, $date_of_birth, $presentation, $motivations, $experiences, $status, $reply, $recruit_id, $title, $icon, $role, $team_id, $team_name, $username, $avatar, $sex)
@@ -729,7 +729,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function contact_applicant($candidacy_id, $title, $reply, $status)

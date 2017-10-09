@@ -89,7 +89,7 @@ class i_0_2 extends NeoFrag
 		foreach ($this->db->from('nf_settings_authenticators')->get() as $auth)
 		{
 			$settings = unserialize($auth['settings']);
-			
+
 			if (!$settings)
 			{
 				$settings = $auth['name'] == 'steam' ? ['key' => ''] : ['id' => '', 'secret' => ''];
@@ -170,5 +170,35 @@ class i_0_2 extends NeoFrag
 
 		//Debug
 		$this->db->where('name', 'nf_debug')->delete('nf_settings');
+
+		//Dispositions
+		$replacement = [
+			'O:3:"Row"'                                => 'O:27:"NF\\NeoFrag\\Displayables\\Row"',
+			'O:3:"Col"'                                => 'O:27:"NF\\NeoFrag\\Displayables\\Col"',
+			'O:12:"Panel_widget"'                      => 'O:30:"NF\\NeoFrag\\Displayables\\Widget"',
+			"s:12:\"\0*\0_children\""                  => "s:9:\"\0*\0_array\"",
+			'#s:8:"\0\*\0_size";s:(\d):"col-md-(\d{1,2})"#' => function($matches){
+				return "s:8:\"\0*\0_size\";s:".($matches[1] - 3).":\"col-".$matches[2]."\"";
+			}
+		];
+
+		$update_disposition = function($serialized) use (&$replacement){
+			$result = $serialized;
+
+			foreach ($replacement as $pattern => $callback)
+			{
+				$result = call_user_func_array(is_a($callback, 'closure') ? 'preg_replace_callback' : 'str_replace', [$pattern, $callback, $result]);
+			}
+
+			return unserialize($result = "O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";".$result."}") !== FALSE ? $result : $serialized;
+		};
+
+		foreach ($this->db->from('nf_dispositions')->get() as $disposition)
+		{
+			$this->db	->where('disposition_id', $disposition['disposition_id'])
+						->update('nf_dispositions', [
+							'disposition' => $update_disposition($disposition['disposition'])
+						]);
+		}
 	}
 }

@@ -12,7 +12,7 @@ class Index extends Controller_Widget
 {
 	public function index($config = [])
 	{
-		$this->title($this->output->data['module_title']);
-		echo NeoFrag()->module;
+		$this->title($this->output->data->get('module', 'title'));
+		return $this->output->module();
 	}
 }

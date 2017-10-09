@@ -260,7 +260,7 @@ class Admin_Ajax extends Controller_Module
 			$result = json_decode(file_get_contents('cache/monitoring/monitoring.json'));
 		}
 
-		return $result;
+		return $this->json($result);
 	}
 
 	public function backup()

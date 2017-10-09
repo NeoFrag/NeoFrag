@@ -84,20 +84,18 @@ class Index extends Controller_Module
 			redirect_back('user/'.$this->user('user_id').'/'.url_title($this->user('username')));
 		}
 
-		return [
-			$this->row(
-				$this->col(
-					$this->_panel_profile(),
-					$this->panel()->body($this->view('menu'), FALSE)
-				),
-				$this->col(
-					$this	->panel()
-							->heading()
-							->body($this->form()->display())
-							->size('col-md-8 col-lg-9')
-						)
-			)
-		];
+		return $this->row(
+			$this->col(
+				$this->_panel_profile(),
+				$this->panel()->body($this->view('menu'), FALSE)
+			),
+			$this->col(
+				$this	->panel()
+						->heading()
+						->body($this->form()->display())
+						->size('col-md-8 col-lg-9')
+					)
+		);
 	}
 
 	public function sessions($sessions)
@@ -190,23 +188,21 @@ class Index extends Controller_Module
 			->data($sessions)
 			->no_data($this->lang('Aucun historique disponible'));
 
-		return [
-			$this->row(
-				$this->col(
-					$this->_panel_profile(),
-					$this->panel()->body($this->view('menu'), FALSE)
-				),
-				$this->col(
-					$this	->panel()
-							->heading($this->lang('Mes sessions actives'), 'fa-shield')
-							->body($active_sessions->display())
-							->size('col-md-8 col-lg-9'),
-					$this	->panel()
-							->heading($this->lang('Historique de mes sessions'), 'fa-power-off')
-							->body($sessions_history->display())
-				)
+		return $this->row(
+			$this->col(
+				$this->_panel_profile(),
+				$this->panel()->body($this->view('menu'), FALSE)
+			),
+			$this->col(
+				$this	->panel()
+						->heading($this->lang('Mes sessions actives'), 'fa-shield')
+						->body($active_sessions->display())
+						->size('col-md-8 col-lg-9'),
+				$this	->panel()
+						->heading($this->lang('Historique de mes sessions'), 'fa-power-off')
+						->body($sessions_history->display())
 			)
-		];
+		);
 	}
 
 	public function _session_delete($session_id)
@@ -223,7 +219,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _auth($authenticator)
@@ -668,7 +664,7 @@ class Index extends Controller_Module
 		if ($this->config->nf_http_authentication)
 		{
 			$this->ajax();
-			echo $this->lang('Vous n\'êtes plus authentifié');
+			return $this->lang('Vous n\'êtes plus authentifié');
 		}
 		else
 		{
@@ -737,24 +733,22 @@ class Index extends Controller_Module
 			redirect('user/messages/'.$message_id.'/'.url_title($title));
 		}
 
-		return [
-			$this->row(
-				$this->col(
-					$this->_panel_messages()
-				),
-				$this->col(
-					$this	->panel()
-							->heading($title, 'fa-envelope-o')
-							->body($this->view('messages/replies', [
-								'replies' => $replies
-							]))
-							->size('col-md-8 col-lg-9'),
-					$this	->panel()
-							->heading('Répondre', 'fa-reply')
-							->body($this->form()->display())
-				)
+		return $this->row(
+			$this->col(
+				$this->_panel_messages()
+			),
+			$this->col(
+				$this	->panel()
+						->heading($title, 'fa-envelope-o')
+						->body($this->view('messages/replies', [
+							'replies' => $replies
+						]))
+						->size('col-md-8 col-lg-9'),
+				$this	->panel()
+						->heading('Répondre', 'fa-reply')
+						->body($this->form()->display())
 			)
-		];
+		);
 	}
 
 	public function _messages_compose($username)
@@ -792,19 +786,17 @@ class Index extends Controller_Module
 			}
 		}
 
-		return [
-			$this->row(
-				$this->col(
-					$this->_panel_messages()
-				),
-				$this->col(
-					$this	->panel()
-							->heading()
-							->body($this->form()->display())
-							->size('col-md-8 col-lg-9')
-				)
+		return $this->row(
+			$this->col(
+				$this->_panel_messages()
+			),
+			$this->col(
+				$this	->panel()
+						->heading()
+						->body($this->form()->display())
+						->size('col-md-8 col-lg-9')
 			)
-		];
+		);
 	}
 
 	public function _messages_delete($message_id, $title)
@@ -826,19 +818,19 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _member($user_id, $username)
 	{
 		$this->title($username);
 
-		return [
-			$this	->panel()
-					->heading($username, 'fa-user')
-					->body($this->view('profile_public', $this->model()->get_user_profile($user_id))),
-			$this->panel_back($this->module('members') ? 'members' : '')
-		];
+		return $this->array
+					->append($this	->panel()
+									->heading($username, 'fa-user')
+									->body($this->view('profile_public', $this->model()->get_user_profile($user_id)))
+					)
+					->append($this->panel_back($this->module('members') ? 'members' : ''));
 	}
 
 	public function _panel_profile(&$user_profile = NULL)

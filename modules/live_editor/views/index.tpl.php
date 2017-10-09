@@ -1,5 +1,5 @@
 <form target="live-editor-iframe" action="<?php echo url() ?>" method="post">
-	<input type="hidden" name="live_editor" value="<?php echo $live_editor = $this->session('live_editor') ?: NeoFrag::LIVE_EDITOR ^ NeoFrag::WIDGETS ?>" />
+	<input type="hidden" name="live_editor" value="<?php echo $live_editor = $this->session('live_editor') ?: $this->output->live_editor() ^ \NF\NeoFrag\Core\Output::WIDGETS ?>" />
 	<nav class="live-editor-navbar">
 		<a class="logo" href="<?php echo url('live-editor') ?>"></a>
 		<a class="modules-links" data-toggle="collapse" href="#modules-links-collapse" aria-expanded="false"><?php echo icon('fa-link').' '.$this->lang('Navigation').' '.icon('fa-angle-down') ?></a>
@@ -13,10 +13,10 @@
 		<div class="pull-right">
 			<p class="hidden-xs hidden-sm"><?php echo $this->lang('Gestion du contenu') ?></p>
 			<div class="btn-group">
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ZONES ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::ZONES ?>"><?php echo icon('fa-square-o').' '.$this->lang('Zones') ?></button>
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ROWS ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::ROWS ?>"><?php echo icon('fa-columns fa-rotate-270').' '.$this->lang('Rows') ?></button>
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::COLS ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::COLS ?>"><?php echo icon('fa-columns').' '.$this->lang('Cols') ?></button>
-				<button type="button" class="live-editor-mode active" data-mode="<?php echo NeoFrag::WIDGETS ?>"><?php echo icon('fa-th-large').' '.$this->lang('Widgets') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & \NF\NeoFrag\Core\Output::ZONES ? ' active' : '' ?>" data-mode="<?php echo \NF\NeoFrag\Core\Output::ZONES ?>"><?php echo icon('fa-square-o').' '.$this->lang('Zones') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & \NF\NeoFrag\Core\Output::ROWS ? ' active' : '' ?>" data-mode="<?php echo \NF\NeoFrag\Core\Output::ROWS ?>"><?php echo icon('fa-columns fa-rotate-270').' '.$this->lang('Rows') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & \NF\NeoFrag\Core\Output::COLS ? ' active' : '' ?>" data-mode="<?php echo \NF\NeoFrag\Core\Output::COLS ?>"><?php echo icon('fa-columns').' '.$this->lang('Cols') ?></button>
+				<button type="button" class="live-editor-mode active" data-mode="<?php echo \NF\NeoFrag\Core\Output::WIDGETS ?>"><?php echo icon('fa-th-large').' '.$this->lang('Widgets') ?></button>
 			</div>
 			<p class="hidden-xs hidden-sm"><?php echo $this->lang('Simuler l\'affichage') ?></p>
 			<div class="btn-group">

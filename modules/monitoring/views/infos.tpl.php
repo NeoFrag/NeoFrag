@@ -6,7 +6,7 @@
 				<h4 class="modal-title">Informations détaillée</h4>
 			</div>
 			<div class="modal-body">
-				<?php echo display($phpinfo) ?>
+				<?php echo $phpinfo ?>
 			</div>
 		</div>
 	</div>

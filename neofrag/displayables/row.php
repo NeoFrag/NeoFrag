@@ -4,9 +4,18 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Row extends Childrenable
+namespace NF\NeoFrag\Displayables;
+
+use NF\NeoFrag\Displayable;
+
+class Row extends Displayable
 {
 	protected $_style;
+
+	public function __sleep()
+	{
+		return array_merge(parent::__sleep(), ['_style']);
+	}
 
 	public function style($style)
 	{
@@ -22,12 +31,12 @@ class Row extends Childrenable
 
 		if ($this->_id !== NULL)
 		{
-			foreach ($this->_children as $i => $child)
+			foreach ($this->_array as $i => $child)
 			{
 				$child->id($i);
 			}
 
-			if ($live_editor = NeoFrag::live_editor() & NeoFrag::ROWS)
+			if ($live_editor = NeoFrag()->output->live_editor() & \NF\NeoFrag\Core\Output::ROWS)
 			{
 				$output .= '<div class="live-editor-row-header">
 								<div class="btn-group">
@@ -40,7 +49,7 @@ class Row extends Childrenable
 		}
 
 		$output .= '<div class="row'.(!empty($this->_style) ? ' '.$this->_style.($live_editor ? '" data-original-style="'.$this->_style : '') : '').'"'.($this->_id !== NULL ? ' data-row-id="'.$this->_id.'"' : '').'>
-						'.implode($this->_children).'
+						'.parent::__toString().'
 					</div>';
 
 		return $live_editor ? '<div class="live-editor-row">'.$output.'</div>' : $output;

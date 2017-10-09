@@ -12,14 +12,14 @@ class Ajax extends Controller_Module
 {
 	public function index($talk_id, $message_id)
 	{
-		echo $this->view('index', [
+		return $this->view('index', [
 			'messages' => $this->model()->get_messages($talk_id, $message_id)
 		]);
 	}
 
 	public function older($talk_id, $message_id, $position)
 	{
-		echo $this->view('index', [
+		return $this->view('index', [
 			'position' => $position,
 			'user_id'  => $this->db->select('user_id')->from('nf_talks_messages')->where('message_id', $message_id)->row(),
 			'messages' => $this->model()->get_messages($talk_id, $message_id, TRUE)
@@ -62,6 +62,6 @@ class Ajax extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

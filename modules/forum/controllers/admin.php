@@ -14,16 +14,17 @@ class Admin extends Controller_Module
 	{
 		$this	->subtitle($this->lang('Liste des forums'))
 				->css('forum')
-				->js('forum')
-				->add_action('admin/forum/categories/add', $this->lang('Ajouter une catégorie'), 'fa-plus')
+				->js('forum');
+
+		$this	->add_action('admin/forum/categories/add', $this->lang('Ajouter une catégorie'), 'fa-plus')
 				->add_action('admin/forum/add',            $this->lang('Ajouter un forum'),    'fa-plus');
 
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = $this	->panel()
-								->body($this->view('index', $category), FALSE);
+			$panels->append($this	->panel()
+									->body($this->view('index', $category), FALSE));
 		}
 
 		if (empty($panels))
@@ -34,7 +35,7 @@ class Admin extends Controller_Module
 								->color('info');
 		}
 
-		return '<div id="forums-list">'.display($panels).'</div>';
+		return '<div id="forums-list">'.$panels.'</div>';
 	}
 
 	public function add()
@@ -136,7 +137,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 
 	public function _categories_add()
@@ -200,6 +201,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

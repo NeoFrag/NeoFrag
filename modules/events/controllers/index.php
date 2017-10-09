@@ -12,7 +12,7 @@ class Index extends Controller_Module
 {
 	public function index($events)
 	{
-		$panels[] = $this->_filters();
+		$panels = $this->_filters();
 
 		$types = $this->model('types')->get_types();
 
@@ -39,22 +39,22 @@ class Index extends Controller_Module
 
 			if ($this->access('events', 'access_events_type', $event['type_id']))
 			{
-				$panels[] = $this	->panel()
-									->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="pull-right">'.($data['match']['game']['icon_id'] ? '<img src="'.path($data['match']['game']['icon_id']).'" alt="" />' : icon('fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
-									->body($this->view('event', array_merge($event, $data)), FALSE);
+				$panels->append($this	->panel()
+										->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="pull-right">'.($data['match']['game']['icon_id'] ? '<img src="'.path($data['match']['game']['icon_id']).'" alt="" />' : icon('fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
+										->body($this->view('event', array_merge($event, $data)), FALSE));
 			}
 		}
 
 		if (!$events)
 		{
-			$panels[] = $this	->panel()
-								->heading()
-								->body('<div class="text-center">Aucun événement n\'a été publiée pour le moment</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading()
+									->body('<div class="text-center">Aucun événement n\'a été publiée pour le moment</div>')
+									->color('info'));
 		}
 		else
 		{
-			$panels[] = $this->module->pagination->panel();
+			$panels->append($this->module->pagination->panel());
 		}
 
 		return $panels;
@@ -94,10 +94,12 @@ class Index extends Controller_Module
 			$type = $this->model('types')->check_type($this->url->segments[2], $this->url->segments[3]);
 		}
 
-		return $this->panel()
-					->body($this->view('filters', [
-						'type' => $type
-					]));
+		return $this->array
+					->append($this	->panel()
+									->body($this->view('filters', [
+										'type' => $type
+									]))
+					);
 	}
 
 	public function _event($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type, $mode_id, $webtv, $website, $mode_title)
@@ -192,35 +194,35 @@ class Index extends Controller_Module
 							->set_id('c2dac90bb0731401a293d27ee036757a');
 		}
 
-		return [
-			$this->_filters(),
-			$this	->panel()
-					->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="pull-right">'.($match['game']['icon_id'] ? '<img src="'.path($match['game']['icon_id']).'" alt="" />' : icon('fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fa-crosshairs' : 'fa-calendar-o')
-					->body($this->view('event', [
-						'event_id'             => $event_id,
-						'title'                => $title,
-						'date'                 => $date,
-						'date_end'             => $date_end,
-						'description'          => $description,
-						'private_description'  => $private_description,
-						'location'             => $location,
-						'image_id'             => $image_id,
-						'match'                => $match,
-						'webtv'                => $webtv,
-						'website'              => $website,
-						'mode'                 => $mode_title,
-						'rounds'               => $rounds,
-						'type'                 => $this->model('types')->get_types()[$type_id],
-						'participants'         => $this->model('participants')->count_participants($event_id),
-						'list_participants'    => $this->model('participants')->get_participants($event_id),
-						'show_details'         => TRUE
-					]), FALSE),
-			$this->user() ? $this	->panel()
-									->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
-									->body($table->display()) : NULL,
-			$this->comments->display('events', $event_id),
-			$this->button_back()
-		];
+		return $this->_filters()
+					->append($this	->panel()
+									->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="pull-right">'.($match['game']['icon_id'] ? '<img src="'.path($match['game']['icon_id']).'" alt="" />' : icon('fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fa-crosshairs' : 'fa-calendar-o')
+									->body($this->view('event', [
+										'event_id'             => $event_id,
+										'title'                => $title,
+										'date'                 => $date,
+										'date_end'             => $date_end,
+										'description'          => $description,
+										'private_description'  => $private_description,
+										'location'             => $location,
+										'image_id'             => $image_id,
+										'match'                => $match,
+										'webtv'                => $webtv,
+										'website'              => $website,
+										'mode'                 => $mode_title,
+										'rounds'               => $rounds,
+										'type'                 => $this->model('types')->get_types()[$type_id],
+										'participants'         => $this->model('participants')->count_participants($event_id),
+										'list_participants'    => $this->model('participants')->get_participants($event_id),
+										'show_details'         => TRUE
+									]), FALSE)
+					)
+					->append_if($this->user(), $this	->panel()
+														->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
+														->body($this->table()->display())
+					)
+					->append($this->comments->display('events', $event_id))
+					->append($this->button_back());
 	}
 
 	public function _participant_add($event_id, $title, $status)
@@ -251,6 +253,6 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

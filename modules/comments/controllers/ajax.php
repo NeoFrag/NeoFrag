@@ -34,6 +34,6 @@ class Ajax extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form()->display();
+		return $this->form()->display();
 	}
 }

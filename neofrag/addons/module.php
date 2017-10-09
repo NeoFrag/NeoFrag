@@ -29,28 +29,14 @@ abstract class Module extends Addon
 		return 'Modules\\'.$name.'\\'.$name;
 	}
 
-	private $_actions     = [];
-
-	protected $_output = '';
-
 	public function __toString()
 	{
-		return $this->_output;
+		return $this->output->data->get('module', 'content');
 	}
 
 	public function __init()
 	{
 
-	}
-
-	public function add_action($url, $title, $icon = '')
-	{
-		$this->_actions[] = [$url, $title, $icon];
-	}
-
-	public function get_actions()
-	{
-		return $this->_actions;
 	}
 
 	public function get_method(&$args, $ignore_ajax = FALSE)

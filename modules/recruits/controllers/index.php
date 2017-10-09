@@ -12,16 +12,16 @@ class Index extends Controller_Module
 {
 	public function index($recruits)
 	{
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($recruits as $recruit)
 		{
 			if (($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] && strtotime($recruit['date_end']) < time())) && !$this->config->recruits_hide_unavailable)
 			{
-				$panels[] = $this	->panel()
-									->heading($recruit['title'], $recruit['icon'] ?: 'fa-bullhorn')
-									->body('Cette offre n\'est plus disponible actuellement.')
-									->color('info');
+				$panels->append($this	->panel()
+										->heading($recruit['title'], $recruit['icon'] ?: 'fa-bullhorn')
+										->body('Cette offre n\'est plus disponible actuellement.')
+										->color('info'));
 			}
 			else
 			{
@@ -34,34 +34,34 @@ class Index extends Controller_Module
 					$footer = '<a href="'.url('recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-default">'.icon('fa-eye').' En savoir plus</a> <a href="'.url('recruits/postulate/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-primary">'.icon('fa-briefcase').' Postuler</a>';
 				}
 
-				$panels[] = $this	->panel()
-									->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-default">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
-									->body($this->view('index', [
-										'recruit_id'   => $recruit['recruit_id'],
-										'title'        => $recruit['title'],
-										'image_id'     => $recruit['image_id'],
-										'date'         => $recruit['date'],
-										'team_id'      => $recruit['team_id'],
-										'team_name'    => $recruit['team_name'],
-										'role'         => $recruit['role'],
-										'size'         => $recruit['size'] - $recruit['candidacies_accepted'],
-										'date_end'     => $recruit['date_end'],
-										'introduction' => bbcode($recruit['introduction'])
-									]))
-									->footer_if($footer, $footer, 'right');
+				$panels->append($this	->panel()
+										->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-default">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
+										->body($this->view('index', [
+											'recruit_id'   => $recruit['recruit_id'],
+											'title'        => $recruit['title'],
+											'image_id'     => $recruit['image_id'],
+											'date'         => $recruit['date'],
+											'team_id'      => $recruit['team_id'],
+											'team_name'    => $recruit['team_name'],
+											'role'         => $recruit['role'],
+											'size'         => $recruit['size'] - $recruit['candidacies_accepted'],
+											'date_end'     => $recruit['date_end'],
+											'introduction' => bbcode($recruit['introduction'])
+										]))
+										->footer_if($footer, $footer, 'right'));
 			}
 		}
 
-		if (empty($panels))
+		if ($panels->empty())
 		{
-			$panels[] = $this	->panel()
-								->heading('Recrutement', 'fa-bullhorn')
-								->body('<div class="text-center">Aucune offre n\'a été publiée pour le moment</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading('Recrutement', 'fa-bullhorn')
+									->body('<div class="text-center">Aucune offre n\'a été publiée pour le moment</div>')
+									->color('info'));
 		}
 		else
 		{
-			$panels[] = $this->module->pagination->panel();
+			$panels->append($this->module->pagination->panel());
 		}
 
 		return $panels;
@@ -108,46 +108,49 @@ class Index extends Controller_Module
 									->color('info');
 		}
 
-		return [
-			$this->row(
-				$this->col(
-					$this	->panel()
-							->heading($title, ($icon ? $icon : 'fa-bullhorn'))
-							->body($this->view('recruit', [
-								'recruit_id'   => $recruit_id,
-								'title'        => $title,
-								'introduction' => bbcode($introduction),
-								'description'  => bbcode($description),
-								'requierments' => bbcode($requierments),
-								'date'         => $date,
-								'user_id'      => $user_id,
-								'size'         => $size - $candidacies_accepted,
-								'role'         => $role,
-								'icon'         => $icon,
-								'date_end'     => $date_end,
-								'closed'       => $closed,
-								'team_id'      => $team_id,
-								'image_id'     => $image_id
-							]))
-				)
-			),
-			$this->row(
-				$this	->col(
-							$this	->panel()
-									->heading('Informations', 'fa-info')
-									->body($this->view('recruit-infos', [
-																'role'      => $role,
-																'size'      => $size,
-																'date_end'  => $date_end,
-																'team_id'   => $team_id,
-																'team_name' => $team_name
-															]), FALSE)
+		return $this->array
+					->append(
+						$this->row(
+							$this->col(
+								$this	->panel()
+										->heading($title, ($icon ? $icon : 'fa-bullhorn'))
+										->body($this->view('recruit', [
+											'recruit_id'   => $recruit_id,
+											'title'        => $title,
+											'introduction' => bbcode($introduction),
+											'description'  => bbcode($description),
+											'requierments' => bbcode($requierments),
+											'date'         => $date,
+											'user_id'      => $user_id,
+											'size'         => $size - $candidacies_accepted,
+											'role'         => $role,
+											'icon'         => $icon,
+											'date_end'     => $date_end,
+											'closed'       => $closed,
+											'team_id'      => $team_id,
+											'image_id'     => $image_id
+										]))
+							)
 						)
-						->size('col-6'),
-				$this	->col($postulate_panel)
-						->size('col-6')
-			)
-		];
+					)
+					->append(
+						$this->row(
+							$this	->col(
+										$this	->panel()
+												->heading('Informations', 'fa-info')
+												->body($this->view('recruit-infos', [
+																			'role'      => $role,
+																			'size'      => $size,
+																			'date_end'  => $date_end,
+																			'team_id'   => $team_id,
+																			'team_name' => $team_name
+																		]), FALSE)
+									)
+									->size('col-6'),
+							$this	->col($postulate_panel)
+									->size('col-6')
+						)
+					);
 	}
 
 	public function _postulate($recruit_id, $title, $introduction, $description, $requierments, $date, $recruit_user_id, $size, $role, $icon, $date_end, $closed, $team_id, $image_id, $username, $avatar, $sex, $candidacies, $candidacies_pending, $candidacies_accepted, $candidacies_declined, $team_name)
@@ -298,37 +301,38 @@ class Index extends Controller_Module
 
 	public function _candidacy($candidacy_id, $recruit_id, $date, $user_id, $pseudo, $email, $date_of_birth, $presentation, $motivations, $experiences, $status, $reply_text, $title, $icon, $role, $team_id, $team_name, $username, $avatar, $sex)
 	{
-		return [
-			$this	->panel()
-					->heading('Statut de ma candidature', 'fa-reply')
-					->body($this->view('candidacy-status', [
-						'status'     => $status,
-						'reply_text' => bbcode($reply_text)
-					])),
-			$this	->panel()
-					->heading('Ma candidature', 'fa-black-tie')
-					->body($this->view('candidacy', [
-						'candidacy_id'  => $candidacy_id,
-						'recruit_id'    => $recruit_id,
-						'date'          => $date,
-						'user_id'       => $user_id,
-						'pseudo'        => $pseudo,
-						'email'         => $email,
-						'role'          => $role,
-						'date_of_birth' => $date_of_birth,
-						'presentation'  => bbcode($presentation),
-						'motivations'   => bbcode($motivations),
-						'experiences'   => bbcode($experiences),
-						'reply'         => bbcode($reply_text),
-						'title'         => $title,
-						'icon'          => $icon,
-						'username'      => $username,
-						'avatar'        => $avatar,
-						'sex'           => $sex,
-						'team_id'       => $team_id,
-						'team_name'     => $team_name
-					])),
-			$this->panel_back()
-		];
+		return $this->array
+					->append($this	->panel()
+									->heading('Statut de ma candidature', 'fa-reply')
+									->body($this->view('candidacy-status', [
+										'status'     => $status,
+										'reply_text' => bbcode($reply_text)
+									]))
+					)
+					->append($this	->panel()
+									->heading('Ma candidature', 'fa-black-tie')
+									->body($this->view('candidacy', [
+										'candidacy_id'  => $candidacy_id,
+										'recruit_id'    => $recruit_id,
+										'date'          => $date,
+										'user_id'       => $user_id,
+										'pseudo'        => $pseudo,
+										'email'         => $email,
+										'role'          => $role,
+										'date_of_birth' => $date_of_birth,
+										'presentation'  => bbcode($presentation),
+										'motivations'   => bbcode($motivations),
+										'experiences'   => bbcode($experiences),
+										'reply'         => bbcode($reply_text),
+										'title'         => $title,
+										'icon'          => $icon,
+										'username'      => $username,
+										'avatar'        => $avatar,
+										'sex'           => $sex,
+										'team_id'       => $team_id,
+										'team_name'     => $team_name
+									]))
+					)
+					->append($this->panel_back());
 	}
 }

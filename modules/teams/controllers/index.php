@@ -12,7 +12,7 @@ class Index extends Controller_Module
 {
 	public function index()
 	{
-		$panels = [];
+		$panels = $this->array;
 
 		foreach ($this->model()->get_teams() as $team)
 		{
@@ -24,15 +24,15 @@ class Index extends Controller_Module
 				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-fluid" src="'.path($team['image_id']).'" alt="" /></a>', FALSE);
 			}
 
-			$panels[] = $panel;
+			$panels->append($panel);
 		}
 
-		if (empty($panels))
+		if ($panels->empty())
 		{
-			$panels[] = $this	->panel()
-								->heading($this->lang('Équipe'), 'fa-gamepad')
-								->body('<div class="text-center">'.$this->lang('Aucune équipe n\'a été créée pour le moment').'</div>')
-								->color('info');
+			$panels->append($this	->panel()
+									->heading($this->lang('Équipe'), 'fa-gamepad')
+									->body('<div class="text-center">'.$this->lang('Aucune équipe n\'a été créée pour le moment').'</div>')
+									->color('info'));
 		}
 
 		return $panels;

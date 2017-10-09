@@ -34,7 +34,7 @@ class Ajax extends Controller_Module
 			$events[] = $event;
 		}
 
-		return $events;
+		return $this->json($events);
 	}
 
 	public function _event($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type)
