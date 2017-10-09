@@ -74,7 +74,7 @@ class News extends Model
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
 						->join('nf_users u',                 'u.user_id     = n.user_id AND u.deleted = "0"')
 						->join('nf_users_profiles up',       'u.user_id     = up.user_id')
-						->join('nf_sessions       s',        'u.user_id     = s.user_id')
+						->join('nf_session        s',        'u.user_id     = s.user_id')
 						->where('n.news_id', $news_id)
 						->where('nl.lang', $lang)
 						->where('cl.lang', $lang);

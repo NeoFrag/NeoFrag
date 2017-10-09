@@ -62,7 +62,7 @@ class Teams extends Model
 						->join('nf_users          u',  'tu.user_id = u.user_id AND u.deleted = "0"', 'INNER')
 						->join('nf_users_profiles up', 'u.user_id  = up.user_id')
 						->join('nf_teams_roles    r',  'r.role_id  = tu.role_id')
-						->join('nf_sessions       s',  'u.user_id  = s.user_id')
+						->join('nf_session        s',  'u.user_id  = s.user_id')
 						->where('tu.team_id', $team_id)
 						->group_by('u.username')
 						->order_by('r.order', 'r.role_id', 'u.username')

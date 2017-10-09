@@ -42,11 +42,10 @@ class Index extends Controller_Widget
 		$nb_admins = $nb_members = 0;
 
 		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
-							->from('nf_sessions s')
+							->from('nf_session s')
 							->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')
 							->join('nf_users_profiles up', 'u.user_id = up.user_id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
-							->where('s.is_crawler', FALSE)
 							->group_by('u.user_id')
 							->order_by('u.username')
 							->get() as $user)
@@ -71,7 +70,7 @@ class Index extends Controller_Widget
 						'members'        => $members,
 						'nb_admins'      => $nb_admins,
 						'nb_members'     => $nb_members,
-						'nb_visitors'    => $this->session->current_sessions() - $nb_admins - $nb_members
+						'nb_visitors'    => $this->session->current_sessions()->count() - $nb_admins - $nb_members
 					]))
 		];
 
@@ -99,7 +98,7 @@ class Index extends Controller_Widget
 	public function online_mini($config = [])
 	{
 		return $this->view('online_mini', [
-			'members' => $this->session->current_sessions(),
+			'members' => $this->session->current_sessions()->count(),
 			'align'   => !empty($config['align']) ? $config['align'] : 'pull-right'
 		]);
 	}

@@ -1163,46 +1163,40 @@ CREATE TABLE `nf_search_keywords` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_sessions`
+-- Table structure for table `nf_session`
 --
 
-DROP TABLE IF EXISTS `nf_sessions`;
-CREATE TABLE `nf_sessions` (
-  `session_id` varchar(32) NOT NULL,
-  `ip_address` varchar(39) NOT NULL,
-  `host_name` varchar(100) NOT NULL,
+DROP TABLE IF EXISTS `nf_session`;
+CREATE TABLE `nf_session` (
+  `id` varchar(32) NOT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
-  `is_crawler` enum('0','1') NOT NULL DEFAULT '0',
+  `remember` enum('0','1') NOT NULL DEFAULT '0',
   `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_data` text NOT NULL,
-  `remember_me` enum('0','1') NOT NULL DEFAULT '0',
-  UNIQUE KEY `session_id` (`session_id`),
+  `data` text NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_session_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_sessions_history`
+-- Table structure for table `nf_session_history`
 --
 
-DROP TABLE IF EXISTS `nf_sessions_history`;
-CREATE TABLE `nf_sessions_history` (
+DROP TABLE IF EXISTS `nf_session_history`;
+CREATE TABLE `nf_session_history` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `session_id` varchar(32) DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `ip_address` varchar(39) NOT NULL,
   `host_name` varchar(100) NOT NULL,
-  `authenticator` varchar(100) NOT NULL,
   `referer` varchar(100) NOT NULL,
   `user_agent` varchar(250) NOT NULL,
+  `auth` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `nf_sessions_history_ibfk_2` (`session_id`),
-  CONSTRAINT `nf_sessions_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_sessions_history_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_sessions` (`session_id`) ON DELETE SET NULL ON UPDATE SET NULL
+  CONSTRAINT `nf_session_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1537,7 +1531,7 @@ CREATE TABLE `nf_users_keys` (
   KEY `user_id` (`user_id`),
   KEY `session_id` (`session_id`),
   CONSTRAINT `nf_users_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_users_keys_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_sessions` (`session_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_users_keys_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

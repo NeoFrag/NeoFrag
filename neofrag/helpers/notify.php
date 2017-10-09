@@ -11,8 +11,8 @@ function notify($message, $type = 'success')
 		$type = 'success';
 	}
 
-	NeoFrag()->session->add('notifications', [
-		'message' => $message,
+	NeoFrag()->session->append('notifications', [
+		'message' => (string)$message,
 		'type'    => $type
 	]);
 }

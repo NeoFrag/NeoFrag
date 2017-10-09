@@ -26,7 +26,7 @@ class Statistics extends Controller_Module
 				'title'    => 'Connections de membres',
 				'group_by' => 'COUNT(DISTINCT user_id)',
 				'data'     => function(){
-					$this->db->from('nf_sessions_history');
+					$this->db->from('nf_session_history');
 					return 'date';
 				}
 			]

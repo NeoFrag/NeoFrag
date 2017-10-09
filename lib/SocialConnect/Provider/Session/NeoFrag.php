@@ -21,7 +21,7 @@ class NeoFrag implements SessionInterface
      */
     public function get($key)
     {
-        return unserialize(serialize(call_user_func_array($this->_session, ['auth', $key])));
+        return unserialize(serialize(call_user_func_array($this->_session, ['SocialConnect', $key])));
     }
 
     /**
@@ -30,7 +30,7 @@ class NeoFrag implements SessionInterface
      */
     public function set($key, $value)
     {
-        call_user_func_array([$this->_session, 'set'], ['auth', $key, $value]);
+        $this->_session->set('SocialConnect', $key, $value);
     }
 
     /**
@@ -38,6 +38,6 @@ class NeoFrag implements SessionInterface
      */
     public function delete($key)
     {
-        call_user_func_array([$this->_session, 'destroy'], ['auth', $key]);
+        $this->_session->destroy('SocialConnect', $key);
     }
 }

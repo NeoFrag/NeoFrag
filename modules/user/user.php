@@ -48,6 +48,9 @@ class User extends Module
 				'admin/ajax/groups/sort'                         => '_groups_sort',
 				'admin/sessions{pages}'                          => '_sessions',
 				'admin/sessions/delete/{url_title}'              => '_sessions_delete'
+			],
+			'crud'        => [
+				'session_history'
 			]
 		];
 	}

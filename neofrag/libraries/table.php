@@ -169,7 +169,7 @@ class Table extends Library
 
 				if (!$added)
 				{
-					$this->session->add('table', $this->id, 'sort', [$column_id, $order]);
+					$this->session->append('table', $this->id, 'sort', [$column_id, $order]);
 				}
 
 				$this->sort_by($column_id, $order);

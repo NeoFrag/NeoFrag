@@ -66,7 +66,7 @@ class Index extends Controller_Widget
 
 	public function activity($config = [])
 	{
-		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_sessions s')->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('s.is_crawler', FALSE)->get();
+		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_session s')->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->get();
 
 		array_natsort($users, function($a){
 			return $a['username'];
@@ -76,7 +76,7 @@ class Index extends Controller_Widget
 					->heading($this->lang('Activité du forum'), 'fa-globe')
 					->body($this->view('activity', [
 						'users'    => $users,
-						'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()
+						'visitors' => $this->db->select('COUNT(*)')->from('nf_session')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row()
 					]));
 	}
 }
