@@ -223,7 +223,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _auth($authenticator)
@@ -668,7 +668,7 @@ class Index extends Controller_Module
 		if ($this->config->nf_http_authentication)
 		{
 			$this->ajax();
-			echo $this->lang('not_logged_in');
+			return $this->lang('not_logged_in');
 		}
 		else
 		{
@@ -826,7 +826,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _member($user_id, $username)

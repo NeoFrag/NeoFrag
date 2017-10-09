@@ -12,7 +12,7 @@ class Pagination extends Panel
 {
 	public function __toString()
 	{
-		if ($pagination = NeoFrag()->module->pagination->get_pagination())
+		if ($pagination = $this->output->module()->pagination->get_pagination())
 		{
 			return $pagination.'<div class="clearfix"></div>';
 		}

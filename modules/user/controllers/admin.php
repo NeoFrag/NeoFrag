@@ -306,7 +306,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _ban($member_id = 0, $username = '')
@@ -417,7 +417,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _sessions($sessions)
@@ -553,6 +553,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 }

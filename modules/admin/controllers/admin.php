@@ -121,7 +121,7 @@ class Admin extends Controller_Module
 
 		if (($module = $this->module($module_name)) && ($help = $module->controller('admin_help')) && $help->has_method($method))
 		{
-			echo $help->method($method);
+			return call_user_func_array([$help, $method]);
 		}
 		else
 		{

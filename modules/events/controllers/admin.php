@@ -511,7 +511,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _types_add()
@@ -584,7 +584,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _round_delete($round_id)
@@ -601,6 +601,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 }

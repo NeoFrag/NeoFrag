@@ -81,12 +81,12 @@ class Panel extends Library
 
 			$this->_heading[] = $label;
 		}
-		else if (!empty($this->load->data['module_title']) && !empty($this->load->data['module_icon']))
+		/*else if (!empty($this->load->data['module_title']) && !empty($this->load->data['module_icon']))
 		{
 			$this->_heading[] = $this	->label()
 										->title($this->load->data['module_title'])
 										->icon($this->load->data['module_icon']);
-		}
+		}*/
 
 		return $this;
 	}

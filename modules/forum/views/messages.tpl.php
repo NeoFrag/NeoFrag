@@ -14,7 +14,7 @@
 		<?php foreach ($messages as $message): ?>
 		<tr>
 			<td class="col-md-3">
-				<?php echo NeoFrag()->module->get_profile($message['user_id'], $profile) ?>
+				<?php echo $this->output->module()->get_profile($message['user_id'], $profile) ?>
 			</td>
 			<td class="text-left col-md-9">
 				<div class="padding-top">

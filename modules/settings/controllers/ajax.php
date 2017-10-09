@@ -19,7 +19,7 @@ class Ajax extends Controller_Module
 			$this->error();
 		}
 
-		echo $this->config->nf_humans_txt;
+		return $this->config->nf_humans_txt;
 	}
 
 	public function robots()
@@ -31,7 +31,7 @@ class Ajax extends Controller_Module
 			$this->error();
 		}
 
-		echo $this->config->nf_robots_txt;
+		return $this->config->nf_robots_txt;
 	}
 
 	public function debugbar()

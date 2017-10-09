@@ -232,7 +232,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function pending()
@@ -727,7 +727,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function contact_applicant($candidacy_id, $title, $reply, $status)

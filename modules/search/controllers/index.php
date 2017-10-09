@@ -93,7 +93,7 @@ class Index extends Controller_Module
 					{
 						foreach ($this->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
-							$content[] = $result[1]->method('detail', [$data, $keywords]);
+							$content[] = call_user_func_array([$result[1], 'detail'], [$data, $keywords]);
 						}
 
 						$details = TRUE;
@@ -102,7 +102,7 @@ class Index extends Controller_Module
 					{
 						foreach (array_slice($result[2], 0, 3) as $data)
 						{
-							$content[] = $result[1]->method('index', [$data, $keywords]);
+							$content[] = call_user_func_array([$result[1], 'index'], [$data, $keywords]);
 						}
 					}
 

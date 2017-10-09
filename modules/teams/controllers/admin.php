@@ -261,7 +261,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _roles_add()
@@ -324,7 +324,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function _players_delete($team_id, $user_id, $username)
@@ -343,6 +343,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 }

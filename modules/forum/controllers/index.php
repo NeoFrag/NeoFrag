@@ -12,11 +12,11 @@ class Index extends Controller_Module
 {
 	public function index()
 	{
-		$panels = [];
+		$panels = $this->col();
 
 		foreach ($this->model()->get_categories() as $category)
 		{
-			$panels[] = $this->panel()->body($this->view('index', $category), FALSE);
+			$panels->append($this->panel()->body($this->view('index', $category), FALSE));
 		}
 
 		if (empty($panels))
@@ -33,7 +33,7 @@ class Index extends Controller_Module
 							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('mark_all_as_read').'">'.icon('fa-eye').'</a>', FALSE)
 							->color('back text-right');
 
-			array_unshift($panels, $panels[] = $actions);
+			$panels->prepend($actions)->append($actions);
 		}
 
 		return $panels;
@@ -582,7 +582,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		return $this->form->display();
 	}
 
 	public function mark_all_as_read()

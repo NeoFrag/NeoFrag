@@ -45,8 +45,8 @@ class Widget extends Panel
 
 		if ($widget_data && $widget = $this->widget($widget_data['widget']))
 		{
-			$output = implode(array_map(function($a) use ($widget_data){
-				if (is_a($a, 'Panel'))
+			/*$output = implode(array_map(function($a) use ($widget_data){
+				if (is_a($a, 'NF\\NeoFrag\\Libraries\\Panel'))
 				{
 					if (!empty($widget_data['title']))
 					{
@@ -60,13 +60,15 @@ class Widget extends Panel
 				}
 
 				return $a;
-			}, $widget->get_output($widget_data['type'], is_array($settings = unserialize($widget_data['settings'])) ? $settings : [])));
+			}, );*/
+
+			$output = $widget->output($widget_data['type'], is_array($settings = unserialize($widget_data['settings'])) ? $settings : []);
 
 			if ($widget_data['widget'] == 'module')
 			{
 				$type   = 'module';
-				$module = $this->load->module;
-				$name   = $module->name;
+				$module = $this->output->module();
+				$name   = $module->info()->name;
 			}
 			else
 			{

@@ -12,6 +12,6 @@ class Index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		echo $this->view('index', $settings);
+		return $this->view('index', $settings);
 	}
 }

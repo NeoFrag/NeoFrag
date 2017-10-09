@@ -23,6 +23,8 @@ abstract class Module extends Addon
 		'user'        => FALSE
 	];
 
+	private $_actions     = [];
+
 	static public function __class($name)
 	{
 		return 'Modules\\'.$name.'\\'.$name;
@@ -33,13 +35,9 @@ abstract class Module extends Addon
 		return ['Modules', 'Module', 'fa-sticky-note-o', 'primary'];
 	}
 
-	private $_actions     = [];
-
-	protected $_output = '';
-
 	public function __toString()
 	{
-		return $this->_output;
+		return $this->output->data->get('module', 'content');
 	}
 
 	public function __init()
