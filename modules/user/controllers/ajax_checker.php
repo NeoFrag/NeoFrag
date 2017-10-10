@@ -17,4 +17,35 @@ class Ajax_Checker extends Controller_Module
 			return $user;
 		}
 	}
+
+	public function login()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function register()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function lost_password()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function _lost_password($token)
+	{
+		$this->error_if($this->user());
+
+		if ($token = $this->model2('token', $token))
+		{
+			return [$token];
+		}
+	}
 }

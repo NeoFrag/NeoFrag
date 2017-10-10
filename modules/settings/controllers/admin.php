@@ -152,12 +152,12 @@ class Admin extends Controller_Module
 						'value'   => $this->config->nf_registration_status,
 						'values'  => ['Ouvertes', 'Fermées']
 					],
-					/*'registration_validation' => array(
+					'registration_validation' => [
 						'label'   => 'Validation',
 						'type'    => 'radio',
 						'value'   => $this->config->nf_registration_validation,
-						'values'  => array('Automatique', 'Confirmation par e-mail')
-					),*/
+						'values'  => ['Automatique', 'Confirmation par e-mail']
+					],
 					'registration_charte' => [
 						'label'   => 'Règlement',
 						'value'   => $this->config->nf_registration_charte,

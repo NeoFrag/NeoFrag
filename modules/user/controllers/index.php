@@ -156,8 +156,7 @@ class Index extends Controller_Module
 				]
 			])
 			->pagination(FALSE)
-			->data($this->user->get_sessions())
-			->save();
+			->data($this->user->get_sessions());
 
 		$sessions_history = $this->table
 			->add_columns([
@@ -380,8 +379,7 @@ class Index extends Controller_Module
 								]
 							])
 							->add_submit($this->lang('login'))
-							->display_required(FALSE)
-							->save();
+							->display_required(FALSE);
 
 		$rules = [
 			'username' => [
@@ -440,8 +438,7 @@ class Index extends Controller_Module
 			->add_rules($rules)
 			->add_captcha()
 			->add_submit($this->lang('create_account'))
-			->fast_mode()
-			->save();
+			->fast_mode();
 
 		$rows = [];
 
@@ -557,123 +554,16 @@ class Index extends Controller_Module
 		return $rows;
 	}
 
-	public function lost_password()
+	public function lost_password($token)
 	{
-		$this->title($this->lang('forgot_password'));
-
-		$this	->form
-				->add_rules([
-					'email' => [
-						'label' => $this->lang('email'),
-						'type'  => 'email',
-						'rules' => 'required',
-						'check' => function($value){
-							if (!NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
-							{
-								return $this->lang('email_not_found');
-							}
-						}
-					]
-				])
-				->add_submit($this->lang('save'))
-				->add_back('user')
-				->fast_mode();
-
-		if ($this->form->is_valid($post))
-		{
-			$this->email
-				->to($post['email'])
-				->subject($this->lang('forgot_password'))
-				->message('default', [
-					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key']).'">'.$this->lang('password_reset').'</a>';
-					},
-					'key'     => $this->model()->add_key($this->db->select('id')->from('nf_user')->where('email', $post['email'])->row())
-				])
-				->send();
-
-			redirect_back('user');
-		}
-
-		return $this->panel()
-					->heading($this->lang('forgot_password'), 'fa-unlock-alt')
-					->body($this->form->display());
-	}
-
-	public function _lost_password($key_id, $user_id)
-	{
-		$this->title($this->lang('password_reset'));
-
-		$this	->form
-				->add_rules([
-					'password' => [
-						'label' => $this->lang('new_password'),
-						'icon'  => 'fa-lock',
-						'type'  => 'password',
-						'rules' => 'required'
-					],
-					'password_confirm' => [
-						'label' => $this->lang('password_confirmation'),
-						'icon'  => 'fa-lock',
-						'type'  => 'password',
-						'rules' => 'required',
-						'check' => function($value, $post){
-							if ($post['password'] != $value)
-							{
-								return $this->lang('password_not_match');
-							}
-						}
-					]
-				])
-				->add_submit($this->lang('save'))
-				->add_back('user')
-				->fast_mode();
-
-		if ($this->form->is_valid($post))
-		{
-			$this->email
-				->to($this->db->select('email')->from('nf_user')->where('id', $user_id)->row())
-				->subject($this->lang('password_reset_confirmation_email'))
-				->message('default', [
-					'content' => $this->lang('password_reset_confirmation_message')
-				])
-				->send();
-
-			$this->user->login($user_id);
-
-			$this->model()	->update_password($post['password'])
-							->delete_key($key_id);
-
-			foreach ($this->user->get_sessions() as $session)
-			{
-				if ($session['session_id'] != $this->session->id)
-				{
-					//TODO ajouter une alerte pour ces sessions pour expliquer pk ils sont déco
-					$this->session->disconnect($session['session_id']);
-				}
-			}
-
-			redirect_back('user');
-		}
-
-		return $this->panel()
-					->heading($this->lang('password_reset'), 'fa-lock')
-					->body($this->form->display());
+		$this->session->append('modals', 'ajax/user/lost-password/'.$token->id);
+		redirect();
 	}
 
 	public function logout()
 	{
-		$this->user->logout();
-
-		if ($this->config->nf_http_authentication)
-		{
-			$this->ajax();
-			return $this->lang('not_logged_in');
-		}
-		else
-		{
-			redirect();
-		}
+		$this	->session->logout()
+				->url->redirect();
 	}
 
 	public function _messages($messages, $allow_delete = FALSE)
