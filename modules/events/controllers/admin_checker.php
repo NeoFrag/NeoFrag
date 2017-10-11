@@ -42,7 +42,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('add_event'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -52,7 +52,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('modify_event'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($event = $this->model()->check_event($event_id, $title))
@@ -65,7 +65,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('delete_event'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();
@@ -80,7 +80,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('add_events_type'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -90,7 +90,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('modify_events_type'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($type = $this->model('types')->check_type($type_id, $name))
@@ -103,7 +103,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('delete_events_type'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();

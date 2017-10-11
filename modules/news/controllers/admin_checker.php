@@ -19,7 +19,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('add_news'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -29,7 +29,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('modify_news'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($news = $this->model()->check_news($news_id, $title, $tab))
@@ -42,7 +42,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('delete_news'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();
@@ -57,7 +57,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('add_news_categories'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -67,7 +67,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('modify_news_categories'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($category = $this->model('categories')->check_category($category_id, $name, 'default'))
@@ -80,7 +80,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('delete_news_categories'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();

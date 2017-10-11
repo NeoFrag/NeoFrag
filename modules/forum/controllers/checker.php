@@ -50,7 +50,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -65,7 +65,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -93,7 +93,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -108,7 +108,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -128,7 +128,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -143,7 +143,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}
@@ -166,7 +166,7 @@ class Checker extends Module_Checker
 				return [$message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']];
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 	}
 
@@ -174,7 +174,7 @@ class Checker extends Module_Checker
 	{
 		if (!$this->user())
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -190,7 +190,7 @@ class Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}

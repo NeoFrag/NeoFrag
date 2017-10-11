@@ -62,7 +62,7 @@ class Checker extends Module_Checker
 	{
 		if (!$this->user('admin'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();

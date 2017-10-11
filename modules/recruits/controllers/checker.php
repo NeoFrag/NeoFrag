@@ -54,8 +54,6 @@ class Checker extends Module_Checker
 				'team_name'            => $recruit['team_name']
 			];
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _postulate($recruit_id, $title)
@@ -90,29 +88,22 @@ class Checker extends Module_Checker
 				];
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
-
-		throw new Exception(NeoFrag::UNFOUND);
 	}
 
 	public function _candidacy($candidacy_id, $title)
 	{
-		if ($this->user())
-		{
-			if ($candidacy = $this->model()->check_candidacy($candidacy_id, $title))
-			{
-				if ($this->user('user_id') == $candidacy['user_id'])
-				{
-					return $candidacy;
-				}
+		$this->error->unconnected();
 
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+		if ($candidacy = $this->model()->check_candidacy($candidacy_id, $title))
+		{
+				if ($this->user('user_id') == $candidacy['user_id'])
+			{
+				return $candidacy;
 			}
 
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error->unauthorized();
 		}
-
-		throw new Exception(NeoFrag::UNCONNECTED);
 	}
 }

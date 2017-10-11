@@ -108,7 +108,7 @@ class Tab extends Library
 
 		if (!isset($is_good) || !$is_good || array_last($this->url->segments) == $this->_default_tab)
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 
 		$segments = explode('/', $this->pagination->get_url());

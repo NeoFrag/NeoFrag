@@ -39,7 +39,7 @@
 							foreach (NeoFrag()->model2('addon')->get('module') as $module)
 							{
 								//TODO
-								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks']))
+								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'live_editor', 'pages', 'settings', 'games', 'talks']))
 								{
 									$modules[$module->name] = $module->info()->title;
 								}
