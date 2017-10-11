@@ -14,7 +14,7 @@ class Checker extends Controller_Module
 	{
 		if (!$this->user('admin'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];

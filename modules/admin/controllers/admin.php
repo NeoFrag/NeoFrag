@@ -125,7 +125,7 @@ class Admin extends Controller_Module
 		}
 		else
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 	}
 

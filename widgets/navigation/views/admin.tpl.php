@@ -39,7 +39,7 @@
 							foreach ($this->addons->get_modules(TRUE) as $module)
 							{
 								//TODO
-								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'error', 'live_editor', 'pages', 'settings', 'games', 'talks']))
+								if (!in_array($module->name, ['access', 'admin', 'addons', 'comments', 'live_editor', 'pages', 'settings', 'games', 'talks']))
 								{
 									$modules[$module->name] = $module->get_title();
 								}

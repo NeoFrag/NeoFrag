@@ -445,7 +445,8 @@ class Index extends Controller_Module
 
 		$rows = [];
 
-		if (in_array($error, [NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED]))
+		//TODO 0.1.7
+		if (in_array($error, []))// [NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED]))
 		{
 			header('HTTP/1.0 401 Unauthorized');
 

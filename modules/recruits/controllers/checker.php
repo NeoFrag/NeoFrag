@@ -55,7 +55,7 @@ class Checker extends Controller_Module
 			];
 		}
 
-		throw new Exception(NeoFrag::UNFOUND);
+		$this->error();
 	}
 
 	public function _postulate($recruit_id, $title)
@@ -90,10 +90,10 @@ class Checker extends Controller_Module
 				];
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
-		throw new Exception(NeoFrag::UNFOUND);
+		$this->error();
 	}
 
 	public function _candidacy($candidacy_id, $title)
@@ -107,12 +107,12 @@ class Checker extends Controller_Module
 					return $candidacy;
 				}
 
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 
-		throw new Exception(NeoFrag::UNCONNECTED);
+		$this->error->unconnected();
 	}
 }

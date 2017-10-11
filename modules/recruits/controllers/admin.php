@@ -239,7 +239,7 @@ class Admin extends Controller_Module
 	{
 		if(!$this->is_authorized('candidacy_vote') && !$this->is_authorized('candidacy_reply'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->subtitle('Candidatures en attentes');
