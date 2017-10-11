@@ -20,7 +20,7 @@ class Ajax_Checker extends Module_Checker
 			}
 			else
 			{
-				throw new Exception(NeoFrag::UNAUTHORIZED);
+				$this->error->unauthorized();
 			}
 		}
 	}

@@ -19,7 +19,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('add_recruit'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		return [];
@@ -29,7 +29,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('modify_recruit'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($recruit = $this->model()->check_recruit($recruit_id, $title))
@@ -65,7 +65,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('delete_recruit'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();
@@ -80,7 +80,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if(!$this->is_authorized('candidacy_vote') && !$this->is_authorized('candidacy_reply'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($recruit = $this->model()->check_recruit($recruit_id, $title))
@@ -93,7 +93,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if(!$this->is_authorized('candidacy_vote') && !$this->is_authorized('candidacy_reply'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		if ($candidacy = $this->model()->check_candidacy($candidacy_id, $title))
@@ -127,7 +127,7 @@ class Admin_Checker extends Module_Checker
 	{
 		if (!$this->is_authorized('candidacy_delete'))
 		{
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 
 		$this->ajax();

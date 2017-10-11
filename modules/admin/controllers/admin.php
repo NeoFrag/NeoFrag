@@ -123,10 +123,6 @@ class Admin extends Controller_Module
 		{
 			echo $help->method($method);
 		}
-		else
-		{
-			throw new Exception(NeoFrag::UNFOUND);
-		}
 	}
 
 	public function about()

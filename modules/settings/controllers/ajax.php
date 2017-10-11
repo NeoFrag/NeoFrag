@@ -16,7 +16,7 @@ class Ajax extends Controller_Module
 
 		if ($this->url->request != 'humans.txt' || !$this->config->nf_humans_txt)
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 
 		echo $this->config->nf_humans_txt;
@@ -28,7 +28,7 @@ class Ajax extends Controller_Module
 
 		if ($this->url->request != 'robots.txt' || !$this->config->nf_robots_txt)
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 
 		echo $this->config->nf_robots_txt;

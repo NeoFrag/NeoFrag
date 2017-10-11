@@ -14,7 +14,7 @@ class Checker extends Module_Checker
 	{
 		if (!$this->user())
 		{
-			throw new Exception(NeoFrag::UNCONNECTED);
+			$this->error->unconnected();
 		}
 
 		return [];
@@ -27,7 +27,7 @@ class Checker extends Module_Checker
 			return [$this->module->pagination->get_data($this->user->get_sessions_history(), $page)];
 		}
 
-		throw new Exception(NeoFrag::UNCONNECTED);
+		$this->error->unconnected();
 	}
 
 	public function _session_delete($session_id)
@@ -36,7 +36,7 @@ class Checker extends Module_Checker
 
 		if (!$this->user())
 		{
-			throw new Exception(NeoFrag::UNCONNECTED);
+			$this->error->unconnected();
 		}
 		else if ($this->db->select('1')->from('nf_sessions')->where('user_id', $this->user('user_id'))->where('session_id', $session_id)->row())
 		{
@@ -150,7 +150,7 @@ class Checker extends Module_Checker
 				}
 				else
 				{
-					throw new Exception(NeoFrag::UNFOUND);
+					$this->error();
 				}
 			}
 

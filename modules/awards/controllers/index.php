@@ -140,7 +140,7 @@ class Index extends Controller_Module
 		}
 		else
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 	}
 }

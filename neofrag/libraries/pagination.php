@@ -51,7 +51,7 @@ class Pagination extends Library
 
 		if (!is_numeric($this->_page) || $this->_page == 0)
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 
 		if ($db)
@@ -100,7 +100,7 @@ class Pagination extends Library
 		}
 		else
 		{
-			throw new Exception(NeoFrag::UNFOUND);
+			$this->error();
 		}
 	}
 

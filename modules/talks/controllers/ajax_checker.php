@@ -19,7 +19,7 @@ class Ajax_Checker extends Module_Checker
 				return $check;
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 	}
 
@@ -32,7 +32,7 @@ class Ajax_Checker extends Module_Checker
 				return $check;
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 	}
 
@@ -45,7 +45,7 @@ class Ajax_Checker extends Module_Checker
 				return $check;
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 	}
 
@@ -65,7 +65,7 @@ class Ajax_Checker extends Module_Checker
 				return [$message_id, $message['talk_id']];
 			}
 
-			throw new Exception(NeoFrag::UNAUTHORIZED);
+			$this->error->unauthorized();
 		}
 	}
 }
