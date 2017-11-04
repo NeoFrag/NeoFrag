@@ -15,3 +15,7 @@ var onloadCallback = function(){
 		});
 	});
 };
+
+$(function() {
+	$.getScript('https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $this->config->lang ?>&_=');
+});
