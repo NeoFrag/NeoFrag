@@ -69,7 +69,7 @@ var modal_settings = function(title, settings, callback){
 
 		$('#live-editor-settings').html('');
 
-		$.post('<?php echo url('ajax/live-editor/widget-admin') ?>', data, function(data){
+		$.post('<?php echo url('admin/ajax/live-editor/widget-admin') ?>', data, function(data){
 			if (data){
 				$('#live-editor-settings').html(data);
 			}
@@ -257,7 +257,7 @@ var modal_delete = function(message, callback){
 };
 
 $(function(){
-	var $widgets = $('[data-mode="<?php echo NeoFrag::WIDGETS ?>"]');
+	var $widgets = $('[data-mode="<?php echo \NF\NeoFrag\Core\Output::WIDGETS ?>"]');
 
 	$('form[target="live-editor-iframe"]').submit();
 
@@ -281,11 +281,11 @@ $(function(){
 	$('.live-editor-mode').click(function(){
 		$(this).toggleClass('active');
 
-		if ($(this).data('mode') == <?php echo NeoFrag::WIDGETS ?>){
+		if ($(this).data('mode') == <?php echo \NF\NeoFrag\Core\Output::WIDGETS ?>){
 			return;
 		}
 
-		var mode = <?php echo NeoFrag::LIVE_EDITOR ?>;
+		var mode = <?php echo $this->output->live_editor() ?>;
 		$('.live-editor-mode.active').each(function(){
 			mode += $(this).data('mode');
 		});
@@ -311,7 +311,7 @@ $(function(){
 		$(this).addClass('active');
 	});
 
-	$('.live-editor-iframe iframe').bind('load', function(){
+	$('.live-editor-iframe iframe').on('load', function(){
 		var $iframe = $(this).contents();
 
 		$('#live-editor-map').html($iframe.find('#live_editor').data('module-title'));
@@ -355,7 +355,7 @@ $(function(){
 
 				var $zone = $this.parents('[data-disposition-id]:first');
 
-				$.post('<?php echo url('ajax/live-editor/zone-fork') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/zone-fork') ?>', {
 					disposition_id: $zone.data('disposition-id'),
 					url: $iframe[0].location.pathname,
 					live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -384,11 +384,11 @@ $(function(){
 			var $this = $(this).parents('[data-disposition-id]:first');
 			$('.live-editor-save').show();
 
-			$.post('<?php echo url('ajax/live-editor/row-add') ?>', {
+			$.post('<?php echo url('admin/ajax/live-editor/row-add') ?>', {
 				disposition_id: $this.data('disposition-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
-				var $rows_button = $('.live-editor-mode[data-mode="<?php echo NeoFrag::ROWS ?>"]');
+				var $rows_button = $('.live-editor-mode[data-mode="<?php echo \NF\NeoFrag\Core\Output::ROWS ?>"]');
 
 				if (!$rows_button.hasClass('active')){
 					$rows_button.trigger('click');
@@ -417,7 +417,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/row-move') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/row-move') ?>', {
 					disposition_id: $(this).data('disposition-id'),
 					row_id: ui.item.find('.row:first').data('row-id'),
 					position: $(this).find('.live-editor-row').index(ui.item)
@@ -435,7 +435,7 @@ $(function(){
 			modal_style('<?php echo $this->lang('Apparence de la ligne') ?>', $row, '.live-editor-styles-row', function(style){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/row-style') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/row-style') ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id'),
 					style: style
@@ -454,7 +454,7 @@ $(function(){
 
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/row-delete') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/row-delete') ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $row.data('row-id')
 				}, function(){
@@ -470,12 +470,12 @@ $(function(){
 			var $row = $(this).parents('.live-editor-row-header:first').next('[data-row-id]:first');
 			$('.live-editor-save').show();
 
-			$.post('<?php echo url('ajax/live-editor/col-add') ?>', {
+			$.post('<?php echo url('admin/ajax/live-editor/col-add') ?>', {
 				disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 				row_id: $row.data('row-id'),
 				live_editor: $('input[type="hidden"][name="live_editor"]').val()
 			}, function(data){
-				var $cols_button = $('.live-editor-mode[data-mode="<?php echo NeoFrag::COLS ?>"]');
+				var $cols_button = $('.live-editor-mode[data-mode="<?php echo \NF\NeoFrag\Core\Output::COLS ?>"]');
 
 				if (!$cols_button.hasClass('active')){
 					$cols_button.trigger('click');
@@ -507,7 +507,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/col-move') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/col-move') ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).data('row-id'),
 					col_id: ui.item.data('col-id'),
@@ -529,7 +529,7 @@ $(function(){
 
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/col-size') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/col-size') ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id'),
@@ -548,7 +548,7 @@ $(function(){
 			modal_delete('<?php echo $this->lang('Êtes-vous sûr(e) de vouloir supprimer cette <b>colonne</b> ?<br />Tous les <b>widgets</b> contenus seront également supprimés.') ?>', function(){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/col-delete') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/col-delete') ?>', {
 					disposition_id: $this.parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $this.parents('[data-row-id]:first').data('row-id'),
 					col_id: $col.data('col-id')
@@ -570,7 +570,7 @@ $(function(){
 				widget_id: -1
 			};
 
-			$.post('<?php echo url('ajax/live-editor/widget-settings') ?>', data, function(html){
+			$.post('<?php echo url('admin/ajax/live-editor/widget-settings') ?>', data, function(html){
 				modal_settings('<?php echo $this->lang('Nouveau Widget') ?>', html, function(settings){
 					$.extend(data, settings);
 					$.extend(data, {
@@ -579,7 +579,7 @@ $(function(){
 
 					$('.live-editor-save').show();
 
-					$.post('<?php echo url('ajax/live-editor/widget-add') ?>', data, function(data){
+					$.post('<?php echo url('admin/ajax/live-editor/widget-add') ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -609,7 +609,7 @@ $(function(){
 			update: function(event, ui){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/widget-move') ?>', {
+				$.post('<?php echo url('admin/ajax/live-editor/widget-move') ?>', {
 					disposition_id: $(this).parents('[data-disposition-id]:first').data('disposition-id'),
 					row_id: $(this).parents('[data-row-id]:first').data('row-id'),
 					col_id: $(this).data('col-id'),
@@ -638,7 +638,7 @@ $(function(){
 
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/widget-style') ?>', data).always(function(){
+				$.post('<?php echo url('admin/ajax/live-editor/widget-style') ?>', data).always(function(){
 					$('.live-editor-save').hide();
 				});
 			});
@@ -654,13 +654,13 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 
-			$.post('<?php echo url('ajax/live-editor/widget-settings') ?>', data, function(html){
+			$.post('<?php echo url('admin/ajax/live-editor/widget-settings') ?>', data, function(html){
 				modal_settings('<?php echo $this->lang('Configuration du Widget') ?>', html, function(settings){
 					$.extend(data, settings);
 
 					$('.live-editor-save').show();
 
-					$.post('<?php echo url('ajax/live-editor/widget-update') ?>', data, function(data){
+					$.post('<?php echo url('admin/ajax/live-editor/widget-update') ?>', data, function(data){
 						if (settings.widget == 'module'){
 							$('form[target="live-editor-iframe"]').submit();
 						}
@@ -690,7 +690,7 @@ $(function(){
 			modal_delete('<?php echo $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce <b>widget</b> ?') ?>', function(){
 				$('.live-editor-save').show();
 
-				$.post('<?php echo url('ajax/live-editor/widget-delete') ?>', data, function(){
+				$.post('<?php echo url('admin/ajax/live-editor/widget-delete') ?>', data, function(){
 					$widget.remove();
 					$('.live-editor-save').hide();
 				});

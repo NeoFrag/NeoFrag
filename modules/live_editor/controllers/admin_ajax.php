@@ -8,7 +8,7 @@ namespace NF\Modules\Live_Editor\Controllers;
 
 use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
 
-class Ajax extends Controller_Module
+class Admin_Ajax extends Controller_Module
 {
 	public function zone_fork($disposition_id, $disposition, $url, $theme, $page, $zone)
 	{
@@ -79,7 +79,7 @@ class Ajax extends Controller_Module
 		$row = $disposition[] = $this->row()->style('row-default');
 		$this->model()->set_disposition($disposition_id, $disposition);
 
-		return $row->id(array_last_key($disposition));
+		return $row->id($disposition->last_key());
 	}
 
 	public function row_move($disposition_id, $disposition, $row_id, $position)
@@ -107,7 +107,7 @@ class Ajax extends Controller_Module
 		$disposition[$row_id]->append($col = $this->col()->size('col-4'));
 		$this->model()->set_disposition($disposition_id, $disposition);
 
-		return $col->id(array_last_key($disposition[$row_id]->children()));
+		return $col->id($disposition[$row_id]->last_key());
 	}
 
 	public function col_move($disposition_id, $disposition, $row_id, $col_id, $position)
@@ -118,14 +118,14 @@ class Ajax extends Controller_Module
 
 	public function col_size($disposition_id, $disposition, $row_id, $col_id, $size)
 	{
-		$disposition[$row_id]->children()[$col_id]->size('col-'.min(12, max($size, 1)));
+		$disposition[$row_id][$col_id]->size('col-'.min(12, max($size, 1)));
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 
 	public function col_delete($disposition_id, $disposition, $row_id, $col_id)
 	{
-		$this->model()->delete_widgets($disposition[$row_id]->children()[$col_id]);
-		$disposition[$row_id]->delete($col_id);
+		$this->model()->delete_widgets($disposition[$row_id][$col_id]);
+		$disposition[$row_id]->destroy($col_id);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 
@@ -138,27 +138,27 @@ class Ajax extends Controller_Module
 									'settings' => $this->widget($widget_name)->get_settings($type, $settings)
 								]);
 
-		$disposition[$row_id]->children()[$col_id]->append($widget = $this->panel_widget($widget_id));
+		$disposition[$row_id][$col_id]->append($widget = $this->widget($widget_id));
 
 		$this->model()->set_disposition($disposition_id, $disposition);
 
-		return $widget->id(array_last_key($disposition[$row_id]->children()[$col_id]->children()));
+		return $widget->id($disposition[$row_id][$col_id]->last_key());
 	}
 
 	public function widget_move($disposition_id, $disposition, $row_id, $col_id, $widget_id, $position)
 	{
-		$disposition[$row_id]->children()[$col_id]->move($widget_id, $position);
+		$disposition[$row_id][$col_id]->move($widget_id, $position);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 
 	public function widget_admin($widget_name, $type, $settings = [])
 	{
-		return $this->widget($widget_name)->get_admin($type, $settings);
+		return implode($this->widget($widget_name)->get_admin($type, $settings));
 	}
 
 	public function widget_style($disposition_id, $disposition, $row_id, $col_id, $widget_id, $style)
 	{
-		$disposition[$row_id]->children()[$col_id]->children()[$widget_id]->style($style);
+		$disposition[$row_id][$col_id][$widget_id]->style($style);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 
@@ -188,13 +188,13 @@ class Ajax extends Controller_Module
 						'settings' => $settings
 					]);
 
-		return $disposition[$row_id]->children()[$col_id]->children()[$widget_id]->id($widget_id);
+		return $disposition[$row_id][$col_id][$widget_id]->id($widget_id);
 	}
 
 	public function widget_delete($disposition_id, $disposition, $row_id, $col_id, $widget_id)
 	{
-		$this->model()->delete_widgets($disposition[$row_id]->children()[$col_id]->children()[$widget_id]);
-		$disposition[$row_id]->children()[$col_id]->delete($widget_id);
+		$this->model()->delete_widgets($disposition[$row_id][$col_id][$widget_id]);
+		$disposition[$row_id][$col_id]->destroy($widget_id);
 		$this->model()->set_disposition($disposition_id, $disposition);
 	}
 }
