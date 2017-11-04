@@ -1,45 +1,43 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['add_role']                  = 'Add a role';
-$lang['add_role_success_message']  = 'role added';
-$lang['add_team']                  = 'Add a team';
-$lang['add_team_success_message']  = 'team added';
-$lang['admin']                     = 'Admin';
-$lang['delete_player']             = 'Delete player';
-$lang['delete_player_message']     = 'Are you sure you want to delete the player <b>%s</b> of this team?';
-$lang['delete_role']               = 'Delete role';
-$lang['delete_role_message']       = 'Are you sure you want to delete the role <b>%s</b>?';
-$lang['delete_team']               = 'Delete team';
-$lang['delete_team_message']       = 'Are you sure you want to delete the team <b>%s</b>?';
-$lang['description']               = 'Description';
-$lang['edit_role']                 = 'Edit role';
-$lang['edit_role_success_message'] = 'Role successfully edited';
-$lang['edit_team']                 = 'Edit team';
-$lang['edit_team_success_message'] = 'team edited';
-$lang['game']                      = 'Games';
-$lang['image']                     = 'Image';
-$lang['list_teams']                = 'Teams list';
-$lang['no_players_on_team']        = 'There are no players in this team';
-$lang['no_role']                   = 'No role';
-$lang['no_team']                   = 'There are no teams';
-$lang['no_team_yet']               = 'There are no teams created at this moment';
-$lang['offline']                   = 'offline';
-$lang['our_players']               = 'Our players';
-$lang['overview']                  = 'Presentation';
-$lang['player']                    = '%d player| %d players';
-$lang['player_single']             = 'Player';
-$lang['players']                   = 'Players';
-$lang['role']                      = 'Role';
-$lang['role_']                     = 'Role %s';
-$lang['roles']                     = 'Roles';
-$lang['teams']                     = 'Team';
-$lang['teams_title']               = 'Teams';
+return [
+	'04fc2b5b' => 'Image',
+	'07eb1774' => 'offline',
+	'1371bbd0' => 'There are no players in this team',
+	'26384dfe' => 'There are no teams',
+	'28d05130' => 'Role successfully edited',
+	'2b5df403' => 'There are no teams created at this moment',
+	'2bec5659' => 'Delete team',
+	'3f40b101' => 'Players',
+	'42bec208' => 'Add a team',
+	'4707d45b' => 'Role %s',
+	'49cf2272' => 'Admin',
+	'4cc427a7' => 'team added',
+	'5c6aceb9' => 'Roles',
+	'6ddb4279' => 'Edit role',
+	'72ef0b9e' => 'Edit team',
+	'7d05aea8' => 'team edited',
+	'7d8a2b79' => 'Delete role',
+	'8d48eebf' => '%d player| %d players',
+	'929c165d' => 'Our players',
+	'938fa9a9' => 'Are you sure you want to delete the team <b>%s</b>?',
+	'93e5de5b' => 'Teams list',
+	'941deef2' => 'Delete player',
+	'94949a27' => 'Team',
+	'97671a33' => 'Games',
+	'98c20708' => 'role added',
+	'ab340ff9' => 'Add a role',
+	'b184ce62' => 'Are you sure you want to delete the player <b>%s</b> of this team?',
+	'be628b0b' => 'Are you sure you want to delete the role <b>%s</b>?',
+	'be90eefa' => 'Teams',
+	'd6cecdee' => 'Role',
+	'e0773cf3' => 'No role',
+	'eb78cff1' => 'Description',
+	'f6f08efc' => 'Presentation',
+	'faddacf3' => 'Player'
+];

@@ -1,17 +1,15 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['all_comments']         = 'All comments';
-$lang['comment_confirmation'] = 'Are you sure you want to delete this comment?';
-$lang['comments']             = 'Comments';
-$lang['no_comments']          = 'There are no comment';
-$lang['number_comments']      = 'Number of comments';
-$lang['see_comments']         = 'View comments';
+return [
+	'31e493e3' => 'There are no comment',
+	'64b6ab5b' => 'View comments',
+	'81a8e398' => 'Are you sure you want to delete this comment?',
+	'8d65d073' => 'Number of comments',
+	'9cab37aa' => 'All comments',
+	'c18f1b3c' => 'Comments'
+];

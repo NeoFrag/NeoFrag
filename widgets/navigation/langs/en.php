@@ -1,23 +1,21 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['horizontal']          = 'Horizontal';
-$lang['links']               = 'Links';
-$lang['move']                = 'Move';
-$lang['move_here_to_remove'] = 'Move a link here to delete';
-$lang['new_window']          = 'New window';
-$lang['options']             = 'Options';
-$lang['orientation']         = 'Orientation';
-$lang['path']                = 'Path';
-$lang['remove_link']         = 'Delete a link';
-$lang['same_window']         = 'Same window';
-$lang['target']              = 'Target';
-$lang['vertical']            = 'Vertical';
+return [
+	'1f88c31b' => 'Options',
+	'209cc33f' => 'Target',
+	'39d56ddf' => 'Same window',
+	'595e8a12' => 'Move',
+	'616195b8' => 'Links',
+	'943a51e2' => 'Vertical',
+	'969b9a0b' => 'New window',
+	'b01c4a81' => 'Orientation',
+	'b4898605' => 'Delete a link',
+	'c38e261e' => 'Path',
+	'dce75260' => 'Move a link here to delete',
+	'f8719a1e' => 'Horizontal'
+];

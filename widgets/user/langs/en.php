@@ -1,17 +1,15 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['logout']           = 'Logout';
-$lang['lost_password']    = 'Lost password?';
-$lang['member_area_mini'] = 'Space (mini) Member';
-$lang['pm_compose']       = 'Write';
-$lang['pm_inbox']         = 'Inbox';
-$lang['welcome']          = 'Welcome <a href="'.url('user').'">'.$this->user('username').'</a>';
+return [
+	'1d688e07' => 'Space (mini) Member',
+	'7042d5b1' => 'Write',
+	'7741ccea' => 'Lost password?',
+	'8a431149' => 'Inbox',
+	'bd0fa24a' => 'Logout',
+	'c983be27' => 'Welcome <a href="'.url('user').'">'.$this->user('username').'</a>'
+];

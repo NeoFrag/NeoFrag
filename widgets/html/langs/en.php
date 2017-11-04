@@ -1,14 +1,12 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['free_content']           = 'Free content';
-$lang['free_content_html_code'] = 'Free content / HTML Code';
-$lang['html_code']              = 'HTML code';
+return [
+	'77e8cb33' => 'Free content / HTML Code',
+	'b3f2efb2' => 'Free content',
+	'e1748a2d' => 'HTML code'
+];

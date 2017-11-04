@@ -1,27 +1,25 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['album_slide']          = 'Slideshow';
-$lang['albums_from_category'] = 'Albums of a category';
-$lang['all_galleries']        = 'All';
-$lang['categories_list']      = 'Categories list';
-$lang['details']              = 'Details';
-$lang['galleries']            = 'Galleries';
-$lang['gallery_to_display']   = 'Gallery to display';
-$lang['next']                 = 'Next';
-$lang['no_category']          = 'No category at the moment';
-$lang['no_picture']           = 'No picture at the moment';
-$lang['options']              = 'Options';
-$lang['ours_albums']          = 'Our albums';
-$lang['ours_galleries']       = 'Our galleries';
-$lang['previous']             = 'Previous';
-$lang['random_picture']       = 'Random image';
-$lang['see_our_gallery']      = 'See our gallery';
+return [
+	'12e9430c' => 'Galleries',
+	'1b74b89b' => 'No picture at the moment',
+	'1f88c31b' => 'Options',
+	'262a1563' => 'Categories list',
+	'2794ea48' => 'Albums of a category',
+	'31ad96c7' => 'See our gallery',
+	'48615813' => 'Our albums',
+	'4bbedcf4' => 'Slideshow',
+	'70998274' => 'Our galleries',
+	'9362b997' => 'Gallery to display',
+	'9cb16a36' => 'Random image',
+	'c399f4a5' => 'Details',
+	'd396a751' => 'Previous',
+	'e27e3273' => 'No category at the moment',
+	'e3202498' => 'All',
+	'ebcb0841' => 'Next'
+];
