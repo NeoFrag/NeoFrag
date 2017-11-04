@@ -8,7 +8,7 @@ namespace NF\Modules\Live_Editor\Controllers;
 
 use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
-class Checker extends Module_Checker
+class Admin_Checker extends Module_Checker
 {
 	public function index()
 	{

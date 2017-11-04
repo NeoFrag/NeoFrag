@@ -8,7 +8,7 @@ namespace NF\Modules\Live_Editor\Controllers;
 
 use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
-class Ajax_Checker extends Module_Checker
+class Admin_Ajax_Checker extends Module_Checker
 {
 	public function zone_fork()
 	{
@@ -106,7 +106,7 @@ class Ajax_Checker extends Module_Checker
 			{
 				return [];
 			}
-			else if ($widget = $this->model()->check_widget($disposition[$row_id]->children()[$col_id]->children()[$widget_id]->widget_id()))
+			else if ($widget = $this->model()->check_widget($disposition->get($row_id, $col_id, $widget_id)->widget_id()))
 			{
 				return $widget;
 			}
@@ -116,7 +116,7 @@ class Ajax_Checker extends Module_Checker
 	public function widget_update()
 	{
 		if ((list($disposition_id, $disposition, $row_id, $col_id, $widget_id, $title, $widget_name, $type, $settings) = $this->_check_disposition('disposition_id', 'row_id', 'col_id', 'widget_id', 'title', 'widget', 'type', 'settings')) &&
-			($widget = $this->model()->check_widget($disposition[$row_id]->children()[$col_id]->children()[$widget_id]->widget_id())))
+			($widget = $this->model()->check_widget($disposition->get($row_id, $col_id, $widget_id)->widget_id())))
 		{
 			$this->model()->get_widgets($widgets, $types);
 

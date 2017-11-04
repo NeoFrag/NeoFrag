@@ -8,21 +8,23 @@ namespace NF\Modules\Live_Editor\Controllers;
 
 use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
 
-class Index extends Controller_Module
+class Admin extends Controller_Module
 {
 	public function index()
 	{
 		$this	->css('font.open-sans.300.400.600.700.800')
 				->css('live-editor')
-				->js('live-editor');
+				->js('live-editor')
+				->css('jquery-ui.min')
+				->js('jquery-ui.min');
 
 		$modules = [];
 
 		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if ($module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
+			if (@$module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
 			{
-				$modules[$module->name] = $module->info()->title;
+				$modules[$module->info()->name] = $module->info()->title;
 			}
 		}
 
@@ -32,10 +34,12 @@ class Index extends Controller_Module
 			'index' => NeoFrag()->lang('Accueil')
 		], $modules);
 
+		$theme = $this->theme($this->config->nf_default_theme);
+
 		return $this->view('index', [
 			'modules'       => $modules,
-			'styles_row'    => '',//$this->output->theme()->styles_row(),//TODO 0.1.7
-			'styles_widget' => ''//$this->output->theme()->styles_widget()
+			'styles_row'    => $theme->styles_row(),
+			'styles_widget' => $theme->styles_widget()
 		]);
 	}
 }
