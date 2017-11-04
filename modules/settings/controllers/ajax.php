@@ -34,19 +34,19 @@ class Ajax extends Controller_Module
 		echo $this->config->nf_robots_txt;
 	}
 
-	public function debugbar()
+	public function debug_bar()
 	{
 		if ($tab = post('tab'))
 		{
-			$this->session->set('debugbar', 'tab', $tab);
+			$this->session->set('debug', 'tab', $tab);
 		}
 		else if ($tab === '')
 		{
-			$this->session->destroy('debugbar', 'tab');
+			$this->session->destroy('debug', 'tab');
 		}
 		else if ($height = (int)post('height'))
 		{
-			$this->session->set('debugbar', 'height', $height);
+			$this->session->set('debug', 'height', $height);
 		}
 	}
 }

@@ -2,7 +2,7 @@ body, #wrapper {
 	padding-bottom: 53px;
 }
 
-.debugbar {
+.debug-bar {
 	background-color: #fff;
 	bottom: 0;
 	position: fixed;
@@ -10,7 +10,7 @@ body, #wrapper {
 	z-index: 1001;
 }
 
-.debugbar nav {
+.debug-bar nav {
 	border-bottom: 1px solid;
 	border-top: 2px solid;
 	border-color: #e7e7e7;
@@ -21,8 +21,8 @@ body, #wrapper {
 	line-height: 50px;
 }
 
-.debugbar .logo {
-	background: url('<?php echo image('debugbar.png') ?>') no-repeat 0 50%;
+.debug-bar .logo {
+	background: url('<?php echo image('debug-bar.png') ?>') no-repeat 0 50%;
 	display: inline-block;
 	float: left;
 	height: 50px;
@@ -30,7 +30,7 @@ body, #wrapper {
 	width: 128px;
 }
 
-.debugbar p {
+.debug-bar p {
 	color: #607D8B;
 	font-size: 13px;
 	display: inline;
@@ -39,11 +39,11 @@ body, #wrapper {
 	line-height: 50px;
 }
 
-.debugbar .debugbar-close {
+.debug-bar .debug-bar-close {
 	display: none;
 }
 
-.debugbar.active .debugbar-resize {
+.debug-bar.active .debug-bar-resize {
 	cursor: n-resize;
 	height: 5px;
 	position: absolute;
@@ -51,7 +51,7 @@ body, #wrapper {
 	width: 100%;
 }
 
-.debugbar.active .debugbar-close {
+.debug-bar.active .debug-bar-close {
 	background-color: #EA7C73;
 	font-size: 13px;
 	font-weight: normal;
@@ -63,7 +63,7 @@ body, #wrapper {
 	padding: 0 20px;
 }
 
-.debugbar .debugbar-tab {
+.debug-bar .debug-bar-tab {
 	border-left: 1px solid #ebebeb;
 	border-right: 1px solid #ebebeb;
 	color: #607D8B;
@@ -75,47 +75,47 @@ body, #wrapper {
 	padding: 0 15px 0 18px;
 }
 
-.debugbar .debugbar-tab + .debugbar-tab {
+.debug-bar .debug-bar-tab + .debug-bar-tab {
 	border-left: 0;
 	margin-left: 0;
 }
 
-.debugbar .debugbar-tab .fa-link {
+.debug-bar .debug-bar-tab .fa-link {
 	color: #4a4234;
 }
 
-.debugbar .debugbar-tab:hover, .debugbar .debugbar-tab:focus, .debugbar .debugbar-tab.active {
+.debug-bar .debug-bar-tab:hover, .debug-bar .debug-bar-tab:focus, .debug-bar .debug-bar-tab.active {
 	color: #21a8e6;
 }
 
-.debugbar .debugbar-content {
+.debug-bar .debug-bar-content {
 	display: none;
 }
 
-.debugbar.active .debugbar-content {
+.debug-bar.active .debug-bar-content {
 	display: block;
 	height: 350px;
 	overflow: auto;
 	padding-top: 5px;
 }
 
-.debugbar .debugbar-pane {
+.debug-bar .debug-bar-pane {
 	display: none;
 }
 
-.debugbar .debugbar-pane.active {
+.debug-bar .debug-bar-pane.active {
 	display: block;
 }
 
-.debugbar .debugbar-pane[data-tab="loader"] ul {
+.debug-bar .debug-bar-pane[data-tab="loader"] ul {
 	list-style: none;
 	padding: 5px 0 0 25px;
 }
 
-.debugbar .debugbar-pane[data-tab="loader"] li + li {
+.debug-bar .debug-bar-pane[data-tab="loader"] li + li {
 	padding-top: 5px;
 }
 
-.debugbar .debugbar-pane[data-tab="loader"] > ul {
+.debug-bar .debug-bar-pane[data-tab="loader"] > ul {
 	padding: 0 5px 0;
 }
