@@ -1,5 +1,5 @@
 <form target="live-editor-iframe" action="<?php echo url() ?>" method="post">
-	<input type="hidden" name="live_editor" value="<?php echo $live_editor = $this->session('live_editor') ?: NeoFrag::LIVE_EDITOR ^ NeoFrag::WIDGETS ?>" />
+	<input type="hidden" name="live_editor" value="<?php echo $live_editor = $this->session('live_editor') ?: NEOFRAG_LIVE_EDITOR ^ NEOFRAG_WIDGETS ?>" />
 	<nav class="live-editor-navbar">
 		<a class="logo" href="<?php echo url('live-editor') ?>"></a>
 		<a class="modules-links" data-toggle="collapse" href="#modules-links-collapse" aria-expanded="false"><?php echo icon('fa-link').' '.$this->lang('navigation').' '.icon('fa-angle-down') ?></a>
@@ -13,10 +13,10 @@
 		<div class="pull-right">
 			<p class="hidden-xs hidden-sm"><?php echo $this->lang('content_management') ?></p>
 			<div class="btn-group">
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ZONES ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::ZONES ?>"><?php echo icon('fa-square-o').' '.$this->lang('zones') ?></button>
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::ROWS ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::ROWS ?>"><?php echo icon('fa-columns fa-rotate-270').' '.$this->lang('rows') ?></button>
-				<button type="button" class="live-editor-mode<?php echo $live_editor & NeoFrag::COLS ? ' active' : '' ?>" data-mode="<?php echo NeoFrag::COLS ?>"><?php echo icon('fa-columns').' '.$this->lang('cols') ?></button>
-				<button type="button" class="live-editor-mode active" data-mode="<?php echo NeoFrag::WIDGETS ?>"><?php echo icon('fa-th-large').' '.$this->lang('widgets') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & NEOFRAG_ZONES ? ' active' : '' ?>" data-mode="<?php echo NEOFRAG_ZONES ?>"><?php echo icon('fa-square-o').' '.$this->lang('zones') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & NEOFRAG_ROWS ? ' active' : '' ?>" data-mode="<?php echo NEOFRAG_ROWS ?>"><?php echo icon('fa-columns fa-rotate-270').' '.$this->lang('rows') ?></button>
+				<button type="button" class="live-editor-mode<?php echo $live_editor & NEOFRAG_COLS ? ' active' : '' ?>" data-mode="<?php echo NEOFRAG_COLS ?>"><?php echo icon('fa-columns').' '.$this->lang('cols') ?></button>
+				<button type="button" class="live-editor-mode active" data-mode="<?php echo NEOFRAG_WIDGETS ?>"><?php echo icon('fa-th-large').' '.$this->lang('widgets') ?></button>
 			</div>
 			<p class="hidden-xs hidden-sm"><?php echo $this->lang('simulate_display') ?></p>
 			<div class="btn-group">

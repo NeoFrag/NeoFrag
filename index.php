@@ -181,4 +181,11 @@ foreach([
 
 define('NEOFRAG_CORE', TRUE);
 
+//TODO
+define('NEOFRAG_LIVE_EDITOR', 0);
+define('NEOFRAG_ZONES'      , 2);
+define('NEOFRAG_ROWS'       , 4);
+define('NEOFRAG_COLS'       , 8);
+define('NEOFRAG_WIDGETS'    , 16);
+
 NeoFrag()->output();
