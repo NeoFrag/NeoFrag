@@ -1,19 +1,17 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['already_installed_version']   = 'This version is already installed';
-$lang['list_installed_themes']       = 'List of installed themes';
-$lang['not_newer_installed_version'] = 'A newer version of this theme is already installed';
-$lang['personalize']                 = 'Customize';
-$lang['theme_customize']             = 'Customizing theme';
-$lang['theme_deletion']              = 'Delete theme';
-$lang['upload_zip_file']             = 'Download a .zip (max. %dMB) theme';
-$lang['zip_file_required']           = 'Please download a .zip theme';
+return [
+	'2b6a01e8' => 'Please download a .zip theme',
+	'45a26340' => 'Download a .zip (max. %dMB) theme',
+	'717adbf5' => 'Delete theme',
+	'aa8e1f61' => 'This version is already installed',
+	'b97fd3c7' => 'Customize',
+	'dbde31be' => 'List of installed themes',
+	'e6277648' => 'A newer version of this theme is already installed',
+	'fa716ede' => 'Customizing theme'
+];

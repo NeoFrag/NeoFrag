@@ -1,19 +1,17 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['admin_theme']   = 'Administration';
-$lang['back_front']    = 'Back on the site';
-$lang['ban']           = 'Bans';
-$lang['documentation'] = 'Documentation';
-$lang['downloads']     = 'Downloads';
-$lang['liveditor']     = 'Live Editor';
-$lang['security']      = 'Security';
-$lang['support']       = 'Support';
+return [
+	'0d743764' => 'Back on the site',
+	'34b76d4d' => 'Live Editor',
+	'4fb9d239' => 'Support',
+	'52b975c0' => 'Administration',
+	'885eeb60' => 'Bans',
+	'bd490876' => 'Security',
+	'c0abe2ce' => 'Documentation',
+	'edde8114' => 'Downloads'
+];

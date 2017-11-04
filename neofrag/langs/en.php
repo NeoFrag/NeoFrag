@@ -1,245 +1,196 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['lang']                           = 'English';
-
-$lang['about']                          = 'About';
-$lang['access_path_already_used']       = 'Path already used';
-$lang['activate']                       = 'Activate';
-$lang['add']                            = 'Add';
-$lang['addons']                         = 'Addons management';
-$lang['administration']                 = 'Administration';
-$lang['age']                            = '(%d year)|(%d years)';
-$lang['ambiguities']                    = 'Ambiguities';
-$lang['authorized_members']             = 'Authorized members';
-$lang['avatar']                         = 'Avatar';
-$lang['avatar_must_be_square']          = 'The avatar must be a square';
-$lang['avatar_size_error']              = 'The avatar must be at least %dpx';
-$lang['back']                           = 'Return';
-$lang['background']                     = 'Background image';
-$lang['background_color']               = 'Background color';
-$lang['background_repeat']              = 'Repeat image';
-$lang['birth_date']                     = 'Date of birth';
-$lang['both']                           = 'Both';
-$lang['bottom']                         = 'Bottom';
-$lang['cancel']                         = 'Cancel';
-$lang['center']                         = 'Centered';
-$lang['close']                          = 'Close';
-$lang['col']                            = 'Col';
-$lang['col_delete_message']             = 'Are you sure you want to delete this <b>column</b>? < br / > all the <b>widgets</b> content will also be deleted.';
-$lang['color']                          = 'Color';
-$lang['comeback_common_layout']         = 'Return to the common layout';
-$lang['comeback_common_layout_message'] = 'Are you sure you want to revert to the common layout? < br / > all <b>columns</b> and <b>widgets</b> related to this area will be lost.';
-$lang['coming_soon']                    = 'Coming soon';
-$lang['comment_unlogged']               = 'You must be logged in to post a comment.';
-$lang['comments']                       = '%d Comment| %d Comments';
-$lang['common_layout']                  = 'Common layout';
-$lang['configuration']                  = 'Configuration';
-$lang['configure']                      = 'Configure';
-$lang['content']                        = 'Content';
-$lang['continue']                       = 'Continue';
-$lang['copyright_all_rights_reserved']  = 'Copyright © '.date('Y').' - '.$this->config->nf_name.' all rights reserved';
-$lang['create_account']                 = 'Create an account';
-$lang['custom_layout']                  = 'Page-specific layout';
-$lang['dashboard']                      = 'Dashboard';
-$lang['database']                       = 'Database';
-$lang['date_long']                      = '%A %e %B %Y';
-$lang['date_short']                     = '%d/%m/%Y';
-$lang['date_time_long']                 = '%A %e %B %Y, %H:%M';
-$lang['date_time_short']                = '%d/%m/%Y %H:%M';
-$lang['day_at']                         = '%s at %s';
-$lang['default_theme']                  = 'Basic theme';
-$lang['delete_confirmation']            = 'Delete confirmation';
-$lang['design']                         = 'Appearance';
-$lang['edit']                           = 'Edit';
-$lang['email_unavailable']              = 'Email address already in use';
-$lang['error']                          = 'Error';
-$lang['error_theme_install']            = 'The theme could not be installed, check whether it is actually a theme';
-$lang['female']                         = 'Female';
-$lang['file_icon']                      = 'image (square format min. %dpx max. %d MB)';
-$lang['file_picture']                   = 'image (max. %d MB)';
-$lang['file_transfer_error']            = 'Transfer error';
-$lang['file_transfer_error_1']          = 'The size of the uploaded file exceeds the configured value of upload_max_filesize in php.ini';
-$lang['file_transfer_error_2']          = 'The size of the uploaded file exceeds the MAX_FILE_SIZE value that was specified in the HTML form';
-$lang['file_transfer_error_3']          = 'The file was only partially downloaded';
-$lang['file_transfer_error_4']          = 'The file has not been downloaded';
-$lang['file_transfer_error_6']          = 'The temporary folder is missing';
-$lang['file_transfer_error_7']          = 'Error writing the file to disk';
-$lang['file_transfer_error_8']          = 'A PHP extension stopped the file upload';
-$lang['first_name']                     = 'First name';
-$lang['forbidden_guests']               = 'Excluded visitors';
-$lang['forbidden_members']              = 'Excluded members';
-$lang['forum']                          = 'Forum';
-$lang['gender']                         = 'Sex';
-$lang['group_admins']                   = 'Administrators';
-$lang['group_members']                  = 'Members';
-$lang['group_visitors']                 = 'Visitors';
-$lang['groups']                         = 'Groups';
-$lang['guest']                          = 'Visitor';
-$lang['help']                           = 'Help';
-$lang['hide']                           = 'Hide';
-$lang['home']                           = 'Home';
-$lang['horizontally']                   = 'Horizontally';
-$lang['hours_ago']                      = 'About an hour ago| About %d hours ago';
-$lang['icon']                           = 'Icon';
-$lang['icon_must_be_square']            = 'The icon should be square';
-$lang['icon_size_error']                = 'The icon should be at least %dpx';
-$lang['icons']                          = '{2} icons';
-$lang['increase']                       = 'Increase';
-$lang['install']                        = 'Install';
-$lang['install_in_progress']            = 'Installing theme...';
-$lang['install_theme']                  = 'Installation / update theme';
-$lang['invalid_birth_date']             = 'Really? 2.1 Gigowatt!';
-$lang['invalid_values']                 = 'The selected value is not valid| The selected values are not valid';
-$lang['invalide_filetype']              = 'Unmanaged resource type';
-$lang['ip_address']                     = 'IP address';
-$lang['last_activity']                  = 'Last activity';
-$lang['last_name']                      = 'Name';
-$lang['left']                           = 'Left';
-$lang['loading']                        = 'Loading...';
-$lang['location']                       = 'Location';
-$lang['login']                          = 'Connection';
-$lang['login_title']                    = 'Login';
-$lang['maintenance']                    = 'Maintenance';
-$lang['male']                           = 'Male';
-$lang['manage_my_account']              = 'Manage my account';
-$lang['member']                         = 'Member';
-$lang['members']                        = 'Members';
-$lang['message_needed']                 = 'Please fill in a message';
-$lang['middle']                         = 'Medium';
-$lang['minutes_ago']                    = 'About a minute ago| About %d minutes ago';
-$lang['moderation']                     = 'Moderation';
-$lang['module']                         = 'Module';
-$lang['my_account']                     = 'My space';
-$lang['my_comment']                     = 'My comment';
-$lang['name']                           = 'Name';
-$lang['navigation']                     = 'Navigation';
-$lang['new_col']                        = 'New col';
-$lang['new_row']                        = 'New Row';
-$lang['new_widget']                     = 'New Widget';
-$lang['no']                             = 'Non';
-$lang['no_data']                        = 'There is nothing here at the moment';
-$lang['no_result']                      = 'No results match the search';
-$lang['notifications']                  = 'Notifications';
-$lang['now']                            = 'A moment ago';
-$lang['online']                         = 'Online';
-$lang['open_website']                   = 'Open the website';
-$lang['our_website_is_unavailable']     = 'Our website is temporarily unavailable,<br />please come back in a moment...';
-$lang['pages']                          = '{0} on {1} pages';
-$lang['password']                       = 'Password';
-$lang['permissions']                    = 'Permissions';
-$lang['permissions_reset_comfirmation'] = 'Confirmation of permissions reset';
-$lang['permissions_reset_message']      = 'Are you sure you want to reset permissions?';
-$lang['position']                       = 'Position';
-$lang['quote']                          = 'Quote';
-$lang['reduce']                         = 'Reduce';
-$lang['reinstall']                      = 'Reinstall';
-$lang['reinstall_to_default']           = 'Reinstall default';
-$lang['remove']                         = 'Delete';
-$lang['remove_file']                    = 'Delete the file?';
-$lang['removed_message']                = 'Deleted message';
-$lang['reply']                          = 'Reply';
-$lang['required_fields']                = '* All fields marked with a star are required';
-$lang['required_input']                 = 'Please fill this field';
-$lang['reset']                          = 'Reset';
-$lang['reset_automatic']                = 'Automatic reset';
-$lang['results']                        = '%d result| %d results';
-$lang['results_total']                  = '%d total';
-$lang['right']                          = 'Right';
-$lang['row']                            = 'Row';
-$lang['row_delete_message']             = 'Are you sure you want to delete this <b>line</b>? < br / > all <b>columns</b> and <b>Widget</b> content will also be deleted.';
-$lang['row_design']                     = 'Appearance of the row';
-$lang['save']                           = 'Save';
-$lang['search']                         = 'Search';
-$lang['search...']                      = 'Search...';
-$lang['seconds_ago']                    = 'A second ago| About %d seconds ago';
-$lang['select_image_file']              = 'Please choose an image file';
-$lang['send']                           = 'Send';
-$lang['server']                         = 'Server';
-$lang['sessions']                       = 'Sessions';
-$lang['settings']                       = 'Settings';
-$lang['show_all']                       = 'Show all';
-$lang['signature']                      = 'Signature';
-$lang['sort']                           = 'Order';
-$lang['theme_activation']               = 'Theme activation';
-$lang['theme_activation_message']       = 'Are you sure you want to activate the theme <b>\'+$(this).data(\'title\')+\'</b>?';
-$lang['theme_deletion_message']         = 'Are you sure you want to permanently delete the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>?';
-$lang['theme_reinstallation_message']   = 'Are you sure you want to reinstall the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>? < br / > all layouts and widgets configurations will be lost.';
-$lang['themes']                         = 'Themes';
-$lang['time_long']                      = '%H:%M:%S';
-$lang['time_short']                     = '%H:%M';
-$lang['title']                          = 'Title';
-$lang['top']                            = 'Top';
-$lang['unavailable_feature']            = 'This feature is not available at the moment.';
-$lang['unfound_translation']            = '{0} Translation not found: %s| {1} Pluralization error %s';
-$lang['unknown_method']                 = 'Non-existent method %s::%s';
-$lang['unknown_property']               = 'Non-existent property %s::%s';
-$lang['upload_file']                    = 'Upload file';
-$lang['username']                       = 'Username';
-$lang['username_unavailable']           = 'Username already in use';
-$lang['users']                          = 'Users';
-$lang['vertically']                     = 'Vertically';
-$lang['view_my_profile']                = 'See my profile';
-$lang['website']                        = 'Web site';
-$lang['website_down_for_maintenance']   = 'The website is down for maintenance';
-$lang['website_under_maintenance']      = 'Website under maintenance';
-$lang['widget_delete_message']          = 'Are you sure you want to delete this <b>widget</b>?';
-$lang['widget_design']                  = 'Appearance of the Widget';
-$lang['widget_settings']                = 'Widget configuration';
-$lang['wrong_email']                    = 'Please enter a valid email address';
-$lang['wrong_url']                      = 'Please enter a valid URL';
-$lang['yesterday_at']                   = 'Yesterday at %s';
-$lang['your_response']                  = 'Your reply';
-$lang['zone']                           = 'Zone #%d';
-
-$lang['locale'] = [
-	'en_GB.UTF8',
-	'en_US.UTF8',
-	'en.UTF8',
-	'en_GB.UTF-8',
-	'en_US.UTF-8',
-	'en.UTF-8',
-	'English_Australia.1252'
+return [
+	'00a1f472' => 'Appearance of the Widget',
+	'03cbfe28' => 'Quote',
+	'0667c6ef' => 'Navigation',
+	'0981cb6f' => 'Are you sure you want to revert to the common layout? < br / > all <b>columns</b> and <b>widgets</b> related to this area will be lost.',
+	'09e5b990' => 'Path already used',
+	'0a66646d' => 'You must be logged in to post a comment.',
+	'0a8143fc' => 'Please enter a valid URL',
+	'0b88231e' => 'Module',
+	'0e2c75ac' => 'Error',
+	'0ecb1d77' => 'Search...',
+	'105e0f88' => 'There is nothing here at the moment',
+	'10c6a1ca' => 'Theme activation',
+	'119a7b3f' => 'Connection',
+	'11db7719' => 'Avatar',
+	'12db61a9' => 'Appearance',
+	'15e4d51b' => '* All fields marked with a star are required',
+	'15f31999' => 'Date of birth',
+	'169cee22' => 'Configuration',
+	'181489e6' => 'Repeat image',
+	'1993dc0b' => 'Are you sure you want to delete this <b>line</b>? < br / > all <b>columns</b> and <b>Widget</b> content will also be deleted.',
+	'19b2db1b' => 'Themes',
+	'19d9dcea' => 'Show all',
+	'1b02b484' => 'Basic theme',
+	'1b4e869b' => 'Excluded visitors',
+	'1cb82b07' => 'About a minute ago| About %d minutes ago',
+	'1d3c16c0' => '{2} icons',
+	'1ea90f79' => 'Close',
+	'20fbc966' => 'Are you sure you want to delete this <b>column</b>? < br / > all the <b>widgets</b> content will also be deleted.',
+	'22baf1dc' => 'Are you sure you want to reinstall the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>? < br / > all layouts and widgets configurations will be lost.',
+	'270e3340' => 'Icon',
+	'27a25fab' => 'Yesterday at %s',
+	'280527e9' => 'Database',
+	'2b41f397' => 'Upload file',
+	'2b7edbed' => 'Web site',
+	'2bfcb090' => 'Col',
+	'2c7983e2' => 'Signature',
+	'2c9de25e' => '%d/%m/%Y %H:%M',
+	'2e843dea' => 'Install',
+	'33d1364f' => 'Top',
+	'38012b05' => 'Reply',
+	'39b5fadc' => 'Bottom',
+	'3d28708d' => 'Administrators',
+	'3eb668b0' => 'Title',
+	'40392430' => 'Background color',
+	'40c5d4cb' => 'New col',
+	'418cc217' => '%A %e %B %Y, %H:%M',
+	'41f3dd34' => 'The file has not been downloaded',
+	'43a89cf7' => 'Reinstall default',
+	'44e46abd' => 'Website under maintenance',
+	'44ea91c9' => 'Forum',
+	'467f39a3' => 'Content',
+	'49511908' => 'The size of the uploaded file exceeds the MAX_FILE_SIZE value that was specified in the HTML form',
+	'4c760602' => '%d total',
+	'4df1b9d1' => 'Activate',
+	'4e79c582' => 'Increase',
+	'4f98863b' => 'Username',
+	'514aeaa6' => 'Users',
+	'514e6bc4' => 'Please choose an image file',
+	'519f55f3' => 'The website is down for maintenance',
+	'51d7c59d' => 'Send',
+	'52a230b3' => 'Unmanaged resource type',
+	'52b975c0' => 'Administration',
+	'54231355' => 'Name',
+	'548fdb8e' => '%d/%m/%Y',
+	'55833cf5' => '%H:%M:%S',
+	'5684ce73' => 'Login',
+	'58c1aa37' => '%H:%M',
+	'595e8a12' => 'Order',
+	'599dba10' => 'Reset',
+	'5befb78f' => 'Appearance of the row',
+	'5c0bd391' => 'Visitors',
+	'6060db8e' => 'Male',
+	'6316ff45' => 'Sessions',
+	'639128b2' => '(%d year)|(%d years)',
+	'648572c3' => 'Add',
+	'65288172' => '%d Comment| %d Comments',
+	'6a41f36b' => 'Centered',
+	'6a852575' => 'Our website is temporarily unavailable,<br />please come back in a moment...',
+	'6ae5e4da' => 'Addons management',
+	'6cde10b2' => 'Sex',
+	'6f1831f7' => 'Return to the common layout',
+	'6f28f1e0' => 'About',
+	'6f96165d' => 'Really? 2.1 Gigowatt!',
+	'6feef461' => 'Confirmation of permissions reset',
+	'70bf26fd' => 'Widget configuration',
+	'70ef90ce' => 'The icon should be at least %dpx',
+	'782726c0' => 'Both',
+	'78aeb25c' => 'Moderation',
+	'79a32b9f' => 'Help',
+	'81419425' => 'Left',
+	'86c33902' => 'Edit',
+	'8703b85d' => 'Zone #%d',
+	'8a7e7178' => '%d result| %d results',
+	'8cefc271' => 'Reinstall',
+	'8d9ef7a4' => 'Delete',
+	'8f8b675b' => 'A second ago| About %d seconds ago',
+	'904c9f27' => 'The file was only partially downloaded',
+	'906e7db1' => 'Email address already in use',
+	'9126c75b' => 'Configure',
+	'92152f53' => 'The avatar must be at least %dpx',
+	'935a9262' => 'Username already in use',
+	'94ce9758' => 'Are you sure you want to reset permissions?',
+	'96f7da00' => 'Members',
+	'977bcca7' => 'Non-existent property %s::%s',
+	'98350f68' => 'Medium',
+	'98de5f45' => 'Groups',
+	'9b4cdd4a' => 'Open the website',
+	'9c791166' => 'See my profile',
+	'9caeb208' => 'The icon should be square',
+	'9fb2b08d' => 'Please fill this field',
+	'a40dc551' => 'No results match the search',
+	'a56b8fed' => 'Deleted message',
+	'a6cfd7e1' => 'Transfer error',
+	'a7e21577' => 'Location',
+	'a918773e' => 'Maintenance',
+	'ab7143b8' => 'Permissions',
+	'ae890ffa' => 'Ambiguities',
+	'aec4768e' => 'image (square format min. %dpx max. %d MB)',
+	'aecb03ca' => 'Coming soon',
+	'b0de6fa6' => 'Online',
+	'b0ece909' => 'Settings',
+	'b0ed858b' => 'Female',
+	'b548300f' => 'Loading...',
+	'b55843d0' => 'Installation / update theme',
+	'b6a189c8' => 'My space',
+	'b7d3e5ee' => 'Visitor',
+	'b8716a3a' => 'Server',
+	'b91079a4' => 'This feature is not available at the moment.',
+	'b9e3a7da' => 'The theme could not be installed, check whether it is actually a theme',
+	'bc28fc77' => 'New Widget',
+	'bc5f3ff3' => 'Search',
+	'bc7db03b' => 'Row',
+	'be4b7bec' => 'A moment ago',
+	'be56659b' => 'Common layout',
+	'be84c736' => 'Dashboard',
+	'bf5a86a3' => 'Position',
+	'bf743a3e' => 'Last activity',
+	'c00cf454' => 'image (max. %d MB)',
+	'c0dc7ef5' => 'Are you sure you want to delete this <b>widget</b>?',
+	'c25ebdf5' => 'About an hour ago| About %d hours ago',
+	'c4145eda' => 'Background image',
+	'c5db4c8a' => 'Delete confirmation',
+	'c9c14e15' => 'Vertically',
+	'c9fa662b' => 'Page-specific layout',
+	'cafa20be' => 'The size of the uploaded file exceeds the configured value of upload_max_filesize in php.ini',
+	'cd019615' => 'Please enter a valid email address',
+	'cd247522' => 'Home',
+	'cd2a42ef' => 'Non',
+	'cf022516' => 'Horizontally',
+	'd041ebad' => 'Cancel',
+	'd1f3582b' => 'Are you sure you want to activate the theme <b>\'+$(this).data(\'title\')+\'</b>?',
+	'd37efb26' => 'Notifications',
+	'd6c77105' => 'Delete the file?',
+	'd744d460' => 'New Row',
+	'da5ba9ce' => 'Manage my account',
+	'db3ce50f' => 'My comment',
+	'dbef185d' => '{0} on {1} pages',
+	'ddf5f639' => 'Non-existent method %s::%s',
+	'de6d4903' => 'The avatar must be a square',
+	'df4be726' => 'Your reply',
+	'df649a95' => 'Copyright © '.date('Y').' - '.$this->config->nf_name.' all rights reserved',
+	'e0b79a88' => 'Please fill in a message',
+	'e1c7c197' => 'Authorized members',
+	'e1ca19e5' => 'Excluded members',
+	'e2526f97' => 'Hide',
+	'e52e38ad' => 'A PHP extension stopped the file upload',
+	'e64311cd' => 'Reduce',
+	'e7c1e1f0' => 'The selected value is not valid| The selected values are not valid',
+	'e92720f6' => 'IP address',
+	'eac3d617' => 'Return',
+	'eae6b2ec' => 'Error writing the file to disk',
+	'ed2f8f43' => '{0} Translation not found: %s| {1} Pluralization error %s',
+	'ed61e9ab' => 'Automatic reset',
+	'ed7211c7' => 'Save',
+	'ee5e2686' => 'Are you sure you want to permanently delete the theme <b>\'+$(this).parents(\'.thumbnail:first\').data(\'title\')+\'</b>?',
+	'f0e4337d' => 'English',
+	'f118fe1f' => 'Member',
+	'f1addf8e' => 'Installing theme...',
+	'f3b0be79' => 'Color',
+	'f4d064b9' => 'Password',
+	'f4d164a9' => 'Right',
+	'f5aad220' => 'First name',
+	'f8875151' => 'Continue',
+	'f8c33614' => 'Create an account',
+	'f96d2e60' => '%s at %s',
+	'fa443997' => '%A %e %B %Y',
+	'fbb9b537' => 'The temporary folder is missing'
 ];
-
-if (!function_exists('date2sql'))
-{
-	function date2sql(&$date)
-	{
-		if (preg_match('#^(\d{2})/(\d{2})/(\d{4})$#', $date, $match))
-		{
-			$date = $match[3].'-'.$match[2].'-'.$match[1];
-		}
-	}
-}
-
-if (!function_exists('time2sql'))
-{
-	function time2sql(&$time)
-	{
-		if (preg_match('#^(\d{2}):(\d{2})$#', $time, $match))
-		{
-			$time = $match[1].':'.$match[2].':00';
-		}
-	}
-}
-
-
-if (!function_exists('datetime2sql'))
-{
-	function datetime2sql(&$datetime)
-	{
-		if (preg_match('#^(\d{2})/(\d{2})/(\d{4}) (\d{2}):(\d{2})$#', $datetime, $match))
-		{
-			$datetime = $match[3].'-'.$match[2].'-'.$match[1].' '.$match[4].':'.$match[5].':00';
-		}
-	}
-}

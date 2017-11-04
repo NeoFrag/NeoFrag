@@ -1,31 +1,29 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['access_path']          = 'Access path';
-$lang['add_pages']            = 'Add page';
-$lang['add_success_message']  = 'Page successfully added';
-$lang['awaiting_publication'] = 'Pending publication';
-$lang['create_page']          = 'Create a page';
-$lang['delete_page']          = 'Delete page';
-$lang['delete_page_message']  = 'Are you sure you want to delete page <b>%s</b>?';
-$lang['detail_general']       = 'General detail';
-$lang['edit_page']            = 'Edit page';
-$lang['edit_success_message'] = 'Page successfully edited';
-$lang['general']              = 'General';
-$lang['index_general']        = 'General index';
-$lang['list_pages']           = 'Pages list';
-$lang['no_pages']             = 'There are no pages';
-$lang['page_title']           = 'Page title';
-$lang['pages']                = 'Pages';
-$lang['publish_now']          = 'Publish this page now';
-$lang['published']            = 'Published';
-$lang['subtitle']             = 'Subtitle';
-$lang['view_page']            = 'View page';
+return [
+	'0070e5d9' => 'Published',
+	'092dbe86' => 'Are you sure you want to delete page <b>%s</b>?',
+	'0df550a7' => 'There are no pages',
+	'17a6daba' => 'Page successfully added',
+	'1a5f4194' => 'View page',
+	'269f8728' => 'Access path',
+	'3f147072' => 'Page successfully edited',
+	'774f1c1f' => 'Pending publication',
+	'8067ae11' => 'Create a page',
+	'8924e84b' => 'Subtitle',
+	'8e8849d6' => 'General index',
+	'909038a7' => 'Edit page',
+	'910491e3' => 'Pages list',
+	'97264285' => 'Page title',
+	'ab96f581' => 'Delete page',
+	'afeac6ac' => 'General detail',
+	'b95fcd0c' => 'General',
+	'bd3e9a22' => 'Publish this page now',
+	'd103c7e9' => 'Add page',
+	'e1b5ca71' => 'Pages'
+];

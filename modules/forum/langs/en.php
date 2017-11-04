@@ -1,83 +1,81 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['add_category']          = 'Add category';
-$lang['add_category_success']  = 'Category successfully added';
-$lang['add_forum']             = 'Add a forum';
-$lang['add_forum_success']     = 'Forum added';
-$lang['add_reply_success']     = 'Reply added';
-$lang['admin']                 = 'Admin';
-$lang['announces']             = 'Announcements';
-$lang['category']              = 'Category';
-$lang['category_confirmation'] = 'Are you sure you want to delete the category <b>%s</b> ? < br / > All forums and messages associated with this category will also be deleted.';
-$lang['contributors']          = '<b>%d</b> participant|<b>%d</b> participants';
-$lang['delete_message']        = 'Delete message';
-$lang['delete_topic']          = 'Delete topic';
-$lang['description']           = 'Description';
-$lang['edit_category']         = 'Edit category';
-$lang['edit_category_success'] = 'Category successfully edited';
-$lang['edit_forum']            = 'Edit forum';
-$lang['edit_forum_success']    = 'Forum edited';
-$lang['edit_message']          = 'Edit message';
-$lang['edit_message_success']  = 'message changed';
-$lang['edit_topic']            = 'Edit topic';
-$lang['edit_topic_message']    = 'Edit topic / message';
-$lang['fill_all_fields']       = 'Please fill in all fields';
-$lang['forum_confirmation']    = 'Are you sure you want to delete the forum <b>%s</b>? <br/> All posts will be also deleted.';
-$lang['forum_marked_as_read']  = 'All the <b>%s</b> forum messages are now regarded as being read';
-$lang['forum_messages']        = '%d reply| %d replies';
-$lang['forums_list']           = 'Forums list';
-$lang['last_message']          = 'Last message';
-$lang['lock_a_topic']          = 'Lock a topic';
-$lang['lock_topic']            = 'Lock topic';
-$lang['locked_topic']          = 'The topic is locked';
-$lang['mark_all_as_read']      = 'Mark all messages as read';
-$lang['marked_as_read']        = 'All messages are now marked as read';
-$lang['message']               = 'message';
-$lang['message_confirmation']  = 'Are you sure you want to delete this message?';
-$lang['message_deleted']       = '<i>Message deleted</i>';
-$lang['message_read']          = 'Message read';
-$lang['message_unread']        = 'Unread message';
-$lang['messages']              = '<b>%d</b> reply| <b>%d</b> replies';
-$lang['messages_per_page']     = 'Replies per page';
-$lang['modify_message']        = 'Edit the message';
-$lang['modify_topic']          = 'Edit the topic';
-$lang['move_topic']            = 'Move the topic';
-$lang['new_topic']             = 'New topic';
-$lang['no_answer']             = 'No reply';
-$lang['no_forum']              = 'No forum';
-$lang['no_message']            = 'No message';
-$lang['offline']               = 'offline';
-$lang['post_topic']            = 'Post topic';
-$lang['read']                  = 'Read';
-$lang['redirect']              = 'Redirect';
-$lang['redirects']             = '<b>%d</b> redirection| <b>%d</b> redirections';
-$lang['remove_category']       = 'Delete category';
-$lang['remove_forum']          = 'Delete forum';
-$lang['remove_topic']          = 'Delete topic';
-$lang['remove_topic_message']  = 'Delete a topic / message';
-$lang['reply_topic']           = 'Reply to topic';
-$lang['select_forum']          = 'Select a forum to move';
-$lang['set_announce']          = 'Promote to announcement';
-$lang['set_topic_announce']    = 'Promote a topic to announce';
-$lang['statistics']            = 'Statistics';
-$lang['subforums']             = 'Subcategories';
-$lang['title_topic']           = 'Topic title';
-$lang['toggle_announce_topic'] = 'topic promoted to announcement or not...';
-$lang['toggle_lock_topic']     = 'topic locked or not...';
-$lang['topic']                 = 'topic';
-$lang['topic_confirmation']    = 'Are you sure you want to delete the topic <b>%s</b>?';
-$lang['topics']                = '<b>%d</b> topic| <b>%d</b> topics';
-$lang['topics_per_page']       = 'Topic per page';
-$lang['unlock_topic']          = 'Unlock topic';
-$lang['unset_announce']        = 'Demote from announcements';
-$lang['views']                 = '<b>%d</b> view| <b>%d</b> views';
-$lang['write']                 = 'Write';
+return [
+	'07eb1774' => 'offline',
+	'09a1f50b' => 'Lock a topic',
+	'0a740bbd' => 'Delete category',
+	'1465ad9f' => '<b>%d</b> participant|<b>%d</b> participants',
+	'20014e69' => 'Edit the topic',
+	'215504fe' => 'Write',
+	'22243b91' => 'Replies per page',
+	'24f68c73' => 'topic promoted to announcement or not...',
+	'2a1538bc' => 'Forum added',
+	'2d1a0d58' => 'Are you sure you want to delete the topic <b>%s</b>?',
+	'2e13599d' => 'topic',
+	'325a18c8' => 'Are you sure you want to delete this message?',
+	'32eeee39' => 'Announcements',
+	'3893ec13' => 'Move the topic',
+	'391053de' => 'Add a forum',
+	'3d83137a' => 'New topic',
+	'3f52b215' => 'Demote from announcements',
+	'4026569e' => 'Topic per page',
+	'4138b5b9' => '<b>%d</b> redirection| <b>%d</b> redirections',
+	'43e8e6b7' => 'Post topic',
+	'45be9f13' => 'Edit the message',
+	'49cf2272' => 'Admin',
+	'4cd691cc' => 'No message',
+	'4f1e3d8b' => 'Unlock topic',
+	'52d9d988' => 'Edit topic',
+	'544deb23' => 'Message read',
+	'5675067d' => 'Redirect',
+	'572b0ba2' => 'Topic title',
+	'67090294' => 'Promote to announcement',
+	'6a472362' => 'Reply added',
+	'6cb02981' => 'Edit message',
+	'725360d4' => 'No forum',
+	'72ae0dc8' => 'Unread message',
+	'84902fd9' => 'Delete topic',
+	'89a1d729' => 'Reply to topic',
+	'8e899731' => 'Lock topic',
+	'94448be9' => 'Last message',
+	'95b1f18f' => 'Please fill in all fields',
+	'97514695' => 'Read',
+	'9a076e84' => 'Forum edited',
+	'9a6ee24e' => 'Are you sure you want to delete the category <b>%s</b> ? < br / > All forums and messages associated with this category will also be deleted.',
+	'9bdb584b' => 'Mark all messages as read',
+	'9d73409b' => '<i>Message deleted</i>',
+	'a026ae67' => 'Category',
+	'a47f60e2' => '%d reply| %d replies',
+	'a9368b0c' => 'topic locked or not...',
+	'a939fb96' => 'All messages are now marked as read',
+	'ab2b6b9e' => 'Statistics',
+	'aba2bfff' => 'Delete topic',
+	'ae5f6892' => 'Are you sure you want to delete the forum <b>%s</b>? <br/> All posts will be also deleted.',
+	'b61a61bb' => 'Delete message',
+	'b6bd307f' => 'message',
+	'b8aeddff' => 'message changed',
+	'bac23b09' => '<b>%d</b> topic| <b>%d</b> topics',
+	'c3773d94' => 'Edit topic / message',
+	'cccdc6fa' => '<b>%d</b> view| <b>%d</b> views',
+	'ce22e79a' => 'No reply',
+	'd1584d3d' => 'The topic is locked',
+	'd19385ac' => 'Subcategories',
+	'd5f5b77a' => '<b>%d</b> reply| <b>%d</b> replies',
+	'd687995a' => 'Category successfully added',
+	'd6d935b8' => 'Edit category',
+	'd7f78423' => 'Promote a topic to announce',
+	'e1892b4c' => 'Select a forum to move',
+	'e7831cbd' => 'Forums list',
+	'eb78cff1' => 'Description',
+	'ed87688d' => 'Delete a topic / message',
+	'efae775e' => 'Delete forum',
+	'f6250ba0' => 'All the <b>%s</b> forum messages are now regarded as being read',
+	'f7423095' => 'Add category',
+	'f9e13ed8' => 'Edit forum',
+	'fe353392' => 'Category successfully edited'
+];

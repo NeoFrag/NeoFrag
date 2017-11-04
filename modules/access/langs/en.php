@@ -1,21 +1,19 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['access']                 = 'Access';
-$lang['ambiguities_to_correct'] = 'Ambiguities to correct';
-$lang['authorized_group']       = 'Group authorized';
-$lang['authorized_member']      = 'Member';
-$lang['forbidden_group']        = 'Group excluded';
-$lang['forbidden_member']       = 'Member excluded';
-$lang['no_permission']          = 'There are no permission to manage';
-$lang['permissions_list']       = 'List of permissions';
-$lang['permissions_management'] = 'Permissions management';
-$lang['reset_all_permissions']  = 'Reset all permissions';
+return [
+	'2b8be5d7' => 'Ambiguities to correct',
+	'2d25f98e' => 'Group excluded',
+	'349b63bb' => 'Group authorized',
+	'45234b85' => 'List of permissions',
+	'befc1364' => 'Access',
+	'c2ab6390' => 'Permissions management',
+	'ceae385f' => 'Member excluded',
+	'd90775ec' => 'There are no permission to manage',
+	'db6ab372' => 'Member',
+	'ec006b78' => 'Reset all permissions'
+];

@@ -1,28 +1,22 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['closed']                       = 'closed';
-$lang['code_analytics']               = 'Analytics code';
-$lang['contact_email']                = 'Contact Email';
-$lang['customizing_maintenance_page'] = 'Customizing the maintenance page';
-$lang['debug_admins_only']            = 'Admins only';
-$lang['debug_always']                 = 'Always';
-$lang['debug_disabled']               = 'Disabled';
-$lang['debug_mode']                   = 'Debug mode';
-$lang['default_page']                 = 'Home Page';
-$lang['general_settings']             = 'General Preferences';
-$lang['logo']                         = 'Logo';
-$lang['opened']                       = 'opened';
-$lang['planned_opening']              = 'Planned opening';
-$lang['site_description']             = 'Site description';
-$lang['site_title']                   = 'Site Title';
-$lang['text_color']                   = 'Text color';
-$lang['website_status']               = 'Website status';
+return [
+	'34d72e7f' => 'opened',
+	'414d9435' => 'General Preferences',
+	'44bc352d' => 'Logo',
+	'7a08258b' => 'Home Page',
+	'80653293' => 'Site description',
+	'89690609' => 'Text color',
+	'8aa7a2a6' => 'Customizing the maintenance page',
+	'8ca1387d' => 'Analytics code',
+	'8da992ed' => 'Site Title',
+	'd35c7c10' => 'Contact Email',
+	'e15c5481' => 'Planned opening',
+	'e41933ae' => 'Website status',
+	'f7f51f4a' => 'closed'
+];

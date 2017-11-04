@@ -1,15 +1,13 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['all_results']     = 'All results';
-$lang['no_results_for']  = 'No results found for <b>%s</b>';
-$lang['search_for']      = 'Search for one or more terms on our site';
-$lang['see_all_results'] = 'See all results';
+return [
+	'6c6e4ac0' => 'Search for one or more terms on our site',
+	'b4888d81' => 'No results found for <b>%s</b>',
+	'c11d9f28' => 'All results',
+	'fadfe229' => 'See all results'
+];

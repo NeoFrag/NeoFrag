@@ -1,18 +1,16 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['alignment']           = 'Alignment';
-$lang['default_description'] = 'Default description';
-$lang['default_title']       = 'Default title';
-$lang['description']         = 'Description';
-$lang['header']              = 'Header';
-$lang['options']             = 'Options';
-$lang['website_title']       = 'Site Title';
+return [
+	'1f88c31b' => 'Options',
+	'69deadf7' => 'Header',
+	'8da992ed' => 'Site Title',
+	'b8e8afdd' => 'Default title',
+	'e17afcad' => 'Alignment',
+	'eb78cff1' => 'Description',
+	'f38ec1ed' => 'Default description'
+];

@@ -1,38 +1,36 @@
 <?php
 /**
- * https://neofr.ag
- * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
+ * https://translate.neofr.ag
+ * @author: FoxLey
+ * @author: eResnova
  */
 
-/**************************************************************************
-Translated by NeoFrag community, contributors are:
-FoxLey, eResnova
-**************************************************************************/
-
-$lang['actions']                      = 'Actions';
-$lang['authors']                      = 'Authors';
-$lang['background_fixed']             = 'Image fixed';
-$lang['contact']                      = 'Contact';
-$lang['dark_background']              = 'Dark grey background';
-$lang['dark_widget']                  = 'Dark grey Widget';
-$lang['default_theme_description']    = 'Its design is minimalist but generic, it can easily be adapated';
-$lang['description']                  = 'Description';
-$lang['footer']                       = 'Footer';
-$lang['header']                       = 'Header';
-$lang['license']                      = 'Licence';
-$lang['light_background']             = 'Light grey background';
-$lang['news']                         = 'News';
-$lang['orange_background']            = 'Orange background';
-$lang['post_content']                 = 'Sticky Content';
-$lang['powered_by_neofrag']           = '[center]Powered by [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]';
-$lang['pre_content']                  = 'Preview content';
-$lang['red_widget']                   = 'Red Widget';
-$lang['teams']                        = 'Teams';
-$lang['theme_administration']         = 'Theme administration!';
-$lang['theme_title']                  = 'Theme name';
-$lang['transparent_background']       = 'Transparent background';
-$lang['transparent_black_background'] = 'Transparent black background';
-$lang['version']                      = 'Version';
-$lang['website_background']           = 'Website Background';
-$lang['white_background']             = 'White background';
-$lang['white_widget']                 = 'White Widget';
+return [
+	'08c66025' => 'News',
+	'21fe6d9c' => 'Preview content',
+	'257cb3a5' => 'Website Background',
+	'3793c835' => 'Its design is minimalist but generic, it can easily be adapated',
+	'3e60236f' => '[center]Powered by [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]',
+	'426efa19' => 'Sticky Content',
+	'64d47f15' => 'Image fixed',
+	'704ff933' => 'Footer',
+	'70a1ea5f' => 'Version',
+	'736f1dfe' => 'Header',
+	'752dbb4c' => 'Transparent background',
+	'83dfdfa4' => 'Contact',
+	'8baf3899' => 'Theme name',
+	'8bf371ad' => 'White Widget',
+	'9b54cbf1' => 'Dark grey background',
+	'a1e76b6a' => 'Transparent black background',
+	'a26aedb6' => 'Authors',
+	'a8e33d7c' => 'Light grey background',
+	'ba1235e7' => 'White background',
+	'be90eefa' => 'Teams',
+	'caf5c873' => 'Actions',
+	'd217dfd4' => 'Licence',
+	'd38eb588' => 'Dark grey Widget',
+	'd62ce08d' => 'Orange background',
+	'da285c11' => 'Red Widget',
+	'eb78cff1' => 'Description',
+	'f93becbc' => 'Theme administration!'
+];
