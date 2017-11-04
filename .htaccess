@@ -12,13 +12,13 @@ AddDefaultCharset UTF-8
 	#RewriteCond %{REQUEST_URI} ^/(dir1|dir2)/
 	#RewriteRule .* - [L,QSA]
 
-	RewriteCond %{REQUEST_URI} !^/backups/
+	RewriteCond %{REQUEST_URI} !^/(backups|cache|logs)/
 
 	##Allow direct access to specific files
 	#RewriteCond %{REQUEST_FILENAME} /file1\.php [OR]
 	#RewriteCond %{REQUEST_FILENAME} /file2\.php [OR]
 
-	RewriteCond %{REQUEST_FILENAME} \.(png|jpg|jpeg|gif|swf|eot|svg|ttf|woff|woff2|zip)$
+	RewriteCond %{REQUEST_FILENAME} \.(png|jpg|jpeg|gif|swf|eot|map|svg|ttf|woff|woff2|zip)$
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule .* - [L,QSA]
 
