@@ -24,11 +24,6 @@ abstract class Library extends NeoFrag
 		});
 	}
 
-	public function save()
-	{
-		return clone $this;
-	}
-
 	public function set_id($id = NULL)
 	{
 		$this->id = $id ?: md5($this->name.++self::$ID);
