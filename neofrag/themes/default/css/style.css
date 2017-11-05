@@ -1,9 +1,9 @@
 body {
-	background-image: url('<?php echo $this->config->default_background ? path($this->config->default_background) : '../images/backgrounds/default.jpg'; ?>');
-	background-position: <?php echo $this->config->default_background_position; ?>;
-	background-repeat: <?php echo $this->config->default_background_repeat; ?>;
-	background-attachment: <?php echo $this->config->default_background_attachment; ?>;
-	background-color: <?php echo color2hex($this->config->default_background_color); ?>;
+	background-image: url('<?php echo $this->config->default_background ? path($this->config->default_background) : '../images/backgrounds/default.jpg' ?>');
+	background-position: <?php echo $this->config->default_background_position ?>;
+	background-repeat: <?php echo $this->config->default_background_repeat ?>;
+	background-attachment: <?php echo $this->config->default_background_attachment ?>;
+	background-color: <?php echo color2hex($this->config->default_background_color) ?>;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	color: #656D79;
@@ -315,7 +315,7 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 /* navbar-inverse */
 
 .navbar.navbar-inverse {
-	background: url('<?php echo image('navbar.png'); ?>') no-repeat top center;
+	background: url('<?php echo image('navbar.png') ?>') no-repeat top center;
 	border-color: #212427;
 }
 
@@ -564,13 +564,13 @@ nav.navbar.navbar-topbar ul.nav.navbar-nav > li.active {
 /* row light */
 
 .row-light {
-	background: url('<?php echo image('gray_light.png'); ?>');
+	background: url('<?php echo image('gray_light.png') ?>');
 }
 
 /* row dark */
 
 .row-dark {
-	background: url('<?php echo image('gray_dark.png'); ?>');
+	background: url('<?php echo image('gray_dark.png') ?>');
 }
 
 /* row black */

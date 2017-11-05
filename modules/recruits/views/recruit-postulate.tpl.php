@@ -4,4 +4,4 @@
 	<div class="alert alert-success no-margin">Candidature <b>acceptée</b>. Félicitation !</div>
 <?php else: ?>
 	<div class="alert alert-danger no-margin">Candidature <b>refusée...</b></div>
-<?php endif; ?>
+<?php endif ?>

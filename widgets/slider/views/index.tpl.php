@@ -5,14 +5,14 @@
 	</ol>
 	<div class="carousel-inner" role="listbox">
 		<div class="item active">
-			<img src="<?php echo image('slide1.jpg'); ?>" alt="..." />
+			<img src="<?php echo image('slide1.jpg') ?>" alt="..." />
 			<div class="carousel-caption hidden-xs">
 				<h3>Slider 1</h3>
 				<p>Accedebant enim eius asperitati, ubi inminuta vel laesa amplitudo imperii dicebatur</p>
 			</div>
 		</div>
 		<div class="item">
-			<img src="<?php echo image('slide2.jpg'); ?>" alt="..." />
+			<img src="<?php echo image('slide2.jpg') ?>" alt="..." />
 			<div class="carousel-caption hidden-xs">
 				<h3>Slider 2</h3>
 				<p>Accedebant enim eius asperitati, ubi inminuta vel laesa amplitudo imperii dicebatur</p>

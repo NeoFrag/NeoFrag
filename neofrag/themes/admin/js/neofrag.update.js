@@ -22,7 +22,7 @@ $(function(){
 		});
 
 		$.ajax({
-			url: '<?php echo url('admin/ajax/monitoring/update.json'); ?>',
+			url: '<?php echo url('admin/ajax/monitoring/update.json') ?>',
 			cache: false,
 			xhr: function(){
 				var xhr = new window.XMLHttpRequest();

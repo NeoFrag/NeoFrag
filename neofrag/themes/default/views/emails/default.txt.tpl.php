@@ -1,1 +1,1 @@
-<?php echo $this->view('emails/body.txt', $data); ?>
+<?php echo $this->view('emails/body.txt', $data) ?>

@@ -22,7 +22,7 @@ $(function(){
 		$('.knob').val(0).trigger('change');
 		$('.module-monitoring .refresh fa').addClass('fa-spin');
 		$('#storage-pourcent, #monitoring-text').html('&nbsp')
-		$('#storage-total, #storage-free, #storage-database, #storage-files, #storage-used, #monitoring-danger, #monitoring-warning, #monitoring-info').html('<?php echo icon('fa-spinner fa-spin'); ?>');
+		$('#storage-total, #storage-free, #storage-database, #storage-files, #storage-used, #monitoring-danger, #monitoring-warning, #monitoring-info').html('<?php echo icon('fa-spinner fa-spin') ?>');
 		$('.table-notifications').html('');
 		$('.panel-infos .fa.text-green, .panel-infos .fa.text-danger').addClass('fa-spinner fa-spin').removeClass('fa-check-square text-green fa-exclamation-triangle text-danger');
 		$('.panel-infos [data-label]').each(function(){
@@ -32,7 +32,7 @@ $(function(){
 		$('.monitoring-icon-status').removeClass('beat-fast beat-medium beat-slow');
 		$('#tree').treeview('remove');
 
-		$.post('<?php echo url('admin/ajax/monitoring.json'); ?>', {refresh: typeof refresh != 'undefined' && refresh ? refresh : 0}, function(data){
+		$.post('<?php echo url('admin/ajax/monitoring.json') ?>', {refresh: typeof refresh != 'undefined' && refresh ? refresh : 0}, function(data){
 			var used     = data.storage.total - data.storage.free;
 			var pourcent = Math.ceil(used / data.storage.total * 100);
 
@@ -56,7 +56,7 @@ $(function(){
 
 			$.each(data.notifications, function(i, notification){
 				notifications += '	<tr>\
-										<td class="col-lg-2"><span class="label label-'+notification[1]+'">'+(notification[1] == 'danger' ? '<?php echo icon('fa-bug'); ?> Erreur' : (notification[1] == 'warning' ? '<?php echo icon('fa-flash'); ?> Anomalie' : '<?php echo icon('fa-exclamation-circle'); ?> Conseil'))+'</span></td>\
+										<td class="col-lg-2"><span class="label label-'+notification[1]+'">'+(notification[1] == 'danger' ? '<?php echo icon('fa-bug') ?> Erreur' : (notification[1] == 'warning' ? '<?php echo icon('fa-flash') ?> Anomalie' : '<?php echo icon('fa-exclamation-circle') ?> Conseil'))+'</span></td>\
 										<td class="vcenter">'+notification[0]+'</td>\
 									</tr>';
 				count[notification[1]]++;
@@ -112,7 +112,7 @@ $(function(){
 		});
 
 		$.ajax({
-			url: '<?php echo url('admin/ajax/monitoring/backup.json'); ?>',
+			url: '<?php echo url('admin/ajax/monitoring/backup.json') ?>',
 			cache: false,
 			xhr: function(){
 				var xhr = new window.XMLHttpRequest();

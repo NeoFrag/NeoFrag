@@ -22,7 +22,7 @@ $(function(){
 
 		$talks.data('onupdate', true);
 
-		$.post('<?php echo url('ajax/talks'); ?>'+(olders ? '/older' : ''), data, function(data){
+		$.post('<?php echo url('ajax/talks') ?>'+(olders ? '/older' : ''), data, function(data){
 			if (olders){
 				$talks.append(data);
 			}
@@ -60,7 +60,7 @@ $(function(){
 		var $talks = $(this).parents('.widget.widget-talks:first').find('[data-talk-id]:first');
 
 		if ($input.val()){
-			$.post('<?php echo url('ajax/talks/add_message'); ?>', {
+			$.post('<?php echo url('ajax/talks/add_message') ?>', {
 				talk_id: $talks.data('talk-id'),
 				message: $input.val()
 			}, function(data){

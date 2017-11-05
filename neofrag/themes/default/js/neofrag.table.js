@@ -43,7 +43,7 @@ $(function(){
 		}
 
 		if (!$input.next('.form-control-feedback').length){
-			$input.after('<span class="form-control-feedback" style="background: url(<?php echo image('ajax-loader.gif'); ?>) 50% 50% no-repeat;"></span>');
+			$input.after('<span class="form-control-feedback" style="background: url(<?php echo image('ajax-loader.gif') ?>) 50% 50% no-repeat;"></span>');
 		}
 
 		request[table_id] = $.ajax({

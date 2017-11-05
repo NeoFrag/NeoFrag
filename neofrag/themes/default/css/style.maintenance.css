@@ -1,7 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
-	background: <?php echo color2hex($this->config->nf_maintenance_background_color) ?: '#000'; ?>;
-	color: <?php echo $color = color2hex($this->config->nf_maintenance_text_color) ?: '#fff'; ?>;
+	background: <?php echo color2hex($this->config->nf_maintenance_background_color) ?: '#000' ?>;
+	color: <?php echo $color = color2hex($this->config->nf_maintenance_text_color) ?: '#fff' ?>;
 	overflow: hidden;
 }
 
@@ -67,7 +67,7 @@ a:focus {
 .navbar-custom .navbar-brand .navbar-toggle {
 	padding: 4px 6px;
 	font-size: 16px;
-	color: <?php echo $color; ?>;
+	color: <?php echo $color ?>;
 }
 
 .navbar-custom .navbar-brand .navbar-toggle:focus,
@@ -76,7 +76,7 @@ a:focus {
 }
 
 .navbar-custom a, .navbar-custom .navbar-brand {
-	color: <?php echo $color; ?>;
+	color: <?php echo $color ?>;
 }
 
 .navbar-custom .nav li a:hover,
@@ -121,7 +121,7 @@ img.logo {
 	height: auto;
 	padding: 100px 0;
 	text-align: center;
-	background: url('<?php echo $this->config->nf_maintenance_background ? path($this->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg'); ?>') <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat'; ?> <?php echo $this->config->nf_maintenance_background_position ?: 'top center'; ?>;
+	background: url('<?php echo $this->config->nf_maintenance_background ? path($this->config->nf_maintenance_background) : image('backgrounds/maintenance.jpg') ?>') <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat' ?> <?php echo $this->config->nf_maintenance_background_position ?: 'top center' ?>;
 }
 
 .intro .intro-body {

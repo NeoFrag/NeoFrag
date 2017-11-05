@@ -10,7 +10,7 @@ $('body').on('nf.load', function(){
 		crossDomain: false,
 		success: function(data){
 			$.each(data, function(ip, data){
-				$('[data-geolocalisation="'+ip+'"]').replaceWith('<img src="'+(data['flag'] ? '<?php echo url('neofrag/themes/default/images/flags/'); ?>'+data['flag'] : '<?php echo url('neofrag/themes/default/images/icons/user-silhouette-question.png'); ?>')+'" data-toggle="tooltip" title="'+data['location']+'" style="margin-right: 10px;" alt="" />');
+				$('[data-geolocalisation="'+ip+'"]').replaceWith('<img src="'+(data['flag'] ? '<?php echo url('neofrag/themes/default/images/flags/') ?>'+data['flag'] : '<?php echo url('neofrag/themes/default/images/icons/user-silhouette-question.png') ?>')+'" data-toggle="tooltip" title="'+data['location']+'" style="margin-right: 10px;" alt="" />');
 			});
 		}
 	});

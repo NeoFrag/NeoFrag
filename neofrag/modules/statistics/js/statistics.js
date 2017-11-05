@@ -23,7 +23,7 @@ $(function(){
 			}
 		});
 
-		$.post('<?php echo url('admin/ajax/statistics.json'); ?>', data, function(series){
+		$.post('<?php echo url('admin/ajax/statistics.json') ?>', data, function(series){
 			$('#highcharts').highcharts('StockChart', {
 				chart: {
 					height: 750,

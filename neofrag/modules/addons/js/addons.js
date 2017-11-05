@@ -1,7 +1,7 @@
 $(function(){
 	var load_addons = function($addon){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/addons'); ?>',
+			url: '<?php echo url('admin/ajax/addons') ?>',
 			type: 'POST',
 			data: {
 				'addon': $addon.data('addon')
@@ -43,7 +43,7 @@ $(function(){
 	//Activate / Desactivate
 	$('body').on('click', '.item-status-switch > a', function(){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/addons/active.json'); ?>',
+			url: '<?php echo url('admin/ajax/addons/active.json') ?>',
 			type: 'POST',
 			data: {
 				type: $(this).parents('[data-type]:first').data('type'),
@@ -81,10 +81,10 @@ $(function(){
 			formData.append('file', $('input[type="file"].install')[0].files[0]);
 
 			$('.btn.install').data('title', $('.btn.install').html());
-			$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse'); ?> Veuillez patienter')
+			$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse') ?> Veuillez patienter')
 
 			$.ajax({
-				url: '<?php echo url('admin/ajax/addons/install.json'); ?>',
+				url: '<?php echo url('admin/ajax/addons/install.json') ?>',
 				type: 'POST',
 				cache: false,
 				contentType: false,
@@ -130,8 +130,8 @@ $(function(){
 		if (!$(this).hasClass('panel-primary')){
 			var theme_name = $(this).data('theme');
 
-			modal_theme('<?php echo $this->lang('theme_activation'); ?>', '<?php echo $this->lang('theme_activation_message'); ?>', '<button type="button" class="btn btn-info" data-theme="'+theme_name+'"><?php echo $this->lang('activate'); ?></button>', function(){
-				$.post('<?php echo url('admin/ajax/addons/theme/active.json'); ?>', {theme: theme_name}, function(data){
+			modal_theme('<?php echo $this->lang('theme_activation') ?>', '<?php echo $this->lang('theme_activation_message') ?>', '<button type="button" class="btn btn-info" data-theme="'+theme_name+'"><?php echo $this->lang('activate') ?></button>', function(){
+				$.post('<?php echo url('admin/ajax/addons/theme/active.json') ?>', {theme: theme_name}, function(data){
 					$('.thumbnail .btn-danger.disabled').removeClass('disabled');
 					$('.thumbnail.panel-primary').removeClass('panel-primary');
 					$('.thumbnail[data-theme="'+theme_name+'"]').addClass('panel-primary').find('.btn-danger').addClass('disabled');
@@ -153,8 +153,8 @@ $(function(){
 	//Reset
 	$('body').on('click', '.thumbnail .btn-warning', function(e){
 		e.stopPropagation();
-		modal_theme('<?php echo $this->lang('reinstall_to_default'); ?>', '<?php echo $this->lang('theme_reinstallation_message'); ?>', '<button type="button" class="btn btn-warning" data-theme="'+$(this).parents('.thumbnail:first').data('theme')+'"><?php echo $this->lang('reinstall'); ?></button>', function(){
-			$.post('<?php echo url('admin/ajax/addons/theme/reset.json'); ?>', {theme: $(this).data('theme')}, function(data){
+		modal_theme('<?php echo $this->lang('reinstall_to_default') ?>', '<?php echo $this->lang('theme_reinstallation_message') ?>', '<button type="button" class="btn btn-warning" data-theme="'+$(this).parents('.thumbnail:first').data('theme')+'"><?php echo $this->lang('reinstall') ?></button>', function(){
+			$.post('<?php echo url('admin/ajax/addons/theme/reset.json') ?>', {theme: $(this).data('theme')}, function(data){
 				notify(data.success);
 			});
 		});
@@ -183,7 +183,7 @@ $(function(){
 		var $item = $(this).parents('[data-name]:first');
 		var name  = $item.data('name');
 
-		$.post('<?php echo url('admin/ajax/addons/authenticator/admin.json'); ?>', {name: name}, function(data){
+		$.post('<?php echo url('admin/ajax/addons/authenticator/admin.json') ?>', {name: name}, function(data){
 			var $modal = $('.modal-authenticator');
 
 			$modal.find('.modal-title').html(data.title);
@@ -217,7 +217,7 @@ $(function(){
 					settings[$(this).attr('name')] = $(this).val();
 				});
 
-				$.post('<?php echo url('admin/ajax/addons/authenticator/update'); ?>', {name: name, settings: settings}, function(data){
+				$.post('<?php echo url('admin/ajax/addons/authenticator/update') ?>', {name: name, settings: settings}, function(data){
 					$modal.modal('hide');
 
 					$modal.on('hidden.bs.modal', function(){
