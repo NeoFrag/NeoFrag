@@ -14,11 +14,11 @@ class m_talks_c_ajax_checker extends Controller_Module
 			{
 				return $check;
 			}
-			
+
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
 	}
-	
+
 	public function older()
 	{
 		if ($check = post_check('talk_id', 'message_id', 'position'))
@@ -27,11 +27,11 @@ class m_talks_c_ajax_checker extends Controller_Module
 			{
 				return $check;
 			}
-			
+
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
 	}
-	
+
 	public function add_message()
 	{
 		if ($check = post_check('talk_id', 'message'))
@@ -40,7 +40,7 @@ class m_talks_c_ajax_checker extends Controller_Module
 			{
 				return $check;
 			}
-			
+
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
 	}
@@ -53,14 +53,14 @@ class m_talks_c_ajax_checker extends Controller_Module
 								->from('nf_talks_messages')
 								->where('message_id', (int)$message_id)
 								->row();
-		
+
 		if ($message)
 		{
 			if ($this->access('talks', 'delete', $message['talk_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
 			{
 				return [$message_id, $message['talk_id']];
 			}
-			
+
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
 	}

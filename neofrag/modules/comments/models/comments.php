@@ -14,7 +14,7 @@ class m_comments_m_comments extends Model
 												->from('nf_comments')
 												->group_by('module_id', 'module')
 												->get();
-												
+
 		if ($comments)
 		{
 			$list = [];
@@ -26,7 +26,7 @@ class m_comments_m_comments extends Model
 					$list[] = array_merge($comment, $tmp);
 				}
 			}
-			
+
 			return $list;
 		}
 		else
@@ -49,7 +49,7 @@ class m_comments_m_comments extends Model
 		if (method_exists($module, 'comments'))
 		{
 			$comment = $module->comments($module_id);
-			
+
 			$comment['module_title'] = $module->get_title();
 			$comment['icon']         = $module->icon;
 

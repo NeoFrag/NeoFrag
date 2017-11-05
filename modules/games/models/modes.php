@@ -12,7 +12,7 @@ class m_games_m_modes extends Model
 		{
 			$this->db->where('game_id', $game_id);
 		}
-		
+
 		return $this->db->from('nf_games_modes')
 						->order_by('title')
 						->get();
@@ -59,7 +59,7 @@ class m_games_m_modes extends Model
 			'title'   => $title
 		]);
 	}
-	
+
 	public function edit_mode($mode_id, $title)
 	{
 		$this->db	->where('mode_id', $mode_id)

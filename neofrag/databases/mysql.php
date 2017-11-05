@@ -53,7 +53,7 @@ class Driver_mysql extends Driver
 			'innodb'    => ($result = mysql_fetch_row(mysql_query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"'))) && in_array($result[0], ['DEFAULT', 'YES'])
 		];
 	}
-	
+
 	static public function get_size()
 	{
 		$total = 0;
@@ -76,7 +76,7 @@ class Driver_mysql extends Driver
 	{
 		return mysql_query('SET FOREIGN_KEY_CHECKS = '.(int)$check);
 	}
-	
+
 	static public function fetch($results, $type = 'assoc')
 	{
 		return mysql_fetch_assoc($results);
@@ -149,12 +149,12 @@ class Driver_mysql extends Driver
 	protected function build_sql()
 	{
 		parent::build_sql();
-		
+
 		if (!empty($this->bind))
 		{
 			$this->sql = vsprintf($this->sql, $this->bind);
 		}
-		
+
 		return $this;
 	}
 
@@ -186,12 +186,12 @@ class Driver_mysql extends Driver
 	public function get()
 	{
 		$return = [];
-		
+
 		while ($data = mysql_fetch_array($this->result, MYSQL_ASSOC))
 		{
 			$return[] = $data;
 		}
-		
+
 		mysql_free_result($this->result);
 
 		return $return;

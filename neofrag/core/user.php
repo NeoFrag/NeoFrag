@@ -11,7 +11,7 @@ class User extends Core
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		if ($this->config->nf_http_authentication && $this->session('user_id') === NULL && $this->session('session', 'http_authentication'))
 		{
 			$this->session->destroy('session', 'http_authentication');
@@ -42,10 +42,10 @@ class User extends Core
 						$this->db	->where('user_id', (int)$user['user_id'])
 									->update('nf_users', [
 										'password' => $user['password'] = $this->password->encrypt($password.($salt = unique_id())),
-										'salt'     => $user['salt'] = $salt,
+										'salt'     => $user['salt'] = $salt
 									]);
 					}
-					
+
 					if ($this->password->is_valid($password.$user['salt'], $user['password']))
 					{
 						$this->login((int)$user['user_id'], FALSE);
@@ -99,7 +99,7 @@ class User extends Core
 				$this->_user_data['language']           = $user['language'];
 				$this->_user_data['registration_date']  = $user['registration_date'];
 				$this->_user_data['last_activity_date'] = now();
-				
+
 				$this->_user_data['first_name']         = $user['first_name'];
 				$this->_user_data['last_name']          = $user['last_name'];
 				$this->_user_data['avatar']             = $user['avatar'];
@@ -118,7 +118,7 @@ class User extends Core
 		}
 
 		$this->check_http_authentification();
-		
+
 		if ($this->config->nf_maintenance)
 		{
 			if ($this->config->nf_maintenance_opening && date_create() >= ($opening = date_create($this->config->nf_maintenance_opening)))
@@ -129,12 +129,12 @@ class User extends Core
 			else if (!$this('admin') && $this->url->request != 'user/logout')
 			{
 				header('HTTP/1.0 503 Service Unavailable');
-				
+
 				if (!empty($opening))
 				{
 					header('Retry-After: '.$opening->setTimezone(new DateTimezone('UTC'))->format('D, d M Y H:i:s \G\M\T'));
 				}
-				
+
 				if (!$this->url->ajax_header)
 				{
 					$form_login = $this
@@ -160,15 +160,15 @@ class User extends Core
 							refresh();
 						}
 					}
-					
+
 					$theme = $this->theme('default')->load();
-					
+
 					$this	->css('font.open-sans.300.400.600.700.800')
 							->css('jquery.countdown')
 							->css('style.maintenance')
 							->js('jquery.countdown')
 							->js('maintenance');
-					
+
 					echo $theme->view('default', [
 						'body'       => $theme->view('maintenance', [
 							'page_title' => $page_title = $this->config->nf_maintenance_title ?: NeoFrag()->lang('website_under_maintenance')
@@ -180,7 +180,7 @@ class User extends Core
 						'page_title' => $page_title.' :: '.$this->config->nf_name
 					]);
 				}
-				
+
 				exit;
 			}
 		}
@@ -218,14 +218,14 @@ class User extends Core
 								->where('user_id', $user_id ?: $this('user_id'))
 								->order_by('last_activity DESC')
 								->get();
-		
+
 		//On ajoute des infos de session (time_zone ....)
 		foreach ($sessions as &$session)
 		{
 			$user_data = unserialize(utf8_html_entity_decode($session['user_data']));
-			
+
 			unset($session['user_data']);
-			
+
 			if (isset($user_data['session']))
 			{
 				foreach ($user_data['session'] as $key => $value)
@@ -234,7 +234,7 @@ class User extends Core
 				}
 			}
 		}
-		
+
 		return $sessions;
 	}
 
@@ -245,11 +245,11 @@ class User extends Core
 						->order_by('date DESC')
 						->get();
 	}
-	
+
 	public function get_messages()
 	{
 		static $count;
-		
+
 		if ($count === NULL)
 		{
 		 $count= $this->db	->select('COUNT(*)')
@@ -261,7 +261,7 @@ class User extends Core
 							->where('(r.date < mr.date OR (r.date IS NULL AND r.user_id <> mr2.user_id))')
 							->row();
 		}
-		
+
 		return $count;
 	}
 
@@ -284,7 +284,7 @@ class User extends Core
 			$user_id  = $this('user_id');
 			$username = $this('username');
 		}
-		
+
 		if (!$username)
 		{
 			$username = $this->db->select('username')->from('nf_users')->where('user_id', $user_id)->row();
@@ -292,7 +292,7 @@ class User extends Core
 
 		return '<a class="user-profile" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('user/'.$user_id.'/'.url_title($username)).'">'.$prefix.$username.'</a>';
 	}
-	
+
 	public function avatar($avatar = 0, $sex = '', $user_id = NULL, $username = '')
 	{
 		if ($this->_user_data && !func_num_args())

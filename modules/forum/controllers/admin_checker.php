@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_forum_c_admin_checker extends Controller
 {
 	public function _edit($forum_id, $title)
@@ -23,7 +23,7 @@ class m_forum_c_admin_checker extends Controller
 			return [$forum_id, $title];
 		}
 	}
-	
+
 	public function _categories_edit($category_id, $name)
 	{
 		if ($category = $this->model()->check_category($category_id, $name))
@@ -31,7 +31,7 @@ class m_forum_c_admin_checker extends Controller
 			return $category;
 		}
 	}
-	
+
 	public function _categories_delete($category_id, $name)
 	{
 		$this->ajax();

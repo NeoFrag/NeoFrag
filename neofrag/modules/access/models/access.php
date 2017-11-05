@@ -16,7 +16,7 @@ class m_access_m_access extends Model
 				'id'     => $id
 			]);
 		}
-		
+
 		foreach ((array)$entities as $entity)
 		{
 			$this->db->insert('nf_access_details', [
@@ -26,27 +26,27 @@ class m_access_m_access extends Model
 				'authorized' => $authorized
 			]);
 		}
-		
+
 		return $this;
 	}
-	
+
 	public function delete($module, $action, $id, $type = NULL, $entity = NULL)
 	{
 		if ($type)
 		{
 			$this->db->where('ad.type', $type);
-			
+
 			if ($entity)
 			{
 				$this->db->where('ad.entity', $entity);
 			}
 		}
-		
+
 		$this->db	->where('a.module', $module)
 					->where('a.action', $action)
 					->where('a.id', $id)
 					->delete('ad', 'nf_access_details ad INNER JOIN nf_access a ON a.access_id = ad.access_id');
-					
+
 		return $this;
 	}
 }

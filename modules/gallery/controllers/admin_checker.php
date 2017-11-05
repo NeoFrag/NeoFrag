@@ -10,7 +10,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 	{
 		return [$this->pagination->get_data($this->model()->get_gallery(), $page)];
 	}
-	
+
 	public function _edit($gallery_id, $title)
 	{
 		if ($gallery = $this->model()->check_gallery($gallery_id, $title, 'default'))
@@ -18,7 +18,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 			return $gallery;
 		}
 	}
-	
+
 	public function delete($gallery_id, $title)
 	{
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
@@ -31,7 +31,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 			return [$gallery['gallery_id'], $gallery['title']];
 		}
 	}
-	
+
 	public function _categories_edit($category_id, $name)
 	{
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
@@ -39,7 +39,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 			return $category;
 		}
 	}
-	
+
 	public function _categories_delete($category_id, $name)
 	{
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
@@ -67,7 +67,7 @@ class m_gallery_c_admin_checker extends Controller_Module
 			];
 		}
 	}
-	
+
 	public function _image_delete($image_id, $name)
 	{
 		$this->ajax();

@@ -19,12 +19,12 @@ class m_pages extends Module
 	public $routes      = [
 		//Index
 		'{url_title}'             => '_index',
-		
+
 		//Admin
 		'admin{pages}'            => 'index',
 		'admin/{id}/{url_title*}' => '_edit'
 	];
-	
+
 	public function get_title($new_title = NULL)
 	{
 		if (!empty($this->load->data['module_title']))
@@ -47,7 +47,7 @@ class m_pages extends Module
 		{
 			$title = $this->lang($this->title, NULL);
 		}
-		
+
 		return $title;
 	}
 }

@@ -115,7 +115,7 @@ class Debug extends Core
 			return utf8_htmlentities(str_replace(["\n", "\r"], '', $data));
 		}
 	}
-	
+
 	public function timeline()
 	{
 		if (!func_num_args())
@@ -126,7 +126,7 @@ class Debug extends Core
 			usort($this->_timeline, function($a, $b){
 				return $a[1] > $b[1];
 			});
-			
+
 			foreach ($this->_timeline as $time)
 			{
 				if (!isset($min, $max))
@@ -140,18 +140,18 @@ class Debug extends Core
 					$max = max($max, $time[2]);
 				}
 			}
-			
+
 			$total = $max - $min;
-			
+
 			foreach ($this->_timeline as $time)
 			{
 				$class = 'pull-left';
-				
+
 				if (preg_match('/class="(.*?)"/', $time[0], $match))
 				{
 					$class .= ' '.$match[1];
 				}
-				
+
 				$output .= '	<tr>
 									<td class="col-md-1">'.$time[0].'</td>
 									<td>
@@ -160,7 +160,7 @@ class Debug extends Core
 									</td>
 								</tr>';
 			}
-			
+
 			$output .= '	</tbody>
 						</table>';
 
@@ -177,7 +177,7 @@ class Debug extends Core
 	{
 		return isset($this->config) && !empty($this->config->nf_debug) && ($this->config->nf_debug == 2 || ($this->user('admin') && $this->config->nf_debug == 1));
 	}
-	
+
 	public function display()
 	{
 		if ($this->is_enabled())
@@ -272,7 +272,7 @@ class Debug extends Core
 		{
 			$output = '<span class="label label-warning">'.$deprecated.'</span>';
 		}
-		
+
 		return $result;
 	}
 }

@@ -5,7 +5,7 @@
 	$(function(){
 		$('<link rel="stylesheet" href="<?php echo css('wbbtheme.css'); ?>" type="text/css" media="screen" />').appendTo('head');
 		$('#live-editor-settings-form textarea.editor').wysibb({lang: "fr"});
-		
+
 		$('#live-editor-settings-form').on('nf.live-editor-settings.submit', function(){
 			if ($('#live-editor-settings-form textarea.editor').length){
 				$('#live-editor-settings-form textarea.editor').sync();

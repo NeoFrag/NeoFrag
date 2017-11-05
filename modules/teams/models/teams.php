@@ -50,7 +50,7 @@ class m_teams_m_teams extends Model
 
 		return $list;
 	}
-	
+
 	public function get_players($team_id)
 	{
 		return $this->db->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
@@ -93,7 +93,7 @@ class m_teams_m_teams extends Model
 						'title'       => $title,
 						'description' => $description
 					]);
-					
+
 		return $team_id;
 	}
 
@@ -120,7 +120,7 @@ class m_teams_m_teams extends Model
 		$this->file->delete($this->db->select('image_id', 'icon_id')->from('nf_teams')->where('team_id', $team_id)->row());
 
 		$this->groups->delete('teams', $team_id);
-		
+
 		$this->db	->where('team_id', $team_id)
 					->delete('nf_teams');
 	}

@@ -43,7 +43,7 @@ class t_admin extends Theme
 		if (file_exists($file = 'cache/monitoring/version.json'))
 		{
 			$version = json_decode(file_get_contents($file))->neofrag;
-			
+
 			if (version_compare(version_format($version->version), version_format(NEOFRAG_VERSION), '>'))
 			{
 				$this->add_data('update', $version);
@@ -175,12 +175,12 @@ class t_admin extends Theme
 
 		return parent::load();
 	}
-	
+
 	public function styles_row()
 	{
 		//Nothing to do
 	}
-	
+
 	public function styles_widget()
 	{
 		//Nothing to do

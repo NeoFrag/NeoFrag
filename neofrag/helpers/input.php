@@ -10,7 +10,7 @@ function post($var = NULL)
 	{
 		return $_POST;
 	}
-	
+
 	if (isset($_POST[$var]))
 	{
 		return $_POST[$var];

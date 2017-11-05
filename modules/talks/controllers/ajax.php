@@ -12,7 +12,7 @@ class m_talks_c_ajax extends Controller_Module
 			'messages' => $this->model()->get_messages($talk_id, $message_id)
 		]);
 	}
-	
+
 	public function older($talk_id, $message_id, $position)
 	{
 		echo $this->view('index', [
@@ -21,7 +21,7 @@ class m_talks_c_ajax extends Controller_Module
 			'messages' => $this->model()->get_messages($talk_id, $message_id, TRUE)
 		]);
 	}
-	
+
 	public function add_message($talk_id, $message)
 	{
 		if ($message = trim($message))
@@ -33,7 +33,7 @@ class m_talks_c_ajax extends Controller_Module
 			]);
 		}
 	}
-	
+
 	public function delete($message_id, $talk_id)
 	{
 		$this	->title($this->lang('delete_confirmation'))

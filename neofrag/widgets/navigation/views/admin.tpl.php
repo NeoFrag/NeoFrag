@@ -25,7 +25,7 @@
 		<div id="add-link" class="tab-pane" role="tabpanel">
 			<div class="form-horizontal">
 				<div class="panel-group no-margin" id="accordion">
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<a class="type-collapse" role="button" data-toggle="collapse" data-parent="#accordion" href="#type-module" aria-controls="type-module">
@@ -35,7 +35,7 @@
 						<div id="type-module" class="panel-collapse collapse" role="tabpanel">
 							<?php
 							$modules = [];
-	
+
 							foreach ($this->addons->get_modules(TRUE) as $module)
 							{
 								//TODO
@@ -44,9 +44,9 @@
 									$modules[$module->name] = $module->get_title();
 								}
 							}
-							
+
 							array_natsort($modules);
-							
+
 							$modules = array_merge([
 								'index' => NeoFrag()->lang('home')
 							], $modules);
@@ -95,7 +95,7 @@
 									->where('pl.lang', $this->config->lang)
 									->order_by('pl.title ASC')
 									->get();
-									
+
 					if ($pages): ?>
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -178,7 +178,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -242,7 +242,7 @@
 			var title     = $(this).parent().find('#edit-title').val();
 			var url       = $(this).parent().find('#edit-url').val();
 			var target    = $(this).parent().find('#edit-target').val();
-			
+
 			$('#links .form-edit #settings-title').val(title);
 			$('#links .form-edit #settings-url').val(url);
 			$('#links .form-edit #settings-target option[value="'+target+'"]').prop('selected', true);

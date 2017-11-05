@@ -9,7 +9,7 @@ class w_forum_c_index extends Controller_Widget
 	public function index($config = [])
 	{
 		$messages = $this->model()->get_last_messages();
-		
+
 		if (!empty($messages))
 		{
 			return $this->panel()
@@ -26,11 +26,11 @@ class w_forum_c_index extends Controller_Widget
 						->body($this->lang('no_messages'));
 		}
 	}
-	
+
 	public function topics($config = [])
 	{
 		$topics = $this->model()->get_last_topics();
-		
+
 		if (!empty($topics))
 		{
 			return $this->panel()
@@ -47,7 +47,7 @@ class w_forum_c_index extends Controller_Widget
 						->body($this->lang('no_topics'));
 		}
 	}
-	
+
 	public function statistics($config = [])
 	{
 		return $this->panel()
@@ -59,7 +59,7 @@ class w_forum_c_index extends Controller_Widget
 						'users'     => $this->db->select('COUNT(DISTINCT user_id)')->from('nf_forum_messages')->row()
 					]), FALSE);
 	}
-	
+
 	public function activity($config = [])
 	{
 		$users = $this->db->select('DISTINCT u.user_id', 'u.username')->from('nf_sessions s')->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('s.is_crawler', FALSE)->get();

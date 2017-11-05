@@ -26,13 +26,13 @@ class Comments extends Library
 			return $this->count_comments($module_name, $module_id);
 		}
 	}
-	
+
 	public function delete($module_name, $module_id)
 	{
 		$this->db	->where('module', $module_name)
 					->where('module_id', $module_id)
 					->delete('nf_comments');
-		
+
 		return $this;
 	}
 
@@ -54,12 +54,12 @@ class Comments extends Library
 		if ($form->is_valid($post))
 		{
 			$parent_id = NULL;
-			
+
 			if (!empty($post['comment_id']) && $this->db->select('COUNT(*)')->from('nf_comments')->where('module', $module_name)->where('module_id', $module_id)->where('parent_id', NULL)->where('comment_id', $post['comment_id'])->row() == 1)
 			{
 				$parent_id = $post['comment_id'];
 			}
-			
+
 			$comment_id = $this->db->insert('nf_comments', [
 				'parent_id' => $parent_id,
 				'user_id'   => $this->user('user_id'),
@@ -67,7 +67,7 @@ class Comments extends Library
 				'module'    => $module_name,
 				'content'   => $post['comment']
 			]);
-			
+
 			redirect($this->url->request.'#comment-'.$comment_id);
 		}
 
@@ -81,29 +81,29 @@ class Comments extends Library
 								->get();
 
 		$output = '';
-				
+
 		foreach ($comments as $comment)
 		{
 			$output .= $this->view('comments/index', $comment);
 		}
-		
+
 		$count = count($comments);
-		
+
 		$panels = [];
-		
+
 		if ($errors = $form->get_errors())
 		{
 			$panels[] = $this	->panel()
 								->heading('<a name="comments"></a>'.NeoFrag()->lang('message_needed'), 'fa-warning')
 								->color('danger');
 		}
-		
+
 		$panels[] = $this	->panel()
 							->heading('<a name="comments"></a>'.NeoFrag()->lang('comments', $count, $count), 'fa-comments-o')
 							->body($output.$this->view('comments/new', [
 								'form_id' => $form->token()
 							]));
-		
+
 		return display($panels);
 	}
 }

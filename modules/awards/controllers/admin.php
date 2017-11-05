@@ -132,7 +132,7 @@ class m_awards_c_admin extends Controller_Module
 				->form
 				->add_rules('awards', [
 					'teams' => $this->model()->get_teams_list(),
-					'games' => $this->model()->get_games_list(),
+					'games' => $this->model()->get_games_list()
 				])
 				->add_submit($this->lang('add'))
 				->add_back('admin/awards');

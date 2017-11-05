@@ -39,7 +39,7 @@ class Output extends Core
 			}
 
 			notifications();
-			
+
 			if ($this->load->module->name == 'live_editor')
 			{
 				$this->data['body'] = $this->load->module;
@@ -106,7 +106,7 @@ class Output extends Core
 	public function zone($zone_id)
 	{
 		static $dispositions;
-		
+
 		if ($dispositions === NULL)
 		{
 			$this->db	->select('zone', 'disposition_id', 'disposition', 'page')
@@ -133,7 +133,7 @@ class Output extends Core
 			}
 
 			call_user_func_array([$this->db, 'where'], $pages);
-			
+
 			foreach ($this->db->get() as $disposition)
 			{
 				if (!isset($dispositions[$zone = $disposition['zone']]))

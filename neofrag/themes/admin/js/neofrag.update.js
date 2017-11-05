@@ -1,6 +1,6 @@
 $(function(){
 	var progressBar = [];
-	
+
 	$('#modal-update .progress-bar').each(function(i){
 		var $progress = $(this);
 		var start = 0;
@@ -30,7 +30,7 @@ $(function(){
 					var data = xhr.response.split(';').map(function(value){
 						return JSON.parse(value.trim());
 					});
-					
+
 					$.each(data, function(key, data){
 						var $progressBar = progressBar[data[0]][0];
 						var value = $progressBar.data('value');

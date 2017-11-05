@@ -46,7 +46,7 @@ class m_partners extends Module
 		if ($this->form->is_valid($post))
 		{
 			$this->config('partners_logo_display', $post['partners_logo_display']);
-			
+
 			redirect_back('admin/addons#modules');
 		}
 

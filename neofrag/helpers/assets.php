@@ -15,7 +15,7 @@ function icon($icon)
 	{
 		return '<i class="fa fa-fw fa-'.$match[1].'"></i>';
 	}
-	
+
 	return '';
 }
 
@@ -38,7 +38,7 @@ function asset($file_path, $file_name = '')
 
 			$content = file_get_contents($path);
 			$date    = filemtime($path);
-			
+
 			break;
 		}
 	}
@@ -53,18 +53,18 @@ function asset($file_path, $file_name = '')
 
 			$content = NeoFrag()->view->content($content, $data);
 		}
-		
+
 		ob_end_clean();
 
 		header('Last-Modified: '.date('r', $date));
 		header('Etag: '.($etag = md5($content)));
 		header('Content-Type: '.get_mime_by_extension($ext));
-		
+
 		if ($ext == 'zip')
 		{
 			header('Content-Disposition: attachment; filename="'.basename($file_name ?: $file_path).'"');
 		}
-		
+
 		if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $date) || (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag))
 		{
 			header('HTTP/1.1 304 Not Modified');
@@ -84,7 +84,7 @@ function path($file, $file_type = '', $paths = [])
 	if (func_num_args() == 1)
 	{
 		static $paths = [];
-		
+
 		if (!isset($paths[$file]))
 		{
 			$paths[$file] = NeoFrag()->db->select('path')
@@ -92,7 +92,7 @@ function path($file, $file_type = '', $paths = [])
 												->where('file_id', $file)
 												->row();
 		}
-		
+
 		return $paths[$file] ? url($paths[$file]) : '';
 	}
 	else
@@ -117,7 +117,7 @@ function path($file, $file_type = '', $paths = [])
 		$file = str_replace('\/', '/', $file);
 
 		static $assets;
-		
+
 		if (!isset($assets[$checksum = md5(serialize($paths))][$file_type][$file]))
 		{
 			foreach ($paths as $path)

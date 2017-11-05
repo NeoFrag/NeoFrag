@@ -52,7 +52,7 @@ $(function(){
 			updating = false;
 		});
 	};
-	
+
 	update();
 	$('form input, form select, .date').on('change changeDate dp.change', update);
 });

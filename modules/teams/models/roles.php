@@ -13,14 +13,14 @@ class m_teams_m_roles extends Model
 							->order_by('order', 'role_id')
 							->get();
 	}
-	
+
 	public function check_role($role_id, $title)
 	{
 		$role = $this->db	->select('role_id', 'title')
 							->from('nf_teams_roles')
 							->where('role_id', $role_id)
 							->row();
-		
+
 		if ($role && $title == url_title($role['title']))
 		{
 			return $role;
@@ -30,7 +30,7 @@ class m_teams_m_roles extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function add_role($title)
 	{
 		$this->db->insert('nf_teams_roles', [
@@ -45,7 +45,7 @@ class m_teams_m_roles extends Model
 						'title' => $title
 					]);
 	}
-	
+
 	public function delete_role($role_id)
 	{
 		$this->db	->where('role_id', $role_id)

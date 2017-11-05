@@ -48,13 +48,13 @@ class m_pages_c_admin extends Controller_Module
 				])
 				->data($pages)
 				->no_data($this->lang('no_pages'));
-						
+
 		return $this->panel()
 					->heading($this->lang('list_pages'), 'fa-align-left')
 					->body($this->table->display())
 					->footer($this->button_create('admin/pages/add', $this->lang('create_page')));
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_pages'))
@@ -75,7 +75,7 @@ class m_pages_c_admin extends Controller_Module
 
 			redirect_back('admin/pages');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_pages'), 'fa-align-left')
 					->body($this->form->display());
@@ -94,9 +94,9 @@ class m_pages_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/pages');
-		
+
 		if ($this->form->is_valid($post))
-		{	
+		{
 			$this->model()->edit_page(	$page_id,
 										$post['name'],
 										$post['title'],
@@ -104,17 +104,17 @@ class m_pages_c_admin extends Controller_Module
 										$post['subtitle'],
 										$post['content'],
 										$this->config->lang);
-		
+
 			notify($this->lang('edit_success_message'));
 
 			redirect_back('admin/pages');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_page'), 'fa-align-left')
 					->body($this->form->display());
 	}
-	
+
 	public function delete($page_id, $title)
 	{
 		$this	->title($this->lang('delete_page'))

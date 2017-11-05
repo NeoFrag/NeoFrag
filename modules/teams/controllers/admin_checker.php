@@ -23,7 +23,7 @@ class m_teams_c_admin_checker extends Controller_Module
 			return [$team['team_id'], $team['title']];
 		}
 	}
-	
+
 	public function _roles_edit($role_id, $name)
 	{
 		if ($role = $this->model('roles')->check_role($role_id, $name))
@@ -31,7 +31,7 @@ class m_teams_c_admin_checker extends Controller_Module
 			return $role;
 		}
 	}
-	
+
 	public function _roles_delete($role_id, $name)
 	{
 		$this->ajax();
@@ -41,7 +41,7 @@ class m_teams_c_admin_checker extends Controller_Module
 			return $role;
 		}
 	}
-	
+
 	public function _players_delete($team_id, $name, $user_id)
 	{
 		$this->ajax();

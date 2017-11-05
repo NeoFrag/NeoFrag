@@ -31,19 +31,19 @@ class m_access_c_admin_checker extends Controller_Module
 			if ($tab === '' || $module_name == $tab)
 			{
 				$objects = $objects[$module_name];
-				
+
 				foreach ($objects as &$object)
 				{
 					list($id, $title) = array_values($object);
-					
+
 					$object = [
 						'id'     => $id,
 						'title'  => $module[0]->lang($title, NULL)
 					];
-					
+
 					unset($object);
 				}
-				
+
 				$tab = $module_name;
 				break;
 			}

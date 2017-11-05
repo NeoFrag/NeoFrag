@@ -11,7 +11,7 @@ class w_news_c_index extends Controller_Widget
 		$news = array_filter($this->model()->get_news(), function($a){
 			return $a['published'];
 		});
-		
+
 		if (!empty($news))
 		{
 			return $this->panel()
@@ -28,11 +28,11 @@ class w_news_c_index extends Controller_Widget
 						->body($this->lang('no_news'));
 		}
 	}
-	
+
 	public function categories($config = [])
 	{
 		$categories = $this->model('categories')->get_categories();
-		
+
 		if (!empty($categories))
 		{
 			return $this->panel()

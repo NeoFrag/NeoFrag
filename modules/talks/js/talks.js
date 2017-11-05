@@ -3,11 +3,11 @@ $(function(){
 		if ($talks.data('onupdate')){
 			return;
 		}
-		
+
 		if (typeof olders == 'undefined'){
 			olders = false
 		}
-		
+
 		var $first = $talks.find('[data-message-id]:last');
 		var data = {
 			talk_id:    $talks.data('talk-id'),
@@ -19,9 +19,9 @@ $(function(){
 				position: $first.length ? $first.data('position') : 0
 			});
 		}
-		
+
 		$talks.data('onupdate', true);
-		
+
 		$.post('<?php echo url('ajax/talks'); ?>'+(olders ? '/older' : ''), data, function(data){
 			if (olders){
 				$talks.append(data);
@@ -33,17 +33,17 @@ $(function(){
 			$talks.data('onupdate', false);
 		});
 	};
-	
+
 	var refresh = function(){
 		$('.widget.widget-talks [data-talk-id]').each(function(){
 			update($(this));
 		});
-		
+
 		setTimeout(refresh, 10000);
 	};
-	
+
 	refresh();
-	
+
 	$('.widget.widget-talks .panel-body').mCustomScrollbar({
 		theme: 'dark',
 		callbacks: {
@@ -54,11 +54,11 @@ $(function(){
 			}
 		}
 	});
-	
+
 	$('.widget.widget-talks .panel-footer form').submit(function(){
 		var $input = $(this).find('input[type="text"]');
 		var $talks = $(this).parents('.widget.widget-talks:first').find('[data-talk-id]:first');
-		
+
 		if ($input.val()){
 			$.post('<?php echo url('ajax/talks/add_message'); ?>', {
 				talk_id: $talks.data('talk-id'),
@@ -68,7 +68,7 @@ $(function(){
 				update($talks);
 			});
 		}
-		
+
 		return false;
 	});
 });

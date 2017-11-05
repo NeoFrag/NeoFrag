@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_recruits_c_admin extends Controller_Module
 {
 	public function index($recruits)
@@ -528,7 +528,7 @@ class m_recruits_c_admin extends Controller_Module
 											'values' => [
 												'1' => 'En attente',
 												'2' => 'Acceptée',
-												'3' => 'Refusée',
+												'3' => 'Refusée'
 											],
 											'type'   => 'radio',
 											'rules'  => 'required'
@@ -617,7 +617,7 @@ class m_recruits_c_admin extends Controller_Module
 									'type'   => 'textarea',
 									'value'  => isset($user_vote['comment']) ? $user_vote['comment'] : NULL,
 									'rules'  => 'required'
-								],
+								]
 							])
 							->add_submit('Envoyer mon avis')
 							->save();
@@ -626,7 +626,7 @@ class m_recruits_c_admin extends Controller_Module
 		{
 			if ($user_vote)
 			{
-				$this->model()->update_vote($this->user('user_id'),	
+				$this->model()->update_vote($this->user('user_id'),
 											$candidacy_id,
 											$post['vote'],
 											$post['comment']);
@@ -757,7 +757,7 @@ class m_recruits_c_admin extends Controller_Module
 											'user_id'    => $this->user('user_id'),
 											'message'    => $message
 										]);
-			
+
 				$this->db	->where('message_id', $message_id)
 							->update('nf_users_messages', [
 								'reply_id'      => $reply_id,
@@ -773,7 +773,7 @@ class m_recruits_c_admin extends Controller_Module
 					]);
 				}
 			}
-			
+
 			if ($this->config->recruits_send_mail && $candidacy['email'])
 			{
 				$this->load	->email

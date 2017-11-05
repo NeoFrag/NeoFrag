@@ -110,7 +110,7 @@ abstract class Widget extends Loadable
 			{
 				$output = [$output];
 			}
-			
+
 			return $output;
 		}
 
@@ -125,7 +125,7 @@ abstract class Widget extends Loadable
 			{
 				$output = [$output];
 			}
-			
+
 			return $output;
 		}
 

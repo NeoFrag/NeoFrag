@@ -5,9 +5,9 @@
 		<?php if ($event['type'] == 1): ?>
 			<?php
 			echo icon('fa-crosshairs');
-			
+
 			$match = $this->model('matches')->get_match_info($event['event_id']);
-			
+
 			$opponent = '&nbsp;'.$match['opponent']['title'];
 
 			if ($match['opponent']['country'])

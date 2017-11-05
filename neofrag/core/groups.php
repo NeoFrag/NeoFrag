@@ -7,13 +7,13 @@
 class Groups extends Core
 {
 	private $_groups = [];
-	
+
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$users = $this->db->select('user_id', 'admin')->from('nf_users')->where('deleted', FALSE)->get();
-		
+
 		$this->_groups = [
 			'admins' => [
 				'name'   => 'admins',
@@ -43,7 +43,7 @@ class Groups extends Core
 				'auto'   => 'neofrag'
 			]
 		];
-		
+
 		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
 							->from('nf_groups g')
 							->join('nf_groups_lang gl',  'gl.group_id = g.group_id')
@@ -87,7 +87,7 @@ class Groups extends Core
 				];
 			}
 		}
-		
+
 		foreach ($this->addons->get_modules() as $module)
 		{
 			if (method_exists($module, 'groups'))
@@ -95,10 +95,10 @@ class Groups extends Core
 				foreach ($module->groups() as $id => $group)
 				{
 					$group_id = url_title($module->name.'_'.$id);
-					
+
 					$this->_groups[$group_id]         = !empty($this->_groups[$group_id]) ? array_merge($group, $this->_groups[$group_id]) : $group;
 					$this->_groups[$group_id]['auto'] = 'module_'.$module->name;
-					
+
 					if (empty($this->_groups[$group_id]['icon']))
 					{
 						$this->_groups[$group_id]['icon'] = $module->icon;
@@ -121,7 +121,7 @@ class Groups extends Core
 				}
 			}
 		}
-		
+
 		foreach ($this->_groups as $group_id => &$group)
 		{
 			if (array_key_exists('users', $group))
@@ -132,7 +132,7 @@ class Groups extends Core
 			{
 				unset($this->_groups[$group_id]);
 			}
-			
+
 			unset($group);
 		}
 
@@ -144,13 +144,13 @@ class Groups extends Core
 			return $a['order'] > $b['order'];
 		});
 	}
-	
+
 	public function __invoke($user_id = NULL)
 	{
 		if (func_num_args() == 1)
 		{
 			$groups = [];
-			
+
 			foreach ($this->_groups as $group_id => $group)
 			{
 				if (!empty($group['users']) && in_array($user_id, $group['users']))
@@ -158,9 +158,9 @@ class Groups extends Core
 					$groups[] = $group_id;
 				}
 			}
-			
+
 			$groups = array_unique($groups);
-			
+
 			return $groups ?: ['visitors'];
 		}
 		else
@@ -172,7 +172,7 @@ class Groups extends Core
 	public function user_groups($user_id, $label = TRUE)
 	{
 		$groups = [];
-		
+
 		foreach ($this->_groups as $group_id => $group)
 		{
 			if (!empty($group['users']) && in_array($user_id, $group['users']) && (!$group['hidden'] || ($this->user('admin') && $this->url->admin)))
@@ -180,10 +180,10 @@ class Groups extends Core
 				$groups[] = $this->display($group_id, $label);
 			}
 		}
-		
+
 		return implode(' ', $groups);
 	}
-	
+
 	public function display($group_id, $label = TRUE, $link = TRUE)
 	{
 		if ($label)
@@ -192,7 +192,7 @@ class Groups extends Core
 			{
 				$link = FALSE;
 			}
-			
+
 			return $this->label()
 						->title($this->_groups[$group_id]['title'])
 						->icon($this->_groups[$group_id]['icon'])
@@ -204,16 +204,16 @@ class Groups extends Core
 			return $this->_groups[$group_id]['title'];
 		}
 	}
-	
+
 	public function check_group($args)
 	{
 		$n = count($args);
-		
+
 		if ($n == 1)
 		{
 			return $this->_groups[$args[0]] + ['unique_id' => $args[0]];
 		}
-		
+
 		if ($n == 3)
 		{
 			list($module, $group_id, $name) = $args;
@@ -223,19 +223,19 @@ class Groups extends Core
 		{
 			list($group_id, $name) = $args;
 		}
-		
+
 		if (isset($this->_groups[$group_id]) && $name == $this->_groups[$group_id]['name'])
 		{
 			return $this->_groups[$group_id] + ['unique_id' => $group_id];
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	public function delete($module, $id)
 	{
 		$group_id = url_title($module.'_'.$id);
-		
+
 		if (isset($this->_groups[$group_id]))
 		{
 			if (!empty($this->_groups[$group_id]['id']))
@@ -243,12 +243,12 @@ class Groups extends Core
 				$this->db	->where('group_id', $this->_groups[$group_id]['id'])
 							->delete('nf_groups');
 			}
-			
+
 			$this->access->revoke($group_id);
-			
+
 			unset($this->_groups[$group_id]);
 		}
-		
+
 		return $this;
 	}
 }

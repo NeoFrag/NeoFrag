@@ -8,7 +8,7 @@ function get_colors()
 {
 	return [
 		'default' => '#777777',
-		'primary' => '#337ab7', 
+		'primary' => '#337ab7',
 		'success' => '#5cb85c',
 		'info'    => '#5bc0de',
 		'warning' => '#f0ad4e',

@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_forum_c_checker extends Controller
 {
 	public function _forum($forum_id, $title, $page = '')
@@ -21,7 +21,7 @@ class m_forum_c_checker extends Controller
 				else
 				{
 					$announces = $messages = [];
-					
+
 					foreach ($this->model()->get_topics($forum_id) as $topic)
 					{
 						if ($topic['announce'])
@@ -33,7 +33,7 @@ class m_forum_c_checker extends Controller
 							$messages[] = $topic;
 						}
 					}
-					
+
 					return [
 						$forum_id,
 						$title,
@@ -50,7 +50,7 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _new($forum_id, $title)
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && $forum['url'] === NULL)
@@ -65,7 +65,7 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _topic($topic_id, $title, $page = '')
 	{
 		if ($topic = $this->model()->check_topic($topic_id, $title))
@@ -93,7 +93,7 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _topic_announce($topic_id, $title, $permission = 'category_announce')
 	{
 		if ($topic = $this->model()->check_topic($topic_id, $title))
@@ -108,12 +108,12 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _topic_lock($topic_id, $title)
 	{
 		return $this->_topic_announce($topic_id, $title, 'category_lock');
 	}
-	
+
 	public function _topic_move($topic_id, $title)
 	{
 		if ($topic = $this->model()->check_topic($topic_id, $title))
@@ -128,7 +128,7 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _message_edit($message_id, $title)
 	{
 		if ($message = $this->model()->check_message($message_id, $title))
@@ -143,7 +143,7 @@ class m_forum_c_checker extends Controller
 			}
 		}
 	}
-	
+
 	public function _message_delete($message_id, $title)
 	{
 		$this->ajax();
@@ -154,18 +154,18 @@ class m_forum_c_checker extends Controller
 								->join('nf_forum        f', 't.forum_id = f.forum_id')
 								->where('m.message_id', (int)$message_id)
 								->row();
-		
+
 		if ($message && $title == url_title($message['title']))
 		{
 			if ($this->access('forum', 'category_delete', $message['category_id']) || ($this->user() && $message['user_id'] == $this->user('user_id')))
 			{
 				return [$message_id, $message['title'], $message['topic_id'], $message['forum_id'], $message['is_topic']];
 			}
-			
+
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
 	}
-	
+
 	public function mark_all_as_read()
 	{
 		if (!$this->user())
@@ -175,7 +175,7 @@ class m_forum_c_checker extends Controller
 
 		return [];
 	}
-	
+
 	public function _mark_all_as_read($forum_id, $title)
 	{
 		if (($forum = $this->model()->check_forum($forum_id, $title)) !== FALSE && $forum['url'] === NULL)

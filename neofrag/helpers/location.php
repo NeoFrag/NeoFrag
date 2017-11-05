@@ -10,7 +10,7 @@ function url($url = '')
 	{
 		$url = NeoFrag()->url->request.$url;
 	}
-	
+
 	return NeoFrag()->url->base.$url;
 }
 

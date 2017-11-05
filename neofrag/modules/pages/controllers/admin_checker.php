@@ -10,7 +10,7 @@ class m_pages_c_admin_checker extends Controller_Module
 	{
 		return [$this->pagination->get_data($this->model()->get_pages(), $page)];
 	}
-	
+
 	public function _edit($page_id, $title, $tab = 'default')
 	{
 		if ($page = $this->model()->check_page($page_id, $title, $tab, TRUE))
@@ -18,7 +18,7 @@ class m_pages_c_admin_checker extends Controller_Module
 			return $page + [$tab];
 		}
 	}
-	
+
 	public function delete($page_id, $title)
 	{
 		$this->ajax();

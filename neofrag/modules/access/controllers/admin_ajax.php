@@ -9,7 +9,7 @@ class m_access_c_admin_ajax extends Controller_Module
 	public function index($action, $title, $icon, $module_name, $id)
 	{
 		$groups = [];
-		
+
 		foreach (array_keys($this->groups()) as $group_id)
 		{
 			$groups[$group_id] = NeoFrag()->access($module_name, $action, $id, $group_id);
@@ -24,16 +24,16 @@ class m_access_c_admin_ajax extends Controller_Module
 					->size('col-md-12 col-lg-7')
 		);
 	}
-	
+
 	public function update($module_name, $action, $id, $groups, $user, $title, $icon)
 	{
 		$output = [];
-		
+
 		if ($groups)
 		{
 			$count      = array_count_values($groups);
 			$authorized = isset($count[0]) ? $count[0] >= $count[1] : 0;
-			
+
 			$this->model()	->delete($module_name, $action, $id, 'group')
 							->add($module_name, $action, $id, 'group', array_keys(array_filter($groups, function($a) use ($authorized){
 								return $a == $authorized;
@@ -42,15 +42,15 @@ class m_access_c_admin_ajax extends Controller_Module
 		else if ($user)
 		{
 			$this->model()->delete($module_name, $action, $id, 'user', $user_id = array_keys($user)[0]);
-			
+
 			if (($authorized = current($user)) != -1)
 			{
 				$this->model()->add($module_name, $action, $id, 'user', $user_id, $authorized);
 			}
 		}
-		
+
 		$this->access->reload();
-		
+
 		if ($groups)
 		{
 			$output['details'] = display($this->index($action, $title, $icon, $module_name, $id));
@@ -60,12 +60,12 @@ class m_access_c_admin_ajax extends Controller_Module
 			$output['user_authorized'] = $authorized = $this->access($module_name, $action, $id, NULL, $user_id);
 			$output['user_forced']     = is_int($authorized);
 		}
-		
+
 		$output['count'] = $this->access->count($module_name, $action, $id);
-		
+
 		return $output;
 	}
-	
+
 	public function users($action, $title, $icon, $module_name, $id)
 	{
 		$this	->table
@@ -97,12 +97,12 @@ class m_access_c_admin_ajax extends Controller_Module
 					[
 						'content' => function($data){
 							$output = '';
-							
+
 							if (is_int($data['active']))
 							{
 								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
 							}
-							
+
 							return '<td class="access-status">'.$output.'</td>';
 						},
 						'sort'    => function($data){
@@ -125,12 +125,12 @@ class m_access_c_admin_ajax extends Controller_Module
 						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('forbidden_member').'">'.icon('fa-ban').'</i></div>',
 						'content' => function($data){
 							static $admins;
-							
+
 							if ($admins === NULL)
 							{
 								$admins = NeoFrag()->groups()['admins']['users'];
 							}
-							
+
 							return in_array($data['user_id'], $admins) ? '<td></td>' : $this->view('radio', [
 								'class'  => 'danger',
 								'active' => !$data['active'] && $data['active'] !== NULL
@@ -154,7 +154,7 @@ class m_access_c_admin_ajax extends Controller_Module
 			'users' => $this->table->display()
 		]);
 	}
-	
+
 	public function reset($module, $type, $id)
 	{
 		$this->access	->delete($module, $id)

@@ -31,7 +31,7 @@ function check_file($dir, $force = FALSE)
 			{
 				$cache[$path] = $exists ? file_exists($path) : FALSE;
 			}
-			
+
 			$exists = $cache[$path];
 		}
 	}
@@ -86,7 +86,7 @@ function load($name)
 	else if (class_exists('o_'.$name))
 	{
 		$name = 'o_'.$name;
-		
+
 		$override = TRUE;
 	}
 
@@ -99,7 +99,7 @@ function load($name)
 	}
 
 	$object = $r->newInstanceArgs($args);
-	
+
 	if ($debug)
 	{
 		$object->memory = [$memory, memory_get_usage()];
@@ -142,7 +142,7 @@ $NeoFrag = load('loader', [
 	],
 	'libraries' => [
 		'overrides/libraries',
-		'neofrag/libraries',
+		'neofrag/libraries'
 	],
 	'modules' => [
 		'overrides/modules',
@@ -193,7 +193,7 @@ foreach ([
 	$NeoFrag->helper($helper);
 }
 
-foreach([
+foreach ([
 			'debug',
 			'output',
 			'db',

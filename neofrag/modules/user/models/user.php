@@ -6,9 +6,9 @@
 
 class m_user_m_user extends Model
 {
-	/* -1 -> Compte qui n'a pas été activé par mail
-	 * 0  -> Compte inconnu
-	 * n  -> Identifiant du membre
+	/* -1	-> Compte qui n'a pas été activé par mail
+	 * 0	-> Compte inconnu
+	 * n	-> Identifiant du membre
 	 */
 	public function check_login($login, &$password, &$salt)
 	{
@@ -24,13 +24,13 @@ class m_user_m_user extends Model
 			{
 				return -1;
 			}
-			
+
 			$password = $user['password'];
 			$salt     = $user['salt'];
 
 			return (int)$user['user_id'];
 		}
-			
+
 		return 0;
 	}
 
@@ -54,13 +54,13 @@ class m_user_m_user extends Model
 		{
 			$user_id = $this->user('user_id');
 		}
-		
+
 		$this->db	->where('user_id', $user_id)
 					->update('nf_users', [
 						'username' => $username,
 						'email'    => $email
 					]);
-		
+
 		$data = [
 			'first_name'    => $first_name,
 			'last_name'     => $last_name,
@@ -72,7 +72,7 @@ class m_user_m_user extends Model
 			'quote'         => $quote,
 			'signature'     => $signature
 		];
-		
+
 		if ($this->db->select('1')->from('nf_users_profiles')->where('user_id', $user_id)->row())
 		{
 			$this->db	->where('user_id', $user_id)
@@ -84,7 +84,7 @@ class m_user_m_user extends Model
 				'user_id' => $user_id
 			]));
 		}
-		
+
 		return $this;
 	}
 
@@ -92,12 +92,12 @@ class m_user_m_user extends Model
 	{
 		$this->db	->where('user_id', $user_id)
 					->delete('nf_users_groups');
-		
+
 		$this->db	->where('user_id', $user_id)
 					->update('nf_users', [
 						'admin' => FALSE
 					]);
-		
+
 		if (in_array('admins', $groups))
 		{
 			$this->db	->where('user_id', $user_id)
@@ -105,14 +105,14 @@ class m_user_m_user extends Model
 							'admin' => TRUE
 						]);
 		}
-		
+
 		foreach ($groups as $group_id)
 		{
 			if ($this->groups()[$group_id]['auto'])
 			{
 				continue;
 			}
-			
+
 			$this->db->insert('nf_users_groups', [
 				'user_id'  => $user_id,
 				'group_id' => $group_id
@@ -168,7 +168,7 @@ class m_user_m_user extends Model
 						->where('u.deleted', FALSE)
 						->row();
 	}
-	
+
 	public function check_session($session_id)
 	{
 		return $this->db	->select('s.session_id', 'u.username')

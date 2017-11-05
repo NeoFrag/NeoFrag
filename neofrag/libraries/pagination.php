@@ -21,7 +21,7 @@ class Pagination extends Library
 
 		$this->_data     = $data;
 		$this->_overload = FALSE;
-		
+
 		if ($page == 'all')
 		{
 			$this->_items_per_page = 0;
@@ -35,12 +35,12 @@ class Pagination extends Library
 			$this->_page           = (int)$matches[1];
 			$this->_items_per_page = (int)$matches[2];
 		}
-		
+
 		if (!is_numeric($this->_page) || $this->_page == 0)
 		{
 			throw new Exception(NeoFrag::UNFOUND);
 		}
-		
+
 		if (empty($this->_data))
 		{
 			return [];
@@ -62,15 +62,15 @@ class Pagination extends Library
 	public function count()
 	{
 		static $count;
-		
+
 		if ($count === NULL)
 		{
 			$count = count($this->_data);
 		}
-		
+
 		return $count;
 	}
-	
+
 	public function get_pagination($size = 'mini')
 	{
 		if (!$this->_data || $this->count() <= $this->_items_per_page || $this->_items_per_page == 0)
@@ -80,14 +80,14 @@ class Pagination extends Library
 
 		return $this->display($this->get_url(), $this->count(), $size, $this->_items_per_page, $this->_fixed, $this->_page);
 	}
-	
+
 	public function display($base_url, $nb_pages, $size = 'sm', $items_per_page = 0, $fixed = TRUE, $current_page = 0)
 	{
 		if (!in_array($size, ['xs', 'sm', 'lg']))
 		{
 			$size = 'sm';
 		}
-		
+
 		if ($items_per_page)
 		{
 			$nb_pages = ceil($nb_pages / $items_per_page);
@@ -151,11 +151,11 @@ class Pagination extends Library
 
 		return $this;
 	}
-	
+
 	public function fix_items_per_page($items_per_page)
 	{
 		$this->_items_per_page = $items_per_page;
-		
+
 		$this->_fixed = TRUE;
 
 		return $this;

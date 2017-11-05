@@ -31,7 +31,7 @@ class m_gallery extends Module
 		'admin/image/{id}/{url_title}'             => '_image_edit',
 		'admin/image/delete/{id}/{url_title}'      => '_image_delete'
 	];
-	
+
 	public function comments($image_id)
 	{
 		$image = $this->db	->select('title')

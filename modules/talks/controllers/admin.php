@@ -48,13 +48,13 @@ class m_talks_c_admin extends Controller_Module
 				])
 				->data($talks)
 				->no_data($this->lang('no_talks'));
-						
+
 		return $this->panel()
 					->heading($this->lang('talks_list'), 'fa-comment-o')
 					->body($this->table->display())
 					->footer($this->button_create('admin/talks/add', $this->lang('create_talk')));
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_talk'))
@@ -66,12 +66,12 @@ class m_talks_c_admin extends Controller_Module
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->add_talk($post['title']);
-			
+
 			notify($this->lang('add_success_message'));
 
 			redirect_back('admin/talks');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_talk'), 'fa-comment-o')
 					->body($this->form->display());
@@ -86,21 +86,21 @@ class m_talks_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/talks');
-		
+
 		if ($this->form->is_valid($post))
-		{	
+		{
 			$this->model()->edit_talk($talk_id, $post['title']);
-		
+
 			notify($this->lang('edit_success_message'));
 
 			redirect_back('admin/talks');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_talk'), 'fa-comment-o')
 					->body($this->form->display());
 	}
-	
+
 	public function delete($talk_id, $title)
 	{
 		$this	->title($this->lang('delete_talk_title'))

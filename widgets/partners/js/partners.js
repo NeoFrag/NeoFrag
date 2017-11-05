@@ -11,7 +11,7 @@ $(function(){
 			});
 		});
 	}
-	
+
 	resize_slider();
 
 	$('.carousel.slide').on('slid.bs.carousel', function() {

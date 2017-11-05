@@ -2,7 +2,7 @@ function notify(message, type) {
 	if (typeof type == 'undefined') {
 		type = 'success';
 	}
-	
+
 	$(function(){
 		$.notify({
 			message: message

@@ -16,29 +16,29 @@ class w_gallery_m_gallery extends Model
 					->where('g.published', TRUE)
 					->group_by('g.gallery_id')
 					->order_by('g.gallery_id DESC');
-		
+
 		if (!empty($category_id))
 		{
 			$this->db->where('g.category_id', $category_id);
 		}
-		
+
 		return $this->db->get();
 	}
-	
+
 	public function get_random_image($gallery_id = FALSE)
 	{
 		$this->db	->from('nf_gallery_images')
 					->order_by('RAND()')
 					->limit(1);
-					
+
 		if (!empty($gallery_id) || ($gallery_id > 0))
 		{
 			$this->db->where('gallery_id', $gallery_id);
 		}
-		
+
 		return $this->db->row();
 	}
-	
+
 	public function get_images($gallery_id)
 	{
 		return $this->db->from('nf_gallery_images')

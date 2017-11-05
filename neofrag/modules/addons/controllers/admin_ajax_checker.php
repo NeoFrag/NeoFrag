@@ -44,13 +44,13 @@ class m_addons_c_admin_ajax_checker extends Controller_Module
 	private function _check_theme()
 	{
 		$post = post();
-		
+
 		if (!empty($post['theme']) && $theme = $this->theme($post['theme']))
 		{
 			return $theme;
 		}
 	}
-	
+
 	public function _language_sort()
 	{
 		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_settings_languages')->where('code', $check['id'])->row())

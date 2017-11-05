@@ -18,20 +18,20 @@ class m_gallery_m_gallery extends Model
 					->where('cl.lang', $this->config->lang)
 					->group_by('g.gallery_id')
 					->order_by('g.gallery_id DESC');
-		
+
 		if (!empty($category_id))
 		{
 			$this->db->where('g.category_id', $category_id);
 		}
-		
+
 		if (!$this->url->admin)
 		{
 			$this->db->where('g.published', TRUE);
 		}
-		
+
 		return $this->db->get();
 	}
-	
+
 	public function check_gallery($gallery_id, $name, $lang = 'default')
 	{
 		if ($lang == 'default')
@@ -48,12 +48,12 @@ class m_gallery_m_gallery extends Model
 					->where('g.name', $name)
 					->where('gl.lang', $lang)
 					->where('cl.lang', $lang);
-		
+
 		if (!$this->url->admin)
 		{
 			$this->db->where('g.published', TRUE);
 		}
-		
+
 		if ($gallery = $this->db->row())
 		{
 			return $gallery;
@@ -63,7 +63,7 @@ class m_gallery_m_gallery extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function add_gallery($title, $category_id, $image_id, $description, $published)
 	{
 		$gallery_id = 	$this->db->insert('nf_gallery', [
@@ -79,10 +79,10 @@ class m_gallery_m_gallery extends Model
 						'title'       => $title,
 						'description' => $description
 					]);
-					
+
 		return $gallery_id;
 	}
-	
+
 	public function edit_gallery($gallery_id, $category_id, $image_id, $published, $title, $description, $lang)
 	{
 		$this->db	->where('gallery_id', $gallery_id)
@@ -100,11 +100,11 @@ class m_gallery_m_gallery extends Model
 						'description' => $description
 					]);
 	}
-	
+
 	public function delete_gallery($gallery_id)
 	{
 		$this->file->delete($this->db->select('image_id')->from('nf_gallery')->where('gallery_id', $gallery_id)->row());
-		
+
 		foreach ($this->db->select('image_id')->from('nf_gallery_images')->where('gallery_id', $gallery_id)->get() as $image_id)
 		{
 			$this->delete_image($image_id);
@@ -113,7 +113,7 @@ class m_gallery_m_gallery extends Model
 		$this->db	->where('gallery_id', $gallery_id)
 					->delete('nf_gallery');
 	}
-	
+
 	public function get_images($gallery_id)
 	{
 		return $this->db->from('nf_gallery_images')
@@ -121,7 +121,7 @@ class m_gallery_m_gallery extends Model
 						->order_by('date DESC')
 						->get();
 	}
-	
+
 	public function check_image($image_id, $name)
 	{
 		$this->db	->select('i.*', 'g.name as gallery_name', 'gl.title as gallery_title', 'g.published')
@@ -129,7 +129,7 @@ class m_gallery_m_gallery extends Model
 					->join('nf_gallery g', 'i.gallery_id  = g.gallery_id')
 					->join('nf_gallery_lang gl', 'i.gallery_id  = gl.gallery_id')
 					->where('i.image_id', $image_id);
-		
+
 		$image = $this->db->row();
 
 		if ($image && url_title($image['title']) == $name)
@@ -141,26 +141,26 @@ class m_gallery_m_gallery extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function add_image($file_id, $gallery_id, $title, $description = '')
 	{
 		$file = $this->db	->select('name', 'path')
 							->from('nf_files')
 							->where('file_id', $file_id)
 							->row();
-		
+
 		dir_create('upload/gallery/thumbnails', 'upload/gallery/originals');
-		
+
 		copy($file['path'], $thumbnail = str_replace('upload/gallery/', 'upload/gallery/thumbnails/', $file['path']));
 		copy($file['path'], $original  = str_replace('upload/gallery/', 'upload/gallery/originals/', $file['path']));
-		
+
 		list($thumbnail_width, $thumbnail_height, $thumbnail_type, $thumbnail_attr) = getimagesize($thumbnail);
-		
+
 		image_resize($thumbnail, 300);
 		image_resize($file['path'], 1250);
-		
+
 		$title = empty($title) ? $file['name'] : $title;
-		
+
 		$this->db->insert('nf_gallery_images', [
 			'thumbnail_file_id' => $this->file->add($thumbnail, $title),
 			'original_file_id'  => $this->file->add($original, $title),
@@ -170,7 +170,7 @@ class m_gallery_m_gallery extends Model
 			'description'       => $description
 		]);
 	}
-	
+
 	public function edit_image($image_id, $title, $description)
 	{
 		$this->db	->where('image_id', $image_id)
@@ -179,19 +179,19 @@ class m_gallery_m_gallery extends Model
 						'description' => $description
 					]);
 	}
-	
+
 	public function delete_image($image_id)
 	{
 		$this->file->delete($this->db->select('file_id', 'thumbnail_file_id', 'original_file_id')->from('nf_gallery_images')->where('image_id', $image_id)->row());
 	}
-	
+
 	public function check_category($category_id, $name, $lang = 'default')
 	{
 		if ($lang == 'default')
 		{
 			$lang = $this->config->lang;
 		}
-		
+
 		return $this->db->select('c.category_id', 'c.name', 'cl.title', 'c.image_id', 'c.icon_id')
 						->from('nf_gallery_categories c')
 						->join('nf_gallery_categories_lang cl', 'c.category_id = cl.category_id')
@@ -226,7 +226,7 @@ class m_gallery_m_gallery extends Model
 
 		return $list;
 	}
-	
+
 	public function add_category($title, $image, $icon)
 	{
 		$category_id = $this->db->insert('nf_gallery_categories', [
@@ -257,16 +257,16 @@ class m_gallery_m_gallery extends Model
 						'title' => $title
 					]);
 	}
-	
+
 	public function delete_category($category_id)
 	{
 		$this->file->delete($this->db->select('image_id')->from('nf_gallery_categories')->where('category_id', $category_id)->row());
-		
+
 		foreach ($this->db->select('gallery_id')->from('nf_gallery')->where('category_id', $category_id)->get() as $gallery_id)
 		{
 			$this->delete_gallery($gallery_id);
 		}
-		
+
 		$this->db	->where('category_id', $category_id)
 					->delete('nf_gallery_categories');
 	}

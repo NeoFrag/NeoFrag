@@ -40,11 +40,11 @@
 			container: 'body',
 			trigger: 'hover'
 		});
-		
+
 		$('body').tooltip({
 			selector: '[data-toggle=tooltip]'
 		});
-		
+
 		<?php echo $data['js_load']; ?>
 	});
 	<?php echo $this->config->nf_analytics; ?>

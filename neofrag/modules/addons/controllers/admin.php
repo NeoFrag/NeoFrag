@@ -17,7 +17,7 @@ class m_addons_c_admin extends Controller_Module
 				->css('neofrag.table')
 				->js('neofrag.table')
 				->js('neofrag.sortable');
-		
+
 		return $this->row(
 			$this	->col(
 						$this	->panel()
@@ -66,16 +66,16 @@ class m_addons_c_admin extends Controller_Module
 					->size('col-md-4 col-lg-3')
 		);
 	}
-	
+
 	public function _module_settings($module)
 	{
 		$this	->title($module->get_title())
 				->subtitle('Configuration')
 				->icon('fa-wrench');
-		
+
 		return $module->settings();
 	}
-	
+
 	public function _module_delete($module)
 	{
 		$this	->title('Confirmation de suppression')
@@ -91,16 +91,16 @@ class m_addons_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _theme_settings($theme, $controller)
 	{
 		$this	->title($theme->get_title())
 				->subtitle($this->lang('theme_customize'))
 				->icon('fa-paint-brush');
-		
+
 		return $controller->index($theme);
 	}
-	
+
 	public function _theme_delete($theme)
 	{
 		$this	->title('Confirmation de suppression')

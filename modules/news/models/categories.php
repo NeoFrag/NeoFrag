@@ -12,7 +12,7 @@ class m_news_m_categories extends Model
 		{
 			$lang = $this->config->lang;
 		}
-		
+
 		return $this->db->select('c.category_id', 'cl.title', 'c.image_id', 'c.icon_id')
 						->from('nf_news_categories c')
 						->join('nf_news_categories_lang cl', 'c.category_id = cl.category_id')
@@ -47,7 +47,7 @@ class m_news_m_categories extends Model
 
 		return $list;
 	}
-	
+
 	public function add_category($title, $image, $icon)
 	{
 		$category_id = $this->db->insert('nf_news_categories', [
@@ -78,14 +78,14 @@ class m_news_m_categories extends Model
 						'title'        => $title
 					]);
 	}
-	
+
 	public function delete_category($category_id)
 	{
 		$this->file->delete(array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_news_categories')->where('category_id', $category_id)->row()),
 			$this->db->select('image_id')->from('nf_news')->where('category_id', $category_id)->get()
 		));
-		
+
 		$this->db	->where('category_id', $category_id)
 					->delete('nf_news_categories');
 	}

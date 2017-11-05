@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_forum_c_ajax_checker extends Controller
 {
 	public function _topic_move($topic_id, $title)

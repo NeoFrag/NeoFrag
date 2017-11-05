@@ -111,7 +111,7 @@ class m_events_c_index extends Controller_Module
 					[
 						'content' => function($data){
 							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
-						},
+						}
 					],
 					[
 						'align'   => 'right',
@@ -187,7 +187,7 @@ class m_events_c_index extends Controller_Module
 							->cancel()
 							->set_id('c2dac90bb0731401a293d27ee036757a');
 		}
-		
+
 		return [
 			$this->_filters(),
 			$this	->panel()

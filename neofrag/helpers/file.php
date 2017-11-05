@@ -50,13 +50,13 @@ function file_upload_max_size()
 		$max_size = parse_size(ini_get('post_max_size'));
 
 		$upload_max = parse_size(ini_get('upload_max_filesize'));
-		
+
 		if ($upload_max > 0 && $upload_max < $max_size)
 		{
 			$max_size = $upload_max;
 		}
 	}
-	
+
 	return $max_size;
 }
 
@@ -64,7 +64,7 @@ function parse_size($size)
 {
 	$unit = preg_replace('/[^bkmgtpezy]/i', '', $size);
 	$size = preg_replace('/[^0-9\.]/', '', $size);
-	
+
 	if ($unit)
 	{
 		return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
@@ -82,19 +82,19 @@ function image_resize($filename, $width, $height = NULL)
 	$h    = $info[1];
 	$type = $info[2];
 	$mime = $info['mime'];
-	
+
 	if ($height === NULL)
 	{
 		$height = ceil($h * $width / $w);
 	}
-	
+
 	if ($w <= $width && $h <= $height)
 	{
 		return;
 	}
-	
+
 	$resize = imagecreatetruecolor($width, $height);
-	
+
 	if ($mime == 'image/png')
 	{
 		$image = imagecreatefrompng($filename);
@@ -111,7 +111,7 @@ function image_resize($filename, $width, $height = NULL)
 	{
 		return;
 	}
-	
+
 	if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_PNG)
 	{
 		$current_transparent = imagecolortransparent($image);
@@ -129,9 +129,9 @@ function image_resize($filename, $width, $height = NULL)
 			imagesavealpha($resize, TRUE);
 		}
 	}
-	
+
 	imagecopyresampled($resize, $image, 0, 0, 0, 0, $width, $height, $w, $h);
-	
+
 	if ($mime == 'image/png')
 	{
 		imagepng($resize, $filename);

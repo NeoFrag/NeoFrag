@@ -1,7 +1,11 @@
 .module-admin.module-events .fc .fc-toolbar {
 	position: relative;
 	margin: -38px 10px 10px 37px;
-}.module-admin.module-events .fc .fc-toolbar h2:first-letter {	text-transform: uppercase;}
+}
+
+.module-admin.module-events .fc .fc-toolbar h2:first-letter {
+	text-transform: uppercase;
+}
 
 .module-admin.module-events .fc .fc-toolbar h2 {
 	font-weight: 600;
@@ -13,7 +17,7 @@
 }
 
 .module-admin.module-events .fc table {
-    width: calc(100% + 1px);
+	width: calc(100% + 1px);
 }
 
 .module-admin.module-events .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {

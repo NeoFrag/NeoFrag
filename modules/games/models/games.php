@@ -12,7 +12,7 @@ class m_games_m_games extends Model
 		{
 			$lang = $this->config->lang;
 		}
-		
+
 		return $this->db->select('g.game_id', 'g.parent_id', 'g.image_id', 'g.icon_id', 'gl.title', 'g.name')
 						->from('nf_games g')
 						->join('nf_games_lang gl', 'g.game_id = gl.game_id')
@@ -21,7 +21,7 @@ class m_games_m_games extends Model
 						->where('gl.lang', $lang)
 						->row();
 	}
-	
+
 	public function get_games()
 	{
 		return $this->db->select('g.*', 'gl.title')
@@ -33,7 +33,7 @@ class m_games_m_games extends Model
 						->order_by('If(g.parent_id IS NULL, gl.title, CONCAT(gl2.title, gl.title))')
 						->get();
 	}
-	
+
 	public function get_games_list($all = FALSE, $game_id = NULL)
 	{
 		$list = [];
@@ -44,7 +44,7 @@ class m_games_m_games extends Model
 			{
 				continue;
 			}
-			
+
 			if (empty($game['parent_id']))
 			{
 				$list[$game['game_id']] = $game['title'];
@@ -72,7 +72,7 @@ class m_games_m_games extends Model
 			'lang'      => $this->config->lang,
 			'title'     => $title
 		]);
-		
+
 		return $game_id;
 	}
 
@@ -96,23 +96,23 @@ class m_games_m_games extends Model
 	public function delete_game($game_id)
 	{
 		$files = [];
-		
+
 		foreach ($this->db->select('image_id', 'icon_id')->from('nf_games')->where('parent_id', $game_id)->get() as $game)
 		{
 			$files[] = $game['image_id'];
 			$files[] = $game['icon_id'];
 		}
-		
+
 		$this->file->delete(array_merge(
 			array_values($this->db->select('image_id', 'icon_id')->from('nf_games')->where('game_id', $game_id)->row()),
 			array_filter($files)
 		));
-		
+
 		foreach ($this->db->select('team_id')->from('nf_teams')->where('game_id', $game_id)->get() as $team_id)
 		{
 			$this->groups->delete('teams', $team_id);
 		}
-		
+
 		$this->db	->where('game_id', $game_id)
 					->delete('nf_games');
 	}

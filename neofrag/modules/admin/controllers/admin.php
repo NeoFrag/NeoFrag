@@ -17,23 +17,23 @@ class m_admin_c_admin extends Controller_Module
 				[
 					'content' => function($data){
 						return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('fa-envelope').'</a>';
-					},
+					}
 				],
 				[
 					'content' => function($data){
 						return NeoFrag()->user->link($data['user_id'], $data['username']);
-					},
+					}
 				],
 				[
 					'content' => function($data){
 						return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
-					'class'   => 'text-right',
+					'class'   => 'text-right'
 				]
 			])
 			->data($this->db->from('nf_users')->where('deleted', FALSE)->order_by('user_id DESC')->limit(5)->get())
 			->display();
-		
+
 		return [
 			$this->row(
 				$this->col(
@@ -91,7 +91,7 @@ class m_admin_c_admin extends Controller_Module
 							$this	->panel()
 									->heading('<a href="https://neofr.ag">'.$this->lang('nf_news').'</a>', 'fa-newspaper-o')
 									->body($this->view('nf_news'))
-									
+
 						)
 						->size('col-md-8'),
 				$this	->col(
@@ -162,19 +162,19 @@ class m_admin_c_admin extends Controller_Module
 	{
 		$this	->title($this->lang('notifications'))
 				->icon('fa-flag');
-		
+
 		return $this->panel()
 					->heading($this->lang('notifications'), 'fa-flag')
 					->body($this->lang('unavailable_feature'))
 					->color('info')
 					->size('col-md-12');
 	}
-	
+
 	public function database()
 	{
 		$this	->title($this->lang('database'))
 				->icon('fa-database');
-		
+
 		return $this->panel()
 					->heading($this->lang('database'), 'fa-database')
 					->body($this->lang('unavailable_feature'))

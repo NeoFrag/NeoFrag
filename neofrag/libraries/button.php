@@ -134,7 +134,7 @@ class Button extends Label
 		return $this->url('#')
 					->data([
 						'toggle' => 'modal',
-						'target' => '#'.$modal->id,
+						'target' => '#'.$modal->id
 					]);
 	}
 }

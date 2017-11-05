@@ -47,7 +47,7 @@ class Driver_mysqli extends Driver
 			'innodb'    => ($result = self::$db->query('SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = "InnoDB"')->fetch_row()) && in_array($result[0], ['DEFAULT', 'YES'])
 		];
 	}
-	
+
 	static public function get_size()
 	{
 		$total = 0;
@@ -141,9 +141,9 @@ class Driver_mysqli extends Driver
 		{
 			self::$_stmt[$this->sql] = self::$db->prepare($this->sql);
 		}
-		
+
 		$this->stmt = self::$_stmt[$this->sql];
-		
+
 		if ($this->stmt)
 		{
 			if (!empty($this->bind) && ($count = count($this->bind)) > 1)
@@ -154,7 +154,7 @@ class Driver_mysqli extends Driver
 				{
 					$bind[$i] = &$bind[$i];
 				}
-				
+
 				call_user_func_array([$this->stmt, 'bind_param'], $bind);
 			}
 
@@ -181,7 +181,7 @@ class Driver_mysqli extends Driver
 		else if (is_bool($value))
 		{
 			$value = (int)$value;
-			
+
 			$this->bind[0] .= 's';
 		}
 		else if (is_integer($value))
@@ -206,12 +206,12 @@ class Driver_mysqli extends Driver
 	{
 		return $this->_get_results(function(&$row){
 			$results = [];
-		
+
 			while ($this->stmt->fetch())
 			{
 				$results[] = self::_get_result($row);
 			}
-		
+
 			return $results;
 		});
 	}
@@ -225,7 +225,7 @@ class Driver_mysqli extends Driver
 			}
 		});
 	}
-		
+
 	public function results()
 	{
 		return $this->_get_results(function(&$row){

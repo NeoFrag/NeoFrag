@@ -26,7 +26,7 @@ class w_awards_c_index extends Controller_Widget
 						->body('Aucun palmarès pour le moment...');
 		}
 	}
-	
+
 	public function best_team($settings = [])
 	{
 		if ($best_team = $this->model()->get_best_team_awards())
@@ -48,7 +48,7 @@ class w_awards_c_index extends Controller_Widget
 						->body('Aucun palmarès pour le moment...');
 		}
 	}
-	
+
 	public function best_game($settings = [])
 	{
 		if ($best_game = $this->model()->get_best_game_awards())

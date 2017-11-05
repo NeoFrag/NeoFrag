@@ -17,7 +17,7 @@ class m_monitoring_m_monitoring extends Model
 			'databases_innodb' => $this->db->get_info('innodb')
 		];
 	}
-	
+
 	public function check_server()
 	{
 		$server = $this->get_info();
@@ -35,7 +35,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'extension cURL doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					],
@@ -47,7 +47,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'extension GD doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					],
@@ -59,7 +59,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'extension JSON doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					],
@@ -71,7 +71,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'extension mbstring doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					],
@@ -83,7 +83,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'extension Zip doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					]
@@ -101,7 +101,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['L\'option de réécriture d\'URL doit être activée', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					]
@@ -119,7 +119,7 @@ class m_monitoring_m_monitoring extends Model
 								$errors[] = ['Le moteur de stockage InnoDB doit être activé', 'danger'];
 								return FALSE;
 							}
-							
+
 							return TRUE;
 						}
 					]
@@ -138,7 +138,7 @@ class m_monitoring_m_monitoring extends Model
 								$title = 'Échec';
 								return FALSE;
 							}
-							
+
 							$title = 'OK';
 							return TRUE;
 						}

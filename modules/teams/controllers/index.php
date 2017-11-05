@@ -9,7 +9,7 @@ class m_teams_c_index extends Controller_Module
 	public function index()
 	{
 		$panels = [];
-		
+
 		foreach ($this->model()->get_teams() as $team)
 		{
 			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'])
@@ -22,7 +22,7 @@ class m_teams_c_index extends Controller_Module
 
 			$panels[] = $panel;
 		}
-		
+
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
@@ -37,7 +37,7 @@ class m_teams_c_index extends Controller_Module
 	public function _team($team_id, $name, $title, $image_id, $icon_id, $description, $game_id, $game, $game_icon)
 	{
 		$this->title($title);
-	
+
 		$players = $this->table
 						->add_columns([
 							[
@@ -49,12 +49,12 @@ class m_teams_c_index extends Controller_Module
 							[
 								'content' => function($data){
 									return '<div>'.NeoFrag()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'admin' : 'member').' '.$this->lang($data['online'] ? 'online' : 'offline').'</small>';
-								},
+								}
 							],
 							[
 								'content' => function($data){
 									return $data['title'];
-								},
+								}
 							]
 						])
 						->data($this->model()->get_players($team_id))

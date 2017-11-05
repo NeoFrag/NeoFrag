@@ -19,14 +19,14 @@ class m_comments_c_admin extends Controller_Module
 				return $this->_tab_index($comments, $title);
 			});
 		}
-								
+
 		return $this->panel()->body($this->tab->display($tab));
 	}
-	
+
 	private function _tab_index($comments, $title = NULL)
 	{
 		$this->subtitle($title === NULL ? $this->lang('all_comments') : $title);
-		
+
 		if ($title === NULL)
 		{
 			$this->table->add_columns([
@@ -45,7 +45,7 @@ class m_comments_c_admin extends Controller_Module
 				]
 			]);
 		}
-	
+
 		return $this->table->add_columns([
 			[
 				'title'   => $this->lang('name'),

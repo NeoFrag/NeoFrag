@@ -9,7 +9,7 @@ class m_news_c_index extends Controller_Module
 	public function index($news)
 	{
 		$panels = [];
-		
+
 		foreach ($news as $news)
 		{
 			$news['introduction'] = bbcode($news['introduction']);
@@ -25,7 +25,7 @@ class m_news_c_index extends Controller_Module
 
 			$panels[] = $panel;
 		}
-		
+
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
@@ -44,17 +44,17 @@ class m_news_c_index extends Controller_Module
 		$this->subtitle($this->lang('tag', $tag));
 		return $this->_filter($news, $this->lang('news').' <small>'.$tag.'</small>');
 	}
-	
+
 	public function _category($title, $news)
 	{
 		$this->subtitle($this->lang('category_', $title));
 		return $this->_filter($news, $this->lang('category_news').' <small>'.$title.'</small>');
 	}
-	
+
 	private function _filter($news, $filter)
 	{
 		$news = $this->index($news);
-		
+
 		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
@@ -63,7 +63,7 @@ class m_news_c_index extends Controller_Module
 	public function _news($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $image, $category_icon, $username, $admin, $online, $quote, $avatar, $sex)
 	{
 		$this->title($title);
-		
+
 		$news = $this	->panel()
 						->heading($title, 'fa-file-text-o')
 						->body($this->view('index', [
@@ -86,7 +86,7 @@ class m_news_c_index extends Controller_Module
 							'avatar'         => $avatar,
 							'sex'            => $sex
 						]));
-		
+
 		if ($user_id)
 		{
 			return [

@@ -1,4 +1,4 @@
-﻿$('body').on('nf.load', function(){
+$('body').on('nf.load', function(){
 	$.ajax({
 		url: 'https://neofr.ag/geolocalisation.json',
 		type: 'POST',

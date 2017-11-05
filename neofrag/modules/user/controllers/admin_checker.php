@@ -57,7 +57,7 @@ class m_user_c_admin_checker extends Controller_Module
 			}
 		}
 	}
-	
+
 	public function _sessions($page = '')
 	{
 		return [$this->pagination->get_data($this->model()->get_sessions(), $page)];

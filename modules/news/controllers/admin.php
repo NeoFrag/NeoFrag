@@ -89,7 +89,7 @@ class m_news_c_admin extends Controller_Module
 						->data($news)
 						->no_data($this->lang('no_news'))
 						->display();
-			
+
 		$categories = $this	->table
 							->add_columns([
 								[
@@ -137,13 +137,13 @@ class m_news_c_admin extends Controller_Module
 			)
 		);
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_news'))
 				->form
 				->add_rules('news', [
-					'categories' => $this->model('categories')->get_categories_list(),
+					'categories' => $this->model('categories')->get_categories_list()
 				])
 				->add_submit($this->lang('add'))
 				->add_back('admin/news');
@@ -224,7 +224,7 @@ class m_news_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _categories_add()
 	{
 		$this	->subtitle($this->lang('add_category'))
@@ -243,12 +243,12 @@ class m_news_c_admin extends Controller_Module
 
 			redirect_back('admin/news');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_category'), 'fa-align-left')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this->lang('category_', $title))
@@ -260,31 +260,31 @@ class m_news_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/news');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model('categories')->edit_category(	$category_id,
 														$post['title'],
 														$post['image'],
 														$post['icon']);
-		
+
 			notify($this->lang('edit_category_success_message'));
 
 			redirect_back('admin/news');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_category'), 'fa-align-left')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_delete($category_id, $title)
 	{
 		$this	->title($this->lang('delete_category'))
 				->subtitle($title)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_category_message', $title));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->model('categories')->delete_category($category_id);

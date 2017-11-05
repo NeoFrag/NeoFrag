@@ -12,7 +12,7 @@ class m_games_m_maps extends Model
 		{
 			$this->db->where('m.game_id', $game_id);
 		}
-		
+
 		return $this->db->select('m.*', 'g.name', 'g.icon_id', 'gl.title as game_title')
 						->from('nf_games_maps m')
 						->join('nf_games g', 'g.game_id = m.game_id')
@@ -39,7 +39,7 @@ class m_games_m_maps extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function add_map($game_id, $title, $image)
 	{
 		return $this->db->insert('nf_games_maps', [
@@ -48,7 +48,7 @@ class m_games_m_maps extends Model
 			'image_id' => $image
 		]);
 	}
-	
+
 	public function edit_map($map_id, $game_id, $title, $image)
 	{
 		$this->db	->where('map_id', $map_id)

@@ -12,20 +12,20 @@ class m_user_c_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNCONNECTED);
 		}
-		
+
 		return [];
 	}
-	
+
 	public function sessions($page = '')
 	{
 		if ($this->user())
 		{
 			return [$this->pagination->get_data($this->user->get_sessions_history(), $page)];
 		}
-		
+
 		throw new Exception(NeoFrag::UNCONNECTED);
 	}
-	
+
 	public function _session_delete($session_id)
 	{
 		$this->ajax();
@@ -46,7 +46,7 @@ class m_user_c_checker extends Controller_Module
 		{
 			redirect('user');
 		}
-		
+
 		return [$error];
 	}
 
@@ -89,7 +89,7 @@ class m_user_c_checker extends Controller_Module
 		{
 			redirect('user');
 		}
-		
+
 		return [];
 	}
 

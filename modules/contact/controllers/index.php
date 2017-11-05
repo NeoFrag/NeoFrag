@@ -9,7 +9,7 @@ class m_contact_c_index extends Controller_Module
 	public function index()
 	{
 		$rules = [];
-		
+
 		if (!$this->user())
 		{
 			$rules['email'] = [
@@ -18,18 +18,18 @@ class m_contact_c_index extends Controller_Module
 				'rules' => 'required'
 			];
 		}
-		
+
 		$rules['subject'] = [
 			'label' => $this->lang('subject'),
 			'rules' => 'required'
 		];
-		
+
 		$rules['message'] = [
 			'label' => $this->lang('message'),
 			'type'  => 'editor',
 			'rules' => 'required'
 		];
-		
+
 		$this->title($this->lang('contact_us'))
 				->form
 				->display_required(FALSE)
@@ -37,7 +37,7 @@ class m_contact_c_index extends Controller_Module
 				->add_captcha()
 				->add_submit(icon('fa-envelope-o').' '.$this->lang('send'))
 				->add_back('index');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this	->email
@@ -50,7 +50,7 @@ class m_contact_c_index extends Controller_Module
 						}
 					])
 					->send();
-			
+
 			redirect();
 		}
 

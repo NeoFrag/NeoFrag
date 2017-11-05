@@ -35,12 +35,12 @@ class w_user_c_index extends Controller_Widget
 						->footer('<a href="'.url('user').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this->lang('create_account').'</a>');
 		}
 	}
-	
+
 	public function index_mini($config = [])
 	{
 		return $this->view('index_mini', $config);
 	}
-	
+
 	public function messages_inbox($config = [])
 	{
 		$messages = $this->db	->select('m.message_id', 'm.title', 'IFNULL(r.content, m.content) as content', 'IFNULL(r.date, m.date) as date', 'm.user_id', 'u.username', 'up.avatar', 'up.sex')
@@ -53,7 +53,7 @@ class w_user_c_index extends Controller_Widget
 								->where('mr.user_id', $this->user('user_id'))
 								->where('IFNULL(r.read, mr.read)', FALSE)
 								->get();
-		
+
 		return $this->panel()
 					->heading($this->lang('private_messages'), 'fa-envelope')
 					->body($this->view('messages_inbox', [

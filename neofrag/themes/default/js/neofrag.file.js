@@ -16,17 +16,17 @@ $(function(){
 					</div>\
 				</div>\
 			</div>').appendTo('body').modal();
-		
+
 		$modal.on('hidden.bs.modal', function(){
 			$(this).remove();
 		});
-		
+
 		$modal.find('.btn-danger:first').on('click', function(){
 			$('[name="'+$delete.data('input')+'"]').before('<input type="hidden" name="'+$delete.data('input')+'" value="delete" />');
 			$delete.parents('.thumbnail:first').parent().remove();
 			$modal.modal('hide');
 		});
-		
+
 		return false;
 	});
 });

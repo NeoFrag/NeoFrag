@@ -9,7 +9,7 @@ class m_user_m_messages extends Model
 	public function get_messages_inbox($box = 'inbox')
 	{
 		$inbox = [];
-		
+
 		if ($box == 'inbox' || $box == 'archives')
 		{
 			$this->db->having('SUM(IF(mr2.user_id <> '.$this->user('user_id').', 1, 0))');
@@ -27,7 +27,7 @@ class m_user_m_messages extends Model
 								->where('r.user_id', $this->user('user_id'))
 								->group_by('m.message_id')
 								->get();
-		
+
 		foreach ($messages as $message)
 		{
 			if ($box == 'inbox')
@@ -43,14 +43,14 @@ class m_user_m_messages extends Model
 			{
 				$message['unread'] = FALSE;
 			}
-			
+
 			$last_message = $this->db	->select('UNIX_TIMESTAMP(date) as date')
 										->from('nf_users_messages_replies')
 										->where('message_id', $message['message_id'])
 										->order_by('reply_id DESC')
 										->limit(1)
 										->row(FALSE);
-			
+
 			if ($box == 'sent')
 			{
 				$last_user = $this->db	->select('r.user_id', 'u.username', 'up.avatar', 'up.sex')
@@ -75,16 +75,16 @@ class m_user_m_messages extends Model
 										->limit(1)
 										->row();
 			}
-			
+
 			$inbox[] = array_merge($message, $last_message, $last_user);
 		}
-		
+
 		usort($inbox, function($a, $b){
 			if ($a['unread'] == $b['unread'])
 			{
 				return $a['date'] < $b['date'];
 			}
-			
+
 			return strcmp($b['unread'], $a['unread']);
 		});
 
@@ -156,7 +156,7 @@ class m_user_m_messages extends Model
 										'user_id'  => $author_id = $auto ? $this->config->nf_welcome_user_id : $this->user('user_id'),
 										'message'  => $message
 									]);
-		
+
 			$this->db	->where('message_id', $message_id)
 						->update('nf_users_messages', [
 							'reply_id'      => $reply_id,

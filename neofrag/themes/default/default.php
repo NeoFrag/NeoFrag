@@ -22,20 +22,20 @@ class t_default extends Theme
 		$this	->css('font.open-sans.300.400.600.700.800')
 				->css('font.economica.400.700')
 				->css('style');
-				
+
 		return parent::load();
 	}
-	
+
 	public function styles_row()
 	{
 		return $this->view('live_editor/row');
 	}
-	
+
 	public function styles_widget()
 	{
 		return $this->view('live_editor/widget');
 	}
-	
+
 	public function install($dispositions = [])
 	{
 		$this	->config('default_background',            0, 'int')
@@ -44,7 +44,7 @@ class t_default extends Theme
 				->config('default_background_position',   'center top')
 				->config('default_background_color',      '#141d26')
 				->config('nf_version_css',                time());
-		
+
 		$header = function(){
 			return $this->row(
 					$this->col(
@@ -63,7 +63,7 @@ class t_default extends Theme
 				)
 				->style('row-default');
 		};
-		
+
 		$navbar = function(){
 			return $this->row(
 					$this->col(
@@ -112,7 +112,7 @@ class t_default extends Theme
 				)
 				->style('row-black');
 		};
-		
+
 		$breadcrumb = function($search = TRUE){
 			return $this->row(
 					$this->col(
@@ -132,7 +132,7 @@ class t_default extends Theme
 				)
 				->style('row-white');
 		};
-		
+
 		$dispositions['*']['{lang content}'] = [
 			$breadcrumb(),
 			$this->row(
@@ -211,7 +211,7 @@ class t_default extends Theme
 				)
 				->style('row-light')
 		];
-		
+
 		$dispositions['*']['{lang pre_content}'] = [
 			$this->row(
 					$this->col(
@@ -240,9 +240,9 @@ class t_default extends Theme
 				)
 				->style('row-default')
 		];
-		
+
 		$dispositions['*']['{lang post_content}'] = [];
-		
+
 		$dispositions['*']['{lang header}'] = [
 			$header(),
 			$navbar()
@@ -288,7 +288,7 @@ class t_default extends Theme
 				)
 				->style('row-default')
 		];
-		
+
 		$dispositions['*']['{lang footer}'] = [
 			$this->row(
 					$this->col(
@@ -304,7 +304,7 @@ class t_default extends Theme
 				)
 				->style('row-default')
 		];
-		
+
 		$dispositions['/']['{lang header}'] = [
 			$header(),
 			$navbar(),
@@ -318,7 +318,7 @@ class t_default extends Theme
 				)
 				->style('row-default')
 		];
-		
+
 		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
 		{
 			$dispositions[$page]['{lang content}'] = [
@@ -334,7 +334,7 @@ class t_default extends Theme
 						->style('row-light')
 			];
 		}
-		
+
 		$dispositions['forum/*']['{lang post_content}'] = [
 			$this	->row(
 						$this->col(
@@ -359,7 +359,7 @@ class t_default extends Theme
 
 		return parent::install($dispositions);
 	}
-	
+
 	public function uninstall($remove = TRUE)
 	{
 		$this->file->delete($this->config->default_background);
