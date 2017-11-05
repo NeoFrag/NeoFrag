@@ -19,6 +19,12 @@ class Table extends Library
 	private $_no_data       = '';
 	private $_words         = [];
 
+	public function __construct($caller)
+	{
+		parent::__construct($caller);
+		$this->id = $this->__id();
+	}
+
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
 		$this->_columns[] = [

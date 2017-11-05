@@ -22,9 +22,28 @@ class Library extends NeoFrag
 		});
 	}
 
-	public function set_id($id = NULL)
+	public function __id($id = NULL)
 	{
-		$this->id = $id ?: md5($this->name.++self::$ID);
-		return $this;
+		static $_id      = [];
+		static $_classes = [];
+
+		$hash = spl_object_hash($this);
+
+		if ($id || !isset($_id[$hash]))
+		{
+			if (!isset($_classes[$class = get_called_class()]))
+			{
+				$_classes[$class] = 0;
+			}
+
+			if (!$id)
+			{
+				$id = md5(implode([get_class($this->__caller), $this->output->data->get('module', 'controller'), $this->output->data->get('module', 'method'), $class, $_classes[$class]++]));
+			}
+
+			$_id[$hash] = $id;
+		}
+
+		return $_id[$hash];
 	}
 }

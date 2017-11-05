@@ -58,6 +58,12 @@ class Form extends Library
 		return $tokens[$id];
 	}
 
+	public function __construct($caller)
+	{
+		parent::__construct($caller);
+		$this->id = $this->__id();
+	}
+
 	public function add_rules($rules, $values = [])
 	{
 		if (!is_array($rules))

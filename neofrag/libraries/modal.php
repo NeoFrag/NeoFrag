@@ -18,6 +18,8 @@ class Modal extends Library
 
 	public function __invoke($title, $icon = '')
 	{
+		$this->id = $this->__id();
+
 		$this->_header = is_a($title, 'NF\\NeoFrag\\Libraries\\Label') ? $title : $this->label($title, $icon);
 
 		return NeoFrag()->modals[] = $this;
