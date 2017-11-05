@@ -249,8 +249,7 @@ class Admin extends Controller_Module
 									'published'           => $published
 								])
 								->add_submit($this->lang('edit'))
-								->add_back('admin/events')
-								->save();
+								->add_back('admin/events');
 
 		if ($type == 1)//Matches
 		{
@@ -304,8 +303,7 @@ class Admin extends Controller_Module
 										'type'        => 'url'
 									]
 								])
-								->add_submit('Valider')
-								->save();
+								->add_submit('Valider');
 
 			$form_opponent = $this	->form
 									->add_rules([
@@ -335,8 +333,7 @@ class Admin extends Controller_Module
 											'type'        => 'url'
 										]
 									])
-									->add_submit('Valider')
-									->save();
+									->add_submit('Valider');
 
 			$form_round = $this	->form
 								->add_rules([
@@ -359,8 +356,7 @@ class Admin extends Controller_Module
 										'size'   => 'col-md-3'
 									]
 								])
-								->add_submit('Valider')
-								->save();
+								->add_submit('Valider');
 
 			if ($form_match->is_valid($post))
 			{

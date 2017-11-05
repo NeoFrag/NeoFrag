@@ -55,8 +55,7 @@ class Admin extends Controller_Module
 				]
 			])
 			->data($this->groups())
-			->pagination(FALSE)
-			->save();
+			->pagination(FALSE);
 
 		$table_users = $this
 			->table
@@ -135,8 +134,7 @@ class Admin extends Controller_Module
 					]
 				]
 			])
-			->data($members)
-			->save();
+			->data($members);
 
 		return $this->row(
 			$this->col(
@@ -176,8 +174,7 @@ class Admin extends Controller_Module
 				'quote'         => $quote
 			])
 			->add_submit($this->lang('edit'))
-			->add_back('admin/user')
-			->save();
+			->add_back('admin/user');
 
 		$form_groups = $this
 			->form
@@ -189,8 +186,7 @@ class Admin extends Controller_Module
 					}),
 					'rules'  => 'required'
 				]
-			])
-			->save();
+			]);
 
 		$sessions = $this
 			->table

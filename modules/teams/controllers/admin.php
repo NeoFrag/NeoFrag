@@ -157,8 +157,7 @@ class Admin extends Controller_Module
 								'description'  => $description
 							])
 							->add_submit($this->lang('edit'))
-							->add_back('admin/teams')
-							->save();
+							->add_back('admin/teams');
 
 		$form_users = $this	->form
 							->add_rules([
@@ -176,8 +175,7 @@ class Admin extends Controller_Module
 									}, $roles),
 									'rules'  => 'required'
 								]
-							])
-							->save();
+							]);
 
 		if ($form_team->is_valid($post))
 		{

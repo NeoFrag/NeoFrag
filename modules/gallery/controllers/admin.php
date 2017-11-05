@@ -177,8 +177,7 @@ class Admin extends Controller_Module
 								'gallery_id'  => $gallery_id
 							])
 							->add_submit($this->lang('edit'))
-							->add_back('admin/gallery')
-							->save();
+							->add_back('admin/gallery');
 
 		$form_image = $this	->form
 							->add_rules([
@@ -204,8 +203,7 @@ class Admin extends Controller_Module
 									'type'  => 'textarea'
 								]
 							])
-							->add_submit($this->lang('add_image'))
-							->save();
+							->add_submit($this->lang('add_image'));
 
 		$gallery_table = $this	->table
 								->add_columns([
@@ -263,8 +261,7 @@ class Admin extends Controller_Module
 									]
 								])
 								->data($images = $this->model()->get_images($gallery_id))
-								->no_data($this->lang('no_images'))
-								->save();
+								->no_data($this->lang('no_images'));
 
 		if ($form_album->is_valid($post))
 		{

@@ -42,8 +42,6 @@ class Comments extends Library
 
 	public function display($module_name, $module_id)
 	{
-		$this->form->save();
-
 		$form = $this	->css('comments')
 						->js('comments')
 						->form

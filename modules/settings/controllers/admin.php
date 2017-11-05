@@ -534,8 +534,7 @@ class Admin extends Controller_Module
 				]
 			])
 			->fast_mode()
-			->add_submit($this->lang('save'))
-			->save();
+			->add_submit($this->lang('save'));
 
 		$form_maintenance = $this->form
 			->add_rules([
@@ -646,8 +645,7 @@ class Admin extends Controller_Module
 					'type'  => 'url'
 				]
 			])
-			->add_submit($this->lang('save'))
-			->save();
+			->add_submit($this->lang('save'));
 
 		if ($form_opening->is_valid($post))
 		{

@@ -538,8 +538,7 @@ class Admin extends Controller_Module
 									'rules'  => 'required'
 								]
 							])
-							->add_submit('Envoyer la réponse')
-							->save();
+							->add_submit('Envoyer la réponse');
 
 		if ($reply_form->is_valid($post))
 		{
@@ -623,8 +622,7 @@ class Admin extends Controller_Module
 									'rules'  => 'required'
 								]
 							])
-							->add_submit('Envoyer mon avis')
-							->save();
+							->add_submit('Envoyer mon avis');
 
 		if ($vote_form->is_valid($post))
 		{
