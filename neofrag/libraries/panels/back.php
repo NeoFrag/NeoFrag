@@ -15,7 +15,7 @@ class Back extends Panel
 	public function __invoke($url = '')
 	{
 		$this->_url = $url;
-		return $this->reset();
+		return $this;
 	}
 
 	public function __toString()

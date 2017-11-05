@@ -92,7 +92,7 @@ class Label extends Html
 			}
 		};
 
-		return $this->reset();
+		return $this;
 	}
 
 	public function url($url = '')
