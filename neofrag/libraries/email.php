@@ -109,8 +109,6 @@ class Email extends Library
 
 		$this->url->external(FALSE);
 
-		$this->reset();
-
 		return $result;
 	}
 }

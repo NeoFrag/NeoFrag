@@ -15,8 +15,7 @@ class Widget extends Panel
 
 	public function __invoke($widget = 0)
 	{
-		return $this->reset()
-					->widget_id($widget);
+		return $this->widget_id($widget);
 	}
 
 	public function id($id)

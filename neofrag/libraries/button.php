@@ -88,7 +88,7 @@ class Button extends Label
 			$attrs['class'] = implode(' ', $class);
 		};
 
-		return $this->reset();
+		return $this;
 	}
 
 	public function compact()

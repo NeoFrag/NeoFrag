@@ -18,7 +18,7 @@ class View extends Library
 		$this->_name = $name;
 		$this->_data = $data;
 
-		return $this->reset();
+		return $this;
 	}
 
 	public function content($content, $data = [])

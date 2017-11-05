@@ -34,7 +34,7 @@ class Network extends Library
 	public function __invoke($url)
 	{
 		$this->_url = $url;
-		return $this->reset();
+		return $this;
 	}
 
 	public function auth($user, $password)

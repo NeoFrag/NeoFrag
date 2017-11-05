@@ -19,7 +19,7 @@ class Panel extends Library
 
 	public function __invoke()
 	{
-		return $this->reset();
+		return $this;
 	}
 
 	public function __toString()
