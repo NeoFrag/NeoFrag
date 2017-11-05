@@ -1,25 +1,25 @@
 <div role="tabpanel">
-	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('remove_link'); ?>" data-content="<?php echo $this->lang('move_here_to_remove'); ?>" data-placement="top"><?php echo icon('fa-trash-o').$this->lang('remove'); ?></a>
+	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('remove_link') ?>" data-content="<?php echo $this->lang('move_here_to_remove') ?>" data-placement="top"><?php echo icon('fa-trash-o').$this->lang('remove') ?></a>
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab"><?php echo $this->lang('links'); ?></a></li>
-		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab"><?php echo icon('fa-plus').' '.$this->lang('add'); ?></a></li>
-		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('options'); ?></a></li>
+		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab"><?php echo $this->lang('links') ?></a></li>
+		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab"><?php echo icon('fa-plus').' '.$this->lang('add') ?></a></li>
+		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('options') ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">
 			<ul class="list-group no-margin">
 			<?php foreach (isset($data['links']) ? $data['links'] : [] as $link): ?>
 				<li class="list-group-item">
-					<input type="hidden" name="settings[title][]" id="edit-title" value="<?php echo $link['title']; ?>" />
-					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url']; ?>" />
-					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent'; ?>" />
+					<input type="hidden" name="settings[title][]" id="edit-title" value="<?php echo $link['title'] ?>" />
+					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url'] ?>" />
+					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent' ?>" />
 					<ul class="list-inline no-margin">
-						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move'); ?>"><?php echo icon('fa-arrows-v'); ?></a></li>
-						<li><span data-toggle="tooltip" title="<?php echo $link['url']; ?>"><?php echo icon('fa-link'); ?></span></li>
-						<li><?php echo $link['title']; ?></li>
+						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move') ?>"><?php echo icon('fa-arrows-v') ?></a></li>
+						<li><span data-toggle="tooltip" title="<?php echo $link['url'] ?>"><?php echo icon('fa-link') ?></span></li>
+						<li><?php echo $link['title'] ?></li>
 					</ul>
 				</li>
-			<?php endforeach; ?>
+			<?php endforeach ?>
 			</ul>
 		</div>
 		<div id="add-link" class="tab-pane" role="tabpanel">
@@ -29,7 +29,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<a class="type-collapse" role="button" data-toggle="collapse" data-parent="#accordion" href="#type-module" aria-controls="type-module">
-								<?php echo icon('fa-edit'); ?> <b>Lien vers un module</b>
+								<?php echo icon('fa-edit') ?> <b>Lien vers un module</b>
 							</a>
 						</div>
 						<div id="type-module" class="panel-collapse collapse" role="tabpanel">
@@ -53,35 +53,35 @@
 							?>
 							<div class="list-group">
 								<?php foreach ($modules as $name => $title): ?>
-									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $title; ?>" data-link-url="<?php echo $name; ?>"><?php echo $title; ?></a>
-								<?php endforeach; ?>
+									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $title ?>" data-link-url="<?php echo $name ?>"><?php echo $title ?></a>
+								<?php endforeach ?>
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title'); ?></label>
+									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title'); ?>" />
+										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title') ?>" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path'); ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path'); ?>" disabled="disabled" />
+										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path') ?>" disabled="disabled" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target'); ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window'); ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window'); ?></option>
+											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
+											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-3 col-sm-5">
-										<button class="btn btn-primary"><?php echo $this->lang('add'); ?></button>
-										<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('cancel'); ?></a>
+										<button class="btn btn-primary"><?php echo $this->lang('add') ?></button>
+										<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('cancel') ?></a>
 									</div>
 								</div>
 							</div>
@@ -100,79 +100,79 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<a class="type-collapse" role="button" data-toggle="collapse" data-parent="#accordion" href="#type-page" aria-controls="type-page">
-								<?php echo icon('fa-file-text-o'); ?> <b>Lien vers une page</b>
+								<?php echo icon('fa-file-text-o') ?> <b>Lien vers une page</b>
 							</a>
 						</div>
 						<div id="type-page" class="panel-collapse collapse" role="tabpanel">
 							<div class="list-group">
 								<?php foreach ($pages as $page): ?>
-									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $page['title']; ?>" data-link-url="<?php echo $page['name']; ?>"><?php echo $page['title']; ?></a>
-								<?php endforeach; ?>
+									<a href="#" class="list-group-item link-item" data-link-title="<?php echo $page['title'] ?>" data-link-url="<?php echo $page['name'] ?>"><?php echo $page['title'] ?></a>
+								<?php endforeach ?>
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title'); ?></label>
+									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title'); ?>" />
+										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title') ?>" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path'); ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path'); ?>" disabled="disabled" />
+										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path') ?>" disabled="disabled" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target'); ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window'); ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window'); ?></option>
+											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
+											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-3 col-sm-5">
-										<button class="btn btn-primary"><?php echo $this->lang('add'); ?></button>
-										<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('cancel'); ?></a>
+										<button class="btn btn-primary"><?php echo $this->lang('add') ?></button>
+										<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('cancel') ?></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<?php endif; ?>
+					<?php endif ?>
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<a class="type-collapse link-item" role="button" data-link-title="" data-link-url="" data-toggle="collapse" data-parent="#accordion" href="#type-custom" aria-controls="type-custom">
-								<?php echo icon('fa-link'); ?> <b>Lien personnalisé</b>
+								<?php echo icon('fa-link') ?> <b>Lien personnalisé</b>
 							</a>
 						</div>
 						<div id="type-custom" class="panel-collapse collapse" role="tabpanel">
 							<div class="panel-body">
 								<div class="form-group">
-									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title'); ?></label>
+									<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('title') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title'); ?>" />
+										<input type="text" class="form-control" id="settings-title" value="" placeholder="<?php echo $this->lang('title') ?>" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path'); ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" id="settings-url" value="" placeholder="http://..." />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target'); ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window'); ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window'); ?></option>
+											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
+											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-3 col-sm-5">
-										<button class="btn btn-primary"><?php echo $this->lang('add'); ?></button>
+										<button class="btn btn-primary"><?php echo $this->lang('add') ?></button>
 									</div>
 								</div>
 							</div>
@@ -185,13 +185,13 @@
 		<div id="navigation-options" class="tab-pane" role="tabpanel">
 			<div class="form-horizontal">
 				<div class="form-group">
-					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('orientation'); ?></label>
+					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('orientation') ?></label>
 					<div class="col-sm-5">
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="0"<?php if (empty($data['display'])) echo ' checked="checked"'; ?>> <?php echo $this->lang('vertical'); ?>
+							<input type="radio" name="settings[display]" value="0"<?php if (empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('vertical') ?>
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="1"<?php if (!empty($data['display'])) echo ' checked="checked"'; ?>> <?php echo $this->lang('horizontal'); ?>
+							<input type="radio" name="settings[display]" value="1"<?php if (!empty($data['display'])) echo ' checked="checked"' ?>> <?php echo $this->lang('horizontal') ?>
 						</label>
 					</div>
 				</div>
@@ -271,8 +271,8 @@
 						<input type="hidden" name="settings[url][]" id="edit-url" value="'+url+'" />\
 						<input type="hidden" name="settings[target][]" id="edit-target" value="'+target+'" />\
 						<ul class="list-inline no-margin">\
-							<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move'); ?>"><?php echo icon('fa-arrows-v'); ?></a></li>\
-							<li><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fa-link'); ?></span></li>\
+							<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move') ?>"><?php echo icon('fa-arrows-v') ?></a></li>\
+							<li><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fa-link') ?></span></li>\
 							<li>'+title+'</li>\
 						</ul>\
 					</li>').appendTo('#links .list-group');

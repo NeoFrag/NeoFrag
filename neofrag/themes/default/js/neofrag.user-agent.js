@@ -16,16 +16,16 @@ $('body').on('nf.load', function(){
 
 					if (data['agent_type'] == 'Browser'){
 						if (data['agent_name'] == 'Firefox'){
-							img = '<?php echo image('icons/firefox.png'); ?>';
+							img = '<?php echo image('icons/firefox.png') ?>';
 						}
 						else if (data['agent_name'] == 'Chrome'){
-							img = '<?php echo image('icons/chrome.png'); ?>';
+							img = '<?php echo image('icons/chrome.png') ?>';
 						}
 						else if (data['agent_name'] == 'Safari'){
-							img = '<?php echo image('icons/safari.png'); ?>';
+							img = '<?php echo image('icons/safari.png') ?>';
 						}
 						else if (data['agent_name'] == 'Internet Explorer'){
-							img = '<?php echo image('icons/ie.png'); ?>';
+							img = '<?php echo image('icons/ie.png') ?>';
 						}
 
 						if (img){
@@ -34,13 +34,13 @@ $('body').on('nf.load', function(){
 					}
 
 					if (data['os_type'] == 'Windows'){
-						img2 = '<?php echo image('icons/windows.png'); ?>';
+						img2 = '<?php echo image('icons/windows.png') ?>';
 					}
 					else if (data['os_type'] == 'Linux'){
-						img2 = '<?php echo image('icons/animal-penguin.png'); ?>';
+						img2 = '<?php echo image('icons/animal-penguin.png') ?>';
 					}
 					else if (data['os_type'] == 'Macintosh'){
-						img2 = '<?php echo image('icons/mac-os.png'); ?>';
+						img2 = '<?php echo image('icons/mac-os.png') ?>';
 					}
 
 					if (img2){
@@ -48,7 +48,7 @@ $('body').on('nf.load', function(){
 					}
 
 					if (output == ''){
-						output += '<img src="<?php echo image('icons/user-silhouette-question.png'); ?>" data-toggle="tooltip" title="'+user_agent+'" alt="" />';
+						output += '<img src="<?php echo image('icons/user-silhouette-question.png') ?>" data-toggle="tooltip" title="'+user_agent+'" alt="" />';
 					}
 
 					$('[data-user-agent="'+user_agent+'"]').replaceWith('<span class="no-wrap">'+output+'</span>');

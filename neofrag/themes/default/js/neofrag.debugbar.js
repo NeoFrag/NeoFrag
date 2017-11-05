@@ -12,7 +12,7 @@ $(function(){
 			$('.debugbar-tab.active, .debugbar-pane.active').removeClass('active');
 			$(this).addClass('active');
 			$('.debugbar-pane[data-tab="'+tab+'"]').addClass('active');
-			$.post('<?php echo url('ajax/settings/debugbar'); ?>', {tab: tab});
+			$.post('<?php echo url('ajax/settings/debugbar') ?>', {tab: tab});
 			paddingBody();
 		}
 	});
@@ -38,14 +38,14 @@ $(function(){
 
 	$(document).mouseup(function(){
 		if (resizing) {
-			$.post('<?php echo url('ajax/settings/debugbar'); ?>', {height: $('.debugbar-content').innerHeight()});
+			$.post('<?php echo url('ajax/settings/debugbar') ?>', {height: $('.debugbar-content').innerHeight()});
 			resizing = false;
 		}
 	});
 
 	$('.debugbar-close').click(function(){
 		$('.debugbar.active, .debugbar .active').removeClass('active');
-		$.post('<?php echo url('ajax/settings/debugbar'); ?>', {tab: ''});
+		$.post('<?php echo url('ajax/settings/debugbar') ?>', {tab: ''});
 		paddingBody();
 	});
 

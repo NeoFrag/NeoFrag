@@ -1,7 +1,7 @@
 /* Déclaration de la zone de téléchargement des images */
 Dropzone.autoDiscover = false;
 $('#gallery-dropzone').dropzone({
-	dictDefaultMessage: '<div class="text-center"><h2><?php echo icon('fa-cloud-upload'); ?> DropZone</h2><p class="text-muted">Déposez vos images dans cette zone, ou cliquez ici</p></div>',
+	dictDefaultMessage: '<div class="text-center"><h2><?php echo icon('fa-cloud-upload') ?> DropZone</h2><p class="text-muted">Déposez vos images dans cette zone, ou cliquez ici</p></div>',
 	addRemoveLinks: true,
 	autoProcessQueue: false,
 	parallelUploads: 20,
@@ -23,7 +23,7 @@ $('#gallery-dropzone').dropzone({
 		/* Event: quand un fichier est ajouté, on affiche le bouton d'upload */
 		myDropzone.on('addedfile', function() {
 			submitButton.show();
-			submitButton.html('<?php echo icon('fa-cloud-upload'); ?> Ajouter les images');
+			submitButton.html('<?php echo icon('fa-cloud-upload') ?> Ajouter les images');
 			submitButton.prop('disabled', false);
 			$('.label-dropzone').hide();
 		});

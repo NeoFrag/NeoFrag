@@ -147,7 +147,7 @@ body {
 	height: 100%;
 	overflow-x: hidden;
 	width: 100%;
-	background: url('<?php echo url('neofrag/modules/live_editor/images/loading.gif'); ?>') center center no-repeat #282C31;
+	background: url('<?php echo url('neofrag/modules/live_editor/images/loading.gif') ?>') center center no-repeat #282C31;
 	-moz-box-shadow: 0 0 25px 5px #353A42;
 	-webkit-box-shadow: 0 0 25px 5px #353A42;
 	-o-box-shadow: 0 0 25px 5px #353A42;
@@ -187,7 +187,7 @@ body {
 }
 
 .live-editor-navbar .logo {
-	background: url('<?php echo url('neofrag/modules/live_editor/images/live_editor.png'); ?>') no-repeat 0 50%;
+	background: url('<?php echo url('neofrag/modules/live_editor/images/live_editor.png') ?>') no-repeat 0 50%;
 	display: inline-block;
 	float: left;
 	height: 50px;

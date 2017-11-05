@@ -1,6 +1,6 @@
 $(function(){
 	$('.switch > .btn').click(function(){
-		$.post('<?php echo url('admin/ajax/settings/maintenance.json'); ?>', {closed: $(this)[0] === $('.switch > .btn:last-child')[0] ? 1 : 0}, function(data){
+		$.post('<?php echo url('admin/ajax/settings/maintenance.json') ?>', {closed: $(this)[0] === $('.switch > .btn:last-child')[0] ? 1 : 0}, function(data){
 			if (data.status){
 				$('.switch > .btn:first-child').removeClass('btn-success').addClass('btn-default').find('i.fa').removeClass('fa-toggle-on').addClass('fa-toggle-off');
 				$('.switch > .btn:last-child').removeClass('btn-default').addClass('btn-danger').find('i.fa').removeClass('fa-toggle-off').addClass('fa-toggle-on');

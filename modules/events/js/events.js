@@ -1,8 +1,8 @@
 $(function(){
 	$('#calendar').fullCalendar({
 		height: 350,
-		lang: '<?php echo NeoFrag()->config->lang; ?>',
-		eventSources: '<?php echo url('ajax/events.json'); ?>',
+		lang: '<?php echo NeoFrag()->config->lang ?>',
+		eventSources: '<?php echo url('ajax/events.json') ?>',
 		eventRender: function(event, element){
 			element.find('.fc-content').prepend('<i class="fa fa-fw '+event.icon+'"></i>');
 
@@ -23,7 +23,7 @@ $(function(){
 					else {
 						element.on('remove', function(){
 							element.popover('hide');
-						}).data('ajax', $.get('<?php echo url('ajax/events/'); ?>'+event.id+'/'+event.url_title+'', function(data){
+						}).data('ajax', $.get('<?php echo url('ajax/events/') ?>'+event.id+'/'+event.url_title+'', function(data){
 							$('<div data-event-id="'+event.id+'"/>').hide()
 																	.addClass('event-cache')
 																	.html(data)

@@ -4,7 +4,7 @@ $(function(){
 
 		if (!$access.hasClass('info')){
 			$.ajax({
-				url: '<?php echo url('admin/ajax/access'); ?>',
+				url: '<?php echo url('admin/ajax/access') ?>',
 				type: 'POST',
 				data: {
 					'module': $('[name="module"]').val(),
@@ -56,7 +56,7 @@ $(function(){
 		}
 
 		$.ajax({
-			url: '<?php echo url('admin/ajax/access/update.json'); ?>',
+			url: '<?php echo url('admin/ajax/access/update.json') ?>',
 			type: 'POST',
 			data: data,
 			success: function(data){
@@ -73,7 +73,7 @@ $(function(){
 
 				if (typeof data.user_authorized != 'undefined' && typeof data.user_forced != 'undefined'){
 					if (data.user_forced){
-						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('reset_automatic'); ?>"><?php echo icon('fa-thumb-tack'); ?></a>');
+						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('reset_automatic') ?>"><?php echo icon('fa-thumb-tack') ?></a>');
 					}
 					else {
 						$tr.find('.access-status').html('');
@@ -133,7 +133,7 @@ $(function(){
 
 	$(document).on('click', '.access-users', function(){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/access/users'); ?>',
+			url: '<?php echo url('admin/ajax/access/users') ?>',
 			type: 'POST',
 			data: {
 				'module': $('[name="module"]').val(),
@@ -156,15 +156,15 @@ $(function(){
 				<div class="modal-dialog">\
 					<div class="modal-content">\
 						<div class="modal-header">\
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close'); ?></span></button>\
-							<h4 class="modal-title"><?php echo $this->lang('permissions_reset_comfirmation'); ?></h4>\
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
+							<h4 class="modal-title"><?php echo $this->lang('permissions_reset_comfirmation') ?></h4>\
 						</div>\
 						<div class="modal-body">\
-							<?php echo $this->lang('permissions_reset_message'); ?>\
+							<?php echo $this->lang('permissions_reset_message') ?>\
 						</div>\
 						<div class="modal-footer">\
-							<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel'); ?></button>\
-							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'"><?php echo $this->lang('reset'); ?></button>\
+							<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
+							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'"><?php echo $this->lang('reset') ?></button>\
 						</div>\
 					</div>\
 				</div>\
@@ -175,7 +175,7 @@ $(function(){
 
 	$(document).on('click', '.modal-access-reset .btn-info', function(){
 		$.ajax({
-			url: '<?php echo url('admin/ajax/access/reset'); ?>',
+			url: '<?php echo url('admin/ajax/access/reset') ?>',
 			type: 'POST',
 			data: {
 				'module': $(this).data('module'),

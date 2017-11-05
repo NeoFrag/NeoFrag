@@ -22,7 +22,7 @@ body, #wrapper {
 }
 
 .debugbar .logo {
-	background: url('<?php echo image('debugbar.png'); ?>') no-repeat 0 50%;
+	background: url('<?php echo image('debugbar.png') ?>') no-repeat 0 50%;
 	display: inline-block;
 	float: left;
 	height: 50px;

@@ -1,6 +1,6 @@
-<div id="comment-<?php echo $data['comment_id']; ?>" class="media<?php if ($data['parent_id'] !== NULL) echo ' comments-child'; ?>">
+<div id="comment-<?php echo $data['comment_id'] ?>" class="media<?php if ($data['parent_id'] !== NULL) echo ' comments-child' ?>">
 	<div class="media-left">
-		<?php echo $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']); ?>
+		<?php echo $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']) ?>
 	</div>
 	<div class="media-body">
 		<?php
@@ -22,10 +22,10 @@
 			}
 		?>
 		<h4 class="media-heading">
-			<?php echo $data['user_id'] ? $this->user->link($data['user_id'], $data['username']) : $this->lang('guest'); ?>
-			<small><?php echo icon('fa-clock-o').' '.time_span($data['date']); ?></small>
+			<?php echo $data['user_id'] ? $this->user->link($data['user_id'], $data['username']) : $this->lang('guest') ?>
+			<small><?php echo icon('fa-clock-o').' '.time_span($data['date']) ?></small>
 		</h4>
-		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$this->lang('removed_message').'</i>'; ?>
+		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$this->lang('removed_message').'</i>' ?>
 	</div>
 </div>
-<hr<?php if ($data['parent_id'] !== NULL) echo ' class="comments-child"'; ?> />
+<hr<?php if ($data['parent_id'] !== NULL) echo ' class="comments-child"' ?> />

@@ -4,15 +4,15 @@
 	<li class="list-group-item">
 		<div class="row">
 			<div class="col-md-1">
-				<?php echo $this->model('matches')->display_scores($match['match']['scores'], $color); ?>
+				<?php echo $this->model('matches')->display_scores($match['match']['scores'], $color) ?>
 			</div>
 			<?php if ($match['match']['opponent']['image_id']): ?>
 			<div class="text-center col-md-1">
-				<img src="<?php echo path($match['match']['opponent']['image_id']); ?>" class="img-responsive" alt="" />
+				<img src="<?php echo path($match['match']['opponent']['image_id']) ?>" class="img-responsive" alt="" />
 			</div>
-			<?php endif; ?>
-			<div class="text-left col-md-<?php echo $match['match']['opponent']['image_id'] ? 7 : 8; ?>">
-				<a href="<?php echo url('events/'.$match['event_id'].'/'.url_title($match['title'])); ?>">
+			<?php endif ?>
+			<div class="text-left col-md-<?php echo $match['match']['opponent']['image_id'] ? 7 : 8 ?>">
+				<a href="<?php echo url('events/'.$match['event_id'].'/'.url_title($match['title'])) ?>">
 				<?php
 					$opponent = $match['match']['opponent']['title'];
 
@@ -26,12 +26,12 @@
 				</a>
 			</div>
 			<div class="text-left col-md-3 text-right">
-				<span class="<?php echo $color; ?>"><?php echo $match['match']['scores'][0]; ?>:<?php echo $match['match']['scores'][1]; ?></span>
+				<span class="<?php echo $color ?>"><?php echo $match['match']['scores'][0] ?>:<?php echo $match['match']['scores'][1] ?></span>
 			</div>
 		</div>
 	</li>
-	<?php endforeach; ?>
+	<?php endforeach ?>
 </ul>
 <?php else: ?>
 <div class="panel-body">Aucun résultat...</div>
-<?php endif; ?>
+<?php endif ?>
