@@ -22,23 +22,9 @@ class Library extends NeoFrag
 		});
 	}
 
-	public function reset()
-	{
-		if (isset($this->load->libraries[$this->name]))
-		{
-			unset($this->load->libraries[$this->name]);
-		}
-
-		return $this->set_id();
-	}
-
 	public function save()
 	{
-		$clone = clone $this;
-
-		$this->reset();
-
-		return $clone;
+		return clone $this;
 	}
 
 	public function set_id($id = NULL)

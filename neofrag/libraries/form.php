@@ -492,8 +492,6 @@ class Form extends Library
 		$output .= '</fieldset>
 				</form>';
 
-		$this->reset();
-
 		return $output;
 	}
 

@@ -31,7 +31,7 @@ class Html extends Library
 			}
 		}
 
-		return $this->reset();
+		return $this;
 	}
 
 	public function __toString()

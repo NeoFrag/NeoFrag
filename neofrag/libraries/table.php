@@ -94,7 +94,6 @@ class Table extends Library
 			}
 			else
 			{
-				$this->reset();
 				return;
 			}
 		}
@@ -464,8 +463,6 @@ class Table extends Library
 				$output = '<div class="table-area" data-table-id="'.$this->id.'"'.($this->url->ajax ? ' data-ajax-url="'.url($this->url->request).'"  data-ajax-post="'.http_build_query(post()).'"' : '').'>'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
 			}
 		}
-
-		$this->reset();
 
 		if ($this->_ajax)
 		{

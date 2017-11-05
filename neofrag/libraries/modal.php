@@ -20,7 +20,7 @@ class Modal extends Library
 	{
 		$this->_header = is_a($title, 'NF\\NeoFrag\\Libraries\\Label') ? $title : $this->label($title, $icon);
 
-		return NeoFrag()->modals[] = $this->reset();
+		return NeoFrag()->modals[] = $this;
 	}
 
 	public function __toString()
