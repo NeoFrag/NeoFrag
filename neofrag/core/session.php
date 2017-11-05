@@ -46,9 +46,9 @@ class Session extends Core
 		else if (!is_asset() && !$this->url->ajax && !$this->url->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 		{
 			$this->_session_id();
-			
+
 			$crawler = is_crawler();
-			
+
 			if ($crawler !== FALSE)
 			{
 				$this->db->insert('nf_crawlers', [
@@ -64,7 +64,7 @@ class Session extends Core
 				'is_crawler' => $crawler !== FALSE,
 				'user_data'  => ''
 			]);
-			
+
 			$this->_user_data['session']['date']          = time();
 			$this->_user_data['session']['javascript']    = FALSE;
 			$this->_user_data['session']['authenticator'] = '';
@@ -74,7 +74,7 @@ class Session extends Core
 
 		statistics('nf_sessions_max_simultaneous', $this->_sessions = $this->db->select('COUNT(DISTINCT IFNULL(user_id, session_id))')->from('nf_sessions')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row(), function($a, $b){ return $a > $b; });
 	}
-	
+
 	public function __destruct()
 	{
 		if (!is_asset() && !$this->url->ajax && !$this->url->ajax_header && $_SERVER['REQUEST_METHOD'] != 'OPTIONS')
@@ -93,7 +93,7 @@ class Session extends Core
 				$this->_user_data['session']['history'][] = $this->_get_url();
 			}
 		}
-		
+
 		$this->save();
 	}
 
@@ -170,7 +170,7 @@ class Session extends Core
 	{
 		$args  = func_get_args();
 		$count = func_num_args();
-		
+
 		if ($count == 0)
 		{
 			foreach (array_keys($this->_user_data) as $key)
@@ -179,7 +179,7 @@ class Session extends Core
 				{
 					continue;
 				}
-				
+
 				unset($this->_user_data[$key]);
 			}
 		}
@@ -190,7 +190,7 @@ class Session extends Core
 			{
 				$var .= '[$args['.$i.']]';
 			}
-	
+
 			eval('unset('.$var.');');
 		}
 
@@ -200,7 +200,7 @@ class Session extends Core
 	public function set_user_id($user_id)
 	{
 		$this->_user_id = $user_id;
-		
+
 		if ($user_id !== NULL)
 		{
 			$this->db->insert('nf_sessions_history', [
@@ -216,23 +216,23 @@ class Session extends Core
 
 		return $this;
 	}
-	
+
 	public function get_session_id()
 	{
 		return $this->_session_id;
 	}
-	
+
 	public function get_back()
 	{
 		if (!empty($this->_user_data['session']['history']))
 		{
 			$url = $this->_get_url();
-			
+
 			if (in_array($url, $history = $this->_user_data['session']['history']))
 			{
 				$history = array_slice($history, 0, array_search($url, $history));
 			}
-			
+
 			return array_pop($history) ?: NULL;
 		}
 	}
@@ -257,21 +257,21 @@ class Session extends Core
 
 		return $this;
 	}
-	
+
 	private function _get_url()
 	{
 		static $url;
-		
+
 		if ($url === NULL)
 		{
 			$url = $this->url->request;
-			
+
 			if (preg_match('#('.($patern = implode('|', [self::$route_patterns['pages'], self::$route_patterns['page']])).')#', $url, $match) && $match[1])
 			{
 				$url = preg_replace('#'.$patern.'#', '', $url);
 			}
 		}
-		
+
 		return $url;
 	}
 
@@ -312,7 +312,7 @@ class Session extends Core
 	{
 		return $this->_sessions;
 	}
-	
+
 	public function debugbar()
 	{
 		return $this->debug->table($this->_user_data);

@@ -9,9 +9,9 @@ class m_gallery_c_index extends Controller_Module
 	public function index()
 	{
 		$this->css('gallery');
-		
+
 		$panels = [];
-		
+
 		foreach ($this->model()->get_categories() as $category)
 		{
 			$panels[] = $this	->panel()
@@ -21,7 +21,7 @@ class m_gallery_c_index extends Controller_Module
 									'gallery'        => $this->model()->get_gallery($category['category_id'])
 								]), FALSE);
 		}
-		
+
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
@@ -32,7 +32,7 @@ class m_gallery_c_index extends Controller_Module
 
 		return $panels;
 	}
-	
+
 	public function _category($category_id, $name, $title, $image_id, $icon_id)
 	{
 		$this->css('gallery');
@@ -46,13 +46,13 @@ class m_gallery_c_index extends Controller_Module
 					]), FALSE)
 		];
 	}
-	
+
 	public function _gallery($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $image, $category_icon, $images)
 	{
 		$this	->css('gallery')
 				->js('gallery')
 				->js('modal-carousel');
-		
+
 		$panels = [$this->panel()
 						->heading('<div class="pull-right"><a class="label label-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
 						->body($this->view('gallery', [
@@ -64,7 +64,7 @@ class m_gallery_c_index extends Controller_Module
 							'total_images'    => count($carousel_images),
 							'pagination'      => $this->pagination->get_pagination()
 						]), FALSE)];
-		
+
 		if (empty($images))
 		{
 			$panels[] = $this	->panel()
@@ -75,15 +75,15 @@ class m_gallery_c_index extends Controller_Module
 
 		return $panels;
 	}
-	
+
 	public function _image($image_id, $thumbnail_file_id, $original_file_id, $file_id, $gallery_id, $title, $description, $date, $views, $gallery_name, $gallery_title)
 	{
 		$this->css('gallery');
-		
+
 		$images         = $this->db->select('image_id')->from('nf_gallery_images')->where('gallery_id', $gallery_id)->get();
 		$last_image_id  = max($images);
 		$first_image_id = min($images);
-		
+
 		if ($last_image_id == $image_id)
 		{
 			$vignettes = $this->db->from('nf_gallery_images')->where('image_id <=', $last_image_id)->where('gallery_id', $gallery_id)->order_by('image_id DESC')->limit(6)->get();

@@ -15,7 +15,7 @@ class m_pages_m_pages extends Model
 						->order_by('pl.title ASC')
 						->get();
 	}
-	
+
 	public function check_page($page_id, $title, $lang = 'default', $all = FALSE)
 	{
 		if ($lang == 'default')
@@ -27,12 +27,12 @@ class m_pages_m_pages extends Model
 					->from('nf_pages p')
 					->join('nf_pages_lang pl', 'p.page_id = pl.page_id')
 					->where('p.page_id', $page_id);
-		
+
 		if (!$all)
 		{
 			$this->db->where('p.published', TRUE);
 		}
-							
+
 		$page = $this->db	->where('pl.lang', $lang)
 							->row();
 
@@ -45,7 +45,7 @@ class m_pages_m_pages extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function add_page($name, $title, $published, $subtitle, $content)
 	{
 		$page_id = $this->db->insert('nf_pages', [
@@ -78,7 +78,7 @@ class m_pages_m_pages extends Model
 							'subtitle' => $subtitle,
 							'content'  => $content
 						]);
-						
+
 			$this->db	->where('page_id', $page_id)
 						->update('nf_pages', [
 							'name'           => $name ?: url_title($title),
@@ -102,7 +102,7 @@ class m_pages_m_pages extends Model
 						]);
 		}
 	}
-	
+
 	public function delete_page($page_id)
 	{
 		$this->db	->where('page_id', $page_id)

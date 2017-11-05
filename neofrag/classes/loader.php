@@ -47,7 +47,7 @@ class Loader extends NeoFrag
 	public function debugbar($title = 'Loader')
 	{
 		$output = '<span class="label label-info">'.$title.(property_exists($this, 'override') && $this->override ? ' '.icon('fa-code-fork') : '').'</span>';
-		
+
 		$this->debug->timeline($output, $this->time[0], $this->time[1]);
 
 		$output = '	<ul>

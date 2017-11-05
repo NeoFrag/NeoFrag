@@ -40,7 +40,7 @@ class m_search_c_index extends Controller_Module
 					[$not_keywords, 'NOT LIKE', 'AND'],
 					[$keywords,     'LIKE',     'OR']
 				];
-				
+
 				foreach ($this->addons->get_modules() as $module)
 				{
 					if (($search_controller = $module->controller('search')) && ($columns = $search_controller->search()))
@@ -50,7 +50,7 @@ class m_search_c_index extends Controller_Module
 							if ($query[0])
 							{
 								$args = [];
-								
+
 								foreach ($query[0] as $keyword)
 								{
 									foreach ($columns as $col)
@@ -77,9 +77,9 @@ class m_search_c_index extends Controller_Module
 				array_natsort($results, function($a){
 					return $a[0]->get_title();
 				});
-				
+
 				$panels = [];
-				
+
 				foreach ($results as $result)
 				{
 					$content = [];
@@ -101,7 +101,7 @@ class m_search_c_index extends Controller_Module
 							$content[] = $result[1]->method('index', [$data, $keywords]);
 						}
 					}
-					
+
 					if ($content)
 					{
 						$panels[] = $this	->panel()
@@ -109,14 +109,14 @@ class m_search_c_index extends Controller_Module
 											->body(implode('<hr />', $content))
 											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('see_all_results').'</a>' : '');
 					}
-					
+
 					if ($details && $pagination = $this->pagination->get_pagination())
 					{
 						$panels[] = $this	->panel()
 											->body($pagination, FALSE);
 					}
 				}
-				
+
 				if (!$panels)
 				{
 					redirect('search?q='.rawurlencode($search));

@@ -27,7 +27,7 @@ class Form extends Library
 		'iconpicker',
 		'legend'
 	];
-	
+
 	private $_buttons          = [];
 	private $_confirm_deletion = [];
 	private $_errors           = [];
@@ -62,20 +62,20 @@ class Form extends Library
 
 			$rules = $this->form($rules);
 		}
-		
+
 		foreach ($rules as $var => $options)
 		{
 			if (!empty($options['rules']))
 			{
 				$options['rules'] = explode('|', $options['rules']);
 			}
-			
+
 			$this->_rules[$var] = $options;
 		}
 
 		return $this;
 	}
-	
+
 	public function add_captcha()
 	{
 		if (!$this->user())
@@ -100,7 +100,7 @@ class Form extends Library
 	{
 		$this->_buttons[] = [
 			'type'  => 'submit',
-			'label' => $label,
+			'label' => $label
 		];
 
 		return $this;
@@ -127,7 +127,7 @@ class Form extends Library
 		$this->_display_required = $display;
 		return $this;
 	}
-	
+
 	public function fast_mode()
 	{
 		$this->_fast_mode        = TRUE;
@@ -165,7 +165,7 @@ class Form extends Library
 			{
 				$value = utf8_htmlentities(trim($value));
 			}
-			
+
 			unset($value);
 		}
 
@@ -181,7 +181,7 @@ class Form extends Library
 				$this->_errors[$var] = $error;
 			}
 		}
-		
+
 		if (empty($this->_errors))
 		{
 			if ($this->_has_upload())
@@ -197,7 +197,7 @@ class Form extends Library
 							$this->file->delete($options['value']);
 							$options['value'] = $post[$var] = 0;
 						}
-						
+
 						if (!empty($files['tmp_name'][$var]))
 						{
 							if (!($post[$var] = $this->file->upload($files, isset($options['upload']) ? $options['upload'] : NULL, $filename, isset($options['value']) ? $options['value'] : NULL, $var)))
@@ -210,7 +210,7 @@ class Form extends Library
 								call_user_func_array($options['post_upload'], [$filename]);
 							}
 						}
-						
+
 						if (!empty($options['value']) && empty($post[$var]))
 						{
 							$post[$var] = $options['value'];
@@ -221,10 +221,10 @@ class Form extends Library
 
 			return TRUE;
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	public function get_errors()
 	{
 		return $this->_errors;
@@ -251,9 +251,9 @@ class Form extends Library
 		{
 			return NeoFrag()->lang('invalid_values', count($post[$var]));
 		}
-		
+
 		$is_file = !empty($options['type']) && $options['type'] == 'file';
-		
+
 		if (	!empty($options['rules']) &&
 				in_array('required', $options['rules']) &&
 				(
@@ -264,12 +264,12 @@ class Form extends Library
 		{
 			return NeoFrag()->lang('required_input');
 		}
-		
+
 		if ($is_file && !empty($_FILES[$this->token()]['error'][$var]) && $_FILES[$this->token()]['error'][$var] != 4)
 		{
 			return NeoFrag()->lang('file_transfer_error_'.$_FILES[$this->token()]['error'][$var]);
 		}
-		
+
 		if (isset($options['check']) && is_callable($options['check']))
 		{
 			if (!empty($options['type']) && $options['type'] == 'file')
@@ -280,7 +280,7 @@ class Form extends Library
 			{
 				$error = call_user_func_array($options['check'], [$post[$var], $post]);
 			}
-			
+
 			if (!in_array($error, [TRUE, NULL], TRUE))
 			{
 				return $error;
@@ -289,17 +289,17 @@ class Form extends Library
 
 		return TRUE;
 	}
-	
+
 	private function _check_file(&$post, $var, $options)
 	{
 		if (empty($post[$var]))
 		{
 			$post[$var] = NULL;
 		}
-		
+
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_checkbox(&$post, $var, $options)
 	{
 		$post[$var] = array_filter(isset($post[$var]) ? $post[$var] : [], function($a){
@@ -307,71 +307,71 @@ class Form extends Library
 		});
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_email($post, $var, $options)
 	{
 		if ($post[$var] !== '' && !is_valid_email($post[$var]))
 		{
 			return NeoFrag()->lang('wrong_email');
 		}
-		
+
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_url($post, $var, $options)
 	{
 		if ($post[$var] !== '' && !is_valid_url($post[$var]))
 		{
 			return NeoFrag()->lang('wrong_url');
 		}
-		
+
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_number(&$post, $var, $options)
 	{
 		if ($post[$var] !== '' && $post[$var] != (int)$post[$var])
 		{
 			return 'Nombre invalide';
 		}
-		
+
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_phone(&$post, $var, $options)
 	{
 		if ($post[$var] !== '' && !preg_match('/^0[1-9]([. ]?)\d{2}(?:\1\d{2}){3}$/', $post[$var], $match))
 		{
 			return 'Numéro de téléphone invalide';
 		}
-		
+
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_datetime(&$post, $var, $options)
 	{
 		datetime2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_time(&$post, $var, $options)
 	{
 		time2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_date(&$post, $var, $options)
 	{
 		date2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	private function _check_editor(&$post, $var, $options)
 	{
 		$post[$var] = trim(preg_replace('/ {2,}/', ' ', preg_replace('/(^ +?)|( +?$)/m', '', str_replace('&nbsp;', ' ', $post[$var]))));
 		return $this->_check_text($post, $var, $options);
 	}
-	
+
 	public function display()
 	{
 		if ($this->_confirm_deletion)
@@ -405,17 +405,17 @@ class Form extends Library
 		}
 
 		$output = '';
-		
+
 		if ($has_upload = $this->_has_upload())
 		{
 			$this->js('neofrag.file');
 		}
-		
+
 		$output .= '<form'.(!$this->_fast_mode ? ' class="form-horizontal"' : '').' action="'.url($this->url->request).'" method="post"'.($has_upload ? ' enctype="multipart/form-data"' : '').'>
 						<fieldset>';
 
 		$post = post($this->token());
-						
+
 		foreach ($this->_rules as $var => $options)
 		{
 			if (!is_array($options) || !isset($options['type']) || !in_array($type = $options['type'], self::$types))
@@ -426,7 +426,7 @@ class Form extends Library
 			if ($display = $this->{'_display_'.$type}($var, $options, isset($post[$var]) ? $post[$var] : NULL))
 			{
 				$output .= '<div class="form-group'.(isset($this->_errors[$var]) ? ' has-error' : '').(isset($options['type']) && $options['type'] == 'legend' ? ' legend' : '').'">';
-				
+
 				if ($this->_fast_mode || $type == 'legend')
 				{
 					$output .= $display;
@@ -442,7 +442,7 @@ class Form extends Library
 
 					$output .= '</label><div class="'.(!empty($options['size']) && preg_match('/^col-md-([1-9])$/', $options['size'], $match) ? 'col-md-'.$match[1] : 'col-md-9').'">'.$display.'</div>';
 				}
-				
+
 				$output .= '</div>';
 			}
 		}
@@ -461,7 +461,7 @@ class Form extends Library
 		if (!empty($this->_buttons))
 		{
 			$output .= '<div class="'.($this->_fast_mode ? 'text-center' : 'form-group').'">';
-			
+
 			if (!$this->_fast_mode)
 			{
 				$output .= '<div class="col-md-offset-3 col-md-9">';
@@ -476,7 +476,7 @@ class Form extends Library
 
 				$output .= $this->_display_button($button);
 			}
-			
+
 			if (!$this->_fast_mode)
 			{
 				$output .= '</div>';
@@ -487,9 +487,9 @@ class Form extends Library
 
 		$output .= '</fieldset>
 				</form>';
-				
+
 		$this->reset();
-		
+
 		return $output;
 	}
 
@@ -503,7 +503,7 @@ class Form extends Library
 		{
 			return '<a href="'.url($button['action']).'" class="btn btn-default">'.$button['label'].'</a>';
 		}
-		
+
 		return '';
 	}
 
@@ -530,26 +530,26 @@ class Form extends Library
 		{
 			return (string)$options['value'];
 		}
-		
+
 		return isset($options['default']) ? (string)$options['default'] : '';
 	}
-	
+
 	private function _display_popover($var, $options, &$icons = '')
 	{
 		$popover = $icons = [];
-		
+
 		if (!empty($options['description']))
 		{
 			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$this->lang($options['description'], NULL);
 		}
-		
+
 		if (!empty($this->_errors[$var]))
 		{
 			$popover[] = ($icons[] = '<span class="text-danger">'.icon('fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
 		}
-		
+
 		$icons = implode(' ', $icons);
-		
+
 		if ($popover)
 		{
 			return ' data-toggle="popover" data-trigger="hover" data-placement="right" data-html="true" data-content="'.utf8_htmlentities(implode('<br /><br />', $popover)).'"';
@@ -559,30 +559,30 @@ class Form extends Library
 	private function _display_text($var, $options, $post, $type = 'text')
 	{
 		$classes = [];
-		
+
 		if (in_array($type, ['date', 'datetime', 'time']))
 		{
 			$types = ['date' => 'L', 'datetime' => 'L LT', 'time' => 'LT'];
-			
+
 			NeoFrag()	->css('bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/moment.min')
 								->js('bootstrap-datetimepicker/bootstrap-datetimepicker.min')
 								->js('bootstrap-datetimepicker/locales/'.$this->config->lang)
 								->js_load('$(".input-group.'.$type.'").datetimepicker({allowInputToggle: true, locale: "'.$this->config->lang.'", format: "'.$types[$type].'"});');
-			
+
 			$classes[] = $type;
-			
+
 			if (empty($options['icon']))
 			{
 				$options['icon'] = $type == 'time' ? 'fa-clock-o' : 'fa-calendar';
 			}
-			
+
 			$type = 'text';
 		}
 		else if ($type == 'email')
 		{
 			$type = 'text';
-			
+
 			if (empty($options['icon']))
 			{
 				$options['icon'] = 'fa-envelope-o';
@@ -591,7 +591,7 @@ class Form extends Library
 		else if ($type == 'url')
 		{
 			$type = 'text';
-			
+
 			if (empty($options['icon']))
 			{
 				$options['icon'] = 'fa-globe';
@@ -600,7 +600,7 @@ class Form extends Library
 		else if ($type == 'phone')
 		{
 			$type = 'text';
-			
+
 			if (empty($options['icon']))
 			{
 				$options['icon'] = 'fa-phone';
@@ -609,31 +609,31 @@ class Form extends Library
 		else if ($type == 'colorpicker')
 		{
 			$type = 'text';
-			
+
 			$classes[] = 'color';
-			
+
 			$options['icon'] = FALSE;
-			
+
 			NeoFrag()	->css('bootstrap-colorpicker.min')
 								->js('bootstrap-colorpicker.min')
 								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-addon,input", colorSelectors: '.json_encode(get_colors()).'});');
 		}
-		
+
 		$output = '';
-		
+
 		if (isset($options['icon']))
 		{
 			$output .= '<div class="input-group'.(!empty($classes) ? ' '.implode(' ', $classes) : '').'">
 				<span class="input-group-addon">'.($options['icon'] ? icon($options['icon']) : '<i></i>').'</span>';
 		}
-		
+
 		$placeholder = '';
-		
+
 		if ($type != 'file')
 		{
 			$class = ' class="form-control"';
 			$value = ' value="'.addcslashes($this->_display_value($var, $options), '"').'"';
-			
+
 			if (!empty($options['placeholder']))
 			{
 				$placeholder = $options['placeholder'];
@@ -642,7 +642,7 @@ class Form extends Library
 			{
 				$placeholder = $options['label'];
 			}
-			
+
 			if ($placeholder)
 			{
 				$placeholder = ' placeholder="'.$this->lang($placeholder, NULL).'"';
@@ -654,9 +654,9 @@ class Form extends Library
 		if ($type == 'file')
 		{
 			$post = post();
-			
+
 			$input = '<div style="margin: 7px 0;"><p>'.icon('fa-download').' '.NeoFrag()->lang('upload_file').(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
-			
+
 			if (!empty($options['value']))
 			{
 				if (isset($post[$this->token()][$var]) && $post[$this->token()][$var] == 'delete')
@@ -681,16 +681,16 @@ class Form extends Library
 				}
 			}
 		}
-		
+
 		$output .= $input;
-		
+
 		if (isset($options['icon']))
 		{
 			if (in_array('color', $classes))
 			{
 				$output .= '<span class="input-group-addon"><span class="fa fa-eyedropper"></span></span>';
 			}
-			
+
 			$output .= '</div>';
 		}
 
@@ -715,7 +715,7 @@ class Form extends Library
 											selectedClass: "btn-primary",
 											unselectedClass: ""
 										});');
-		
+
 		return '<button id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
 	}
 
@@ -808,7 +808,7 @@ class Form extends Library
 		if (!empty($options['values']))
 		{
 			$user_value = (array)$this->_display_value($var, $options);
-			
+
 			foreach ($options['values'] as $value => $label)
 			{
 				 $output .= '	<div class="checkbox">
@@ -819,7 +819,7 @@ class Form extends Library
 								</div>';
 			}
 		}
-		
+
 		return $output;
 	}
 
@@ -839,7 +839,7 @@ class Form extends Library
 								</label>';
 			}
 		}
-		
+
 		return $output;
 	}
 
@@ -862,7 +862,7 @@ class Form extends Library
 				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$this->lang($label, NULL).'</option>';
 			}
 		}
-		
+
 		return $output.'</select>';
 	}
 
@@ -880,12 +880,12 @@ class Form extends Library
 
 		return $this->_display_textarea($var, $options, $post, TRUE);
 	}
-	
+
 	private function _display_legend($var, $options, $post)
 	{
 		return $output = '<div class="form-legend">'.(!empty($options['label']) ? $this->lang($options['label'], NULL) : '').'</div>';
 	}
-	
+
 	private function _has_upload()
 	{
 		foreach ($this->_rules as $var => $options)
@@ -895,7 +895,7 @@ class Form extends Library
 				return TRUE;
 			}
 		}
-		
+
 		return FALSE;
 	}
 }

@@ -15,7 +15,7 @@ abstract class Theme extends Loadable
 	abstract public function styles_widget();
 
 	public $styles;
-	
+
 	public function paths()
 	{
 		return [
@@ -62,12 +62,12 @@ abstract class Theme extends Loadable
 			]
 		];
 	}
-	
+
 	public function load()
 	{
 		return $this;
 	}
-	
+
 	public function install($dispositions = [])
 	{
 		foreach ($dispositions as $page => $dispositions)
@@ -85,7 +85,7 @@ abstract class Theme extends Loadable
 
 		return parent::install();
 	}
-	
+
 	public function uninstall($remove = TRUE)
 	{
 		if ($dispositions = $this->db->select('disposition')->from('nf_dispositions')->where('theme', $this->name)->get())

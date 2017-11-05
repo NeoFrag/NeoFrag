@@ -37,7 +37,7 @@ class m_monitoring_c_admin extends Controller_Module
 				{
 					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center no-margin">'.$match[1].'</h1>' : '');
 				}
-				
+
 				$phpinfo[] = $this		->panel()
 										->heading($match[2] ? '<h2 class="text-center no-margin">'.$match[2].'</h2>' : '')
 										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE);

@@ -101,7 +101,7 @@ class m_user_c_index extends Controller_Module
 		$this	->title('Gérer mes sessions')
 				->icon('fa-globe')
 				->breadcrumb();
-		
+
 		$active_sessions = $this->table
 			->add_columns([
 				[
@@ -154,7 +154,7 @@ class m_user_c_index extends Controller_Module
 			->pagination(FALSE)
 			->data($this->user->get_sessions())
 			->save();
-		
+
 		$sessions_history = $this->table
 			->add_columns([
 				[
@@ -185,7 +185,7 @@ class m_user_c_index extends Controller_Module
 			])
 			->data($sessions)
 			->no_data($this->lang('no_historic_available'));
-		
+
 		return [
 			$this->row(
 				$this->col(
@@ -204,7 +204,7 @@ class m_user_c_index extends Controller_Module
 			)
 		];
 	}
-	
+
 	public function _session_delete($session_id)
 	{
 		$this	->title($this->lang('delete_confirmation'))
@@ -440,11 +440,11 @@ class m_user_c_index extends Controller_Module
 			->save();
 
 		$rows = [];
-		
+
 		if (in_array($error, [NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED]))
 		{
 			header('HTTP/1.0 401 Unauthorized');
-			
+
 			$rows[] = $this->row(
 				$this->col(
 					$this	->panel()
@@ -460,7 +460,7 @@ class m_user_c_index extends Controller_Module
 			$login       = $post['login'];
 			$password    = $post['password'];
 			$remember_me = in_array('on', $post['remember_me']);
-		
+
 			$user_id = $this->model()->check_login($login, $hash, $salt);
 
 			if ($user_id == -1)
@@ -478,7 +478,7 @@ class m_user_c_index extends Controller_Module
 									'salt'     => $salt
 								]);
 				}
-				
+
 				$this->user->login($user_id, $remember_me);
 
 				if ($post['redirect'])
@@ -520,7 +520,7 @@ class m_user_c_index extends Controller_Module
 
 			refresh();
 		}
-		
+
 		$rows[] = $this->row(
 			$col = $this->col(
 						$this	->panel()
@@ -555,7 +555,7 @@ class m_user_c_index extends Controller_Module
 	public function lost_password()
 	{
 		$this->title($this->lang('forgot_password'));
-		
+
 		$this	->form
 				->add_rules([
 					'email' => [
@@ -586,19 +586,19 @@ class m_user_c_index extends Controller_Module
 					'key'     => $this->model()->add_key($this->db->select('user_id')->from('nf_users')->where('email', $post['email'])->row())
 				])
 				->send();
-			
+
 			redirect_back('user');
 		}
-					
+
 		return $this->panel()
 					->heading($this->lang('forgot_password'), 'fa-unlock-alt')
 					->body($this->form->display());
 	}
-	
+
 	public function _lost_password($key_id, $user_id)
 	{
 		$this->title($this->lang('password_reset'));
-	
+
 		$this	->form
 				->add_rules([
 					'password' => [
@@ -647,10 +647,10 @@ class m_user_c_index extends Controller_Module
 					$this->session->disconnect($session['session_id']);
 				}
 			}
-			
+
 			redirect_back('user');
 		}
-					
+
 		return $this->panel()
 					->heading($this->lang('password_reset'), 'fa-lock')
 					->body($this->form->display());
@@ -721,7 +721,7 @@ class m_user_c_index extends Controller_Module
 						'label' => 'Mon message',
 						'type'  => 'editor',
 						'rules' => 'required'
-					],
+					]
 				])
 				->add_submit('Envoyer');
 
@@ -786,7 +786,7 @@ class m_user_c_index extends Controller_Module
 				redirect('user/messages/'.$message_id.'/'.url_title($post['title']));
 			}
 		}
-		
+
 		return [
 			$this->row(
 				$this->col(
@@ -801,7 +801,7 @@ class m_user_c_index extends Controller_Module
 			)
 		];
 	}
-	
+
 	public function _messages_delete($message_id, $title)
 	{
 		$this	->title($this->lang('delete_message'))
@@ -827,7 +827,7 @@ class m_user_c_index extends Controller_Module
 	public function _member($user_id, $username)
 	{
 		$this->title($username);
-		
+
 		return [
 			$this	->panel()
 					->heading($username, 'fa-user')
@@ -845,13 +845,13 @@ class m_user_c_index extends Controller_Module
 					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user('user_id'))))
 					->size('col-md-4 col-lg-3');
 	}
-	
+
 	public function _panel_infos($user_id = NULL)
 	{
 		if ($user_id === NULL)
 		{
 			$user_id = $this->user('user_id');
-			
+
 			$infos = [
 				'registration_date'  => $this->user('registration_date'),
 				'last_activity_date' => $this->user('last_activity_date')
@@ -865,7 +865,7 @@ class m_user_c_index extends Controller_Module
 								->where('deleted', FALSE)
 								->row();
 		}
-		
+
 		$infos['groups'] = $this->groups->user_groups($user_id);
 
 		return $this->panel()
@@ -911,7 +911,7 @@ class m_user_c_index extends Controller_Module
 						'user_activity' => $user_activity
 					]));
 	}
-	
+
 	private function _panel_messages()
 	{
 		return $this->panel()

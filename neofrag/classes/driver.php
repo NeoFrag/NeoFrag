@@ -12,9 +12,9 @@ abstract class Driver
 	static public function query($request)
 	{
 		static $check_foreign_keys;
-		
+
 		$request = new static($request);
-		
+
 		if (!$check_foreign_keys && empty($request->ignore_foreign_keys))
 		{
 			static::check_foreign_keys($check_foreign_keys = TRUE);
@@ -23,17 +23,17 @@ abstract class Driver
 		{
 			static::check_foreign_keys($check_foreign_keys = FALSE);
 		}
-		
+
 		$time = microtime(TRUE);
-		
+
 		$request->build_sql()->execute();
-		
+
 		$request->time = microtime(TRUE) - $time;
-		
+
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
 		$request->file = relative_path($backtrace[2]['file']);
 		$request->line = $backtrace[2]['line'];
-		
+
 		return $request;
 	}
 
@@ -72,7 +72,7 @@ abstract class Driver
 	abstract public function affected_rows();
 
 	public $bind = [];
-	
+
 	public function __construct($request)
 	{
 		foreach ($request as $key => $value)
@@ -80,7 +80,7 @@ abstract class Driver
 			$this->$key = $value;
 		}
 	}
-	
+
 	protected function build_sql()
 	{
 		if (!empty($this->query))
@@ -101,7 +101,7 @@ abstract class Driver
 			{
 				$this->sql = 	'SELECT '.(!empty($this->select) ? implode(', ', array_map('static::escape_keywords', $this->select)) : '*').' '.
 								'FROM '.$this->from;
-						
+
 				if (!empty($this->join))
 				{
 					$this->sql .= ' '.$this->join;
@@ -110,7 +110,7 @@ abstract class Driver
 			else if (!empty($this->update) && !empty($this->set))
 			{
 				$sets = [];
-				
+
 				if (is_array($this->set))
 				{
 					foreach ($this->set as $key => $value)
@@ -128,7 +128,7 @@ abstract class Driver
 			else if (!empty($this->delete))
 			{
 				$this->sql = 'DELETE ';
-				
+
 				if (!empty($this->multi_tables))
 				{
 					$this->sql .= $this->delete.' FROM '.$this->multi_tables;
@@ -138,13 +138,13 @@ abstract class Driver
 					$this->sql .= 'FROM '.$this->delete;
 				}
 			}
-			
+
 			if (!empty($this->where))
 			{
 				$sql = ' WHERE ';
-				
+
 				$last_operator = NULL;
-				
+
 				foreach ($this->where as $where)
 				{
 					if ($last_operator !== NULL)
@@ -157,7 +157,7 @@ abstract class Driver
 						$last_operator2 = NULL;
 
 						$sql .= '(';
-						
+
 						foreach ($where as $where)
 						{
 							if ($last_operator2 !== NULL)
@@ -166,10 +166,10 @@ abstract class Driver
 							}
 
 							$sql .= $this->where($where);
-							
+
 							$last_operator2 = $where->operator;
 						}
-						
+
 						$sql .= ')';
 					}
 					else
@@ -179,27 +179,27 @@ abstract class Driver
 
 					$last_operator = $where->operator;
 				}
-				
+
 				$this->sql .= $sql;
 			}
-			
+
 			if (isset($this->from))
 			{
 				if (!empty($this->group_by))
 				{
 					$this->sql .= ' GROUP BY '.implode(', ', $this->group_by);
 				}
-				
+
 				if (!empty($this->having))
 				{
 					$this->sql .= ' HAVING '.implode(', ', $this->having);
 				}
-				
+
 				if (!empty($this->order_by))
 				{
 					$this->sql .= ' ORDER BY '.implode(', ', array_map('static::escape_keywords', $this->order_by));
 				}
-				
+
 				if (!empty($this->limit))
 				{
 					$this->sql .= ' LIMIT '.$this->limit;
@@ -240,7 +240,7 @@ abstract class Driver
 					$name = $where->name;
 					$op   = '=';
 				}
-				
+
 				$sql = static::escape_keywords($name);
 
 				if ($where->value === NULL)

@@ -13,7 +13,7 @@ $(function(){
 			});
 		}
 	});
-	
+
 	$('.forum-content').sortable({
 		axis: 'y',
 		connectWith: '.forum-content',
@@ -32,7 +32,7 @@ $(function(){
 			}
 		}
 	});
-	
+
 	$('.subforums').sortable({
 		axis: 'y',
 		connectWith: '.subforums',

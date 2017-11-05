@@ -52,7 +52,7 @@ class m_teams_c_admin extends Controller_Module
 						->data($this->model()->get_teams())
 						->no_data($this->lang('no_team'))
 						->display();
-			
+
 		$roles = $this	->table
 							->add_columns([
 								[
@@ -82,7 +82,7 @@ class m_teams_c_admin extends Controller_Module
 							->data($this->model('roles')->get_roles())
 							->no_data($this->lang('no_role'))
 							->display();
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -100,7 +100,7 @@ class m_teams_c_admin extends Controller_Module
 			)
 		);
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_team'))
@@ -138,9 +138,9 @@ class m_teams_c_admin extends Controller_Module
 							->where('u.deleted', FALSE)
 							->order_by('r.order', 'r.role_id', 'u.username')
 							->get();
-		
+
 		$roles = $this->model('roles')->get_roles();
-		
+
 		$form_team = $this	->title($this->lang('edit_team'))
 							->subtitle($title)
 							->form
@@ -155,7 +155,7 @@ class m_teams_c_admin extends Controller_Module
 							->add_submit($this->lang('edit'))
 							->add_back('admin/teams')
 							->save();
-		
+
 		$form_users = $this	->form
 							->add_rules([
 								'user_id' => [
@@ -195,21 +195,21 @@ class m_teams_c_admin extends Controller_Module
 				'user_id' => $post['user_id'],
 				'role_id' => $post['role_id']
 			]);
-			
+
 			refresh();
 		}
-		
+
 		$this	->table
 				->add_columns([
 					[
 						'content' => function($data){
 							return NeoFrag()->user->link($data['user_id'], $data['username']);
-						},
+						}
 					],
 					[
 						'content' => function($data){
 							return $data['title'];
-						},
+						}
 					],
 					[
 						'content' => [
@@ -223,7 +223,7 @@ class m_teams_c_admin extends Controller_Module
 				->pagination(FALSE)
 				->data($this->db->select('tu.user_id', 'u.username', 'r.title')->from('nf_teams_users tu')->join('nf_users u', 'u.user_id = tu.user_id AND u.deleted = "0"', 'INNER')->join('nf_teams_roles r', 'r.role_id = tu.role_id')->where('tu.team_id', $team_id)->order_by('r.title', 'u.username')->get())
 				->no_data($this->lang('no_players_on_team'));
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -261,7 +261,7 @@ class m_teams_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _roles_add()
 	{
 		$this	->subtitle($this->lang('add_role'))
@@ -278,12 +278,12 @@ class m_teams_c_admin extends Controller_Module
 
 			redirect_back('admin/teams');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_role'), 'fa-sitemap')
 					->body($this->form->display());
 	}
-	
+
 	public function _roles_edit($role_id, $title)
 	{
 		$this	->subtitle($this->lang('role_', $title))
@@ -293,28 +293,28 @@ class m_teams_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/teams');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model('roles')->edit_role($role_id, $post['title']);
-		
+
 			notify($this->lang('edit_role_success_message'));
 
 			redirect_back('admin/teams');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_role'), 'fa-sitemap')
 					->body($this->form->display());
 	}
-	
+
 	public function _roles_delete($role_id, $title)
 	{
 		$this	->title($this->lang('delete_role'))
 				->subtitle($title)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_role_message', $title));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->model('roles')->delete_role($role_id);
@@ -324,14 +324,14 @@ class m_teams_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _players_delete($team_id, $user_id, $username)
 	{
 		$this	->title($this->lang('delete_player'))
 				->subtitle($username)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_player_message', $username));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->db	->where('team_id', $team_id)

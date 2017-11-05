@@ -241,7 +241,7 @@ class m_recruits_c_index extends Controller_Module
 														'user_id'    => $this->user('user_id'),
 														'message'    => '<div class="alert alert-info no-margin"><b>Message automatique.</b><br />Une nouvelle candidature vient d\'être déposée par '.($this->user() ? $user['username'] : $post['pseudo']).'.<br /><br />Pour la visualiser, <a href="'.url('admin/recruits/candidacy/'.$candidacy_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
 													]);
-						
+
 							$this->db	->where('message_id', $message_id)
 										->update('nf_users_messages', [
 											'reply_id'      => $reply_id,

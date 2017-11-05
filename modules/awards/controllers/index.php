@@ -62,7 +62,7 @@ class m_awards_c_index extends Controller_Module
 						'best_team_awards' => $this->model()->get_best_team_awards(),
 						'best_game_awards' => $this->model()->get_best_game_awards(),
 						'best_team'        => $this->model()->get_teams_ranking(1),
-						'teams'            => $this->model()->get_teams_ranking(),
+						'teams'            => $this->model()->get_teams_ranking()
 					])),
 			$this->panel_back()
 		];

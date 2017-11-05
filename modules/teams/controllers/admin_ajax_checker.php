@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_teams_c_admin_ajax_checker extends Controller
 {
 	public function sort()

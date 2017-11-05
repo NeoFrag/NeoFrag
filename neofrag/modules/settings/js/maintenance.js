@@ -10,7 +10,7 @@ $(function(){
 				$('.switch > .btn:last-child').removeClass('btn-danger').addClass('btn-default').find('i.fa').removeClass('fa-toggle-on').addClass('fa-toggle-off');
 			}
 		});
-		
+
 		return false;
 	});
 });

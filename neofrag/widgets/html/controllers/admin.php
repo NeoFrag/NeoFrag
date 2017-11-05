@@ -10,7 +10,7 @@ class w_html_c_admin extends Controller_Widget
 	{
 		return $this->view('bbcode', $settings);
 	}
-	
+
 	public function html($settings = [])
 	{
 		return '<textarea class="form-control" name="settings[content]" placeholder="'.$this->lang('html_code').'" rows="6">'.(isset($settings['content']) ? $settings['content'] : '').'</textarea>';

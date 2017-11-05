@@ -9,19 +9,19 @@ class m_statistics_c_admin_ajax extends Controller_Module
 	public function index($statistics, $start, $end, $period)
 	{
 		$date = clone $start;
-		
+
 		if (isset($period[3]))
 		{
 			$period[3]($date);
 		}
-		
+
 		$dates = [];
 		while ($date <= $end)
 		{
-			$dates[$date->format($period[1])] = 0; 
+			$dates[$date->format($period[1])] = 0;
 			$date->add($period[2]);
 		}
-		
+
 		$series = [];
 
 		$this->session->set('statistics', 'modules', []);

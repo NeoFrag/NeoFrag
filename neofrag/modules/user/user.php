@@ -29,7 +29,7 @@ class m_user extends Module
 		'auth/{url_title}'                       => '_auth',
 		'{id}/{url_title}'                       => '_member',
 		'ajax/{id}/{url_title}'                  => '_member',
-		
+
 		//Admin
 		'admin{pages}'                                   => 'index',
 		'admin/{id}/{url_title}'                         => '_edit',

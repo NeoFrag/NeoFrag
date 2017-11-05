@@ -18,8 +18,8 @@ $(function(){
 			});
 		});
 	};
-	
+
 	$('body').on('nf.load', sortable);
-	
+
 	sortable();
 });

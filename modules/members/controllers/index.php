@@ -36,7 +36,7 @@ class m_members_c_index extends Controller_Module
 				])
 				->data($members)
 				->no_data($this->lang('no_members'));
-			
+
 		return $this->panel()
 					->heading()
 					->body($this->table->display());

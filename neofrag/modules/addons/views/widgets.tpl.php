@@ -10,7 +10,7 @@
 	{
 		$deactivatable = $widget->is_deactivatable();
 		$removable     = $widget->is_removable();
-		
+
 		if (!$deactivatable & !$removable)
 		{
 			continue;
@@ -33,7 +33,7 @@
 			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/widget/'.$widget->name); ?>
 		</div>
 	</div>
-<?php 
+<?php
 	}
 ?>
 </div>

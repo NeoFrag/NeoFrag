@@ -51,7 +51,7 @@ abstract class Loadable extends NeoFrag
 		{
 			$title = $this->lang($this->title, NULL);
 		}
-		
+
 		return $title;
 	}
 
@@ -65,7 +65,7 @@ abstract class Loadable extends NeoFrag
 
 		return $this;
 	}
-	
+
 	public function uninstall($remove = TRUE)
 	{
 		$this->db	->where('name', $this->name)
@@ -79,13 +79,13 @@ abstract class Loadable extends NeoFrag
 
 		return $this;
 	}
-	
+
 	public function reset()
 	{
 		$this->uninstall(FALSE);
 		$this->config->reset();
 		$this->install();
-		
+
 		return $this;
 	}
 }

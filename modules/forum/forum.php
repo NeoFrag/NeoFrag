@@ -118,7 +118,7 @@ class m_forum extends Module
 			]
 		];
 	}
-	
+
 	public function settings()
 	{
 		$this	->form
@@ -143,13 +143,13 @@ class m_forum extends Module
 		{
 			$this	->config('forum_topics_per_page',   $post['topics_per_page'])
 					->config('forum_messages_per_page', $post['messages_per_page']);
-			
+
 			redirect_back('admin/addons#modules');
 		}
 
 		return $this->panel()->body($this->form->display());
 	}
-	
+
 	public function load()
 	{
 		if (!$this->url->admin && !$this->url->ajax)
@@ -157,13 +157,13 @@ class m_forum extends Module
 			$this->css('forum');
 		}
 	}
-	
+
 	public function get_profile($user_id = NULL, &$data = [])
 	{
 		static $profiles = [];
-		
+
 		$user_id = (int)$user_id;
-		
+
 		if (!isset($profiles[$user_id]))
 		{
 			$profiles[$user_id] = $this->db	->select('u.user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
@@ -186,11 +186,11 @@ class m_forum extends Module
 															->join('nf_forum_messages m', 't.message_id = m.message_id')
 															->where('m.user_id', $user_id)
 															->row();
-				
+
 				$profiles[$user_id]['replies'] = $this->db->select('COUNT(*)')->from('nf_forum_messages')->where('user_id', $user_id)->row() - $profiles[$user_id]['topics'];
 			}
 		}
-		
+
 		return $this->view('profile', $data = $profiles[$user_id]);
 	}
 }

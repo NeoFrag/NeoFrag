@@ -366,7 +366,7 @@ class m_events_c_admin extends Controller_Module
 					'opponent_id' => $post['opponent'],
 					'mode_id'     => isset($post['mode']) ? $post['mode'] : NULL,
 					'webtv'       => $post['webtv'],
-					'website'     => $post['website'],
+					'website'     => $post['website']
 				]);
 
 				notify('Rencontre éditée');
@@ -448,7 +448,7 @@ class m_events_c_admin extends Controller_Module
 						[
 							'content' => function($data){
 								return $this->model('matches')->label_scores($data['score1'], $data['score2']).($data['title'] ? ' ('.$data['title'].')' : '');
-							},
+							}
 						],
 						[
 							'content' => [

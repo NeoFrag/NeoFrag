@@ -10,7 +10,7 @@ class m_user_c_admin extends Controller_Module
 	{
 		$this	->title('Membres / Groupes')
 				->icon('fa-users');
-		
+
 		$table_groups = $this
 			->table
 			->add_columns([
@@ -133,7 +133,7 @@ class m_user_c_admin extends Controller_Module
 			])
 			->data($members)
 			->save();
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -174,7 +174,7 @@ class m_user_c_admin extends Controller_Module
 			->add_submit($this->lang('edit'))
 			->add_back('admin/user')
 			->save();
-			
+
 		$form_groups = $this
 			->form
 			->add_rules([
@@ -232,7 +232,7 @@ class m_user_c_admin extends Controller_Module
 			->data($this->user->get_sessions($member_id))
 			->no_data($this->lang('no_session'))
 			->display();
-		
+
 		if ($form_member->is_valid($post))
 		{
 			$this->model()->edit_user(
@@ -249,7 +249,7 @@ class m_user_c_admin extends Controller_Module
 				$post['signature'],
 				$member_id
 			);
-			
+
 			notify('Membre édité');
 
 			redirect_back('admin/user');
@@ -265,7 +265,7 @@ class m_user_c_admin extends Controller_Module
 
 			redirect_back('admin/user');
 		}
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -308,19 +308,19 @@ class m_user_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _ban($member_id = 0, $username = '')
 	{
 		$this	->title($this->lang('ban_title'))
 				->icon('fa-bomb');
-		
+
 		return $this->panel()
 					->heading($this->lang('ban_title'), 'fa-bomb')
 					->body($this->lang('unavailable_feature'))
 					->color('info')
 					->size('col-md-12');
 	}
-	
+
 	public function _groups_add()
 	{
 		$this	->title($this->lang('groups'))
@@ -350,7 +350,7 @@ class m_user_c_admin extends Controller_Module
 					->body($this->form->display())
 					->size('col-md-12');
 	}
-	
+
 	public function _groups_edit($group_id, $name, $title, $color, $icon, $hidden, $auto)
 	{
 		$this	->title($this->lang('groups'))
@@ -419,7 +419,7 @@ class m_user_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _sessions($sessions)
 	{
 		$this	->title($this->lang('sessions'))
@@ -428,14 +428,14 @@ class m_user_c_admin extends Controller_Module
 				->table
 				->preprocessing(function($row){
 					$user_data = unserialize($row['user_data']);
-					
+
 					$row['date']       = $user_data['session']['date'];
 					$row['history']    = array_reverse($user_data['session']['history']);
 					$row['user_agent'] = $user_data['session']['user_agent'];
 					$row['referer']    = $user_data['session']['referer'];
-				
+
 					unset($row['user_data']);
-					
+
 					return $row;
 				})
 				->add_columns([
@@ -533,12 +533,12 @@ class m_user_c_admin extends Controller_Module
 					]
 				])
 				->data($sessions);
-		
+
 		return $this->panel()
 					->heading($this->lang('sessions'), 'fa-globe')
 					->body($this->table->display());
 	}
-	
+
 	public function _sessions_delete($session_id, $username)
 	{
 		$this	->title($this->lang('delete_confirmation'))

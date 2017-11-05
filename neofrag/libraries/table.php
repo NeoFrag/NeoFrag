@@ -14,7 +14,7 @@ class Table extends Library
 	private $_preprocessing = [];
 	private $_no_data       = '';
 	private $_words         = [];
-	
+
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
 		$this->_columns[] = [
@@ -112,7 +112,7 @@ class Table extends Library
 		if (($sort = post('sort')) !== NULL && $this->_ajax)
 		{
 			list($column_id, $order) = json_decode($sort);
-			
+
 			if (in_array($order, ['asc', 'desc', 'none']))
 			{
 				if ($order == 'asc')
@@ -127,9 +127,9 @@ class Table extends Library
 				{
 					$order = -1;
 				}
-				
+
 				$added = FALSE;
-				
+
 				if (($session_sort = $this->session('table', $this->id, 'sort')) !== NULL)
 				{
 					foreach ($session_sort as $i => $session)
@@ -160,9 +160,9 @@ class Table extends Library
 
 			$search = $this->session('table', $this->id, 'search');
 		}
-		
+
 		$count_results  = $this->_pagination && !empty($this->pagination) ? $this->pagination->count() : count($this->_data);
-		
+
 		if ($this->_is_searchable() && $search && $this->_pagination && !empty($this->pagination))
 		{
 			$this->_data = $this->pagination->display_all();
@@ -171,7 +171,7 @@ class Table extends Library
 		{
 			$this->_data = $this->pagination->get_data();
 		}
-		
+
 		$this->_preprocessing();
 
 		//Gestion des recherches
@@ -231,7 +231,7 @@ class Table extends Library
 			foreach ($this->_data as $data_id => $data)
 			{
 				$data = array_merge(['data_id' => $data_id], $data);
-				
+
 				foreach ($this->_columns as $value)
 				{
 					if (!isset($value['search']) || $value['search'] === NULL)
@@ -283,18 +283,18 @@ class Table extends Library
 				}
 
 				$data = [];
-				
+
 				foreach ($this->_data as $key => $value)
 				{
 					$data[$key.' '] = $value;
 				}
-				
+
 				$sortings[] = &$data;
 
 				call_user_func_array('array_multisort', $sortings);
-				
+
 				$this->_data = [];
-				
+
 				foreach ($data as $key => $value)
 				{
 					$this->_data[trim($key)] = $value;
@@ -325,9 +325,9 @@ class Table extends Library
 			}
 
 			$count = count($this->_data);
-			
+
 			$output .= '<div class="table-responsive"><table class="table table-hover table-striped">';
-		
+
 			if ($this->_display_header())
 			{
 				$output .= '<thead>';
@@ -341,17 +341,17 @@ class Table extends Library
 					$width = isset($th['size']) ? $th['size'] : FALSE;
 					$class = [];
 					$sort  = '';
-					
+
 					if ($width === TRUE)
 					{
 						$class[] = 'action';
 					}
-					
+
 					if (!empty($this->_data) && isset($th['sort']))
 					{
 						$class[] = 'sort';
 						$sort    = ' data-column="'.($i + 1).'"';
-						
+
 						if (isset($this->_sortings[$i]) && $this->_sortings[$i][0] == SORT_ASC)
 						{
 							$class[] = 'sorting_asc';
@@ -368,7 +368,7 @@ class Table extends Library
 							$sort   .= ' data-order-by="asc"';
 						}
 					}
-					
+
 					if (!empty($th['align']) && in_array($th['align'], ['left', 'center', 'right']))
 					{
 						$class[] = 'text-'.$th['align'];
@@ -384,7 +384,7 @@ class Table extends Library
 				$output .= 		$header.'
 								</thead>';
 			}
-			
+
 			$output .= '	<tbody>';
 
 			foreach ($this->_data as $data_id => $data)
@@ -398,12 +398,12 @@ class Table extends Library
 					if (is_array($value['content']))
 					{
 						$actions = [];
-						
+
 						foreach ($value['content'] as $val)
 						{
 							$actions[] = $this->output->parse($val, $data);
 						}
-						
+
 						$output .= '<td class="action">'.implode('&nbsp;', array_filter($actions)).'</td>';
 					}
 					else
@@ -413,17 +413,17 @@ class Table extends Library
 						if (!isset($value['td']) || $value['td'])
 						{
 							$classes = [];
-							
+
 							if (isset($value['size']) && $value['size'] === TRUE)
 							{
 								$classes[] = 'action';
 							}
-							
+
 							if (!empty($value['class']))
 							{
 								$classes[] = $value['class'];
 							}
-							
+
 							if (!empty($value['align']) && in_array($value['align'], ['left', 'center', 'right']))
 							{
 								$classes[] = 'text-'.$value['align'];
@@ -431,7 +431,7 @@ class Table extends Library
 
 							$content = '<td'.(!empty($classes) ? ' class="'.implode(' ', $classes).'"' : '').'>'.$content.'</td>';
 						}
-						
+
 						$output .= $content;
 					}
 				}
@@ -460,7 +460,7 @@ class Table extends Library
 				$output = '<div class="table-area" data-table-id="'.$this->id.'"'.($this->url->ajax ? ' data-ajax-url="'.url($this->url->request).'"  data-ajax-post="'.http_build_query(post()).'"' : '').'>'.(isset($search_input) ? $search_input : '').'<div class="table-content">'.$output.'</div></div>';
 			}
 		}
-		
+
 		$this->reset();
 
 		if ($this->_ajax)

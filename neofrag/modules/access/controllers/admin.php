@@ -14,13 +14,13 @@ class m_access_c_admin extends Controller_Module
 						->heading($this->lang('permissions'), 'fa-unlock-alt')
 						->body($this->lang('no_permission'));
 		}
-		
+
 		$this->js('access');
 
 		foreach ($modules as $module_name => $module)
 		{
 			list($module, $icon, $type, $all_access) = $module;
-			
+
 			$title = $module->get_title();
 
 			$this->tab->add_tab($module_name, icon($icon).' '.$module->get_title(), function() use ($objects, $title, $module, $type, $all_access){
@@ -51,7 +51,7 @@ class m_access_c_admin extends Controller_Module
 								]);
 					}
 				}
-				
+
 				return $this->table
 							->add_columns([
 								[
@@ -86,7 +86,7 @@ class m_access_c_admin extends Controller_Module
 				->js('access')
 				->css('neofrag.table')
 				->js('neofrag.table');
-		
+
 		return [
 			$this->row(
 				$this->col(

@@ -32,7 +32,7 @@ abstract class NeoFrag
 			NeoFrag()->session->set('live_editor', $live_editor);
 			return $live_editor;
 		}
-		
+
 		return FALSE;
 	}
 
@@ -54,13 +54,13 @@ abstract class NeoFrag
 		else
 		{
 			$type = 'libraries';
-			
+
 			if (preg_match('/^core_(.+)/', $name, $match))
 			{
 				$name = $match[1];
 				$type = 'core';
 			}
-			
+
 			foreach ($this->load->paths($type) as $dir)
 			{
 				if (!check_file($path = $dir.'/'.$name.'.php') && (!preg_match('/^(.+?)_(.+)/', $name, $match) || !check_file($path = $dir.'/'.$match[1].'s/'.$match[2].'.php')))
@@ -269,7 +269,7 @@ abstract class NeoFrag
 			{
 				continue;
 			}
-			
+
 			if ($this->debug->is_enabled())
 			{
 				$this->load->forms[$dir] = [$path, $form.'.php'];
@@ -401,7 +401,7 @@ abstract class NeoFrag
 
 						/*if ($this->debug->is_enabled())
 						{
-							$translation = '❤ '.$translation.' ❤';
+							$translation = '? '.$translation.' ?';
 						}*/
 
 						return $translation;
@@ -433,7 +433,7 @@ abstract class NeoFrag
 		{
 			return $objects[$name];
 		}
-		
+
 		if (!$force && is_callable($is_enabled) && !$is_enabled())
 		{
 			return $objects[$name] = NULL;
@@ -445,7 +445,7 @@ abstract class NeoFrag
 		}
 
 		$paths = $this->load->paths($type.'s');
-		
+
 		$object = NULL;
 
 		while (list(, $dir) = each($paths))
@@ -480,7 +480,7 @@ abstract class NeoFrag
 			include_once $path;
 
 			$object = call_user_func_array('load', array_merge([$class], $constructor ?: [$name, $type]));
-			
+
 			break;
 		}
 

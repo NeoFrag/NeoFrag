@@ -77,9 +77,9 @@ class Db extends Core
 		$driver = $this->_driver;
 
 		$request = $this->requests[] = $driver::query($this->_request);
-		
+
 		$this->_request = [];
-		
+
 		if (!empty($request->error))
 		{
 			trigger_error($request->error.' ['.$request->sql.']'.(!empty($request->bind) ? ' '.json_encode($request->bind) : '').' in '.$request->file.' on line '.$request->line, E_USER_WARNING);
@@ -89,11 +89,11 @@ class Db extends Core
 			return $request->$callback();
 		}
 	}
-	
+
 	public function get_info($var = NULL)
 	{
 		static $info;
-		
+
 		if ($info === NULL)
 		{
 			$driver = $this->_driver;
@@ -113,7 +113,7 @@ class Db extends Core
 	public function get_size()
 	{
 		static $size;
-		
+
 		if ($size === NULL)
 		{
 			$driver = $this->_driver;
@@ -146,7 +146,7 @@ class Db extends Core
 		if (func_num_args() > 3 && in_array(func_num_args() % 3, [0, 2]))
 		{
 			$args = [];
-			
+
 			foreach (func_get_args() as $i => $arg)
 			{
 				if ($i % 3 == 0)
@@ -158,7 +158,7 @@ class Db extends Core
 					$args[array_last_key($args)][] = $arg;
 				}
 			}
-			
+
 			$this->_request['where'][] = array_map(function($a){
 				return (object)[
 					'name'     => $a[0],
@@ -174,7 +174,7 @@ class Db extends Core
 				'value'    => $value,
 				'operator' => $operator
 			];
-			
+
 			if (func_num_args() == 1)
 			{
 				unset($where->value);
@@ -235,13 +235,13 @@ class Db extends Core
 		$this->_request['order_by'] = func_get_args();
 		return $this;
 	}
-	
+
 	public function limit()
 	{
 		$this->_request['limit'] = implode(', ', func_get_args());
 		return $this;
 	}
-	
+
 	public function ignore_foreign_keys()
 	{
 		$this->_request['ignore_foreign_keys'] = TRUE;
@@ -275,7 +275,7 @@ class Db extends Core
 	public function delete($table, $multi_tables = '')
 	{
 		$this->_request['delete'] = $table;
-		
+
 		if ($multi_tables)
 		{
 			$this->_request['multi_tables'] = $multi_tables;
@@ -379,7 +379,7 @@ class Db extends Core
 		{
 			return '';
 		}
-		
+
 		$total_time   = 0;
 		$total_errors = 0;
 
@@ -406,9 +406,9 @@ class Db extends Core
 		}
 
 		$result .= '</table>';
-		
+
 		$output = '<span class="label label-'.($total_errors > 0 ? 'danger' : 'success').'">'.($total_errors ?: $i + 1).'</span>';
-		
+
 		return $result;
 	}
 }

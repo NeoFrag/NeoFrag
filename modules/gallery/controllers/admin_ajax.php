@@ -12,7 +12,7 @@ class m_gallery_c_admin_ajax extends Controller_Module
 		{
 			$this->model()->add_image($file_id, $gallery_id, basename($_FILES['file']['name']));
 		}
-		
+
 		exit;
 	}
 }

@@ -14,7 +14,7 @@ class w_members_c_index extends Controller_Widget
 							->order_by('registration_date DESC')
 							->limit(5)
 							->get();
-		
+
 		if (!empty($members))
 		{
 			return $this->panel()
@@ -31,12 +31,12 @@ class w_members_c_index extends Controller_Widget
 						->body($this->lang('no_members'));
 		}
 	}
-	
+
 	public function online($config = [])
 	{
 		$admins = $members = [];
 		$nb_admins = $nb_members = 0;
-		
+
 		foreach ($this->db	->select('u.user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
 							->from('nf_sessions s')
 							->join('nf_users u', 'u.user_id = s.user_id AND u.deleted = "0"', 'INNER')
@@ -79,7 +79,7 @@ class w_members_c_index extends Controller_Widget
 				'users' => $admins
 			]);
 		}
-		
+
 		if ($nb_members)
 		{
 			$output[] = $this->view('online_modal', [
@@ -88,10 +88,10 @@ class w_members_c_index extends Controller_Widget
 				'users' => $members
 			]);
 		}
-		
+
 		return $output;
 	}
-	
+
 	public function online_mini($config = [])
 	{
 		return $this->view('online_mini', [

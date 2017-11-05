@@ -93,12 +93,12 @@ body {
 }
 
 .live-editor-modal .modal-content .list-group-item {
-    position: relative;
-    display: block;
-    padding: 13px 15px;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+	position: relative;
+	display: block;
+	padding: 13px 15px;
+	margin-bottom: -1px;
+	background-color: #fff;
+	border: 1px solid #ddd;
 }
 
 .live-editor-modal .modal-content .badge {

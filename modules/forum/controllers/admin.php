@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_forum_c_admin extends Controller_Module
 {
 	public function index()
@@ -13,15 +13,15 @@ class m_forum_c_admin extends Controller_Module
 				->js('forum')
 				->add_action('admin/forum/categories/add', $this->lang('add_category'), 'fa-plus')
 				->add_action('admin/forum/add',            $this->lang('add_forum'),    'fa-plus');
-		
+
 		$panels = [];
-		
+
 		foreach ($this->model()->get_categories() as $category)
 		{
 			$panels[] = $this	->panel()
 								->body($this->view('index', $category), FALSE);
 		}
-		
+
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
@@ -32,13 +32,13 @@ class m_forum_c_admin extends Controller_Module
 
 		return '<div id="forums-list">'.display($panels).'</div>';
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_forum'))
 				->form
 				->add_rules('forum', [
-					'categories' => $this->model()->get_categories_list(),
+					'categories' => $this->model()->get_categories_list()
 				])
 				->add_submit($this->lang('add'))
 				->add_back('admin/forum');
@@ -134,7 +134,7 @@ class m_forum_c_admin extends Controller_Module
 
 		echo $this->form->display();
 	}
-	
+
 	public function _categories_add()
 	{
 		$this	->subtitle($this->lang('add_category'))
@@ -151,12 +151,12 @@ class m_forum_c_admin extends Controller_Module
 
 			redirect_back('admin/forum');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_category'), 'fa-comments')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_edit($category_id, $title)
 	{
 		$this	->title($this->lang('edit_category'))
@@ -167,28 +167,28 @@ class m_forum_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/forum');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->edit_category($category_id, $post['title']);
-		
+
 			notify($this->lang('edit_category_success'));
 
 			redirect_back('admin/forum');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_category'), 'fa-comments')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_delete($category_id, $title)
 	{
 		$this	->title($this->lang('remove_category'))
 				->subtitle($title)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('category_confirmation', $title));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->model()->delete_category($category_id);

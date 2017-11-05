@@ -32,18 +32,18 @@ class MySQLDump extends Library
 			}
 		}
 
-		fwrite($handle, '-- NeoFrag '.NEOFRAG_VERSION.PHP_EOL. 
-						'-- https://neofr.ag'.PHP_EOL. 
-						'--'.PHP_EOL. 
-						'-- Host: '.$_SERVER['HTTP_HOST'].PHP_EOL. 
-						'-- Generation Time: '.date('r').PHP_EOL. 
-						'-- Server version: '.$this->db->get_info('server').' '.$this->db->get_info('version').PHP_EOL. 
+		fwrite($handle, '-- NeoFrag '.NEOFRAG_VERSION.PHP_EOL.
+						'-- https://neofr.ag'.PHP_EOL.
+						'--'.PHP_EOL.
+						'-- Host: '.$_SERVER['HTTP_HOST'].PHP_EOL.
+						'-- Generation Time: '.date('r').PHP_EOL.
+						'-- Server version: '.$this->db->get_info('server').' '.$this->db->get_info('version').PHP_EOL.
 						'-- PHP Version: '.PHP_VERSION.PHP_EOL.PHP_EOL.
-						'SET FOREIGN_KEY_CHECKS = 0;'.PHP_EOL. 
-						'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";'.PHP_EOL. 
-						'SET TIME_ZONE = "'.$this->db->get_info('time_zone').'";'.PHP_EOL.PHP_EOL. 
-						'--'.PHP_EOL. 
-						'-- Database: '.self::_delimite($this->db->get_info('name')).PHP_EOL. 
+						'SET FOREIGN_KEY_CHECKS = 0;'.PHP_EOL.
+						'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";'.PHP_EOL.
+						'SET TIME_ZONE = "'.$this->db->get_info('time_zone').'";'.PHP_EOL.PHP_EOL.
+						'--'.PHP_EOL.
+						'-- Database: '.self::_delimite($this->db->get_info('name')).PHP_EOL.
 						'--'.PHP_EOL);
 
 		foreach ($tables as $table)

@@ -12,7 +12,7 @@ class m_live_editor_c_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-		
+
 		return [];
 	}
 }

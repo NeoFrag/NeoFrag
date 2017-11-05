@@ -26,14 +26,16 @@ class m_gallery_c_checker extends Controller_Module
 			];
 		}
 	}
-		public function _category($category_id, $name)
+
+	public function _category($category_id, $name)
 	{
 		if ($category = $this->model()->check_category($category_id, $name))
 		{
 			return $category;
 		}
 	}
-		public function _image($image_id, $name)
+
+	public function _image($image_id, $name)
 	{
 		if ($image = $this->model()->check_image($image_id, $name))
 		{

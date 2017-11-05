@@ -11,9 +11,9 @@ class m_settings_c_admin extends Controller_Module
 		$this	->title($this->lang('configuration'))
 				->subtitle($this->lang('general_settings'))
 				->icon('fa-cog');
-		
+
 		$modules = $pages = [];
-		
+
 		foreach ($this->addons->get_modules() as $module)
 		{
 			if ($module->is_administrable())
@@ -21,15 +21,15 @@ class m_settings_c_admin extends Controller_Module
 				$modules[] = $module;
 			}
 		}
-		
+
 		array_natsort($modules, function($a){
 			return $a->get_title();
 		});
-		
+
 		foreach ($modules as $module)
 		{
 			$pages[$module->name] = $module->get_title();
-			
+
 			if ($module->name == 'pages')
 			{
 				foreach ($module->model()->get_pages() as $page)
@@ -486,7 +486,7 @@ class m_settings_c_admin extends Controller_Module
 						'value'  => $this->config->nf_email_port,
 						'type'   => 'number',
 						'size'   => 'col-md-2'
-					],
+					]
 				])
 				->add_submit($this->lang('save'))
 				->display_required(FALSE);
@@ -521,7 +521,7 @@ class m_settings_c_admin extends Controller_Module
 				->icon('fa-power-off')
 				->css('maintenance')
 				->js('maintenance');
-				
+
 		$form_opening = $this->form
 			->add_rules([
 				'opening' => [
@@ -644,7 +644,7 @@ class m_settings_c_admin extends Controller_Module
 			])
 			->add_submit($this->lang('save'))
 			->save();
-			
+
 		if ($form_opening->is_valid($post))
 		{
 			$this->config('nf_maintenance_opening', $post['opening']);

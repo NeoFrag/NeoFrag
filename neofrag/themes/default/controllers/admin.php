@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class t_default_c_admin extends Controller
 {
 	public function index($theme)
@@ -83,7 +83,7 @@ class t_default_c_admin extends Controller
 			{
 				$this->db->where('name', 'default_background')->delete('nf_settings');
 			}
-			
+
 			$this	->config('default_background_repeat', $post['repeat'])
 					->config('default_background_attachment', in_array('on', $post['fixed']) ? 'fixed' : 'scroll')
 					->config('default_background_position', $post['positionX'].' '.$post['positionY'])
@@ -92,7 +92,7 @@ class t_default_c_admin extends Controller
 
 			redirect('#background');
 		}
-		
+
 		return $this->row(
 			$this	->col(
 						$this	->panel()

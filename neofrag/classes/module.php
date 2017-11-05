@@ -126,14 +126,14 @@ abstract class Module extends Loadable
 		{
 			$url .= 'admin';
 		}
-		
+
 		if ($this->url->ajax && !$ignore_ajax)
 		{
 			$url .= '/ajax';
 		}
-		
+
 		$url = ltrim($url, '/');
-		
+
 		if ($url)
 		{
 			foreach (array_keys($this->routes) as $route)
@@ -143,10 +143,10 @@ abstract class Module extends Loadable
 					unset($this->routes[$route]);
 				}
 			}
-			
+
 			$url .= '/';
 		}
-		
+
 		$url .= implode('/', $args);
 
 		$method = NULL;
@@ -156,7 +156,7 @@ abstract class Module extends Loadable
 			if (preg_match('#^'.str_replace(array_map(function($a){ return '{'.$a.'}'; }, array_keys(self::$route_patterns)) + ['#'], array_values(self::$route_patterns) + ['\#'], $route).'$#', $url, $matches))
 			{
 				$args = [];
-				
+
 				if (in_string('{url_title*}', $route))
 				{
 					foreach (array_offset_left($matches) as $arg)
@@ -168,23 +168,23 @@ abstract class Module extends Loadable
 				{
 					$args = array_offset_left($matches);
 				}
-				
+
 				$args = array_map(function($a){return trim($a, '/');}, $args);
 
 				$method = $function;
 				break;
 			}
 		}
-		
+
 		return $method;
 	}
-	
+
 	public function get_permissions($type = NULL)
 	{
 		if (method_exists($this, 'permissions'))
 		{
 			$permissions = $this::permissions();
-			
+
 			if ($type === NULL)
 			{
 				return $permissions;
@@ -220,11 +220,11 @@ abstract class Module extends Loadable
 	public function is_authorized()
 	{
 		static $allowed;
-		
+
 		if ($allowed === NULL)
 		{
 			$allowed = FALSE;
-			
+
 			if ($this->is_administrable())
 			{
 				if ($this->user('admin'))
@@ -247,7 +247,7 @@ abstract class Module extends Loadable
 				}
 			}
 		}
-		
+
 		return $allowed;
 	}
 }

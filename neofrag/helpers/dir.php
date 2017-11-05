@@ -25,18 +25,18 @@ function dir_scan($dirs = '.', $callback = NULL, $dir_callback = NULL)
 		{
 			continue;
 		}
-		
+
 		foreach (scandir($dir) as $file)
 		{
 			if (in_array($file, ['.', '..']))
 			{
 				continue;
 			}
-			
+
 			if (is_dir($path = $dir.'/'.$file))
 			{
 				$result = array_merge($result, dir_scan($path, $callback, $dir_callback));
-				
+
 				if (is_callable($dir_callback))
 				{
 					$dir_callback($path);
@@ -48,7 +48,7 @@ function dir_scan($dirs = '.', $callback = NULL, $dir_callback = NULL)
 			}
 		}
 	}
-	
+
 	return $result;
 }
 
@@ -59,10 +59,10 @@ function dir_remove($directory)
 }
 
 function dir_copy($src, $dst)
-{ 
+{
 	dir_create($dst);
 
-	$dir = opendir($src); 
+	$dir = opendir($src);
 
 	while (($file = readdir($dir)) !== FALSE)
 	{
@@ -70,14 +70,14 @@ function dir_copy($src, $dst)
 		{
 			if (is_dir($src.'/'.$file))
 			{
-				dir_copy($src.'/'.$file, $dst.'/'.$file); 
+				dir_copy($src.'/'.$file, $dst.'/'.$file);
 			}
 			else
 			{
-				copy($src.'/'.$file, $dst.'/'.$file); 
+				copy($src.'/'.$file, $dst.'/'.$file);
 			}
 		}
 	}
-	
-	closedir($dir); 
+
+	closedir($dir);
 }

@@ -12,7 +12,7 @@ class w_html_c_checker extends Controller_Widget
 			'content' => $settings['content']
 		];
 	}
-	
+
 	public function html($settings = [])
 	{
 		return [

@@ -66,11 +66,11 @@ $rules = array_merge($rules, [
 	],
 	'first_name' => [
 		'label' => '{lang first_name}',
-		'value' => $this->form->value('first_name'),
+		'value' => $this->form->value('first_name')
 	],
 	'last_name' => [
 		'label' => '{lang last_name}',
-		'value' => $this->form->value('last_name'),
+		'value' => $this->form->value('last_name')
 	],
 	'avatar' => [
 		'label'       => '{lang avatar}',
@@ -83,9 +83,9 @@ $rules = array_merge($rules, [
 			{
 				return $this->lang('select_image_file');
 			}
-			
+
 			list($w, $h) = getimagesize($filename);
-			
+
 			if ($w != $h)
 			{
 				return $this->lang('avatar_must_be_square');

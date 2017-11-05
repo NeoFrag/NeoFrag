@@ -57,7 +57,7 @@ $rules = [
 			'Wii'      => 'Wii',
 			'Wii U'    => 'Wii U',
 			'Xbox 360' => 'Xbox 360',
-			'Xbox One' => 'Xbox One',
+			'Xbox One' => 'Xbox One'
 		],
 		'type'   => 'select',
 		'size'   => 'col-md-2',

@@ -25,9 +25,9 @@ $rules = [
 			{
 				$value = $post['title'];
 			}
-			
+
 			$value = url_title($value);
-			
+
 			if ($value != $name && NeoFrag()->db->select('1')->from('nf_pages')->where('name', $value)->row())
 			{
 				return $this->lang('access_path_already_used');

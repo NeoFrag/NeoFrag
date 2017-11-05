@@ -54,10 +54,10 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 						$a = explode('/', $a);
 						$b = array_pop($a);
 					};
-					
+
 					$fct($a, $aa);
 					$fct($b, $bb);
-					
+
 					$fct2 = function(&$a, &$b){
 						foreach (range(0, max(count($a), count($b))) as $i)
 						{
@@ -71,9 +71,9 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 							}
 						}
 					};
-					
+
 					$fct2($a, $b);
-					
+
 					if (empty($a) && !empty($b))
 					{
 						return 1;
@@ -95,7 +95,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 								$a = str_split(array_shift($b));
 								$b = implode('.', $b);
 							};
-							
+
 							$fct3($aa, $aaa);
 							$fct3($bb, $bbb);
 							$fct2($aa, $bb);
@@ -104,7 +104,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 							{
 								return $cmp;
 							}
-							
+
 							$aa = $aaa;
 							$bb = $bbb;
 						}
@@ -118,9 +118,9 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 				{
 					$dirs = explode('/', $file);
 					$file = array_pop($dirs);
-					
+
 					$node = &$tree;
-					
+
 					foreach ($dirs as $dir)
 					{
 						if (!isset($node[$dir]))
@@ -130,12 +130,12 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 						$node = &$node[$dir];
 					}
-					
+
 					if (!isset($node[$file]))
 					{
 						$node[$file] = '';
 					}
-					
+
 					$node[$file] .= $md5;
 					unset($node);
 				}
@@ -148,13 +148,13 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 						if (is_array($node))
 						{
 							$tags = [];
-							
+
 							if (file_exists($dir.$name) && !is_writable($dir.$name))
 							{
 								$tags[] = 'Protégé en écriture';
 								$this->_notify('Le dossier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
 							}
-							
+
 							$output[] = [
 								'text'  => $name,
 								'tags'  => $tags,
@@ -164,12 +164,12 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 						else
 						{
 							$node = explode('|', $node);
-							
+
 							if (!isset($node[1]))
 							{
 								$node[] = '';
 							}
-							
+
 							list($nf_md5, $md5) = $node;
 
 							$tags = [];
@@ -195,20 +195,20 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 									$this->_notify('Le fichier <code>'.$dir.$name.'</code> est corrompu', 'warning');
 								}
 							}
-							
+
 							if ($md5 !== '' && !is_writable($dir.$name))
 							{
 								$tags[] = 'Protégé en écriture';
 								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est protégé en écriture', 'warning');
 							}
-							
+
 							$output[] = [
 								'text' => $name,
 								'tags' => $tags
 							];
 						}
 					}
-					
+
 					return $output;
 				};
 			}
@@ -225,7 +225,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			}
 
 			$server = [];
-			
+
 			foreach ($this->model()->check_server() as $check)
 			{
 				foreach ($check['check'] as $name => $check)
@@ -354,14 +354,14 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 			}
 		});
 	}
-	
+
 	private function _flush($step, $value)
 	{
 		$value = ceil($value);
-		
+
 		static $i;
 		static $n;
-		
+
 		if ($i === NULL || $n != $step || $i != $value)
 		{
 			if ($i !== NULL)
@@ -426,7 +426,7 @@ class m_monitoring_c_admin_ajax extends Controller_Module
 
 		unlink($dump);
 	}
-	
+
 	private function _notify($message, $type = 'danger')
 	{
 		if (!in_array($type, array_keys(get_colors())))

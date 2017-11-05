@@ -20,7 +20,7 @@ class m_addons extends Module
 		//Modules
 		'admin/module/{url_title}'        => '_module_settings',
 		'admin/delete/module/{url_title}' => '_module_delete',
-		
+
 		//Thèmes
 		'admin/theme/{url_title}'         => '_theme_settings',
 		'admin/delete/theme/{url_title}'  => '_theme_delete',

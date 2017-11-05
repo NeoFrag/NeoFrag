@@ -7,7 +7,7 @@
 class Addons extends Core
 {
 	private $_addons = [];
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -16,7 +16,7 @@ class Addons extends Core
 		{
 			$this->_addons[$addon['type']][$addon['name']] = (bool)$addon['is_enabled'];
 		}
-		
+
 		foreach (['module', 'widget'] as $type)
 		{
 			foreach ($type::$core as $name => $deactivatable)
@@ -33,16 +33,16 @@ class Addons extends Core
 			$this->_addons['language'][array_shift($language)] = $language;
 		}
 	}
-	
+
 	public function is_enabled($name, $type)
 	{
 		return !empty($this->_addons[$type][$name]);
 	}
-	
+
 	private function _get_addons($get_all, $type)
 	{
 		static $list = [];
-		
+
 		if (!isset($list[$type][(int)$get_all]))
 		{
 			foreach ($this->_addons[$type] as $name => $is_enabled)
@@ -61,7 +61,7 @@ class Addons extends Core
 	{
 		return $this->_get_addons($get_all, 'module');
 	}
-	
+
 	public function get_widgets($get_all = FALSE)
 	{
 		return $this->_get_addons($get_all, 'widget');
@@ -70,7 +70,7 @@ class Addons extends Core
 	public function get_themes()
 	{
 		static $list;
-		
+
 		if ($list === NULL)
 		{
 			$list = [];
@@ -82,7 +82,7 @@ class Addons extends Core
 					$list[$name] = $theme;
 				}
 			}
-			
+
 			array_natsort($list, function($a){
 				return $a->get_title();
 			});

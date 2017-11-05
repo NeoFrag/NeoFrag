@@ -9,7 +9,7 @@ $rules = [
 		'label'  => '{lang title}',
 		'value'  => $this->form->value('title'),
 		'type'   => 'text',
-		'rules'  => 'required',
+		'rules'  => 'required'
 	],
 	'category' => [
 		'label'  => '{lang category}',

@@ -73,7 +73,7 @@ class m_gallery_c_admin extends Controller_Module
 						->data($gallery)
 						->no_data($this->lang('no_photos'))
 						->display();
-			
+
 		$categories = $this	->table
 							->add_columns([
 								[
@@ -106,7 +106,7 @@ class m_gallery_c_admin extends Controller_Module
 							->data($this->model()->get_categories())
 							->no_data($this->lang('no_category'))
 							->display();
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -124,17 +124,17 @@ class m_gallery_c_admin extends Controller_Module
 			)
 		);
 	}
-	
+
 	public function add()
 	{
 		$this	->subtitle($this->lang('add_album'))
 				->form
 				->add_rules('album', [
-					'categories' => $this->model()->get_categories_list(),
+					'categories' => $this->model()->get_categories_list()
 				])
 				->add_back('admin/gallery')
 				->add_submit($this->lang('create_album_btn'));
-				
+
 		if ($this->form->is_valid($post))
 		{
 			$gallery_id = $this->model()->add_gallery(	$post['title'],
@@ -144,15 +144,15 @@ class m_gallery_c_admin extends Controller_Module
 														in_array('on', $post['published']));
 
 			notify($this->lang('album_added'));
-			
+
 			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']));
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('new_photo_album'), 'fa-file-image-o')
 					->body($this->form->display());
 	}
-	
+
 	public function _edit($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $category_image, $category_icon)
 	{
 		$this	->css('dropzone.min')
@@ -160,7 +160,7 @@ class m_gallery_c_admin extends Controller_Module
 				->js('dropzone')
 				->js('admin')
 				->js('preview');
-		
+
 		$form_album = $this	->subtitle($title)
 							->form
 							->add_rules('album', [
@@ -175,7 +175,7 @@ class m_gallery_c_admin extends Controller_Module
 							->add_submit($this->lang('edit'))
 							->add_back('admin/gallery')
 							->save();
-							
+
 		$form_image = $this	->form
 							->add_rules([
 								'image' => [
@@ -202,7 +202,7 @@ class m_gallery_c_admin extends Controller_Module
 							])
 							->add_submit($this->lang('add_image'))
 							->save();
-							
+
 		$gallery_table = $this	->table
 								->add_columns([
 									[
@@ -261,7 +261,7 @@ class m_gallery_c_admin extends Controller_Module
 								->data($images = $this->model()->get_images($gallery_id))
 								->no_data($this->lang('no_images'))
 								->save();
-		
+
 		if ($form_album->is_valid($post))
 		{
 			$this->model()->edit_gallery(	$gallery_id,
@@ -282,7 +282,7 @@ class m_gallery_c_admin extends Controller_Module
 										$gallery_id,
 										$post['title'],
 										$post['description']);
-										
+
 			notify($this->lang('image_added'));
 
 			refresh();
@@ -311,7 +311,7 @@ class m_gallery_c_admin extends Controller_Module
 			)
 		);
 	}
-	
+
 	public function delete($gallery_id, $title)
 	{
 		$this	->title($this->lang('delete_album_title'))
@@ -347,12 +347,12 @@ class m_gallery_c_admin extends Controller_Module
 
 			redirect_back('admin/gallery');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('add_category'), 'fa-align-left')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_edit($category_id, $name, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this->lang('category_', $title))
@@ -364,31 +364,31 @@ class m_gallery_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('admin/gallery');
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->edit_category(	$category_id,
 											$post['title'],
 											$post['image'],
 											$post['icon']);
-		
+
 			notify($this->lang('category_edited'));
 
 			redirect_back('admin/gallery');
 		}
-		
+
 		return $this->panel()
 					->heading($this->lang('edit_category_title'), 'fa-align-left')
 					->body($this->form->display());
 	}
-	
+
 	public function _categories_delete($category_id, $title)
 	{
 		$this	->title($this->lang('delete_category_title'))
 				->subtitle($title)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_category_message', $title));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->model()->delete_category($category_id);
@@ -405,7 +405,7 @@ class m_gallery_c_admin extends Controller_Module
 				->js('dropzone')
 				->js('admin')
 				->js('preview');
-		
+
 		$this	->subtitle($this->lang('image_', $title))
 				->form
 				->add_rules('image', [
@@ -416,18 +416,18 @@ class m_gallery_c_admin extends Controller_Module
 				])
 				->add_submit($this->lang('edit'))
 				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title));
-		
+
 		if ($this->form->is_valid($post))
 		{
 			$this->model()->edit_image(	$image_id,
 										$post['title'],
 										$post['description']);
-		
+
 			notify($this->lang('image_edited'));
 
 			redirect_back();
 		}
-		
+
 		return $this->row(
 			$this->col(
 				$this	->panel()
@@ -445,14 +445,14 @@ class m_gallery_c_admin extends Controller_Module
 			)
 		);
 	}
-	
+
 	public function _image_delete($image_id, $title)
 	{
 		$this	->title($this->lang('delete_image_title'))
 				->subtitle($title)
 				->form
 				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_image_message', $title));
-				
+
 		if ($this->form->is_valid())
 		{
 			$this->model()->delete_image($image_id);

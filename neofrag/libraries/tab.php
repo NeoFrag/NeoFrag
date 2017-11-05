@@ -14,7 +14,7 @@ class Tab extends Library
 		$this->_tabs[] = [
 			'url'      => $url,
 			'name'     => $name,
-			'callback' => $callback,
+			'callback' => $callback
 		];
 
 		return $this;

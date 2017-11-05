@@ -25,7 +25,7 @@ $('.thumbnail-link').on('click', function() {
 			$('.image-preview').removeClass('img-responsive');
 		}
 	});
-	
+
 	$modal.on('hidden.bs.modal', function(){
 		$(this).remove();
 	});

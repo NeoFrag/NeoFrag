@@ -10,14 +10,14 @@ class m_news_c_admin_checker extends Controller_Module
 	{
 		return [$this->pagination->get_data($this->model()->get_news(), $page)];
 	}
-	
+
 	public function _add()
 	{
 		if (!$this->is_authorized('add_news'))
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-		
+
 		return [];
 	}
 
@@ -27,7 +27,7 @@ class m_news_c_admin_checker extends Controller_Module
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-		
+
 		if ($news = $this->model()->check_news($news_id, $title, $tab))
 		{
 			return $news + [$tab];
@@ -48,14 +48,14 @@ class m_news_c_admin_checker extends Controller_Module
 			return [$news['news_id'], $news['title']];
 		}
 	}
-	
+
 	public function _categories_add()
 	{
 		if (!$this->is_authorized('add_news_categories'))
 		{
 			throw new Exception(NeoFrag::UNAUTHORIZED);
 		}
-		
+
 		return [];
 	}
 
@@ -71,7 +71,7 @@ class m_news_c_admin_checker extends Controller_Module
 			return $category;
 		}
 	}
-	
+
 	public function _categories_delete($category_id, $name)
 	{
 		if (!$this->is_authorized('delete_news_categories'))

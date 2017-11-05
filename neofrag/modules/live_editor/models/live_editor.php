@@ -13,11 +13,11 @@ class m_live_editor_m_live_editor extends Model
 									->from('nf_dispositions')
 									->where('disposition_id', $disposition_id)
 									->row();
-		
+
 		$theme = $disposition['theme'];
 		$page  = $disposition['page'];
 		$zone  = $disposition['zone'];
-					
+
 		return unserialize($disposition['disposition']);
 	}
 
@@ -64,20 +64,20 @@ class m_live_editor_m_live_editor extends Model
 						->delete('nf_widgets');
 		}
 	}
-	
+
 	public function check_widget($widget_id)
 	{
 		$widget = $this->db	->from('nf_widgets')
 							->where('widget_id', $widget_id)
 							->row();
-							
+
 		if ($widget)
 		{
 			if ($widget['settings'] !== NULL)
 			{
 				$widget['settings'] = serialize($widget['settings']);
 			}
-			
+
 			return $widget;
 		}
 		else
@@ -85,7 +85,7 @@ class m_live_editor_m_live_editor extends Model
 			return FALSE;
 		}
 	}
-	
+
 	public function get_widgets(&$widgets, &$types)
 	{
 		foreach ($this->addons->get_widgets() as $widget)
@@ -96,14 +96,14 @@ class m_live_editor_m_live_editor extends Model
 			}
 
 			$widgets[$widget->name] = $widget->get_title();
-			
+
 			if (!empty($widget->types))
 			{
 				$types[$widget->name] = $widget->lang($widget->types, NULL);
 				array_natsort($types[$widget->name]);
 			}
 		}
-		
+
 		array_natsort($widgets);
 	}
 }

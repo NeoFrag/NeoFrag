@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_forum_c_admin_ajax_checker extends Controller
 {
 	public function _categories_move()
@@ -13,7 +13,7 @@ class m_forum_c_admin_ajax_checker extends Controller
 			return $check;
 		}
 	}
-	
+
 	public function move()
 	{
 		if (	($check = post_check('parent_id', 'forum_id', 'position')) &&

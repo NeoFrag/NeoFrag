@@ -18,7 +18,7 @@ class m_news_m_news extends Model
 					->where('nl.lang', $this->config->lang)
 					->where('cl.lang', $this->config->lang)
 					->order_by('n.date DESC');
-		
+
 		if (!empty($filter) && !empty($filter_data))
 		{
 			if ($filter == 'tag')
@@ -30,12 +30,12 @@ class m_news_m_news extends Model
 				$this->db->where('n.category_id', $filter_data);
 			}
 		}
-		
+
 		if (!$this->url->admin)
 		{
 			$this->db->where('n.published', TRUE);
 		}
-		
+
 		return $this->db->get();
 	}
 
@@ -74,12 +74,12 @@ class m_news_m_news extends Model
 						->where('n.news_id', $news_id)
 						->where('nl.lang', $lang)
 						->where('cl.lang', $lang);
-		
+
 		if (!$this->url->admin)
 		{
 			$this->db->where('n.published', TRUE);
 		}
-		
+
 		$news = $this->db->row();
 
 		if ($news && url_title($news['title']) == $title)
@@ -138,7 +138,7 @@ class m_news_m_news extends Model
 		$this->db	->where('news_id', $news_id)
 					->delete('nf_news');
 	}
-	
+
 	private function _tags($tags)
 	{
 		return implode(',', array_unique(array_map('trim', preg_split('/[ ,;]+/', $tags, -1, PREG_SPLIT_NO_EMPTY))));

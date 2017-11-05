@@ -9,11 +9,11 @@ class w_teams_c_index extends Controller_Widget
 	public function index($settings = [])
 	{
 		$this->css('teams');
-		
+
 		$teams = array_filter($this->model()->get_teams(), function($a){
 			return $a['image_id'];
 		});
-		
+
 		if (!empty($teams))
 		{
 			return $this->panel()

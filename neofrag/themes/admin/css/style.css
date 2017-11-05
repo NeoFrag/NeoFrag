@@ -358,7 +358,7 @@ ul#side-menu.nav > li.sidebar-user:hover ul.dropdown-menu i.fa {
 .sidebar ul.dropdown-menu > li {
 	background-color: #fff;
 	border-bottom: 1px solid #e7edeb;
-	
+
 }
 
 .sidebar ul.dropdown-menu > li > a {
@@ -932,7 +932,7 @@ ul.nav.nav-tabs > li > a i.fa {
 		position: initial;
 		margin: 10px 0 15px;
 	}
-	
+
 	/* Slideout menu */
 
 	.slideout-open body {

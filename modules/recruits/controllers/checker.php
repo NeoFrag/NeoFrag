@@ -20,7 +20,7 @@ class m_recruits_c_checker extends Controller_Module
 
 		return [$this->pagination->fix_items_per_page($this->config->recruits_per_page)->get_data($recruits, $page)];
 	}
-	
+
 	public function _recruit($recruit_id, $title)
 	{
 		if ($recruit = $this->model()->check_recruit($recruit_id, $title))
@@ -91,7 +91,7 @@ class m_recruits_c_checker extends Controller_Module
 
 		throw new Exception(NeoFrag::UNFOUND);
 	}
-	
+
 	public function _candidacy($candidacy_id, $title)
 	{
 		if ($this->user())
@@ -108,7 +108,7 @@ class m_recruits_c_checker extends Controller_Module
 
 			throw new Exception(NeoFrag::UNFOUND);
 		}
-		
+
 		throw new Exception(NeoFrag::UNCONNECTED);
 	}
 }

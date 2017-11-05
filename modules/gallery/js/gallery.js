@@ -60,7 +60,7 @@ $gallery.on('slide.bs.carousel', function (event) {
 			marginTop: $('#modalGallery .modal-header:first').outerHeight()+'px',
 			height: c_maxHeight
 		});
-		
+
 		console.log('hauteur: '+c_height+'; Limite: '+c_maxHeight);
 	}
 });

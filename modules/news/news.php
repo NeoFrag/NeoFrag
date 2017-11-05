@@ -99,7 +99,7 @@ class m_news extends Module
 			];
 		}
 	}
-	
+
 	public function settings()
 	{
 		$this	->form
@@ -117,7 +117,7 @@ class m_news extends Module
 		if ($this->form->is_valid($post))
 		{
 			$this->config('news_per_page', $post['news_per_page']);
-			
+
 			redirect_back('admin/addons#modules');
 		}
 

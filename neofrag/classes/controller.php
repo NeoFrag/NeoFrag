@@ -16,7 +16,7 @@ abstract class Controller extends NeoFrag
 	public function has_method($name)
 	{
 		$r = new ReflectionClass($this);
-		
+
 		try
 		{
 			$method = $r->getMethod($name);
@@ -24,7 +24,7 @@ abstract class Controller extends NeoFrag
 		}
 		catch (ReflectionException $error)
 		{
-			
+
 		}
 	}
 
@@ -45,7 +45,7 @@ abstract class Controller extends NeoFrag
 		ob_start();
 		$result = call_user_func_array([$this, $name], $args);
 		$output = ob_get_clean();
-		
+
 		if (!empty($result))
 		{
 			echo $output;

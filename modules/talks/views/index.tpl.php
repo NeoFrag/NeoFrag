@@ -5,7 +5,7 @@ if (!empty($data['user_id']) && !empty($data['position']))
 {
 	$user_id = $data['user_id'];
 	$media   = $data['position'];
-	
+
 	if ($count)
 	{
 		echo '<hr style="margin: 15px 0;" />';
@@ -18,7 +18,7 @@ foreach ($data['messages'] as $i => $message)
 	{
 		$media = isset($media) && $media == 'left' ? 'right' : 'left';
 	}
-	
+
 	if (!isset($media))
 	{
 		$media = 'left';
@@ -49,12 +49,12 @@ foreach ($data['messages'] as $i => $message)
 		<h4 class="media-heading">
 		<?php
 			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
-			
+
 			if ($media == 'right')
 			{
 				$title = array_reverse($title);
 			}
-			
+
 			echo implode(' ', $title);
 		?>
 		</h4>
@@ -62,12 +62,12 @@ foreach ($data['messages'] as $i => $message)
 	</div>
 <?php
 	$output = [$avatar, ob_get_clean()];
-	
+
 	if ($media == 'right')
 	{
 		$output = array_reverse($output);
 	}
-	
+
 	echo implode($output);
 ?>
 </div>
@@ -76,8 +76,8 @@ foreach ($data['messages'] as $i => $message)
 	{
 		echo '<hr style="margin: 15px 0;" />';
 	}
-	
-	$user_id = $message['user_id']; 
+
+	$user_id = $message['user_id'];
 }
 ?>
 <?php if (!$count && empty($data['user_id']) && empty($data['position'])): ?>

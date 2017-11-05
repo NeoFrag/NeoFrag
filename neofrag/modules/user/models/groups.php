@@ -15,14 +15,14 @@ class m_user_m_groups extends Model
 			'hidden' => $hidden,
 			'auto'   => FALSE
 		]);
-		
+
 		$this->db->insert('nf_groups_lang', [
 			'group_id' => $group_id,
 			'lang'     => $lang,
 			'title'    => $title
 		]);
 	}
-	
+
 	public function edit_group($group_id, $title, $color, $icon, $hidden, $lang, $auto)
 	{
 		$group = [
@@ -30,18 +30,18 @@ class m_user_m_groups extends Model
 			'icon'   => $icon,
 			'hidden' => $hidden
 		];
-		
+
 		if (!$auto)
 		{
 			$group['name'] = url_title($title);
-			
+
 			$this->db	->where('group_id', $group_id)
 						->update('nf_groups_lang', [
 							'lang'  => $lang,
 							'title' => $title
 						]);
 		}
-		
+
 		$this->db	->where('group_id', $group_id)
 					->update('nf_groups', $group);
 	}

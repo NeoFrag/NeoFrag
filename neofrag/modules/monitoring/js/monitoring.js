@@ -10,14 +10,14 @@ $(function(){
 		var unit = (typeof sz[factor] != 'undefined' ? sz[factor] : '')+'o';
 		return (bytes / Math.pow(1024, factor)).toFixed(typeof decimals != 'undefined' ? decimals : 2)+'<small>'+unit+'</small>';
 	};
-	
+
 	var loading = false;
-	
+
 	var refresh = function(refresh){
 		if (loading) {
 			return;
 		}
-		
+
 		loading = true;
 		$('.knob').val(0).trigger('change');
 		$('.module-monitoring .refresh fa').addClass('fa-spin');
@@ -35,18 +35,18 @@ $(function(){
 		$.post('<?php echo url('admin/ajax/monitoring.json'); ?>', {refresh: typeof refresh != 'undefined' && refresh ? refresh : 0}, function(data){
 			var used     = data.storage.total - data.storage.free;
 			var pourcent = Math.ceil(used / data.storage.total * 100);
-			
+
 			$('.knob').val(pourcent).trigger('change').trigger('configure', {
 				fgColor: pourcent >= 90 ? '#d9534f' : (pourcent >= 75 ? '#f0ad4e' : '#25C7F0')
 			});
-			
+
 			$.each(data.storage, function(key, value){
 				$('#storage-'+key).html(printSize(value));
 			});
 
 			$('#storage-used').html(printSize(used));
 			$('#storage-pourcent').html('Utilisé ('+pourcent+' %)');
-			
+
 			var notifications = '';
 			var count = {
 				danger: 0,
@@ -120,7 +120,7 @@ $(function(){
 					var data = xhr.response.split(';').map(function(value){
 						return JSON.parse(value.trim());
 					});
-					
+
 					$.each(data, function(key, data){
 						var $progressBar = $('#modal-backup .progress-bar:eq('+data[0]+')');
 						var value = $progressBar.data('value');

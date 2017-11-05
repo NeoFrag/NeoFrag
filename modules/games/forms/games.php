@@ -41,9 +41,9 @@ $rules = [
 			{
 				return $this->lang('select_image_file');
 			}
-			
+
 			list($w, $h) = getimagesize($filename);
-			
+
 			if ($w != $h)
 			{
 				return $this->lang('icon_must_be_square');

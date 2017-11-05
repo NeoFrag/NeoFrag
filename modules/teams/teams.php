@@ -28,7 +28,7 @@ class m_teams extends Module
 		'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
 		'admin/ajax/roles/sort'                      => '_roles_sort'
 	];
-	
+
 	public function groups()
 	{
 		$teams = NeoFrag()->db	->select('t.team_id', 't.name', 'tl.title', 'GROUP_CONCAT(tu.user_id) AS users')
@@ -38,9 +38,9 @@ class m_teams extends Module
 										->where('tl.lang', NeoFrag()->config->lang)
 										->group_by('t.team_id')
 										->get();
-		
+
 		$groups = [];
-		
+
 		foreach ($teams as $team)
 		{
 			$groups[$team['team_id']] = [
@@ -49,7 +49,7 @@ class m_teams extends Module
 				'users' => array_filter(array_map('intval', explode(',', $team['users'])))
 			];
 		}
-		
+
 		return $groups;
 	}
 }

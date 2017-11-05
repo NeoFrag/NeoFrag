@@ -22,7 +22,7 @@ function u2lcc($string)
 			$string = substr_replace($string, strtoupper($match[1][0]), $match[0][1] - $count++, 2);
 		}
 	}
-	
+
 	return $string;
 }
 
@@ -47,14 +47,14 @@ function in_string($needle, $haystack, $strict = TRUE)
 function url_title($string)
 {
 	static $strings = [];
-	
+
 	if (isset($strings[$string]))
 	{
 		return $strings[$string];
 	}
-	
+
 	static $a, $b;
-	
+
 	if ($a === NULL)
 	{
 		$chars = [
@@ -81,7 +81,7 @@ function url_title($string)
 			}
 		}
 	}
-	
+
 	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
 }
 
@@ -93,7 +93,7 @@ function str_nat($a, $b, $data = NULL)
 			return $a;
 		};
 	}
-	
+
 	return strnatcasecmp(url_title($data($a)), url_title($data($b)));
 }
 
@@ -105,7 +105,7 @@ function escape_html_tags($string, $callback)
 	while ($offset < strlen($string) && preg_match('_>([^<]+(</)?)_', $string, $match, PREG_OFFSET_CAPTURE, $offset))
 	{
 		$offset = $match[1][1];
-		
+
 		if (!isset($match[2]))
 		{
 			$replacement = $callback($match[1][0]);
@@ -117,7 +117,7 @@ function escape_html_tags($string, $callback)
 			$offset += strlen($match[1][0]);
 		}
 	}
-	
+
 	return substr($string, 1);
 }
 
@@ -127,15 +127,15 @@ function strtolink($string, $is_html = FALSE)
 	{
 		return escape_html_tags($string, 'strtolink');
 	}
-	
+
 	//regex by @diegoperini
 	$string = preg_replace_callback('_(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?_iuS', function($match){
 		return '<a href="'.$match[0].'">'.str_shortener($match[0], 50).'</a>';
 	}, $string);
-	
+
 	return preg_replace_callback('_@((?:&quot;(.+?)&quot;)|([^@\s]+))_', function($match){
 		static $users;
-		
+
 		if ($users === NULL)
 		{
 			foreach (NeoFrag()->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get() as $user)
@@ -143,9 +143,9 @@ function strtolink($string, $is_html = FALSE)
 				$users[$user['user_id']] = $user['username'];
 			}
 		}
-	
+
 		$username = !empty($match[3]) ? $match[3] : $match[2];
-		
+
 		return ($user_id = array_search($username, $users)) !== FALSE ? NeoFrag()->user->link($user_id, $username, '@') : $match[0];
 	}, $string);
 }
@@ -217,7 +217,7 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 		{
 			$max_length -= strlen($end);
 		}
-	
+
 		for ($i = $max_length; $i > 1; $i--)
 		{
 			if (in_array(substr($string, $i, 1), str_split(' .,;:!?-_"')) &&
@@ -226,7 +226,7 @@ function str_shortener($string, $max_length, $end = '&#8230;')
 				return substr($string, 0, $i).$end;
 			}
 		}
-		
+
 		return substr($string, 0, $max_length).$end;
 	}
 }
@@ -239,7 +239,7 @@ function bbcode($string)
 function highlight($string, $keywords, $max_length = 256)
 {
 	$string = nl2br(preg_replace($patern = '/'.implode('|', array_map(function($a){ return preg_quote($a, '/'); }, $keywords)).'/i', '<mark>\0</mark>', htmlspecialchars(utf8_html_entity_decode(strip_tags(bbcode($string))), ENT_COMPAT, 'UTF-8')));
-	
+
 	return str_shortener(substr($string, strpos($string, '<mark>')), $max_length);
 }
 

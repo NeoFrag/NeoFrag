@@ -7,7 +7,7 @@
 function statistics($name, $value = NULL, $callback = NULL)
 {
 	static $statistics;
-	
+
 	if ($statistics === NULL)
 	{
 		foreach (NeoFrag()->db->from('nf_statistics')->get() as $stat)
@@ -15,7 +15,7 @@ function statistics($name, $value = NULL, $callback = NULL)
 			$statistics[$stat['name']] = $stat['value'];
 		}
 	}
-	
+
 	if (func_num_args() > 1)
 	{
 		if (isset($statistics[$name]))

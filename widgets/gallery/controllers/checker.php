@@ -17,7 +17,7 @@ class w_gallery_c_checker extends Controller
 			];
 		}
 	}
-	
+
 	public function image($settings = [])
 	{
 		if (in_array($settings['gallery_id'], array_merge(array_map(function($a){
@@ -29,7 +29,7 @@ class w_gallery_c_checker extends Controller
 			];
 		}
 	}
-	
+
 	public function slider($settings = [])
 	{
 		if (in_array($settings['gallery_id'], array_map(function($a){

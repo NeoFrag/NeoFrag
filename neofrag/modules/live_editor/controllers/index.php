@@ -13,7 +13,7 @@ class m_live_editor_c_index extends Controller_Module
 				->js('live-editor');
 
 		$modules = [];
-		
+
 		foreach ($this->addons->get_modules() as $module)
 		{
 			if ($module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
@@ -21,9 +21,9 @@ class m_live_editor_c_index extends Controller_Module
 				$modules[$module->name] = $module->get_title();
 			}
 		}
-		
+
 		array_natsort($modules);
-		
+
 		$modules = array_merge([
 			'index' => NeoFrag()->lang('home')
 		], $modules);

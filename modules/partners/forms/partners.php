@@ -74,5 +74,5 @@ $rules = [
 		'type'        => 'text',
 		'description' => 'Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire',
 		'size'        => 'col-md-3'
-	],
+	]
 ];

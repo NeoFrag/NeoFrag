@@ -39,7 +39,7 @@ class a_google extends Authenticator
 					'location'      => '',
 					'signature'     => '',
 					'website'       => '',
-					'avatar'        => $data->picture,
+					'avatar'        => $data->picture
 				];
 			};
 		}

@@ -10,7 +10,7 @@ class m_talks_c_admin_checker extends Controller_Module
 	{
 		return [$this->pagination->get_data($this->model()->get_talks(), $page)];
 	}
-	
+
 	public function _edit($talk_id, $title)
 	{
 		if ($talk_id > 1 && $talk = $this->model()->check_talk($talk_id, $title))
@@ -18,7 +18,7 @@ class m_talks_c_admin_checker extends Controller_Module
 			return $talk;
 		}
 	}
-	
+
 	public function delete($talk_id, $title)
 	{
 		$this->ajax();

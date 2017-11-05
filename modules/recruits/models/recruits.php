@@ -174,7 +174,7 @@ class m_recruits_m_recruits extends Model
 
 		return FALSE;
 	}
-	
+
 	public function update_candidacy($candidacy_id, $reply, $status)
 	{
 		$this->db	->where('candidacy_id', $candidacy_id)
@@ -198,7 +198,7 @@ class m_recruits_m_recruits extends Model
 								->where('rc.user_id', $user_id)
 								->where('rc.recruit_id', $recruit_id)
 								->where('r.title', $title);
-		
+
 		$candidacy = $this->db->row();
 
 		if ($candidacy && $candidacy['title'] == $title)

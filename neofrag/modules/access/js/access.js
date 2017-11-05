@@ -1,7 +1,7 @@
 $(function(){
 	$('[data-action] td').click(function(){
 		var $access = $(this).parents('[data-action]:first');
-		
+
 		if (!$access.hasClass('info')){
 			$.ajax({
 				url: '<?php echo url('admin/ajax/access'); ?>',
@@ -15,22 +15,22 @@ $(function(){
 				success: function(data){
 					var $row  = $('.module-access > .row:first');
 					var $cols = $row.children('[class^="col-"]');
-					
+
 					if ($cols.length > 1){
 						$cols.last().remove();
 					}
-					
+
 					$cols.find('.info[data-action]').removeClass('info');
-					
+
 					$access.addClass('info');
 					$row.append(data);
 				}
 			});
 		}
-		
+
 		return false;
 	});
-	
+
 	var update_access = function($btn, revoke){
 		var data = {
 			'module': $('[name="module"]').val(),
@@ -38,23 +38,23 @@ $(function(){
 			'id':     $('[name="id"]').val(),
 			'action': $('.info[data-action]').data('action')
 		};
-		
+
 		var $table = $btn.parents('.table:first');
-		
+
 		if ($table.find('[data-group]').length){
 			data['groups'] = {};
-			
+
 			$table.find('[data-group]').each(function(){
 				data['groups'][$(this).data('group')] = $(this).find('.access-radio.success').length;
 			});
 		}
 		else {
 			var $tr = $btn.parents('tr:first');
-			
+
 			data['user'] = {};
 			data['user'][$tr.find('[data-user-id]').data('user-id')] = typeof revoke == 'undefined' ? $tr.find('.access-radio.success').length : -1;
 		}
-		
+
 		$.ajax({
 			url: '<?php echo url('admin/ajax/access/update.json'); ?>',
 			type: 'POST',
@@ -62,15 +62,15 @@ $(function(){
 			success: function(data){
 				var $row  = $('.module-access > .row:first');
 				var $cols = $row.children('[class^="col-"]');
-				
+
 				if (typeof data.details != 'undefined'){
 					if ($cols.length > 1){
 						$cols.last().remove();
 					}
-					
+
 					$row.append(data.details);
 				}
-				
+
 				if (typeof data.user_authorized != 'undefined' && typeof data.user_forced != 'undefined'){
 					if (data.user_forced){
 						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('reset_automatic'); ?>"><?php echo icon('fa-thumb-tack'); ?></a>');
@@ -81,15 +81,15 @@ $(function(){
 
 					update_radio($tr.find('[data-class="'+(data.user_authorized ? 'success' : 'danger')+'"]'));
 				}
-				
+
 				$cols.find('.info[data-action] .access-count').html(data.count);
 			}
 		});
 	};
-	
+
 	var update_radio = function($btn){
 		var color = $btn.data('class');
-		
+
 		if (!$btn.hasClass(color)){
 			$btn.addClass(color).find('i').addClass('text-'+color).removeClass('text-muted').removeClass('fa-toggle-off').addClass('fa-toggle-on');
 			$btn.parent().find('.access-radio').each(function(){
@@ -98,39 +98,39 @@ $(function(){
 					$(this).removeClass(color).find('i').removeClass('text-'+color).addClass('text-muted').removeClass('fa-toggle-on').addClass('fa-toggle-off');
 				}
 			});
-			
+
 			return true;
 		}
-		
+
 		return false;
 	};
-	
+
 	$(document).on('click', '.access-radio', function(){
 		if (update_radio($(this))){
 			update_access($(this));
 		}
-		
+
 		return false;
 	});
-	
+
 	$(document).on('click', '.access-revoke', function(){
 		update_access($(this), true);
-		
+
 		return false;
 	});
-	
+
 	$(document).on('click', '[data-radio]', function(){
 		var update = false;
-		
+
 		$(this).parents('.table:first').find('.access-radio[data-class="'+$(this).data('radio')+'"]').each(function(){
 			update = update_radio($(this)) || update;
 		});
-		
+
 		if (update){
 			update_access($(this));
 		}
 	});
-	
+
 	$(document).on('click', '.access-users', function(){
 		$.ajax({
 			url: '<?php echo url('admin/ajax/access/users'); ?>',
@@ -147,10 +147,10 @@ $(function(){
 				});
 			}
 		});
-		
+
 		return false;
 	});
-	
+
 	$(document).on('click', '.access-reset', function(){
 		$('	<div class="modal modal-access-reset fade" tabindex="-1" role="dialog">\
 				<div class="modal-dialog">\
@@ -172,7 +172,7 @@ $(function(){
 
 		return false;
 	});
-	
+
 	$(document).on('click', '.modal-access-reset .btn-info', function(){
 		$.ajax({
 			url: '<?php echo url('admin/ajax/access/reset'); ?>',

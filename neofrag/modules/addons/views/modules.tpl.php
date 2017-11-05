@@ -1,5 +1,5 @@
 <div class="addons-panel-body" data-type="module">
-<?php 
+<?php
 	$modules = $this->addons->get_modules(TRUE);
 
 	array_natsort($modules, function($a){
@@ -43,7 +43,7 @@
 			<?php if (0 && $removable) echo $this->button_delete('admin/addons/delete/module/'.$module->name); ?>
 		</div>
 	</div>
-<?php 
+<?php
 	}
 ?>
 </div>

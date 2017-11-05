@@ -20,12 +20,12 @@ class m_games extends Module
 		//Admin
 		'admin{pages}'                  => 'index',
 		'admin/{id}/{url_title}{pages}' => '_edit',
-		
+
 		//Maps
 		'admin/maps/add(?:/{id}/{url_title})?' => '_maps_add',
 		'admin/maps/edit/{id}/{url_title}'     => '_maps_edit',
 		'admin/maps/delete/{id}/{url_title}'   => '_maps_delete',
-		
+
 		//Modes
 		'admin/modes/add/{id}/{url_title}'    => '_modes_add',
 		'admin/modes/edit/{id}/{url_title}'   => '_modes_edit',

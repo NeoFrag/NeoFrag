@@ -35,7 +35,7 @@ class m_games_c_admin_checker extends Controller_Module
 		{
 			return [];
 		}
-		
+
 		if ($game = $this->model()->check_game($game_id, $title))
 		{
 			return [$game_id, $game['name']];

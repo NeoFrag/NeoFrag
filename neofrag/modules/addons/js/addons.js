@@ -9,37 +9,37 @@ $(function(){
 			success: function(data){
 				var $row  = $('.module-addons > .row:first');
 				var $cols = $row.children('[class^="col-"]');
-				
+
 				if ($cols.length > 1){
 					$cols.last().remove();
 				}
-				
+
 				$cols.find('.active[data-addon]').removeClass('active');
-				
+
 				location.hash = '#'+$addon.data('addon');
 				$addon.addClass('active');
 				$row.append(data);
 				$('body').trigger('nf.load');
 			}
 		});
-		
+
 		return false;
 	};
-	
+
 	$('[data-addon]').click(function(){
 		return $(this).hasClass('active') ? false : load_addons($(this));
 	});
 
 	var hashChange = function(){
 		var $addon = $('[data-addon="'+(window.location.hash.replace('#', ''))+'"]');
-		
+
 		load_addons($addon.length ? $addon : $('[data-addon]:first'));
 	};
-	
+
 	$(window).on('hashChange', hashChange);
-	
+
 	hashChange();
-	
+
 	//Activate / Desactivate
 	$('body').on('click', '.item-status-switch > a', function(){
 		$.ajax({
@@ -59,10 +59,10 @@ $(function(){
 				}
 			}
 		});
-		
+
 		return false;
 	});
-	
+
 	//Install
 	$('input[type="file"].install').change(function(){
 		if ($(this).val()){
@@ -74,15 +74,15 @@ $(function(){
 			$('.btn.install').addClass('disabled');
 		}
 	});
-	
+
 	$('.btn.install').click(function(){
 		if (!$(this).hasClass('disabled')){
 			var formData = new FormData();
 			formData.append('file', $('input[type="file"].install')[0].files[0]);
-			
+
 			$('.btn.install').data('title', $('.btn.install').html());
 			$('.btn.install').addClass('disabled').html('<?php echo icon('fa-spinner fa-pulse'); ?> Veuillez patienter')
-			
+
 			$.ajax({
 				url: '<?php echo url('admin/ajax/addons/install.json'); ?>',
 				type: 'POST',
@@ -94,11 +94,11 @@ $(function(){
 					$.each(data, function(type, message){
 						notify(message, type);
 					});
-					
+
 					$('input[type="file"].install').val('').trigger('change');
 
 					$('.btn.install').html($('.btn.install').data('title'));
-					
+
 					hashChange();
 				}
 			});
@@ -106,7 +106,7 @@ $(function(){
 
 		return false;
 	});
-	
+
 	//Themes
 	var modal_theme = function(title, body, btn, callback){
 		var $modal = $('.modal-theme');
@@ -114,17 +114,17 @@ $(function(){
 		$modal.find('.modal-title').html(title);
 		$modal.find('.modal-body').html(body);
 		$modal.modal();
-		
+
 		$modal.on('hidden.bs.modal', function(){
 			$btn.remove();
 		});
-		
+
 		$btn.on('click', callback);
 		$btn.on('click', function(){
 			$modal.modal('hide');
 		});
 	};
-	
+
 	//Activation
 	$('body').on('click', '.thumbnail', function(){
 		if (!$(this).hasClass('panel-primary')){
@@ -141,15 +141,15 @@ $(function(){
 				});
 			});
 		}
-		
+
 		return false;
 	});
-	
+
 	//Customization
 	$('body').on('click', '.thumbnail .btn-info', function(e){
 		e.stopPropagation();
 	});
-	
+
 	//Reset
 	$('body').on('click', '.thumbnail .btn-warning', function(e){
 		e.stopPropagation();
@@ -167,17 +167,17 @@ $(function(){
 		$modal.find('.modal-title').html(title);
 		$modal.find('.modal-body').html(body);
 		$modal.modal();
-		
+
 		$modal.on('hidden.bs.modal', function(){
 			$btn.remove();
 		});
-		
+
 		$btn.on('click', callback);
 		$btn.on('click', function(){
 			$modal.modal('hide');
 		});
 	};
-	
+
 	//Setting authenticators
 	$('body').on('click', '[data-type="authenticator"] .btn-warning', function(){
 		var $item = $(this).parents('[data-name]:first');
@@ -219,7 +219,7 @@ $(function(){
 
 				$.post('<?php echo url('admin/ajax/addons/authenticator/update'); ?>', {name: name, settings: settings}, function(data){
 					$modal.modal('hide');
-					
+
 					$modal.on('hidden.bs.modal', function(){
 						hashChange();
 					});

@@ -9,7 +9,7 @@ class w_navigation_c_checker extends Controller_Widget
 	public function index($settings = [])
 	{
 		$links = [];
-		
+
 		foreach ($settings as $key => $values)
 		{
 			if (in_array($key, ['title', 'url', 'target']))
@@ -20,7 +20,7 @@ class w_navigation_c_checker extends Controller_Widget
 				}
 			}
 		}
-		
+
 		return [
 			'links'   => $links,
 			'display' => (bool)$settings['display']

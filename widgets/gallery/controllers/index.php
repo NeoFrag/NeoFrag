@@ -9,7 +9,7 @@ class w_gallery_c_index extends Controller_Widget
 	public function index($settings = [])
 	{
 		$categories = $this->model()->get_categories();
-		
+
 		if (!empty($categories))
 		{
 			return $this->panel()
@@ -26,7 +26,7 @@ class w_gallery_c_index extends Controller_Widget
 						->body($this->lang('no_category'));
 		}
 	}
-	
+
 	public function albums($settings = [])
 	{
 		return $this->panel()
@@ -36,12 +36,12 @@ class w_gallery_c_index extends Controller_Widget
 					]), FALSE)
 					->footer('<a href="'.url('gallery').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_our_gallery').'</a>', 'right');
 	}
-	
+
 	public function image($settings = [])
 	{
 		$image = $this->model()->get_random_image($settings['gallery_id']);
 		$href  = url('gallery/image/'.$image['image_id'].'/'.url_title($image['title']));
-		
+
 		if (!empty($image['file_id']))
 		{
 			return $this->panel()
@@ -56,11 +56,11 @@ class w_gallery_c_index extends Controller_Widget
 						->body($this->lang('no_picture'));
 		}
 	}
-	
+
 	public function slider($settings = [])
 	{
 		$images = $this->model()->get_images($settings['gallery_id']);
-		
+
 		if (!empty($images))
 		{
 			return $this->panel()

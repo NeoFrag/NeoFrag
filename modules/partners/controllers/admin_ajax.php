@@ -3,7 +3,7 @@
  * https://neofr.ag
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
- 
+
 class m_partners_c_admin_ajax extends Controller
 {
 	public function sort($partner_id, $position)

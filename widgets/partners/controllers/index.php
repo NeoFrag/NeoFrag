@@ -9,7 +9,7 @@ class w_partners_c_index extends Controller_Widget
 	public function index($settings = [])
 	{
 		$this->js('partners');
-		
+
 		$partners = $this->model()->get_partners();
 
 		if (!empty($partners))

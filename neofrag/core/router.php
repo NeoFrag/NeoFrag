@@ -15,26 +15,26 @@ class Router extends Core
 		if ((in_array($this->url->extension, ['', 'json', 'xml', 'txt']) || is_asset()) && !in_string('//', $this->url->request))
 		{
 			$segments = $this->url->segments;
-			
+
 			if ($segments[0] == 'index')
 			{
 				$segments = array_merge(explode('/', $this->config->nf_default_page), array_offset_left($segments));
 			}
-			
+
 			if ($this->url->admin && $this->url->request != 'admin')
 			{
 				$segments = array_offset_left($segments);
 			}
-			
+
 			if ($this->url->ajax)
 			{
 				$segments = array_offset_left($segments);
 			}
-			
+
 			if ($this->url->admin && !$this->access->admin())
 			{
 				$this->url->admin = FALSE;
-				
+
 				if ($this->user())
 				{
 					$segments = ['error', 'unauthorized'];
@@ -49,7 +49,7 @@ class Router extends Core
 		$this->load->theme = $this->theme($this->url->admin ? 'admin' : ($this->config->nf_default_theme ?: 'default'))->load();
 
 		$this->_load($segments);
-		
+
 		return $this;
 	}
 
@@ -61,7 +61,7 @@ class Router extends Core
 		}
 
 		array_shift($segments);
-		
+
 		if (method_exists($module, 'load'))
 		{
 			$module->load();
@@ -87,9 +87,9 @@ class Router extends Core
 		{
 			$method = str_replace('-', '_', array_shift($segments));
 		}
-		
+
 		$this->segments = array_merge([$module->name, $method], $segments);
-		
+
 		//Checker Controller
 		if (($checker = $module->controller(($this->url->admin ? 'admin_' : '').($this->url->ajax ? 'ajax_' : '').'checker')) && $checker->has_method($method))
 		{
@@ -113,24 +113,24 @@ class Router extends Core
 		}
 
 		$controller_name = [];
-		
+
 		if ($module->name != 'error')
 		{
 			if (($ajax_error = $this->url->ajax_header && !$this->url->ajax && !$this->url->ajax_allowed) && !post('table_id'))
 			{
 				return $this->_load(['error']);
 			}
-			
+
 			if ($this->url->admin)
 			{
 				$controller_name[] = 'admin';
 			}
-			
+
 			if ($this->url->ajax)
 			{
 				$controller_name[] = 'ajax';
 			}
-			
+
 			if (!$controller_name)
 			{
 				$controller_name[] = 'index';
@@ -140,7 +140,7 @@ class Router extends Core
 		{
 			$controller_name[] = $this->url->ajax_header ? 'ajax' : 'index';
 		}
-	
+
 		//Controller
 		if (($controller = $module->controller(implode('_', $controller_name))) && $controller->has_method($method))
 		{
@@ -169,7 +169,7 @@ class Router extends Core
 				return;
 			}
 		}
-		
+
 		$this->_load(['error']);
 	}
 

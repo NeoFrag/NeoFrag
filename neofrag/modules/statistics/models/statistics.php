@@ -26,7 +26,7 @@ class m_statistics_m_statistics extends Model
 							'color' => $colors[$i % 10]
 						]);
 					}
-					
+
 					$i++;
 				}
 			}

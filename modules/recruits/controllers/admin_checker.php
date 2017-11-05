@@ -114,7 +114,7 @@ class m_recruits_c_admin_checker extends Controller_Module
 				$candidacy['team_name'],
 				$candidacy['username'],
 				$candidacy['avatar'],
-				$candidacy['sex'],
+				$candidacy['sex']
 			];
 		}
 	}
