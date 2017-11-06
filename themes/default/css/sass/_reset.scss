@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	border: none;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+header, nav, article, section, aside, footer {
+	display: block;
+}
+
+.breadcrumb {
+	padding: 0;
+	margin: 0;
+	border-radius: inherit;
+}
+
+button:focus {
+	outline: 0;
+}
+
+.form-control:focus, .btn:focus, .btn.focus {
+	box-shadow: none !important;
+}
+
+iframe {
+	display: block;
+}

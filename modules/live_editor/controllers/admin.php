@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->css('font.open-sans.300.400.600.700.800')
+		$this	->css('fonts/open-sans')
 				->css('live-editor')
 				->js('live-editor')
 				->css('jquery-ui.min')

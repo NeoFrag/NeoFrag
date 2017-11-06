@@ -1,0 +1,19 @@
+.row {
+	+.row {
+		margin-top: 30px;
+	}
+
+	&.d-flex {
+		> [class^="col-"], > .col {
+			display: flex;
+
+			.card {
+				width: 100%;
+			}
+		}
+	}
+	
+	.widget + .widget > .card {
+		margin-top: 30px;
+	}
+}

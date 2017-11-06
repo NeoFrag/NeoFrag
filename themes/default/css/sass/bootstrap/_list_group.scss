@@ -1,0 +1,31 @@
+.list-group {
+	font-weight: 600;
+
+	.list-group-item {
+		color: inherit;
+		border-radius: 0 !important;
+		border: none;
+		line-height: 20px;
+
+		&.active {
+			background: none;
+			border-left: 5px solid #00d7b3;
+			font-weight: 700;
+		}
+
+		+ .list-group-item {
+			border-top: 1px solid #ebebeb;
+		}
+
+		&:focus, &:hover {
+			font-weight: 700;
+			z-index: inherit;
+		}
+	}
+
+	.badge {
+		float: right;
+		color: #A6A9AD;
+		line-height: 15px;
+	}
+}

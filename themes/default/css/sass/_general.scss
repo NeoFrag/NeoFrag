@@ -1,0 +1,19 @@
+body {
+	background-image: url("<?php echo $this->model2('file', $this->config->default_background)->path() ?: image('backgrounds/default.jpg', $this->theme('default')) ?>");
+	background-position: center top;//<?php echo $this->config->default_background_position ?>;
+	background-repeat: no-repeat;//<?php echo $this->config->default_background_repeat ?>;
+	background-attachment: scroll;//<?php echo $this->config->default_background_attachment ?>;
+	background-color: #dfdfdf;//<?php echo color2hex($this->config->default_background_color) ?>;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+	color: #656D79;
+}
+
+a {
+	color: $primary;
+	font-weight: 600;
+
+	&:hover {
+		color: $primary-hover;
+	}
+}

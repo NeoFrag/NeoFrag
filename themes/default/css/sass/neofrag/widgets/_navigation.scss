@@ -1,0 +1,60 @@
+.row-white {
+	.nav {
+		line-height: 45px;
+	}
+
+	.widget-navigation {
+		margin-left: -15px;
+
+		.nav-item {
+			border-right: 1px solid #ebebeb;
+			float: left;
+			position: relative;
+
+			.nav-link {
+				color: #2b373a;
+				font-size: 14px;
+				font-weight: 700;
+				padding-left: 20px;
+				padding-right: 20px;
+				text-transform: uppercase;
+				transition: all .15s ease-in-out;
+
+				&:hover {
+					background: #00d7b3;
+					color: #fff !important;
+				}
+
+				&.active {
+					color: $primary;
+				}
+			}
+		}
+	}
+}
+
+.nav {
+	&.flex-column {
+		.nav-item {
+			padding: 5px 1rem;
+
+			+ .nav-item {
+				border-top: 1px solid #ebebeb;
+			}
+
+			&.active {
+				border-left: 5px solid #00d7b3;
+			}
+			
+			&:hover {
+				> .nav-link {
+					color: #00d7b3;
+				}
+			}
+
+			> .nav-link {
+				color: #000;
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+.row {
+	&.row-default {
+		margin-left: -30px;
+		margin-right: -30px;
+	}
+
+	&.row-white {
+		background-color: #fff;
+	}
+
+	&.row-light {
+		background: url("<?php echo image('gray_light.png', $this->theme('default')) ?>");
+	}
+
+	&.row-dark {
+		background: url("<?php echo image('gray_dark.png', $this->theme('default')) ?>");
+	}
+
+	&.row-black {
+		background-color: rgba(0,0,0,.9);
+	}
+
+	.row-orange {
+		background-color: #ff553e;
+	}
+}
