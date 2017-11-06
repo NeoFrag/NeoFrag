@@ -15,8 +15,8 @@ class Admin extends Controller_Module
 		if (!$modules)
 		{
 			return $this->panel()
-						->heading($this->lang('permissions'), 'fa-unlock-alt')
-						->body($this->lang('no_permission'));
+						->heading($this->lang('Permissions'), 'fa-unlock-alt')
+						->body($this->lang('Il n\'y a aucune permission à administrer'));
 		}
 
 		$this->js('access');
@@ -32,7 +32,7 @@ class Admin extends Controller_Module
 						->table
 						->add_columns([
 							[
-								'title'   => $this->lang('name'),
+								'title'   => $this->lang('Nom'),
 								'content' => function($data){
 									return $data['title'];
 								}
@@ -61,14 +61,14 @@ class Admin extends Controller_Module
 								[
 									'content' => [
 										function($data) use ($module, $type){
-											return $this->button()->tooltip($this->lang('reset'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+											return $this->button()->tooltip($this->lang('Réinitialiser'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 												'module' => $module->info()->name,
 												'type'   => $type,
 												'id'     => $data['id']
 											]);
 										},
 										function($data) use ($module, $type){
-											return $this->button_access($data['id'], $type, $module->info()->name, $this->lang('edit'));
+											return $this->button_access($data['id'], $type, $module->info()->name, $this->lang('Éditer'));
 										}
 									]
 								]
@@ -84,7 +84,7 @@ class Admin extends Controller_Module
 	public function _edit($module, $type, $access, $id, $title = NULL)
 	{
 		$this	->title($module->get_title())
-				->subtitle($title ?: $this->lang('permissions_management'))
+				->subtitle($title ?: $this->lang('Gestion des permissions'))
 				->icon($module->info()->icon)
 				->css('access')
 				->js('access')
@@ -95,7 +95,7 @@ class Admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('permissions_list').'<div class="pull-right">'.$this->button()->tooltip($this->lang('reset_all_permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+							->heading($this->lang('Liste des permissions').'<div class="pull-right">'.$this->button()->tooltip($this->lang('Réinitialiser toutes les permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
 								'module' => $module->info()->name,
 								'type'   => $type,
 								'id'     => $id

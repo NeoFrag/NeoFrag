@@ -17,7 +17,7 @@ class Index extends Controller_Module
 			return $this->login();
 		}
 
-		$this	->title($this->lang('member_area'))
+		$this	->title($this->lang('Espace membre'))
 				->js('user')
 				->css('jquery.mCustomScrollbar.min')
 				->js('jquery.mCustomScrollbar.min');
@@ -37,7 +37,7 @@ class Index extends Controller_Module
 
 	public function edit()
 	{
-		$this	->title($this->lang('manage_my_account'))
+		$this	->title($this->lang('Gérer mon compte'))
 				->icon('fa-cogs')
 				->breadcrumb();
 
@@ -55,7 +55,7 @@ class Index extends Controller_Module
 				'website'       => $this->user->profile()->website,
 				'quote'         => $this->user->profile()->quote
 			])
-			->add_submit($this->lang('save'))
+			->add_submit($this->lang('Valider'))
 			->add_back('user');
 
 		if ($this->form->is_valid($post))
@@ -110,7 +110,7 @@ class Index extends Controller_Module
 			->add_columns([
 				[
 					'content' => function($data){
-						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.$this->lang('persistent_connection').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.$this->lang('nonpersistent_connection').'"></i>';
+						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.$this->lang('Connexion persistante').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.$this->lang('Connexion non persistante').'"></i>';
 					},
 					'size'    => TRUE,
 					'align'   => 'center'
@@ -123,27 +123,27 @@ class Index extends Controller_Module
 					'align'   => 'center'
 				],
 				[
-					'title'   => $this->lang('ip_address'),
+					'title'   => $this->lang('Adresse IP'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				],
 				[
-					'title'   => $this->lang('reference'),
+					'title'   => $this->lang('Site référent'),
 					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
 					}
 				],
 				[
-					'title'   => $this->lang('initial_session_date'),
+					'title'   => $this->lang('Date d\'arrivée'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				],
 				[
-					'title'   => $this->lang('last_activity'),
+					'title'   => $this->lang('Dernière activité'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
 				],
 				[
@@ -168,26 +168,26 @@ class Index extends Controller_Module
 					'align'   => 'center'
 				],
 				[
-					'title'   => $this->lang('ip_address'),
+					'title'   => $this->lang('Adresse IP'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				],
 				[
-					'title'   => $this->lang('reference'),
+					'title'   => $this->lang('Site référent'),
 					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : $this->lang('unknown');
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
 					}
 				],
 				[
-					'title'   => $this->lang('initial_session_date'),
+					'title'   => $this->lang('Date d\'arrivée'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				]
 			])
 			->data($sessions)
-			->no_data($this->lang('no_historic_available'));
+			->no_data($this->lang('Aucun historique disponible'));
 
 		return [
 			$this->row(
@@ -197,11 +197,11 @@ class Index extends Controller_Module
 				),
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('my_active_sessions'), 'fa-shield')
+							->heading($this->lang('Mes sessions actives'), 'fa-shield')
 							->body($active_sessions->display())
 							->size('col-md-8 col-lg-9'),
 					$this	->panel()
-							->heading($this->lang('sessions_historic'), 'fa-power-off')
+							->heading($this->lang('Historique de mes sessions'), 'fa-power-off')
 							->body($sessions_history->display())
 				)
 			)
@@ -210,9 +210,9 @@ class Index extends Controller_Module
 
 	public function _session_delete($session_id)
 	{
-		$this	->title($this->lang('delete_confirmation'))
+		$this	->title($this->lang('Confirmation de suppression'))
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('session_delete_message'));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la session de l\'utilisateur <b>%s</b> ?'));
 
 		if ($this->form->is_valid())
 		{
@@ -356,69 +356,69 @@ class Index extends Controller_Module
 
 	public function login($error = 0)
 	{
-		$this->title($this->lang('login'));
+		$this->title($this->lang('Connexion'));
 
 		$form_login = $this	->form
 							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 							->add_rules([
 								'login' => [
-									'label'       => $this->lang('username'),
-									'description' => $this->lang('username_description'),
+									'label'       => $this->lang('Identifiant'),
+									'description' => $this->lang('Vous pouvez vous identifier avec votre adresse mail ou bien votre pseudonyme'),
 									'type'        => 'text',
 									'rules'       => 'required|max(50)'
 								],
 								'password' => [
-									'label' => $this->lang('password'),
+									'label' => $this->lang('Mot de passe'),
 									'type'  => 'password'
 								],
 								'remember_me' => [
 									'type'   => 'checkbox',
-									'values' => ['on' => $this->lang('remember_me')]
+									'values' => ['on' => $this->lang('Se souvenir de moi')]
 								],
 								'redirect' => [
 								]
 							])
-							->add_submit($this->lang('login'))
+							->add_submit($this->lang('Connexion'))
 							->display_required(FALSE);
 
 		$rules = [
 			'username' => [
-				'label' => $this->lang('username'),
+				'label' => $this->lang('Identifiant'),
 				'icon'  => 'fa-user',
 				'rules' => 'required',
 				'check' => function($value){
 					if (NeoFrag()->db->select('1')->from('nf_user')->where('username', $value)->row())
 					{
-						return $this->lang('username_unavailable');
+						return $this->lang('Identifiant déjà utilisé');
 					}
 				}
 			],
 			'password' => [
-				'label' => $this->lang('password'),
+				'label' => $this->lang('Mot de passe'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
 				'rules' => 'required'
 			],
 			'password_confirm' => [
-				'label' => $this->lang('password_confirmation'),
+				'label' => $this->lang('Confirmation'),
 				'icon'  => 'fa-lock',
 				'type'  => 'password',
 				'rules' => 'required',
 				'check' => function($value, $post){
 					if ($post['password'] != $value)
 					{
-						return $this->lang('password_not_match');
+						return $this->lang('Les mots de passe doivent être identiques');
 					}
 				}
 			],
 			'email' => [
-				'label' => $this->lang('email'),
+				'label' => $this->lang('Email'),
 				'type'  => 'email',
 				'rules' => 'required',
 				'check' => function($value){
 					if (NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
 					{
-						return $this->lang('email_unavailable');
+						return $this->lang('Addresse email déjà utilisée');
 					}
 				}
 			]
@@ -437,7 +437,7 @@ class Index extends Controller_Module
 			->form
 			->add_rules($rules)
 			->add_captcha()
-			->add_submit($this->lang('create_account'))
+			->add_submit($this->lang('Créer un compte'))
 			->fast_mode();
 
 		$rows = [];
@@ -450,8 +450,8 @@ class Index extends Controller_Module
 			$rows[] = $this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('login_required'), 'fa-warning')
-							->body($this->lang('login_required_message'))
+							->heading($this->lang('Connexion requise'), 'fa-warning')
+							->body($this->lang('<p>La page que vous souhaitez consulter n\'est accessible qu\'aux utilisateurs connectés.</p>Connectez-vous si vous avez déjà un compte utilisateur.<br />Vous pouvez aussi créer un nouveau compte en vous inscrivant ci-dessous.'))
 							->color('danger')
 				)
 			);
@@ -497,8 +497,8 @@ class Index extends Controller_Module
 				$rows[] = $this->row(
 					$this->col(
 						$this	->panel()
-								->heading($this->lang('invalid_login'), 'fa-warning')
-								->body($this->lang('invalid_login_message'))
+								->heading($this->lang('Identifiants incorrects !'), 'fa-warning')
+								->body($this->lang('Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous'))
 								->color('danger')
 					)
 				);
@@ -526,7 +526,7 @@ class Index extends Controller_Module
 		$rows[] = $this->row(
 			$col = $this->col(
 						$this	->panel()
-								->heading($this->lang('login_title'), 'fa-sign-in')
+								->heading($this->lang('Se connecter'), 'fa-sign-in')
 								->body($this->view('login', [
 									'form_id' => $form_login->token()
 								]))
@@ -534,8 +534,8 @@ class Index extends Controller_Module
 					->size('col-md-6'),
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('create_account_title'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this->lang('create_account_message').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
+								->heading($this->lang('Pas encore inscrit ?'), 'fa-sign-in fa-rotate-90')
+								->body($this->config->nf_registration_status == 0 ? $this->lang('<p>Créez votre compte maintenant pour profiter pleinement du site</p>').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning no-margin">Les inscriptions sur notre site sont fermées...</div>')
 					)
 					->size('col-md-6')
 		);
@@ -702,7 +702,7 @@ class Index extends Controller_Module
 		$this	->title($this->lang('delete_message'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

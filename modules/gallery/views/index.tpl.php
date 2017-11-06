@@ -10,17 +10,17 @@
 				<a href="<?php echo url('gallery/album/'.$album['gallery_id'].'/'.url_title($album['title'])) ?>" class="gallery-item thumbnail" style="background-image: url('<?php echo $this->model2('file', !empty($album['image']) ? $album['image'] : $this->db->select('file_id')->from('nf_gallery_images')->where('gallery_id', $album['gallery_id'])->order_by('RAND()')->limit(1)->row())->path() ?>);">
 					<div class="black-caption-hover">
 						<div class="black-caption-hover-content">
-							<h4 class="no-margin"><?php echo icon('fa-eye').' '.$this->lang('open_album') ?></h4>
+							<h4 class="no-margin"><?php echo icon('fa-eye').' '.$this->lang('Ouvrir l\'album') ?></h4>
 						</div>
 					</div>
 					<div class="caption">
-						<span class="label label-default"><?php echo icon('fa-photo').' '.$this->lang('images', $album['images'], $album['images']) ?></span>
+						<span class="label label-default"><?php echo icon('fa-photo').' '.$this->lang('<b>%d</b> image|<b>%d</b> images', $album['images'], $album['images']) ?></span>
 					</div>
 				</a>
 			</div>
 		<?php endforeach ?>
 	</div>
 	<?php else: ?>
-	<div class="text-center"><?php echo $this->lang('no_category_albums') ?></div>
+	<div class="text-center"><?php echo $this->lang('Aucun album dans cette catégorie') ?></div>
 	<?php endif ?>
 </div>

@@ -39,7 +39,7 @@ class Modal extends Library
 
 		$content = '<div class="modal-header">
 						<h5 class="modal-title">'.$this->_header.'</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="'.$this->lang('close').'"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="'.$this->lang('Fermer').'"><span aria-hidden="true">&times;</span></button>
 					</div>
 					'.$content.'
 					'.($this->_buttons ? $this->button->static_footer($this->_buttons, 'right')->append_attr('class', 'modal-footer') : '');
@@ -133,7 +133,7 @@ class Modal extends Library
 		if (!is_a($button, 'NF\\NeoFrag\\Libraries\\Button'))
 		{
 			$button = parent::button()
-							->title($button ?: $this->lang('save'))
+							->title($button ?: $this->lang('Valider'))
 							->color($color);
 		}
 
@@ -149,7 +149,7 @@ class Modal extends Library
 		if (!is_a($button, 'NF\\NeoFrag\\Libraries\\Button'))
 		{
 			$button = parent::button_submit()
-							->title($button ?: $this->lang('save'))
+							->title($button ?: $this->lang('Valider'))
 							->color($color);
 		}
 
@@ -160,12 +160,12 @@ class Modal extends Library
 
 	public function close()
 	{
-		return $this->dismiss($this->lang('close'));
+		return $this->dismiss($this->lang('Fermer'));
 	}
 
 	public function cancel()
 	{
-		return $this->dismiss($this->lang('cancel'));
+		return $this->dismiss($this->lang('Annuler'));
 	}
 
 	public function large()

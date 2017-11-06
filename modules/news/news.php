@@ -13,7 +13,7 @@ class News extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('news'),
+			'title'       => $this->lang('Actualités'),
 			'description' => '',
 			'icon'        => 'fa-file-text-o',
 			'link'        => 'https://neofr.ag',
@@ -121,7 +121,7 @@ class News extends Module
 						'rules' => 'required'
 					]
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))

@@ -31,7 +31,7 @@ class Date extends Text
 
 				if ($this->_required)
 				{
-					$this->_errors[] = $this->lang('required_input');
+					$this->_errors[] = $this->lang('Veuillez remplir ce champ');
 				}
 			}
 
@@ -54,7 +54,7 @@ class Date extends Text
 
 	public function value($value)
 	{
-		$this->_value = $value !== '' ? timetostr($this->lang('date_short'), $value) : '';
+		$this->_value = $value !== '' ? timetostr($this->lang('%d/%m/%Y'), $value) : '';
 		return $this;
 	}
 }

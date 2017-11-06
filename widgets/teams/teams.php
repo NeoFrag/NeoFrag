@@ -13,7 +13,7 @@ class Teams extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('teams'),
+			'title'       => $this->lang('Équipes'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

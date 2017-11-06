@@ -8,7 +8,7 @@
 
 			if ($this->user->id && $parent_id == NULL)
 			{
-				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$id.'">'.icon('fa-mail-reply').' '.$this->lang('reply').'</a>';
+				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$id.'">'.icon('fa-mail-reply').' '.$this->lang('Répondre').'</a>';
 			}
 
 			if ($this->user->admin || ($this->user->id && $this->user->id == $user_id))
@@ -22,10 +22,10 @@
 			}
 		?>
 		<h4 class="media-heading">
-			<?php echo $user_id ? $this->user->link($user_id, $username) : $this->lang('guest') ?>
+			<?php echo $user_id ? $this->user->link($user_id, $username) : $this->lang('Visiteur') ?>
 			<small><?php echo icon('fa-clock-o').' '.time_span($date) ?></small>
 		</h4>
-		<?php echo $content ? strtolink(nl2br($content), TRUE) : '<i>'.$this->lang('removed_message').'</i>' ?>
+		<?php echo $content ? strtolink(nl2br($content), TRUE) : '<i>'.$this->lang('Message supprimé').'</i>' ?>
 	</div>
 </div>
 <hr<?php if ($parent_id !== NULL) echo ' class="comments-child"' ?> />

@@ -15,7 +15,7 @@ class Url extends Text
 		$this->_check[] = function($post, &$data){
 			if (isset($post[$this->_name]) && $post[$this->_name] !== '' && !is_valid_url($post[$this->_name]))
 			{
-				$this->_errors[] = $this->lang('wrong_url');
+				$this->_errors[] = $this->lang('Veuillez entrer une adresse url valide');
 			}
 		};
 

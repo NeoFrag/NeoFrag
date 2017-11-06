@@ -13,7 +13,7 @@ class Admin extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('administration'),
+			'title'       => $this->lang('Administration'),
 			'description' => '',
 			'icon'        => 'fa-dashboard',
 			'link'        => 'https://neofr.ag',

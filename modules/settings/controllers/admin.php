@@ -12,8 +12,8 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->title($this->lang('configuration'))
-				->subtitle($this->lang('general_settings'))
+		$this	->title($this->lang('Configuration'))
+				->subtitle($this->lang('Préférences générales'))
 				->icon('fa-cog');
 
 		$modules = $pages = [];
@@ -49,23 +49,23 @@ class Admin extends Controller_Module
 		$this	->form
 				->add_rules([
 					'name' => [
-						'label'  => $this->lang('site_title'),
+						'label'  => $this->lang('Titre du site'),
 						'value'  => $this->config->nf_name,
 						'rules'  => 'required'
 					],
 					'description' => [
-						'label'  => $this->lang('site_description'),
+						'label'  => $this->lang('Description du site'),
 						'value'  => $this->config->nf_description,
 						'rules'  => 'required'
 					],
 					'contact' => [
-						'label'  => $this->lang('contact_email'),
+						'label'  => $this->lang('Email de contact'),
 						'value'  => $this->config->nf_contact,
 						'type'   => 'email',
 						'rules'  => 'required'
 					],
 					'default_page' => [
-						'label'  => $this->lang('default_page'),
+						'label'  => $this->lang('Page d\'accueil'),
 						'values' => $pages,
 						'value'  => $this->config->nf_default_page,
 						'type'   => 'select',
@@ -82,12 +82,12 @@ class Admin extends Controller_Module
 						'value'  => $this->config->nf_robots_txt
 					],
 					'analytics' => [
-						'label'  => $this->lang('code_analytics'),
+						'label'  => $this->lang('Code analytics'),
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_analytics
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -112,7 +112,7 @@ class Admin extends Controller_Module
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('general_settings'), 'fa-cog')
+								->heading($this->lang('Préférences générales'), 'fa-cog')
 								->body($this->form->display())
 					)
 					->size('col-md-9')
@@ -121,7 +121,7 @@ class Admin extends Controller_Module
 
 	public function registration()
 	{
-		$this	->title($this->lang('configuration'))
+		$this	->title($this->lang('Configuration'))
 				->subtitle('Gestions des inscriptions')
 				->icon('fa-sign-in fa-rotate-90');
 
@@ -190,7 +190,7 @@ class Admin extends Controller_Module
 						'type'    => 'editor'
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -223,7 +223,7 @@ class Admin extends Controller_Module
 
 	public function team()
 	{
-		$this	->title($this->lang('configuration'))
+		$this	->title($this->lang('Configuration'))
 				->subtitle('Notre structure')
 				->icon('fa-users');
 
@@ -267,7 +267,7 @@ class Admin extends Controller_Module
 						'type'        => 'textarea'
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -296,7 +296,7 @@ class Admin extends Controller_Module
 
 	public function socials()
 	{
-		$this	->title($this->lang('configuration'))
+		$this	->title($this->lang('Configuration'))
 				->subtitle('Réseaux sociaux')
 				->icon('fa-globe');
 
@@ -375,7 +375,7 @@ class Admin extends Controller_Module
 						'type'  => 'url'
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -404,7 +404,7 @@ class Admin extends Controller_Module
 
 	public function captcha()
 	{
-		$this	->title($this->lang('configuration'))
+		$this	->title($this->lang('Configuration'))
 				->subtitle('Sécurité anti-bots')
 				->icon('fa-shield');
 
@@ -421,7 +421,7 @@ class Admin extends Controller_Module
 						'type'  => 'text'
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -450,7 +450,7 @@ class Admin extends Controller_Module
 
 	public function email()
 	{
-		$this	->title($this->lang('configuration'))
+		$this	->title($this->lang('Configuration'))
 				->subtitle('Serveur e-mail')
 				->icon('fa-envelope-o');
 
@@ -486,7 +486,7 @@ class Admin extends Controller_Module
 						'size'   => 'col-md-2'
 					]
 				])
-				->add_submit($this->lang('save'))
+				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
 		if ($this->form->is_valid($post))
@@ -515,7 +515,7 @@ class Admin extends Controller_Module
 
 	public function maintenance()
 	{
-		$this	->title($this->lang('maintenance'))
+		$this	->title($this->lang('Maintenance'))
 				->icon('fa-power-off')
 				->css('maintenance')
 				->js('maintenance');
@@ -528,83 +528,83 @@ class Admin extends Controller_Module
 				]
 			])
 			->fast_mode()
-			->add_submit($this->lang('save'));
+			->add_submit($this->lang('Valider'));
 
 		$form_maintenance = $this->form
 			->add_rules([
 				'title' => [
-					'label' => $this->lang('title'),
+					'label' => $this->lang('Titre'),
 					'type'  => 'text',
 					'value' => $this->config->nf_maintenance_title
 				],
 				'content' => [
-					'label' => $this->lang('content'),
+					'label' => $this->lang('Contenu'),
 					'type'  => 'editor',
 					'value' => $this->config->nf_maintenance_content
 				],
 				'logo' => [
-					'label'  => $this->lang('logo'),
+					'label'  => $this->lang('Logo'),
 					'value'  => $this->config->nf_maintenance_logo,
 					'type'   => 'file',
 					'upload' => 'maintenance',
-					'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+					'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
-							return $this->lang('select_image_file');
+							return $this->lang('Veuiller choisir un fichier d\'image');
 						}
 					}
 				],
 				'background' => [
-					'label'  => $this->lang('background'),
+					'label'  => $this->lang('Image de fond'),
 					'value'  => $this->config->nf_maintenance_background,
 					'type'   => 'file',
 					'upload' => 'maintenance',
-					'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+					'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 					'check'  => function($filename, $ext){
 						if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 						{
-							return $this->lang('select_image_file');
+							return $this->lang('Veuiller choisir un fichier d\'image');
 						}
 					}
 				],
 				'repeat' => [
-					'label'  => $this->lang('background_repeat'),
+					'label'  => $this->lang('Répéter l\'image'),
 					'value'  => $this->config->nf_maintenance_background_repeat,
 					'values' => [
-						'no-repeat' => $this->lang('no'),
-						'repeat-x'  => $this->lang('horizontally'),
-						'repeat-y'  => $this->lang('vertically'),
-						'repeat'    => $this->lang('both')
+						'no-repeat' => $this->lang('Non'),
+						'repeat-x'  => $this->lang('Horizontalement'),
+						'repeat-y'  => $this->lang('Verticalement'),
+						'repeat'    => $this->lang('Les deux')
 					],
 					'type'   => 'radio'
 				],
 				'positionX' => [
-					'label'  => $this->lang('position'),
+					'label'  => $this->lang('Position'),
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[0] : '',
 					'values' => [
-						'left'   => $this->lang('left'),
-						'center' => $this->lang('center'),
-						'right'  => $this->lang('right')
+						'left'   => $this->lang('Gauche'),
+						'center' => $this->lang('Centré'),
+						'right'  => $this->lang('Droite')
 					],
 					'type'   => 'radio'
 				],
 				'positionY' => [
 					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[1] : '',
 					'values' => [
-						'top'    => $this->lang('top'),
-						'center' => $this->lang('middle'),
-						'bottom' => $this->lang('bottom')
+						'top'    => $this->lang('Haut'),
+						'center' => $this->lang('Milieu'),
+						'bottom' => $this->lang('Bas')
 					],
 					'type'   => 'radio'
 				],
 				'background_color' => [
-					'label' => $this->lang('background_color'),
+					'label' => $this->lang('Couleur de fond'),
 					'value' => $this->config->nf_maintenance_background_color,
 					'type'  => 'colorpicker'
 				],
 				'text_color' => [
-					'label' => $this->lang('text_color'),
+					'label' => $this->lang('Couleur du texte'),
 					'value' => $this->config->nf_maintenance_text_color,
 					'type'  => 'colorpicker'
 				],
@@ -639,7 +639,7 @@ class Admin extends Controller_Module
 					'type'  => 'url'
 				]
 			])
-			->add_submit($this->lang('save'));
+			->add_submit($this->lang('Valider'));
 
 		if ($form_opening->is_valid($post))
 		{
@@ -669,16 +669,16 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('website_status'), 'fa-power-off')
+								->heading($this->lang('Statut du site'), 'fa-power-off')
 								->body($this->view('maintenance')),
 						$this	->panel()
-								->heading($this->lang('planned_opening'), 'fa-clock-o')
+								->heading($this->lang('Ouverture programmée'), 'fa-clock-o')
 								->body($form_opening->display())
 					)
 					->size('col-md-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('customizing_maintenance_page'), 'fa-paint-brush')
+								->heading($this->lang('Personnalisation de la page de maintenance'), 'fa-paint-brush')
 								->body($form_maintenance->display())
 					)
 					->size('col-md-9')

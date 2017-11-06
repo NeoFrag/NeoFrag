@@ -59,7 +59,7 @@ class Admin extends Controller_Module
 		$this	->title('Confirmation de suppression')
 				->subtitle($module->get_title())
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le module <b>'.$module->get_title().'</b> ?');
 
 		if ($this->form->is_valid())
 		{
@@ -73,7 +73,7 @@ class Admin extends Controller_Module
 	public function _theme_settings($theme, $controller)
 	{
 		$this	->title($theme->get_title())
-				->subtitle($this->lang('theme_customize'))
+				->subtitle($this->lang('Personnalisation du thème'))
 				->icon('fa-paint-brush');
 
 		return $controller->index($theme);
@@ -84,7 +84,7 @@ class Admin extends Controller_Module
 		$this	->title('Confirmation de suppression')
 				->subtitle($theme->get_title())
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le thème <b>'.$theme->get_title().'</b> ?');
 
 		if ($this->form->is_valid())
 		{

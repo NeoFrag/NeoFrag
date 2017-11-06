@@ -33,7 +33,7 @@ abstract class Multiple extends Labelable
 
 				if ($this->_required && empty($data[$this->_name]))
 				{
-					$this->_errors[] = $this->lang('required_input');
+					$this->_errors[] = $this->lang('Veuillez remplir ce champ');
 				}
 
 				$this->_value = $data[$this->_name];
@@ -48,7 +48,7 @@ abstract class Multiple extends Labelable
 				}
 				else if ($this->_required)
 				{
-					$this->_errors[] = $this->lang('required_input');
+					$this->_errors[] = $this->lang('Veuillez remplir ce champ');
 				}
 			}
 		};

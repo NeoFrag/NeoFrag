@@ -19,12 +19,12 @@ $rules = [
 	],
 	'date' => [
 		'label' => 'Date',
-		'value' => $this->form->value('date') ? timetostr($this->lang('date_short'), strtotime($this->form->value('date'))) : '',
+		'value' => $this->form->value('date') ? timetostr($this->lang('%d/%m/%Y'), strtotime($this->form->value('date'))) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
 			{
-				return $this->lang('invalid_birth_date');
+				return $this->lang('Vraiment ?! 2.1 Gigowatt !');
 			}
 		},
 		'size'  => 'col-md-3',
@@ -89,11 +89,11 @@ $rules = [
 		'value'  => $this->form->value('image'),
 		'type'   => 'file',
 		'upload' => 'awards',
-		'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+		'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 		'check'  => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return $this->lang('select_image_file');
+				return $this->lang('Veuiller choisir un fichier d\'image');
 			}
 		}
 	]

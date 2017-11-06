@@ -1,9 +1,9 @@
 <div role="tabpanel">
-	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('remove_link') ?>" data-content="<?php echo $this->lang('move_here_to_remove') ?>" data-placement="top"><?php echo icon('fa-trash-o').$this->lang('remove') ?></a>
+	<a id="link-delete" class="btn btn-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('Supprimer un lien') ?>" data-content="<?php echo $this->lang('Déplacez un lien ici pour le supprimer') ?>" data-placement="top"><?php echo icon('fa-trash-o').$this->lang('remove') ?></a>
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab"><?php echo $this->lang('links') ?></a></li>
+		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab"><?php echo $this->lang('Liens') ?></a></li>
 		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab"><?php echo icon('fa-plus').' '.$this->lang('add') ?></a></li>
-		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('options') ?></a></li>
+		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('Options') ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">
@@ -14,7 +14,7 @@
 					<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url'] ?>" />
 					<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent' ?>" />
 					<ul class="list-inline no-margin">
-						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move') ?>"><?php echo icon('fa-arrows-v') ?></a></li>
+						<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>
 						<li><span data-toggle="tooltip" title="<?php echo $link['url'] ?>"><?php echo icon('fa-link') ?></span></li>
 						<li><?php echo $link['title'] ?></li>
 					</ul>
@@ -64,17 +64,17 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('Chemin') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path') ?>" disabled="disabled" />
+										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('Chemin') ?>" disabled="disabled" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('Cible') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
+											<option value="_parent"><?php echo $this->lang('Même fenêtre') ?></option>
+											<option value="_blank"><?php echo $this->lang('Nouvelle fenêtre') ?></option>
 										</select>
 									</div>
 								</div>
@@ -117,17 +117,17 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('Chemin') ?></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('path') ?>" disabled="disabled" />
+										<input type="text" class="form-control" id="settings-url" value="" placeholder="<?php echo $this->lang('Chemin') ?>" disabled="disabled" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('Cible') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
+											<option value="_parent"><?php echo $this->lang('Même fenêtre') ?></option>
+											<option value="_blank"><?php echo $this->lang('Nouvelle fenêtre') ?></option>
 										</select>
 									</div>
 								</div>
@@ -156,17 +156,17 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('path') ?></label>
+									<label for="settings-url" class="col-sm-3 control-label"><?php echo $this->lang('Chemin') ?></label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" id="settings-url" value="" placeholder="http://..." />
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('target') ?></label>
+									<label for="settings-target" class="col-sm-3 control-label"><?php echo $this->lang('Cible') ?></label>
 									<div class="col-sm-5">
 										<select class="form-control" id="settings-target">
-											<option value="_parent"><?php echo $this->lang('same_window') ?></option>
-											<option value="_blank"><?php echo $this->lang('new_window') ?></option>
+											<option value="_parent"><?php echo $this->lang('Même fenêtre') ?></option>
+											<option value="_blank"><?php echo $this->lang('Nouvelle fenêtre') ?></option>
 										</select>
 									</div>
 								</div>
@@ -185,13 +185,13 @@
 		<div id="navigation-options" class="tab-pane" role="tabpanel">
 			<div class="form-horizontal">
 				<div class="form-group">
-					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('orientation') ?></label>
+					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('Orientation') ?></label>
 					<div class="col-sm-5">
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="0"<?php if (empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('vertical') ?>
+							<input type="radio" name="settings[display]" value="0"<?php if (empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Verticale') ?>
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="1"<?php if (!empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('horizontal') ?>
+							<input type="radio" name="settings[display]" value="1"<?php if (!empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Horizontale') ?>
 						</label>
 					</div>
 				</div>
@@ -271,7 +271,7 @@
 						<input type="hidden" name="settings[url][]" id="edit-url" value="'+url+'" />\
 						<input type="hidden" name="settings[target][]" id="edit-target" value="'+target+'" />\
 						<ul class="list-inline no-margin">\
-							<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('move') ?>"><?php echo icon('fa-arrows-v') ?></a></li>\
+							<li><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>\
 							<li><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fa-link') ?></span></li>\
 							<li>'+title+'</li>\
 						</ul>\

@@ -49,7 +49,7 @@ $(function(){
 				$('body').trigger('nf.load');
 			}
 			else if ($table.is(':visible')) {
-				$table.hide().after('<div class="panel-body"><?php echo $this->lang('no_result') ?></div>');
+				$table.hide().after('<div class="panel-body"><?php echo $this->lang('Aucun résultat ne correspond à la recherche') ?></div>');
 			}
 
 			if (typeof data.footer != 'undefined'){

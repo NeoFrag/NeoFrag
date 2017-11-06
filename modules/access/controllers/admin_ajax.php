@@ -21,7 +21,7 @@ class Admin_Ajax extends Controller_Module
 
 		return $this->col(
 			$this	->panel()
-					->heading('<span class="pull-right">'.$this->button()->tooltip($this->lang('users'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
+					->heading('<span class="pull-right">'.$this->button()->tooltip($this->lang('Utilisateurs'))->icon('fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
 					->body($this->view('details', [
 						'groups' => $groups
 					]), FALSE)
@@ -75,7 +75,7 @@ class Admin_Ajax extends Controller_Module
 		$this	->table
 				->add_columns([
 						[
-						'title'   => $this->lang('member'),
+						'title'   => $this->lang('Membre'),
 						'content' => function($data){
 							return NeoFrag()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
 						},
@@ -87,7 +87,7 @@ class Admin_Ajax extends Controller_Module
 						}
 					],
 					[
-						'title'   => $this->lang('groups'),
+						'title'   => $this->lang('Groupes'),
 						'content' => function($data){
 							return NeoFrag()->groups->user_groups($data['user_id']);
 						},
@@ -104,7 +104,7 @@ class Admin_Ajax extends Controller_Module
 
 							if (is_int($data['active']))
 							{
-								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('reset_automatic').'">'.icon('fa-thumb-tack').'</a>';
+								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('Remettre en automatique').'">'.icon('fa-thumb-tack').'</a>';
 							}
 
 							return '<td class="access-status">'.$output.'</td>';
@@ -116,7 +116,7 @@ class Admin_Ajax extends Controller_Module
 						'td'      => FALSE
 					],
 					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('authorized_member').'">'.icon('fa-check').'</i></div>',
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre autorisé').'">'.icon('fa-check').'</i></div>',
 						'content' => function($data){
 							return $this->view('radio', [
 								'class'  => 'success',
@@ -126,7 +126,7 @@ class Admin_Ajax extends Controller_Module
 						'td'      => FALSE
 					],
 					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('forbidden_member').'">'.icon('fa-ban').'</i></div>',
+						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre exclu').'">'.icon('fa-ban').'</i></div>',
 						'content' => function($data){
 							static $admins;
 

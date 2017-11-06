@@ -12,7 +12,7 @@ $rules = [
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag()->db->select('1')->from('nf_user')->where('username', $value)->row())
 			{
-				return $this->lang('username_unavailable');
+				return $this->lang('Identifiant déjà utilisé');
 			}
 		}
 	]
@@ -28,7 +28,7 @@ if (!NeoFrag()->url->admin)
 			'check' => function($value, $post){
 				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag()->password->is_valid($value.($salt = NeoFrag()->user->salt), NeoFrag()->user->password, (bool)$salt))
 				{
-					return $this->lang('invalid_password');
+					return $this->lang('Mot de passe incorrect');
 				}
 			}
 		],
@@ -60,7 +60,7 @@ $rules = array_merge($rules, [
 		'check' => function($value) use ($email){
 			if ($value != $email && NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
 			{
-				return $this->lang('email_unavailable');
+				return $this->lang('Addresse email déjà utilisée');
 			}
 		}
 	],
@@ -77,22 +77,22 @@ $rules = array_merge($rules, [
 		'value'       => $this->form->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
-		'info'        => $this->lang('file_icon', 250, file_upload_max_size() / 1024 / 1024),
+		'info'        => $this->lang(' d\'image (format carré min. %dpx et max. %d Mo)', 250, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return $this->lang('select_image_file');
+				return $this->lang('Veuiller choisir un fichier d\'image');
 			}
 
 			list($w, $h) = getimagesize($filename);
 
 			if ($w != $h)
 			{
-				return $this->lang('avatar_must_be_square');
+				return $this->lang('L\'avatar doit être carré');
 			}
 			else if ($w < 250)
 			{
-				return $this->lang('avatar_size_error', 250);
+				return $this->lang('L\'avatar doit faire au moins %dpx', 250);
 			}
 		},
 		'post_upload' => function($filename){
@@ -106,7 +106,7 @@ $rules = array_merge($rules, [
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
 			{
-				return $this->lang('invalid_birth_date');
+				return $this->lang('Vraiment ?! 2.1 Gigowatt !');
 			}
 		}
 	],

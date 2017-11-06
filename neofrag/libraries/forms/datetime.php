@@ -15,7 +15,7 @@ class Datetime extends Date
 
 	public function value($value)
 	{
-		$this->_value = $value !== '' ? timetostr($this->lang('date_time_short'), $value) : '';
+		$this->_value = $value !== '' ? timetostr($this->lang('%d/%m/%Y %H:%M'), $value) : '';
 		return $this;
 	}
 }

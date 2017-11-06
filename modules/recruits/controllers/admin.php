@@ -280,7 +280,7 @@ class Admin extends Controller_Module
 										[
 											'title'   => 'Date',
 											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 											},
 											'sort'    => function($data){
 												return $data['date'];
@@ -351,7 +351,7 @@ class Admin extends Controller_Module
 										[
 											'title'   => 'Date',
 											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 											},
 											'sort'    => function($data){
 												return $data['date'];
@@ -409,7 +409,7 @@ class Admin extends Controller_Module
 										[
 											'title'   => 'Date',
 											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 											},
 											'sort'    => function($data){
 												return $data['date'];
@@ -467,7 +467,7 @@ class Admin extends Controller_Module
 										[
 											'title'   => 'Date',
 											'content' => function($data){
-												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+												return '<span data-toggle="tooltip" title="'.timetostr($this->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 											},
 											'sort'    => function($data){
 												return $data['date'];

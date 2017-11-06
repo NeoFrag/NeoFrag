@@ -13,8 +13,8 @@ class Default_ extends Theme
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('default_theme'),
-			'description' => '{lang default_theme_description}',
+			'title'       => $this->lang('Thème de base'),
+			'description' => $this->lang('Son design est minimaliste mais générique, il peut s\'adapter facilement à n\'importe quel domaine'),
 			'thumbnail'   => 'themes/default/images/thumbnail.png',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
@@ -78,15 +78,15 @@ class Default_ extends Theme
 										'display' => TRUE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this->lang('home')),
+												'title' => utf8_htmlentities($this->lang('Accueil')),
 												'url'   => ''
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('forum')),
+												'title' => utf8_htmlentities($this->lang('Forum')),
 												'url'   => 'forum'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('teams')),
+												'title' => utf8_htmlentities($this->lang('Équipes')),
 												'url'   => 'teams'
 											],
 											[
@@ -155,11 +155,11 @@ class Default_ extends Theme
 										'display' => FALSE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this->lang('news')),
+												'title' => utf8_htmlentities($this->lang('Actualités')),
 												'url'   => 'news'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('members')),
+												'title' => utf8_htmlentities($this->lang('Membres')),
 												'url'   => 'members'
 											],
 											[
@@ -171,11 +171,11 @@ class Default_ extends Theme
 												'url'   => 'gallery'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('search')),
+												'title' => utf8_htmlentities($this->lang('Rechercher')),
 												'url'   => 'search'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('contact')),
+												'title' => utf8_htmlentities($this->lang('Contact')),
 												'url'   => 'contact'
 											]
 										]
@@ -300,7 +300,7 @@ class Default_ extends Theme
 									'widget'   => 'html',
 									'type'     => 'index',
 									'settings' => serialize([
-										'content' => utf8_htmlentities($this->lang('powered_by_neofrag'))
+										'content' => utf8_htmlentities($this->lang('[center]Propulsé par [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]'))
 									])
 								]))
 								->style('panel-dark')

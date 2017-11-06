@@ -13,7 +13,7 @@ class Games extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('games_maps'),
+			'title'       => $this->lang('Jeux / Cartes'),
 			'description' => '',
 			'icon'        => 'fa-gamepad',
 			'link'        => 'https://neofr.ag',

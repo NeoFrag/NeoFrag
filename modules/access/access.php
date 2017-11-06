@@ -13,7 +13,7 @@ class Access extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('permissions'),
+			'title'       => $this->lang('Permissions'),
 			'description' => '',
 			'icon'        => 'fa-unlock-alt',
 			'link'        => 'https://neofr.ag',

@@ -9,8 +9,8 @@ $(function(){
 						cols: 10,
 						rows: 5,
 						iconset: 'fontawesome',
-						labelHeader: '<?php echo $this->lang('pages') ?>',
-						labelFooter: '<div class="pull-right"><?php echo $this->lang('icons') ?></div>',
+						labelHeader: '<?php echo $this->lang('{0} sur {1} pages') ?>',
+						labelFooter: '<div class="pull-right"><?php echo $this->lang('{2} icônes') ?></div>',
 						searchText: '<?php echo $this->lang('search...') ?>',
 						selectedClass: 'btn-primary',
 						unselectedClass: ''

@@ -6,7 +6,7 @@
 		<input type="password" class="form-control" name="<?php echo $form_id ?>[password]" placeholder="<?php echo $this->lang('password') ?>" />
 	</div>
 	<div class="text-right">
-		<a href="<?php echo url('user/lost-password') ?>" class="btn btn-link"><?php echo $this->lang('lost_password') ?></a>
+		<a href="<?php echo url('user/lost-password') ?>" class="btn btn-link"><?php echo $this->lang('Mot de passe perdu ?') ?></a>
 		<input type="hidden" name="<?php echo $form_id ?>[redirect]" value="<?php echo $this->url->request ?>" />
 		<input type="hidden" name="<?php echo $form_id ?>[remember_me][]" value="on" />
 		<input type="submit" class="btn btn-default" value="<?php echo $this->lang('login') ?>" />

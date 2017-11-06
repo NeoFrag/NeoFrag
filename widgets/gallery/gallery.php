@@ -13,7 +13,7 @@ class Gallery extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('galleries'),
+			'title'       => $this->lang('Galeries'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

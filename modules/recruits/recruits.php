@@ -82,7 +82,7 @@ class Recruits extends Module
 						]
 					]
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))

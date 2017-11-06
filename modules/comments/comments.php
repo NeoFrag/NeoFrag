@@ -13,7 +13,7 @@ class Comments extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('comments'),
+			'title'       => $this->lang('Commentaires'),
 			'description' => '',
 			'icon'        => 'fa-comments-o',
 			'link'        => 'https://neofr.ag',

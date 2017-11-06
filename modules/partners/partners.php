@@ -50,7 +50,7 @@ class Partners extends Module
 						'size'        => 'col-md-4'
 					]
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/addons#modules');
 
 		if ($this->form->is_valid($post))

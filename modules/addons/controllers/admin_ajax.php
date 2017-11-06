@@ -212,7 +212,7 @@ class Admin_Ajax extends Controller_Module
 		}
 
 		return [
-			'danger' => [$this->lang('zip_file_required')]
+			'danger' => [$this->lang('Veuillez télécharger un thème .zip')]
 		];
 	}
 

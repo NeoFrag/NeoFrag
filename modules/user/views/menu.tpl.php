@@ -7,5 +7,5 @@
 		<?php endif ?>
 		<?php echo icon('fa-envelope-o') ?> Messagerie privée
 	</a>
-	<a href="<?php echo url('user/sessions') ?>" class="list-group-item<?php echo isset($this->url->segments[1]) && $this->url->segments[1] == 'sessions' ? ' active' : '' ?>"><?php echo icon('fa-globe').' '.$this->lang('manage_my_sessions') ?></a>
+	<a href="<?php echo url('user/sessions') ?>" class="list-group-item<?php echo isset($this->url->segments[1]) && $this->url->segments[1] == 'sessions' ? ' active' : '' ?>"><?php echo icon('fa-globe').' '.$this->lang('Gérer mes sessions') ?></a>
 </div>

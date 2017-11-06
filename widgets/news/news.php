@@ -13,7 +13,7 @@ class News extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('news'),
+			'title'       => $this->lang('Actualités'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

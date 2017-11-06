@@ -61,7 +61,7 @@ class Admin extends Controller_Module
 			->table
 			->add_columns([
 				[
-					'title'   => $this->lang('member'),
+					'title'   => $this->lang('Membre'),
 					'content' => function($data){
 						return NeoFrag()->user->link($data['user_id'], $data['username']);
 					},
@@ -73,7 +73,7 @@ class Admin extends Controller_Module
 					}
 				],
 				[
-					'title'   => $this->lang('email'),
+					'title'   => $this->lang('Email'),
 					'content' => function($data){
 						return '<a href="mailto:'.$data['email'].'">'.$data['email'].'</a>';
 					},
@@ -85,7 +85,7 @@ class Admin extends Controller_Module
 					}
 				],
 				[
-					'title'   => $this->lang('groups'),
+					'title'   => $this->lang('Groupes'),
 					'content' => function($data){
 						return NeoFrag()->groups->user_groups($data['user_id']);
 					},
@@ -97,18 +97,18 @@ class Admin extends Controller_Module
 					}
 				],
 				[
-					'title'   => $this->lang('registration_date'),
+					'title'   => $this->lang('Inscrit depuis le'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
 					'sort'    => function($data){
 						return $data['registration_date'];
 					}
 				],
 				[
-					'title'   => $this->lang('last_activity'),
+					'title'   => $this->lang('Dernière activité'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity_date']).'">'.time_span($data['last_activity_date']).'</span>';
 					},
 					'sort'    => function($data){
 						return $data['last_activity_date'];
@@ -118,7 +118,7 @@ class Admin extends Controller_Module
 					'content' => [
 						function($data){
 							return $this->button()
-										->tooltip($this->lang('ban'))
+										->tooltip($this->lang('Bannir'))
 										->icon('fa-ban')
 										->url('admin/user/ban/'.$data['user_id'].'/'.url_title($data['username']))
 										->color('warning')
@@ -139,14 +139,14 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('groups'), 'fa-users')
+						->heading($this->lang('Groupes'), 'fa-users')
 						->body($table_groups->display())
-						->footer($this->button_create('admin/user/groups/add', $this->lang('add_group')))
+						->footer($this->button_create('admin/user/groups/add', $this->lang('Ajouter un groupe')))
 						->size('col-md-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('members'), 'fa-users')
+						->heading($this->lang('Membres'), 'fa-users')
 						->body($table_users->display())
 						->size('col-md-12 col-lg-9')
 			)
@@ -156,7 +156,7 @@ class Admin extends Controller_Module
 	public function _edit($member_id, $username, $email, $registration_date, $last_activity_date, $admin, $language, $deleted, $avatar, $sex, $first_name, $last_name, $signature, $date_of_birth, $location, $website, $quote, $online)
 	{
 		$form_member = $this
-			->title($this->lang('edit_member'))
+			->title($this->lang('Édition du membre'))
 			->subtitle($username)
 			->css('groups')
 			->form
@@ -173,7 +173,7 @@ class Admin extends Controller_Module
 				'website'       => $website,
 				'quote'         => $quote
 			])
-			->add_submit($this->lang('edit'))
+			->add_submit($this->lang('Éditer'))
 			->add_back('admin/user');
 
 		$form_groups = $this
@@ -198,27 +198,27 @@ class Admin extends Controller_Module
 					'size'    => '56px'
 				],
 				[
-					'title'   => $this->lang('ip_address'),
+					'title'   => $this->lang('Adresse IP'),
 					'content' => function($data){
 						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 					}
 				],
 				[
-					'title'   => $this->lang('referer'),
+					'title'   => $this->lang('Site référent'),
 					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : $this->lang('none');
+						return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
 					}
 				],
 				[
-					'title'   => $this->lang('arrival_date'),
+					'title'   => $this->lang('Date d\'arrivée'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 					}
 				],
 				[
-					'title'   => $this->lang('last_activity'),
+					'title'   => $this->lang('Dernière activité'),
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 					}
 				],
 				[
@@ -230,7 +230,7 @@ class Admin extends Controller_Module
 				]
 			])
 			->data($this->user->get_sessions($member_id))
-			->no_data($this->lang('no_session'))
+			->no_data($this->lang('Aucune session active'))
 			->display();
 
 		if ($form_member->is_valid($post))
@@ -269,20 +269,20 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('edit_member'), 'fa-user')
+						->heading($this->lang('Édition du membre'), 'fa-user')
 						->body($form_member->display())
 						->size('col-md-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('groups'), 'fa-users')
+						->heading($this->lang('Groupes'), 'fa-users')
 						->body($this->view('admin/groups', [
 							'user_id' => $member_id,
 							'form_id' => $form_groups->token()
 						]))
 						->size('col-md-12 col-lg-5'),
 				$this	->panel()
-						->heading($this->lang('active_sessions'), 'fa-globe')
+						->heading($this->lang('Sessions actives'), 'fa-globe')
 						->body($sessions)
 						->size('col-md-12 col-lg-5')
 			)
@@ -291,9 +291,9 @@ class Admin extends Controller_Module
 
 	public function delete($user_id, $username)
 	{
-		$this	->title($this->lang('delete_confirmation'))
+		$this	->title($this->lang('Confirmation de suppression'))
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('user_delete_message', $username));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le membre <b>%s</b> ?', $username));
 
 		if ($this->form->is_valid())
 		{
@@ -311,24 +311,24 @@ class Admin extends Controller_Module
 
 	public function _ban($member_id = 0, $username = '')
 	{
-		$this	->title($this->lang('ban_title'))
+		$this	->title($this->lang('Bannissement'))
 				->icon('fa-bomb');
 
 		return $this->panel()
-					->heading($this->lang('ban_title'), 'fa-bomb')
-					->body($this->lang('unavailable_feature'))
+					->heading($this->lang('Bannissement'), 'fa-bomb')
+					->body($this->lang('Cette fonctionnalité n\'est pas disponible pour l\'instant'))
 					->color('info')
 					->size('col-md-12');
 	}
 
 	public function _groups_add()
 	{
-		$this	->title($this->lang('groups'))
-				->subtitle($this->lang('add'))
+		$this	->title($this->lang('Groupes'))
+				->subtitle($this->lang('Ajouter'))
 				->form
 				->add_rules('groups')
 				->add_back('admin/user')
-				->add_submit($this->lang('add'));
+				->add_submit($this->lang('Ajouter'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -340,21 +340,21 @@ class Admin extends Controller_Module
 				$this->config->lang
 			);
 
-			notify($this->lang('group_added'));
+			notify($this->lang('Groupe ajouté'));
 
 			redirect_back('admin/user');
 		}
 
 		return $this->panel()
-					->heading($this->lang('add_group'), 'fa-users')
+					->heading($this->lang('Ajouter un groupe'), 'fa-users')
 					->body($this->form->display())
 					->size('col-md-12');
 	}
 
 	public function _groups_edit($group_id, $name, $title, $color, $icon, $hidden, $auto)
 	{
-		$this	->title($this->lang('groups'))
-				->subtitle($this->lang('edit'))
+		$this	->title($this->lang('Groupes'))
+				->subtitle($this->lang('Éditer'))
 				->form
 				->add_rules('groups', [
 					'title'  => $title,
@@ -364,7 +364,7 @@ class Admin extends Controller_Module
 					'auto'   => $auto
 				])
 				->add_back('admin/user')
-				->add_submit($this->lang('edit'));
+				->add_submit($this->lang('Éditer'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -390,22 +390,22 @@ class Admin extends Controller_Module
 				]);
 			}
 
-			notify($this->lang('group_edited'));
+			notify($this->lang('Groupe modifié'));
 
 			redirect_back('admin/user');
 		}
 
 		return $this->panel()
-					->heading($this->lang('edit_group_title'), 'fa-users')
+					->heading($this->lang('Éditer un groupe'), 'fa-users')
 					->body($this->form->display())
 					->size('col-md-12');
 	}
 
 	public function _groups_delete($group_id, $title)
 	{
-		$this	->title($this->lang('delete_confirmation'))
+		$this	->title($this->lang('Confirmation de suppression'))
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('group_delete_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le groupe <b>%s</b> ?', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -422,8 +422,8 @@ class Admin extends Controller_Module
 
 	public function _sessions($sessions)
 	{
-		$this	->title($this->lang('sessions'))
-				->subtitle($this->lang('list_active_sessions'))
+		$this	->title($this->lang('Sessions'))
+				->subtitle($this->lang('Liste des sessions actives'))
 				->icon('fa-globe')
 				->table
 				->preprocessing(function($row){
@@ -447,15 +447,15 @@ class Admin extends Controller_Module
 						'align'   => 'center'
 					],
 					[
-						'title'   => $this->lang('user'),
+						'title'   => $this->lang('Utilisateur'),
 						'content' => function($data){
-							return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('guest').'</i>';
+							return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('Visiteur').'</i>';
 						},
 						'search'  => function($data){
-							return $data['user_id'] ? $data['username'] : $this->lang('guest');
+							return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
 						},
 						'sort'  => function($data){
-							return $data['user_id'] ? $data['username'] : $this->lang('guest');
+							return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
 						}
 					],
 					[
@@ -472,7 +472,7 @@ class Admin extends Controller_Module
 						}
 					],
 					[
-						'title'   => $this->lang('ip_address'),
+						'title'   => $this->lang('Adresse IP'),
 						'content' => function($data){
 							return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
 						},
@@ -484,9 +484,9 @@ class Admin extends Controller_Module
 						}
 					],
 					[
-						'title'   => $this->lang('referer'),
+						'title'   => $this->lang('Site référent'),
 						'content' => function($data){
-							return $data['referer'] ? urltolink($data['referer']) : $this->lang('none');
+							return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
 						},
 						'search'  => function($data){
 							return $data['user_agent'];
@@ -496,31 +496,31 @@ class Admin extends Controller_Module
 						}
 					],
 					[
-						'title'   => $this->lang('arrival_date'),
+						'title'   => $this->lang('Date d\'arrivée'),
 						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 						},
 						'sort'    => function($data){
 							return $data['date'];
 						}
 					],
 					[
-						'title'   => $this->lang('last_activity'),
+						'title'   => $this->lang('Dernière activité'),
 						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
 						},
 						'sort'    => function($data){
 							return $data['last_activity'];
 						}
 					],
 					[
-						'title'   => $this->lang('history'),
+						'title'   => $this->lang('Historique'),
 						'content' => function($data){
 							$links = implode('<br />', array_map(function($a){
 								return '<a href="'.url($a).'">'.$a.'</a>';
 							}, $data['history']));
 
-							return '<span data-toggle="popover" title="'.$this->lang('last_pages_visited').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
+							return '<span data-toggle="popover" title="'.$this->lang('Dernières pages visitées').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
 						}
 					],
 					[
@@ -535,15 +535,15 @@ class Admin extends Controller_Module
 				->data($sessions);
 
 		return $this->panel()
-					->heading($this->lang('sessions'), 'fa-globe')
+					->heading($this->lang('Sessions'), 'fa-globe')
 					->body($this->table->display());
 	}
 
 	public function _sessions_delete($session_id, $username)
 	{
-		$this	->title($this->lang('delete_confirmation'))
+		$this	->title($this->lang('Confirmation de suppression'))
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('session_delete_message', $username));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la session de l\'utilisateur <b>%s</b> ?', $username));
 
 		if ($this->form->is_valid())
 		{

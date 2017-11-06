@@ -9,6 +9,6 @@
 </ul>
 <?php else: ?>
 <div class="panel-body text-center">
-	<?php echo $this->lang('no_news_from_author') ?>
+	<?php echo $this->lang('L\'auteur n\'a pas publié d\'autre actualité') ?>
 </div>
 <?php endif ?>

@@ -13,7 +13,7 @@ class User extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('member_area'),
+			'title'       => $this->lang('Espace membre'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

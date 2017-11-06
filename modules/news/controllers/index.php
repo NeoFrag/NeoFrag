@@ -24,7 +24,7 @@ class Index extends Controller_Module
 
 			if ($news['content'])
 			{
-				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title'])).'">'.$this->lang('read_more').'</a>');
+				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title'])).'">'.$this->lang('Lire la suite').'</a>');
 			}
 
 			$panels[] = $panel;
@@ -33,8 +33,8 @@ class Index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this->lang('news'), 'fa-file-text-o')
-								->body('<div class="text-center">'.$this->lang('no_news_published').'</div>')
+								->heading($this->lang('Actualités'), 'fa-file-text-o')
+								->body('<div class="text-center">'.$this->lang('Aucune actualité n\'a été publiée pour le moment').'</div>')
 								->color('info');
 		}
 
@@ -45,21 +45,21 @@ class Index extends Controller_Module
 
 	public function _tag($tag, $news)
 	{
-		$this->subtitle($this->lang('tag', $tag));
-		return $this->_filter($news, $this->lang('news').' <small>'.$tag.'</small>');
+		$this->subtitle($this->lang('Tag %s', $tag));
+		return $this->_filter($news, $this->lang('Actualités').' <small>'.$tag.'</small>');
 	}
 
 	public function _category($title, $news)
 	{
-		$this->subtitle($this->lang('category_', $title));
-		return $this->_filter($news, $this->lang('category_news').' <small>'.$title.'</small>');
+		$this->subtitle($this->lang('Catégorie %s', $title));
+		return $this->_filter($news, $this->lang('Catégorie d\'actualité').' <small>'.$title.'</small>');
 	}
 
 	private function _filter($news, $filter)
 	{
 		$news = $this->index($news);
 
-		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('show_more'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
+		array_unshift($news, $this->panel()->body('<h2 class="no-margin">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
 
 		return $news;
 	}
@@ -98,7 +98,7 @@ class Index extends Controller_Module
 				$this->row(
 					$this->col(
 						$this	->panel()
-								->heading($this->lang('about_the_author'), 'fa-user')
+								->heading($this->lang('À propos de l\'auteur'), 'fa-user')
 								->body($this->view('author', [
 									'user_id'  => $user_id,
 									'username' => $username,
@@ -112,7 +112,7 @@ class Index extends Controller_Module
 					),
 					$this->col(
 						$this	->panel()
-								->heading($this->lang('more_news_from_author'), 'fa-file-text-o')
+								->heading($this->lang('Autres actualités de l\'auteur'), 'fa-file-text-o')
 								->body($this->view('author_news', [
 									'news' => $this->model()->get_news_by_user($user_id, $news_id)
 								]), FALSE)

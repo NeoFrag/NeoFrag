@@ -13,7 +13,7 @@ class User extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('member_area'),
+			'title'       => $this->lang('Espace membre'),
 			'description' => '',
 			'icon'        => 'fa-user',
 			'link'        => 'https://neofr.ag',

@@ -13,7 +13,7 @@ class Talks extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('talks'),
+			'title'       => $this->lang('Discussions'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

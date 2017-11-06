@@ -5,7 +5,7 @@
 <?php endif ?>
 <p class="news-detail">
 	<span><?php echo icon('fa-clock-o').' '.timetostr('%e %b %Y', $date) ?></span>
-	<span><?php echo icon('fa-user').' '.($user_id ? $this->user->link($user_id, $username) : $this->lang('guest')) ?></span>
+	<span><?php echo icon('fa-user').' '.($user_id ? $this->user->link($user_id, $username) : $this->lang('Visiteur')) ?></span>
 	<!--<span><?php echo icon('fa-eye').' ' .$views ?></span>-->
 	<span><a href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><?php echo icon('fa-comments-o').' '.$this->comments->count_comments('news', $news_id) ?></a></span>
 	<?php if ($vote && $note = $this->votes->get_note('news', $news_id)): ?><div class="info-votes"><a href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><?php echo $note ?>/5</a></div><?php endif ?>

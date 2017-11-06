@@ -8,10 +8,10 @@
 	</div>
 	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
 		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		<span class="sr-only"><?php echo $this->lang('previous') ?></span>
+		<span class="sr-only"><?php echo $this->lang('Précédent') ?></span>
 	</a>
 	<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		<span class="sr-only"><?php echo $this->lang('next') ?></span>
+		<span class="sr-only"><?php echo $this->lang('Suivant') ?></span>
 	</a>
 </div>

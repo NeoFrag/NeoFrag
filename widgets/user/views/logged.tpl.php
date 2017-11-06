@@ -1,5 +1,5 @@
 <div class="panel-body text-center">
-	<h4 class="no-margin"><?php echo $this->lang('welcome') ?></h4>
+	<h4 class="no-margin"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user('username').'</a>') ?></h4>
 	<br />
 	<?php echo $this->user->avatar() ?>
 </div>

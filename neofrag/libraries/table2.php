@@ -141,7 +141,7 @@ class Table2 extends Library
 		}
 		else
 		{
-			$panel->body($this->_no_data ?: NeoFrag()->lang('no_data'));
+			$panel->body($this->_no_data ?: NeoFrag()->lang('Il n\'y a rien ici pour le moment'));
 		}
 
 		if ($footer)

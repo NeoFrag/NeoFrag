@@ -30,7 +30,7 @@ $rules = [
 
 			if ($value != $name && NeoFrag()->db->select('1')->from('nf_pages')->where('name', $value)->row())
 			{
-				return $this->lang('access_path_already_used');
+				return $this->lang('Chemin d\'accès déjà utilisé');
 			}
 		}
 	],

@@ -46,7 +46,7 @@ abstract class Labelable extends Library
 		$this->_check[] = function($post, &$data){
 			if ($this->_required && (!isset($post[$this->_name]) || $post[$this->_name] === ''))
 			{
-				$this->_errors[] = $this->lang('required_input');
+				$this->_errors[] = $this->lang('Veuillez remplir ce champ');
 			}
 
 			if (isset($post[$this->_name]))

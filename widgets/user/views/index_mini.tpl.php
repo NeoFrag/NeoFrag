@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav <?php echo !empty($align) ? $align : 'navbar-right' ?>">
 	<?php if ($this->user->id): ?>
-		<li><p class="navbar-text"><?php echo $this->lang('welcome') ?></p></li>
+		<li><p class="navbar-text"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user('username').'</a>') ?></p></li>
 		<li data-toggle="tooltip" title="Gérer mon compte"><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs') ?></a></li>
 		<li data-toggle="tooltip" title="Messagerie">
 			<?php if ($messages = $this->user->get_messages()): ?><span class="label label-danger pull-right"><?php echo $messages ?></span><?php endif ?>

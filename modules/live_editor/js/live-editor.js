@@ -8,15 +8,15 @@ var modal_style = function(title, $element, styles, callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 						<h4 class="modal-title"><?php echo icon('fa-paint-brush') ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+$(styles).html()+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
-						<button type="button" class="btn btn-info"><?php echo $this->lang('save') ?></button>\
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-info"><?php echo $this->lang('Valider') ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -81,15 +81,15 @@ var modal_settings = function(title, settings, callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 						<h4 class="modal-title"><?php echo icon('fa-cogs') ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+settings+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
-						<button type="button" class="btn btn-info"><?php echo $this->lang('save') ?></button>\
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-info"><?php echo $this->lang('Valider') ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -198,15 +198,15 @@ var modal_fork = function(callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
-						<h4 class="modal-title"><?php echo $this->lang('comeback_common_layout') ?></h4>\
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
+						<h4 class="modal-title"><?php echo $this->lang('Revenir à la disposition commune') ?></h4>\
 					</div>\
 					<div class="modal-body">\
-						<?php echo $this->lang('comeback_common_layout_message') ?>\
+						<?php echo $this->lang('Êtes-vous sûr(e) de vouloir revenir à la disposition commune ?<br />Toutes les <b>colonnes</b> et <b>widgets</b> associés à cette zone seront perdus.') ?>\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
-						<button type="button" class="btn btn-danger"><?php echo $this->lang('continue') ?></button>\
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-danger"><?php echo $this->lang('Continuer') ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -232,15 +232,15 @@ var modal_delete = function(message, callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
-						<h4 class="modal-title"><?php echo icon('fa-trash-o').' '.$this->lang('delete_confirmation') ?></h4>\
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
+						<h4 class="modal-title"><?php echo icon('fa-trash-o').' '.$this->lang('Confirmation de suppression') ?></h4>\
 					</div>\
 					<div class="modal-body">\
 						'+message+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
-						<button type="button" class="btn btn-danger"><?php echo icon('fa-trash-o') ?> <?php echo $this->lang('remove') ?></button>\
+						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-danger"><?php echo icon('fa-trash-o') ?> <?php echo $this->lang('Supprimer') ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -295,7 +295,7 @@ $(function(){
 	});
 
 	$('#modules-links-collapse').on('click', 'a', function(){
-		$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('loading') ?>');
+		$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
 		$('#modules-links-collapse').removeClass('in');
 		$('form[target="live-editor-iframe"]').prop('action', $(this).attr('href')).submit();
 
@@ -321,11 +321,11 @@ $(function(){
 				$iframe.find('.widget-hover').remove();
 				$('	<div class="widget-hover">\
 						<div class="widget-hover-content">\
-							<h4>'+($(this).hasClass('module') ? '<b><?php echo $this->lang('module') ?></b> ' : '')+$(this).data('title')+'</h4>\
+							<h4>'+($(this).hasClass('module') ? '<b><?php echo $this->lang('Module') ?></b> ' : '')+$(this).data('title')+'</h4>\
 							<div class="btn-group" role="group">\
-								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo $this->lang('design') ?>"><?php echo icon('fa-paint-brush') ?></button>' : '')+'\
-								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('configure') ?>"><?php echo icon('fa-cogs') ?></button>\
-								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('remove') ?>"><?php echo icon('fa-trash-o') ?></button>\
+								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo $this->lang('Apparence') ?>"><?php echo icon('fa-paint-brush') ?></button>' : '')+'\
+								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Configurer') ?>"><?php echo icon('fa-cogs') ?></button>\
+								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Supprimer') ?>"><?php echo icon('fa-trash-o') ?></button>\
 							</div>\
 						</div>\
 					</div>').prependTo(this).fadeTo('fast', 1);
@@ -340,7 +340,7 @@ $(function(){
 			var href = $(this).attr('href');
 
 			if (href.match(/<?php echo str_replace('/', '\/', url()) ?>(?!(admin|live-editor|#))/)){
-				$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('loading') ?>');
+				$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
 				$('form[target="live-editor-iframe"]').prop('action', href).submit();
 			}
 
@@ -432,7 +432,7 @@ $(function(){
 			var $this = $(this);
 			var $row = $this.parents('.live-editor-row-header:first').next('.row');
 
-			modal_style('<?php echo $this->lang('row_design') ?>', $row, '.live-editor-styles-row', function(style){
+			modal_style('<?php echo $this->lang('Apparence de la ligne') ?>', $row, '.live-editor-styles-row', function(style){
 				$('.live-editor-save').show();
 
 				$.post('<?php echo url('ajax/live-editor/row-style') ?>', {
@@ -449,7 +449,7 @@ $(function(){
 		$iframe.on('click', '.live-editor-row-header .live-editor-delete', function(){
 			var $this = $(this);
 
-			modal_delete('<?php echo $this->lang('row_delete_message') ?>', function(){
+			modal_delete('<?php echo $this->lang('Êtes-vous sûr(e) de vouloir supprimer cette <b>ligne</b> ?<br />Toutes les <b>colonnes</b> et <b>widgets</b> contenus seront également supprimés.') ?>', function(){
 				var $row = $this.parents('.live-editor-row-header:first').next('.row');
 
 				$('.live-editor-save').show();
@@ -545,7 +545,7 @@ $(function(){
 			var $this = $(this);
 			var $col  = $(this).parents('[data-col-id]:first');
 
-			modal_delete('<?php echo $this->lang('col_delete_message') ?>', function(){
+			modal_delete('<?php echo $this->lang('Êtes-vous sûr(e) de vouloir supprimer cette <b>colonne</b> ?<br />Tous les <b>widgets</b> contenus seront également supprimés.') ?>', function(){
 				$('.live-editor-save').show();
 
 				$.post('<?php echo url('ajax/live-editor/col-delete') ?>', {
@@ -571,7 +571,7 @@ $(function(){
 			};
 
 			$.post('<?php echo url('ajax/live-editor/widget-settings') ?>', data, function(html){
-				modal_settings('<?php echo $this->lang('new_widget') ?>', html, function(settings){
+				modal_settings('<?php echo $this->lang('Nouveau Widget') ?>', html, function(settings){
 					$.extend(data, settings);
 					$.extend(data, {
 						live_editor: $('input[type="hidden"][name="live_editor"]').val()
@@ -631,7 +631,7 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 
-			modal_style('<?php echo $this->lang('widget_design') ?>', $widget.children('.panel'), '.live-editor-styles-widget', function(style){
+			modal_style('<?php echo $this->lang('Apparence du Widget') ?>', $widget.children('.panel'), '.live-editor-styles-widget', function(style){
 				$.extend(data, {
 					style: style
 				});
@@ -655,7 +655,7 @@ $(function(){
 			};
 
 			$.post('<?php echo url('ajax/live-editor/widget-settings') ?>', data, function(html){
-				modal_settings('<?php echo $this->lang('widget_settings') ?>', html, function(settings){
+				modal_settings('<?php echo $this->lang('Configuration du Widget') ?>', html, function(settings){
 					$.extend(data, settings);
 
 					$('.live-editor-save').show();
@@ -687,7 +687,7 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 
-			modal_delete('<?php echo $this->lang('widget_delete_message') ?>', function(){
+			modal_delete('<?php echo $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce <b>widget</b> ?') ?>', function(){
 				$('.live-editor-save').show();
 
 				$.post('<?php echo url('ajax/live-editor/widget-delete') ?>', data, function(){

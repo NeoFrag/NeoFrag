@@ -17,11 +17,11 @@ class Index extends Controller_Widget
 			$this->css('user');
 
 			return $this->panel()
-						->heading($this->lang('member_area'))
+						->heading($this->lang('Espace membre'))
 						->body($this->view('logged', [
 							'username' => $this->user->username
 						]), FALSE)
-						->footer('<a href="'.url('user/logout').'">'.icon('fa-close').' '.$this->lang('logout').'</a>');
+						->footer('<a href="'.url('user/logout').'">'.icon('fa-close').' '.$this->lang('Se déconnecter').'</a>');
 		}
 		else
 		{
@@ -32,7 +32,7 @@ class Index extends Controller_Widget
 			}
 
 			return $this->panel()
-						->heading($this->lang('member_area').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''))
+						->heading($this->lang('Espace membre').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''))
 						->body($this->view('index', [
 							'form_id' => $this->form->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 						]))
@@ -63,6 +63,6 @@ class Index extends Controller_Widget
 					->body($this->view('messages_inbox', [
 						'messages' => $messages
 					]), FALSE)
-					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fa-inbox').' '.$this->lang('pm_inbox').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fa-edit').' '.$this->lang('pm_compose').'</a>');
+					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fa-edit').' '.$this->lang('Rédiger').'</a>');
 	}
 }

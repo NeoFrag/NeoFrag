@@ -13,7 +13,7 @@ class Addons extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => 'Composants',
+			'title'       => 'Thèmes & Addons',
 			'description' => '',
 			'icon'        => 'fa-puzzle-piece',
 			'link'        => 'https://neofr.ag',

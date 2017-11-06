@@ -272,7 +272,7 @@ class Form2 extends Library
 		$this->_deleting = $deleting;
 		$this->_success  = $callback;
 
-		return $this->submit($this->lang('remove'), 'danger');
+		return $this->submit($this->lang('Supprimer'), 'danger');
 	}
 
 	public function panel()

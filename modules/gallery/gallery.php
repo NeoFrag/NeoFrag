@@ -13,7 +13,7 @@ class Gallery extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('gallery_module'),
+			'title'       => $this->lang('Galeries'),
 			'description' => '',
 			'icon'        => 'fa-photo',
 			'link'        => 'https://neofr.ag',

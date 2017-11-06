@@ -2,7 +2,7 @@
 	<?php foreach ($this->config->langs as $language): ?>
 	<div class="col col-sm-6 col-md-4 col-lg-3">
 		<img class="img-fluid" src="<?php echo url('themes/neofrag/images/flags/'.$language->info()->name.'.png') ?>" alt="">
-		<a class="btn btn-primary" href="#" data-language="<?php echo $language->info()->name ?>"><?php echo $language->title() ?></a>
+		<a class="btn btn-primary" href="#" data-language="<?php echo $language->info()->name ?>"><?php echo $language->info()->title ?></a>
 	</div>
 	<?php endforeach ?>
 </div>

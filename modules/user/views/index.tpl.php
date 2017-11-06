@@ -7,7 +7,7 @@
 		<?php endif ?>
 
 		<?php if (!empty($date_of_birth)): ?>
-		<p><?php echo icon('fa-birthday-cake').' '.timetostr($this->lang('date_short'), $date_of_birth).' '.$this->lang('age', $age = date_diff(date_create($date_of_birth), date_create('today'))->y, $age) ?></p>
+		<p><?php echo icon('fa-birthday-cake').' '.timetostr($this->lang('%d/%m/%Y'), $date_of_birth).' '.$this->lang('(%d an)|(%d ans)', $age = date_diff(date_create($date_of_birth), date_create('today'))->y, $age) ?></p>
 		<?php endif ?>
 
 		<?php if ($location): ?>

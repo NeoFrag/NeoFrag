@@ -13,7 +13,7 @@ class Admin extends Controller_Module
 	public function index()
 	{
 		$users = $this
-			->title($this->lang('dashboard'))
+			->title($this->lang('Tableau de bord'))
 			->js('jquery.knob')
 			->js_load('$(\'.knob\').knob();')
 			->table
@@ -30,7 +30,7 @@ class Admin extends Controller_Module
 				],
 				[
 					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr($this->lang('date_time_long'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
+						return '<span data-toggle="tooltip" title="'.timetostr($this->lang('%A %e %B %Y, %H:%M'), $data['registration_date']).'">'.time_span($data['registration_date']).'</span>';
 					},
 					'class'   => 'text-right'
 				]
@@ -42,72 +42,72 @@ class Admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('news', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news')
+							->heading($this->lang('Actualité|Actualités', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news')
 							->body($count)
 							->color('bg-aqua')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_news').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Voir la liste').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('members', $count = $this->db->select('COUNT(*)')->from('nf_user')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
+							->heading($this->lang('Membre|Membres', $count = $this->db->select('COUNT(*)')->from('nf_user')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
 							->body($count)
 							->color('bg-green')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_members').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les utilisateurs').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('events', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fa-calendar', 'admin/events')
+							->heading($this->lang('Événement|Événements', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fa-calendar', 'admin/events')
 							->body($count)
 							->color('bg-blue')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_events').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer le calendrier').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('teams', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams')
+							->heading($this->lang('Équipe|Équipes', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams')
 							->body($count)
 							->color('bg-red')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_teams').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les équipes').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum')
+							->heading($this->lang('Message|Messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum')
 							->body($count)
 							->color('bg-teal')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_forum').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer le forum').' '.icon('fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('comments', $count = $this->db->select('COUNT(*)')->from('nf_comment')->row()), 'fa-comments-o', 'admin/comments')
+							->heading($this->lang('Commentaire|Commentaires', $count = $this->db->select('COUNT(*)')->from('nf_comment')->row()), 'fa-comments-o', 'admin/comments')
 							->body($count)
 							->color('bg-maroon')
 							->size('col-md-4 col-lg-2')
-							->footer($this->lang('manage_comments').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les commentaires').' '.icon('fa-arrow-circle-right'))
 				)
 			),
 			$this->row(
 				$this	->col(
 							$this	->panel_widget(1),
 							$this	->panel()
-									->heading('<a href="https://neofr.ag">'.$this->lang('nf_news').'</a>', 'fa-newspaper-o')
+									->heading('<a href="https://neofr.ag">'.$this->lang('Actualité NeoFrag CMS').'</a>', 'fa-newspaper-o')
 									->body($this->view('nf_news'))
 
 						)
 						->size('col-md-8'),
 				$this	->col(
 							$this	->panel()
-									->heading($this->lang('connected_users'), 'fa-globe')
+									->heading($this->lang('Utilisateurs connectés'), 'fa-globe')
 									->body($this->view('users_online', [
 										'currently' => $this->db->select('COUNT(*)')->from('nf_session')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
-									->footer('<a href="'.url('admin/user/sessions').'">'.$this->lang('view_all_sessions').'</a>'),
+									->footer('<a href="'.url('admin/user/sessions').'">'.$this->lang('Voir toutes les sessions actives').'</a>'),
 							$this	->panel()
-									->heading($this->lang('last_registrations'), 'fa-users')
+									->heading($this->lang('Dernières inscriptions'), 'fa-users')
 									->body($users)
 						)
 						->size('col-md-4')
@@ -131,29 +131,29 @@ class Admin extends Controller_Module
 
 	public function about()
 	{
-		$this->title($this->lang('about'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
+		$this->title($this->lang('À propos'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
 
 		return [
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('lgpl_license'))
+							->heading($this->lang('Licence LGPL v3'))
 							->body($this->view('license'))
 							->size('col-md-12 col-lg-8')
 				),
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('the_team'))
+							->heading($this->lang('L\'équipe'))
 							->body('	<div class="row">
 											<div class="col-md-6 text-center">
 												<p><img src="https://neofr.ag/images/team/foxley.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Michaël BILCOT "FoxLey"</b></div>
-												<span class="text-muted">'.$this->lang('web_developer').'</span>
+												<span class="text-muted">'.$this->lang('Développeur web').'</span>
 											</div>
 											<div class="col-md-6 text-center">
 												<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="img-circle" style="max-width: 100px;" alt="" /></p>
 												<div><b>Jérémy VALENTIN "eResnova"</b></div>
-												<span class="text-muted">'.$this->lang('web_designer').'</span>
+												<span class="text-muted">'.$this->lang('Web designer').'</span>
 											</div>
 										</div>')
 							->size('col-md-12 col-lg-4')
@@ -164,24 +164,24 @@ class Admin extends Controller_Module
 
 	public function notifications()
 	{
-		$this	->title($this->lang('notifications'))
+		$this	->title($this->lang('Notifications'))
 				->icon('fa-flag');
 
 		return $this->panel()
-					->heading($this->lang('notifications'), 'fa-flag')
-					->body($this->lang('unavailable_feature'))
+					->heading($this->lang('Notifications'), 'fa-flag')
+					->body($this->lang('Cette fonctionnalité n\'est pas disponible pour l\'instant'))
 					->color('info')
 					->size('col-md-12');
 	}
 
 	public function database()
 	{
-		$this	->title($this->lang('database'))
+		$this	->title($this->lang('Base de données'))
 				->icon('fa-database');
 
 		return $this->panel()
-					->heading($this->lang('database'), 'fa-database')
-					->body($this->lang('unavailable_feature'))
+					->heading($this->lang('Base de données'), 'fa-database')
+					->body($this->lang('Cette fonctionnalité n\'est pas disponible pour l\'instant'))
 					->color('info')
 					->size('col-md-12');
 	}
