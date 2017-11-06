@@ -10,11 +10,28 @@ use NF\NeoFrag\Library;
 
 class Email extends Library
 {
-	private $_from;
-	private $_to = [];
-	private $_subject;
-	private $_view;
-	private $_data;
+	protected $_from;
+	protected $_to = [];
+	protected $_subject;
+	protected $_view;
+	protected $_data;
+	protected $_footer;
+
+	public function __construct($caller, $config = [])
+	{
+		parent::__construct($caller);
+
+		if (isset($config['footer']) && is_a($config['footer'], 'closure'))
+		{
+			$this->_footer = $config['footer'];
+		}
+		else
+		{
+			$this->_footer = function(){
+				return $this->config->nf_description.' | <a href="'.url().'">'.$this->config->nf_name.'</a>';
+			};
+		}
+	}
 
 	public function from($from)
 	{
@@ -37,10 +54,12 @@ class Email extends Library
 		return $this;
 	}
 
-	public function message($view, $data = [])
+	public function message()
 	{
-		$this->_view = $view;
-		$this->_data = $data;
+		$args = func_get_args();
+
+		$this->_data = array_pop($args);
+		$this->_view = array_shift($args) ?: 'default';
 
 		return $this;
 	}
@@ -54,13 +73,19 @@ class Email extends Library
 
 		require 'lib/phpmailer/class.phpmailer.php';
 
-		$mail = new PHPMailer;
+		$mail = new \PHPMailer;
 
 		if ($this->config->nf_email_smtp)
 		{
 			require 'lib/phpmailer/class.smtp.php';
 
+			$mail->SMTPDebug = 1;
+			$mail->Debugoutput = function($message){
+				$this->debug('PHPMAILER', trim($message));
+			};
+
 			$mail->isSMTP();
+
 			$mail->Host = $this->config->nf_email_smtp;
 
 			if ($mail->SMTPAuth = $this->config->nf_email_username && $this->config->nf_email_password)
@@ -82,15 +107,13 @@ class Email extends Library
 
 		if ($this->_from)
 		{
-			$mail->setFrom($this->_from);
-		}
-		else
-		{
-			$mail->setFrom($this->config->nf_contact, $this->config->nf_name);
+			$mail->AddReplyTo($this->_from);
 		}
 
+		$mail->setFrom($this->config->nf_contact, $this->config->nf_name);
+
 		$mail->CharSet = 'UTF-8';
-		$mail->Subject = $this->_subject;
+		$mail->Subject = utf8_html_entity_decode($this->_subject);
 		$mail->isHTML(TRUE);
 
 		foreach (array_unique($this->_to) as $to)
@@ -98,17 +121,27 @@ class Email extends Library
 			$mail->addAddress($to);
 		}
 
-		$this->url->external(TRUE);
+		$this->output->email(function() use ($mail){
+			$data = [];
 
-		$this->output->parse_data($this->_data);
+			if (is_a($this->_data, 'closure'))
+			{
+				$data = call_user_func($this->_data);
+			}
 
-		$mail->Body    = $this->view('emails/'.$this->_view, $this->_data);
-		$mail->AltBody = $this->view('emails/'.$this->_view.'.txt', $this->_data);
+			$data = array_merge([
+				'header'  => '',
+				'content' => '',
+				'footer'  => ''
+			], $data);
 
-		$result = $mail->send();
+			$data['footer'] .= call_user_func($this->_footer);
 
-		$this->url->external(FALSE);
+			$mail->Body = (string)$this->view('emails/main', [
+				'body' => $this->view('emails/'.$this->_view, $data)
+			]);
+		});
 
-		return $result;
+		return $mail->send();
 	}
 }
