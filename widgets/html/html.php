@@ -13,14 +13,14 @@ class Html extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('free_content_html_code'),
+			'title'       => $this->lang('Contenu libre / Code HTML'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
 			'types'       => [
-				'index' => $this->lang('free_content'),
-				'html'  => $this->lang('html_code')
+				'index' => $this->lang('Contenu libre'),
+				'html'  => $this->lang('Code HTML')
 			]
 		];
 	}

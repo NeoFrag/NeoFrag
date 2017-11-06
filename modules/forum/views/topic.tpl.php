@@ -4,7 +4,7 @@
 		<tr>
 			<th colspan="2">
 				<div class="pull-right">
-					<?php echo icon('fa-eye').' '.$this->lang('views', $data['views'], $data['views']) ?>
+					<?php echo icon('fa-eye').' '.$this->lang('<b>%d</b> vue|<b>%d</b> vues', $data['views'], $data['views']) ?>
 				</div>
 				<h4 class="m-0"><?php echo icon('fa-file-text-o').' '.$data['title'] ?></h4>
 			</th>
@@ -23,7 +23,7 @@
 						<a href="<?php echo url('forum/message/delete/'.$data['message_id'].'/'.url_title($data['title'])) ?>" class="btn btn-xs btn-primary delete"><?php echo icon('fa-close') ?></a>
 					<?php endif ?>
 					</div>
-					<a name="<?php echo $data['message_id'] ?>"></a><?php echo icon('fa-clock-o').' '.time_span($data['date']).' '.($data['last_message_read'] && $data['date'] <= $data['last_message_read'] ? icon('fa-comment-o').' '.$this->lang('message_read') : icon('fa-comment').' '.$this->lang('message_unread')) ?>
+					<a name="<?php echo $data['message_id'] ?>"></a><?php echo icon('fa-clock-o').' '.time_span($data['date']).' '.($data['last_message_read'] && $data['date'] <= $data['last_message_read'] ? icon('fa-comment-o').' '.$this->lang('Message lu') : icon('fa-comment').' '.$this->lang('Message non lu')) ?>
 				</div>
 				<hr />
 				<?php echo bbcode($data['message']) ?>

@@ -8,12 +8,12 @@
 		<div class="collapse navbar-collapse" id="main-navbar-collapse-1">
 			<ul class="nav nav navbar-nav navbar-left">
 				<li><a href="#" class="toggle-menu" data-toggle="sidebar"><?php echo icon('fa-bars') ?></a></li>
-				<li><a href="https://neofr.ag/support.html"><?php echo icon('fa-support') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('support') ?></span></a></li>
-				<li><a href="https://neofr.ag/forum.html"><?php echo icon('fa-comment') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('forum') ?></span></a></li>
-				<li><a href="https://neofr.ag/download.html"><?php echo icon('fa-download') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('downloads') ?></span></a></li>
-				<li><a href="https://neofr.ag/documentation.html"><?php echo icon('fa-list-alt') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('documentation') ?></span></a></li>
+				<li><a href="https://neofr.ag/support.html"><?php echo icon('fa-support') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('Support') ?></span></a></li>
+				<li><a href="https://neofr.ag/forum.html"><?php echo icon('fa-comment') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('Forum') ?></span></a></li>
+				<li><a href="https://neofr.ag/download.html"><?php echo icon('fa-download') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('Téléchargements') ?></span></a></li>
+				<li><a href="https://neofr.ag/documentation.html"><?php echo icon('fa-list-alt') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('Documentation') ?></span></a></li>
 			</ul>
-			<a class="btn btn-default navbar-btn navbar-right" href="<?php echo url() ?>"><?php echo icon('fa-sign-out') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('back_front') ?></span></a>
+			<a class="btn btn-default navbar-btn navbar-right" href="<?php echo url() ?>"><?php echo icon('fa-sign-out') ?><span class="hidden-xs hidden-sm"> <?php echo $this->lang('Retour sur le site') ?></span></a>
 		</div>
 	</nav>
 	<nav class="navbar-default sidebar">
@@ -33,9 +33,9 @@
 									<?php echo icon('fa-user').' '.icon('fa-angle-down') ?>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo url('user') ?>"><?php echo icon('fa-user').$this->lang('my_account') ?></a></li>
-									<li><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs').$this->lang('manage_my_account') ?></a></li>
-									<li><a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($this->user('username'))) ?>"><?php echo icon('fa-eye').$this->lang('view_my_profile') ?></a></li>
+									<li><a href="<?php echo url('user') ?>"><?php echo icon('fa-user').$this->lang('Mon espace') ?></a></li>
+									<li><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs').$this->lang('Gérer mon compte') ?></a></li>
+									<li><a href="<?php echo url('user/'.$this->user('user_id').'/'.url_title($this->user('username'))) ?>"><?php echo icon('fa-eye').$this->lang('Voir mon profil') ?></a></li>
 								</ul>
 							</div>
 							<!--<div class="btn-group">
@@ -144,11 +144,11 @@
 						<a class="btn btn-outline btn-success btn-sm" href="<?php echo url('admin/access/edit/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-unlock-alt') ?><span class="hidden-sm"> Permissions</span></a>
 					<?php endif ?>
 					<?php if (method_exists(NeoFrag()->module, 'settings') && $this->module('addons')->is_authorized()): ?>
-						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('configuration') ?></span></a>
+						<a class="btn btn-outline btn-warning btn-sm" href="<?php echo url('admin/addons/module/'.NeoFrag()->module->name) ?>"><?php echo icon('fa-wrench') ?><span class="hidden-sm"> <?php echo $this->lang('Configuration') ?></span></a>
 					<?php endif ?>
 					<?php if (($help = NeoFrag()->module->controller('admin_help')) && $help->has_method($data['module_method'])): ?>
 					<?php NeoFrag()->js('help') ?>
-					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method'] ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('help') ?></span></a>
+					<a class="btn btn-outline btn-info btn-sm" href="<?php echo url($this->url->request) ?>" data-help="<?php echo 'admin/help/'.NeoFrag()->module->name.'/'.$data['module_method'] ?>"><?php echo icon('fa-life-bouy') ?><span class="hidden-sm"> <?php echo $this->lang('Aide') ?></span></a>
 					<?php endif ?>
 				</div>
 			</div>

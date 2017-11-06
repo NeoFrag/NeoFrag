@@ -28,7 +28,7 @@
 			});
 		</script>
 		<div class="text-center">
-			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fa-check').' '.$this->lang('save') ?></button>
+			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fa-check').' '.$this->lang('Valider') ?></button>
 		</div>
 	</form>
 <?php endif ?>

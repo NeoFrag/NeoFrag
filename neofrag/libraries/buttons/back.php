@@ -13,7 +13,7 @@ class Back extends Library
 	public function __invoke($url = '', $title = '')
 	{
 		return $this->button()
-					->title($title ?: $this->lang('back'))
+					->title($title ?: $this->lang('Retour'))
 					->url($this->session->get_back() ?: $url)
 					->color('light');
 	}

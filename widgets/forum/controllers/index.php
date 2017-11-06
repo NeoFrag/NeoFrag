@@ -17,17 +17,17 @@ class Index extends Controller_Widget
 		if (!empty($messages))
 		{
 			return $this->panel()
-						->heading($this->lang('last_messages'))
+						->heading($this->lang('Derniers messages'))
 						->body($this->view('index', [
 							'messages' => $messages
 						]))
-						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
+						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Accèder au forum').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this->lang('last_messages'))
-						->body($this->lang('no_messages'));
+						->heading($this->lang('Derniers messages'))
+						->body($this->lang('Aucun message pour le moment'));
 		}
 	}
 
@@ -38,24 +38,24 @@ class Index extends Controller_Widget
 		if (!empty($topics))
 		{
 			return $this->panel()
-						->heading($this->lang('last_topics'))
+						->heading($this->lang('Derniers sujets'))
 						->body($this->view('topics', [
 							'topics' => $topics
 						]))
-						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('access_forum').'</a>', 'right');
+						->footer('<a href="'.url('forum').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Accèder au forum').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this->lang('last_topics'))
-						->body($this->lang('no_topics'));
+						->heading($this->lang('Derniers sujets'))
+						->body($this->lang('Aucun sujet pour le moment'));
 		}
 	}
 
 	public function statistics($config = [])
 	{
 		return $this->panel()
-					->heading($this->lang('statistics'), 'fa-signal')
+					->heading($this->lang('Statistiques'), 'fa-signal')
 					->body($this->view('statistics', [
 						'topics'    => $topics = $this->db->select('COUNT(topic_id)')->from('nf_forum_topics')->row(),
 						'messages'  => $this->db->select('COUNT(message_id)')->from('nf_forum_messages')->row() - $topics,
@@ -73,7 +73,7 @@ class Index extends Controller_Widget
 		});
 
 		return $this->panel()
-					->heading($this->lang('forum_activity'), 'fa-globe')
+					->heading($this->lang('Activité du forum'), 'fa-globe')
 					->body($this->view('activity', [
 						'users'    => $users,
 						'visitors' => $this->db->select('COUNT(*)')->from('nf_sessions')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->where('is_crawler', FALSE)->row()

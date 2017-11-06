@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('close') ?>"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('Fermer') ?>"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="modal-title-online-<?php echo $data['name'] ?>"><?php echo $data['title'] ?></h4>
 			</div>
 			<div class="modal-body">

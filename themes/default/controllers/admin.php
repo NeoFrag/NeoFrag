@@ -16,37 +16,37 @@ class Admin extends Controller
 				->form
 				->add_rules([
 					'background' => [
-						'label'  => $this->lang('background'),
+						'label'  => $this->lang('Image de fond'),
 						'value'  => $this->config->{'default_background'},
 						'type'   => 'file',
 						'upload' => 'themes/default/backgrounds',
-						'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+						'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 						'check'  => function($filename, $ext){
 							if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 							{
-								return $this->lang('select_image_file');
+								return $this->lang('Veuiller choisir un fichier d\'image');
 							}
 						}
 					],
 					'repeat' => [
-						'label'  => $this->lang('background_repeat'),
+						'label'  => $this->lang('Répéter l\'image'),
 						'value'  => $this->config->{'default_background_repeat'},
 						'values' => [
-							'no-repeat' => $this->lang('no'),
-							'repeat-x'  => $this->lang('horizontally'),
-							'repeat-y'  => $this->lang('vertically'),
-							'repeat'    => $this->lang('both')
+							'no-repeat' => $this->lang('Non'),
+							'repeat-x'  => $this->lang('Horizontalement'),
+							'repeat-y'  => $this->lang('Verticalement'),
+							'repeat'    => $this->lang('Les deux')
 						],
 						'type'   => 'radio',
 						'rules'  => 'required'
 					],
 					'positionX' => [
-						'label'  => $this->lang('position'),
+						'label'  => $this->lang('Position'),
 						'value'  => explode(' ', $this->config->{'default_background_position'})[0],
 						'values' => [
-							'left'   => $this->lang('left'),
-							'center' => $this->lang('center'),
-							'right'  => $this->lang('right')
+							'left'   => $this->lang('Gauche'),
+							'center' => $this->lang('Centré'),
+							'right'  => $this->lang('Droite')
 						],
 						'type'   => 'radio',
 						'rules'  => 'required'
@@ -54,9 +54,9 @@ class Admin extends Controller
 					'positionY' => [
 						'value'  => explode(' ', $this->config->{'default_background_position'})[1],
 						'values' => [
-							'top'    => $this->lang('top'),
-							'center' => $this->lang('middle'),
-							'bottom' => $this->lang('bottom')
+							'top'    => $this->lang('Haut'),
+							'center' => $this->lang('Milieu'),
+							'bottom' => $this->lang('Bas')
 						],
 						'type'   => 'radio',
 						'rules'  => 'required'
@@ -64,18 +64,18 @@ class Admin extends Controller
 					'fixed' => [
 						'value'  => $this->config->{'default_background_attachment'},
 						'values' => [
-							'on'  => $this->lang('background_fixed')
+							'on'  => $this->lang('Image fixe')
 						],
 						'type'   => 'checkbox'
 					],
 					'color' => [
-						'label' => $this->lang('background_color'),
+						'label' => $this->lang('Couleur de fond'),
 						'value' => $this->config->{'default_background_color'},
 						'type'  => 'colorpicker',
 						'rules' => 'required'
 					]
 				])
-				->add_submit($this->lang('save'));
+				->add_submit($this->lang('Valider'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -107,7 +107,7 @@ class Admin extends Controller
 					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('dashboard'), 'fa-cog')
+								->heading($this->lang('Tableau de bord'), 'fa-cog')
 								->body($this->view('admin/index', [
 									'theme'           => $this->__caller,
 									'form_background' => $this->form->display()

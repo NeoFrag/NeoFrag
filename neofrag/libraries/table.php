@@ -223,7 +223,7 @@ class Table extends Library
 				$this->session->set('table', $this->id, 'search', $search);
 
 				$this->_data    = $results;
-				$this->_no_data = NeoFrag()->lang('no_result');
+				$this->_no_data = NeoFrag()->lang('Aucun résultat ne correspond à la recherche');
 			}
 			else
 			{
@@ -251,7 +251,7 @@ class Table extends Library
 
 		if (empty($this->_data))
 		{
-			$output = '<div class="clearfix"></div>'.($this->_no_data ?: NeoFrag()->lang('no_data'));
+			$output = '<div class="clearfix"></div>'.($this->_no_data ?: NeoFrag()->lang('Il n\'y a rien ici pour le moment'));
 		}
 		else
 		{
@@ -259,7 +259,7 @@ class Table extends Library
 			{
 				$search_input = '	<div class="table-search pull-left">
 										<div class="form-group has-feedback">
-											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.implode(', ', array_unique(array_filter($words))).']').'" type="text"'.(!empty($search) ? ' value="'.$search.'"' : '').' placeholder="'.NeoFrag()->lang('search').'" autocomplete="off" />
+											<input class="form-control" data-provide="typeahead" data-items="5" data-source="'.utf8_htmlentities('['.implode(', ', array_unique(array_filter($words))).']').'" type="text"'.(!empty($search) ? ' value="'.$search.'"' : '').' placeholder="'.NeoFrag()->lang('Rechercher').'" autocomplete="off" />
 										</div>
 									</div>';
 			}
@@ -314,11 +314,11 @@ class Table extends Library
 			{
 				$output .= '<div class="form-group pull-left">
 								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')" autocomplete="off">
-									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag()->lang('results', 10, 10).'</option>
-									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag()->lang('results', 25, 25).'</option>
-									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag()->lang('results', 50, 50).'</option>
-									<option value="100"'.($this->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">'.NeoFrag()->lang('results', 100, 100).'</option>
-									<option value="all"'.($this->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">'.NeoFrag()->lang('show_all').'</option>
+									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag()->lang('%d résultat|%d résultats', 10, 10).'</option>
+									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag()->lang('%d résultat|%d résultats', 25, 25).'</option>
+									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag()->lang('%d résultat|%d résultats', 50, 50).'</option>
+									<option value="100"'.($this->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">'.NeoFrag()->lang('%d résultat|%d résultats', 100, 100).'</option>
+									<option value="all"'.($this->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">'.NeoFrag()->lang('Tout afficher').'</option>
 								</select>
 							</div>';
 			}
@@ -457,7 +457,7 @@ class Table extends Library
 				$output .= '<div class="pull-right">'.$pagination.'</div>';
 			}
 
-			$output .= '<i>'.NeoFrag()->lang('results', $count, $count).($count < $count_results ? NeoFrag()->lang('results_total', $count_results) : '').'</i>';
+			$output .= '<i>'.NeoFrag()->lang('%d résultat|%d résultats', $count, $count).($count < $count_results ? NeoFrag()->lang(' sur %d au total', $count_results) : '').'</i>';
 
 			if (!$this->_ajax)
 			{

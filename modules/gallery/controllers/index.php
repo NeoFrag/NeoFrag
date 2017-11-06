@@ -29,8 +29,8 @@ class Index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this->lang('gallery'), 'fa-photo')
-								->body('<div class="text-center">'.$this->lang('no_category_message').'</div>')
+								->heading($this->lang('Galerie'), 'fa-photo')
+								->body('<div class="text-center">'.$this->lang('Aucune catégorie n\'a été créée pour le moment').'</div>')
 								->color('info');
 		}
 
@@ -72,8 +72,8 @@ class Index extends Controller_Module
 		if (empty($images))
 		{
 			$panels[] = $this	->panel()
-								->heading($this->lang('photos'), 'fa-photo')
-								->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this->lang('no_images_message').'</h4></div>')
+								->heading($this->lang('Photos'), 'fa-photo')
+								->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this->lang('Aucune image dans cette galerie').'</h4></div>')
 								->color('info');
 		}
 

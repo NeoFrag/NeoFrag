@@ -8,7 +8,7 @@
 
 			if ($this->user() && $data['parent_id'] == NULL)
 			{
-				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$data['comment_id'].'">'.icon('fa-mail-reply').' '.$this->lang('reply').'</a>';
+				$actions[] = '<a class="comment-reply" href="#" data-comment-id="'.$data['comment_id'].'">'.icon('fa-mail-reply').' '.$this->lang('Répondre').'</a>';
 			}
 
 			if ($this->user('admin') || ($this->user() && $this->user('user_id') == $data['user_id']))
@@ -22,10 +22,10 @@
 			}
 		?>
 		<h4 class="media-heading">
-			<?php echo $data['user_id'] ? $this->user->link($data['user_id'], $data['username']) : $this->lang('guest') ?>
+			<?php echo $data['user_id'] ? $this->user->link($data['user_id'], $data['username']) : $this->lang('Visiteur') ?>
 			<small><?php echo icon('fa-clock-o').' '.time_span($data['date']) ?></small>
 		</h4>
-		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$this->lang('removed_message').'</i>' ?>
+		<?php echo $data['content'] ? strtolink(nl2br($data['content']), TRUE) : '<i>'.$this->lang('Message supprimé').'</i>' ?>
 	</div>
 </div>
 <hr<?php if ($data['parent_id'] !== NULL) echo ' class="comments-child"' ?> />

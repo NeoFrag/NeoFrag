@@ -43,7 +43,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Date',
 								'content' => function($data){
-									return timetostr(NeoFrag()->lang('date_short'), $data['date']);
+									return timetostr(NeoFrag()->lang('%d/%m/%Y'), $data['date']);
 								},
 								'sort'    => function($data){
 									return $data['date'];
@@ -138,7 +138,7 @@ class Admin extends Controller_Module
 					'teams' => $this->model()->get_teams_list(),
 					'games' => $this->model()->get_games_list()
 				])
-				->add_submit($this->lang('add'))
+				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/awards');
 
 		if ($this->form->is_valid($post))
@@ -183,7 +183,7 @@ class Admin extends Controller_Module
 					'description'  => $description,
 					'image'        => $image_id
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/awards');
 
 		if ($this->form->is_valid($post))
@@ -215,7 +215,7 @@ class Admin extends Controller_Module
 		$this	->title('Palmarès')
 				->subtitle($name)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

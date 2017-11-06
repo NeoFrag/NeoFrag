@@ -13,7 +13,7 @@ class News extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('news'),
+			'title'       => $this->lang('Actualités'),
 			'description' => '',
 			'icon'        => 'fa-file-text-o',
 			'link'        => 'https://neofr.ag',

@@ -13,7 +13,7 @@ class Access extends Library
 	public function __invoke($id, $access = '', $module = '', $title = '')
 	{
 		return $this->button()
-					->tooltip($title ?: $this->lang('permissions'))
+					->tooltip($title ?: $this->lang('Permissions'))
 					->url('admin/access/edit/'.($access ? ($module ?: $this->output->module()->info()->name).'/'.$id.'-'.$access : $id))
 					->icon('fa-unlock-alt')
 					->color('success')

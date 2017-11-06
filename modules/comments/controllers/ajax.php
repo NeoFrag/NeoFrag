@@ -12,9 +12,9 @@ class Ajax extends Controller_Module
 {
 	public function delete($comment_id, $module_id, $module)
 	{
-		$this	->title($this->lang('delete_confirmation'))
+		$this	->title($this->lang('Confirmation de suppression'))
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('comment_confirmation'));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce commentaire ?'));
 
 		if ($this->form->is_valid())
 		{

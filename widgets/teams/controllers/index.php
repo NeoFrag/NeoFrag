@@ -21,17 +21,17 @@ class Index extends Controller_Widget
 		if (!empty($teams))
 		{
 			return $this->panel()
-						->heading($this->lang('ours_teams'))
+						->heading($this->lang('Nos équipes'))
 						->body($this->view('index', [
 							'teams'    => $teams
 						]), FALSE)
-						->footer('<a href="'.url('teams').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('see_all_teams').'</a>', 'right');
+						->footer('<a href="'.url('teams').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir toutes nos équipes').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this->lang('ours_teams'))
-						->body($this->lang('no_team'));
+						->heading($this->lang('Nos équipes'))
+						->body($this->lang('Aucune équipe pour le moment'));
 		}
 	}
 }

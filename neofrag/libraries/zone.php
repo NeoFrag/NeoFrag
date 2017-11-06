@@ -15,9 +15,9 @@ class Zone extends Library
 			if (NeoFrag::live_editor() & NeoFrag::ZONES)
 			{
 				$output = '	<div class="pull-right">
-								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.$this->lang('common_layout').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.$this->lang('custom_layout').'</button>').'
+								'.($page == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.$this->lang('Disposition commune').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.$this->lang('Disposition spécifique à la page').'</button>').'
 							</div>
-							<h3>'.(!empty(NeoFrag()->theme->info()->zones[$zone_id]) ? NeoFrag()->theme->info()->zones[$zone_id] : $this->lang('zone', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.$this->lang('new_row').'">'.icon('fa-plus').'</button></div></h3>'.
+							<h3>'.(!empty(NeoFrag()->theme->info()->zones[$zone_id]) ? NeoFrag()->theme->info()->zones[$zone_id] : $this->lang('Zone #%d', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.$this->lang('Nouveau Row').'">'.icon('fa-plus').'</button></div></h3>'.
 							$output;
 			}
 

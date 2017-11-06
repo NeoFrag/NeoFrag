@@ -6,17 +6,17 @@
 
 $rules = [
 	'title' => [
-		'label' => $this->lang('name'),
+		'label' => $this->lang('Nom'),
 		'value' => $this->form->value('title'),
 		'rules' => 'required'.($this->form->value('auto') ? '|disabled' : '')
 	],
 	'color' => [
-		'label' => $this->lang('color'),
+		'label' => $this->lang('Couleur'),
 		'value' => $this->form->value('color'),
 		'type'  => 'colorpicker'
 	],
 	'icon' => [
-		'label'   => $this->lang('icon'),
+		'label'   => $this->lang('Icône'),
 		'value'   => $this->form->value('icon'),
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'

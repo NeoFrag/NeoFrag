@@ -3,8 +3,8 @@
 		<div class="modal-content">
 			<form action="<?php echo url('forum/topic/move/'.$data['topic_id'].'/'.url_title($data['title'])) ?>" method="post">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('close') ?>"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="modal-title-topic-move"><?php echo $this->lang('select_forum') ?></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('Fermer') ?>"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="modal-title-topic-move"><?php echo $this->lang('Choisissez un forum pour déplacer') ?></h4>
 				</div>
 				<div class="modal-body">
 					<ul class="forum-tree">
@@ -41,8 +41,8 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>
-					<button class="btn btn-info"><?php echo $this->lang('continue') ?></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>
+					<button class="btn btn-info"><?php echo $this->lang('Continuer') ?></button>
 				</div>
 			</form>
 		</div>

@@ -106,7 +106,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Auteur',
 								'content' => function($data){
-									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : $this->lang('guest');
+									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : $this->lang('Visiteur');
 								},
 								'sort'    => function($data){
 									return $data['username'];
@@ -118,7 +118,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Date',
 								'content' => function($data){
-									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.timetostr(NeoFrag()->lang('date_time_short'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
 								},
 								'sort'    => function($data){
 									return $data['date'];
@@ -248,7 +248,7 @@ class Admin extends Controller_Module
 									'date_end'            => $date_end,
 									'published'           => $published
 								])
-								->add_submit($this->lang('edit'))
+								->add_submit($this->lang('Éditer'))
 								->add_back('admin/events')
 								->save();
 
@@ -317,11 +317,11 @@ class Admin extends Controller_Module
 											'label'       => 'Image',
 											'type'        => 'file',
 											'upload'      => 'opponents',
-											'info'        => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+											'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 											'check'       => function($filename, $ext){
 												if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 												{
-													return $this->lang('select_image_file');
+													return $this->lang('Veuiller choisir un fichier d\'image');
 												}
 											}
 										],
@@ -553,7 +553,7 @@ class Admin extends Controller_Module
 					'color' => $color,
 					'icon'  => $icon
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/events');
 
 		if ($this->form->is_valid($post))

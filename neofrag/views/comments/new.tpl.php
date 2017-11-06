@@ -7,15 +7,15 @@
 		<form action="" method="post">
 			<input type="hidden" name="<?php echo $data['form_id'] ?>[comment_id]" value="" />
 			<div class="form-group">
-				<label for="<?php echo $data['form_id'] ?>[comment]"><?php echo $this->lang('my_comment') ?></label>
+				<label for="<?php echo $data['form_id'] ?>[comment]"><?php echo $this->lang('Mon commentaire') ?></label>
 				<textarea name="<?php echo $data['form_id'] ?>[comment]" class="form-control" rows="3"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary"><?php echo $this->lang('send') ?></button>
+			<button type="submit" class="btn btn-primary"><?php echo $this->lang('Envoyer') ?></button>
 		</form>
 	</div>
 </div>
 <?php else: ?>
-	<div class="alert alert-danger m-0" role="alert">
-		<?php echo icon('fa-ban').' '.$this->lang('comment_unlogged') ?>
+	<div class="alert alert-danger no-margin" role="alert">
+		<?php echo icon('fa-ban').' '.$this->lang('Vous devez être identifié pour pouvoir poster un commentaire') ?>
 	</div>
 <?php endif ?>

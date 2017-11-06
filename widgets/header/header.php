@@ -13,7 +13,7 @@ class Header extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('header'),
+			'title'       => $this->lang('Header'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

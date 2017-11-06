@@ -39,7 +39,7 @@
 					foreach ($data['awards'] as $award): ?>
 					<tr>
 						<td>
-							<span data-toggle="tooltip" title="<?php echo timetostr($this->lang('date_long'), $award['date']) ?>"><?php echo icon('fa-calendar-o') ?></span>
+							<span data-toggle="tooltip" title="<?php echo timetostr($this->lang('%A %e %B %Y'), $award['date']) ?>"><?php echo icon('fa-calendar-o') ?></span>
 						</td>
 						<td class="text-center">
 							<?php

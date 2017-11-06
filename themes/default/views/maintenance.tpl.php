@@ -29,32 +29,32 @@
 	<div class="intro-body">
 		<div class="container">
 			<h1 class="brand-heading"><?php echo $data['page_title'] ?></h1>
-			<p class="intro-text"><?php echo bbcode($this->config->nf_maintenance_content) ?: $this->lang('our_website_is_unavailable') ?></p>
+			<p class="intro-text"><?php echo bbcode($this->config->nf_maintenance_content) ?: $this->lang('Notre site est momentanément indisponible,<br />nous vous invitons à revenir dans un instant...') ?></p>
 			<?php if ($this->config->nf_maintenance_opening): ?>
-				<?php echo $this->lang('coming_soon') ?>
+				<?php echo $this->lang('Réouverture prévue dans') ?>
 				<div id="countdown" class="countdownHolder" data-timestamp="<?php echo date_create($this->config->nf_maintenance_opening)->getTimestamp() ?>"></div>
 			<?php endif ?>
 		</div>
 	</div>
 </section>
 <section id="login">
-	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.$this->lang('hide') ?></a>
+	<a href="#" class="btn-close"><?php echo icon('fa-caret-square-o-right').' '.$this->lang('Masquer') ?></a>
 	<div class="login-body">
-		<h2><?php echo $this->lang('login_title') ?></h2>
+		<h2><?php echo $this->lang('Se connecter') ?></h2>
 		<form action="<?php echo url($this->url->request) ?>" method="post">
 			<div class="form-group">
-				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473') ?>[login]" class="form-control" placeholder="<?php echo $this->lang('username') ?>" />
+				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473') ?>[login]" class="form-control" placeholder="<?php echo $this->lang('Identifiant') ?>" />
 			</div>
 			<div class="form-group">
-				<input type="password" name="<?php echo $token ?>[password]" class="form-control" placeholder="<?php echo $this->lang('password') ?>" />
+				<input type="password" name="<?php echo $token ?>[password]" class="form-control" placeholder="<?php echo $this->lang('Mot de passe') ?>" />
 			</div>
-			<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.$this->lang('login_title') ?></button>
+			<button type="submit" class="btn btn-default"><?php echo icon('fa-lock').' '.$this->lang('Se connecter') ?></button>
 		</form>
 	</div>
 </section>
 <footer>
 	<a href="#" class="btn-login"><?php echo icon('fa-unlock-alt') ?></a>
 	<div class="container text-center">
-		<p><?php echo $this->lang('copyright_all_rights_reserved') ?></p>
+		<p><?php echo $this->lang('Copyright © '.date('Y').' - '.$this->config->nf_name.' tous droits réservés') ?></p>
 	</div>
 </footer>

@@ -6,13 +6,13 @@
 
 $rules = [
 	'username' => [
-		'label' => $this->lang('username'),
+		'label' => $this->lang('Identifiant'),
 		'value' => $username = $this->form->value('username'),
 		'rules' => 'required',
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag()->db->select('1')->from('nf_users')->where('username', $value)->row())
 			{
-				return $this->lang('username_unavailable');
+				return $this->lang('Identifiant déjà utilisé');
 			}
 		}
 	]
@@ -22,23 +22,23 @@ if (!NeoFrag()->url->admin)
 {
 	$rules = array_merge($rules, [
 		'password_old' => [
-			'label' => $this->lang('current_password'),
+			'label' => $this->lang('Mot de passe actuel'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password',
 			'check' => function($value, $post){
 				if (strlen($value) && strlen($post['password_new']) && strlen($post['password_confirm']) && !NeoFrag()->password->is_valid($value.($salt = NeoFrag()->user('salt')), NeoFrag()->user('password'), (bool)$salt))
 				{
-					return $this->lang('invalid_password');
+					return $this->lang('Mot de passe incorrect');
 				}
 			}
 		],
 		'password_new' => [
-			'label' => $this->lang('new_password'),
+			'label' => $this->lang('Nouveau mot de passe'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password'
 		],
 		'password_confirm' => [
-			'label' => $this->lang('password_confirmation'),
+			'label' => $this->lang('Confirmation'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password',
 			'check' => function($value, $post){
@@ -53,46 +53,46 @@ if (!NeoFrag()->url->admin)
 
 $rules = array_merge($rules, [
 	'email' => [
-		'label' => $this->lang('email'),
+		'label' => $this->lang('Email'),
 		'value' => $email = $this->form->value('email'),
 		'type'  => 'email',
 		'rules' => 'required',
 		'check' => function($value) use ($email){
 			if ($value != $email && NeoFrag()->db->select('1')->from('nf_users')->where('email', $value)->row())
 			{
-				return $this->lang('email_unavailable');
+				return $this->lang('Addresse email déjà utilisée');
 			}
 		}
 	],
 	'first_name' => [
-		'label' => $this->lang('first_name'),
+		'label' => $this->lang('Prénom'),
 		'value' => $this->form->value('first_name')
 	],
 	'last_name' => [
-		'label' => $this->lang('last_name'),
+		'label' => $this->lang('Nom'),
 		'value' => $this->form->value('last_name')
 	],
 	'avatar' => [
-		'label'       => $this->lang('avatar'),
+		'label'       => $this->lang('Avatar'),
 		'value'       => $this->form->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
-		'info'        => $this->lang('file_icon', 250, file_upload_max_size() / 1024 / 1024),
+		'info'        => $this->lang(' d\'image (format carré min. %dpx et max. %d Mo)', 250, file_upload_max_size() / 1024 / 1024),
 		'check'       => function($filename, $ext){
 			if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 			{
-				return $this->lang('select_image_file');
+				return $this->lang('Veuiller choisir un fichier d\'image');
 			}
 
 			list($w, $h) = getimagesize($filename);
 
 			if ($w != $h)
 			{
-				return $this->lang('avatar_must_be_square');
+				return $this->lang('L\'avatar doit être carré');
 			}
 			else if ($w < 250)
 			{
-				return $this->lang('avatar_size_error', 250);
+				return $this->lang('L\'avatar doit faire au moins %dpx', 250);
 			}
 		},
 		'post_upload' => function($filename){
@@ -100,18 +100,18 @@ $rules = array_merge($rules, [
 		}
 	],
 	'date_of_birth' => [
-		'label' => $this->lang('birth_date'),
+		'label' => $this->lang('Date de naissance'),
 		'value' => $this->form->value('date_of_birth'),
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
 			{
-				return $this->lang('invalid_birth_date');
+				return $this->lang('Vraiment ?! 2.1 Gigowatt !');
 			}
 		}
 	],
 	'sex' => [
-		'label'  => $this->lang('gender'),
+		'label'  => $this->lang('Sexe'),
 		'value'  => $this->form->value('sex'),
 		'values' => [
 			'female' => $this->label($this->lang('Femme'), 'fa-female'),
@@ -120,20 +120,20 @@ $rules = array_merge($rules, [
 		'type'   => 'radio'
 	],
 	'location' => [
-		'label' => $this->lang('location'),
+		'label' => $this->lang('Localisation'),
 		'value' => $this->form->value('location')
 	],
 	'website' => [
-		'label' => $this->lang('website'),
+		'label' => $this->lang('Site web'),
 		'value' => $this->form->value('website'),
 		'type'  => 'url'
 	],
 	'quote' => [
-		'label'  => $this->lang('quote'),
+		'label'  => $this->lang('Citation'),
 		'value' => $this->form->value('quote')
 	],
 	'signature' => [
-		'label' => $this->lang('signature'),
+		'label' => $this->lang('Signature'),
 		'value' => $this->form->value('signature'),
 		'type'  => 'editor'
 	]

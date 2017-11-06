@@ -13,7 +13,7 @@ class Forum extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('forum'),
+			'title'       => $this->lang('Forum'),
 			'description' => '',
 			'icon'        => 'fa-comments',
 			'link'        => 'https://neofr.ag',
@@ -102,37 +102,37 @@ class Forum extends Module
 				],
 				'access'  => [
 					[
-						'title'  => $this->lang('category'),
+						'title'  => $this->lang('Catégorie'),
 						'icon'   => 'fa-navicon',
 						'access' => [
 							'category_read' => [
-								'title' => $this->lang('read'),
+								'title' => $this->lang('Lire'),
 								'icon'  => 'fa-eye'
 							],
 							'category_write' => [
-								'title' => $this->lang('write'),
+								'title' => $this->lang('Écrire'),
 								'icon'  => 'fa-reply'
 							]
 						]
 					],
 					[
-						'title'  => $this->lang('moderation'),
+						'title'  => $this->lang('Modération'),
 						'icon'   => 'fa-user',
 						'access' => [
 							'category_modify' => [
-								'title' => $this->lang('edit_topic_message'),
+								'title' => $this->lang('Éditer un sujet / message'),
 								'icon'  => 'fa-edit'
 							],
 							'category_delete' => [
-								'title' => $this->lang('remove_topic_message'),
+								'title' => $this->lang('Supprimer un sujet / message'),
 								'icon'  => 'fa-trash-o'
 							],
 							'category_announce' => [
-								'title' => $this->lang('set_topic_announce'),
+								'title' => $this->lang('Mettre un sujet en annonce'),
 								'icon'  => 'fa-flag'
 							],
 							'category_lock' => [
-								'title' => $this->lang('lock_a_topic'),
+								'title' => $this->lang('Vérouiller un sujet'),
 								'icon'  => 'fa-lock'
 							],
 							'category_move' => [

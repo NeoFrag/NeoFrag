@@ -17,7 +17,7 @@ class Index extends Controller_Module
 		foreach ($this->model()->get_teams() as $team)
 		{
 			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'])
-									->footer(icon('fa-users').' '.$this->lang('player', $team['users'], $team['users']));
+									->footer(icon('fa-users').' '.$this->lang('%d joueur|%d joueurs', $team['users'], $team['users']));
 
 			if ($team['image_id'])
 			{
@@ -30,8 +30,8 @@ class Index extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this->lang('teams'), 'fa-gamepad')
-								->body('<div class="text-center">'.$this->lang('no_team_yet').'</div>')
+								->heading($this->lang('Équipe'), 'fa-gamepad')
+								->body('<div class="text-center">'.$this->lang('Aucune équipe n\'a été créée pour le moment').'</div>')
 								->color('info');
 		}
 
@@ -52,7 +52,7 @@ class Index extends Controller_Module
 							],
 							[
 								'content' => function($data){
-									return '<div>'.NeoFrag()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'admin' : 'member').' '.$this->lang($data['online'] ? 'online' : 'offline').'</small>';
+									return '<div>'.NeoFrag()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'Administrateur' : 'Membre').' '.$this->lang($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
 								}
 							],
 							[
@@ -62,7 +62,7 @@ class Index extends Controller_Module
 							]
 						])
 						->data($this->model()->get_players($team_id))
-						->no_data($this->lang('no_players_on_team'))
+						->no_data($this->lang('Il n\'y a pas encore de joueur dans cette équipe'))
 						->display();
 
 		$events = $this->module('events') ? $this->module('events')->model()->get_events('team', $team_id) : NULL;

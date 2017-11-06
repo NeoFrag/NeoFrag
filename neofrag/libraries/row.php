@@ -31,10 +31,10 @@ class Row extends Childrenable
 			{
 				$output .= '<div class="live-editor-row-header">
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('design').'">'.icon('fa-paint-brush').'</button>
-									<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('remove').'">'.icon('fa-close').'</button>
+									<button type="button" class="btn btn-sm btn-info live-editor-style" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Apparence').'">'.icon('fa-paint-brush').'</button>
+									<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Supprimer').'">'.icon('fa-close').'</button>
 								</div>
-								<h3>'.NeoFrag()->lang('row').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('new_col').'">'.icon('fa-plus').'</button></div></h3>
+								<h3>'.NeoFrag()->lang('Row').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-col" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Nouveau Col').'">'.icon('fa-plus').'</button></div></h3>
 							</div>';
 			}
 		}
