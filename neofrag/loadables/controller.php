@@ -4,25 +4,29 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-abstract class Controller extends NeoFrag
-{
-	public $load;
+namespace NF\NeoFrag\Loadables;
 
-	public function __construct($name)
+use NF\NeoFrag\NeoFrag;
+
+abstract class Controller extends NeoFrag implements \NF\NeoFrag\Loadable
+{
+	protected $_caller;
+
+	public function __construct($caller)
 	{
-		$this->name = $name;
+		$this->__caller = $caller;
 	}
 
 	public function has_method($name)
 	{
-		$r = new ReflectionClass($this);
+		$r = new \ReflectionClass($this);
 
 		try
 		{
 			$method = $r->getMethod($name);
 			return $method->class == ($class = get_class($this)) || substr($class, 0, 2) == 'o_' && substr($class, 2) == $method->class;
 		}
-		catch (ReflectionException $error)
+		catch (\ReflectionException $error)
 		{
 
 		}

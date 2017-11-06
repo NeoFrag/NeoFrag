@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Row extends Childrenable
+namespace NF\NeoFrag\Displayables;
+
+use NF\NeoFrag\Displayable;
+
+class Row extends Displayable
 {
 	protected $_style;
 

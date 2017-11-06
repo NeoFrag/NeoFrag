@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-abstract class Controller_Widget extends Controller
+namespace NF\NeoFrag\Loadables\Controllers;
+
+use NF\NeoFrag\Loadables\Controller;
+
+abstract class Widget extends Controller
 {
 	abstract public function index($config = []);
 

@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-abstract class Controller_Module extends Controller
+namespace NF\NeoFrag\Loadables\Controllers;
+
+use NF\NeoFrag\Loadables\Controller;
+
+abstract class Module extends Controller
 {
 	public function title($title)
 	{

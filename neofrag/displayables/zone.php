@@ -4,7 +4,11 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-class Zone extends Library
+namespace NF\NeoFrag\Displayables;
+
+use NF\NeoFrag\Displayable;
+
+class Zone extends Displayable
 {
 	public function __invoke($disposition_id, $disposition, $page, $zone_id)
 	{

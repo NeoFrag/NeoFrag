@@ -4,24 +4,22 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag;
+
 class Library extends NeoFrag
 {
-	static public $ID;
+	protected $__caller;
 
-	public $id;
-	public $load;
-	public $name = '';
+	public function __construct($caller)
+	{
+		$this->__caller = $caller;
+	}
 
 	public function __sleep()
 	{
 		return array_filter(array_keys(get_object_vars($this)), function($a){
 			return $a[0] == '_';
 		});
-	}
-
-	public function __wakeup()
-	{
-		$this->load = NeoFrag();
 	}
 
 	public function reset()

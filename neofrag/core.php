@@ -4,10 +4,8 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
+namespace NF\NeoFrag;
+
 class Core extends Library
 {
-	public function __construct()
-	{
-		$this->load = NeoFrag();
-	}
 }
