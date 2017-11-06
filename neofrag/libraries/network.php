@@ -56,6 +56,12 @@ class Network extends Library
 		return $this;
 	}
 
+	public function error($error)
+	{
+		$this->_error = $error;
+		return $this;
+	}
+
 	public function get($data = [])
 	{
 		return $this->_execute([
@@ -171,6 +177,11 @@ class Network extends Library
 
 			if (($code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) >= 400)
 			{
+				if (is_a($this->_error, 'closure'))
+				{
+					call_user_func_array($this->_error, [$result, $code]);
+				}
+
 				$result = FALSE;
 			}
 		}
