@@ -12,6 +12,7 @@ class Network extends Library
 {
 	protected $_auth;
 	protected $_header = [];
+	protected $_error;
 	protected $_method;
 	protected $_ssl_check = TRUE;
 	protected $_timeout   = 1;
@@ -58,6 +59,12 @@ class Network extends Library
 	public function method($method)
 	{
 		$this->_method = $method;
+		return $this;
+	}
+
+	public function error($error)
+	{
+		$this->_error = $error;
 		return $this;
 	}
 
@@ -176,6 +183,11 @@ class Network extends Library
 
 			if (($code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) >= 400)
 			{
+				if (is_a($this->_error, 'closure'))
+				{
+					call_user_func_array($this->_error, [$result, $code]);
+				}
+
 				$result = FALSE;
 			}
 		}
