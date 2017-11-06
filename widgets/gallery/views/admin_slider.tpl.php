@@ -1,12 +1,12 @@
 <div role="tabpanel">
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('options') ?></a></li>
+		<li role="presentation" class="active"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('Options') ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="navigation-options" class="tab-pane active" role="tabpanel">
 			<div class="form-horizontal">
 				<div class="form-group">
-					<label for="settings-gallery" class="col-sm-3 control-label"><?php echo $this->lang('gallery') ?></label>
+					<label for="settings-gallery" class="col-sm-3 control-label"><?php echo $this->lang('Galerie') ?></label>
 					<div class="col-sm-9">
 						<select class="form-control" name="settings[gallery_id]" id="settings-gallery">
 							<?php foreach ($data['gallery'] as $gallery): ?>

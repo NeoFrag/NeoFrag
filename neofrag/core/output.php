@@ -54,7 +54,7 @@ class Output extends Core
 
 				if (NeoFrag::live_editor())
 				{
-					$this->data['body'] = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label($this->lang('home'), 'fa-map-marker') : $this->data['module_title']).'"></div>';
+					$body = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label($this->lang('Accueil'), 'fa-map-marker') : $this->data['module_title']).'"></div>';
 
 					$this->load	->css('font.open-sans.300.400.600.700.800')
 								->css('live-editor');

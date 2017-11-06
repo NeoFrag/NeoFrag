@@ -13,7 +13,7 @@ class Search extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('search'),
+			'title'       => $this->lang('Rechercher'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

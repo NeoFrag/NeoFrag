@@ -13,7 +13,7 @@ class Members extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('members_list'),
+			'title'       => $this->lang('Liste des membres'),
 			'description' => '',
 			'icon'        => 'fa-users',
 			'link'        => 'https://neofr.ag',

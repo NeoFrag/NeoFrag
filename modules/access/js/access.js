@@ -73,7 +73,7 @@ $(function(){
 
 				if (typeof data.user_authorized != 'undefined' && typeof data.user_forced != 'undefined'){
 					if (data.user_forced){
-						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('reset_automatic') ?>"><?php echo icon('fa-thumb-tack') ?></a>');
+						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('Remettre en automatique') ?>"><?php echo icon('fa-thumb-tack') ?></a>');
 					}
 					else {
 						$tr.find('.access-status').html('');
@@ -156,15 +156,15 @@ $(function(){
 				<div class="modal-dialog">\
 					<div class="modal-content">\
 						<div class="modal-header">\
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('close') ?></span></button>\
-							<h4 class="modal-title"><?php echo $this->lang('permissions_reset_comfirmation') ?></h4>\
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
+							<h4 class="modal-title"><?php echo $this->lang('Confirmation de réinitialisation des permissions') ?></h4>\
 						</div>\
 						<div class="modal-body">\
-							<?php echo $this->lang('permissions_reset_message') ?>\
+							<?php echo $this->lang('Êtes-vous sûr(e) de vouloir réinitialiser les permissions ?') ?>\
 						</div>\
 						<div class="modal-footer">\
-							<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('cancel') ?></button>\
-							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'"><?php echo $this->lang('reset') ?></button>\
+							<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+							<button class="btn btn-info" data-module="'+$(this).data('module')+'" data-type="'+$(this).data('type')+'" data-id="'+$(this).data('id')+'"><?php echo $this->lang('Réinitialiser') ?></button>\
 						</div>\
 					</div>\
 				</div>\

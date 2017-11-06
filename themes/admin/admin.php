@@ -19,7 +19,7 @@ class Admin extends Theme
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => [$this->lang('content'), $this->lang('pre_content'), $this->lang('post_content'), $this->lang('header'), $this->lang('top'), $this->lang('footer')]
+			'zones'       => [$this->lang('Contenu'), $this->lang('pre_content'), $this->lang('post_content'), $this->lang('header'), $this->lang('Haut'), $this->lang('footer')]
 		];
 	}
 
@@ -70,28 +70,28 @@ class Admin extends Theme
 				->js('slideout.min')
 				->add_data('menu', [
 					[
-						'title' => $this->lang('dashboard'),
+						'title' => $this->lang('Tableau de bord'),
 						'icon'  => 'fa-dashboard',
 						'url'   => 'admin'
 					],
 					[
-						'title' => $this->lang('settings'),
+						'title' => $this->lang('Paramètres'),
 						'icon'  => 'fa-cogs',
 						'url'   => [
 							[
-								'title'  => $this->lang('configuration'),
+								'title'  => $this->lang('Configuration'),
 								'icon'   => 'fa-wrench',
 								'url'    => 'admin/settings',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this->lang('maintenance'),
+								'title'  => $this->lang('Maintenance'),
 								'icon'   => 'fa-power-off',
 								'url'    => 'admin/settings/maintenance',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this->lang('addons'),
+								'title'  => $this->lang('Gestion des composants'),
 								'icon'   => 'fa-puzzle-piece',
 								'url'    => 'admin/addons',
 								'access' => $this->user('admin')
@@ -99,7 +99,7 @@ class Admin extends Theme
 						]
 					],
 					[
-						'title' => $this->lang('users'),
+						'title' => $this->lang('Utilisateurs'),
 						'icon'  => 'fa-users',
 						'url'   => [
 							[
@@ -109,7 +109,7 @@ class Admin extends Theme
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this->lang('sessions'),
+								'title'  => $this->lang('Sessions'),
 								'icon'   => 'fa-globe',
 								'url'    => 'admin/user/sessions',
 								'access' => $this->user('admin')
@@ -120,13 +120,13 @@ class Admin extends Theme
 								'url'   => 'admin/user'
 							),*/
 							[
-								'title'  => $this->lang('permissions'),
+								'title'  => $this->lang('Permissions'),
 								'icon'   => 'fa-unlock-alt',
 								'url'    => 'admin/access',
 								'access' => $this->user('admin')
 							],
 							[
-								'title'  => $this->lang('ban'),
+								'title'  => $this->lang('Bannissement'),
 								'icon'   => 'fa-bomb',
 								'url'    => 'admin/user/ban',
 								'access' => $this->user('admin')
@@ -134,7 +134,7 @@ class Admin extends Theme
 						]
 					],
 					[
-						'title' => $this->lang('content'),
+						'title' => $this->lang('Contenu'),
 						'icon'  => 'fa-edit',
 						'url'   => $content_submenu['default']
 					],
@@ -144,17 +144,17 @@ class Admin extends Theme
 						'url'   => $content_submenu['gaming']
 					],
 					[
-						'title' => $this->lang('design'),
+						'title' => $this->lang('Apparence'),
 						'icon'  => 'fa-paint-brush',
 						'url'   => [
 							[
-								'title'  => $this->lang('themes'),
+								'title'  => $this->lang('Thèmes'),
 								'icon'   => 'fa-tint',
 								'url'    => 'admin/addons#themes',
 								'access' => $this->user('admin')
 							],
 							[
-								'title' => $this->lang('liveditor'),
+								'title' => $this->lang('Live Editor'),
 								'icon'  => 'fa-desktop',
 								'url'   => 'live-editor',
 								'access' => $this->user('admin')
@@ -174,7 +174,7 @@ class Admin extends Theme
 						'access' => $this->user('admin')
 					],
 					[
-						'title'  => $this->lang('about'),
+						'title'  => $this->lang('À propos'),
 						'icon'   => 'fa-info',
 						'url'    => 'admin/about',
 						'access' => $this->user('admin')

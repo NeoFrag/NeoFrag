@@ -13,7 +13,7 @@ class Pages extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('pages'),
+			'title'       => $this->lang('Pages'),
 			'description' => '',
 			'icon'        => 'fa-file-o',
 			'link'        => 'https://neofr.ag',

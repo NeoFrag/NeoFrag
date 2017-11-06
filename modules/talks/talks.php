@@ -13,7 +13,7 @@ class Talks extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('talks'),
+			'title'       => $this->lang('Discussion'),
 			'description' => '',
 			'icon'        => 'fa-comment-o',
 			'link'        => 'https://neofr.ag',
@@ -56,25 +56,25 @@ class Talks extends Module
 				],
 				'access'  => [
 					[
-						'title'  => $this->lang('talks'),
+						'title'  => $this->lang('Discussion'),
 						'icon'   => 'fa-comment-o',
 						'access' => [
 							'read' => [
-								'title' => $this->lang('read'),
+								'title' => $this->lang('Lire'),
 								'icon'  => 'fa-eye'
 							],
 							'write' => [
-								'title' => $this->lang('write'),
+								'title' => $this->lang('Écrire'),
 								'icon'  => 'fa-reply'
 							]
 						]
 					],
 					[
-						'title'  => $this->lang('moderation'),
+						'title'  => $this->lang('Modération'),
 						'icon'   => 'fa-user',
 						'access' => [
 							'delete' => [
-								'title' => $this->lang('delete_message'),
+								'title' => $this->lang('Supprimer un message'),
 								'icon'  => 'fa-trash-o'
 							]
 						]

@@ -13,7 +13,7 @@ class Update extends Library
 	public function __invoke($url, $title = '')
 	{
 		return $this->button()
-					->tooltip($title ?: $this->lang('edit'))
+					->tooltip($title ?: $this->lang('Éditer'))
 					->url($url)
 					->icon('fa-pencil')
 					->color('info')

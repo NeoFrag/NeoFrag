@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this->subtitle($this->lang('list_teams'));
+		$this->subtitle($this->lang('Liste des équipes'));
 
 		$teams = $this	->table
 						->add_columns([
@@ -23,19 +23,19 @@ class Admin extends Controller_Module
 								'size'    => TRUE
 							],
 							[
-								'title'   => $this->lang('teams'),
+								'title'   => $this->lang('Équipe'),
 								'content' => function($data){
 									return '<a href="'.url('teams/'.$data['team_id'].'/'.$data['name']).'"><img src="'.path($data['icon_id']).'" alt="" /> '.$data['title'].'</a>';
 								}
 							],
 							[
-								'title'   => $this->lang('game'),
+								'title'   => $this->lang('Jeux'),
 								'content' => function($data){
 									return '<a href="'.url('admin/games/'.$data['team_id'].'/'.$data['game']).'"><img src="'.path($data['game_icon']).'" alt="" /> '.$data['game_title'].'</a>';
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="'.$this->lang('players').'"></i>',
+								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="'.$this->lang('Joueurs').'"></i>',
 								'content' => function($data){
 									return $data['users'];
 								},
@@ -54,7 +54,7 @@ class Admin extends Controller_Module
 							]
 						])
 						->data($this->model()->get_teams())
-						->no_data($this->lang('no_team'))
+						->no_data($this->lang('Il n\'y a pas encore d\'équipe'))
 						->display();
 
 		$roles = $this	->table
@@ -84,22 +84,22 @@ class Admin extends Controller_Module
 							])
 							->pagination(FALSE)
 							->data($this->model('roles')->get_roles())
-							->no_data($this->lang('no_role'))
+							->no_data($this->lang('Aucun rôle'))
 							->display();
 
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('roles'), 'fa-sitemap')
+						->heading($this->lang('Rôles'), 'fa-sitemap')
 						->body($roles)
-						->footer($this->button_create('admin/teams/roles/add', $this->lang('add_role')))
+						->footer($this->button_create('admin/teams/roles/add', $this->lang('Ajouter un rôle')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('list_teams'), 'fa-gamepad')
+						->heading($this->lang('Liste des équipes'), 'fa-gamepad')
 						->body($teams)
-						->footer($this->button_create('admin/teams/add', $this->lang('add_team')))
+						->footer($this->button_create('admin/teams/add', $this->lang('Ajouter une équipe')))
 						->size('col-12 col-lg-8')
 			)
 		);
@@ -107,12 +107,12 @@ class Admin extends Controller_Module
 
 	public function add()
 	{
-		$this	->subtitle($this->lang('add_team'))
+		$this	->subtitle($this->lang('Ajouter une équipe'))
 				->form
 				->add_rules('teams', [
 					'games' => $this->model()->get_games_list()
 				])
-				->add_submit($this->lang('add'))
+				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/teams');
 
 		if ($this->form->is_valid($post))
@@ -123,13 +123,13 @@ class Admin extends Controller_Module
 													$post['icon'],
 													$post['description']);
 
-			notify($this->lang('add_team_success_message'));
+			notify($this->lang('Équipe ajouté avec succès'));
 
 			redirect('admin/teams/'.$team_id.'/'.url_title($post['title']));
 		}
 
 		return $this->panel()
-					->heading($this->lang('add_team'), 'fa-gamepad')
+					->heading($this->lang('Ajouter une équipe'), 'fa-gamepad')
 					->body($this->form->display());
 	}
 
@@ -145,7 +145,7 @@ class Admin extends Controller_Module
 
 		$roles = $this->model('roles')->get_roles();
 
-		$form_team = $this	->title($this->lang('edit_team'))
+		$form_team = $this	->title($this->lang('Éditer l\'équipe'))
 							->subtitle($title)
 							->form
 							->add_rules('teams', [
@@ -156,7 +156,7 @@ class Admin extends Controller_Module
 								'icon_id'      => $icon_id,
 								'description'  => $description
 							])
-							->add_submit($this->lang('edit'))
+							->add_submit($this->lang('Éditer'))
 							->add_back('admin/teams')
 							->save();
 
@@ -188,7 +188,7 @@ class Admin extends Controller_Module
 										$post['icon'],
 										$post['description']);
 
-			notify($this->lang('edit_team_success_message'));
+			notify($this->lang('Équipe éditée avec succès'));
 
 			redirect_back('admin/teams');
 		}
@@ -226,18 +226,18 @@ class Admin extends Controller_Module
 				])
 				->pagination(FALSE)
 				->data($this->db->select('tu.user_id', 'u.username', 'r.title')->from('nf_teams_users tu')->join('nf_users u', 'u.user_id = tu.user_id AND u.deleted = "0"', 'INNER')->join('nf_teams_roles r', 'r.role_id = tu.role_id')->where('tu.team_id', $team_id)->order_by('r.title', 'u.username')->get())
-				->no_data($this->lang('no_players_on_team'));
+				->no_data($this->lang('Il n\'y a pas encore de joueur dans cette équipe'));
 
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('edit_team'), 'fa-gamepad')
+						->heading($this->lang('Éditer l\'équipe'), 'fa-gamepad')
 						->body($form_team->display())
 						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('players'), 'fa-users')
+						->heading($this->lang('Joueurs'), 'fa-users')
 						->body($this->table->display())
 						->footer($this->view('users', [
 							'users'   => $users,
@@ -251,10 +251,10 @@ class Admin extends Controller_Module
 
 	public function delete($team_id, $title)
 	{
-		$this	->title($this->lang('delete_team'))
+		$this	->title($this->lang('Suppression équipe'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_team_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'équipe <b>%s</b> ?', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -268,56 +268,56 @@ class Admin extends Controller_Module
 
 	public function _roles_add()
 	{
-		$this	->subtitle($this->lang('add_role'))
+		$this	->subtitle($this->lang('Ajouter un rôle'))
 				->form
 				->add_rules('roles')
 				->add_back('admin/teams')
-				->add_submit($this->lang('add'));
+				->add_submit($this->lang('Ajouter'));
 
 		if ($this->form->is_valid($post))
 		{
 			$this->model('roles')->add_role($post['title']);
 
-			notify($this->lang('add_role_success_message'));
+			notify($this->lang('Rôle ajouté avec succès'));
 
 			redirect_back('admin/teams');
 		}
 
 		return $this->panel()
-					->heading($this->lang('add_role'), 'fa-sitemap')
+					->heading($this->lang('Ajouter un rôle'), 'fa-sitemap')
 					->body($this->form->display());
 	}
 
 	public function _roles_edit($role_id, $title)
 	{
-		$this	->subtitle($this->lang('role_', $title))
+		$this	->subtitle($this->lang('Rôle %s', $title))
 				->form
 				->add_rules('roles', [
 					'title' => $title
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/teams');
 
 		if ($this->form->is_valid($post))
 		{
 			$this->model('roles')->edit_role($role_id, $post['title']);
 
-			notify($this->lang('edit_role_success_message'));
+			notify($this->lang('Rôle édité avec succès'));
 
 			redirect_back('admin/teams');
 		}
 
 		return $this->panel()
-					->heading($this->lang('edit_role'), 'fa-sitemap')
+					->heading($this->lang('Éditer le rôle'), 'fa-sitemap')
 					->body($this->form->display());
 	}
 
 	public function _roles_delete($role_id, $title)
 	{
-		$this	->title($this->lang('delete_role'))
+		$this	->title($this->lang('Suppression rôle'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_role_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le rôle <b>%s</b> ?', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -331,10 +331,10 @@ class Admin extends Controller_Module
 
 	public function _players_delete($team_id, $user_id, $username)
 	{
-		$this	->title($this->lang('delete_player'))
+		$this	->title($this->lang('Suppression joueur'))
 				->subtitle($username)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_player_message', $username));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le joueur <b>%s</b> de cette équipe ?', $username));
 
 		if ($this->form->is_valid())
 		{

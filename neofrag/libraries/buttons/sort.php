@@ -14,7 +14,7 @@ class Sort extends Library
 	{
 		return $this->js('sortable')
 					->button()
-					->tooltip($this->lang('sort'))
+					->tooltip($this->lang('Ordonner'))
 					->icon('fa-arrows-v')
 					->color('link')
 					->style('btn-sortable')

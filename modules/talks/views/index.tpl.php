@@ -48,7 +48,7 @@ foreach ($data['messages'] as $i => $message)
 		?>
 		<h6>
 		<?php
-			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('guest').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
+			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('Visiteur').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
 
 			if ($media == 'right')
 			{
@@ -58,7 +58,7 @@ foreach ($data['messages'] as $i => $message)
 			echo implode(' ', $title);
 		?>
 		</h6>
-		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.$this->lang('removed_message').'</i>' ?>
+		<?php echo $message['message'] ? strtolink($message['message']) : '<i>'.$this->lang('Message supprimé').'</i>' ?>
 	</div>
 <?php
 	$output = [$avatar, ob_get_clean()];
@@ -81,5 +81,5 @@ foreach ($data['messages'] as $i => $message)
 }
 ?>
 <?php if (!$count && empty($data['user_id']) && empty($data['position'])): ?>
-	<div class="text-center"><?php echo $this->lang('no_messages') ?></div>
+	<div class="text-center"><?php echo $this->lang('Aucun message dans la discussion') ?></div>
 <?php endif ?>

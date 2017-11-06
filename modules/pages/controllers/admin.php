@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('published').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('awaiting_publication').'" style="color: #535353;"></i>';
+							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('Publiée').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
 						},
 						'sort'    => function($data){
 							return $data['published'];
@@ -24,7 +24,7 @@ class Admin extends Controller_Module
 						'size'    => TRUE
 					],
 					[
-						'title'   => $this->lang('page_title'),
+						'title'   => $this->lang('Titre de la page'),
 						'content' => function($data){
 							return $data['published'] ? '<a href="'.url($data['name']).'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
 						},
@@ -38,7 +38,7 @@ class Admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return $data['published'] ? $this->button()->tooltip($this->lang('view_page'))->icon('fa-eye')->url($data['name'])->compact()->outline() : '';
+								return $data['published'] ? $this->button()->tooltip($this->lang('Voir la page'))->icon('fa-eye')->url($data['name'])->compact()->outline() : '';
 							},
 							function($data){
 								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']));
@@ -51,20 +51,20 @@ class Admin extends Controller_Module
 					]
 				])
 				->data($pages)
-				->no_data($this->lang('no_pages'));
+				->no_data($this->lang('Il n\'y a pas encore de page'));
 
 		return $this->panel()
-					->heading($this->lang('list_pages'), 'fa-align-left')
+					->heading($this->lang('Liste des pages'), 'fa-align-left')
 					->body($this->table->display())
-					->footer($this->button_create('admin/pages/add', $this->lang('create_page')));
+					->footer($this->button_create('admin/pages/add', $this->lang('Créer une page')));
 	}
 
 	public function add()
 	{
-		$this	->subtitle($this->lang('add_pages'))
+		$this	->subtitle($this->lang('Ajouter une page'))
 				->form
 				->add_rules('pages')
-				->add_submit($this->lang('add'))
+				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/pages');
 
 		if ($this->form->is_valid($post))
@@ -75,13 +75,13 @@ class Admin extends Controller_Module
 										$post['subtitle'],
 										$post['content']);
 
-			notify($this->lang('add_success_message'));
+			notify($this->lang('Page ajoutée avec succès'));
 
 			redirect_back('admin/pages');
 		}
 
 		return $this->panel()
-					->heading($this->lang('add_pages'), 'fa-align-left')
+					->heading($this->lang('Ajouter une page'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
@@ -96,7 +96,7 @@ class Admin extends Controller_Module
 					'content'        => $content,
 					'published'      => $published
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/pages');
 
 		if ($this->form->is_valid($post))
@@ -109,22 +109,22 @@ class Admin extends Controller_Module
 										$post['content'],
 										$this->config->lang);
 
-			notify($this->lang('edit_success_message'));
+			notify($this->lang('Page éditée avec succès'));
 
 			redirect_back('admin/pages');
 		}
 
 		return $this->panel()
-					->heading($this->lang('edit_page'), 'fa-align-left')
+					->heading($this->lang('Édition de la page'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
 	public function delete($page_id, $title)
 	{
-		$this	->title($this->lang('delete_page'))
+		$this	->title($this->lang('Suppression d\'une page'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_page_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la page <b>%s</b> ?', $title));
 
 		if ($this->form->is_valid())
 		{

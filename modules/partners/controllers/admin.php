@@ -64,7 +64,7 @@ class Admin extends Controller_Module
 		$this	->subtitle('Ajouter un partenaire')
 				->form
 				->add_rules('partners')
-				->add_submit($this->lang('add'))
+				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/partners');
 
 		if ($this->form->is_valid($post))
@@ -102,7 +102,7 @@ class Admin extends Controller_Module
 					'twitter'     => $twitter,
 					'code'        => $code
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/partners');
 
 		if ($this->form->is_valid($post))
@@ -132,7 +132,7 @@ class Admin extends Controller_Module
 		$this	->title('Supprimer le partenaire')
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
 
 		if ($this->form->is_valid())
 		{

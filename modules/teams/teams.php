@@ -13,7 +13,7 @@ class Teams extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('teams_title'),
+			'title'       => $this->lang('Équipes'),
 			'description' => '',
 			'icon'        => 'fa-gamepad',
 			'link'        => 'https://neofr.ag',

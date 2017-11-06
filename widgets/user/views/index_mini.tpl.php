@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav <?php echo !empty($data['align']) ? $data['align'] : 'navbar-right' ?>">
 	<?php if ($this->user()): ?>
-		<li><p class="navbar-text"><?php echo $this->lang('welcome') ?></p></li>
+		<li><p class="navbar-text"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user('username').'</a>') ?></p></li>
 		<li data-toggle="tooltip" title="Gérer mon compte"><a href="<?php echo url('user/edit') ?>"><?php echo icon('fa-cogs') ?></a></li>
 		<li data-toggle="tooltip" title="Messagerie">
 			<?php if ($messages = $this->user->get_messages()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif ?>
@@ -11,7 +11,7 @@
 		<?php endif ?>
 		<li data-toggle="tooltip" title="Déconnexion"><a href="<?php echo url('user/logout') ?>"><?php echo icon('fa-close') ?></a></li>
 	<?php else: ?>
-		<li><p class="navbar-text"><a href="<?php echo url('user') ?>"><?php echo $this->lang('create_account') ?></a></p></li>
-		<li><a href="<?php echo url('user') ?>"><?php echo icon('fa-sign-in').' '.$this->lang('login') ?></a></li>
+		<li><p class="navbar-text"><a href="<?php echo url('user') ?>"><?php echo $this->lang('Créer un compte') ?></a></p></li>
+		<li><a href="<?php echo url('user') ?>"><?php echo icon('fa-sign-in').' '.$this->lang('Connexion') ?></a></li>
 	<?php endif ?>
 </ul>

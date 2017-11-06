@@ -115,7 +115,7 @@ endif;
 	</div>
 	<ul class="list-inline m-0">
 		<li><?php echo $this->label($data['type']['title'], $data['type']['icon'], $data['type']['color'], 'events/type/'.$data['type']['type_id'].'/'.url_title($data['type']['title'])) ?></li>
-		<li><?php echo icon('fa-clock-o') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.timetostr(NeoFrag()->lang('date_time_short'), $data['date']).'</span>'.($data['date_end'] ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="Durée"><i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i></span>' : '') ?></li>
+		<li><?php echo icon('fa-clock-o') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).'</span>'.($data['date_end'] ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="Durée"><i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i></span>' : '') ?></li>
 		<?php
 		if (!empty($data['show_details']) && $data['list_participants'] && $data['location']):
 			foreach ($data['list_participants'] as $participant):

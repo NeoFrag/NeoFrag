@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$this->lang('published').'"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="'.$this->lang('not_published').'"></i>';
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$this->lang('Publiée dans la galerie').'"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="'.$this->lang('Non visible dans la galerie').'"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -24,7 +24,7 @@ class Admin extends Controller_Module
 								'size'    => TRUE
 							],
 							[
-								'title'   => $this->lang('album'),
+								'title'   => $this->lang('Album'),
 								'content' => function($data){
 									return $data['published'] ? '<a href="'.url('gallery/album/'.$data['gallery_id'].'/'.$data['name']).'">'.$data['title'].'</a>' : $data['title'];
 								},
@@ -36,7 +36,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => $this->lang('category'),
+								'title'   => $this->lang('Catégorie'),
 								'content' => function($data){
 									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.path($data['category_icon']).'" alt="" /> '.$data['category_title'].'</a>';
 								},
@@ -54,7 +54,7 @@ class Admin extends Controller_Module
 							),
 							*/
 							[
-								'title'   => '<i class="fa fa-photo" data-toggle="tooltip" title="'.$this->lang('pictures').'"></i>',
+								'title'   => '<i class="fa fa-photo" data-toggle="tooltip" title="'.$this->lang('Images').'"></i>',
 								'content' => function($data){
 									return $data['images'];
 								},
@@ -75,7 +75,7 @@ class Admin extends Controller_Module
 							]
 						])
 						->data($gallery)
-						->no_data($this->lang('no_photos'))
+						->no_data($this->lang('Il n\'y a pas encore d\'album photo'))
 						->display();
 
 		$categories = $this	->table
@@ -108,22 +108,22 @@ class Admin extends Controller_Module
 							])
 							->pagination(FALSE)
 							->data($this->model()->get_categories())
-							->no_data($this->lang('no_category'))
+							->no_data($this->lang('Aucune catégorie'))
 							->display();
 
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('categories'), 'fa-book')
+						->heading($this->lang('Catégories'), 'fa-book')
 						->body($categories)
-						->footer($this->button_create('admin/gallery/categories/add', $this->lang('add_category')))
+						->footer($this->button_create('admin/gallery/categories/add', $this->lang('Ajouter une catégorie')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('list_album_photos'), 'fa-photo')
+						->heading($this->lang('Liste des albums photos'), 'fa-photo')
 						->body($gallery)
-						->footer($this->button_create('admin/gallery/add', $this->lang('add_album')))
+						->footer($this->button_create('admin/gallery/add', $this->lang('Créer un album')))
 						->size('col-12 col-lg-8')
 			)
 		);
@@ -131,13 +131,13 @@ class Admin extends Controller_Module
 
 	public function add()
 	{
-		$this	->subtitle($this->lang('add_album'))
+		$this	->subtitle($this->lang('Créer un album'))
 				->form
 				->add_rules('album', [
 					'categories' => $this->model()->get_categories_list()
 				])
 				->add_back('admin/gallery')
-				->add_submit($this->lang('create_album_btn'));
+				->add_submit($this->lang('Créer l\'album'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -147,13 +147,13 @@ class Admin extends Controller_Module
 														$post['description'],
 														in_array('on', $post['published']));
 
-			notify($this->lang('album_added'));
+			notify($this->lang('Album ajouté'));
 
 			redirect('admin/gallery/'.$gallery_id.'/'.url_title($post['title']));
 		}
 
 		return $this->panel()
-					->heading($this->lang('new_photo_album'), 'fa-file-image-o')
+					->heading($this->lang('Nouvel album photo'), 'fa-file-image-o')
 					->body($this->form->display());
 	}
 
@@ -176,47 +176,47 @@ class Admin extends Controller_Module
 								'published'   => $published,
 								'gallery_id'  => $gallery_id
 							])
-							->add_submit($this->lang('edit'))
+							->add_submit($this->lang('Éditer'))
 							->add_back('admin/gallery')
 							->save();
 
 		$form_image = $this	->form
 							->add_rules([
 								'image' => [
-									'label'  => $this->lang('image'),
+									'label'  => $this->lang('Image'),
 									'type'   => 'file',
 									'upload' => 'gallery',
-									'info'   => $this->lang('file_picture', file_upload_max_size() / 1024 / 1024),
+									'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
 									'check'  => function($filename, $ext){
 										if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png']))
 										{
-											return $this->lang('select_image_file');
+											return $this->lang('Veuiller choisir un fichier d\'image');
 										}
 									},
 									'rules'  => 'required'
 								],
 								'title' => [
-									'label' => $this->lang('title'),
+									'label' => $this->lang('Titre'),
 									'type'  => 'text'
 								],
 								'description' => [
-									'label' => $this->lang('description'),
+									'label' => $this->lang('Description'),
 									'type'  => 'textarea'
 								]
 							])
-							->add_submit($this->lang('add_image'))
+							->add_submit($this->lang('Ajouter l\'image'))
 							->save();
 
 		$gallery_table = $this	->table
 								->add_columns([
 									[
 										'content' => function($data){
-											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$this->lang('view').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
+											return '<a class="thumbnail thumbnail-link" data-toggle="tooltip" title="'.$this->lang('Visualiser').'" data-image="'.path($data['file_id']).'" data-title="'.$data['title'].'" data-description="'.$data['description'].'"><img style="max-width: 80px;" src="'.path($data['thumbnail_file_id']).'" alt="" /></a>';
 										},
 										'size'    => TRUE
 									],
 									[
-										'title'   => $this->lang('title'),
+										'title'   => $this->lang('Titre'),
 										'content' => function($data){
 											return $data['title'];
 										},
@@ -229,9 +229,9 @@ class Admin extends Controller_Module
 										}
 									],
 									[
-										'title'   => $this->lang('date'),
+										'title'   => $this->lang('Date'),
 										'content' => function($data){
-											return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('date_time_long'), $data['date']).'">'.time_span($data['date']).'</span>';
+											return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
 										},
 										'align'   => 'left',
 										'sort'    => function($data){
@@ -245,7 +245,7 @@ class Admin extends Controller_Module
 										'content' => [
 											function($data){
 												return $this->button()
-															->tooltip($this->lang('see_image'))
+															->tooltip($this->lang('Voir l\'image'))
 															->icon('fa-eye')
 															->url('gallery/image/'.$data['image_id'].'/'.url_title($data['title']))
 															->compact()
@@ -263,7 +263,7 @@ class Admin extends Controller_Module
 									]
 								])
 								->data($images = $this->model()->get_images($gallery_id))
-								->no_data($this->lang('no_images'))
+								->no_data($this->lang('Il n\'y a pas encore d\'image'))
 								->save();
 
 		if ($form_album->is_valid($post))
@@ -276,7 +276,7 @@ class Admin extends Controller_Module
 											$post['description'],
 											$this->config->lang);
 
-			notify($this->lang('album_edited'));
+			notify($this->lang('Album édité'));
 
 			redirect_back('admin/gallery');
 		}
@@ -287,7 +287,7 @@ class Admin extends Controller_Module
 										$post['title'],
 										$post['description']);
 
-			notify($this->lang('image_added'));
+			notify($this->lang('Image ajoutée avec succès'));
 
 			refresh();
 		}
@@ -295,13 +295,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading(/* //TODO '<div class="pull-right"><code data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode">[gallery-'.$gallery_id.']</code></div>*/$this->lang('edit_album_title'), 'fa-photo')
+						->heading(/* //TODO '<div class="pull-right"><code data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode">[gallery-'.$gallery_id.']</code></div>*/$this->lang('Édition de l\'album'), 'fa-photo')
 						->body($form_album->display())
 						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('add_images_title'), 'fa-photo')
+						->heading($this->lang('Ajouter des images'), 'fa-photo')
 						->body($this->view('upload', [
 							'gallery_id' => $gallery_id,
 							'name'       => $name,
@@ -318,10 +318,10 @@ class Admin extends Controller_Module
 
 	public function delete($gallery_id, $title)
 	{
-		$this	->title($this->lang('delete_album_title'))
+		$this	->title($this->lang('Suppression album'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_album_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'album <b> %s </b> ?<br />Toutes les images associées à cet album seront aussi supprimées.', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -335,11 +335,11 @@ class Admin extends Controller_Module
 
 	public function _categories_add()
 	{
-		$this	->subtitle($this->lang('add_category'))
+		$this	->subtitle($this->lang('Ajouter une catégorie'))
 				->form
 				->add_rules('categories')
 				->add_back('admin/gallery')
-				->add_submit($this->lang('add'));
+				->add_submit($this->lang('Ajouter'));
 
 		if ($this->form->is_valid($post))
 		{
@@ -347,26 +347,26 @@ class Admin extends Controller_Module
 											$post['image'],
 											$post['icon']);
 
-			notify($this->lang('category_added'));
+			notify($this->lang('Catégorie ajoutée avec succès'));
 
 			redirect_back('admin/gallery');
 		}
 
 		return $this->panel()
-					->heading($this->lang('add_category'), 'fa-align-left')
+					->heading($this->lang('Ajouter une catégorie'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
 	public function _categories_edit($category_id, $name, $title, $image_id, $icon_id)
 	{
-		$this	->subtitle($this->lang('category_', $title))
+		$this	->subtitle($this->lang('Catégorie %s', $title))
 				->form
 				->add_rules('categories', [
 					'title' => $title,
 					'image' => $image_id,
 					'icon'  => $icon_id
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('admin/gallery');
 
 		if ($this->form->is_valid($post))
@@ -376,22 +376,22 @@ class Admin extends Controller_Module
 											$post['image'],
 											$post['icon']);
 
-			notify($this->lang('category_edited'));
+			notify($this->lang('Catégorie éditée avec succès'));
 
 			redirect_back('admin/gallery');
 		}
 
 		return $this->panel()
-					->heading($this->lang('edit_category_title'), 'fa-align-left')
+					->heading($this->lang('Éditer la catégorie'), 'fa-align-left')
 					->body($this->form->display());
 	}
 
 	public function _categories_delete($category_id, $title)
 	{
-		$this	->title($this->lang('delete_category_title'))
+		$this	->title($this->lang('Suppression catégorie'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_category_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la catégorie <b> %s </b> ?<br />Tous les albums associés à cette catégorie seront aussi supprimés.', $title));
 
 		if ($this->form->is_valid())
 		{
@@ -410,7 +410,7 @@ class Admin extends Controller_Module
 				->js('admin')
 				->js('preview');
 
-		$this	->subtitle($this->lang('image_', $title))
+		$this	->subtitle($this->lang('Image %s', $title))
 				->form
 				->add_rules('image', [
 					'image_id'    => $image_id,
@@ -418,7 +418,7 @@ class Admin extends Controller_Module
 					'title'       => $title,
 					'description' => $description
 				])
-				->add_submit($this->lang('edit'))
+				->add_submit($this->lang('Éditer'))
 				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title));
 
 		if ($this->form->is_valid($post))
@@ -427,7 +427,7 @@ class Admin extends Controller_Module
 										$post['title'],
 										$post['description']);
 
-			notify($this->lang('image_edited'));
+			notify($this->lang('Image éditée avec succès'));
 
 			redirect_back();
 		}
@@ -435,15 +435,15 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('edit_image_title'), 'fa-photo')
+						->heading($this->lang('Éditer l\'image'), 'fa-photo')
 						->body($this->form->display())
 						->size('col-8 col-lg-9')
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('preview_image'), 'fa-photo')
+						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('Aperçu de l\'image'), 'fa-photo')
 						->body(function($data) use ($image_id, $title, $description, $thumbnail_file_id){
-							return '<a class="thumbnail thumbnail-link m-0" data-toggle="tooltip" title="'.$this->lang('view').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
+							return '<a class="thumbnail thumbnail-link m-0" data-toggle="tooltip" title="'.$this->lang('Visualiser').'" data-image-id="'.$image_id.'" data-image-title="'.url_title($title).'" data-image-description="'.$description.'"><img src="'.path($thumbnail_file_id).'" alt="" /></a>';
 						})
 						->size('col-4 col-lg-3')
 			)
@@ -452,10 +452,10 @@ class Admin extends Controller_Module
 
 	public function _image_delete($image_id, $title)
 	{
-		$this	->title($this->lang('delete_image_title'))
+		$this	->title($this->lang('Suppression image'))
 				->subtitle($title)
 				->form
-				->confirm_deletion($this->lang('delete_confirmation'), $this->lang('delete_image_message', $title));
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'image <b> %s </b> ?', $title));
 
 		if ($this->form->is_valid())
 		{

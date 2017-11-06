@@ -6,18 +6,18 @@
 
 $rules = [
 	'title' => [
-		'label'         => $this->lang('page_title'),
+		'label'         => $this->lang('Titre de la page'),
 		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'         => 'required'
 	],
 	'subtitle' => [
-		'label'         => $this->lang('subtitle'),
+		'label'         => $this->lang('Sous-titre'),
 		'value'         => $this->form->value('subtitle'),
 		'type'          => 'text'
 	],
 	'name' => [
-		'label'         => $this->lang('access_path'),
+		'label'         => $this->lang('Chemin d\'accès'),
 		'value'         => $name = $this->form->value('name'),
 		'type'          => 'text',
 		'check'         => function($value, $post) use ($name){
@@ -30,18 +30,18 @@ $rules = [
 
 			if ($value != $name && NeoFrag()->db->select('1')->from('nf_pages')->where('name', $value)->row())
 			{
-				return $this->lang('access_path_already_used');
+				return $this->lang('Chemin d\'accès déjà utilisé');
 			}
 		}
 	],
 	'content' => [
-		'label'			=> $this->lang('content'),
+		'label'			=> $this->lang('Contenu'),
 		'value'			=> $this->form->value('content'),
 		'type'			=> 'editor'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
 		'checked'		=> ['on' => $this->form->value('published')],
-		'values'        => ['on' => $this->lang('publish_now')]
+		'values'        => ['on' => $this->lang('Publier la page dès maintenant')]
 	]
 ];

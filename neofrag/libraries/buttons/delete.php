@@ -15,7 +15,7 @@ class Delete extends Library
 		return $this->css('delete')
 					->js('delete')
 					->button()
-					->tooltip($title ?: $this->lang('remove'))
+					->tooltip($title ?: $this->lang('Supprimer'))
 					->url($url)
 					->icon('fa-remove')
 					->color('danger')

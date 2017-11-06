@@ -13,7 +13,7 @@ class Members extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('members'),
+			'title'       => $this->lang('Membres'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
@@ -23,9 +23,9 @@ class Members extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'       => $this->lang('last_members'),
-				'online'      => $this->lang('whos_online'),
-				'online_mini' => $this->lang('whos_online_mini')
+				'index'       => $this->lang('Derniers membres'),
+				'online'      => $this->lang('Qui est en ligne ?'),
+				'online_mini' => $this->lang('Qui est en ligne ? (mini)')
 			]
 		];
 	}

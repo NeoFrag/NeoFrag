@@ -13,13 +13,13 @@ class Default_ extends Theme
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('default_theme'),
-			'description' => $this->lang('default_theme_description'),
+			'title'       => $this->lang('Thème de base'),
+			'description' => $this->lang('Son design est minimaliste mais générique, il peut s\'adapter facilement à n\'importe quel domaine'),
 			'thumbnail'   => 'themes/default/images/thumbnail.png',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => [$this->lang('content'), $this->lang('pre_content'), $this->lang('post_content'), $this->lang('header'), $this->lang('top'), $this->lang('footer')]
+			'zones'       => [$this->lang('Contenu'), $this->lang('Avant-contenu'), $this->lang('Post-contenu'), $this->lang('Entête'), $this->lang('Haut'), $this->lang('Pied de page')]
 		];
 	}
 
@@ -78,15 +78,15 @@ class Default_ extends Theme
 										'display' => TRUE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this->lang('home')),
+												'title' => utf8_htmlentities($this->lang('Accueil')),
 												'url'   => ''
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('forum')),
+												'title' => utf8_htmlentities($this->lang('Forum')),
 												'url'   => 'forum'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('teams')),
+												'title' => utf8_htmlentities($this->lang('Équipes')),
 												'url'   => 'teams'
 											],
 											[
@@ -137,7 +137,7 @@ class Default_ extends Theme
 				->style('row-white');
 		};
 
-		$dispositions['*'][$this->lang('content')] = [
+		$dispositions['*'][$this->lang('Contenu')] = [
 			$breadcrumb(),
 			$this->row(
 					$this->col(
@@ -155,11 +155,11 @@ class Default_ extends Theme
 										'display' => FALSE,
 										'links'   => [
 											[
-												'title' => utf8_htmlentities($this->lang('news')),
+												'title' => utf8_htmlentities($this->lang('Actualités')),
 												'url'   => 'news'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('members')),
+												'title' => utf8_htmlentities($this->lang('Membres')),
 												'url'   => 'members'
 											],
 											[
@@ -171,11 +171,11 @@ class Default_ extends Theme
 												'url'   => 'gallery'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('search')),
+												'title' => utf8_htmlentities($this->lang('Rechercher')),
 												'url'   => 'search'
 											],
 											[
-												'title' => utf8_htmlentities($this->lang('contact')),
+												'title' => utf8_htmlentities($this->lang('Contact')),
 												'url'   => 'contact'
 											]
 										]
@@ -216,7 +216,7 @@ class Default_ extends Theme
 				->style('row-light')
 		];
 
-		$dispositions['*'][$this->lang('pre_content')] = [
+		$dispositions['*'][$this->lang('Avant-contenu')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -245,14 +245,14 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['*'][$this->lang('post_content')] = [];
+		$dispositions['*'][$this->lang('Post-contenu')] = [];
 
-		$dispositions['*'][$this->lang('header')] = [
+		$dispositions['*'][$this->lang('Entête')] = [
 			$header(),
 			$navbar()
 		];
 
-		$dispositions['*'][$this->lang('top')] = [
+		$dispositions['*'][$this->lang('Haut')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -293,14 +293,14 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['*'][$this->lang('footer')] = [
+		$dispositions['*'][$this->lang('Pied de page')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
 									'widget'   => 'html',
 									'type'     => 'index',
 									'settings' => serialize([
-										'content' => utf8_htmlentities($this->lang('powered_by_neofrag'))
+										'content' => utf8_htmlentities($this->lang('[center]Propulsé par [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]'))
 									])
 								]))
 								->style('panel-dark')
@@ -309,7 +309,7 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['/'][$this->lang('header')] = [
+		$dispositions['/'][$this->lang('Entête')] = [
 			$header(),
 			$navbar(),
 			$this->row(
@@ -325,7 +325,7 @@ class Default_ extends Theme
 
 		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
 		{
-			$dispositions[$page][$this->lang('content')] = [
+			$dispositions[$page][$this->lang('Contenu')] = [
 				$breadcrumb($page != 'search/*'),
 				$this	->row(
 							$this->col(
@@ -339,7 +339,7 @@ class Default_ extends Theme
 			];
 		}
 
-		$dispositions['forum/*'][$this->lang('post_content')] = [
+		$dispositions['forum/*'][$this->lang('Post-contenu')] = [
 			$this	->row(
 						$this->col(
 							$this	->panel_widget($this->db->insert('nf_widgets', [

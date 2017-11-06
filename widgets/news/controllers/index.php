@@ -19,17 +19,17 @@ class Index extends Controller_Widget
 		if (!empty($news))
 		{
 			return $this->panel()
-						->heading($this->lang('recent_news'))
+						->heading($this->lang('Actualités récentes'))
 						->body($this->view('index', [
 							'news' => array_slice($news, 0, 3)
 						]))
-						->footer('<a href="'.url('news').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('show_more').'</a>', 'right');
+						->footer('<a href="'.url('news').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir toutes les actualités').'</a>', 'right');
 		}
 		else
 		{
 			return $this->panel()
-						->heading($this->lang('recent_news'))
-						->body($this->lang('no_news'));
+						->heading($this->lang('Actualités récentes'))
+						->body($this->lang('Aucune actualité pour le moment'));
 		}
 	}
 
@@ -40,7 +40,7 @@ class Index extends Controller_Widget
 		if (!empty($categories))
 		{
 			return $this->panel()
-						->heading($this->lang('categories'))
+						->heading($this->lang('Catégories'))
 						->body($this->view('categories', [
 							'categories' => $categories
 						]), FALSE);
@@ -48,8 +48,8 @@ class Index extends Controller_Widget
 		else
 		{
 			return $this->panel()
-						->heading($this->lang('categories'))
-						->body($this->lang('no_category'));
+						->heading($this->lang('Catégories'))
+						->body($this->lang('Aucune catégorie pour le moment'));
 		}
 	}
 }

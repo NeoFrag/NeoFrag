@@ -13,7 +13,7 @@ class Navigation extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('navigation'),
+			'title'       => $this->lang('Navigation'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',

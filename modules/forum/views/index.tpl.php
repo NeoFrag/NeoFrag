@@ -5,8 +5,8 @@
 				<th colspan="2">
 					<h4 class="m-0"><?php echo icon('fa-navicon').' '.$data['title'] ?></h4>
 				</th>
-				<th class="col-md-2"><h4 class="m-0"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('statistics') ?></span></h4></th>
-				<th class="col-md-3"><h4 class="m-0"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('last_message') ?></span></h4></th>
+				<th class="col-md-2"><h4 class="m-0"><?php echo icon('fa-signal') ?><span class="hidden-xs"> <?php echo $this->lang('Statistiques') ?></span></h4></th>
+				<th class="col-md-3"><h4 class="m-0"><?php echo icon('fa-comment-o') ?><span class="hidden-xs"> <?php echo $this->lang('Dernier message') ?></span></h4></th>
 				<?php if ($this->url->admin): ?>
 				<th class="col-md-1 text-right">
 					<?php echo $this->button_access($data['category_id'], 'category') ?>
@@ -42,12 +42,12 @@
 				<?php
 					if ($forum['url'])
 					{
-						echo 	$this->lang('redirects', $forum['redirects'], $forum['redirects']);
+						echo 	$this->lang('<b>%d</b> redirection|<b>%d</b> redirections', $forum['redirects'], $forum['redirects']);
 					}
 					else
 					{
-						echo 	$this->lang('topics', $forum['count_topics'], $forum['count_topics']).'<br />'.
-								$this->lang('messages', $forum['count_messages'], $forum['count_messages']);
+						echo 	$this->lang('<b>%d</b> sujet|<b>%d</b> sujets', $forum['count_topics'], $forum['count_topics']).'<br />'.
+								$this->lang('<b>%d</b> réponse|<b>%d</b> réponses', $forum['count_messages'], $forum['count_messages']);
 					}
 				?>
 				</td>
@@ -55,9 +55,9 @@
 					<?php if (!$forum['url']): ?>
 					<?php if ($forum['last_title']): ?>
 						<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $this->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $this->config->forum_messages_per_page) : '').'#'.$forum['last_message_id']) ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40) ?></a></div>
-						<div><?php echo icon('fa-user').' '.($forum['user_id'] ? $this->user->link($forum['user_id'], $forum['username']) : '<i>'.$this->lang('guest').'</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']) ?></div>
+						<div><?php echo icon('fa-user').' '.($forum['user_id'] ? $this->user->link($forum['user_id'], $forum['username']) : '<i>'.$this->lang('Visiteur').'</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']) ?></div>
 					<?php else: ?>
-						<?php echo $this->lang('no_message') ?>
+						<?php echo $this->lang('Aucun message') ?>
 					<?php endif; endif ?>
 				</td>
 				<?php if ($this->url->admin): ?>
@@ -70,7 +70,7 @@
 			<?php endforeach ?>
 			<?php if (empty($data['forums'])): ?>
 			<tr>
-				<td colspan="4" class="text-center"><h4><?php echo $this->lang('no_forum') ?></h4></td>
+				<td colspan="4" class="text-center"><h4><?php echo $this->lang('Aucun forum') ?></h4></td>
 			</tr>
 			<?php endif ?>
 		</tbody>

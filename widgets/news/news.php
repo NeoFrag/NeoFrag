@@ -13,7 +13,7 @@ class News extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('news'),
+			'title'       => $this->lang('Actualités'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
@@ -23,8 +23,8 @@ class News extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'      => $this->lang('recent_news'),
-				'categories' => $this->lang('categories')
+				'index'      => $this->lang('Actualités récentes'),
+				'categories' => $this->lang('Catégories')
 			]
 		];
 	}

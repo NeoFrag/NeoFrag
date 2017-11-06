@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index($comments, $modules, $tab)
 	{
-		$this->tab->add_tab('', $this->lang('all_comments'), function() use ($comments){
+		$this->tab->add_tab('', $this->lang('Tous les commentaires'), function() use ($comments){
 			return $this->_tab_index($comments);
 		});
 
@@ -29,13 +29,13 @@ class Admin extends Controller_Module
 
 	private function _tab_index($comments, $title = NULL)
 	{
-		$this->subtitle($title === NULL ? $this->lang('all_comments') : $title);
+		$this->subtitle($title === NULL ? $this->lang('Tous les commentaires') : $title);
 
 		if ($title === NULL)
 		{
 			$this->table->add_columns([
 				[
-					'title'   => $this->lang('module'),
+					'title'   => $this->lang('Module'),
 					'content' => function($data){
 						return '<a href="'.url('admin/comments/'.$data['module']).'">'.icon($data['icon']).' '.$data['module_title'].'</a>';
 					},
@@ -52,7 +52,7 @@ class Admin extends Controller_Module
 
 		return $this->table->add_columns([
 			[
-				'title'   => $this->lang('name'),
+				'title'   => $this->lang('Nom'),
 				'content' => function($data){
 					return $data['title'];
 				},
@@ -64,7 +64,7 @@ class Admin extends Controller_Module
 				}
 			],
 			[
-				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('number_comments').'"></i>',
+				'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('Nombre de commentaires').'"></i>',
 				'content' => function($data){
 					return NeoFrag()->comments->admin_comments($data['module'], $data['module_id'], FALSE);
 				},
@@ -73,7 +73,7 @@ class Admin extends Controller_Module
 			[
 				'content' => function($data){
 					return $this->button()
-								->tooltip($this->lang('see_comments'))
+								->tooltip($this->lang('Voir les commentaires'))
 								->icon('fa-eye')
 								->url($data['url'])
 								->color('info')
@@ -84,7 +84,7 @@ class Admin extends Controller_Module
 			]
 		])
 		->data($comments)
-		->no_data($this->lang('no_comments'))
+		->no_data($this->lang('Il n\'y a pas de commentaire'))
 		->sort_by(1)
 		->display();
 	}

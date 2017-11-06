@@ -3,9 +3,9 @@
 <?php endif ?>
 <div class="panel-body">
 	<?php if ($data['description']): ?>
-	<h3><?php echo $this->lang('overview') ?></h3>
+	<h3><?php echo $this->lang('Présentation') ?></h3>
 	<?php echo $data['description'] ?>
 	<?php endif ?>
-	<h3><?php echo $this->lang('our_players') ?></h3>
+	<h3><?php echo $this->lang('Nos joueurs') ?></h3>
 	<?php echo $data['users'] ?>
 </div>

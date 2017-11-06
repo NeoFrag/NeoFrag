@@ -29,7 +29,7 @@ class Index extends Controller_Module
 		array_natsort($modules);
 
 		$modules = array_merge([
-			'index' => NeoFrag()->lang('home')
+			'index' => NeoFrag()->lang('Accueil')
 		], $modules);
 
 		echo $this->view('index', [

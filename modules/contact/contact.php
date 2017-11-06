@@ -13,7 +13,7 @@ class Contact extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('contact'),
+			'title'       => $this->lang('Contact'),
 			'description' => '',
 			'icon'        => 'fa-envelope-o',
 			'link'        => 'https://neofr.ag',

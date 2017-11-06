@@ -40,11 +40,11 @@ class Col extends Childrenable
 		{
 			$output = '<div class="live-editor-col">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="'.$this->lang('reduce').'">'.icon('fa-compress fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="'.$this->lang('increase').'">'.icon('fa-expand fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.$this->lang('remove').'">'.icon('fa-close').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="'.$this->lang('Réduire').'">'.icon('fa-compress fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="'.$this->lang('Augmenter').'">'.icon('fa-expand fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.$this->lang('Supprimer').'">'.icon('fa-close').'</button>
 							</div>
-							<h3>'.$this->lang('col').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="'.$this->lang('new_widget').'">'.icon('fa-plus').'</button></div></h3>
+							<h3>'.$this->lang('Col').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="'.$this->lang('Nouveau Widget').'">'.icon('fa-plus').'</button></div></h3>
 							'.$output.'
 						</div>';
 		}

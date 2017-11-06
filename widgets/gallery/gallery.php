@@ -13,7 +13,7 @@ class Gallery extends Widget
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('galleries'),
+			'title'       => $this->lang('Galeries'),
 			'description' => '',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
@@ -23,10 +23,10 @@ class Gallery extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'  => $this->lang('categories_list'),
-				'albums' => $this->lang('albums_from_category'),
-				'image'  => $this->lang('random_picture'),
-				'slider' => $this->lang('album_slide')
+				'index'  => $this->lang('Liste des catégories'),
+				'albums' => $this->lang('Albums d\'une catégorie'),
+				'image'  => $this->lang('Image aléatoire'),
+				'slider' => $this->lang('Slider d\'un album')
 			]
 		];
 	}
