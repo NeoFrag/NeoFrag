@@ -24,7 +24,7 @@ class Label extends Html
 
 		if (func_num_args())
 		{
-			$this->_title = $args[0];
+			$this->_title = $this->lang($args[0]);
 
 			if (isset($args[1]))
 			{
@@ -112,7 +112,7 @@ class Label extends Html
 	{
 		if (func_num_args())
 		{
-			$this->_title = $title;
+			$this->_title = $this->lang($title);
 			return $this;
 		}
 		else
@@ -123,13 +123,13 @@ class Label extends Html
 
 	public function tooltip($title)
 	{
-		$this->_tooltip = $title;
+		$this->_tooltip = $this->lang($title);
 		return $this;
 	}
 
 	public function popover($content, $title = '')
 	{
-		$this->_popover = [$content, $title];
+		$this->_popover = [$this->lang($content), $this->lang($title)];
 		return $this;
 	}
 
