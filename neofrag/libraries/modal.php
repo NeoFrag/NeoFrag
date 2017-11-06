@@ -142,4 +142,11 @@ class Modal extends Library
 		NeoFrag()->js_load('$(\'#'.$this->id.'\').modal(\'show\');');
 		return $this;
 	}
+
+	public function dispose()
+	{
+		$this->output->json([
+			'modal' => 'dispose'
+		]);
+	}
 }
