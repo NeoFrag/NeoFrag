@@ -37,7 +37,7 @@ class Network extends Library
 		return $this;
 	}
 
-	public function auth($user, $password)
+	public function auth($user, $password = '')
 	{
 		$this->_auth = $user.':'.$password;
 		return $this;
