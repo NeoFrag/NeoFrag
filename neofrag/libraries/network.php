@@ -169,13 +169,14 @@ class Network extends Library
 
 			$result = curl_exec($ch);
 
-			if (curl_getinfo($ch, CURLINFO_HTTP_CODE) >= 400)
-			{
-				$result = FALSE;
-			}
-			else if (($this->_type === NULL && in_string('application/json', curl_getinfo($ch, CURLINFO_CONTENT_TYPE))) || $this->_type == 'json')
+			if (($this->_type === NULL && in_string('application/json', curl_getinfo($ch, CURLINFO_CONTENT_TYPE))) || $this->_type == 'json')
 			{
 				$result = json_decode(utf8_string($result));
+			}
+
+			if (($code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) >= 400)
+			{
+				$result = FALSE;
 			}
 		}
 
