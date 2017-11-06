@@ -120,8 +120,10 @@ class Button extends Label
 		return $this;
 	}
 
-	public function modal($modal)
+	public function modal($title, $icon = '')
 	{
+		$modal = is_a($title, 'NF\\NeoFrag\\Libraries\\Modal') ? $title : parent::modal($title, $icon);
+
 		return $this->url('#')
 					->data([
 						'toggle' => 'modal',
