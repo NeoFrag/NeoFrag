@@ -71,7 +71,7 @@ class Panel extends Library
 	{
 		if (func_num_args())
 		{
-			if (!is_a($label, 'NF\\NeoFrag\\Libraries\\Label'))
+			if (!is_a($label, 'NF\\NeoFrag\\Libraries\\Html'))
 			{
 				$label = $this	->button()
 								->title($label)
@@ -100,7 +100,7 @@ class Panel extends Library
 
 	public function footer($footer = '', $align = 'center')
 	{
-		if (!is_a($footer, 'NF\\NeoFrag\\Libraries\\Button'))
+		if (!is_a($footer, 'NF\\NeoFrag\\Libraries\\Html'))
 		{
 			$footer = $this	->button()
 							->title($footer)
