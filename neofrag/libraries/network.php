@@ -12,6 +12,7 @@ class Network extends Library
 {
 	protected $_auth;
 	protected $_header = [];
+	protected $_error;
 	protected $_method;
 	protected $_ssl_check;
 	protected $_timeout;
