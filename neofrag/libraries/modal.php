@@ -87,6 +87,12 @@ class Modal extends Library
 		return $this;
 	}
 
+	public function button_prepend($button)
+	{
+		array_unshift($this->_buttons, $button);
+		return $this;
+	}
+
 	public function dismiss($title)
 	{
 		array_unshift($this->_buttons, parent	::button()
