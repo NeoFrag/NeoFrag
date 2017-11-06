@@ -8,10 +8,7 @@ function dir_create()
 {
 	foreach (func_get_args() as $dir)
 	{
-		if (!file_exists($dir))
-		{
-			mkdir($dir, 0777, TRUE);
-		}
+		@mkdir($dir, 0775, TRUE);
 	}
 }
 
