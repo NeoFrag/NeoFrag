@@ -13,6 +13,7 @@ class Modal extends Library
 	protected $_header;
 	protected $_buttons = [];
 	protected $_body;
+	protected $_body_tags;
 	protected $_size;
 	protected $_form;
 
@@ -33,11 +34,18 @@ class Modal extends Library
 
 	public function __toString()
 	{
+		$content = '';
+
+		if ($this->_body)
+		{
+			$content .= $this->_body_tags ? '<div class="modal-body">'.$this->_body.'</div>' : $this->_body;
+		}
+
 		$content = '<div class="modal-header">
 						<h5 class="modal-title">'.$this->_header.'</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="'.$this->lang('Fermer').'"><span aria-hidden="true">&times;</span></button>
 					</div>
-					<div class="modal-body">'.$this->_body.'</div>
+					'.$content.'
 					'.($this->_buttons ? $this->button->static_footer($this->_buttons, 'right')->append_attr('class', 'modal-footer') : '');
 
 		if ($this->_form)
@@ -59,9 +67,10 @@ class Modal extends Library
 				</div>';
 	}
 
-	public function body($body)
+	public function body($body, $add_body_tags = TRUE)
 	{
-		$this->_body = $body;
+		$this->_body      = $body;
+		$this->_body_tags = $add_body_tags;
 		return $this;
 	}
 
