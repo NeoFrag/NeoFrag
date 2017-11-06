@@ -1,0 +1,74 @@
+.btn {
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 10px 15px 11px;
+
+	&.btn-light {
+		background-color: #fff;
+		border-color: #ebebeb;
+
+		&:hover {
+			border-color: #ccd3d5;
+		}
+	}
+
+	&.btn-primary {
+		background-color: $primary;
+		border-color: $primary;
+
+		&:hover {
+			background-color: $primary-hover;
+			border-color: $primary-hover;
+		}
+	}
+
+	&.btn-secondary {
+		background-color: $secondary;
+		border-color: $secondary;
+
+		&:hover {
+			background-color: $secondary-hover;
+			border-color: $secondary-hover;
+		}
+	}
+
+	&.btn-outline-primary {
+		border-color: $primary;
+		color: $primary;
+
+		&:hover {
+			background-color: $primary-hover;
+			border-color: $primary-hover;
+			color: #fff;
+		}
+	}
+
+	&.btn-outline-secondary {
+		border-color: $secondary;
+		color: $secondary;
+
+		&:hover {
+			background-color: $secondary-hover;
+			border-color: $secondary-hover;
+			color: #fff;
+		}
+	}
+
+	&.btn-link {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+
+.btn-group-sm > .btn, .btn-sm {
+	padding: 5px 6.5px;
+	font-size: 11px;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+	padding: 15px 22px;
+	font-size: 21px;
+}

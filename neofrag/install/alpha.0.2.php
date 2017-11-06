@@ -317,5 +317,8 @@ class i_0_2 extends NeoFrag
 				'enabled' => TRUE
 			])
 		]);
+
+		//Theme Default
+		$this->config('nf_theme_color', '#2b373a');
 	}
 }

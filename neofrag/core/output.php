@@ -261,7 +261,7 @@ class Output extends Core
 				{
 					$body = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label('Accueil', 'fa-map-marker') : $this->data->get('module', 'title')).'"></div>';
 
-					parent	::css('font.open-sans.300.400.600.700.800')
+					parent	::css('fonts/open-sans')
 							->css('live-editor')
 							->css('jquery-ui.min')
 							->js('jquery-ui.min');

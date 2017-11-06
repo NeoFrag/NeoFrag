@@ -1,0 +1,53 @@
+.card {
+	border-radius: 0;
+	border-color: #ebebeb;
+	padding: 0;
+
+	.card-header {
+		background: none;
+		border-color: #ebebeb;
+		border-bottom: 0;
+		padding: 20px 20px 0;
+
+		.card-title {
+			font-size: 22px;
+			font-weight: 700;
+			border-bottom: 1px solid #ebebeb;
+			margin: 0;
+			padding-bottom: 20px;
+
+			.fa {
+				color: $primary;
+			}
+		}
+	}
+
+	.card-body {
+		height: 100%;
+	}
+
+	.card-footer {
+		height: 100%;
+	}
+
+	&.transparent {
+		background: none;
+		border: 0;
+
+		.card-body {
+			padding: 0;
+		}
+	}
+
+	+ .card {
+		margin-top: 30px;
+	}
+
+	> .table {
+		margin-bottom: 0;
+	}
+
+	p:last-child {
+		margin: 0;
+	}
+}

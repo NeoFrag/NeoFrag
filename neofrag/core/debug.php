@@ -310,7 +310,7 @@ class Debug extends Core
 							return $_SERVER;
 						});
 
-				$this	->css('font.open-sans.300.400.600.700.800')
+				$this	->css('fonts/open-sans')
 						->css('debug-bar')
 						->js('debug-bar');
 

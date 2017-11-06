@@ -1,0 +1,15 @@
+$primary: #00d7b3;
+$primary-hover: #39c9b1;
+
+$secondary: #00c7e4;
+$secondary-hover: #00adc6;
+
+$online-color: #4edc5b;
+$offline-color: #a8a8a8;
+
+$gradient-from: $primary;
+$gradient-to: $secondary;
+
+$logo-color: #00ffd4;
+
+$gradient: linear-gradient(to right, $gradient-from, $gradient-to);

@@ -13,21 +13,28 @@ class Default_ extends Theme
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('Thème de base'),
-			'description' => $this->lang('Son design est minimaliste mais générique, il peut s\'adapter facilement à n\'importe quel domaine'),
-			'thumbnail'   => 'themes/default/images/thumbnail.png',
+			'title'       => 'Thème de base',
+			'description' => 'Design minimaliste qui peut s\'adapter facilement à n\'importe quel domaine',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => [$this->lang('Contenu'), $this->lang('Avant-contenu'), $this->lang('Post-contenu'), $this->lang('Entête'), $this->lang('Haut'), $this->lang('Pied de page')]
+			'zones'       => ['Contenu','Avant-contenu', 'Post-contenu', 'Entête', 'Haut', 'Pied de page']
 		];
 	}
 
 	public function __init()
 	{
-		$this	->css('font.open-sans.300.400.600.700.800')
-				->css('font.economica.400.700')
-				->css('style');
+		$this	->css('bootstrap.min')
+				->css('icons/font-awesome.min')
+				->css('fonts/titillium-web')
+				->css('notify')
+				->css('style')
+				->js('jquery-3.2.1.min')
+				->js('popper.min')
+				->js('bootstrap.min')
+				->js('bootstrap-notify.min')
+				->js('modal')
+				->js('notify');
 	}
 
 	public function styles_row()
@@ -46,13 +53,13 @@ class Default_ extends Theme
 				->config('default_background_repeat',     'no-repeat')
 				->config('default_background_attachment', 'scroll')
 				->config('default_background_position',   'center top')
-				->config('default_background_color',      '#141d26')
+				->config('default_background_color',      '#dfdfdf')
 				->config('nf_version_css',                time());
 
 		$header = function(){
 			return $this->row(
 					$this->col(
-						$this->panel_widget($this->db->insert('nf_widgets', [
+						$this->widget($this->db->insert('nf_widgets', [
 							'widget'   => 'header',
 							'type'     => 'index',
 							'settings' => serialize([
@@ -60,7 +67,7 @@ class Default_ extends Theme
 								'title'             => '',
 								'description'       => '',
 								'color-title'       => '',
-								'color-description' => '#DC351E'
+								'color-description' => '#00d7b3'
 							])
 						]))
 					)
@@ -71,11 +78,10 @@ class Default_ extends Theme
 		$navbar = function(){
 			return $this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget'   => 'navigation',
 									'type'     => 'index',
 									'settings' => serialize([
-										'display' => TRUE,
 										'links'   => [
 											[
 												'title' => utf8_htmlentities($this->lang('Accueil')),
@@ -107,27 +113,27 @@ class Default_ extends Theme
 								->size('col-7')
 					),
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'user',
 									'type'   => 'index_mini'
 								]))
 								->size('col-5')
 					)
 				)
-				->style('row-black');
+				->style('row-white');
 		};
 
 		$breadcrumb = function($search = TRUE){
 			return $this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 										'widget' => 'breadcrumb',
 										'type'   => 'index'
 								]))
 								->size('col-8')
 					),
 					$search ? $this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'search',
 									'type'   => 'index'
 								]))
@@ -137,22 +143,23 @@ class Default_ extends Theme
 				->style('row-white');
 		};
 
-		$dispositions['*'][$this->lang('Contenu')] = [
+		$dispositions = $this->array;
+
+		$dispositions->set('*', 'Contenu', $this->array([
 			$breadcrumb(),
 			$this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'module',
 									'type'   => 'index'
 								]))
 								->size('col-8')
 					),
 					$this	->col(
-								$this->panel_widget($this->db->insert('nf_widgets', [
+								$this->widget($this->db->insert('nf_widgets', [
 									'widget'   => 'navigation',
-									'type'     => 'index',
+									'type'     => 'vertical',
 									'settings' => serialize([
-										'display' => FALSE,
 										'links'   => [
 											[
 												'title' => utf8_htmlentities($this->lang('Actualités')),
@@ -181,7 +188,7 @@ class Default_ extends Theme
 										]
 									])
 								])),
-								$this	->panel_widget($this->db->insert('nf_widgets', [
+								$this	->widget($this->db->insert('nf_widgets', [
 											'widget' => 'partners',
 											'type'   => 'column',
 											'settings' => serialize([
@@ -189,23 +196,23 @@ class Default_ extends Theme
 											])
 										]))
 										->style('panel-dark'),
-								$this	->panel_widget($this->db->insert('nf_widgets', [
+								$this	->widget($this->db->insert('nf_widgets', [
 											'widget' => 'user',
 											'type'   => 'index'
 										]))
 										->style('panel-dark'),
-								$this->panel_widget($this->db->insert('nf_widgets', [
+								$this->widget($this->db->insert('nf_widgets', [
 									'widget' => 'news',
 									'type'   => 'categories'
 								])),
-								$this->panel_widget($this->db->insert('nf_widgets', [
+								$this->widget($this->db->insert('nf_widgets', [
 									'widget'   => 'talks',
 									'type'     => 'index',
 									'settings' => serialize([
 										'talk_id' => 2
 									])
 								])),
-								$this	->panel_widget($this->db->insert('nf_widgets', [
+								$this	->widget($this->db->insert('nf_widgets', [
 											'widget' => 'members',
 											'type'   => 'online'
 										]))
@@ -213,20 +220,20 @@ class Default_ extends Theme
 							)
 							->size('col-4')
 				)
-				->style('row-light')
-		];
+				->style('row-default')
+		]));
 
-		$dispositions['*'][$this->lang('Avant-contenu')] = [
+		$dispositions->set('*', 'Avant-contenu', $this->array([
 			$this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'forum',
 									'type'   => 'topics'
 								]))
 								->size('col-4')
 					),
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'news',
 									'type'   => 'index'
 								]))
@@ -234,7 +241,7 @@ class Default_ extends Theme
 								->size('col-4')
 					),
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget' => 'members',
 									'type'   => 'index'
 								]))
@@ -243,23 +250,22 @@ class Default_ extends Theme
 					)
 				)
 				->style('row-default')
-		];
+		]));
 
-		$dispositions['*'][$this->lang('Post-contenu')] = [];
+		$dispositions->set('*', 'Post-contenu', $this->array);
 
-		$dispositions['*'][$this->lang('Entête')] = [
+		$dispositions->set('*', 'Entête', $this->array([
 			$header(),
 			$navbar()
-		];
+		]));
 
-		$dispositions['*'][$this->lang('Haut')] = [
+		$dispositions->set('*', 'Haut', $this->array([
 			$this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget'   => 'navigation',
 									'type'     => 'index',
 									'settings' => serialize([
-										'display' => TRUE,
 										'links'   => [
 											[
 												'title' => 'Facebook',
@@ -283,7 +289,7 @@ class Default_ extends Theme
 								->size('col-8')
 					),
 					$this->col(
-						$this->panel_widget($this->db->insert('nf_widgets', [
+						$this->widget($this->db->insert('nf_widgets', [
 							'widget' => 'members',
 							'type'   => 'online_mini'
 						]))
@@ -291,12 +297,12 @@ class Default_ extends Theme
 					)
 				)
 				->style('row-default')
-		];
+		]));
 
-		$dispositions['*'][$this->lang('Pied de page')] = [
+		$dispositions->set('*', 'Pied de page', $this->array([
 			$this->row(
 					$this->col(
-						$this	->panel_widget($this->db->insert('nf_widgets', [
+						$this	->widget($this->db->insert('nf_widgets', [
 									'widget'   => 'copyright',
 									'type'     => 'index'
 								]))
@@ -304,42 +310,42 @@ class Default_ extends Theme
 					)
 				)
 				->style('row-default')
-		];
+		]));
 
-		$dispositions['/'][$this->lang('Entête')] = [
+		$dispositions->set('/', 'Entête', $this->array([
 			$header(),
 			$navbar(),
 			$this->row(
 					$this->col(
-						$this->panel_widget($this->db->insert('nf_widgets', [
+						$this->widget($this->db->insert('nf_widgets', [
 							'widget'   => 'slider',
 							'type'     => 'index'
 						]))
 					)
 				)
 				->style('row-default')
-		];
+		]));
 
 		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
 		{
-			$dispositions[$page][$this->lang('Contenu')] = [
+			$dispositions->set($page, 'Contenu', $this->array([
 				$breadcrumb($page != 'search/*'),
 				$this	->row(
 							$this->col(
-								$this->panel_widget($this->db->insert('nf_widgets', [
+								$this->widget($this->db->insert('nf_widgets', [
 									'widget' => 'module',
 									'type'   => 'index'
 								]))
 							)
 						)
-						->style('row-light')
-			];
+						->style('row-default')
+			]));
 		}
 
-		$dispositions['forum/*'][$this->lang('Post-contenu')] = [
+		$dispositions->set('forum/*', 'Post-contenu', $this->array([
 			$this	->row(
 						$this->col(
-							$this	->panel_widget($this->db->insert('nf_widgets', [
+							$this	->widget($this->db->insert('nf_widgets', [
 										'widget' => 'forum',
 										'type'   => 'statistics'
 									]))
@@ -347,7 +353,7 @@ class Default_ extends Theme
 									->size('col-4')
 						),
 						$this->col(
-							$this	->panel_widget($this->db->insert('nf_widgets', [
+							$this	->widget($this->db->insert('nf_widgets', [
 										'widget' => 'forum',
 										'type'   => 'activity'
 									]))
@@ -355,8 +361,8 @@ class Default_ extends Theme
 									->size('col-8')
 						)
 					)
-					->style('row-light')
-		];
+					->style('row-default')
+		]));
 
 		return parent::install($dispositions);
 	}
@@ -364,7 +370,13 @@ class Default_ extends Theme
 	public function uninstall($remove = TRUE)
 	{
 		NeoFrag()->model2('file', $this->config->default_background)->delete();
-		$this->db->where('name LIKE', 'default_%')->delete('nf_settings');
+
+		$this	->config->unset('default_background')
+				->config->unset('default_background_repeat')
+				->config->unset('default_background_attachment')
+				->config->unset('default_background_position')
+				->config->unset('default_background_color');
+
 		return parent::uninstall($remove);
 	}
 }

@@ -1,0 +1,65 @@
+.avatar {
+	background: $primary;
+	border-radius: 50%;
+	position: relative;
+
+	&.online, &.offline {
+		&:after {
+			content: "";
+			border: solid;
+			border-radius: 50%;
+			box-sizing: border-box;
+			position: absolute;
+			left: 72%;
+			top: 72%;
+			height: 27%;
+			width: 27%;
+		}
+	}
+
+	&.online:after {
+		background: $online-color;
+	}
+
+	&.offline:after {
+		background: $offline-color;
+	}
+
+	.inner-ring {
+		border-radius: 50%;
+		position: absolute;
+		width: 92%;
+		height: 92%;
+		top: 4%;
+		left: 4%;
+	}
+
+	figure {
+		border-radius: 50%;
+		position: absolute;
+		top: 8%;
+		left: 8%;
+		height: 84%;
+		width: 84%;
+
+		img {
+			border-radius: 50%;
+			height: 100%;
+			width: 100%;
+		}
+	}
+}
+
+.card {
+	.avatar {
+		&.online, &.offline {
+			&:after {
+				border-color: #fff;
+			}
+		}
+
+		.inner-ring {
+			background: #fff;
+		}
+	}
+}

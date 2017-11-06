@@ -1,0 +1,41 @@
+.email {
+	background: #2b373a;
+	height: 100%;
+
+	.main-table {
+		font-size: 13px;
+		max-width: 660px;
+		width: 100%;
+
+		.header {
+			text-align: center;
+			padding: 25px 0 20px;
+		}
+
+		.content {
+			background-color: #f5f5f5;
+			box-shadow: 0 0 20px 0 rgba(0,0,0,0.6);
+			-webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.6);
+			-moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.6);
+			padding: 45px;
+
+			.avatar {
+				&.online, &.offline {
+					&:after {
+						border-color: #f5f5f5;
+					}
+				}
+
+				.inner-ring {
+					background-color: #f5f5f5;
+				}
+			}
+		}
+
+		.footer {
+			padding: 25px 0 20px;
+			text-align: center;
+			color: #f5f5f5;
+		}
+	}
+}

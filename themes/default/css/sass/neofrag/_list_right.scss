@@ -1,0 +1,12 @@
+ul.list-right {
+	float: right;
+	margin: 0;
+
+	li {
+		float: left;
+
+		+ li {
+			margin-left: 25px;
+		}
+	}
+}

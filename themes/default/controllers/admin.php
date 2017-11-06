@@ -85,7 +85,7 @@ class Admin extends Controller
 			}
 			else
 			{
-				$this->db->where('name', 'default_background')->delete('nf_settings');
+				$this->config->unset('default_background');
 			}
 
 			$this	->config('default_background_repeat', $post['repeat'])
