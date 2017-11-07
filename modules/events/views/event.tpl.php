@@ -31,7 +31,7 @@
 
 					if ($data['match']['opponent']['country'])
 					{
-						$opponent .= '<img src="'.url('neofrag/themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
+						$opponent .= '<img src="'.url('themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
 					}
 
 					if ($data['match']['opponent']['website'])

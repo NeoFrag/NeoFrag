@@ -103,7 +103,7 @@ class m_teams_c_index extends Controller_Module
 								'content' => function($data){
 									if ($data['match']['opponent']['country'])
 									{
-										$opponent = '<img src="'.url('neofrag/themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-right: 8px;" alt="" />';
+										$opponent = '<img src="'.url('themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-right: 8px;" alt="" />';
 									}
 
 									$opponent .= $data['match']['opponent']['title'];

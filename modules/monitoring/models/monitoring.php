@@ -6,7 +6,7 @@
 
 class m_monitoring_m_monitoring extends Model
 {
-	public $folders = ['authenticators', 'backups', 'cache', 'config', 'lib', 'modules', 'neofrag', 'overrides', 'themes', 'upload', 'widgets'];
+	public $folders = ['addons', 'backups', 'cache', 'config', 'css', 'fonts', 'images', 'js', 'lib', 'logs', 'modules', 'neofrag', 'overrides', 'themes', 'upload', 'widgets'];
 
 	public function get_info()
 	{

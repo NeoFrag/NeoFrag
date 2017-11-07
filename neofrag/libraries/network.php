@@ -7,17 +7,22 @@
 class Network extends Library
 {
 	protected $_auth;
-	protected $_header = [];
+	protected $_header    = [];
 	protected $_method;
-	protected $_ssl_check;
-	protected $_timeout;
+	protected $_ssl_check = TRUE;
+	protected $_timeout   = 1;
 	protected $_type;
 	protected $_url;
 
 	public function __construct($config = [])
 	{
-		$this->_ssl_check = $config['ssl_check'];
-		$this->_timeout   = $config['timeout'];
+		foreach (['ssl_check', 'timeout'] as $var)
+		{
+			if (array_key_exists($var, $config))
+			{
+				$this->{'_'.$var} = $config[$var];
+			}
+		}
 	}
 
 	public function __invoke($url)

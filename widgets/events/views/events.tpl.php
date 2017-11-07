@@ -12,7 +12,7 @@
 
 			if ($match['opponent']['country'])
 			{
-				$opponent .= '<img src="'.url('neofrag/themes/default/images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
+				$opponent .= '<img src="'.url('themes/default/images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
 			}
 
 			echo '<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$opponent.'</a>';

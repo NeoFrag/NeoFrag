@@ -32,27 +32,14 @@
 
 class Password extends Library
 {
-	private $_itoa64;
-	private $_iteration_count_log2;
-	private $_portable_hashes;
+	private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	private $_iteration_count_log2 = 8;
 	private $_random_state;
 	private $_salt;
 
 	public function __construct($config)
 	{
-		$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$this->_salt  = $config['salt'];
-
-		$iteration_count_log2 = $config['iteration_count_log2'];
-
-		if ($iteration_count_log2 < 4 || $iteration_count_log2 > 31)
-		{
-			$iteration_count_log2 = 8;
-		}
-
-		$this->_iteration_count_log2 = $iteration_count_log2;
-
-		$this->_portable_hashes = $config['portable_hashes'];
+		$this->_salt = $config['salt'];
 
 		$this->_random_state = microtime();
 
