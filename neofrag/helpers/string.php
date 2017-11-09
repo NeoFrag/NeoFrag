@@ -46,6 +46,8 @@ function in_string($needle, $haystack, $strict = TRUE)
 
 function url_title($string)
 {
+	$string = (string)$string;
+
 	static $strings = [];
 
 	if (isset($strings[$string]))
@@ -53,36 +55,7 @@ function url_title($string)
 		return $strings[$string];
 	}
 
-	static $a, $b;
-
-	if ($a === NULL)
-	{
-		$chars = [
-			'a'  => 'ÀÁÂÃÄÅÆàáâãäå',
-			'ae' => 'æ',
-			'c'  => 'Çç',
-			'e'  => 'ÈÉÊËèéêë',
-			'i'  => 'ÌÍÎÏìíîï',
-			'n'  => 'Ññ',
-			'o'  => 'ÒÓÔÕÖòóôõö',
-			'oe' => 'Œœ',
-			'u'  => 'ÙÚÛÜùúûü',
-			'y'  => 'Ýýÿ',
-			'-'  => '_ '
-		];
-
-		$a = $b = [];
-		foreach ($chars as $key => $value)
-		{
-			foreach (preg_split('/(?<!^)(?!$)/u', $value) as $char)
-			{
-				$a[] = $char;
-				$b[] = $key;
-			}
-		}
-	}
-
-	return $strings[$string] = trim(preg_replace('/--+/', '-', preg_replace('/[^a-z0-9-]/', '', strtolower(str_replace($a, $b, strip_tags(utf8_html_entity_decode($string)))))), '-');
+	return $strings[$string] = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower(transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', strip_tags(utf8_html_entity_decode($string))))), '-');
 }
 
 function str_nat($a, $b, $data = NULL)
