@@ -189,7 +189,7 @@ class Db extends Core
 				'operator' => $operator
 			];
 			
-			if (func_num_args() == 1)
+			if (func_num_args() == 1 || empty($value))
 			{
 				unset($where->value);
 			}
