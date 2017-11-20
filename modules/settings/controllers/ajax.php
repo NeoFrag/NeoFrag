@@ -12,25 +12,11 @@ class Ajax extends Controller_Module
 {
 	public function humans()
 	{
-		$this->extension('txt');
-
-		if ($this->url->request != 'humans.txt' || !$this->config->nf_humans_txt)
-		{
-			$this->error();
-		}
-
 		echo $this->config->nf_humans_txt;
 	}
 
 	public function robots()
 	{
-		$this->extension('txt');
-
-		if ($this->url->request != 'robots.txt' || !$this->config->nf_robots_txt)
-		{
-			$this->error();
-		}
-
 		echo $this->config->nf_robots_txt;
 	}
 

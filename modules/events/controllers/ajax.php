@@ -12,8 +12,6 @@ class Ajax extends Controller_Module
 {
 	public function index()
 	{
-		$this->extension('json');
-
 		$types  = array_keys($this->model('types')->get_types());
 		$events = [];
 
