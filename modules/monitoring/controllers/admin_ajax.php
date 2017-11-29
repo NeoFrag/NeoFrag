@@ -263,6 +263,42 @@ class Admin_Ajax extends Controller_Module
 		return $this->json($result);
 	}
 
+	public function phpinfo()
+	{
+		$extensions = get_loaded_extensions();
+		natcasesort($extensions);
+
+		$phpinfo = $this->array
+						->append($this	->panel()
+										->body($this->view('phpinfo', array_merge($this->model()->get_info(), [
+											'extensions' => $extensions
+										])))
+						);
+
+		ob_start();
+		phpinfo();
+
+		if (preg_match_all('#(?:<h1>(.*?)</h1>.*?)?(?:<h2>(.*?)</h2>.*?)?<table.*?>(.*?)</table>#s', ob_get_clean(), $matches, PREG_SET_ORDER))
+		{
+			foreach (array_offset_left($matches) as $match)
+			{
+				if ($match[1])
+				{
+					$phpinfo->append($this->panel()->heading($match[1] ? '<h1 class="text-center m-0">'.$match[1].'</h1>' : ''));
+				}
+
+				$phpinfo->append($this	->panel()
+										->heading($match[2] ? '<h2 class="text-center m-0">'.$match[2].'</h2>' : '')
+										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE));
+			}
+		}
+
+		return $this->css('phpinfo')
+					->modal('Informations détaillée')
+					->body($phpinfo)
+					->large();
+	}
+
 	public function backup()
 	{
 		$this->_stream(function(){

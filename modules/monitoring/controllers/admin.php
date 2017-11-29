@@ -13,8 +13,8 @@ class Admin extends Controller_Module
 	public function index()
 	{
 		$this	->css('monitoring')
-				->css('phpinfo')
 				->js('monitoring')
+				->js('modal')
 				->js('jquery.knob')
 				->js_load('$(\'.knob\').knob();')
 				->js('jquery.mCustomScrollbar.min')
@@ -22,40 +22,13 @@ class Admin extends Controller_Module
 				->js('bootstrap-treeview.min')
 				->css('bootstrap-treeview.min');
 
-		$extensions = get_loaded_extensions();
-		natcasesort($extensions);
-
-		$phpinfo = [$this	->panel()
-							->body($this->view('phpinfo', array_merge($this->model()->get_info(), [
-								'extensions' => $extensions
-							])))];
-
-		ob_start();
-		phpinfo();
-
-		if (preg_match_all('#(?:<h1>(.*?)</h1>.*?)?(?:<h2>(.*?)</h2>.*?)?<table.*?>(.*?)</table>#s', ob_get_clean(), $matches, PREG_SET_ORDER))
-		{
-			foreach (array_offset_left($matches) as $match)
-			{
-				if ($match[1])
-				{
-					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center m-0">'.$match[1].'</h1>' : '');
-				}
-
-				$phpinfo[] = $this		->panel()
-										->heading($match[2] ? '<h2 class="text-center m-0">'.$match[2].'</h2>' : '')
-										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE);
-			}
-		}
-
 		return $this->row(
 			$this	->col(
 						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
-								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-phpinfo">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
+								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
 								->body($this->view('infos', [
-									'check'   => $this->model()->check_server(),
-									'phpinfo' => $phpinfo
+									'check'   => $this->model()->check_server()
 								]))
 								->color('default panel-infos')
 					)
@@ -88,5 +61,65 @@ class Admin extends Controller_Module
 					)
 					->size('col-8 col-lg-9')
 		);
+	}
+
+	public function update($version)
+	{
+		$this->theme('admin')->js('update');
+
+		return $this->modal('Mise à jour de NeoFrag', 'fa-rocket')
+					->large()
+					->set_id('modal-update')
+					->body('<div class="update-features">
+								'.$version->features.'
+							</div>
+							<hr />
+							<div class="steps-body text-center">
+								<div class="row" style="padding: 0 110px;">
+									<div class="col">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="50,50"></div>
+										</div>
+									</div>
+									<div class="col">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="100"></div>
+										</div>
+									</div>
+									<div class="col">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="95,5"></div>
+										</div>
+									</div>
+								</div>
+								<div class="row steps-legends">
+									<div class="col">
+										<div class="step">
+											'.icon('fa-refresh').'
+										</div>
+										Lancement
+									</div>
+									<div class="col">
+										<div class="step">
+											'.icon('fa-floppy-o').'
+										</div>
+										Sauvegarde
+									</div>
+									<div class="col">
+										<div class="step">
+											'.icon('fa-arrow-circle-o-down').'
+										</div>
+										Téléchargement
+									</div>
+									<div class="col">
+										<div class="step">
+											'.icon('fa-cog').'
+										</div>
+										Installation
+									</div>
+								</div>
+							</div>')
+					->submit('Lancer la mise à jour')
+					->cancel();
 	}
 }

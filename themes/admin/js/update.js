@@ -50,10 +50,11 @@ $(function(){
 			},
 			success: function(){
 				$('.module-monitoring .refresh').trigger('click');
+				$('#modal-update').modal('hide');
+				notify('Mise à jour effectuée avec succès');
 				setTimeout(function(){
-					$('#modal-update').modal('hide');
-					notify('Mise à jour effectuée avec succès');
-				}, 1000);
+					window.location.reload();
+				}, 2000);
 			}
 		});
 
