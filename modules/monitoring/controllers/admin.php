@@ -13,8 +13,8 @@ class Admin extends Controller_Module
 	public function index()
 	{
 		$this	->css('monitoring')
-				->css('phpinfo')
 				->js('monitoring')
+				->js('modal')
 				->js('jquery.knob')
 				->js_load('$(\'.knob\').knob();')
 				->js('jquery.mCustomScrollbar.min')
@@ -22,40 +22,13 @@ class Admin extends Controller_Module
 				->js('bootstrap-treeview.min')
 				->css('bootstrap-treeview.min');
 
-		$extensions = get_loaded_extensions();
-		natcasesort($extensions);
-
-		$phpinfo = [$this	->panel()
-							->body($this->view('phpinfo', array_merge($this->model()->get_info(), [
-								'extensions' => $extensions
-							])))];
-
-		ob_start();
-		phpinfo();
-
-		if (preg_match_all('#(?:<h1>(.*?)</h1>.*?)?(?:<h2>(.*?)</h2>.*?)?<table.*?>(.*?)</table>#s', ob_get_clean(), $matches, PREG_SET_ORDER))
-		{
-			foreach (array_offset_left($matches) as $match)
-			{
-				if ($match[1])
-				{
-					$phpinfo[] = $this->panel()->heading($match[1] ? '<h1 class="text-center m-0">'.$match[1].'</h1>' : '');
-				}
-
-				$phpinfo[] = $this		->panel()
-										->heading($match[2] ? '<h2 class="text-center m-0">'.$match[2].'</h2>' : '')
-										->body('<table class="table table-hover table-striped">'.$match[3].'</table>', FALSE);
-			}
-		}
-
 		return $this->row(
 			$this	->col(
 						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
-								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-phpinfo">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
+								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
 								->body($this->view('infos', [
-									'check'   => $this->model()->check_server(),
-									'phpinfo' => $phpinfo
+									'check'   => $this->model()->check_server()
 								]))
 								->color('default panel-infos')
 					)
