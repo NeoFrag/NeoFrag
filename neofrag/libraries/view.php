@@ -15,6 +15,11 @@ class View extends Library
 
 	public function __invoke($name, $data = [])
 	{
+		if (is_object($name))
+		{
+			return $name;
+		}
+
 		$this->_name = $name;
 		$this->_data = $data;
 
