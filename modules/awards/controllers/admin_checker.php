@@ -12,7 +12,7 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_awards(), $page)];
+		return [$this->module->pagination->get_data($this->model()->get_awards(), $page)];
 	}
 
 	public function _edit($award_id, $name)

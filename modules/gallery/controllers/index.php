@@ -66,7 +66,7 @@ class Index extends Controller_Module
 							'images'          => $images,
 							'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
 							'total_images'    => count($carousel_images),
-							'pagination'      => $this->pagination->get_pagination()
+							'pagination'      => $this->module->pagination->get_pagination()
 						]), FALSE)];
 
 		if (empty($images))

@@ -74,7 +74,7 @@ class Index extends Controller_Module
 
 		$content = '<a class="btn btn-default" href="'.url(($this->session->get_back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
 
-		if ($pagination = $this->pagination->get_pagination())
+		if ($pagination = $this->module->pagination->get_pagination())
 		{
 			$content .= $pagination;
 		}
@@ -170,7 +170,7 @@ class Index extends Controller_Module
 
 		$last_message_read = NULL;
 
-		$is_last_page = $nb_messages <= $this->pagination->get_items_per_page() || $this->pagination->get_page() == ceil($nb_messages / $this->pagination->get_items_per_page());
+		$is_last_page = $nb_messages <= $this->module->pagination->get_items_per_page() || $this->module->pagination->get_page() == ceil($nb_messages / $this->module->pagination->get_items_per_page());
 
 		if ($this->user())
 		{
@@ -216,7 +216,7 @@ class Index extends Controller_Module
 
 		$content = '<a class="btn btn-default" href="'.url($this->session->get_back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('Retour').'</a>';
 
-		if ($pagination = $this->pagination->get_pagination())
+		if ($pagination = $this->module->pagination->get_pagination())
 		{
 			$content .= $pagination;
 		}
@@ -225,7 +225,7 @@ class Index extends Controller_Module
 		{
 			$page = '';
 
-			if ($nb_messages > $this->pagination->get_items_per_page() && $this->pagination->get_page() != ($last_page = ceil($nb_messages / $this->pagination->get_items_per_page())))
+			if ($nb_messages > $this->module->pagination->get_items_per_page() && $this->module->pagination->get_page() != ($last_page = ceil($nb_messages / $this->module->pagination->get_items_per_page())))
 			{
 				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page);
 			}
@@ -332,9 +332,9 @@ class Index extends Controller_Module
 
 				$page = '';
 
-				if (++$nb_messages > $this->pagination->get_items_per_page())
+				if (++$nb_messages > $this->module->pagination->get_items_per_page())
 				{
-					$page = '/page/'.ceil($nb_messages / $this->pagination->get_items_per_page());
+					$page = '/page/'.ceil($nb_messages / $this->module->pagination->get_items_per_page());
 				}
 
 				redirect('forum/topic/'.$topic_id.'/'.url_title($title).$page.'#'.$message_id);

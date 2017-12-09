@@ -38,7 +38,7 @@ class Index extends Controller_Module
 								->color('info');
 		}
 
-		$panels[] = $this->panel_pagination();
+		$panels[] = $this->module->pagination->panel();
 
 		return $panels;
 	}

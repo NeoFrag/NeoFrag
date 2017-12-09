@@ -12,7 +12,7 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_members(), $page)];
+		return [$this->module->pagination->get_data($this->model()->get_members(), $page)];
 	}
 
 	public function _edit($user_id, $username)
@@ -64,7 +64,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _sessions($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_sessions(), $page)];
+		return [$this->module->pagination->get_data($this->model()->get_sessions(), $page)];
 	}
 
 	public function _sessions_delete($session_id)

@@ -12,7 +12,7 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_recruits(), $page)];
+		return [$this->module->pagination->get_data($this->model()->get_recruits(), $page)];
 	}
 
 	public function _add()

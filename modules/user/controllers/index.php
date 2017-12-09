@@ -691,7 +691,7 @@ class Index extends Controller_Module
 							'allow_delete' => $allow_delete
 						]), FALSE)
 						->size('col-md-8 col-lg-9'),
-				$this->panel_pagination()
+				$this->module->pagination->panel()
 			)
 		);
 	}

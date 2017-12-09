@@ -91,7 +91,7 @@ class Index extends Controller_Module
 
 					if (($name = url_title($result[0]->info()->name)) == $module_name)
 					{
-						foreach ($this->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
+						foreach ($this->module->pagination->fix_items_per_page(10)->get_data($result[2], $page) as $data)
 						{
 							$content[] = $result[1]->method('detail', [$data, $keywords]);
 						}
@@ -114,10 +114,9 @@ class Index extends Controller_Module
 											->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('Voir l\'ensemble des résultats').'</a>' : '');
 					}
 
-					if ($details && $pagination = $this->pagination->get_pagination())
+					if ($details)
 					{
-						$panels[] = $this	->panel()
-											->body($pagination, FALSE);
+						$panels[] = $this->module->pagination->panel();
 					}
 				}
 
