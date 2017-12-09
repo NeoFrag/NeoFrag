@@ -164,5 +164,8 @@ class i_0_2 extends NeoFrag
 		  PRIMARY KEY (`id`),
 		  UNIQUE KEY `user_id` (`user_id`,`model`,`model_id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
+
+		//Vote
+		$this->db->execute('DROP TABLE nf_votes');
 	}
 }
