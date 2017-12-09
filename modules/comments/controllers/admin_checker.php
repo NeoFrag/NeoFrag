@@ -29,6 +29,6 @@ class Admin_Checker extends Module_Checker
 			return $a[0];
 		});
 
-		return [$this->pagination->get_data($comments, $page), $modules, $tab];
+		return [$this->module->pagination->get_data($comments, $page), $modules, $tab];
 	}
 }

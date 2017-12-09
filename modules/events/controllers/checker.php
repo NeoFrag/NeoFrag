@@ -12,32 +12,32 @@ class Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events(), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events(), $page)];
 	}
 
 	public function standards($page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'standards'), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'standards'), $page)];
 	}
 
 	public function matches($page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'matches'), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'matches'), $page)];
 	}
 
 	public function upcoming($page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'upcoming'), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('filter', 'upcoming'), $page)];
 	}
 
 	public function _type($type_id, $title, $page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('type', $type_id), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('type', $type_id), $page)];
 	}
 
 	public function _team($team_id, $title, $page = '')
 	{
-		return [$this->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('team', $team_id), $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->events_per_page)->get_data($this->model()->get_events('team', $team_id), $page)];
 	}
 
 	public function _event($event_id, $title)

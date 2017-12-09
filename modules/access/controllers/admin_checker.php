@@ -53,7 +53,7 @@ class Admin_Checker extends Module_Checker
 			}
 		}
 
-		return [$this->pagination->get_data($objects, $page), $modules, $tab];
+		return [$this->module->pagination->get_data($objects, $page), $modules, $tab];
 	}
 
 	public function _edit($module_name, $access = '0-default')

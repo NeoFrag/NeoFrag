@@ -18,6 +18,16 @@ class Pagination extends Library
 
 	protected $_db;
 
+	public function __construct($caller)
+	{
+		parent::__construct($caller);
+
+		if (is_a($caller, 'NF\NeoFrag\Addons\Module'))//TODO
+		{
+			$caller->pagination = $this;
+		}
+	}
+
 	public function __invoke($db, $page, $limit = NULL)
 	{
 		if ($limit !== NULL)

@@ -44,7 +44,7 @@ class Checker extends Module_Checker
 						$forum['category_id'],
 						$forum['subforums'] ? $this->model()->get_forums($forum_id) : [],
 						$announces,
-						$this->pagination->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
+						$this->module->pagination->fix_items_per_page($this->config->forum_topics_per_page)->get_data($messages, $page)
 					];
 				}
 			}
@@ -88,7 +88,7 @@ class Checker extends Module_Checker
 					$topic['announce'],
 					$topic['locked'],
 					array_shift($messages),
-					$this->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($messages, $page)
+					$this->module->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($messages, $page)
 				];
 			}
 			else

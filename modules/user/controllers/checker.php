@@ -24,7 +24,7 @@ class Checker extends Module_Checker
 	{
 		if ($this->user())
 		{
-			return [$this->pagination->get_data($this->user->get_sessions_history(), $page)];
+			return [$this->module->pagination->get_data($this->user->get_sessions_history(), $page)];
 		}
 
 		throw new Exception(NeoFrag::UNCONNECTED);
@@ -103,7 +103,7 @@ class Checker extends Module_Checker
 		{
 			$this->css('inbox');
 
-			return [$this->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page)];
+			return [$this->module->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page)];
 		}
 		else
 		{

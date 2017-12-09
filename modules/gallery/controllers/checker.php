@@ -26,7 +26,7 @@ class Checker extends Module_Checker
 				$gallery['category_title'],
 				$gallery['image'],
 				$gallery['category_icon'],
-				$this->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($this->model()->get_images($gallery_id), $page)
+				$this->module->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($this->model()->get_images($gallery_id), $page)
 			];
 		}
 	}

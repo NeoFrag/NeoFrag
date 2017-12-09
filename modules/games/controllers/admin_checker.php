@@ -12,14 +12,14 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model('maps')->get_maps(), $page)];
+		return [$this->module->pagination->get_data($this->model('maps')->get_maps(), $page)];
 	}
 
 	public function _edit($game_id, $name, $page = '')
 	{
 		if ($game = $this->model()->check_game($game_id, $name, 'default'))
 		{
-			return array_merge($game, [$this->pagination->get_data($this->model('maps')->get_maps($game_id), $page)]);
+			return array_merge($game, [$this->module->pagination->get_data($this->model('maps')->get_maps($game_id), $page)]);
 		}
 	}
 

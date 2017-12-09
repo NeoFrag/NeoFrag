@@ -22,7 +22,7 @@ class Checker extends Module_Checker
 			}
 		}
 
-		return [$this->pagination->fix_items_per_page($this->config->recruits_per_page)->get_data($recruits, $page)];
+		return [$this->module->pagination->fix_items_per_page($this->config->recruits_per_page)->get_data($recruits, $page)];
 	}
 
 	public function _recruit($recruit_id, $title)

@@ -121,9 +121,9 @@ class Table extends Library
 			}
 		}
 
-		if ($this->_pagination && !empty($this->pagination) && ($items_per_page = $this->session('table', $this->id, 'items_per_page')) !== NULL)
+		if ($this->_pagination && !empty($this->output->module()->pagination) && ($items_per_page = $this->session('table', $this->id, 'items_per_page')) !== NULL)
 		{
-			$this->pagination->set_items_per_page($items_per_page);
+			$this->output->module()->pagination->set_items_per_page($items_per_page);
 		}
 
 		if (($sort = post('sort')) !== NULL && $this->_ajax)
@@ -178,15 +178,15 @@ class Table extends Library
 			$search = $this->session('table', $this->id, 'search');
 		}
 
-		$count_results  = $this->_pagination && !empty($this->pagination) ? $this->pagination->count() : count($this->_data);
+		$count_results  = $this->_pagination && !empty($this->output->module()->pagination) ? $this->output->module()->pagination->count() : count($this->_data);
 
-		if ($this->_is_searchable() && $search && $this->_pagination && !empty($this->pagination))
+		if ($this->_is_searchable() && $search && $this->_pagination && !empty($this->output->module()->pagination))
 		{
-			$this->_data = $this->pagination->display_all();
+			$this->_data = $this->output->module()->pagination->display_all();
 		}
-		else if (!empty($this->_sortings) && $this->_pagination && !empty($this->pagination) && (!isset($search) || !$search))
+		else if (!empty($this->_sortings) && $this->_pagination && !empty($this->output->module()->pagination) && (!isset($search) || !$search))
 		{
-			$this->_data = $this->pagination->get_data();
+			$this->_data = $this->output->module()->pagination->get_data();
 		}
 
 		$this->_preprocessing();
@@ -317,28 +317,28 @@ class Table extends Library
 					$this->_data[trim($key)] = $value;
 				}
 
-				if ($this->_pagination && !empty($this->pagination) && ($items_per_page = $this->pagination->get_items_per_page()) > 0)
+				if ($this->_pagination && !empty($this->output->module()->pagination) && ($items_per_page = $this->output->module()->pagination->get_items_per_page()) > 0)
 				{
-					$this->_data = array_slice($this->_data, ($this->pagination->get_page() - 1) * $items_per_page, $items_per_page);
+					$this->_data = array_slice($this->_data, ($this->output->module()->pagination->get_page() - 1) * $items_per_page, $items_per_page);
 				}
 			}
 
-			if ($this->_pagination && !empty($this->pagination) && $this->pagination->count() > 10)
+			if ($this->_pagination && !empty($this->output->module()->pagination) && $this->output->module()->pagination->count() > 10)
 			{
 				$output .= '<div class="form-group pull-left">
-								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')" autocomplete="off">
-									<option value="10"'. ($this->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag()->lang('%d résultat|%d résultats', 10, 10).'</option>
-									<option value="25"'. ($this->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag()->lang('%d résultat|%d résultats', 25, 25).'</option>
-									<option value="50"'. ($this->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag()->lang('%d résultat|%d résultats', 50, 50).'</option>
-									<option value="100"'.($this->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">'.NeoFrag()->lang('%d résultat|%d résultats', 100, 100).'</option>
-									<option value="all"'.($this->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">'.NeoFrag()->lang('Tout afficher').'</option>
+								<select class="form-control" style="width: auto;" onchange="window.location=\''.$this->output->module()->pagination->get_url().'/\'+$(this).find(\'option:selected\').data(\'url\')" autocomplete="off">
+									<option value="10"'. ($this->output->module()->pagination->get_items_per_page() == 10  ? ' selected="selected"' : '').' data-url="page/1/10">'.NeoFrag()->lang('%d résultat|%d résultats', 10, 10).'</option>
+									<option value="25"'. ($this->output->module()->pagination->get_items_per_page() == 25  ? ' selected="selected"' : '').' data-url="page/1/25">'.NeoFrag()->lang('%d résultat|%d résultats', 25, 25).'</option>
+									<option value="50"'. ($this->output->module()->pagination->get_items_per_page() == 50  ? ' selected="selected"' : '').' data-url="page/1/50">'.NeoFrag()->lang('%d résultat|%d résultats', 50, 50).'</option>
+									<option value="100"'.($this->output->module()->pagination->get_items_per_page() == 100 ? ' selected="selected"' : '').' data-url="page/1/100">'.NeoFrag()->lang('%d résultat|%d résultats', 100, 100).'</option>
+									<option value="all"'.($this->output->module()->pagination->get_items_per_page() == 0   ? ' selected="selected"' : '').' data-url="all">'.NeoFrag()->lang('Tout afficher').'</option>
 								</select>
 							</div>';
 			}
 
-			if ($this->_pagination && !empty($this->pagination) && ($pagination = $this->pagination->get_pagination()) != '')
+			if ($this->_pagination && !empty($this->output->module()->pagination) && ($pagination = $this->output->module()->pagination->get_pagination()))
 			{
-				$output .= '<div class="form-group pull-right">'.$pagination.'</div>';
+				$output .= $pagination;
 			}
 
 			$count = count($this->_data);
@@ -458,7 +458,7 @@ class Table extends Library
 
 			$output .= '	</tbody>';
 
-			if ($this->_pagination && !empty($this->pagination) && $this->pagination->get_items_per_page() >= 50 && $count >= 50)
+			if ($this->_pagination && !empty($this->output->module()->pagination) && $this->output->module()->pagination->get_items_per_page() >= 50 && $count >= 50)
 			{
 				$output .= '<tfoot>'.$header.'</tfoot>';
 			}

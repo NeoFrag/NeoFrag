@@ -12,7 +12,7 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->pagination->get_data($this->model()->get_gallery(), $page)];
+		return [$this->module->pagination->get_data($this->model()->get_gallery(), $page)];
 	}
 
 	public function _edit($gallery_id, $title)
