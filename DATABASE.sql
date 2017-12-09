@@ -1625,25 +1625,6 @@ CREATE TABLE `nf_users_profiles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_votes`
---
-
-DROP TABLE IF EXISTS `nf_votes`;
-CREATE TABLE `nf_votes` (
-  `module_id` int(11) unsigned NOT NULL,
-  `module` varchar(100) NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `note` tinyint(4) NOT NULL,
-  PRIMARY KEY (`module_id`,`module`,`user_id`),
-  KEY `module` (`module`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_votes_ibfk_1` FOREIGN KEY (`module`) REFERENCES `nf_settings_addons` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `nf_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `nf_widgets`
 --
 
