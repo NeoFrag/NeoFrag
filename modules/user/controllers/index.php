@@ -106,7 +106,7 @@ class Index extends Controller_Module
 				->icon('fa-globe')
 				->breadcrumb();
 
-		$active_sessions = $this->table
+		$active_sessions = $this->table()
 			->add_columns([
 				[
 					'content' => function($data){
@@ -159,7 +159,7 @@ class Index extends Controller_Module
 			->data($this->user->get_sessions())
 			->save();
 
-		$sessions_history = $this->table
+		$sessions_history = $this->table()
 			->add_columns([
 				[
 					'content' => function($data){

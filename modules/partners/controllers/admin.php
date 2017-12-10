@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->table
+		$this	->table()
 				->add_columns([
 					[
 						'content' => function($data){
@@ -55,7 +55,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Liste des partenaires', 'fa-star-o')
-					->body($this->table->display())
+					->body($this->table()->display())
 					->footer($this->button_create('admin/partners/add', 'Ajouter un partenaire'));
 	}
 

@@ -14,7 +14,7 @@ class Admin extends Controller_Module
 	{
 		$this->subtitle($this->lang('Liste des équipes'));
 
-		$teams = $this	->table
+		$teams = $this	->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -57,7 +57,7 @@ class Admin extends Controller_Module
 						->no_data($this->lang('Il n\'y a pas encore d\'équipe'))
 						->display();
 
-		$roles = $this	->table
+		$roles = $this	->table()
 							->add_columns([
 								[
 									'content' => function($data){
@@ -203,30 +203,30 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		$this	->table
-				->add_columns([
-					[
-						'content' => function($data){
-							return NeoFrag()->user->link($data['user_id'], $data['username']);
-						}
-					],
-					[
-						'content' => function($data){
-							return $data['title'];
-						}
-					],
-					[
-						'content' => [
-							function($data) use ($team_id, $name){
-								return $this->button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id']);
-							}
-						],
-						'size'    => TRUE
-					]
-				])
-				->pagination(FALSE)
-				->data($this->db->select('tu.user_id', 'u.username', 'r.title')->from('nf_teams_users tu')->join('nf_users u', 'u.user_id = tu.user_id AND u.deleted = "0"', 'INNER')->join('nf_teams_roles r', 'r.role_id = tu.role_id')->where('tu.team_id', $team_id)->order_by('r.title', 'u.username')->get())
-				->no_data($this->lang('Il n\'y a pas encore de joueur dans cette équipe'));
+		$table = $this	->table()
+						->add_columns([
+							[
+								'content' => function($data){
+									return NeoFrag()->user->link($data['user_id'], $data['username']);
+								}
+							],
+							[
+								'content' => function($data){
+									return $data['title'];
+								}
+							],
+							[
+								'content' => [
+									function($data) use ($team_id, $name){
+										return $this->button_delete('admin/teams/players/delete/'.$team_id.'/'.$name.'/'.$data['user_id']);
+									}
+								],
+								'size'    => TRUE
+							]
+						])
+						->pagination(FALSE)
+						->data($this->db->select('tu.user_id', 'u.username', 'r.title')->from('nf_teams_users tu')->join('nf_users u', 'u.user_id = tu.user_id AND u.deleted = "0"', 'INNER')->join('nf_teams_roles r', 'r.role_id = tu.role_id')->where('tu.team_id', $team_id)->order_by('r.title', 'u.username')->get())
+						->no_data($this->lang('Il n\'y a pas encore de joueur dans cette équipe'));
 
 		return $this->row(
 			$this->col(
@@ -238,7 +238,7 @@ class Admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Joueurs'), 'fa-users')
-						->body($this->table->display())
+						->body($table->display())
 						->footer($this->view('users', [
 							'users'   => $users,
 							'roles'   => $roles,

@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index($maps)
 	{
-		$games = $this	->table
+		$games = $this	->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -95,7 +95,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/games');
 
-		$modes = $this	->table
+		$modes = $this	->table()
 						->add_columns([
 							[
 								'title'   => 'Titre',
@@ -301,7 +301,7 @@ class Admin extends Controller_Module
 
 	private function _panel_maps($maps, $game_id = NULL, $title = NULL)
 	{
-		$maps = $this	->table
+		$maps = $this	->table()
 						->add_columns(array_filter([
 							[
 								'title'   => 'Titre',

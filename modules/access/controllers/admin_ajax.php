@@ -72,90 +72,90 @@ class Admin_Ajax extends Controller_Module
 
 	public function users($action, $title, $icon, $module_name, $id)
 	{
-		$this	->table
-				->add_columns([
-						[
-						'title'   => $this->lang('Membre'),
-						'content' => function($data){
-							return NeoFrag()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
-						},
-						'sort'    => function($data){
-							return $data['username'];
-						},
-						'search'  => function($data){
-							return $data['username'];
-						}
-					],
-					[
-						'title'   => $this->lang('Groupes'),
-						'content' => function($data){
-							return NeoFrag()->groups->user_groups($data['user_id']);
-						},
-						'sort'    => function($data){
-							return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
-						},
-						'search'  => function($data){
-							return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
-						}
-					],
-					[
-						'content' => function($data){
-							$output = '';
+		$table = $this	->table()
+						->add_columns([
+								[
+								'title'   => $this->lang('Membre'),
+								'content' => function($data){
+									return NeoFrag()->user->link($data['user_id'], $data['username']).'<span data-user-id="'.$data['user_id'].'"></span>';
+								},
+								'sort'    => function($data){
+									return $data['username'];
+								},
+								'search'  => function($data){
+									return $data['username'];
+								}
+							],
+							[
+								'title'   => $this->lang('Groupes'),
+								'content' => function($data){
+									return NeoFrag()->groups->user_groups($data['user_id']);
+								},
+								'sort'    => function($data){
+									return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
+								},
+								'search'  => function($data){
+									return NeoFrag()->groups->user_groups($data['user_id'], FALSE);
+								}
+							],
+							[
+								'content' => function($data){
+									$output = '';
 
-							if (is_int($data['active']))
-							{
-								$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('Remettre en automatique').'">'.icon('fa-thumb-tack').'</a>';
-							}
+									if (is_int($data['active']))
+									{
+										$output = '<a class="access-revoke" href="#" data-toggle="tooltip" title="'.$this->lang('Remettre en automatique').'">'.icon('fa-thumb-tack').'</a>';
+									}
 
-							return '<td class="access-status">'.$output.'</td>';
-						},
-						'sort'    => function($data){
-							return $data['active'] === NULL;
-						},
-						'size'    => TRUE,
-						'td'      => FALSE
-					],
-					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre autorisé').'">'.icon('fa-check').'</i></div>',
-						'content' => function($data){
-							return $this->view('radio', [
-								'class'  => 'success',
-								'active' => $data['active']
-							]);
-						},
-						'td'      => FALSE
-					],
-					[
-						'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre exclu').'">'.icon('fa-ban').'</i></div>',
-						'content' => function($data){
-							static $admins;
+									return '<td class="access-status">'.$output.'</td>';
+								},
+								'sort'    => function($data){
+									return $data['active'] === NULL;
+								},
+								'size'    => TRUE,
+								'td'      => FALSE
+							],
+							[
+								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre autorisé').'">'.icon('fa-check').'</i></div>',
+								'content' => function($data){
+									return $this->view('radio', [
+										'class'  => 'success',
+										'active' => $data['active']
+									]);
+								},
+								'td'      => FALSE
+							],
+							[
+								'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$this->lang('Membre exclu').'">'.icon('fa-ban').'</i></div>',
+								'content' => function($data){
+									static $admins;
 
-							if ($admins === NULL)
-							{
-								$admins = NeoFrag()->groups()['admins']['users'];
-							}
+									if ($admins === NULL)
+									{
+										$admins = NeoFrag()->groups()['admins']['users'];
+									}
 
-							return in_array($data['user_id'], $admins) ? '<td></td>' : $this->view('radio', [
-								'class'  => 'danger',
-								'active' => !$data['active'] && $data['active'] !== NULL
-							]);
-						},
-						'td'      => FALSE
-					]
-				])
-				->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
-				->preprocessing(function($row) use ($module_name, $action, $id){
-					$row['active'] = NeoFrag()->access($module_name, $action, $id, NULL, $row['user_id']);
-					return $row;
-				})
-				->sort_by(3, SORT_DESC)
-				->sort_by(2, SORT_ASC)
-				->sort_by(1, SORT_ASC);
+									return in_array($data['user_id'], $admins) ? '<td></td>' : $this->view('radio', [
+										'class'  => 'danger',
+										'active' => !$data['active'] && $data['active'] !== NULL
+									]);
+								},
+								'td'      => FALSE
+							]
+						])
+						->data($this->db->select('user_id', 'username')->from('nf_users')->where('deleted', FALSE)->get())
+						->preprocessing(function($row) use ($module_name, $action, $id){
+							$row['active'] = NeoFrag()->access($module_name, $action, $id, NULL, $row['user_id']);
+							return $row;
+						})
+						->sort_by(3, SORT_DESC)
+						->sort_by(2, SORT_ASC)
+						->sort_by(1, SORT_ASC);
 
 		return $this->view('users', [
 			'title' => $title,
 			'icon'  => $icon,
-			'users' => $this->table->display()
+			'users' => $table->display()
 		]);
 	}
 

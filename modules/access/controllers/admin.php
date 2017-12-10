@@ -29,7 +29,7 @@ class Admin extends Controller_Module
 
 			$this->tab->add_tab($module_name, icon($icon).' '.$module->info()->title, function() use ($objects, $title, $module, $type, $all_access){
 				$this	->subtitle($title)
-						->table
+						->table()
 						->add_columns([
 							[
 								'title'   => $this->lang('Nom'),
@@ -43,7 +43,7 @@ class Admin extends Controller_Module
 				{
 					foreach ($a['access'] as $action => $access)
 					{
-						$this	->table
+						$this	->table()
 								->add_columns([
 									[
 										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$access['title'].'">'.icon($access['icon']).'</div>',
@@ -56,7 +56,7 @@ class Admin extends Controller_Module
 					}
 				}
 
-				return $this->table
+				return $this->table()
 							->add_columns([
 								[
 									'content' => [

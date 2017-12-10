@@ -14,7 +14,7 @@ class Admin extends Controller_Module
 	{
 		$this->title($this->lang('Actualités'));
 
-		$news = $this	->table
+		$news = $this	->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -94,7 +94,7 @@ class Admin extends Controller_Module
 						->no_data($this->lang('Il n\'y a pas encore d\'actualité'))
 						->display();
 
-		$categories = $this	->table
+		$categories = $this	->table()
 							->add_columns([
 								[
 									'content' => function($data){

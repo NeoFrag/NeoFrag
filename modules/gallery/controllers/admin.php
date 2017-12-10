@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index($gallery)
 	{
-		$gallery = $this->table
+		$gallery = $this->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -78,7 +78,7 @@ class Admin extends Controller_Module
 						->no_data($this->lang('Il n\'y a pas encore d\'album photo'))
 						->display();
 
-		$categories = $this	->table
+		$categories = $this	->table()
 							->add_columns([
 								[
 									'content' => function($data){
@@ -207,7 +207,7 @@ class Admin extends Controller_Module
 							->add_submit($this->lang('Ajouter l\'image'))
 							->save();
 
-		$gallery_table = $this	->table
+		$gallery_table = $this	->table()
 								->add_columns([
 									[
 										'content' => function($data){
