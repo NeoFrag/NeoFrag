@@ -23,10 +23,10 @@ class Forum extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'      => '{lang last_messages}',
-				'topics'     => '{lang last_topics}',
-				'statistics' => '{lang statistics}',
-				'activity'   => '{lang activity}'
+				'index'      => $this->lang('last_messages'),
+				'topics'     => $this->lang('last_topics'),
+				'statistics' => $this->lang('statistics'),
+				'activity'   => $this->lang('activity')
 			]
 		];
 	}

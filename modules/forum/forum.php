@@ -70,12 +70,12 @@ class Forum extends Module
 		return [
 			'category' => [
 				'get_all' => function(){
-					return NeoFrag()->db->select('category_id', 'CONCAT_WS(" ", "{lang category}", title)')->from('nf_forum_categories')->get();
+					return NeoFrag()->db->select('category_id', 'title')->from('nf_forum_categories')->get();
 				},
 				'check'   => function($category_id){
 					if (($category = NeoFrag()->db->select('title')->from('nf_forum_categories')->where('category_id', $category_id)->row()) !== [])
 					{
-						return '{lang category} '.$category;
+						return $category;
 					}
 				},
 				'init'    => [

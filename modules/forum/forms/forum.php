@@ -6,25 +6,25 @@
 
 $rules = [
 	'title' => [
-		'label' => '{lang title}',
+		'label' => $this->lang('title'),
 		'value' => $this->form->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'
 	],
 	'category' => [
-		'label'  => '{lang category}',
+		'label'  => $this->lang('category'),
 		'value'  => $this->form->value('category_id'),
 		'values' => $this->form->value('categories'),
 		'type'   => 'select',
 		'rules'  => 'required'
 	],
 	'description' => [
-		'label' => '{lang description}',
+		'label' => $this->lang('description'),
 		'value' => $this->form->value('description'),
 		'type'  => 'text'
 	],
 	'url' => [
-		'label' => '{lang redirect}',
+		'label' => $this->lang('redirect'),
 		'value' => $this->form->value('url'),
 		'type'  => 'url'
 	]

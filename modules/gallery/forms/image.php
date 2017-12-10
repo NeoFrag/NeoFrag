@@ -6,13 +6,13 @@
 
 $rules = [
 	'title' => [
-		'label' => '{lang title}',
+		'label' => $this->lang('title'),
 		'type'  => 'text',
 		'value' => $this->form->value('title'),
 		'rules' => 'required'
 	],
 	'description' => [
-		'label' => '{lang description}',
+		'label' => $this->lang('description'),
 		'type'  => 'textarea',
 		'value' => $this->form->value('description')
 	]

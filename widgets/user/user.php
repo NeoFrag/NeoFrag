@@ -19,8 +19,8 @@ class User extends Widget
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
 			'types'       => [
-				'index'      => '{lang member_area}',
-				'index_mini' => '{lang member_area_mini}'
+				'index'      => $this->lang('member_area'),
+				'index_mini' => $this->lang('member_area_mini')
 			]
 		];
 	}

@@ -6,20 +6,20 @@
 
 $rules = [
 	'title' => [
-		'label'  => '{lang title}',
+		'label'  => $this->lang('title'),
 		'value'  => $this->form->value('title'),
 		'type'   => 'text',
 		'rules'  => 'required'
 	],
 	'category' => [
-		'label'  => '{lang category}',
+		'label'  => $this->lang('category'),
 		'value'  => $this->form->value('category_id'),
 		'values' => $this->form->value('categories'),
 		'type'   => 'select',
 		'rules'  => 'required'
 	],
 	'image' => [
-		'label'  => '{lang upload}',
+		'label'  => $this->lang('upload'),
 		'value'  => $this->form->value('image'),
 		'type'   => 'file',
 		'upload' => 'gallery/covers',
@@ -32,13 +32,13 @@ $rules = [
 		}
 	],
 	'description' => [
-		'label'   => '{lang description}',
+		'label'   => $this->lang('description'),
 		'value'   => $this->form->value('description'),
 		'type'    => 'editor'
 	],
 	'published' => [
 		'type'    => 'checkbox',
 		'checked' => ['on' => $this->form->value('published')],
-		'values'  => ['on' => '{lang album_visible}']
+		'values'  => ['on' => $this->lang('album_visible')]
 	]
 ];

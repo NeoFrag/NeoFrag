@@ -6,7 +6,7 @@
 
 $rules = [
 	'title' => [
-		'label' => '{lang title}',
+		'label' => $this->lang('title'),
 		'value' => $this->form->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'

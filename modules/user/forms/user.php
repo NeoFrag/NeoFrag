@@ -6,7 +6,7 @@
 
 $rules = [
 	'username' => [
-		'label' => '{lang username}',
+		'label' => $this->lang('username'),
 		'value' => $username = $this->form->value('username'),
 		'rules' => 'required',
 		'check' => function($value) use ($username){
@@ -22,7 +22,7 @@ if (!NeoFrag()->url->admin)
 {
 	$rules = array_merge($rules, [
 		'password_old' => [
-			'label' => '{lang current_password}',
+			'label' => $this->lang('current_password'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password',
 			'check' => function($value, $post){
@@ -33,12 +33,12 @@ if (!NeoFrag()->url->admin)
 			}
 		],
 		'password_new' => [
-			'label' => '{lang new_password}',
+			'label' => $this->lang('new_password'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password'
 		],
 		'password_confirm' => [
-			'label' => '{lang password_confirmation}',
+			'label' => $this->lang('password_confirmation'),
 			'icon'  => 'fa-lock',
 			'type'  => 'password',
 			'check' => function($value, $post){
@@ -53,7 +53,7 @@ if (!NeoFrag()->url->admin)
 
 $rules = array_merge($rules, [
 	'email' => [
-		'label' => '{lang email}',
+		'label' => $this->lang('email'),
 		'value' => $email = $this->form->value('email'),
 		'type'  => 'email',
 		'rules' => 'required',
@@ -65,15 +65,15 @@ $rules = array_merge($rules, [
 		}
 	],
 	'first_name' => [
-		'label' => '{lang first_name}',
+		'label' => $this->lang('first_name'),
 		'value' => $this->form->value('first_name')
 	],
 	'last_name' => [
-		'label' => '{lang last_name}',
+		'label' => $this->lang('last_name'),
 		'value' => $this->form->value('last_name')
 	],
 	'avatar' => [
-		'label'       => '{lang avatar}',
+		'label'       => $this->lang('avatar'),
 		'value'       => $this->form->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
@@ -100,7 +100,7 @@ $rules = array_merge($rules, [
 		}
 	],
 	'date_of_birth' => [
-		'label' => '{lang birth_date}',
+		'label' => $this->lang('birth_date'),
 		'value' => $this->form->value('date_of_birth'),
 		'type'  => 'date',
 		'check' => function($value){
@@ -111,29 +111,29 @@ $rules = array_merge($rules, [
 		}
 	],
 	'sex' => [
-		'label'  => '{lang gender}',
+		'label'  => $this->lang('gender'),
 		'value'  => $this->form->value('sex'),
 		'values' => [
-			'female' => icon('fa-female').' {lang female}',
-			'male'   => icon('fa-male').' {lang male}'
+			'female' => $this->label($this->lang('Femme'), 'fa-female'),
+			'male'   => $this->label($this->lang('Homme'), 'fa-male')
 		],
 		'type'   => 'radio'
 	],
 	'location' => [
-		'label' => '{lang location}',
+		'label' => $this->lang('location'),
 		'value' => $this->form->value('location')
 	],
 	'website' => [
-		'label' => '{lang website}',
+		'label' => $this->lang('website'),
 		'value' => $this->form->value('website'),
 		'type'  => 'url'
 	],
 	'quote' => [
-		'label'  => '{lang quote}',
+		'label'  => $this->lang('quote'),
 		'value' => $this->form->value('quote')
 	],
 	'signature' => [
-		'label' => '{lang signature}',
+		'label' => $this->lang('signature'),
 		'value' => $this->form->value('signature'),
 		'type'  => 'editor'
 	]

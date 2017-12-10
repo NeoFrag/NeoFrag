@@ -6,19 +6,19 @@
 
 $rules = [
 	'title' => [
-		'label'       => '{lang game_title}',
+		'label'       => $this->lang('game_title'),
 		'value'       => $this->form->value('title'),
 		'type'        => 'text',
 		'rules'       => 'required'
 	],
 	'parent_id' => [
-		'label'       => '{lang parent_game}',
+		'label'       => $this->lang('parent_game'),
 		'value'       => $this->form->value('parent_id'),
 		'values'      => $this->form->value('games'),
 		'type'        => 'select'
 	],
 	'image' => [
-		'label'       => '{lang banner}',
+		'label'       => $this->lang('banner'),
 		'value'       => $this->form->value('image_id'),
 		'upload'      => 'games',
 		'type'        => 'file',
@@ -31,7 +31,7 @@ $rules = [
 		}
 	],
 	'icon' => [
-		'label'       => '{lang icon}',
+		'label'       => $this->lang('icon'),
 		'value'       => $this->form->value('icon_id'),
 		'upload'      => 'games/icons',
 		'type'        => 'file',

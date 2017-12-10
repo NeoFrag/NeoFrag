@@ -36,12 +36,12 @@ class Talks extends Module
 		return [
 			'talk' => [
 				'get_all' => function(){
-					return NeoFrag()->db->select('talk_id', 'CONCAT_WS(" ", "{lang talks}", name)')->from('nf_talks')->where('talk_id >', 1)->get();
+					return NeoFrag()->db->select('talk_id', 'name')->from('nf_talks')->where('talk_id >', 1)->get();
 				},
 				'check'   => function($talk_id){
 					if ($talk_id > 1 && ($talk = NeoFrag()->db->select('name')->from('nf_talks')->where('talk_id', $talk_id)->row()) !== [])
 					{
-						return '{lang talks} '.$talk;
+						return $talk;
 					}
 				},
 				'init'    => [

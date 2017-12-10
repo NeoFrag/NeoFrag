@@ -12,14 +12,14 @@ $rules = [
 		'rules'			=> 'required'
 	],
 	'game' => [
-		'label'         => '{lang game}',
+		'label'         => $this->lang('game'),
 		'value'         => $this->form->value('game_id'),
 		'values'        => $this->form->value('games'),
 		'type'          => 'select',
 		'rules'			=> 'required'
 	],
 	'image' => [
-		'label'       => '{lang image}',
+		'label'       => $this->lang('image'),
 		'value'       => $this->form->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'teams',
@@ -32,7 +32,7 @@ $rules = [
 		}
 	],
 	'icon' => [
-		'label'       => '{lang icon}',
+		'label'       => $this->lang('icon'),
 		'value'       => $this->form->value('icon_id'),
 		'upload'      => 'teams/icons',
 		'type'        => 'file',
@@ -59,7 +59,7 @@ $rules = [
 		}
 	],
 	'description' => [
-		'label' => '{lang description}',
+		'label' => $this->lang('description'),
 		'value' => $this->form->value('description'),
 		'type'  => 'editor'
 	]

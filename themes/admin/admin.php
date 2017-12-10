@@ -14,12 +14,12 @@ class Admin extends Theme
 	{
 		return [
 			'title'       => 'Administration',
-			'description' => '{lang default_theme_description}',
+			'description' => $this->lang('default_theme_description'),
 			'thumbnail'   => 'themes/default/images/thumbnail.png',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => ['{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}']
+			'zones'       => [$this->lang('content'), $this->lang('pre_content'), $this->lang('post_content'), $this->lang('header'), $this->lang('top'), $this->lang('footer')]
 		];
 	}
 
