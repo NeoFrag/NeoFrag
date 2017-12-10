@@ -108,14 +108,14 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this->lang('Ajouter une équipe'))
-				->form
+				->form()
 				->add_rules('teams', [
 					'games' => $this->model()->get_games_list()
 				])
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/teams');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$team_id = $this->model()->add_team(	$post['title'],
 													$post['game'],
@@ -130,7 +130,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une équipe'), 'fa-gamepad')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($team_id, $name, $title, $image_id, $icon_id, $description, $game_id)
@@ -147,7 +147,7 @@ class Admin extends Controller_Module
 
 		$form_team = $this	->title($this->lang('Éditer l\'équipe'))
 							->subtitle($title)
-							->form
+							->form()
 							->add_rules('teams', [
 								'title'        => $title,
 								'game_id'      => $game_id,
@@ -160,7 +160,7 @@ class Admin extends Controller_Module
 							->add_back('admin/teams')
 							->save();
 
-		$form_users = $this	->form
+		$form_users = $this	->form()
 							->add_rules([
 								'user_id' => [
 									'type'   => 'select',
@@ -253,28 +253,28 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Suppression équipe'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'équipe <b>%s</b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_team($team_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _roles_add()
 	{
 		$this	->subtitle($this->lang('Ajouter un rôle'))
-				->form
+				->form()
 				->add_rules('roles')
 				->add_back('admin/teams')
 				->add_submit($this->lang('Ajouter'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('roles')->add_role($post['title']);
 
@@ -285,20 +285,20 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter un rôle'), 'fa-sitemap')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _roles_edit($role_id, $title)
 	{
 		$this	->subtitle($this->lang('Rôle %s', $title))
-				->form
+				->form()
 				->add_rules('roles', [
 					'title' => $title
 				])
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/teams');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('roles')->edit_role($role_id, $post['title']);
 
@@ -309,34 +309,34 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Éditer le rôle'), 'fa-sitemap')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _roles_delete($role_id, $title)
 	{
 		$this	->title($this->lang('Suppression rôle'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le rôle <b>%s</b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model('roles')->delete_role($role_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _players_delete($team_id, $user_id, $username)
 	{
 		$this	->title($this->lang('Suppression joueur'))
 				->subtitle($username)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le joueur <b>%s</b> de cette équipe ?', $username));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('team_id', $team_id)
 						->where('user_id', $user_id)
@@ -345,6 +345,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

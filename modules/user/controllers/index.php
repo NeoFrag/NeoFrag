@@ -41,7 +41,7 @@ class Index extends Controller_Module
 				->icon('fa-cogs')
 				->breadcrumb();
 
-		$this->form
+		$this->form()
 			->add_rules('user', [
 				'username'      => $this->user('username'),
 				'email'         => $this->user('email'),
@@ -58,7 +58,7 @@ class Index extends Controller_Module
 			->add_submit($this->lang('Valider'))
 			->add_back('user');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_user(	$post['username'],
 										$post['email'],
@@ -93,7 +93,7 @@ class Index extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading()
-							->body($this->form->display())
+							->body($this->form()->display())
 							->size('col-md-8 col-lg-9')
 						)
 			)
@@ -212,10 +212,10 @@ class Index extends Controller_Module
 	public function _session_delete($session_id)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la session de l\'utilisateur <b>%s</b> ?'));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('session_id', $session_id)
 						->delete('nf_sessions');
@@ -223,7 +223,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _auth($authenticator)
@@ -359,7 +359,7 @@ class Index extends Controller_Module
 	{
 		$this->title($this->lang('Connexion'));
 
-		$form_login = $this	->form
+		$form_login = $this	->form()
 							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 							->add_rules([
 								'login' => [
@@ -436,7 +436,7 @@ class Index extends Controller_Module
 		}
 
 		$form_registration = $this
-			->form
+			->form()
 			->add_rules($rules)
 			->add_captcha()
 			->add_submit($this->lang('Créer un compte'))
@@ -560,7 +560,7 @@ class Index extends Controller_Module
 	{
 		$this->title($this->lang('Mot de passe oublié ?'));
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'email' => [
 						'label' => $this->lang('Email'),
@@ -578,7 +578,7 @@ class Index extends Controller_Module
 				->add_back('user')
 				->fast_mode();
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->email
 				->to($post['email'])
@@ -596,14 +596,14 @@ class Index extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Mot de passe oublié ?'), 'fa-unlock-alt')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _lost_password($key_id, $user_id)
 	{
 		$this->title($this->lang('Réinitialisation de votre mot de passe'));
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'password' => [
 						'label' => $this->lang('Nouveau mot de passe'),
@@ -628,7 +628,7 @@ class Index extends Controller_Module
 				->add_back('user')
 				->fast_mode();
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->email
 				->to($this->db->select('email')->from('nf_users')->where('user_id', $user_id)->row())
@@ -657,7 +657,7 @@ class Index extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Réinitialisation de votre mot de passe'), 'fa-lock')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function logout()
@@ -719,7 +719,7 @@ class Index extends Controller_Module
 
 	public function _messages_read($message_id, $title, $replies)
 	{
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'message' => [
 						'label' => 'Mon message',
@@ -729,7 +729,7 @@ class Index extends Controller_Module
 				])
 				->add_submit('Envoyer');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('messages')->reply($message_id, $post['message']);
 
@@ -750,7 +750,7 @@ class Index extends Controller_Module
 							->size('col-md-8 col-lg-9'),
 					$this	->panel()
 							->heading('Répondre', 'fa-reply')
-							->body($this->form->display())
+							->body($this->form()->display())
 				)
 			)
 		];
@@ -761,7 +761,7 @@ class Index extends Controller_Module
 		$this	->title('Nouveau message')
 				->icon('fa-edit')
 				->breadcrumb()
-				->form
+				->form()
 				->add_rules([
 					'title' => [
 						'label' => 'Sujet du message',
@@ -783,7 +783,7 @@ class Index extends Controller_Module
 				])
 				->add_submit('Envoyer');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			if ($message_id = $this->model('messages')->insert_message($post['recipients'], $post['title'], $post['message']))
 			{
@@ -799,7 +799,7 @@ class Index extends Controller_Module
 				$this->col(
 					$this	->panel()
 							->heading()
-							->body($this->form->display())
+							->body($this->form()->display())
 							->size('col-md-8 col-lg-9')
 				)
 			)
@@ -810,10 +810,10 @@ class Index extends Controller_Module
 	{
 		$this	->title($this->lang('Suppression du message'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le message <b>'.$title.'</b> ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('user_id', $this->user('user_id'))
 						->where('message_id', $message_id)
@@ -825,7 +825,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _member($user_id, $username)

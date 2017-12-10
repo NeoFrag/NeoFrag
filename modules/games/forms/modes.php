@@ -7,7 +7,7 @@
 $rules = [
 	'title' => [
 		'label' => 'Nom du mode',
-		'value' => $this->form->value('title'),
+		'value' => $this->form()->value('title'),
 		'type'  => 'text',
 		'rules' => 'required'
 	]

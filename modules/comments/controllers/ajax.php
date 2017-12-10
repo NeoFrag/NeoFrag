@@ -13,10 +13,10 @@ class Ajax extends Controller_Module
 	public function delete($comment_id, $module_id, $module)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce commentaire ?'));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			if ($this->db->select('comment_id')->from('nf_comments')->where('module', $module)->where('module_id', $module_id)->order_by('comment_id DESC')->limit(1)->row() == $comment_id)
 			{
@@ -34,6 +34,6 @@ class Ajax extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

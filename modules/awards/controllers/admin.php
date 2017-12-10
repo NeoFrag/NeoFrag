@@ -133,7 +133,7 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle('Ajouter un palmarès')
-				->form
+				->form()
 				->add_rules('awards', [
 					'teams' => $this->model()->get_teams_list(),
 					'games' => $this->model()->get_games_list()
@@ -141,7 +141,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/awards');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_awards(	$post['date'],
 										$post['team'],
@@ -161,13 +161,13 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Nouveau palmarès', 'fa-trophy')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($award_id, $team_id, $date, $location, $name, $platform, $game_id, $ranking, $participants, $description, $image_id, $team_name, $team_title, $game_name, $game_title)
 	{
 		$this	->subtitle('Équipe '.$team_title)
-				->form
+				->form()
 				->add_rules('awards', [
 					'award_id'     => $award_id,
 					'date'         => $date,
@@ -186,7 +186,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/awards');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_awards($award_id,
 										$post['date'],
@@ -207,23 +207,23 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Édition du palmarès', 'fa-trophy')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function delete($award_id, $name)
 	{
 		$this	->title('Palmarès')
 				->subtitle($name)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_awards($award_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

@@ -42,11 +42,11 @@ class Comments extends Library
 
 	public function display($module_name, $module_id)
 	{
-		$this->form->save();
+		$this->form()->save();
 
 		$form = $this	->css('comments')
 						->js('comments')
-						->form
+						->form()
 						->add_rules([
 							'comment_id' => [
 							],

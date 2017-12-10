@@ -7,22 +7,22 @@
 $rules = [
 	'title' => [
 		'label' => $this->lang('Nom'),
-		'value' => $this->form->value('title'),
-		'rules' => 'required'.($this->form->value('auto') ? '|disabled' : '')
+		'value' => $this->form()->value('title'),
+		'rules' => 'required'.($this->form()->value('auto') ? '|disabled' : '')
 	],
 	'color' => [
 		'label' => $this->lang('Couleur'),
-		'value' => $this->form->value('color'),
+		'value' => $this->form()->value('color'),
 		'type'  => 'colorpicker'
 	],
 	'icon' => [
 		'label'   => $this->lang('Icône'),
-		'value'   => $this->form->value('icon'),
+		'value'   => $this->form()->value('icon'),
 		'default' => 'fa-user',
 		'type'    => 'iconpicker'
 	],
 	'hidden' => [
-		'checked' => ['on' => $this->form->value('hidden')],
+		'checked' => ['on' => $this->form()->value('hidden')],
 		'values'  => ['on' => 'Groupe caché'],
 		'type'    => 'checkbox'
 	]

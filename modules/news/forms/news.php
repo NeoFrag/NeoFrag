@@ -7,20 +7,20 @@
 $rules = [
 	'title' => [
 		'label'         => $this->lang('Titre'),
-		'value'         => $this->form->value('title'),
+		'value'         => $this->form()->value('title'),
 		'type'          => 'text',
 		'rules'			=> 'required'
 	],
 	'category' => [
 		'label'         => $this->lang('Catégorie'),
-		'value'         => $this->form->value('category_id'),
-		'values'        => $this->form->value('categories'),
+		'value'         => $this->form()->value('category_id'),
+		'values'        => $this->form()->value('categories'),
 		'type'          => 'select',
 		'rules'			=> 'required'
 	],
 	'image' => [
 		'label'       => $this->lang('Image'),
-		'value'       => $this->form->value('image_id'),
+		'value'       => $this->form()->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'news',
 		'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
@@ -33,23 +33,23 @@ $rules = [
 	],
 	'introduction' => [
 		'label'			=> $this->lang('Introduction'),
-		'value'			=> $this->form->value('introduction'),
+		'value'			=> $this->form()->value('introduction'),
 		'type'			=> 'editor',
 		'rules'			=> 'required'
 	],
 	'content' => [
 		'label'			=> $this->lang('Contenu'),
-		'value'			=> $this->form->value('content'),
+		'value'			=> $this->form()->value('content'),
 		'type'			=> 'editor'
 	],
 	'tags' => [
 		'label'			=> $this->lang('Mots clés'),
-		'value'			=> $this->form->value('tags'),
+		'value'			=> $this->form()->value('tags'),
 		'type'			=> 'text'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
-		'checked'		=> ['on' => $this->form->value('published')],
+		'checked'		=> ['on' => $this->form()->value('published')],
 		'values'        => ['on' => $this->lang('Publiée')]
 	]
 ];

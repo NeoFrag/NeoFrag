@@ -105,7 +105,7 @@ class Index extends Controller_Module
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
 				->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-				->form
+				->form()
 				->add_rules([
 					'title' => [
 						'rules' => 'required'
@@ -118,14 +118,14 @@ class Index extends Controller_Module
 
 		if ($this->access('forum', 'category_announce', $category_id))
 		{
-			$this->form->add_rules([
+			$this->form()->add_rules([
 				'announce' => [
 					'type' => 'checkbox'
 				]
 			]);
 		}
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$topic_id = $this->model()->add_topic(	$forum_id,
 													$post['title'],
@@ -139,7 +139,7 @@ class Index extends Controller_Module
 
 		$panels = [];
 
-		if ($errors = $this->form->get_errors())
+		if ($errors = $this->form()->get_errors())
 		{
 			$panels[] = $this->row($this->col(
 				$this	->panel()
@@ -151,7 +151,7 @@ class Index extends Controller_Module
 		$panels[] = $this	->panel()
 							->heading($this->lang('Nouveau sujet'), 'fa-file-text-o')
 							->body($this->view('new', [
-								'form_id'     => $this->form->token(),
+								'form_id'     => $this->form()->token(),
 								'post'        => $post,
 								'forum_id'    => $forum_id,
 								'category_id' => $category_id,
@@ -315,7 +315,7 @@ class Index extends Controller_Module
 					->js('jquery.wysibb.min')
 					->js('jquery.wysibb.fr')
 					->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-					->form
+					->form()
 					->add_rules([
 						'message' => [
 							'type'  => 'editor',
@@ -324,7 +324,7 @@ class Index extends Controller_Module
 					])
 					->add_submit($this->lang('Répondre'));
 
-			if ($this->form->is_valid($post))
+			if ($this->form()->is_valid($post))
 			{
 				$message_id = $this->model()->add_message($topic_id, $post['message']);
 
@@ -340,7 +340,7 @@ class Index extends Controller_Module
 				redirect('forum/topic/'.$topic_id.'/'.url_title($title).$page.'#'.$message_id);
 			}
 
-			if ($errors = $this->form->get_errors())
+			if ($errors = $this->form()->get_errors())
 			{
 				$panels[] = $this->row($this->col(
 					$this	->panel()
@@ -352,7 +352,7 @@ class Index extends Controller_Module
 			$panels[] = $this	->panel()
 								->heading('<a name="reply"></a>'.$this->lang('Répondre au sujet'), 'fa-file-text-o')
 								->body($this->view('new', [
-									'form_id'  => $this->form->token()
+									'form_id'  => $this->form()->token()
 								]), FALSE);
 		}
 
@@ -391,7 +391,7 @@ class Index extends Controller_Module
 			}
 		}
 
-		$this	->form
+		$this	->form()
 				->set_id('3a27fa5555e6f34491793733f32169db')
 				->add_rules([
 					'forum_id' => [
@@ -400,7 +400,7 @@ class Index extends Controller_Module
 					]
 				]);
 
-		if ($this->form->is_valid($post) && $forum_id != $post['forum_id'])
+		if ($this->form()->is_valid($post) && $forum_id != $post['forum_id'])
 		{
 			$this->db	->where('topic_id', $topic_id)
 						->update('nf_forum_topics', [
@@ -452,7 +452,7 @@ class Index extends Controller_Module
 				->js('jquery.wysibb.min')
 				->js('jquery.wysibb.fr')
 				->js_load('$(\'textarea.editor\').wysibb({lang: "fr"});')
-				->form
+				->form()
 				->add_rules([
 					'message' => [
 						'type'  => 'editor',
@@ -462,14 +462,14 @@ class Index extends Controller_Module
 
 		if ($is_topic)
 		{
-			$this->form->add_rules([
+			$this->form()->add_rules([
 				'title' => [
 					'rules' => 'required'
 				]
 			]);
 		}
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			if ($is_topic && $title != $post['title'])
 			{
@@ -491,7 +491,7 @@ class Index extends Controller_Module
 
 		$panels = [];
 
-		if ($errors = $this->form->get_errors())
+		if ($errors = $this->form()->get_errors())
 		{
 			$panels[] = $this->row($this->col(
 				$this	->panel()
@@ -503,7 +503,7 @@ class Index extends Controller_Module
 		$panels[] = $this	->panel()
 							->heading($this->lang($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
 							->body($this->view('new', [
-								'form_id'  => $this->form->token(),
+								'form_id'  => $this->form()->token(),
 								'post'     => $post,
 								'topic_id' => $topic_id,
 								'is_topic' => $is_topic,
@@ -519,10 +519,10 @@ class Index extends Controller_Module
 	{
 		$this	->title($this->lang($is_topic ? 'delete_topic' : 'delete_message'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $is_topic ? $this->lang('Êtes-vous sûr(e) de vouloir supprimer le sujet <b>%s</b> ?', $title) : $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce message ?'));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$delete = TRUE;
 
@@ -582,7 +582,7 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function mark_all_as_read()

@@ -34,7 +34,7 @@ class Index extends Controller_Widget
 			return $this->panel()
 						->heading($this->lang('Espace membre').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''))
 						->body($this->view('index', [
-							'form_id' => $this->form->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
+							'form_id' => $this->form()->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
 						]))
 						->footer('<a href="'.url('user').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this->lang('Créer un compte').'</a>');
 		}

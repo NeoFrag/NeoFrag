@@ -12,7 +12,7 @@ class Admin_Ajax_Checker extends Module_Checker
 {
 	public function index()
 	{
-		if ($check = post_check(['modules', 'start', 'end', 'period'], $this->form->token('sq6fswkfb81n0lu4cb7eyb3tuixcovla')))
+		if ($check = post_check(['modules', 'start', 'end', 'period'], $this->form()->token('sq6fswkfb81n0lu4cb7eyb3tuixcovla')))
 		{
 			$this->extension('json');
 

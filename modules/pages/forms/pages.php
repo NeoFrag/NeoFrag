@@ -7,18 +7,18 @@
 $rules = [
 	'title' => [
 		'label'         => $this->lang('Titre de la page'),
-		'value'         => $this->form->value('title'),
+		'value'         => $this->form()->value('title'),
 		'type'          => 'text',
 		'rules'         => 'required'
 	],
 	'subtitle' => [
 		'label'         => $this->lang('Sous-titre'),
-		'value'         => $this->form->value('subtitle'),
+		'value'         => $this->form()->value('subtitle'),
 		'type'          => 'text'
 	],
 	'name' => [
 		'label'         => $this->lang('Chemin d\'accès'),
-		'value'         => $name = $this->form->value('name'),
+		'value'         => $name = $this->form()->value('name'),
 		'type'          => 'text',
 		'check'         => function($value, $post) use ($name){
 			if (!$value)
@@ -36,12 +36,12 @@ $rules = [
 	],
 	'content' => [
 		'label'			=> $this->lang('Contenu'),
-		'value'			=> $this->form->value('content'),
+		'value'			=> $this->form()->value('content'),
 		'type'			=> 'editor'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
-		'checked'		=> ['on' => $this->form->value('published')],
+		'checked'		=> ['on' => $this->form()->value('published')],
 		'values'        => ['on' => $this->lang('Publier la page dès maintenant')]
 	]
 ];

@@ -145,14 +145,14 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this->lang('Ajouter une actualité'))
-				->form
+				->form()
 				->add_rules('news', [
 					'categories' => $this->model('categories')->get_categories_list()
 				])
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/news');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_news(	$post['title'],
 										$post['category'],
@@ -169,14 +169,14 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une actualité'), 'fa-file-text-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $news_image, $category_image, $category_icon)
 	{
 		$this	->title($this->lang('Éditer l\'actualité'))
 				->subtitle($title)
-				->form
+				->form()
 				->add_rules('news', [
 					'title'        => $title,
 					'category_id'  => $category_id,
@@ -190,7 +190,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/news');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_news(	$news_id,
 										$post['category'],
@@ -209,35 +209,35 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Éditer l\'actualité'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function delete($news_id, $title)
 	{
 		$this	->title($this->lang('Suppression actualité'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'actualité <b>%s</b> ?<br />Tous les commentaires associés à cette actualité seront aussi supprimés.', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_news($news_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _categories_add()
 	{
 		$this	->subtitle($this->lang('Ajouter une catégorie'))
-				->form
+				->form()
 				->add_rules('categories')
 				->add_back('admin/news')
 				->add_submit($this->lang('Ajouter'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('categories')->add_category(	$post['title'],
 														$post['image'],
@@ -250,13 +250,13 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une catégorie'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _categories_edit($category_id, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this->lang('Catégorie %s', $title))
-				->form
+				->form()
 				->add_rules('categories', [
 					'title' => $title,
 					'image' => $image_id,
@@ -265,7 +265,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/news');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('categories')->edit_category(	$category_id,
 														$post['title'],
@@ -279,23 +279,23 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Éditer la catégorie'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _categories_delete($category_id, $title)
 	{
 		$this	->title($this->lang('Suppression catégorie'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la catégorie <b>%s</b> ?<br />Toutes les actualités associées à cette catégorie seront aussi supprimées.', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model('categories')->delete_category($category_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

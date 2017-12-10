@@ -7,7 +7,7 @@
 $rules = [
 	'username' => [
 		'label' => $this->lang('Identifiant'),
-		'value' => $username = $this->form->value('username'),
+		'value' => $username = $this->form()->value('username'),
 		'rules' => 'required',
 		'check' => function($value) use ($username){
 			if ($value != $username && NeoFrag()->db->select('1')->from('nf_users')->where('username', $value)->row())
@@ -54,7 +54,7 @@ if (!NeoFrag()->url->admin)
 $rules = array_merge($rules, [
 	'email' => [
 		'label' => $this->lang('Email'),
-		'value' => $email = $this->form->value('email'),
+		'value' => $email = $this->form()->value('email'),
 		'type'  => 'email',
 		'rules' => 'required',
 		'check' => function($value) use ($email){
@@ -66,15 +66,15 @@ $rules = array_merge($rules, [
 	],
 	'first_name' => [
 		'label' => $this->lang('Prénom'),
-		'value' => $this->form->value('first_name')
+		'value' => $this->form()->value('first_name')
 	],
 	'last_name' => [
 		'label' => $this->lang('Nom'),
-		'value' => $this->form->value('last_name')
+		'value' => $this->form()->value('last_name')
 	],
 	'avatar' => [
 		'label'       => $this->lang('Avatar'),
-		'value'       => $this->form->value('avatar'),
+		'value'       => $this->form()->value('avatar'),
 		'upload'      => 'members',
 		'type'        => 'file',
 		'info'        => $this->lang(' d\'image (format carré min. %dpx et max. %d Mo)', 250, file_upload_max_size() / 1024 / 1024),
@@ -101,7 +101,7 @@ $rules = array_merge($rules, [
 	],
 	'date_of_birth' => [
 		'label' => $this->lang('Date de naissance'),
-		'value' => $this->form->value('date_of_birth'),
+		'value' => $this->form()->value('date_of_birth'),
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
@@ -112,7 +112,7 @@ $rules = array_merge($rules, [
 	],
 	'sex' => [
 		'label'  => $this->lang('Sexe'),
-		'value'  => $this->form->value('sex'),
+		'value'  => $this->form()->value('sex'),
 		'values' => [
 			'female' => $this->label($this->lang('Femme'), 'fa-female'),
 			'male'   => $this->label($this->lang('Homme'), 'fa-male')
@@ -121,20 +121,20 @@ $rules = array_merge($rules, [
 	],
 	'location' => [
 		'label' => $this->lang('Localisation'),
-		'value' => $this->form->value('location')
+		'value' => $this->form()->value('location')
 	],
 	'website' => [
 		'label' => $this->lang('Site web'),
-		'value' => $this->form->value('website'),
+		'value' => $this->form()->value('website'),
 		'type'  => 'url'
 	],
 	'quote' => [
 		'label'  => $this->lang('Citation'),
-		'value' => $this->form->value('quote')
+		'value' => $this->form()->value('quote')
 	],
 	'signature' => [
 		'label' => $this->lang('Signature'),
-		'value' => $this->form->value('signature'),
+		'value' => $this->form()->value('signature'),
 		'type'  => 'editor'
 	]
 ]);

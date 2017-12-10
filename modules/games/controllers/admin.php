@@ -57,14 +57,14 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Jeux / Cartes'))
 				->subtitle($this->lang('Ajouter un jeu'))
-				->form
+				->form()
 				->add_rules('games', [
 					'games' => $this->model()->get_games_list()
 				])
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/games');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$game_id = $this->model()->add_game($post['title'],
 												$post['parent_id'],
@@ -77,14 +77,14 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Nouveau jeu'), 'fa-gamepad')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($game_id, $parent_id, $image_id, $icon_id, $title, $game_name, $maps)
 	{
 		$this	->title($this->lang('Jeux / Cartes'))
 				->subtitle($this->lang('Editer un jeu'))
-				->form
+				->form()
 				->add_rules('games', [
 					'games'     => $this->model()->get_games_list(FALSE, $game_id),
 					'title'     => $title,
@@ -120,7 +120,7 @@ class Admin extends Controller_Module
 						->pagination(FALSE)
 						->display();
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_game(	$game_id,
 										$post['title'],
@@ -137,7 +137,7 @@ class Admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Édition du jeu %s', $title), 'fa-gamepad')
-						->body($this->form->display())
+						->body($this->form()->display())
 						->size('col-7')
 			),
 			$this	->col(
@@ -155,23 +155,23 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Suppression d\'un jeu'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le jeu <b>%s</b> ?<br />Toutes les cartes et les équipes associées à ce jeu seront aussi supprimées.', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_game($game_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _maps_add($game_id = NULL, $game = NULL)
 	{
 		$this	->subtitle('Nouvelle carte')
-				->form
+				->form()
 				->add_rules('maps', [
 					'games'   => $this->model()->get_games_list(TRUE),
 					'game_id' => $game_id
@@ -179,7 +179,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/games');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('maps')->add_map(	$game_id = $game_id ?: $post['game_id'],
 											$post['title'],
@@ -190,14 +190,14 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Nouvelle carte', 'fa-map-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _maps_edit($map_id, $game_id, $image_id, $title, $game)
 	{
 		$this	->title('Éditer la carte')
 				->subtitle($title)
-				->form
+				->form()
 				->add_rules('maps', [
 					'games'    => $this->model()->get_games_list(TRUE),
 					'game_id'  => $game_id,
@@ -207,7 +207,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('maps')->edit_map(	$map_id,
 											$post['game_id'],
@@ -219,35 +219,35 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Éditer la carte', 'fa-map-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _maps_delete($map_id, $title)
 	{
 		$this	->title('Suppression d\'une carte')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer la carte <b>'.$title.'</b> ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model('maps')->delete_map($map_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _modes_add($game_id, $game)
 	{
 		$this	->subtitle('Nouveau mode')
-				->form
+				->form()
 				->add_rules('modes')
 				->add_submit($this->lang('Ajouter'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('modes')->add_mode($game_id, $post['title']);
 
@@ -256,21 +256,21 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Nouveau mode', 'fa-cog')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _modes_edit($mode_id, $game_id, $title, $game)
 	{
 		$this	->title('Éditer le mode')
 				->subtitle($title)
-				->form
+				->form()
 				->add_rules('modes', [
 					'title' => $title
 				])
 				->add_submit($this->lang('Éditer'))
 				->add_back($back = 'admin/games/'.$game_id.'/'.$game);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('modes')->edit_mode($mode_id, $post['title']);
 
@@ -279,24 +279,24 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Éditer le mode', 'fa-cog')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _modes_delete($mode_id, $title)
 	{
 		$this	->title('Suppression d\'un mode')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le mode <b>'.$title.'</b> ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model('modes')->delete_mode($mode_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	private function _panel_maps($maps, $game_id = NULL, $title = NULL)

@@ -7,20 +7,20 @@
 $rules = [
 	'title' => [
 		'label'         => 'Titre',
-		'value'         => $this->form->value('title'),
+		'value'         => $this->form()->value('title'),
 		'type'          => 'text',
 		'rules'			=> 'required'
 	],
 	'game' => [
 		'label'         => $this->lang('Jeux'),
-		'value'         => $this->form->value('game_id'),
-		'values'        => $this->form->value('games'),
+		'value'         => $this->form()->value('game_id'),
+		'values'        => $this->form()->value('games'),
 		'type'          => 'select',
 		'rules'			=> 'required'
 	],
 	'image' => [
 		'label'       => $this->lang('Image'),
-		'value'       => $this->form->value('image_id'),
+		'value'       => $this->form()->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'teams',
 		'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
@@ -33,7 +33,7 @@ $rules = [
 	],
 	'icon' => [
 		'label'       => $this->lang('Icône'),
-		'value'       => $this->form->value('icon_id'),
+		'value'       => $this->form()->value('icon_id'),
 		'upload'      => 'teams/icons',
 		'type'        => 'file',
 		'info'        => $this->lang(' d\'image (format carré min. %dpx et max. %d Mo)', 16, file_upload_max_size() / 1024 / 1024),
@@ -60,7 +60,7 @@ $rules = [
 	],
 	'description' => [
 		'label' => $this->lang('Description'),
-		'value' => $this->form->value('description'),
+		'value' => $this->form()->value('description'),
 		'type'  => 'editor'
 	]
 ];

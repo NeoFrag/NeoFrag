@@ -43,7 +43,7 @@
 		<h2><?php echo $this->lang('Se connecter') ?></h2>
 		<form action="<?php echo url($this->url->request) ?>" method="post">
 			<div class="form-group">
-				<input type="text" name="<?php echo $token = $this->form->token('dd74f62896869c798933e29305aa9473') ?>[login]" class="form-control" placeholder="<?php echo $this->lang('Identifiant') ?>" />
+				<input type="text" name="<?php echo $token = $this->form()->token('dd74f62896869c798933e29305aa9473') ?>[login]" class="form-control" placeholder="<?php echo $this->lang('Identifiant') ?>" />
 			</div>
 			<div class="form-group">
 				<input type="password" name="<?php echo $token ?>[password]" class="form-control" placeholder="<?php echo $this->lang('Mot de passe') ?>" />

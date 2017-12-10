@@ -62,12 +62,12 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this->lang('Ajouter une page'))
-				->form
+				->form()
 				->add_rules('pages')
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/pages');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_page(	$post['name'],
 										$post['title'],
@@ -82,13 +82,13 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une page'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($page_id, $name, $published, $title, $subtitle, $content, $tab)
 	{
 		$this	->subtitle($title)
-				->form
+				->form()
 				->add_rules('pages', [
 					'title'          => $title,
 					'subtitle'       => $subtitle,
@@ -99,7 +99,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/pages');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_page(	$page_id,
 										$post['name'],
@@ -116,23 +116,23 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Édition de la page'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function delete($page_id, $title)
 	{
 		$this	->title($this->lang('Suppression d\'une page'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la page <b>%s</b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_page($page_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }
