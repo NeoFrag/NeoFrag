@@ -560,7 +560,7 @@ class Form extends Library
 
 		if (!empty($options['description']))
 		{
-			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$this->lang($options['description'], NULL);
+			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$options['description'];
 		}
 
 		if (!empty($this->_errors[$var]))
@@ -665,7 +665,7 @@ class Form extends Library
 
 			if ($placeholder)
 			{
-				$placeholder = ' placeholder="'.$this->lang($placeholder, NULL).'"';
+				$placeholder = ' placeholder="'.$placeholder.'"';
 			}
 		}
 
@@ -834,7 +834,7 @@ class Form extends Library
 				 $output .= '	<div class="checkbox">
 									<label>
 										<input type="checkbox" name="'.$this->token().'['.$var.'][]" value="'.$value.'"'.(in_array((string)$value, $user_value) ? ' checked="checked"' : '').' />
-										'.$this->lang($label, NULL).'
+										'.$label.'
 									</label>
 								</div>';
 			}
@@ -855,7 +855,7 @@ class Form extends Library
 			{
 				 $output .= '	<label class="radio-inline">
 									<input type="radio" name="'.$this->token().'['.$var.']" value="'.$value.'"'.($user_value == (string)$value ? ' checked="checked"' : '').' />
-									'.$this->lang($label, NULL).'
+									'.$label.'
 								</label>';
 			}
 		}
@@ -879,7 +879,7 @@ class Form extends Library
 
 			foreach ($options['values'] as $value => $label)
 			{
-				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$this->lang($label, NULL).'</option>';
+				$output .= '<option value="'.$value.'"'.($user_value == (string)$value ? ' selected="selected"' : '').'>'.$label.'</option>';
 			}
 		}
 

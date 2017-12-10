@@ -10,7 +10,7 @@
 					<dt><?php echo $this->lang('theme_title') ?></dt>
 					<dd><?php echo $data['theme']->get_title() ?></dd>
 					<dt><?php echo $this->lang('description') ?></dt>
-					<dd><?php echo $data['theme']->lang($data['theme']->description, NULL) ?></dd>
+					<dd><?php echo $data['theme']->description ?></dd>
 					<dt><?php echo $this->lang('version') ?></dt>
 					<dd><?php echo $data['theme']->version ?></dd>
 					<dt><?php echo $this->lang('authors') ?></dt>

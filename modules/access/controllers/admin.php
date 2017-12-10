@@ -46,7 +46,7 @@ class Admin extends Controller_Module
 						$this	->table
 								->add_columns([
 									[
-										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$module->lang($access['title'], NULL).'">'.icon($access['icon']).'</div>',
+										'title'   => '<div class="text-center" data-toggle="tooltip" title="'.$access['title'].'">'.icon($access['icon']).'</div>',
 										'content' => function($data) use ($module, $action){
 											return $this->access->count($module->info()->name, $action, $data['id']);
 										},

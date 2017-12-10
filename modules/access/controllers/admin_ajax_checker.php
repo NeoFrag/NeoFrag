@@ -79,7 +79,7 @@ class Admin_Ajax_Checker extends Module_Checker
 				{
 					if (isset($permissions['access'][$action]))
 					{
-						return [$action, $module->lang($permissions['access'][$action]['title'], NULL), $permissions['access'][$action]['icon'], $module_name, $id];
+						return [$action, $permissions['access'][$action]['title'], $permissions['access'][$action]['icon'], $module_name, $id];
 					}
 				}
 			}

@@ -42,7 +42,7 @@ class Admin_Checker extends Module_Checker
 
 					$object = [
 						'id'     => $id,
-						'title'  => $module[0]->lang($title, NULL)
+						'title'  => $title
 					];
 
 					unset($object);
@@ -64,7 +64,7 @@ class Admin_Checker extends Module_Checker
 
 		if ($module && ($access = $module->get_permissions($type)) && (empty($access['check']) || $title = call_user_func($access['check'], $id)))
 		{
-			return [$module, $type, $access['access'], $id, isset($title) ? $module->lang($title, NULL) : NULL];
+			return [$module, $type, $access['access'], $id, isset($title) ? $title : NULL];
 		}
 	}
 }
