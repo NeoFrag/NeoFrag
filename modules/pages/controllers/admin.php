@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index($pages)
 	{
-		$this	->table
+		$this	->table()
 				->add_columns([
 					[
 						'content' => function($data){
@@ -55,7 +55,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Liste des pages'), 'fa-align-left')
-					->body($this->table->display())
+					->body($this->table()->display())
 					->footer($this->button_create('admin/pages/add', $this->lang('Créer une page')));
 	}
 

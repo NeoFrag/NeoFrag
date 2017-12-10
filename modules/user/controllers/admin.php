@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 				->icon('fa-users');
 
 		$table_groups = $this
-			->table
+			->table()
 			->add_columns([
 				[
 					'content' => function($data){
@@ -59,7 +59,7 @@ class Admin extends Controller_Module
 			->save();
 
 		$table_users = $this
-			->table
+			->table()
 			->add_columns([
 				[
 					'title'   => $this->lang('Membre'),
@@ -193,7 +193,7 @@ class Admin extends Controller_Module
 			->save();
 
 		$sessions = $this
-			->table
+			->table()
 			->add_columns([
 				[
 					'content' => function($data){
@@ -426,121 +426,121 @@ class Admin extends Controller_Module
 
 	public function _sessions($sessions)
 	{
-		$this	->title($this->lang('Sessions'))
-				->subtitle($this->lang('Liste des sessions actives'))
-				->icon('fa-globe')
-				->table
-				->preprocessing(function($row){
-					$user_data = unserialize($row['user_data']);
+		$table = $this	->title($this->lang('Sessions'))
+						->subtitle($this->lang('Liste des sessions actives'))
+						->icon('fa-globe')
+						->table()
+						->preprocessing(function($row){
+							$user_data = unserialize($row['user_data']);
 
-					$row['date']       = $user_data['session']['date'];
-					$row['history']    = array_reverse($user_data['session']['history']);
-					$row['user_agent'] = $user_data['session']['user_agent'];
-					$row['referer']    = $user_data['session']['referer'];
+							$row['date']       = $user_data['session']['date'];
+							$row['history']    = array_reverse($user_data['session']['history']);
+							$row['user_agent'] = $user_data['session']['user_agent'];
+							$row['referer']    = $user_data['session']['referer'];
 
-					unset($row['user_data']);
+							unset($row['user_data']);
 
-					return $row;
-				})
-				->add_columns([
-					[
-						'content' => function($data){
-							return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
-						},
-						'size'    => TRUE,
-						'align'   => 'center'
-					],
-					[
-						'title'   => $this->lang('Utilisateur'),
-						'content' => function($data){
-							return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('Visiteur').'</i>';
-						},
-						'search'  => function($data){
-							return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
-						},
-						'sort'  => function($data){
-							return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
-						}
-					],
-					[
-						'content' => function($data){
-							return user_agent($data['user_agent']);
-						},
-						'size'    => TRUE,
-						'align'   => 'center',
-						'search'  => function($data){
-							return $data['user_agent'];
-						},
-						'sort'    => function($data){
-							return $data['user_agent'];
-						}
-					],
-					[
-						'title'   => $this->lang('Adresse IP'),
-						'content' => function($data){
-							return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
-						},
-						'search'  => function($data){
-							return $data['ip_address'];
-						},
-						'sort'    => function($data){
-							return $data['ip_address'];
-						}
-					],
-					[
-						'title'   => $this->lang('Site référent'),
-						'content' => function($data){
-							return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
-						},
-						'search'  => function($data){
-							return $data['user_agent'];
-						},
-						'sort'    => function($data){
-							return $data['user_agent'];
-						}
-					],
-					[
-						'title'   => $this->lang('Date d\'arrivée'),
-						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
-						},
-						'sort'    => function($data){
-							return $data['date'];
-						}
-					],
-					[
-						'title'   => $this->lang('Dernière activité'),
-						'content' => function($data){
-							return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
-						},
-						'sort'    => function($data){
-							return $data['last_activity'];
-						}
-					],
-					[
-						'title'   => $this->lang('Historique'),
-						'content' => function($data){
-							$links = implode('<br />', array_map(function($a){
-								return '<a href="'.url($a).'">'.$a.'</a>';
-							}, $data['history']));
+							return $row;
+						})
+						->add_columns([
+							[
+								'content' => function($data){
+									return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="Connexion persistante"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="Connexion non persistante"></i>';
+								},
+								'size'    => TRUE,
+								'align'   => 'center'
+							],
+							[
+								'title'   => $this->lang('Utilisateur'),
+								'content' => function($data){
+									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : '<i>'.$this->lang('Visiteur').'</i>';
+								},
+								'search'  => function($data){
+									return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
+								},
+								'sort'  => function($data){
+									return $data['user_id'] ? $data['username'] : $this->lang('Visiteur');
+								}
+							],
+							[
+								'content' => function($data){
+									return user_agent($data['user_agent']);
+								},
+								'size'    => TRUE,
+								'align'   => 'center',
+								'search'  => function($data){
+									return $data['user_agent'];
+								},
+								'sort'    => function($data){
+									return $data['user_agent'];
+								}
+							],
+							[
+								'title'   => $this->lang('Adresse IP'),
+								'content' => function($data){
+									return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
+								},
+								'search'  => function($data){
+									return $data['ip_address'];
+								},
+								'sort'    => function($data){
+									return $data['ip_address'];
+								}
+							],
+							[
+								'title'   => $this->lang('Site référent'),
+								'content' => function($data){
+									return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
+								},
+								'search'  => function($data){
+									return $data['user_agent'];
+								},
+								'sort'    => function($data){
+									return $data['user_agent'];
+								}
+							],
+							[
+								'title'   => $this->lang('Date d\'arrivée'),
+								'content' => function($data){
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
+								},
+								'sort'    => function($data){
+									return $data['date'];
+								}
+							],
+							[
+								'title'   => $this->lang('Dernière activité'),
+								'content' => function($data){
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
+								},
+								'sort'    => function($data){
+									return $data['last_activity'];
+								}
+							],
+							[
+								'title'   => $this->lang('Historique'),
+								'content' => function($data){
+									$links = implode('<br />', array_map(function($a){
+										return '<a href="'.url($a).'">'.$a.'</a>';
+									}, $data['history']));
 
-							return '<span data-toggle="popover" title="'.$this->lang('Dernières pages visitées').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
-						}
-					],
-					[
-						'content' => [function($data){
-							if ($data['user_id'] && $data['session_id'] != NeoFrag()->session('session_id'))
-							{
-								return $this->button_delete('admin/user/sessions/delete/'.$data['session_id']);
-							}
-						}]
-					]
-				])
-				->data($sessions);
+									return '<span data-toggle="popover" title="'.$this->lang('Dernières pages visitées').'" data-content="'.utf8_htmlentities($links).'" data-placement="auto" data-html="1">'.icon('fa-history').' '.reset($data['history']).'</span>';
+								}
+							],
+							[
+								'content' => [function($data){
+									if ($data['user_id'] && $data['session_id'] != NeoFrag()->session('session_id'))
+									{
+										return $this->button_delete('admin/user/sessions/delete/'.$data['session_id']);
+									}
+								}]
+							]
+						])
+						->data($sessions);
 
 		return $this->panel()
 					->heading($this->lang('Sessions'), 'fa-globe')
-					->body($this->table->display());
+					->body($table->display());
 	}
 
 	public function _sessions_delete($session_id, $username)

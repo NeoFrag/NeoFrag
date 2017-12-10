@@ -14,7 +14,7 @@ class Admin extends Controller_Module
 	{
 		$this->css('awards');
 
-		$awards = $this	->table
+		$awards = $this	->table()
 						->add_columns([
 							[
 								'title'   => 'Titre',

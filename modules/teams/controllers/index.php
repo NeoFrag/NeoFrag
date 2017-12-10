@@ -42,7 +42,7 @@ class Index extends Controller_Module
 	{
 		$this->title($title);
 
-		$players = $this->table
+		$players = $this->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -79,7 +79,7 @@ class Index extends Controller_Module
 
 		array_slice($events, 0, 10);
 
-		$matches = $this->table
+		$matches = $this->table()
 						->add_columns([
 							[
 								'title'   => 'Date',

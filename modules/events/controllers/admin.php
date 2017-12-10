@@ -19,7 +19,7 @@ class Admin extends Controller_Module
 				->js('lang-all')
 				->js('events');
 
-		$types = $this	->table
+		$types = $this	->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -46,7 +46,7 @@ class Admin extends Controller_Module
 						->no_data('Aucun type')
 						->display();
 
-		$events = $this	->table
+		$events = $this	->table()
 						->add_columns([
 							[
 								'content' => function($data){
@@ -447,7 +447,7 @@ class Admin extends Controller_Module
 
 		if ($type == 1)//Matches
 		{
-			$this	->table
+			$this	->table()
 					->add_columns([
 						[
 							'content' => function($data){
@@ -489,7 +489,7 @@ class Admin extends Controller_Module
 									->body($form_match->display()),
 							$this	->panel()
 									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right">Résultat global '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
-									->body($this->table->display())
+									->body($this->table()->display())
 									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
 						)
 						->size('col-4')

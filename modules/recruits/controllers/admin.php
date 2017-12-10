@@ -25,7 +25,7 @@ class Admin extends Controller_Module
 			$total_declined    += $recruit['candidacies_declined'];
 		}
 
-		$recruits = $this	->table
+		$recruits = $this	->table()
 							->add_columns([
 								[
 									'content' => function($data){
@@ -244,7 +244,7 @@ class Admin extends Controller_Module
 
 		$this->subtitle('Candidatures en attentes');
 
-		$candidacies_pending = $this->table
+		$candidacies_pending = $this->table()
 									->add_columns([
 										[
 											'content' => function($data){
@@ -327,7 +327,7 @@ class Admin extends Controller_Module
 	{
 		$this->subtitle($recruit_title);
 
-		$candidacies_pending = $this->table
+		$candidacies_pending = $this->table()
 									->add_columns([
 										[
 											'title'   => 'Candidat',
@@ -385,7 +385,7 @@ class Admin extends Controller_Module
 									->no_data('Aucune candidature en attente')
 									->display();
 
-		$candidacies_accepted = $this->table
+		$candidacies_accepted = $this->table()
 									->add_columns([
 										[
 											'title'   => 'Candidat',
@@ -443,7 +443,7 @@ class Admin extends Controller_Module
 									->no_data('Aucune candidature acceptée')
 									->display();
 
-		$candidacies_declined = $this->table
+		$candidacies_declined = $this->table()
 									->add_columns([
 										[
 											'title'   => 'Candidat',

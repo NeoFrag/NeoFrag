@@ -12,7 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index($talks)
 	{
-		$this	->table
+		$this	->table()
 				->add_columns([
 					[
 						'title'   => $this->lang('Discussion'),
@@ -55,7 +55,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Liste des discussions'), 'fa-comment-o')
-					->body($this->table->display())
+					->body($this->table()->display())
 					->footer($this->button_create('admin/talks/add', $this->lang('Créer une discussion')));
 	}
 

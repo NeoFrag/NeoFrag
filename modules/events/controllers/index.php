@@ -102,37 +102,37 @@ class Index extends Controller_Module
 
 	public function _event($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type, $mode_id, $webtv, $website, $mode_title)
 	{
-		$this	->title($title)
-				->breadcrumb($title)
-				->table
-				->add_columns([
-					[
-						'content' => function($data){
-							return $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
-						},
-						'size'    => TRUE
-					],
-					[
-						'content' => function($data){
-							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
-						}
-					],
-					[
-						'align'   => 'right',
-						'content' => function($data) use ($event_id, $title){
-							return $data['user_id'] == $this->user('user_id') ? $this->model('participants')->buttons_status($event_id, $title, $data['status']) : $this->model('participants')->label_status($data['status']);
-						}
-					]
-				])
-				->add_columns_if($this->user('admin'), [[
-						'content' => function($data) use ($event_id, $title){
-							return $this->button_delete('events/participant/delete/'.$event_id.'/'.url_title($title).'/'.$data['user_id']);
-						},
-						'size'    => TRUE
-					]
-				])
-				->data($this->model('participants')->get_participants($event_id))
-				->no_data('Aucun participant pour cet événement');
+		$table = $this	->title($title)
+						->breadcrumb($title)
+						->table()
+						->add_columns([
+							[
+								'content' => function($data){
+									return $this->user->avatar($data['avatar'], $data['sex'], $data['user_id'], $data['username']);
+								},
+								'size'    => TRUE
+							],
+							[
+								'content' => function($data){
+									return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+								}
+							],
+							[
+								'align'   => 'right',
+								'content' => function($data) use ($event_id, $title){
+									return $data['user_id'] == $this->user('user_id') ? $this->model('participants')->buttons_status($event_id, $title, $data['status']) : $this->model('participants')->label_status($data['status']);
+								}
+							]
+						])
+						->add_columns_if($this->user('admin'), [[
+								'content' => function($data) use ($event_id, $title){
+									return $this->button_delete('events/participant/delete/'.$event_id.'/'.url_title($title).'/'.$data['user_id']);
+								},
+								'size'    => TRUE
+							]
+						])
+						->data($this->model('participants')->get_participants($event_id))
+						->no_data('Aucun participant pour cet événement');
 
 		$match = $type == 1 ? $this->model('matches')->get_match_info($event_id) : NULL;
 
@@ -217,7 +217,7 @@ class Index extends Controller_Module
 					]), FALSE),
 			$this->user() ? $this	->panel()
 									->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
-									->body($this->table->display()) : NULL,
+									->body($table->display()) : NULL,
 			$this->comments->display('events', $event_id),
 			$this->button_back()
 		];

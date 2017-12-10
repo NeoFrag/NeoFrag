@@ -10,6 +10,8 @@ use NF\NeoFrag\Library;
 
 class Table extends Library
 {
+	static protected $_table;
+
 	private $_ajax          = FALSE;
 	private $_pagination    = TRUE;
 	private $_columns       = [];
@@ -18,6 +20,17 @@ class Table extends Library
 	private $_preprocessing = [];
 	private $_no_data       = '';
 	private $_words         = [];
+
+	public function __invoke()
+	{
+		if (!static::$_table)
+		{
+			static::$_table = $this;
+			$this->id = $this->__id();
+		}
+
+		return static::$_table;
+	}
 
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
@@ -94,7 +107,7 @@ class Table extends Library
 			}
 			else
 			{
-				$this->reset();
+				$this->save();
 				return;
 			}
 		}
@@ -465,7 +478,7 @@ class Table extends Library
 			}
 		}
 
-		$this->reset();
+		$this->save();
 
 		if ($this->_ajax)
 		{
@@ -479,6 +492,12 @@ class Table extends Library
 		{
 			return $output;
 		}
+	}
+
+	public function save()
+	{
+		static::$_table = NULL;
+		return $this;
 	}
 
 	private function _is_searchable()

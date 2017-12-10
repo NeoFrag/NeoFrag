@@ -33,7 +33,7 @@ class Admin extends Controller_Module
 
 		if ($title === NULL)
 		{
-			$this->table->add_columns([
+			$this->table()->add_columns([
 				[
 					'title'   => $this->lang('Module'),
 					'content' => function($data){
@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 			]);
 		}
 
-		return $this->table->add_columns([
+		return $this->table()->add_columns([
 			[
 				'title'   => $this->lang('Nom'),
 				'content' => function($data){

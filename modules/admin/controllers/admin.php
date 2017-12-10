@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 			->title($this->lang('Tableau de bord'))
 			->js('jquery.knob')
 			->js_load('$(\'.knob\').knob();')
-			->table
+			->table()
 			->add_columns([
 				[
 					'content' => function($data){
