@@ -26,7 +26,7 @@ class Statistics extends Model
 					if ($filters === NULL || in_array($module->name.'-'.$name, $filters))
 					{
 						$statistics[$module->name.'-'.$name] = array_merge($statistic, [
-							'title' => $module->lang($statistic['title'], NULL),
+							'title' => $statistic['title'],
 							'color' => $colors[$i % 10]
 						]);
 					}

@@ -52,7 +52,7 @@ class Label extends Html
 
 			if ($this->_title)
 			{
-				$output[] = $this->lang($this->_title, NULL);
+				$output[] = $this->_title;
 			}
 
 			$content = implode(' ', $output);
