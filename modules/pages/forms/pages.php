@@ -6,18 +6,18 @@
 
 $rules = [
 	'title' => [
-		'label'         => '{lang page_title}',
+		'label'         => $this->lang('page_title'),
 		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'         => 'required'
 	],
 	'subtitle' => [
-		'label'         => '{lang subtitle}',
+		'label'         => $this->lang('subtitle'),
 		'value'         => $this->form->value('subtitle'),
 		'type'          => 'text'
 	],
 	'name' => [
-		'label'         => '{lang access_path}',
+		'label'         => $this->lang('access_path'),
 		'value'         => $name = $this->form->value('name'),
 		'type'          => 'text',
 		'check'         => function($value, $post) use ($name){
@@ -35,13 +35,13 @@ $rules = [
 		}
 	],
 	'content' => [
-		'label'			=> '{lang content}',
+		'label'			=> $this->lang('content'),
 		'value'			=> $this->form->value('content'),
 		'type'			=> 'editor'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
 		'checked'		=> ['on' => $this->form->value('published')],
-		'values'        => ['on' => '{lang publish_now}']
+		'values'        => ['on' => $this->lang('publish_now')]
 	]
 ];

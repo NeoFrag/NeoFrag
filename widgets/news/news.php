@@ -23,8 +23,8 @@ class News extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'      => '{lang recent_news}',
-				'categories' => '{lang categories}'
+				'index'      => $this->lang('recent_news'),
+				'categories' => $this->lang('categories')
 			]
 		];
 	}

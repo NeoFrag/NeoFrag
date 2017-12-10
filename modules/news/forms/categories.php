@@ -6,13 +6,13 @@
 
 $rules = [
 	'title' => [
-		'label'         => '{lang title}',
+		'label'         => $this->lang('title'),
 		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'			=> 'required'
 	],
 	'image' => [
-		'label'       => '{lang image}',
+		'label'       => $this->lang('image'),
 		'value'       => $this->form->value('image'),
 		'upload'      => 'news/categories',
 		'type'        => 'file',
@@ -25,7 +25,7 @@ $rules = [
 		}
 	],
 	'icon' => [
-		'label'       => '{lang icon}',
+		'label'       => $this->lang('icon'),
 		'value'       => $this->form->value('icon'),
 		'upload'      => 'news/categories',
 		'type'        => 'file',

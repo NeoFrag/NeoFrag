@@ -23,9 +23,9 @@ class Members extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'       => '{lang last_members}',
-				'online'      => '{lang whos_online}',
-				'online_mini' => '{lang whos_online_mini}'
+				'index'       => $this->lang('last_members'),
+				'online'      => $this->lang('whos_online'),
+				'online_mini' => $this->lang('whos_online_mini')
 			]
 		];
 	}

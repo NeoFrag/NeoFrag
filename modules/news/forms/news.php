@@ -6,20 +6,20 @@
 
 $rules = [
 	'title' => [
-		'label'         => '{lang title}',
+		'label'         => $this->lang('title'),
 		'value'         => $this->form->value('title'),
 		'type'          => 'text',
 		'rules'			=> 'required'
 	],
 	'category' => [
-		'label'         => '{lang category}',
+		'label'         => $this->lang('category'),
 		'value'         => $this->form->value('category_id'),
 		'values'        => $this->form->value('categories'),
 		'type'          => 'select',
 		'rules'			=> 'required'
 	],
 	'image' => [
-		'label'       => '{lang image}',
+		'label'       => $this->lang('image'),
 		'value'       => $this->form->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'news',
@@ -32,24 +32,24 @@ $rules = [
 		}
 	],
 	'introduction' => [
-		'label'			=> '{lang intro}',
+		'label'			=> $this->lang('intro'),
 		'value'			=> $this->form->value('introduction'),
 		'type'			=> 'editor',
 		'rules'			=> 'required'
 	],
 	'content' => [
-		'label'			=> '{lang content}',
+		'label'			=> $this->lang('content'),
 		'value'			=> $this->form->value('content'),
 		'type'			=> 'editor'
 	],
 	'tags' => [
-		'label'			=> '{lang tags}',
+		'label'			=> $this->lang('tags'),
 		'value'			=> $this->form->value('tags'),
 		'type'			=> 'text'
 	],
 	'published' => [
 		'type'			=> 'checkbox',
 		'checked'		=> ['on' => $this->form->value('published')],
-		'values'        => ['on' => '{lang published}']
+		'values'        => ['on' => $this->lang('published')]
 	]
 ];

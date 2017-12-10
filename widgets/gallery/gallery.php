@@ -23,10 +23,10 @@ class Gallery extends Widget
 				'neofrag' => 'Alpha 0.2'
 			],
 			'types'       => [
-				'index'  => '{lang categories_list}',
-				'albums' => '{lang albums_from_category}',
-				'image'  => '{lang random_picture}',
-				'slider' => '{lang album_slide}'
+				'index'  => $this->lang('categories_list'),
+				'albums' => $this->lang('albums_from_category'),
+				'image'  => $this->lang('random_picture'),
+				'slider' => $this->lang('album_slide')
 			]
 		];
 	}

@@ -14,12 +14,12 @@ class Default_ extends Theme
 	{
 		return [
 			'title'       => $this->lang('default_theme'),
-			'description' => '{lang default_theme_description}',
+			'description' => $this->lang('default_theme_description'),
 			'thumbnail'   => 'themes/default/images/thumbnail.png',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => ['{lang content}', '{lang pre_content}', '{lang post_content}', '{lang header}', '{lang top}', '{lang footer}']
+			'zones'       => [$this->lang('content'), $this->lang('pre_content'), $this->lang('post_content'), $this->lang('header'), $this->lang('top'), $this->lang('footer')]
 		];
 	}
 
@@ -137,7 +137,7 @@ class Default_ extends Theme
 				->style('row-white');
 		};
 
-		$dispositions['*']['{lang content}'] = [
+		$dispositions['*'][$this->lang('content')] = [
 			$breadcrumb(),
 			$this->row(
 					$this->col(
@@ -216,7 +216,7 @@ class Default_ extends Theme
 				->style('row-light')
 		];
 
-		$dispositions['*']['{lang pre_content}'] = [
+		$dispositions['*'][$this->lang('pre_content')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -245,14 +245,14 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['*']['{lang post_content}'] = [];
+		$dispositions['*'][$this->lang('post_content')] = [];
 
-		$dispositions['*']['{lang header}'] = [
+		$dispositions['*'][$this->lang('header')] = [
 			$header(),
 			$navbar()
 		];
 
-		$dispositions['*']['{lang top}'] = [
+		$dispositions['*'][$this->lang('top')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -293,7 +293,7 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['*']['{lang footer}'] = [
+		$dispositions['*'][$this->lang('footer')] = [
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
@@ -309,7 +309,7 @@ class Default_ extends Theme
 				->style('row-default')
 		];
 
-		$dispositions['/']['{lang header}'] = [
+		$dispositions['/'][$this->lang('header')] = [
 			$header(),
 			$navbar(),
 			$this->row(
@@ -325,7 +325,7 @@ class Default_ extends Theme
 
 		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
 		{
-			$dispositions[$page]['{lang content}'] = [
+			$dispositions[$page][$this->lang('content')] = [
 				$breadcrumb($page != 'search/*'),
 				$this	->row(
 							$this->col(
@@ -339,7 +339,7 @@ class Default_ extends Theme
 			];
 		}
 
-		$dispositions['forum/*']['{lang post_content}'] = [
+		$dispositions['forum/*'][$this->lang('post_content')] = [
 			$this	->row(
 						$this->col(
 							$this	->panel_widget($this->db->insert('nf_widgets', [

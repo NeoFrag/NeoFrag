@@ -19,8 +19,8 @@ class Html extends Widget
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
 			'types'       => [
-				'index' => '{lang free_content}',
-				'html'  => '{lang html_code}'
+				'index' => $this->lang('free_content'),
+				'html'  => $this->lang('html_code')
 			]
 		];
 	}
