@@ -32,6 +32,8 @@ class Form extends Library
 		'legend'
 	];
 
+	static protected $_form;
+
 	private $_buttons          = [];
 	private $_confirm_deletion = [];
 	private $_errors           = [];
@@ -56,6 +58,17 @@ class Form extends Library
 		}
 
 		return $tokens[$id];
+	}
+
+	public function __invoke()
+	{
+		if (!static::$_form)
+		{
+			static::$_form = $this;
+			$this->id = $this->__id();
+		}
+
+		return static::$_form;
 	}
 
 	public function add_rules($rules, $values = [])
@@ -518,9 +531,15 @@ class Form extends Library
 		$output .= '</fieldset>
 				</form>';
 
-		$this->reset();
+		$this->save();
 
 		return $output;
+	}
+
+	public function save()
+	{
+		static::$_form = NULL;
+		return $this;
 	}
 
 	private function _display_button($button)

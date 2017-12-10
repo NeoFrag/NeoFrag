@@ -164,7 +164,7 @@ class Index extends Controller_Module
 
 			array_natsort($users);
 
-			$this	->form
+			$this	->form()
 					->add_rules([
 						'users' => [
 							'type'   => 'checkbox',
@@ -173,7 +173,7 @@ class Index extends Controller_Module
 						]
 					]);
 
-			if ($this->form->is_valid($post))
+			if ($this->form()->is_valid($post))
 			{
 				$this->model('participants')->invite($event_id, $title, array_unique($post['users']));
 
@@ -185,7 +185,7 @@ class Index extends Controller_Module
 			$modal = $this	->modal('Inviter des membres', 'fa-user-plus')
 							->body($this->view('participants', [
 								'users'   => $users,
-								'form_id' => $this->form->token()
+								'form_id' => $this->form()->token()
 							]))
 							->submit('Inviter')
 							->cancel()
@@ -239,10 +239,10 @@ class Index extends Controller_Module
 	public function _participant_delete($event_id, $user_id)
 	{
 		$this	->title('Suppression participant')
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cet invité ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('event_id', $event_id)
 						->where('user_id', $user_id)
@@ -251,6 +251,6 @@ class Index extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

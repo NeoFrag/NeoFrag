@@ -46,7 +46,7 @@ class Admin extends Controller_Module
 			}
 		}
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'name' => [
 						'label'  => $this->lang('Titre du site'),
@@ -96,7 +96,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -119,7 +119,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading($this->lang('Préférences générales'), 'fa-cog')
-								->body($this->form->display())
+								->body($this->form()->display())
 					)
 					->size('col-9')
 		);
@@ -146,7 +146,7 @@ class Admin extends Controller_Module
 
 		array_natsort($list_users);
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					[
 						'label'   => 'Inscription',
@@ -199,7 +199,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -222,7 +222,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading('Gestions des inscriptions', 'fa-sign-in fa-rotate-90')
-								->body($this->form->display()))
+								->body($this->form()->display()))
 					->size('col-9')
 		);
 	}
@@ -233,7 +233,7 @@ class Admin extends Controller_Module
 				->subtitle('Notre structure')
 				->icon('fa-users');
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'team_name' => [
 						'label'       => 'Nom de l\'équipe',
@@ -276,7 +276,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -294,7 +294,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading('Notre structure', 'fa-users')
-								->body($this->form->display())
+								->body($this->form()->display())
 					)
 					->size('col-9')
 		);
@@ -306,7 +306,7 @@ class Admin extends Controller_Module
 				->subtitle('Réseaux sociaux')
 				->icon('fa-globe');
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'social_facebook' => [
 						'label' => 'Facebook',
@@ -384,7 +384,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -402,7 +402,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading('Réseaux sociaux', 'fa-globe')
-								->body($this->form->display())
+								->body($this->form()->display())
 					)
 					->size('col-9')
 		);
@@ -414,7 +414,7 @@ class Admin extends Controller_Module
 				->subtitle('Sécurité anti-bots')
 				->icon('fa-shield');
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'captcha_public_key' => [
 						'label' => 'Clé publique Google',
@@ -430,7 +430,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -448,7 +448,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this	->panel()
 								->heading('Configuration de Google reCAPTCHA', 'fa-shield')
-								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form->display())
+								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form()->display())
 					)
 					->size('col-9')
 		);
@@ -460,7 +460,7 @@ class Admin extends Controller_Module
 				->subtitle('Serveur e-mail')
 				->icon('fa-envelope-o');
 
-		$this	->form
+		$this	->form()
 				->add_rules([
 					'email_smtp' => [
 						'label'  => 'Serveur SMTP',
@@ -495,7 +495,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Valider'))
 				->display_required(FALSE);
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			foreach ($post as $var => $value)
 			{
@@ -513,7 +513,7 @@ class Admin extends Controller_Module
 			$this->col(
 						$this	->panel()
 								->heading('Serveur e-mail', 'fa-envelope-o')
-								->body($this->form->display())
+								->body($this->form()->display())
 					)
 					->size('col-9')
 		);
@@ -526,7 +526,7 @@ class Admin extends Controller_Module
 				->css('maintenance')
 				->js('maintenance');
 
-		$form_opening = $this->form
+		$form_opening = $this->form()
 			->add_rules([
 				'opening' => [
 					'type'  => 'datetime',
@@ -537,7 +537,7 @@ class Admin extends Controller_Module
 			->add_submit($this->lang('Valider'))
 			->save();
 
-		$form_maintenance = $this->form
+		$form_maintenance = $this->form()
 			->add_rules([
 				'title' => [
 					'label' => $this->lang('Titre'),

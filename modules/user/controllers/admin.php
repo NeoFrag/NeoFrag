@@ -161,7 +161,7 @@ class Admin extends Controller_Module
 			->title($this->lang('Édition du membre'))
 			->subtitle($username)
 			->css('groups')
-			->form
+			->form()
 			->add_rules('user', [
 				'username'      => $username,
 				'email'         => $email,
@@ -180,7 +180,7 @@ class Admin extends Controller_Module
 			->save();
 
 		$form_groups = $this
-			->form
+			->form()
 			->add_rules([
 				'groups' => [
 					'type'   => 'checkbox',
@@ -296,10 +296,10 @@ class Admin extends Controller_Module
 	public function delete($user_id, $username)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le membre <b>%s</b> ?', $username));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('user_id', $user_id)
 						->update('nf_users', ['deleted' => TRUE]);
@@ -310,7 +310,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _ban($member_id = 0, $username = '')
@@ -329,12 +329,12 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Groupes'))
 				->subtitle($this->lang('Ajouter'))
-				->form
+				->form()
 				->add_rules('groups')
 				->add_back('admin/user')
 				->add_submit($this->lang('Ajouter'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('groups')->add_group(
 				$post['title'],
@@ -351,7 +351,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter un groupe'), 'fa-users')
-					->body($this->form->display())
+					->body($this->form()->display())
 					->size('col-12');
 	}
 
@@ -359,7 +359,7 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Groupes'))
 				->subtitle($this->lang('Éditer'))
-				->form
+				->form()
 				->add_rules('groups', [
 					'title'  => $title,
 					'color'  => $color,
@@ -370,7 +370,7 @@ class Admin extends Controller_Module
 				->add_back('admin/user')
 				->add_submit($this->lang('Éditer'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			if ($group_id)
 			{
@@ -401,17 +401,17 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Éditer un groupe'), 'fa-users')
-					->body($this->form->display())
+					->body($this->form()->display())
 					->size('col-12');
 	}
 
 	public function _groups_delete($group_id, $title)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le groupe <b>%s</b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('group_id', $group_id)
 						->delete('nf_groups');
@@ -421,7 +421,7 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _sessions($sessions)
@@ -546,10 +546,10 @@ class Admin extends Controller_Module
 	public function _sessions_delete($session_id, $username)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la session de l\'utilisateur <b>%s</b> ?', $username));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('session_id', $session_id)
 						->delete('nf_sessions');
@@ -557,6 +557,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

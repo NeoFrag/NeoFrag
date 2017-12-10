@@ -7,14 +7,14 @@
 $rules = [
 	'title' => [
 		'label'       => 'Nom',
-		'value'       => $this->form->value('title'),
+		'value'       => $this->form()->value('title'),
 		'type'        => 'text',
 		'rules'       => 'required',
 		'size'        => 'col-6'
 	],
 	'logo_light'      => [
 		'label'       => 'Logo clair',
-		'value'       => $this->form->value('logo_light'),
+		'value'       => $this->form()->value('logo_light'),
 		'type'        => 'file',
 		'upload'      => 'partners',
 		'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
@@ -28,7 +28,7 @@ $rules = [
 	],
 	'logo_dark' => [
 		'label'       => 'Logo foncé',
-		'value'       => $this->form->value('logo_dark'),
+		'value'       => $this->form()->value('logo_dark'),
 		'type'        => 'file',
 		'upload'      => 'partners',
 		'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
@@ -42,13 +42,13 @@ $rules = [
 	],
 	'description' => [
 		'label'       => 'Présentation',
-		'value'       => $this->form->value('description'),
+		'value'       => $this->form()->value('description'),
 		'type'        => 'editor'
 	],
 	'website' => [
 		'label'       => 'Site internet',
 		'icon'        => 'fa-globe',
-		'value'       => $this->form->value('website'),
+		'value'       => $this->form()->value('website'),
 		'type'        => 'url',
 		'rules'       => 'required',
 		'size'        => 'col-5'
@@ -56,21 +56,21 @@ $rules = [
 	'facebook' => [
 		'label'       => 'Page Facebook',
 		'icon'        => 'fa-facebook',
-		'value'       => $this->form->value('facebook'),
+		'value'       => $this->form()->value('facebook'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'twitter' => [
 		'label'       => 'Page Twitter',
 		'icon'        => 'fa-twitter',
-		'value'       => $this->form->value('twitter'),
+		'value'       => $this->form()->value('twitter'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'code' => [
 		'label'       => 'Code promotionnel',
 		'icon'        => 'fa-gift',
-		'value'       => $this->form->value('code'),
+		'value'       => $this->form()->value('code'),
 		'type'        => 'text',
 		'description' => 'Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire',
 		'size'        => 'col-3'

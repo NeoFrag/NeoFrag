@@ -35,14 +35,14 @@ class Index extends Controller_Module
 		];
 
 		$this->title($this->lang('Nous contacter'))
-				->form
+				->form()
 				->display_required(FALSE)
 				->add_rules($rules)
 				->add_captcha()
 				->add_submit(icon('fa-envelope-o').' '.$this->lang('Envoyer'))
 				->add_back('index');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this	->email
 					->from($this->user() ? $this->user('email') : $post['email'])
@@ -60,6 +60,6 @@ class Index extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Nous contacter'), 'fa-envelope-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 }

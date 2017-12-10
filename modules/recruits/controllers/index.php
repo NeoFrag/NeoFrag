@@ -164,7 +164,7 @@ class Index extends Controller_Module
 		{
 			if ($candidacies_accepted < $size && $closed == FALSE && (!$date_end || strtotime($date_end) > time()))
 			{
-				$this	->form
+				$this	->form()
 						->add_rules($rules = [
 							'pseudo' => [
 								'label' => 'Votre pseudo',
@@ -206,7 +206,7 @@ class Index extends Controller_Module
 						->add_captcha()
 						->add_submit('Envoyer ma candidature');
 
-				if ($this->form->is_valid($post))
+				if ($this->form()->is_valid($post))
 				{
 					$candidacy_id = $this->model()->send_candidacy(	$recruit_id,
 																	$this->user('user_id'),
@@ -283,7 +283,7 @@ class Index extends Controller_Module
 													'role'         => $role,
 													'icon'         => $icon,
 													'date_end'     => $date_end,
-													'form'         => $this->form->display()
+													'form'         => $this->form()->display()
 												]));
 			}
 			else

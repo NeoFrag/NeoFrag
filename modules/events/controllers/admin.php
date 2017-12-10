@@ -198,12 +198,12 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle('Ajouter un événement')
-				->form
+				->form()
 				->add_rules('events')
 				->add_submit('Ajouter')
 				->add_back('admin/events');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$event_id = $this->model()->add($post['title'],
 											$post['type'],
@@ -229,14 +229,14 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Ajouter un événement', 'fa-calendar')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type)
 	{
 		$form_default = $this	->title('Éditer l\'événement')
 								->subtitle($title)
-								->form
+								->form()
 								->add_rules('events', [
 									'title'               => $title,
 									'type_id'             => $type_id,
@@ -269,7 +269,7 @@ class Admin extends Controller_Module
 				$maps[$map['map_id']] = $map['title'];
 			}
 
-			$form_match = $this	->form
+			$form_match = $this	->form()
 								->add_rules([
 									'team' => [
 										'label'       => 'Équipe',
@@ -307,7 +307,7 @@ class Admin extends Controller_Module
 								->add_submit('Valider')
 								->save();
 
-			$form_opponent = $this	->form
+			$form_opponent = $this	->form()
 									->add_rules([
 										'title' => [
 											'label'       => 'Nom',
@@ -338,7 +338,7 @@ class Admin extends Controller_Module
 									->add_submit('Valider')
 									->save();
 
-			$form_round = $this	->form
+			$form_round = $this	->form()
 								->add_rules([
 									'map' => [
 										'label'  => 'Carte',
@@ -505,28 +505,28 @@ class Admin extends Controller_Module
 	{
 		$this	->title('Suppression événement')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer le l\'événement <b>'.$title.'</b> ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete($event_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _types_add()
 	{
 		$this	->subtitle('Ajouter un type d\'événement')
-				->form
+				->form()
 				->add_rules('types')
 				->add_back('admin/events')
 				->add_submit('Ajouter');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('types')->add(	$post['type'],
 										$post['title'],
@@ -540,13 +540,13 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Ajouter un type d\'événement', 'fa-bookmark-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _types_edit($type_id, $type, $title, $color, $icon)
 	{
 		$this	->subtitle('Type '.$title)
-				->form
+				->form()
 				->add_rules('types', [
 					'type'  => $type,
 					'title' => $title,
@@ -556,7 +556,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/events');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model('types')->edit($type_id,
 										$post['type'],
@@ -571,33 +571,33 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Éditer le type d\'événement', 'fa-bookmark-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _types_delete($type_id, $title)
 	{
 		$this	->title('Suppression type d\'événement')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer le type d\'événement <b>'.$title.'</b> ?<br />Tous les événements de ce type seront aussi supprimés.');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model('types')->delete($type_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _round_delete($round_id)
 	{
 		$this	->title('Suppression manche')
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cette manche ?');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->db	->where('round_id', $round_id)
 						->delete('nf_events_matches_rounds');
@@ -605,6 +605,6 @@ class Admin extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

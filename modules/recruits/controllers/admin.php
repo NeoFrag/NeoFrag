@@ -114,14 +114,14 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle('Créer une offre')
-				->form
+				->form()
 				->add_rules('recruit', [
 					'teams' => $this->model()->get_teams_list()
 				])
 				->add_submit('Ajouter')
 				->add_back('admin/recruits');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_recruits(	$post['title'],
 											$post['introduction'],
@@ -142,7 +142,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading('Créer une offre de recrutement', 'fa-bullhorn')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($recruit_id, $title, $introduction, $description, $requierments, $date, $user_id, $size, $role, $icon, $date_end, $closed, $team_id, $image_id, $username, $avatar, $sex, $total_candidacies, $candidacies_pending, $candidacies_accepted, $candidacies_declined, $team_name)
@@ -151,7 +151,7 @@ class Admin extends Controller_Module
 				->css('recruits')
 				->js('jquery.knob')
 				->js_load('$(\'.knob\').knob();')
-				->form
+				->form()
 				->add_rules('recruit', [
 					'teams'        => $this->model()->get_teams_list(),
 					'title'        => $title,
@@ -169,7 +169,7 @@ class Admin extends Controller_Module
 				->add_submit('Modifier')
 				->add_back('admin/recruits');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_recruits(	$recruit_id,
 											$post['title'],
@@ -193,7 +193,7 @@ class Admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading('<div class="pull-right">'.$this->button_access($recruit_id, 'recruit').'</div>'.$title, 'fa-briefcase')
-						->body($this->form->display())
+						->body($this->form()->display())
 						->size('col-8')
 			),
 			$this->col(
@@ -222,17 +222,17 @@ class Admin extends Controller_Module
 	{
 		$this	->title('Suppression offre de recrutement')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer l\'offre <b>'.$title.'</b> ?<br />Toutes les candidatures associées à cette offre seront aussi supprimées.');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_recruit($recruit_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function pending()
@@ -518,7 +518,7 @@ class Admin extends Controller_Module
 	{
 		$this->subtitle($title);
 
-		$reply_form = $this	->form
+		$reply_form = $this	->form()
 							->add_rules($rules = [
 								'reply' => [
 									'label'  => 'Votre réponse',
@@ -604,7 +604,7 @@ class Admin extends Controller_Module
 								->where('user_id', $this->user('user_id'))
 								->row();
 
-		$vote_form = $this	->form
+		$vote_form = $this	->form()
 							->add_rules($rules = [
 								'vote' => [
 									'label'  => 'Je suis',
@@ -719,17 +719,17 @@ class Admin extends Controller_Module
 	{
 		$this	->title('Suppression candidature')
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer la candidature de <b>'.$pseudo.'</b> ?<br />Tous les avis associés à cette candidature seront aussi supprimés.');
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_candidacy($candidacy_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function contact_applicant($candidacy_id, $title, $reply, $status)

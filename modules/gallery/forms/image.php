@@ -8,12 +8,12 @@ $rules = [
 	'title' => [
 		'label' => $this->lang('Titre'),
 		'type'  => 'text',
-		'value' => $this->form->value('title'),
+		'value' => $this->form()->value('title'),
 		'rules' => 'required'
 	],
 	'description' => [
 		'label' => $this->lang('Description'),
 		'type'  => 'textarea',
-		'value' => $this->form->value('description')
+		'value' => $this->form()->value('description')
 	]
 ];

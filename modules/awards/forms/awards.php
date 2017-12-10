@@ -7,19 +7,19 @@
 $rules = [
 	'name' => [
 		'label' => 'Titre de l\'événement',
-		'value' => $this->form->value('name'),
+		'value' => $this->form()->value('name'),
 		'type'  => 'text',
 		'rules' => 'required'
 	],
 	'location' => [
 		'label' => 'Lieu',
 		'icon'  => 'fa-map-marker',
-		'value' => $this->form->value('location'),
+		'value' => $this->form()->value('location'),
 		'type'  => 'text'
 	],
 	'date' => [
 		'label' => 'Date',
-		'value' => $this->form->value('date') ? timetostr($this->lang('%d/%m/%Y'), strtotime($this->form->value('date'))) : '',
+		'value' => $this->form()->value('date') ? timetostr($this->lang('%d/%m/%Y'), strtotime($this->form()->value('date'))) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))
@@ -32,16 +32,16 @@ $rules = [
 	],
 	'team' => [
 		'label'  => 'Équipe',
-		'value'  => $this->form->value('team_id'),
-		'values' => $this->form->value('teams'),
+		'value'  => $this->form()->value('team_id'),
+		'values' => $this->form()->value('teams'),
 		'type'   => 'select',
 		'size'   => 'col-4',
 		'rules'  => 'required'
 	],
 	'game' => [
 		'label'  => 'Jeu',
-		'value'  => $this->form->value('game_id'),
-		'values' => $this->form->value('games'),
+		'value'  => $this->form()->value('game_id'),
+		'values' => $this->form()->value('games'),
 		'type'   => 'select',
 		'size'   => 'col-4',
 		'rules'  => 'required'
@@ -49,7 +49,7 @@ $rules = [
 	'platform' => [
 		'label'  => 'Plateforme',
 		'icon'   => 'fa-tv',
-		'value'  => $this->form->value('platform'),
+		'value'  => $this->form()->value('platform'),
 		'values' => [
 			'PC'       => 'PC',
 			'PS3'      => 'PS3',
@@ -66,7 +66,7 @@ $rules = [
 	'ranking' => [
 		'label' => 'Classement',
 		'icon'  => 'fa-trophy',
-		'value' => $this->form->value('ranking'),
+		'value' => $this->form()->value('ranking'),
 		'type'  => 'number',
 		'size'  => 'col-2',
 		'rules' => 'required'
@@ -74,19 +74,19 @@ $rules = [
 	'participants' => [
 		'label' => 'Nombre d\'équipes',
 		'icon'  => 'fa-users',
-		'value' => $this->form->value('participants'),
+		'value' => $this->form()->value('participants'),
 		'type'  => 'number',
 		'size'  => 'col-2',
 		'rules' => 'required'
 	],
 	'description' => [
 		'label' => 'Commentaire',
-		'value' => $this->form->value('description'),
+		'value' => $this->form()->value('description'),
 		'type'  => 'editor'
 	],
 	'image' => [
 		'label'  => 'Image',
-		'value'  => $this->form->value('image'),
+		'value'  => $this->form()->value('image'),
 		'type'   => 'file',
 		'upload' => 'awards',
 		'info'   => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),

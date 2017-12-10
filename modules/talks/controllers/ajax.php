@@ -41,10 +41,10 @@ class Ajax extends Controller_Module
 	public function delete($message_id, $talk_id)
 	{
 		$this	->title($this->lang('Confirmation de suppression'))
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce message ?'));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			if ($this->db->select('message_id')->from('nf_talks_messages')->where('talk_id', $talk_id)->order_by('message_id DESC')->limit(1)->row() == $message_id)
 			{
@@ -62,6 +62,6 @@ class Ajax extends Controller_Module
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

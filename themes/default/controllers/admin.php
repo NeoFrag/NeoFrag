@@ -13,7 +13,7 @@ class Admin extends Controller
 	public function index()
 	{
 		$this	->js('admin')
-				->form
+				->form()
 				->add_rules([
 					'background' => [
 						'label'  => $this->lang('Image de fond'),
@@ -77,7 +77,7 @@ class Admin extends Controller
 				])
 				->add_submit($this->lang('Valider'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			if ($post['background'])
 			{
@@ -110,7 +110,7 @@ class Admin extends Controller
 								->heading($this->lang('Tableau de bord'), 'fa-cog')
 								->body($this->view('admin/index', [
 									'theme'           => $this->__caller,
-									'form_background' => $this->form->display()
+									'form_background' => $this->form()->display()
 								]))
 					)
 					->size('col-8 col-lg-9')

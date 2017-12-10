@@ -62,12 +62,12 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this->lang('Ajouter une discussion'))
-				->form
+				->form()
 				->add_rules('talks')
 				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/talks');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_talk($post['title']);
 
@@ -78,20 +78,20 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une discussion'), 'fa-comment-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($talk_id, $title)
 	{
 		$this	->subtitle($title)
-				->form
+				->form()
 				->add_rules('talks', [
 					'title' => $title
 				])
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/talks');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_talk($talk_id, $post['title']);
 
@@ -102,23 +102,23 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Édition de la discussion'), 'fa-comment-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function delete($talk_id, $title)
 	{
 		$this	->title($this->lang('Suppression d\'une discussion'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la discussion <b>%s</b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_talk($talk_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

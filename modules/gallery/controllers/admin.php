@@ -132,14 +132,14 @@ class Admin extends Controller_Module
 	public function add()
 	{
 		$this	->subtitle($this->lang('Créer un album'))
-				->form
+				->form()
 				->add_rules('album', [
 					'categories' => $this->model()->get_categories_list()
 				])
 				->add_back('admin/gallery')
 				->add_submit($this->lang('Créer l\'album'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$gallery_id = $this->model()->add_gallery(	$post['title'],
 														$post['category'],
@@ -154,7 +154,7 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Nouvel album photo'), 'fa-file-image-o')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _edit($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $category_image, $category_icon)
@@ -166,7 +166,7 @@ class Admin extends Controller_Module
 				->js('preview');
 
 		$form_album = $this	->subtitle($title)
-							->form
+							->form()
 							->add_rules('album', [
 								'title'       => $title,
 								'category_id' => $category_id,
@@ -180,7 +180,7 @@ class Admin extends Controller_Module
 							->add_back('admin/gallery')
 							->save();
 
-		$form_image = $this	->form
+		$form_image = $this	->form()
 							->add_rules([
 								'image' => [
 									'label'  => $this->lang('Image'),
@@ -320,28 +320,28 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Suppression album'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'album <b> %s </b> ?<br />Toutes les images associées à cet album seront aussi supprimées.', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_gallery($gallery_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _categories_add()
 	{
 		$this	->subtitle($this->lang('Ajouter une catégorie'))
-				->form
+				->form()
 				->add_rules('categories')
 				->add_back('admin/gallery')
 				->add_submit($this->lang('Ajouter'));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->add_category(	$post['title'],
 											$post['image'],
@@ -354,13 +354,13 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Ajouter une catégorie'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _categories_edit($category_id, $name, $title, $image_id, $icon_id)
 	{
 		$this	->subtitle($this->lang('Catégorie %s', $title))
-				->form
+				->form()
 				->add_rules('categories', [
 					'title' => $title,
 					'image' => $image_id,
@@ -369,7 +369,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('admin/gallery');
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_category(	$category_id,
 											$post['title'],
@@ -383,24 +383,24 @@ class Admin extends Controller_Module
 
 		return $this->panel()
 					->heading($this->lang('Éditer la catégorie'), 'fa-align-left')
-					->body($this->form->display());
+					->body($this->form()->display());
 	}
 
 	public function _categories_delete($category_id, $title)
 	{
 		$this	->title($this->lang('Suppression catégorie'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer la catégorie <b> %s </b> ?<br />Tous les albums associés à cette catégorie seront aussi supprimés.', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_category($category_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 
 	public function _image_edit($image_id, $thumbnail_file_id, $title, $description, $gallery_id, $gallery_title)
@@ -411,7 +411,7 @@ class Admin extends Controller_Module
 				->js('preview');
 
 		$this	->subtitle($this->lang('Image %s', $title))
-				->form
+				->form()
 				->add_rules('image', [
 					'image_id'    => $image_id,
 					'image'       => $thumbnail_file_id,
@@ -421,7 +421,7 @@ class Admin extends Controller_Module
 				->add_submit($this->lang('Éditer'))
 				->add_back('gallery/'.$gallery_id.'/'.url_title($gallery_title));
 
-		if ($this->form->is_valid($post))
+		if ($this->form()->is_valid($post))
 		{
 			$this->model()->edit_image(	$image_id,
 										$post['title'],
@@ -436,7 +436,7 @@ class Admin extends Controller_Module
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Éditer l\'image'), 'fa-photo')
-						->body($this->form->display())
+						->body($this->form()->display())
 						->size('col-8 col-lg-9')
 			),
 			$this->col(
@@ -454,16 +454,16 @@ class Admin extends Controller_Module
 	{
 		$this	->title($this->lang('Suppression image'))
 				->subtitle($title)
-				->form
+				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer l\'image <b> %s </b> ?', $title));
 
-		if ($this->form->is_valid())
+		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_image($image_id);
 
 			return 'OK';
 		}
 
-		echo $this->form->display();
+		echo $this->form()->display();
 	}
 }

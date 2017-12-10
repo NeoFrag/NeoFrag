@@ -20,7 +20,7 @@ class Admin extends Controller_Module
 				$this	->col(
 							$this	->panel()
 									->heading('Statistiques', 'fa-bar-chart')
-									->body($this	->form
+									->body($this	->form()
 													->set_id('sq6fswkfb81n0lu4cb7eyb3tuixcovla')
 													->add_rules('statistics')
 													->fast_mode()

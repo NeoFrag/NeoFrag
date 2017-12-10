@@ -138,7 +138,7 @@ class User extends Core
 				if (!$this->url->ajax_header)
 				{
 					$form_login = $this
-						->form
+						->form()
 						->set_id('dd74f62896869c798933e29305aa9473')
 						->add_rules([
 							'login' => [
