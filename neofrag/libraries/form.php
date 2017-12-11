@@ -542,6 +542,12 @@ class Form extends Library
 		return $this;
 	}
 
+	public function set_id($id)
+	{
+		$this->id = $id;
+		return $this;
+	}
+
 	private function _display_button($button)
 	{
 		if (isset($button['type']) && $button['type'] == 'submit')
