@@ -25,6 +25,12 @@ class Modal extends Library
 		return NeoFrag()->modals[] = $this;
 	}
 
+	public function set_id($id)
+	{
+		$this->id = $id;
+		return $this;
+	}
+
 	public function __toString()
 	{
 		$content = '<div class="modal-header">
