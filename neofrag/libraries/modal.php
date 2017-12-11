@@ -15,7 +15,7 @@ class Modal extends Library
 	protected $_body;
 	protected $_body_tags;
 	protected $_size;
-	protected $_form;
+	protected $_callback;
 
 	public function __invoke($title, $icon = '')
 	{
@@ -41,6 +41,13 @@ class Modal extends Library
 			$content .= $this->_body_tags ? '<div class="modal-body">'.$this->_body.'</div>' : $this->_body;
 		}
 
+		if ($this->_callback)
+		{
+			$this->_callback->check();
+
+			$content .= $this->form_hidden('_', $this->_callback->token());
+		}
+
 		$content = '<div class="modal-header">
 						<h5 class="modal-title">'.$this->_header.'</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="'.$this->lang('Fermer').'"><span aria-hidden="true">&times;</span></button>
@@ -48,7 +55,7 @@ class Modal extends Library
 					'.$content.'
 					'.($this->_buttons ? $this->button->static_footer($this->_buttons, 'right')->append_attr('class', 'modal-footer') : '');
 
-		if ($this->_form)
+		if ($this->_callback)
 		{
 			$content = $this->html('form')
 							->attr('action', url($this->url->request))
@@ -107,8 +114,6 @@ class Modal extends Library
 
 	public function submit($button = '', $color = 'primary')
 	{
-		$this->_form = TRUE;
-
 		if (!is_a($button, 'NF\NeoFrag\Libraries\Button'))
 		{
 			$button = parent::button_submit()
@@ -154,5 +159,20 @@ class Modal extends Library
 		$this->output->json([
 			'modal' => 'dispose'
 		]);
+	}
+
+	public function callback($callback)
+	{
+		if (!is_a($callback, 'NF\NeoFrag\Libraries\Form2'))
+		{
+			$callback = $this	->form2()
+								->success(function() use ($callback){
+									$callback();
+								});
+		}
+
+		$this->_callback = $callback;
+
+		return $this;
 	}
 }
