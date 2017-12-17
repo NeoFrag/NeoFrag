@@ -12,13 +12,26 @@ class Index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		if ($settings['display'])
+		return $this->_display($settings, 'horizontal', !empty($settings['panel']));
+	}
+
+	public function vertical($settings = [])
+	{
+		return $this->_display($settings, 'vertical', !isset($settings['panel']) || $settings['panel']);
+	}
+
+	protected function _display($settings, $type, $panel)
+	{
+		$this->js('navigation');
+
+		$view = $this->view($type, $settings);
+
+		if ($panel)
 		{
-			return $this->view('index', $settings);
+			$view = $this	->panel()
+							->body($view, FALSE);
 		}
-		else
-		{
-			return $this->panel()->body($this->view('horizontal', $settings), FALSE);
-		}
+
+		return $view;
 	}
 }

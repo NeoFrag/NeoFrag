@@ -26,8 +26,7 @@ class Checker extends Widget_Checker
 		}
 
 		return [
-			'links'   => $links,
-			'display' => (bool)$settings['display']
+			'links' => $links
 		];
 	}
 }
