@@ -175,6 +175,7 @@ NeoFrag('NF\NeoFrag\NeoFrag')->__path(function($caller, $type, $file){
 });
 
 foreach ([
+			'input',
 			'debug',
 			'url',
 			'db',
