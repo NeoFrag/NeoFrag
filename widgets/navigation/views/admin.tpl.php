@@ -3,7 +3,6 @@
 	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#links" aria-controls="links" role="tab" data-toggle="tab"><?php echo $this->lang('Liens') ?></a></li>
 		<li role="presentation"><a href="#add-link" aria-controls="add-link" role="tab" data-toggle="tab"><?php echo icon('fa-plus').' '.$this->lang('Ajouter') ?></a></li>
-		<li role="presentation"><a href="#navigation-options" aria-controls="navigation-options" role="tab" data-toggle="tab"><?php echo icon('fa-cogs').' '.$this->lang('Options') ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div id="links" class="tab-pane active" role="tabpanel">
@@ -179,21 +178,6 @@
 						</div>
 					</div>
 
-				</div>
-			</div>
-		</div>
-		<div id="navigation-options" class="tab-pane" role="tabpanel">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label for="settings-title" class="col-sm-3 control-label"><?php echo $this->lang('Orientation') ?></label>
-					<div class="col-sm-5">
-						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="0"<?php if (empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Verticale') ?>
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="settings[display]" value="1"<?php if (!empty($display)) echo ' checked="checked"' ?>> <?php echo $this->lang('Horizontale') ?>
-						</label>
-					</div>
 				</div>
 			</div>
 		</div>

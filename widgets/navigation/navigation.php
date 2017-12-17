@@ -21,6 +21,10 @@ class Navigation extends Widget
 			'version'     => '1.0',
 			'depends'     => [
 				'neofrag' => 'Alpha 0.2'
+			],
+			'types'       => [
+				'index'      => 'Horizontal',
+				'vertical'   => 'Vertical'
 			]
 		];
 	}

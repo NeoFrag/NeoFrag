@@ -346,5 +346,25 @@ class i_0_2 extends NeoFrag
 		//Admin
 		$this->db	->where('widget_id', 1)
 					->delete('nf_widgets');
+
+		//Widget navigation
+		foreach ($this->db->from('nf_widgets')->where('widget', 'navigation')->get() as $nav)
+		{
+			$settings = unserialize($nav['settings']);
+			$display = $settings['display'];
+			unset($settings['display']);
+
+			$values = [
+				'settings' => serialize($settings)
+			];
+
+			if (!$display)
+			{
+				$values['type'] = 'vertical';
+			}
+
+			$this->db	->where('widget_id', $nav['widget_id'])
+						->update('nf_widgets', $values);
+		}
 	}
 }
