@@ -144,6 +144,17 @@ class m_user_m_user extends Model
 
 		return $this;
 	}
+	
+	public function update_password_admin($password, $username)
+	{
+		$this->db	->where('username', $username)
+					->update('nf_users', [
+						'password' => $this->password->encrypt($password.($salt = unique_id())),
+						'salt'     => $salt
+					]);
+
+		return $this;
+	}
 
 	public function add_key($user_id)
 	{

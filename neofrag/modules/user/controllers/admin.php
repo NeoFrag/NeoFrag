@@ -264,6 +264,11 @@ class m_user_c_admin extends Controller_Module
 				$member_id
 			);
 			
+			if ($post['password_new'])
+			{
+				$this->model()->update_password_admin($post['password_new'], $post['username']);
+			}
+			
 			notify('Membre édité');
 
 			redirect_back('admin/user');
