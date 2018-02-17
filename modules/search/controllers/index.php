@@ -23,15 +23,19 @@ class Index extends Controller_Module
 			$keywords = $not_keywords = [];
 			$results  = [];
 
-			foreach (array_map($trim = create_function('$a', 'return trim($a, \';,."\\\'\');'), preg_split('/[\s;,.]*(-?"[^"]+")[\s;,.]*|[\s;,.]*(-?\'[^\']+\')[\s;,.]*|[\s;,.]+/', $search, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $keyword)
+			$trim = function($a){
+				return trim($a, ';,."\\\'');
+			};
+
+			foreach (array_map($trim, preg_split('/[\s;,.]*(-?"[^"]+")[\s;,.]*|[\s;,.]*(-?\'[^\']+\')[\s;,.]*|[\s;,.]+/', $search, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) as $keyword)
 			{
 				if (substr($keyword, 0, 1) == '-')
 				{
-					$not_keywords[] = call_user_func($trim, substr($keyword, 1));
+					$not_keywords[] = $trim(substr($keyword, 1));
 				}
 				else
 				{
-					$keywords[] = call_user_func($trim, $keyword);
+					$keywords[] = $trim($keyword);
 				}
 			}
 
