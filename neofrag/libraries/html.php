@@ -54,7 +54,7 @@ class Html extends Library
 		}
 
 		array_walk($attrs, function(&$value, $key){
-			$value = $key.($value != '' ? '="'.utf8_htmlentities($value).'"' : '');
+			$value = $key.($value != '' ? '="'.$value.'"' : '');
 		});
 
 		$content = '<'.implode(' ', array_merge([$tag], $attrs)).'>'.($content || $this->_end_tag ? $content.'</'.$tag.'>' : '');
