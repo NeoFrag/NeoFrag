@@ -95,6 +95,9 @@ $lang['unlock_topic']          = 'Déverrouiller le sujet';
 $lang['unset_announce']        = 'Retirer des annonces';
 $lang['views']                 = '<b>%d</b> vue|<b>%d</b> vues';
 $lang['write']                 = 'Écrire';
+$lang['edit_reason']           = 'Rasion de l\'édition';
+$lang['simple_reason']         = 'Raison';
+$lang['edit_by']               = 'Edité par';
 
 /*
 NeoFrag Alpha 0.1.4

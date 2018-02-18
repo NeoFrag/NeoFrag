@@ -14,6 +14,11 @@
 					<div class="form-group">
 						<textarea class="form-control editor" name="<?php echo $data['form_id']; ?>[message]" rows="10"><?php echo isset($data['post']['message']) ? $data['post']['message'] : (isset($data['message']) ? $data['message'] : ''); ?></textarea>
 					</div>
+					<?php if (!empty($data['topic_id'])): ?>
+         				<div class="form-group">
+            					<input type="text" class="form-control" name="<?php echo $data['form_id']; ?>[edit_reason]" value="<?php echo ($data['edit_reason'] ? $data['edit_reason'] : ''); ?>" placeholder="<?php echo $this->lang('edit_reason'); ?>" />
+         				</div>
+          				<?php endif; ?>
 					<?php if (!empty($data['forum_id']) && $this->access('forum', 'category_announce', $data['category_id'])): ?>
 					<div class="checkbox">
 						<label><input type="checkbox" name="<?php echo $data['form_id']; ?>[announce][]"<?php if (!empty($data['post']['announce']) && in_array('on', $data['post']['announce'])) echo ' checked="checked"'; ?> /> <?php echo $this->lang('set_announce'); ?></label>

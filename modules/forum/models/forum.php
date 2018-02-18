@@ -223,6 +223,9 @@ class m_forum_m_forum extends Model
 									'u2.username as last_username',
 									'm2.date as last_message_date',
 									'm2.message',
+					    				'm2.edit_by',
+                  							'm2.edit_date',
+                  							'm2.edit_reason',
 									't.status IN ("-2", "1") as announce',
 									't.status IN ("-2", "-1") as locked'
 								)
@@ -285,7 +288,7 @@ class m_forum_m_forum extends Model
 	
 	public function get_messages($topic_id, $forum_id)
 	{
-		return $this->db->select('message_id', 'user_id', 'message', 'UNIX_TIMESTAMP(date) as date')
+		return $this->db->select('message_id', 'user_id', 'message', 'UNIX_TIMESTAMP(date) as date', 'edit_by', 'edit_reason', 'UNIX_TIMESTAMP(edit_date) as edit_date')
 						->from('nf_forum_messages')
 						->where('topic_id', $topic_id)
 						->order_by('message_id')
@@ -352,7 +355,7 @@ class m_forum_m_forum extends Model
 	
 	public function check_message($message_id, $title)
 	{
-		$message = $this->db	->select('m.message_id', 't.topic_id', 't.title', 't.message_id = m.message_id as is_topic', 'm.message', 'IFNULL(f2.parent_id, f.parent_id) as category_id', 't.forum_id', 'm.user_id', 't.status IN ("-2", "-1") as locked')
+		$message = $this->db	->select('m.message_id', 't.topic_id', 't.title', 't.message_id = m.message_id as is_topic', 'm.message', 'IFNULL(f2.parent_id, f.parent_id) as category_id', 't.forum_id', 'm.user_id', 'm.edit_reason', 't.status IN ("-2", "-1") as locked')
 								->from('nf_forum_messages m')
 								->join('nf_forum_topics   t',  'm.topic_id = t.topic_id')
 								->join('nf_forum          f',  't.forum_id = f.forum_id')

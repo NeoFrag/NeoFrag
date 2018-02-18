@@ -95,6 +95,9 @@ $lang['unlock_topic']          = 'Unlock topic';
 $lang['unset_announce']        = 'Demote from announcements';
 $lang['views']                 = '<b>%d</b> view| <b>%d</b> views';
 $lang['write']                 = 'Write';
+$lang['edit_reason']           = 'Reason of edition';
+$lang['simple_reason']         = 'Reason';
+$lang['edit_by']               = 'Edited by';
 
 /*
 NeoFrag Alpha 0.1.4
