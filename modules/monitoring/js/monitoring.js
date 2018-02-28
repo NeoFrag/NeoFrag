@@ -5,9 +5,9 @@ $(function(){
 	});
 
 	var printSize = function(bytes, decimals, callback){
-		var sz = ('BKMGTP').split('');
+		var sz = ('KMGTP').split('');
 		var factor = Math.floor((String(bytes).length - 1) / 3);
-		var unit = (typeof sz[factor] != 'undefined' ? sz[factor] : '')+'o';
+		var unit = (typeof sz[factor - 1] != 'undefined' ? sz[factor - 1] : '')+'o';
 		return (bytes / Math.pow(1024, factor)).toFixed(typeof decimals != 'undefined' ? decimals : 2)+'<small>'+unit+'</small>';
 	};
 
