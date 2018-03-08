@@ -46,14 +46,11 @@ class Groups extends Core
 			]
 		];
 
-		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'GROUP_CONCAT(u.user_id) AS users', 'g.auto')
+		$groups = $this->db	->select('g.group_id', 'g.name', 'g.color', 'g.icon', 'g.hidden', 'IFNULL(gl.title, g.name) AS title', 'g.auto')
 							->from('nf_groups g')
-							->join('nf_groups_lang gl',  'gl.group_id = g.group_id')
-							->join('nf_users_groups ug', 'ug.group_id = g.group_id')
-							->join('nf_users u',         'ug.user_id  = u.user_id AND u.deleted = "0"')
-							->where('gl.lang', $this->config->lang, 'OR')
+							->join('nf_groups_lang gl', 'gl.group_id = g.group_id')
+							->where('gl.lang', $this->config->lang->info()->name, 'OR')
 							->where('gl.lang', NULL)
-							->group_by('g.group_id')
 							->order_by('g.order')
 							->get();
 
@@ -83,7 +80,7 @@ class Groups extends Core
 					'color'  => $group['color'],
 					'icon'   => $group['icon'],
 					'hidden' => (bool)$group['hidden'],
-					'users'  => !empty($group['users']) ? array_map('intval', explode(',', $group['users'])) : [],
+					'users'  => $this->db()->select('user.id')->from('nf_users_groups ug')->join('nf_user u', 'ug.user_id = u.id', 'INNER')->where('ug.group_id', $group['group_id'])->where('u.deleted', FALSE)->get(),
 					'auto'   => FALSE,
 					'order'  => $order++
 				];
