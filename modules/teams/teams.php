@@ -41,12 +41,10 @@ class Teams extends Module
 
 	public function groups()
 	{
-		$teams = NeoFrag()->db	->select('t.team_id', 't.name', 'tl.title', 'GROUP_CONCAT(tu.user_id) AS users')
+		$teams = NeoFrag()->db	->select('t.team_id', 't.name', 'tl.title')
 										->from('nf_teams t')
 										->join('nf_teams_lang tl',  'tl.team_id = t.team_id')
-										->join('nf_teams_users tu', 'tu.team_id = t.team_id')
 										->where('tl.lang', NeoFrag()->config->lang)
-										->group_by('t.team_id')
 										->get();
 
 		$groups = [];
@@ -56,7 +54,7 @@ class Teams extends Module
 			$groups[$team['team_id']] = [
 				'name'  => $team['name'],
 				'title' => $team['title'],
-				'users' => array_filter(array_map('intval', explode(',', $team['users'])))
+				'users' => $this->db()->select('user.id')->from('nf_teams_users tu')->join('nf_user u', 'tu.user_id = u.id', 'INNER')->where('tu.team_id', $team['team_id'])->where('u.deleted', FALSE)->get()
 			];
 		}
 
