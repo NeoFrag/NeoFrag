@@ -112,6 +112,7 @@ foreach ([
 			'assets',
 			'color',
 			'countries',
+			'debug',
 			'file',
 			'geolocalisation',
 			'dir',
