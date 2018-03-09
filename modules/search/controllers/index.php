@@ -12,7 +12,7 @@ class Index extends Controller_Module
 {
 	public function index($module_name = '', $page = '')
 	{
-		$this->title($this->lang('Rechercher'));
+		$this->css('search');
 
 		$count  = 0;
 		$row    = $this->array;
@@ -111,7 +111,13 @@ class Index extends Controller_Module
 						$panels->append($this	->panel()
 												->heading($result[0]->info()->title, $result[0]->info()->icon, 'search/'.$result[0]->info()->name.'?q='.rawurlencode($search))
 												->body(implode('<hr />', $content))
-												->footer(!$details && $result[3] > 3 ? '<a href="'.url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search)).'" class="btn btn-default btn-sm">'.$this->lang('Voir l\'ensemble des résultats').'</a>' : ''));
+												->footer_if(!$details && $result[3] > 3, $this	->button()
+																								->title($this->lang('Voir l\'ensemble des résultats'))
+																								->url('search/'.$result[0]->info()->name.'?q='.rawurlencode($search))
+																								->color('light')
+																								->align('center')
+												)
+						);
 					}
 
 					if ($details)
@@ -141,11 +147,11 @@ class Index extends Controller_Module
 			}
 		}
 
-		return $row->append(
+		return $row->prepend(
 			$this->row(
 				$this->col(
 					$this	->panel()
-							->heading($this->lang('Rechercher'), 'fa-search')
+							->style('search')
 							->body($this->view('index', [
 								'results'  => (bool)$count,
 								'keywords' => $search
