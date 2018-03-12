@@ -16,7 +16,7 @@ class Ajax_Checker extends Module_Checker
 		{
 			if ($this->access('forum', 'category_move', $topic['category_id']))
 			{
-				return [$topic_id, $topic['topic_title'], $topic['forum_id']];
+				return [$topic_id, $topic['forum_id']];
 			}
 			else
 			{

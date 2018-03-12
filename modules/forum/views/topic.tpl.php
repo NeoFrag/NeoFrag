@@ -1,4 +1,3 @@
-<div class="table-responsive">
 <table class="table">
 	<thead class="forum-heading">
 		<tr>
@@ -11,20 +10,18 @@
 		</tr>
 	</thead>
 	<tbody class="forum-content">
-		<tr>
-			<td class="col-md-3">
+		<tr class="row">
+			<td class="col-3">
 				<?php echo $this->output->module()->get_profile($user_id, $profile) ?>
 			</td>
-			<td class="text-left col-md-9">
-				<div class="padding-top">
-					<div class="pull-right">
-					<?php if (($this->user() && $this->user->id == $user_id) || $this->access('forum', 'category_modify', $category_id)): ?>
-						<a href="<?php echo url('forum/message/edit/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary"><?php echo icon('fa-edit') ?></a>
-						<a href="<?php echo url('forum/message/delete/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary delete"><?php echo icon('fa-close') ?></a>
-					<?php endif ?>
-					</div>
-					<a name="<?php echo $message_id ?>"></a><?php echo icon('fa-clock-o').' '.time_span($date).' '.($last_message_read && $date <= $last_message_read ? icon('fa-comment-o').' '.$this->lang('Message lu') : icon('fa-comment').' '.$this->lang('Message non lu')) ?>
+			<td class="col-9">
+				<div class="actions">
+				<?php if (($this->user() && $this->user->id == $user_id) || $this->access('forum', 'category_modify', $category_id)): ?>
+					<a href="<?php echo url('forum/message/edit/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary"><?php echo icon('fa-edit') ?></a>
+					<a href="<?php echo url('forum/message/delete/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-xs btn-primary delete"><?php echo icon('fa-close') ?></a>
+				<?php endif ?>
 				</div>
+				<a name="<?php echo $message_id ?>"></a><?php echo icon('fa-clock-o').' '.time_span($date).' '.($last_message_read && $date <= $last_message_read ? icon('fa-comment-o').' '.$this->lang('Message lu') : icon('fa-comment').' '.$this->lang('Message non lu')) ?>
 				<hr />
 				<?php echo bbcode($message) ?>
 				<?php if (!empty($profile['signature'])): ?>
@@ -35,4 +32,3 @@
 		</tr>
 	</tbody>
 </table>
-</div>

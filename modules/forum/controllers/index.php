@@ -30,8 +30,8 @@ class Index extends Controller_Module
 		if ($this->user())
 		{
 			$actions = $this->panel()
-							->body('<a class="btn btn-default" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>', FALSE)
-							->color('back text-right');
+							->body('<a class="btn btn-light" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>')
+							->style('transparent text-right');
 
 			$panels->prepend($actions)->append($actions);
 		}
@@ -72,7 +72,7 @@ class Index extends Controller_Module
 									'topics' => $topics
 								]), FALSE));
 
-		$content = '<a class="btn btn-default" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
+		$content = '<a class="btn btn-light pull-left" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
 
 		if ($pagination = $this->module->pagination->get_pagination())
 		{
@@ -86,12 +86,12 @@ class Index extends Controller_Module
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-default" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>';
+			$content .= '<a class="pull-right btn btn-light" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>';
 		}
 
 		$actions = $this	->panel()
-							->body($content, FALSE)
-							->color('back');
+							->body($content)
+							->style('transparent');
 
 		$panels->prepend($actions)->append($actions);
 
@@ -214,7 +214,7 @@ class Index extends Controller_Module
 			}
 		}
 
-		$content = '<a class="btn btn-default" href="'.url($this->url->back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('Retour').'</a>';
+		$content = '<a class="btn btn-light pull-left" href="'.url($this->url->back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('Retour').'</a>';
 
 		if ($pagination = $this->module->pagination->get_pagination())
 		{
@@ -235,18 +235,18 @@ class Index extends Controller_Module
 
 		if (($this->user() && $topic['user_id'] == $this->user->id) || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-default delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fa-close').'</a>';
+			$content .= '<a class="pull-right btn btn-light delete" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fa-close').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fa-unlock').'</a>';
+				$content .= '<a class="pull-right btn btn-light" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fa-lock').'</a>';
+				$content .= '<a class="pull-right btn btn-light" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fa-lock').'</a>';
 			}
 		}
 
@@ -254,20 +254,17 @@ class Index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('fa-flag-o').'</a>';
+				$content .= '<a class="pull-right btn btn-light" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('fa-flag-o').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-default" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fa-flag').'</a>';
+				$content .= '<a class="pull-right btn btn-light" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fa-flag').'</a>';
 			}
 		}
 
 		if ($this->access('forum', 'category_move', $category_id))
 		{
-			$this	->css('move')
-					->js('move');
-
-			$content .= '<span class="pull-right btn btn-default topic-move" data-toggle="tooltip" data-action="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
+			$content .= '<span class="pull-right btn btn-light topic-move" data-toggle="tooltip" data-modal-ajax="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
 		}
 
 		$panels = $this->array;
@@ -289,8 +286,8 @@ class Index extends Controller_Module
 								])), FALSE));
 
 		$actions = $this->panel()
-						->body($content, FALSE)
-						->color('back');
+						->body($content)
+						->style('transparent');
 
 		if (!empty($messages))
 		{
@@ -379,72 +376,9 @@ class Index extends Controller_Module
 		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
 	}
 
-	public function _topic_move($topic_id, $title, $forum_id)
-	{
-		$forums = [];
-
-		foreach ($this->model()->get_forums_tree() as $category_id => $category)
-		{
-			foreach ($category['forums'] as $f_id => $forum)
-			{
-				$forums = array_merge($forums, [$f_id], array_keys($forum['subforums']));
-			}
-		}
-
-		$this	->form()
-				->set_id('3a27fa5555e6f34491793733f32169db')
-				->add_rules([
-					'forum_id' => [
-						'type'   => 'radio',
-						'values' => array_flip($forums)
-					]
-				]);
-
-		if ($this->form()->is_valid($post) && $forum_id != $post['forum_id'])
-		{
-			$this->db	->where('topic_id', $topic_id)
-						->update('nf_forum_topics', [
-							'forum_id' => $post['forum_id']
-						]);
-
-			$count_messages = $this->model()->count_messages($topic_id);
-
-			$this->db	->where('forum_id', $forum_id)
-						->update('nf_forum', 'count_topics = count_topics - 1');
-
-			$this->db	->where('forum_id', $forum_id)
-						->update('nf_forum', 'count_messages = count_messages - '.$count_messages);
-
-			$last_message_id = $this->model()->get_last_message_id($forum_id);
-
-			$this->db	->where('forum_id', $forum_id)
-						->update('nf_forum', [
-							'last_message_id' => $last_message_id
-						]);
-
-			$this->db	->where('forum_id', $post['forum_id'])
-						->update('nf_forum', 'count_topics = count_topics + 1');
-
-			$this->db	->where('forum_id', $post['forum_id'])
-						->update('nf_forum', 'count_messages = count_messages + '.$count_messages);
-
-
-			$last_message_id = $this->model()->get_last_message_id($post['forum_id']);
-
-			$this->db	->where('forum_id', $post['forum_id'])
-						->update('nf_forum', [
-							'last_message_id' => $last_message_id
-						]);
-
-			//notify('success', ....);
-		}
-
-		redirect('forum/topic/'.$topic_id.'/'.url_title($title));
-	}
-
 	public function _message_edit($message_id, $topic_id, $title, $is_topic, $message, $category_id, $forum_id, $user_id, $locked)
 	{
-		$this	->title($this->lang($is_topic ? 'edit_topic' : 'edit_message'))
+		$this	->title($this->lang($is_topic ? 'Édition du sujet' : 'Édition du message'))
 				->_breadcrumb($category_id, $forum_id)
 				->breadcrumb($title, 'forum/topic/'.$topic_id.'/'.url_title($title))
 				->breadcrumb()
@@ -494,13 +428,13 @@ class Index extends Controller_Module
 		if ($errors = $this->form()->get_errors())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang($is_topic ? 'fill_all_fields' : 'message_needed'), 'fa-warning')
+									->heading($this->lang($is_topic ? 'Veuillez remplir tous les champs' : 'Veuillez remplir un message'), 'fa-warning')
 									->color('danger')
 			);
 		}
 
 		$panels->append($this	->panel()
-								->heading($this->lang($is_topic ? 'edit_topic' : 'edit_message'), 'fa-file-text-o')
+								->heading($this->lang($is_topic ? 'Édition du sujet' : 'Édition du message'), 'fa-file-text-o')
 								->body($this->view('new', [
 									'form_id'  => $this->form()->token(),
 									'post'     => $post,
@@ -516,7 +450,7 @@ class Index extends Controller_Module
 
 	public function _message_delete($message_id, $title, $topic_id, $forum_id, $is_topic)
 	{
-		$this	->title($this->lang($is_topic ? 'delete_topic' : 'delete_message'))
+		$this	->title($this->lang($is_topic ? 'Suppression du topic' : 'Suppression du message'))
 				->subtitle($title)
 				->form()
 				->confirm_deletion($this->lang('Confirmation de suppression'), $is_topic ? $this->lang('Êtes-vous sûr(e) de vouloir supprimer le sujet <b>%s</b> ?', $title) : $this->lang('Êtes-vous sûr(e) de vouloir supprimer ce message ?'));
