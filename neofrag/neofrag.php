@@ -130,17 +130,17 @@ class NeoFrag
 
 		if (preg_match('/^(?:static_)?(.+?)_if$/', $name, $match))
 		{
-			if (!$args[0])
+			if (!$contition = $args[0])
 			{
-				return $this;
+				return method_exists($this, '__extends') ? $this->__extends() : $this;
 			}
 
 			$args = array_slice($args, 1);
 
-			array_walk($args, function(&$a){
+			array_walk($args, function(&$a) use ($contition){
 				if (is_a($a, 'closure'))
 				{
-					$a = $a();
+					$a = $a($contition);
 				}
 			});
 
