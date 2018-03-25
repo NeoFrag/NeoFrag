@@ -97,10 +97,15 @@ class Html extends Library
 		return $this;
 	}
 
-	public function content($content)
+	public function content($content = '')
 	{
-		$this->_content = $content;
-		return $this;
+		if (func_get_args())
+		{
+			$this->_content = is_array($content) ? $content : [$content];
+			return $this;
+		}
+
+		return implode($this->_content);
 	}
 
 	public function append_content($content)
