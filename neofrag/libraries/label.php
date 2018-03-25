@@ -95,6 +95,12 @@ class Label extends Html
 		return $this;
 	}
 
+	public function __toString()
+	{
+		$output = parent::__toString();
+		return $output != '<span></span>' ? $output : '';
+	}
+
 	public function url($url = '')
 	{
 		if (func_num_args())
