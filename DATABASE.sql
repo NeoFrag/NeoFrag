@@ -243,19 +243,6 @@ CREATE TABLE `nf_comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_crawlers`
---
-
-DROP TABLE IF EXISTS `nf_crawlers`;
-CREATE TABLE `nf_crawlers` (
-  `name` varchar(100) NOT NULL,
-  `path` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `nf_dispositions`
 --
 

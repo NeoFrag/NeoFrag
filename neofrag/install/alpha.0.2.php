@@ -170,5 +170,8 @@ class i_0_2 extends NeoFrag
 					->execute('DROP TABLE nf_settings_authenticators')
 					->execute('DROP TABLE nf_settings_languages')
 					->execute('DROP TABLE nf_settings_smileys');
+
+		//Crawlers
+		$this->db->execute('DROP TABLE IF EXISTS `nf_crawlers`');
 	}
 }

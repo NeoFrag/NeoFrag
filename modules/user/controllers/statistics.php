@@ -29,13 +29,6 @@ class Statistics extends Controller_Module
 					$this->db->from('nf_sessions_history');
 					return 'date';
 				}
-			],
-			'crawlers' => [
-				'title' => 'Connections de bots',
-				'data'  => function(){
-					$this->db->from('nf_crawlers');
-					return 'date';
-				}
 			]
 		];
 	}
