@@ -8,6 +8,7 @@ namespace SocialConnect\OAuth2;
 
 use InvalidArgumentException;
 use SocialConnect\OAuth2\Exception\InvalidState;
+use SocialConnect\OAuth2\Exception\Unauthorized;
 use SocialConnect\OAuth2\Exception\UnknownAuthorization;
 use SocialConnect\OAuth2\Exception\UnknownState;
 use SocialConnect\Provider\AbstractBaseProvider;
@@ -49,13 +50,16 @@ abstract class AbstractProvider extends AbstractBaseProvider
     }
 
     /**
+     * 16 bytes / 128 bit / 16 symbols / 32 symbols in hex
+     */
+    const STATE_BYTES = 16;
+
+    /**
      * @return string
      */
     protected function generateState()
     {
-        return md5(
-            time() . mt_rand()
-        );
+        return bin2hex(random_bytes(self::STATE_BYTES));
     }
 
     /**
@@ -153,7 +157,6 @@ abstract class AbstractProvider extends AbstractBaseProvider
         return $this->parseToken($body);
     }
 
-
     /**
      * @param array $parameters
      * @return AccessToken
@@ -168,12 +171,20 @@ abstract class AbstractProvider extends AbstractBaseProvider
             throw new UnknownAuthorization();
         }
 
+        if (isset($parameters['error']) && $parameters['error'] === 'access_denied') {
+            throw new Unauthorized();
+        }
+
         if (!isset($parameters['state'])) {
             throw new UnknownState();
         }
 
         if ($state !== $parameters['state']) {
             throw new InvalidState();
+        }
+
+        if (!isset($parameters['code'])) {
+            throw new Unauthorized('Unknown code');
         }
 
         return $this->getAccessToken($parameters['code']);

@@ -6,9 +6,9 @@
 
 namespace SocialConnect\OAuth2\Exception;
 
-class InvalidState extends \SocialConnect\Provider\Exception\AuthFailed
+class Unauthorized extends \SocialConnect\Provider\Exception\AuthFailed
 {
-    public function __construct($message = 'Invalid state')
+    public function __construct($message = 'Unauthorized')
     {
         parent::__construct($message);
     }

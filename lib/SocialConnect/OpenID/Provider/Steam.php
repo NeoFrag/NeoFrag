@@ -8,6 +8,8 @@ namespace SocialConnect\OpenID\Provider;
 
 use SocialConnect\Provider\AccessTokenInterface;
 use SocialConnect\Provider\Exception\InvalidResponse;
+use SocialConnect\Common\Entity\User;
+use SocialConnect\Common\Hydrator\ObjectMap;
 
 class Steam extends \SocialConnect\OpenID\AbstractProvider
 {
@@ -16,7 +18,7 @@ class Steam extends \SocialConnect\OpenID\AbstractProvider
      */
     public function getOpenIdUrl()
     {
-        return 'http://steamcommunity.com/openid/id';
+        return 'https://steamcommunity.com/openid/id';
     }
 
     /**
@@ -24,7 +26,7 @@ class Steam extends \SocialConnect\OpenID\AbstractProvider
      */
     public function getBaseUri()
     {
-        return 'http://api.steampowered.com/';
+        return 'https://api.steampowered.com/';
     }
 
     /**
@@ -42,13 +44,14 @@ class Steam extends \SocialConnect\OpenID\AbstractProvider
     protected function parseUserIdFromIdentity($identity)
     {
         preg_match(
-            '/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/',
+            '/7[0-9]{15,25}/',
             $identity,
             $matches
         );
 
-        return $matches[1];
+        return $matches[0];
     }
+
 
     /**
      * {@inheritdoc}
@@ -74,10 +77,18 @@ class Steam extends \SocialConnect\OpenID\AbstractProvider
         if (!$result) {
             throw new InvalidResponse(
                 'API response is not a valid JSON object',
-                $response->getBody()
+                $response
             );
         }
 
-        return $result->response->players[0];
+        $hydrator = new ObjectMap(
+            [
+                'steamid' => 'id',
+                'personaname' => 'username',
+                'realname' => 'fullname'
+            ]
+        );
+
+        return $hydrator->hydrate(new User(), $result->response->players[0]);
     }
 }
