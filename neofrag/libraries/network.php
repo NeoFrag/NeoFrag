@@ -136,6 +136,7 @@ class Network extends Library
 
 		curl_setopt($ch, CURLOPT_URL, !empty($args['url']) ? $args['url'] : $this->_url);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->_timeout);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 
 		if ($this->_auth)
 		{
