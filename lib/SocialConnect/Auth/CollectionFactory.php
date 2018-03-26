@@ -53,6 +53,7 @@ class CollectionFactory implements FactoryInterface
         'linkedin'      => OAuth2\Provider\LinkedIn::class,
         'yahoo'         => OAuth2\Provider\Yahoo::class,
         'wordpress'     => OAuth2\Provider\WordPress::class,
+        'battle-net'    => OAuth2\Provider\BattleNet::class,
         // OpenID
         'steam'         => OpenID\Provider\Steam::class,
         // OpenIDConnect - currently disabled before 1.1 release
