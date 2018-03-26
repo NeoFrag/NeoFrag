@@ -6,6 +6,7 @@
 
 namespace SocialConnect\OAuth2\Provider;
 
+use SocialConnect\Common\Http\Client\Client;
 use SocialConnect\Provider\AccessTokenInterface;
 use SocialConnect\Provider\Exception\InvalidAccessToken;
 use SocialConnect\Provider\Exception\InvalidResponse;
@@ -13,14 +14,14 @@ use SocialConnect\OAuth2\AccessToken;
 use SocialConnect\Common\Entity\User;
 use SocialConnect\Common\Hydrator\ObjectMap;
 
-class Twitch extends \SocialConnect\OAuth2\AbstractProvider
+class Discord extends \SocialConnect\OAuth2\AbstractProvider
 {
     /**
      * {@inheritdoc}
      */
     public function getBaseUri()
     {
-        return 'https://api.twitch.tv/kraken/';
+        return 'https://discordapp.com/api/';
     }
 
     /**
@@ -28,7 +29,7 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
      */
     public function getAuthorizeUri()
     {
-        return 'https://api.twitch.tv/kraken/oauth2/authorize';
+        return 'https://discordapp.com/api/oauth2/authorize';
     }
 
     /**
@@ -36,7 +37,7 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
      */
     public function getRequestTokenUri()
     {
-        return 'https://api.twitch.tv/kraken/oauth2/token';
+        return 'https://discordapp.com/api/oauth2/token';
     }
 
     /**
@@ -44,7 +45,7 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
      */
     public function getName()
     {
-        return 'twitch';
+        return 'discord';
     }
 
     /**
@@ -52,8 +53,7 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
      */
     public function getScopeInline()
     {
-        // @link https://github.com/justintv/Twitch-API/blob/master/authentication.md#scopes
-        return implode('+', $this->scope);
+        return implode(' ', $this->scope);
     }
 
     /**
@@ -61,12 +61,16 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
      */
     public function parseToken($body)
     {
-        $response = json_decode($body, true);
-        if ($response) {
-            return new AccessToken($response);
+        if (empty($body)) {
+            throw new InvalidAccessToken('Provider response with empty body');
         }
 
-        throw new InvalidAccessToken('AccessToken is not a valid JSON');
+        $result = json_decode($body, true);
+        if ($result) {
+            return new AccessToken($result);
+        }
+
+        throw new InvalidAccessToken('Provider response with not valid JSON');
     }
 
     /**
@@ -75,9 +79,11 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
     public function getIdentity(AccessTokenInterface $accessToken)
     {
         $response = $this->httpClient->request(
-            $this->getBaseUri() . 'user',
+            $this->getBaseUri() . 'users/@me',
+            [],
+            Client::GET,
             [
-                'oauth_token' => $accessToken->getToken()
+                'Authorization' => 'Bearer ' . $accessToken->getToken()
             ]
         );
 
@@ -98,9 +104,7 @@ class Twitch extends \SocialConnect\OAuth2\AbstractProvider
 
         $hydrator = new ObjectMap(
             [
-                '_id' => 'id',
-                'display_name' => 'fullname', // Custom Capitalized Users name
-                'name' => 'username',
+                'verified' => 'emailVerified'
             ]
         );
 

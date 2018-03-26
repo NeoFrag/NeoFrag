@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SocialConnect project
  * @author: Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
@@ -12,6 +13,8 @@ use SocialConnect\Provider\Exception\InvalidAccessToken;
 use SocialConnect\Provider\Exception\InvalidResponse;
 use SocialConnect\OAuth2\AbstractProvider;
 use SocialConnect\OAuth2\AccessToken;
+use SocialConnect\Common\Entity\User;
+use SocialConnect\Common\Hydrator\ObjectMap;
 
 /**
  * Class Provider
@@ -87,10 +90,31 @@ class Google extends AbstractProvider
         if (!$result) {
             throw new InvalidResponse(
                 'API response is not a valid JSON object',
-                $response->getBody()
+                $response
             );
         }
 
-        return $result;
+        $hydrator = new ObjectMap(
+            [
+                'id' => 'id',
+                'given_name' => 'firstname',
+                'family_name' => 'lastname',
+                'email' => 'email',
+                'verified_email' => 'emailVerified',
+                'name' => 'fullname',
+                'gender' => 'sex',
+                'picture' => 'pictureURL'
+            ]
+        );
+
+        return $hydrator->hydrate(new User(), $result);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getScopeInline()
+    {
+        return implode(' ', $this->scope);
     }
 }

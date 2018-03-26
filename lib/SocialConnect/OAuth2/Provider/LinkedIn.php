@@ -1,36 +1,49 @@
 <?php
 /**
  * SocialConnect project
- * @author: Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
- * @author: Michaël Bilcot <michael.bilcot@neofrag.com>
+ *
+ * @author: Bogdan Popa https://github.com/icex <bogdan@pixelwattstudio.com>
  */
 
 namespace SocialConnect\OAuth2\Provider;
 
+use SocialConnect\Common\Http\Client\Client;
 use SocialConnect\Provider\AccessTokenInterface;
 use SocialConnect\Provider\Exception\InvalidAccessToken;
 use SocialConnect\Provider\Exception\InvalidResponse;
-use SocialConnect\OAuth2\AbstractProvider;
+use SocialConnect\Common\Entity\User;
+use SocialConnect\Common\Hydrator\ObjectMap;
 use SocialConnect\OAuth2\AccessToken;
-use SocialConnect\Common\Http\Client\Client;
 
-class LinkedIn extends AbstractProvider
+class LinkedIn extends \SocialConnect\OAuth2\AbstractProvider
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getBaseUri()
     {
         return 'https://api.linkedin.com/v1/';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAuthorizeUri()
     {
         return 'https://www.linkedin.com/oauth/v2/authorization';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRequestTokenUri()
     {
         return 'https://www.linkedin.com/oauth/v2/accessToken';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'linkedin';
@@ -46,7 +59,7 @@ class LinkedIn extends AbstractProvider
             return new AccessToken($result);
         }
 
-        throw new InvalidAccessToken('Provider response with not valid JSON');
+        throw new InvalidAccessToken('AccessToken is not a valid JSON');
     }
 
     /**
@@ -55,10 +68,13 @@ class LinkedIn extends AbstractProvider
     public function getIdentity(AccessTokenInterface $accessToken)
     {
         $response = $this->httpClient->request(
-            $this->getBaseUri() . 'people/~:(id,first-name,last-name,picture-url,email-address)',
+            $this->getBaseUri() . 'people/~:(id,first-name,last-name,email-address,picture-url,location:(name))',
             [
-                'oauth2_access_token' => $accessToken->getToken(),
                 'format' => 'json'
+            ],
+            Client::GET,
+            [
+                'Authorization' => 'Bearer ' . $accessToken->getToken(),
             ]
         );
 
@@ -73,10 +89,20 @@ class LinkedIn extends AbstractProvider
         if (!$result) {
             throw new InvalidResponse(
                 'API response is not a valid JSON object',
-                $response->getBody()
+                $response
             );
         }
 
-        return $result;
+        $hydrator = new ObjectMap(
+            [
+                'id'           => 'id',
+                'pictureUrl'   => 'picture',
+                'emailAddress' => 'email',
+                'firstName'    => 'firstname',
+                'lastName'     => 'lastname',
+            ]
+        );
+
+        return $hydrator->hydrate(new User(), $result);
     }
 }

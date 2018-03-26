@@ -6,21 +6,33 @@
 
 namespace SocialConnect\Provider\Exception;
 
+use SocialConnect\Common\Http\Response;
+
 class InvalidResponse extends \SocialConnect\Common\Exception
 {
     /**
-     * @var mixed
+     * @var Response|null
      */
     protected $response;
 
     /**
      * @param string $message
-     * @param null $response
+     * @param Response|null $response
      */
-    public function __construct($message = 'API bad response', $response = null)
+    public function __construct($message = 'API bad response', Response $response = null)
     {
         parent::__construct($message);
 
         $this->response = $response;
+    }
+
+    /**
+     * Get response data.
+     *
+     * @return Response|null
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

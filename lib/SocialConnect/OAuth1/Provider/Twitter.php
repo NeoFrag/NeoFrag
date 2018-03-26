@@ -8,7 +8,9 @@ namespace SocialConnect\OAuth1\Provider;
 
 use SocialConnect\Provider\AccessTokenInterface;
 use SocialConnect\Provider\Exception\InvalidResponse;
+use SocialConnect\Common\Entity\User;
 use SocialConnect\Common\Http\Client\Client;
+use SocialConnect\Common\Hydrator\ObjectMap;
 
 class Twitter extends \SocialConnect\OAuth1\AbstractProvider
 {
@@ -47,10 +49,11 @@ class Twitter extends \SocialConnect\OAuth1\AbstractProvider
         $parameters = [
             'oauth_consumer_key' => $this->consumer->getKey(),
             'oauth_token' => $accessToken->getToken(),
-            'skip_status' => 1,
+            // String is expected because Twitter is awful
             'include_email' => 'true'
         ];
 
+        // @link https://dev.twitter.com/rest/reference/get/account/verify_credentials
         $response = $this->oauthRequest(
             $this->getBaseUri() . 'account/verify_credentials.json',
             Client::GET,
@@ -68,10 +71,27 @@ class Twitter extends \SocialConnect\OAuth1\AbstractProvider
         if (!$result) {
             throw new InvalidResponse(
                 'API response is not a valid JSON object',
-                $response->getBody()
+                $response
             );
         }
 
-        return $result;
+        $hydrator = new ObjectMap(
+            [
+                'id' => 'id',
+                'name' => 'fullname',
+                'screen_name' => 'username',
+                'profile_image_url_https' => 'pictureURL'
+            ]
+        );
+
+        /** @var User $user */
+        $user = $hydrator->hydrate(new User(), $result);
+
+        // When set to true email will be returned in the user objects as a string.
+        // If the user does not have an email address on their account,
+        // or if the email address is not verified, null will be returned.
+        $user->emailVerified = true;
+
+        return $user;
     }
 }

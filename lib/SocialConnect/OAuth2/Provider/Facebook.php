@@ -6,9 +6,13 @@
 
 namespace SocialConnect\OAuth2\Provider;
 
+use SocialConnect\OAuth2\AccessToken;
 use SocialConnect\Provider\AccessTokenInterface;
+use SocialConnect\Provider\Exception\InvalidAccessToken;
 use SocialConnect\Provider\Exception\InvalidResponse;
+use SocialConnect\Common\Entity\User;
 use SocialConnect\Common\Http\Client\Client;
+use SocialConnect\Common\Hydrator\ObjectMap;
 
 class Facebook extends \SocialConnect\OAuth2\AbstractProvider
 {
@@ -42,19 +46,30 @@ class Facebook extends \SocialConnect\OAuth2\AbstractProvider
     /**
      * {@inheritdoc}
      */
+    public function parseToken($body)
+    {
+        if (empty($body)) {
+            throw new InvalidAccessToken('Provider response with empty body');
+        }
+
+        $result = json_decode($body, true);
+        if ($result) {
+            return new AccessToken($result);
+        }
+
+        throw new InvalidAccessToken('Provider response with not valid JSON');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getIdentity(AccessTokenInterface $accessToken)
     {
         $response = $this->httpClient->request(
             $this->getBaseUri() . 'me',
             [
                 'access_token' => $accessToken->getToken(),
-                'fields' => implode(',', [
-                    'email',
-                    'first_name',
-                    'last_name',
-                    'gender',
-                    'locale'
-                ])
+                'fields' => $this->getFieldsInline()
             ]
         );
 
@@ -65,15 +80,38 @@ class Facebook extends \SocialConnect\OAuth2\AbstractProvider
             );
         }
 
-        $body = $response->getBody();
         $result = $response->json();
         if (!$result) {
             throw new InvalidResponse(
                 'API response is not a valid JSON object',
-                $response->getBody()
+                $response
             );
         }
 
-        return $result;
+        $hydrator = new ObjectMap(
+            [
+                'id' => 'id',
+                'first_name' => 'firstname',
+                'last_name' => 'lastname',
+                'email' => 'email',
+                'gender' => 'sex',
+                'link' => 'url',
+                'locale' => 'locale',
+                'name' => 'fullname',
+                'timezone' => 'timezone',
+                'updated_time' => 'dateModified',
+                'verified' => 'verified'
+            ]
+        );
+
+        /** @var User $user */
+        $user = $hydrator->hydrate(new User(), $result);
+        $user->emailVerified = true;
+
+        if ($result->picture) {
+            $user->pictureURL = $result->picture->data->url;
+        }
+
+        return $user;
     }
 }

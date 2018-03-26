@@ -45,6 +45,11 @@ abstract class AbstractProvider extends AbstractBaseProvider
     protected $scope = [];
 
     /**
+     * @var  \SocialConnect\OAuth1\Signature\AbstractSignatureMethod
+     */
+    protected $signature;
+
+    /**
      * @param ClientInterface $httpClient
      * @param Consumer $consumer
      * @param array $parameters
@@ -54,6 +59,8 @@ abstract class AbstractProvider extends AbstractBaseProvider
         parent::__construct($httpClient, $session, $consumer, $parameters);
 
         $this->consumerToken = new Token('', '');
+
+        $this->signature = new MethodHMACSHA1();
     }
 
     /**
@@ -135,10 +142,15 @@ abstract class AbstractProvider extends AbstractBaseProvider
      * @param array $parameters
      * @return \SocialConnect\Common\Http\Response
      */
-    protected function oauthRequest($uri, $method = Client::GET, $parameters = [])
+    public function oauthRequest($uri, $method = Client::GET, $parameters = [], $headers = [])
     {
-        $headers['Accept'] = 'application/json';
-        $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        $headers = array_merge([
+            'Accept' => 'application/json'
+        ], $headers);
+
+        if ($method == Client::POST) {
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
 
         $parameters = array_merge(
             [
@@ -158,7 +170,7 @@ abstract class AbstractProvider extends AbstractBaseProvider
         );
 
         $request->signRequest(
-            new MethodHMACSHA1(),
+            $this->signature,
             $this->consumer,
             $this->consumerToken
         );
@@ -223,7 +235,7 @@ abstract class AbstractProvider extends AbstractBaseProvider
 
         throw new InvalidResponse(
             'Unexpected response code',
-            $response->getBody()
+            $response
         );
     }
 
@@ -268,5 +280,21 @@ abstract class AbstractProvider extends AbstractBaseProvider
     public function setScope(array $scope)
     {
         $this->scope = $scope;
+    }
+
+    /**
+     * @param Token $token
+     */
+    public function setConsumerToken(Token $token)
+    {
+        $this->consumerToken = $token;
+    }
+
+    /**
+     * @return \SocialConnect\OAuth1\Token
+     */
+    public function getConsumerToken()
+    {
+        return $this->consumerToken;
     }
 }
