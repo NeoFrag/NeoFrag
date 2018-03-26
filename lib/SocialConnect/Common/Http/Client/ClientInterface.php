@@ -20,7 +20,7 @@ interface ClientInterface
      * @param array $options
      * @return \SocialConnect\Common\Http\Response
      */
-    public function request($url, array $parameters = array(), $method = Client::GET, array $headers = array(), array $options = array());
+    public function request($url, array $parameters = [], $method = Client::GET, array $headers = [], array $options = []);
 
     /**
      * @param Request $request

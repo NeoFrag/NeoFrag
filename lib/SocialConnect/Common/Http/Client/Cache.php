@@ -6,7 +6,7 @@
 
 namespace SocialConnect\Common\Http\Client;
 
-class Cache implements ClientInterface
+class Cache extends Client
 {
     /**
      * @var Client
@@ -19,34 +19,22 @@ class Cache implements ClientInterface
     protected $cache;
 
     /**
-     * @var int
-     */
-    protected $lifetime;
-
-    /**
      * @param Client $client
      * @param \Doctrine\Common\Cache\Cache $cache
-     * @param int $lifetime
      */
-    public function __construct(Client $client, \Doctrine\Common\Cache\Cache $cache, $lifetime = 3600)
+    public function __construct(Client $client, \Doctrine\Common\Cache\Cache $cache)
     {
         $this->client = $client;
         $this->cache = $cache;
-        $this->lifetime = (int) $lifetime;
     }
 
     /**
-     * @param string $method
      * @param string $url
      * @param array $parameters
      * @return string|null
      */
-    protected function makeCacheKey($method, $url, array $parameters = array())
+    protected function makeCacheKey($url, array $parameters = array())
     {
-        if ($method != Client::GET) {
-            return null;
-        }
-
         $cacheKey = $url;
 
         if ($parameters) {
@@ -55,23 +43,35 @@ class Cache implements ClientInterface
             }
         }
 
-        return $cacheKey;
+        return 'sc:' . md5($cacheKey);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function request($url, array $parameters = array(), $method = Client::GET, array $headers = array(), array $options = array())
     {
-        $key = $this->makeCacheKey($method, $url, $parameters);
-        if ($key) {
-            if ($this->cache->contains($key)) {
-                return $this->cache->fetch($key);
+        if ($method != Client::GET) {
+            return $this->client->request($url, $parameters, $method, $headers, $options);
+        }
+
+        $key = $this->makeCacheKey($url, $parameters);
+        if ($key && $this->cache->contains($key)) {
+            return $this->cache->fetch($key);
+        }
+
+        $response = $this->client->request($url, $parameters, $method, $headers, $options);
+        $noCache = $response->hasHeader('Pragma') && $response->getHeader('Pragma') == 'no-cache';
+
+        if (!$noCache && $response->hasHeader('Expires')) {
+            $expires = new \DateTime($response->getHeader('Expires'));
+            $lifeTime = $expires->getTimestamp() - time() - 60;
+
+            if ($key) {
+                $this->cache->save($key, $response, $lifeTime);
             }
         }
 
-        $result = $this->client->request($url, $parameters, $method, $headers, $options);
-        if ($key) {
-            $this->cache->save($key, $result, $this->lifetime);
-        }
-
-        return $result;
+        return $response;
     }
 }
