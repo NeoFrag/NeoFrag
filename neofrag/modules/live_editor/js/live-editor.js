@@ -524,9 +524,11 @@ $(function(){
 			
 			if (match = $col.prop('class').match(/col-md-(\d{1,2})/)){
 				var size = Math.max(1, Math.min(12, parseInt(match[1])+parseInt($(this).data('size'))));
-
-				$col.switchClass('col-md-'+match[1], 'col-md-'+size, 200);
 				
+				if (match[1] != size){
+					$col.switchClass('col-md-'+match[1], 'col-md-'+size, 200);
+				}
+					
 				$('.live-editor-save').show();
 				
 				$.post('<?php echo url('ajax/live-editor/col-size'); ?>', {
