@@ -75,6 +75,13 @@ function parse_size($size)
 	}
 }
 
+function human_size($bytes, $decimals = 2)
+{
+	$size = 'KMGTP';
+	$factor = floor((strlen($bytes) - 1) / 3);
+	return sprintf('%.'.$decimals.'f', $bytes / pow(1024, $factor)).' '.@$size[$factor - 1].'o';
+}
+
 function image_resize($filename, $width, $height = NULL)
 {
 	$info = getimagesize($filename);
