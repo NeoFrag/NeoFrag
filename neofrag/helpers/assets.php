@@ -67,7 +67,7 @@ function path($file, $file_type = '', $caller = NULL)
 		return $file;
 	}
 
-	if (!in_array($file_type, ['images', 'css', 'js']))
+	if (!in_array($file_type, ['images', 'css', 'js', 'fonts']))
 	{
 		return url($file_type.'/'.$file);
 	}
