@@ -140,17 +140,17 @@ abstract class Module extends Addon
 
 	public function is_authorized()
 	{
-		static $allowed;
+		static $allowed = [];
 
-		if ($allowed === NULL)
+		if (!array_key_exists($hash = spl_object_hash($this), $allowed))
 		{
-			$allowed = FALSE;
+			$allowed[$hash] = FALSE;
 
 			if ($this->is_administrable())
 			{
 				if ($this->user->admin)
 				{
-					$allowed = TRUE;
+					$allowed[$hash] = TRUE;
 				}
 				else if (isset($this->groups($this->user->id)[1]) && ($all_permissions = $this->get_permissions('default')))
 				{
@@ -160,7 +160,7 @@ abstract class Module extends Addon
 						{
 							if (!empty($access['admin']) && $this->access($this->name, $action))
 							{
-								$allowed = TRUE;
+								$allowed[$hash] = TRUE;
 								break 2;
 							}
 						}
@@ -169,6 +169,6 @@ abstract class Module extends Addon
 			}
 		}
 
-		return $allowed;
+		return $allowed[$hash];
 	}
 }
