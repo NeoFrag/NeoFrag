@@ -22,6 +22,11 @@ abstract class Library extends NeoFrag
 		});
 	}
 
+	public function __wakeup()
+	{
+		$this->__caller = NeoFrag();
+	}
+
 	public function __id($id = NULL)
 	{
 		static $_id      = [];
