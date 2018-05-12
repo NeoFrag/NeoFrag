@@ -11,6 +11,7 @@ use NF\NeoFrag\Library;
 class View extends Library
 {
 	protected $_name;
+	protected $_path;
 	protected $_data;
 
 	public function __invoke($name, $data = [])
@@ -47,11 +48,16 @@ class View extends Library
 
 		if ($path = $this->__caller->__path('views', $this->_name.'.tpl.php', $paths))
 		{
-			return $this->content(file_get_contents($path), $this->_data);
+			return $this->content(file_get_contents($this->_path = $path), $this->_data);
 		}
 
 		trigger_error('Unfound view: '.$this->_name.' in paths ['.implode(';', $paths).']', E_USER_WARNING);
 
 		return '';
+	}
+
+	public function path()
+	{
+		return $this->_path;
 	}
 }
