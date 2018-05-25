@@ -15,6 +15,10 @@ function icon($icon)
 	{
 		return '<i class="fa fa-fw fa-'.$match[1].'"></i>';
 	}
+	else if (preg_match('/^pe-7s-.+/', $icon, $match))
+	{
+		return '<i class="'.$match[0].'"></i>';
+	}
 
 	return '<i class="fa">'.$icon.'</i>';
 }
