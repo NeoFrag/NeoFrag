@@ -12,8 +12,7 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle($this->lang('Préférences générales'))
+		$this	->subtitle($this->lang('Préférences générales'))
 				->icon('fa-cog');
 
 		$modules = $pages = [];
@@ -107,22 +106,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading($this->lang('Préférences générales'), 'fa-cog')
 								->body($this->form()->display())
-					)
-					->size('col-9')
-		);
+			);
+		});
 	}
 
 	public function registration()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle('Gestions des inscriptions')
+		$this	->subtitle('Gestions des inscriptions')
 				->icon('fa-sign-in fa-rotate-90');
 
 		$users = $this->db	->select('id as user_id', 'username')
@@ -210,21 +204,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading('Gestions des inscriptions', 'fa-sign-in fa-rotate-90')
-								->body($this->form()->display()))
-					->size('col-9')
-		);
+								->body($this->form()->display())
+			);
+		});
 	}
 
 	public function team()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle('Notre structure')
+		$this	->subtitle('Notre structure')
 				->icon('fa-users');
 
 		$this	->form()
@@ -282,22 +272,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading('Notre structure', 'fa-users')
 								->body($this->form()->display())
-					)
-					->size('col-9')
-		);
+			);
+		});
 	}
 
 	public function socials()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle('Réseaux sociaux')
+		$this	->subtitle('Réseaux sociaux')
 				->icon('fa-globe');
 
 		$this	->form()
@@ -390,22 +375,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading('Réseaux sociaux', 'fa-globe')
 								->body($this->form()->display())
-					)
-					->size('col-9')
-		);
+			);
+		});
 	}
 
 	public function captcha()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle('Sécurité anti-bots')
+		$this	->subtitle('Sécurité anti-bots')
 				->icon('fa-shield');
 
 		$this	->form()
@@ -436,22 +416,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading('Configuration de Google reCAPTCHA', 'fa-shield')
 								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form()->display())
-					)
-					->size('col-9')
-		);
+			);
+		});
 	}
 
 	public function email()
 	{
-		$this	->title($this->lang('Configuration'))
-				->subtitle('Serveur e-mail')
+		$this	->subtitle('Serveur e-mail')
 				->icon('fa-envelope-o');
 
 		$this	->form()
@@ -501,21 +476,17 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col($this->panel()->body($this->view('menu'), FALSE))
-					->size('col-3'),
-			$this->col(
-						$this	->panel()
+		return $this->_layout(function($col){
+			$col->append($this	->panel()
 								->heading('Serveur e-mail', 'fa-envelope-o')
 								->body($this->form()->display())
-					)
-					->size('col-9')
-		);
+			);
+		});
 	}
 
 	public function maintenance()
 	{
-		$this	->title($this->lang('Maintenance'))
+		$this	->subtitle($this->lang('Maintenance'))
 				->icon('fa-power-off')
 				->css('maintenance')
 				->js('maintenance');
@@ -668,22 +639,72 @@ class Admin extends Controller_Module
 			refresh();
 		}
 
-		return $this->row(
-			$this	->col(
-						$this	->panel()
-								->heading($this->lang('Statut du site'), 'fa-power-off')
-								->body($this->view('maintenance')),
-						$this	->panel()
-								->heading($this->lang('Ouverture programmée'), 'fa-clock-o')
-								->body($form_opening->display())
-					)
-					->size('col-3'),
-			$this	->col(
-						$this	->panel()
+		return $this->_layout(function($right, $left) use ($form_maintenance, $form_opening){
+			$right->append($this	->panel()
 								->heading($this->lang('Personnalisation de la page de maintenance'), 'fa-paint-brush')
 								->body($form_maintenance->display())
+			);
+
+			$left	->append($this	->panel()
+								->heading($this->lang('Statut du site'), 'fa-power-off')
+								->body($this->view('maintenance'))
 					)
-					->size('col-9')
+					->append($this	->panel()
+									->heading($this->lang('Ouverture programmée'), 'fa-clock-o')
+									->body($form_opening->display())
+					);
+		});
+	}
+
+	protected function _layout($callback)
+	{
+		$menu = $this->widget('navigation')->output('vertical', [
+			'links' => [
+				[
+					'title' => 'Préférences générales',
+					'icon'  => 'fa-cog',
+					'url'   => 'admin/settings'
+				],
+				[
+					'title' => 'Maintenance',
+					'icon'  => 'fa-power-off',
+					'url'   => 'admin/settings/maintenance'
+				],
+				[
+					'title' => 'Gestions des inscriptions',
+					'icon'  => 'fa-sign-in fa-rotate-90',
+					'url'   => 'admin/settings/registration'
+				],
+				[
+					'title' => 'Notre structure',
+					'icon'  => 'fa-users',
+					'url'   => 'admin/settings/team'
+				],
+				[
+					'title' => 'Réseaux sociaux',
+					'icon'  => 'fa-globe',
+					'url'   => 'admin/settings/socials'
+				],
+				[
+					'title' => 'Sécurité anti-bots',
+					'icon'  => 'fa-shield',
+					'url'   => 'admin/settings/captcha'
+				],
+				/*[
+					'title' => 'Serveur e-mail',
+					'icon'  => 'fa-envelope-o',
+					'url'   => 'admin/settings/email'
+				]*/
+			]
+		]);
+
+		$row = $this->row(
+			$left  = $this->col($menu)->size('col-3'),
+			$right = $this->col()->size('col-9')
 		);
+
+		$callback($right, $left);
+
+		return $row;
 	}
 }
