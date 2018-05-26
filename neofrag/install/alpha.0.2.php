@@ -283,5 +283,9 @@ class i_0_2 extends NeoFrag
 		//Comment
 		$this->db	->execute('ALTER TABLE `nf_comments` CHANGE `comment_id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT')
 					->execute('RENAME TABLE `nf_comments` TO `nf_comment`');
+
+		//Admin
+		$this->db	->where('widget_id', 1)
+					->delete('nf_widgets');
 	}
 }

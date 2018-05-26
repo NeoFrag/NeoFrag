@@ -90,14 +90,7 @@ class Admin extends Controller_Module
 				)
 			),
 			$this->row(
-				$this	->col(
-							$this	->widget(1),
-							$this	->panel()
-									->heading('<a href="https://neofr.ag">'.$this->lang('Actualité NeoFrag CMS').'</a>', 'fa-newspaper-o')
-									->body($this->view('nf_news'))
-
-						)
-						->size('col-8'),
+				$this->col($this->widget('talks')->output('index', ['talk_id' => 1]))->size('col-8'),
 				$this	->col(
 							$this	->panel()
 									->heading($this->lang('Utilisateurs connectés'), 'fa-globe')
@@ -117,66 +110,10 @@ class Admin extends Controller_Module
 
 	public function help($module_name, $method)
 	{
-		$this->ajax();
-
-		if (($module = $this->module($module_name)) && ($help = $module->controller('admin_help')) && $help->has_method($method))
+		if (($module = $this->module($module_name)) && ($help = @$module->controller('admin_help')) && $help->has_method($method))
 		{
+			$this->ajax();
 			return call_user_func_array([$help, $method]);
 		}
-	}
-
-	public function about()
-	{
-		$this->title($this->lang('À propos'))->subtitle('NeoFrag CMS '.NEOFRAG_VERSION);
-
-		return $this->row(
-			$this->col(
-				$this	->panel()
-						->heading($this->lang('Licence LGPL v3'))
-						->body($this->view('license'))
-						->size('col-12 col-lg-8')
-			),
-			$this->col(
-				$this	->panel()
-						->heading($this->lang('L\'équipe'))
-						->body('	<div class="row">
-										<div class="col-6 text-center">
-											<p><img src="https://neofr.ag/images/team/foxley.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
-											<div><b>Michaël BILCOT "FoxLey"</b></div>
-											<span class="text-muted">'.$this->lang('Développeur web').'</span>
-										</div>
-										<div class="col-6 text-center">
-											<p><img src="https://neofr.ag/images/team/eresnova.jpg" class="rounded-circle" style="max-width: 100px;" alt="" /></p>
-											<div><b>Jérémy VALENTIN "eResnova"</b></div>
-											<span class="text-muted">'.$this->lang('Web designer').'</span>
-										</div>
-									</div>')
-						->size('col-12 col-lg-4')
-			)
-		);
-	}
-
-	public function notifications()
-	{
-		$this	->title($this->lang('Notifications'))
-				->icon('fa-flag');
-
-		return $this->panel()
-					->heading($this->lang('Notifications'), 'fa-flag')
-					->body($this->lang('Cette fonctionnalité n\'est pas disponible pour l\'instant'))
-					->color('info')
-					->size('col-12');
-	}
-
-	public function database()
-	{
-		$this	->title($this->lang('Base de données'))
-				->icon('fa-database');
-
-		return $this->panel()
-					->heading($this->lang('Base de données'), 'fa-database')
-					->body($this->lang('Cette fonctionnalité n\'est pas disponible pour l\'instant'))
-					->color('info')
-					->size('col-12');
 	}
 }
