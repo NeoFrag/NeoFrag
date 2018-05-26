@@ -10,7 +10,7 @@ use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
 
 class Admin extends Controller_Module
 {
-	public function index($objects, $modules, $tab)
+	public function index($objects, $modules, $index)
 	{
 		if (!$modules)
 		{
@@ -21,13 +21,15 @@ class Admin extends Controller_Module
 
 		$this->js('access');
 
+		$tab = $this->tab;
+
 		foreach ($modules as $module_name => $module)
 		{
 			list($module, $icon, $type, $all_access) = $module;
 
 			$title = $module->info()->title;
 
-			$this->tab->add_tab($module_name, icon($icon).' '.$module->info()->title, function() use ($objects, $title, $module, $type, $all_access){
+			$tab->add_tab($module_name, icon($icon).' '.$module->info()->title, function() use ($objects, $title, $module, $type, $all_access){
 				$this	->subtitle($title)
 						->table()
 						->add_columns([
@@ -78,7 +80,7 @@ class Admin extends Controller_Module
 			});
 		}
 
-		return $this->panel()->body($this->tab->display($tab));
+		return $this->panel()->body($tab->display($index));
 	}
 
 	public function _edit($module, $type, $access, $id, $title = NULL)
