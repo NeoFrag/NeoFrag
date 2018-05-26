@@ -307,5 +307,15 @@ class i_0_2 extends NeoFrag
 			$this->db	->where('widget_id', $nav['widget_id'])
 						->update('nf_widgets', $values);
 		}
+
+		//Copyright
+		$this->config('nf_copyright', utf8_htmlentities('Copyright {copyright} {year} {name}, tous droits réservés <div class="pull-right">Propulsé par {neofrag}</div>'));
+		$this->db->insert('nf_addon', [
+			'type_id' => 3,
+			'name'    => 'copyright',
+			'data'    => serialize([
+				'enabled' => TRUE
+			])
+		]);
 	}
 }
