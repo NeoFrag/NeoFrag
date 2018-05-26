@@ -656,6 +656,38 @@ class Admin extends Controller_Module
 		});
 	}
 
+	public function copyright()
+	{
+		return $this->subtitle('Copyright')
+					->icon('fa-copyright')
+					->_layout(function($col){
+						$col->append($this	->form2()
+											->info($this->html()
+														->attr('class', 'alert alert-primary')
+														->content('	<h5 class="alert-heading">Mots magiques</h5>
+																	<dl>
+																		<dt>Lien vers NeoFrag</dt>
+																			<dd>{neofrag}</dd>
+																		<dt>Nom du site</dt>
+																			<dd>{name}</dd>
+																		<dt>Symbole '.icon('fa-copyright').'</dt>
+																			<dd>{copyright}</dd>
+																		<dt>Année</dt>
+																			<dd>{year}</dd>
+																	</dl>')
+											)
+											->rule('copyright', 'Copyright', $this->config->nf_copyright)
+											->success(function($data){
+												$this->config('nf_copyright', $data['copyright']);
+												notify('Copyright modifié');
+												refresh();
+											})
+											->panel()
+											->title('Copyright')
+						);
+					});
+	}
+
 	protected function _layout($callback)
 	{
 		$menu = $this->widget('navigation')->output('vertical', [
@@ -694,7 +726,12 @@ class Admin extends Controller_Module
 					'title' => 'Serveur e-mail',
 					'icon'  => 'fa-envelope-o',
 					'url'   => 'admin/settings/email'
-				]*/
+				],*/
+				[
+					'title' => 'Copyright',
+					'icon'  => 'fa-copyright',
+					'url'   => 'admin/settings/copyright'
+				]
 			]
 		]);
 

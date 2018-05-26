@@ -297,11 +297,8 @@ class Default_ extends Theme
 			$this->row(
 					$this->col(
 						$this	->panel_widget($this->db->insert('nf_widgets', [
-									'widget'   => 'html',
-									'type'     => 'index',
-									'settings' => serialize([
-										'content' => utf8_htmlentities($this->lang('[center]Propulsé par [url=https://neofr.ag]NeoFrag CMS[/url] version '.NEOFRAG_VERSION.'[/center]'))
-									])
+									'widget'   => 'copyright',
+									'type'     => 'index'
 								]))
 								->style('panel-dark')
 					)
