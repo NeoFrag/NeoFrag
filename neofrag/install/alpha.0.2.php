@@ -10,6 +10,49 @@ class i_0_2 extends NeoFrag
 	{
 		$this->load = NeoFrag();
 
+		$this	->network('https://neofrag.download')
+				->stream($file = 'cache/monitoring/neofrag.zip');
+
+		if ($zip = zip_open($file))
+		{
+			while ($zip_entry = zip_read($zip))
+			{
+				if (preg_match('#^('.implode('|', ['addons/', 'css/', 'fonts/', 'images/', 'js/', 'config/neofrag.php']).')#', $entry_name = zip_entry_name($zip_entry)))
+				{
+					if (substr($entry_name, -1) == '/')
+					{
+						dir_create($entry_name);
+					}
+					else if (zip_entry_open($zip, $zip_entry, 'r'))
+					{
+						file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+					}
+				}
+
+				zip_entry_close($zip_entry);
+			}
+
+			zip_close($zip);
+		}
+
+		@unlink($file);
+
+		@mkdir('logs', 0775, TRUE);
+
+		foreach ([
+				'authenticators',
+				'neofrag/classes',
+				'neofrag/databases',
+				'neofrag/lang',
+				'neofrag/modules',
+				'neofrag/themes',
+				'neofrag/views/comments',
+				'neofrag/widgets'
+			] as $dir)
+		{
+			dir_remove($dir);
+		}
+
 		$this->db	->where('name', 'error')
 					->delete('nf_settings_addons');
 
