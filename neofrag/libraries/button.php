@@ -34,7 +34,7 @@ class Button extends Label
 
 	public function __invoke()
 	{
-		parent::__invoke();
+		call_user_func_array('parent::__invoke', func_get_args());
 
 		$this->_template[] = function(&$content, &$attrs, &$tag){
 			foreach ($this->_data as $key => $value)
