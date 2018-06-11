@@ -176,6 +176,12 @@ class NeoFrag
 		trigger_error('Call to undefined method '.get_class($this).'::'.$name.'()', E_USER_WARNING);
 	}
 
+	public function exec($callback)
+	{
+		$callback($this);
+		return $this;
+	}
+
 	public function __debugInfo()
 	{
 		$properties = [];
