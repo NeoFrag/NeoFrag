@@ -62,4 +62,63 @@ class Admin extends Controller_Module
 					->size('col-8 col-lg-9')
 		);
 	}
+
+	public function update()
+	{
+		$this->theme('admin')->js('update');
+
+		return $this->modal('Mise à jour de NeoFrag', 'fa-rocket')
+					->set_id('modal-update')
+					->body('<div class="update-features">
+								'.$version->features.'
+							</div>
+							<hr />
+							<div class="steps-body text-center">
+								<div class="row" style="padding: 0 110px;">
+									<div class="col-md-4">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="50,50"></div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="100"></div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" data-step="95,5"></div>
+										</div>
+									</div>
+								</div>
+								<div class="row steps-legends">
+									<div class="col-md-3">
+										<div class="step">
+											'.icon('fa-refresh').'
+										</div>
+										<span class="span-legend">Lancement</span>
+									</div>
+									<div class="col-md-3">
+										<div class="step">
+											'.icon('fa-floppy-o').'
+										</div>
+										<span class="span-legend">Sauvegarde</span>
+									</div>
+									<div class="col-md-3">
+										<div class="step">
+											'.icon('fa-arrow-circle-o-down').'
+										</div>
+										<span class="span-legend">Téléchargement</span>
+									</div>
+									<div class="col-md-3">
+										<div class="step">
+											'.icon('fa-cog').'
+										</div>
+										<span class="span-legend">Installation</span>
+									</div>
+								</div>
+							</div>')
+					->submit('Lancer la mise à jour')
+					->cancel();
+	}
 }
