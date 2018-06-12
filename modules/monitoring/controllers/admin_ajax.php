@@ -32,7 +32,7 @@ class Admin_Ajax extends Controller_Module
 
 			foreach (['version', 'checksum'] as $file)
 			{
-				if ($$file = $this	->network('https://neofr.ag/'.$file.'.json')
+				if ($$file = $this	->network('https://neofr.ag/'.$file.'.json?v='.version_format(NEOFRAG_VERSION).($this->config->nf_update_beta ? '&beta=1' : ''))
 									->type('text')
 									->get())
 				{
@@ -178,7 +178,7 @@ class Admin_Ajax extends Controller_Module
 
 							$tags = [];
 
-							if (!preg_match('#^(?:backups|cache|config|overrides|upload)/#', $dir))
+							if (!preg_match('#^(?:backups|cache|config|logs|overrides|upload)/#', $dir))
 							{
 								if ($nf_md5 === '')
 								{
@@ -308,91 +308,82 @@ class Admin_Ajax extends Controller_Module
 
 	public function update()
 	{
-		$this->_stream(function(){
-			$this->_backup();
+		if ($version = $this->theme('admin')->update())
+		{
+			$this->_stream(function() use ($version){
+				$this->_backup();
 
-			dir_create('cache/monitoring');
+				dir_create('cache/monitoring');
 
-			$this	->network('https://neofrag.download')
-					->stream($file = 'cache/monitoring/neofrag.zip', function($size, $total){
-						$this->_flush(2, $size / $total * 100);
-					});
+				$this	->network('https://neofrag.download/?v='.version_format($version->version))
+						->stream($file = 'cache/monitoring/neofrag.zip', function($size, $total){
+							$this->_flush(2, $size / $total * 100);
+						});
 
-			$scan_zip = function($callback) use ($file){
-				if ($zip = zip_open($file))
-				{
-					while ($zip_entry = zip_read($zip))
+				$scan_zip = function($callback) use ($file){
+					if ($zip = zip_open($file))
 					{
-						if (preg_match($a = '#^('.implode('|', array_merge(array_map(function($a){ return $a.'/'; }, array_diff($this->model()->folders, ['config'])), ['index.php', '.htaccess'])).')#', $entry_name = zip_entry_name($zip_entry)))
+						while ($zip_entry = zip_read($zip))
 						{
-							if (substr($entry_name, -1) == '/')
-							{
-								dir_create($entry_name);
-							}
-							else if (zip_entry_open($zip, $zip_entry, 'r'))
+							$entry_name = zip_entry_name($zip_entry);
+
+							if (preg_match('#/|^index.php$#', $entry_name) && (!preg_match('#^config/#', $entry_name) || !file_exists($entry_name)) && zip_entry_open($zip, $zip_entry, 'r'))
 							{
 								$callback($zip_entry, $entry_name);
 							}
+
+							zip_entry_close($zip_entry);
 						}
 
-						zip_entry_close($zip_entry);
+						zip_close($zip);
 					}
-				}
+				};
 
-				zip_close($zip);
-			};
+				$files = [];
 
-			$files = [];
-
-			$scan_zip(function($zip_entry, $entry_name) use (&$files){
-				$files[] = $entry_name;
-			});
-
-			if ($total = count($files))
-			{
-				$scan_zip(function($zip_entry, $entry_name) use ($total){
-					static $i = 0;
-					$this->_flush(3, ++$i / $total * 100);
-					file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+				$scan_zip(function($zip_entry, $entry_name) use (&$files){
+					$files[] = $entry_name;
 				});
 
-				unlink($file);
-
-				foreach (array_diff(array_keys(dir_scan('neofrag')), array_filter($files, function($a){
-					return preg_match('_^neofrag/_', $a);
-				})) as $file)
+				if ($total = count($files))
 				{
+					$scan_zip(function($zip_entry, $entry_name) use ($total){
+						static $i = 0;
+						$this->_flush(3, ++$i / $total * 100);
+
+						if (substr($entry_name, -1) != '/')
+						{
+							dir_create(preg_replace('#/[^/]+$#', '', $entry_name));
+							file_put_contents($entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+						}
+					});
+
 					unlink($file);
+
+					foreach (array_diff(array_keys(dir_scan('neofrag')), array_filter($files, function($a){
+						return preg_match('_^neofrag/_', $a);
+					})) as $file)
+					{
+						unlink($file);
+					}
+
+					if (!$this->config->nf_version)
+					{
+						$this->config('nf_version', version_format(NEOFRAG_VERSION));
+					}
+
+					if ($patch = @NeoFrag()->install(preg_replace('/[^a-z0-9]/i', '_', $version->version)))
+					{
+						$patch->up();
+					}
+
+					$this->_flush(4, 100);
+
+					$this	->config('nf_version', version_format($version->version))
+							->config('nf_monitoring_last_check', 0);
 				}
-
-				$patchs = array_map('version_format', dir_scan('neofrag/install'));
-
-				if (!$this->config->nf_version)
-				{
-					$this->config('nf_version', version_format(NEOFRAG_VERSION));
-				}
-
-				$total = count($patchs = array_filter($patchs, function($a){
-					return version_compare($a, $this->config->nf_version, '>');
-				}));
-
-				uasort($patchs, 'version_compare');
-
-				$i = 0;
-
-				foreach ($patchs as $path => $version)
-				{
-					$class = 'i_'.str_replace('.', '_', $version);
-					include_once $path;
-					$install = new $class;
-					$install->up();
-					$this->_flush(4, ++$i / $total * 100);
-				}
-
-				$this	->config('nf_version', end($patchs))
-						->config('nf_monitoring_last_check', 0);
-			}
-		});
+			});
+		}
 	}
 
 	private function _flush($step, $value)
