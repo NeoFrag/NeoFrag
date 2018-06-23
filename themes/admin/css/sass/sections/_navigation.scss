@@ -1,0 +1,120 @@
+nav {
+	background: #fff;
+	border-bottom: 1px solid #ebebeb;
+	box-sizing: content-box;
+	height: 71px;
+
+	ul {
+		margin: 0;
+
+		li {
+			border-right: 1px solid #ebebeb;
+			float: left;
+			position: relative;
+
+			//Bouton Home
+			&:first-child {
+				position: absolute;
+				right: 0;
+				border: 0;
+
+				a {
+					background: $secondary;
+					color: #fff;
+
+					[class^="pe-7s-"], [class*=" pe-7s-"] {
+						vertical-align: middle;
+					}
+				}
+			}
+
+			a {
+				color: #2b373a;
+				display: block;
+				font-size: 14px;
+				font-weight: 700;
+				line-height: 71px;
+				padding: 0 30px;
+				text-transform: uppercase;
+				transition: all .15s ease-in-out;
+
+				&.active {
+					color: $primary !important;
+				}
+
+				&:hover {
+					background: $primary;
+					color: #fff !important;
+				}
+
+				[class^="pe-7s-"], [class*=" pe-7s-"] {
+					font-size: 28px;
+					vertical-align: text-bottom;
+				}
+			}
+		}
+	}
+
+	.socials {
+		position: absolute;
+		right: 103px;
+		line-height: 71px;
+		height: 71px;
+
+		.btn {
+			background: #b2b2b2;
+			border-radius: 50%;
+			color: #fff;
+			font-size: 22px;
+			line-height: 38px;
+			height: 40px;
+			padding: 0;
+			position: relative;
+			width: 40px;
+			transition: all .15s ease-in-out;
+
+			+ .btn {
+				margin-left: 15px;
+			}
+
+			&:hover {
+				background: $primary !important;
+				outline: none;
+
+				&.facebook {
+					background: #4267b2 !important;
+				}
+
+				&.twitter {
+					background: #1da1f2 !important;
+				}
+
+				&.github {
+					background: #24292e !important;
+				}
+			}
+
+			&[type="submit"] {
+				z-index: 2;
+			}
+		}
+
+		[type="text"] {
+			border: 1px solid #ebebeb;
+			border-radius: 200px;
+			height: 42px;
+			line-height: 42px;
+			padding: 0;
+			position: absolute;
+			top: 17px;
+			right: 1px;
+			width: 40px;
+			transition: width .150s;
+
+			&.open {
+				padding: 0 60px 0 20px;
+				width: 250px;
+			}
+		}
+	}
+}

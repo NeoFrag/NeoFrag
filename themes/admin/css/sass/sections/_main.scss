@@ -1,0 +1,31 @@
+main {
+	padding: 0 !important;
+
+	@import '_navigation';
+
+	header {
+		h1 {
+			font-weight: 700;
+
+			.fa {
+				color: $primary;
+			}
+
+			small {
+				margin-left: 10px;
+				font-weight: 600;
+				font-size: 21px;
+			}
+		}
+
+		.actions {
+			float: right;
+
+			.btn {
+				+.btn {
+					margin-left: 15px;
+				}
+			}
+		}
+	}
+}
