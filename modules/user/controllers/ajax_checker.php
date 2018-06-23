@@ -10,11 +10,42 @@ use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
 class Ajax_Checker extends Module_Checker
 {
-	public function _member($user_id, $username)
+	public function _member($id, $username)
 	{
-		if ($user = $this->model()->check_user($user_id, $username))
+		if ($user = NeoFrag()->model2('user', $id)->check($username))
 		{
-			return $user;
+			return [$user];
+		}
+	}
+
+	public function login()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function register()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function lost_password()
+	{
+		$this->error_if($this->user());
+
+		return [];
+	}
+
+	public function _lost_password($token)
+	{
+		$this->error_if($this->user());
+
+		if ($token = $this->model2('token', $token))
+		{
+			return [$token];
 		}
 	}
 }

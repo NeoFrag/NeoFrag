@@ -13,7 +13,7 @@ class User extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => $this->lang('Espace membre'),
+			'title'       => 'Utilisateur',
 			'description' => '',
 			'icon'        => 'fa-user',
 			'link'        => 'https://neofr.ag',
@@ -23,6 +23,7 @@ class User extends Module
 			'routes'      => [
 				//Index
 				'sessions{pages}'                        => 'sessions',
+				'auth{pages}'                            => '_auth',
 				'sessions/delete/{key_id}'               => '_session_delete',
 				'messages{pages}'                        => '_messages_inbox',
 				'messages/sent{pages}'                   => '_messages_sent',
@@ -30,16 +31,12 @@ class User extends Module
 				'messages/{id}/{url_title}'              => '_messages_read',
 				'messages/compose(?:/{id}/{url_title})?' => '_messages_compose',
 				'messages/delete/{id}/{url_title}'       => '_messages_delete',
-				'lost-password/{key_id}'                 => '_lost_password',
-				'auth/{url_title}'                       => '_auth',
 				'{id}/{url_title}'                       => '_member',
 				'ajax/{id}/{url_title}'                  => '_member',
+				'ajax/lost-password/{url_title}'         => '_lost_password',
 
 				//Admin
 				'admin{pages}'                                   => 'index',
-				'admin/{id}/{url_title}'                         => '_edit',
-				'admin/ban'                                      => '_ban',
-				'admin/ban/{id}/{url_title}'                     => '_ban',
 				'admin/groups/add'                               => '_groups_add',
 				'admin/groups/edit/(admins|members|visitors)'    => '_groups_edit',
 				'admin/groups/edit/{url_title}-{id}/{url_title}' => '_groups_edit',
@@ -50,7 +47,7 @@ class User extends Module
 				'admin/sessions/delete/{url_title}'              => '_sessions_delete'
 			],
 			'crud'        => [
-				'session_history'
+				'user'
 			]
 		];
 	}

@@ -12,24 +12,14 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->module->pagination->get_data($this->model()->get_members(), $page)];
+		return [NeoFrag()->collection('user')->paginate($page)];
 	}
 
-	public function _edit($user_id, $username)
+	public function edit($id, $username)
 	{
-		if ($this->model()->check_user($user_id, $username))
+		if ($user = NeoFrag()->model2('user', $id)->check($username))
 		{
-			return $this->model()->get_user_profile($user_id);
-		}
-	}
-
-	public function delete($user_id, $username)
-	{
-		$this->ajax();
-
-		if ($user = $this->model()->check_user($user_id, $username))
-		{
-			return $user;
+			return [$user];
 		}
 	}
 
@@ -64,16 +54,18 @@ class Admin_Checker extends Module_Checker
 
 	public function _sessions($page = '')
 	{
-		return [$this->module->pagination->get_data($this->model()->get_sessions(), $page)];
+		return [NeoFrag()->collection('session')->order_by('_.last_activity DESC')->paginate($page)];
 	}
 
 	public function _sessions_delete($session_id)
 	{
 		$this->ajax();
 
-		if ($session = $this->model()->check_session($session_id))
+		if ($this->db->select('1')->from('nf_session')->where('id', $session_id)->row())
 		{
-			return [$session['session_id'], $session['username']];
+			$this->ajax();
+
+			return [$session_id];
 		}
 	}
 }

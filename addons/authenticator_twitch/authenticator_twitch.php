@@ -39,18 +39,9 @@ class Authenticator_Twitch extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->_id,
-					'username'      => $data->display_name,
-					'email'         => $data->email,
-					'first_name'    => '',
-					'last_name'     => '',
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => '',
-					'location'      => '',
-					'signature'     => $data->bio,
-					'website'       => '',
-					'avatar'        => $data->logo
+					'id'       => $data->id,
+					'username' => $data->fullname,
+					'avatar'   => $data->logo
 				];
 			};
 		}

@@ -24,13 +24,6 @@ class Authenticator_Facebook extends Authenticator
 		];
 	}
 
-	public function config()
-	{
-		return array_merge(parent::config(), [
-			'scope' => ['public_profile', 'email']
-		]);
-	}
-
 	public function data(&$params = [])
 	{
 		if (!empty($_GET['code']) && !empty($_GET['state']))
@@ -39,18 +32,8 @@ class Authenticator_Facebook extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => $data->first_name.$data->last_name,
-					'email'         => $data->email,
-					'first_name'    => $data->first_name,
-					'last_name'     => $data->last_name,
-					'date_of_birth' => '',
-					'sex'           => $data->gender,
-					'language'      => preg_replace('/^(.+?)_/', '\1', $data->locale),
-					'location'      => '',
-					'signature'     => '',
-					'website'       => '',
-					'avatar'        => ''
+					'id'       => $data->id,
+					'username' => $data->fullname
 				];
 			};
 		}

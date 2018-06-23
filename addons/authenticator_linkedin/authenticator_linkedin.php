@@ -32,18 +32,9 @@ class Authenticator_Linkedin extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => $data->firstName.$data->lastName,
-					'email'         => $data->emailAddress,
-					'first_name'    => $data->firstName,
-					'last_name'     => $data->lastName,
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => '',
-					'location'      => '',
-					'signature'     => '',
-					'website'       => '',
-					'avatar'        => $data->pictureUrl
+					'id'       => $data->id,
+					'username' => $data->firstname.' '.$data->lastname,
+					'avatar'   => $data->picture
 				];
 			};
 		}

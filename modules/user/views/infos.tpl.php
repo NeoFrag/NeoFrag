@@ -1,14 +1,14 @@
-<ul class="list-inline m-0">
-	<li class="col-md-3">
+<div class="row">
+	<div class="col-4">
 		<b><?php echo $this->lang('Inscrit depuis le') ?></b><br />
-		<?php echo time_span($registration_date) ?>
-	</li>
-	<li class="col-md-3">
+		<?php echo $user->registration_date ?>
+	</div>
+	<div class="col-4">
 		<b><?php echo $this->lang('Dernière activité') ?></b><br />
-		<?php echo time_span($last_activity_date) ?>
-	</li>
-	<li class="col-md-6">
+		<?php echo $user->last_activity_date ?>
+	</div>
+	<div class="col-4">
 		<b><?php echo $this->lang('Groupes') ?></b><br />
-		<?php echo $groups ?>
-	</li>
-</ul>
+		<?php echo $user->groups() ?>
+	</div>
+</div>

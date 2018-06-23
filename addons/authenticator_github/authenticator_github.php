@@ -32,18 +32,9 @@ class Authenticator_Github extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => $data->login,
-					'email'         => $data->email,
-					'first_name'    => '',
-					'last_name'     => '',
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => '',
-					'location'      => $data->location,
-					'signature'     => $data->bio,
-					'website'       => stripslashes($data->blog),
-					'avatar'        => stripslashes($data->avatar_url)
+					'id'       => $data->id,
+					'username' => $data->username,
+					'avatar'   => $data->pictureURL
 				];
 			};
 		}

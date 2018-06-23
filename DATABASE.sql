@@ -1486,6 +1486,27 @@ INSERT INTO `nf_user` (`id`, `username`, `password`, `salt`, `email`, `registrat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nf_user_auth`
+--
+
+DROP TABLE IF EXISTS `nf_user_auth`;
+CREATE TABLE `nf_user_auth` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `authenticator_id` int(11) unsigned NOT NULL,
+  `key` varchar(100) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `avatar` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`authenticator_id`,`key`),
+  KEY `authenticator_id` (`authenticator_id`),
+  CONSTRAINT `nf_user_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_user_auth_ibfk_2` FOREIGN KEY (`authenticator_id`) REFERENCES `nf_addon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nf_user_profile`
 --
 
@@ -1510,18 +1531,16 @@ CREATE TABLE `nf_user_profile` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nf_users_auth`
+-- Table structure for table `nf_user_token`
 --
 
-DROP TABLE IF EXISTS `nf_users_auth`;
-CREATE TABLE `nf_users_auth` (
+DROP TABLE IF EXISTS `nf_user_token`;
+CREATE TABLE `nf_user_token` (
+  `id` varchar(32) NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
-  `authenticator` varchar(100) NOT NULL,
-  `id` varchar(250) NOT NULL,
-  PRIMARY KEY (`authenticator`,`id`),
+  PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `nf_users_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_users_auth_ibfk_2` FOREIGN KEY (`authenticator`) REFERENCES `nf_settings_authenticators` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_user_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1538,25 +1557,6 @@ CREATE TABLE `nf_users_groups` (
   KEY `group_id` (`group_id`),
   CONSTRAINT `nf_users_groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nf_users_groups_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `nf_groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nf_users_keys`
---
-
-DROP TABLE IF EXISTS `nf_users_keys`;
-CREATE TABLE `nf_users_keys` (
-  `key_id` varchar(32) NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `session_id` varchar(32) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`key_id`),
-  KEY `user_id` (`user_id`),
-  KEY `session_id` (`session_id`),
-  CONSTRAINT `nf_users_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nf_users_keys_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `nf_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
