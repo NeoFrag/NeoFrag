@@ -1,0 +1,30 @@
+body {
+	background: #f5f5f5;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+
+	> .container-fluid {
+		> .row {
+			min-height: 100vh;
+		}
+	}
+}
+
+a {
+	color: $primary;
+	font-weight: 600;
+
+	&:hover {
+		color: $primary-hover;
+	}
+}
+
+#logo {
+	.text {
+		fill: #fff;
+	}
+
+	.colored {
+		fill: $logo-color;
+	}
+}

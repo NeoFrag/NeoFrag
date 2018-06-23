@@ -10,12 +10,13 @@ use NF\NeoFrag\Addons\Theme;
 
 class Admin extends Theme
 {
+	public $data;
+
 	protected function __info()
 	{
 		return [
 			'title'       => 'Administration',
-			'description' => $this->lang('default_theme_description'),
-			'thumbnail'   => 'themes/default/images/thumbnail.png',
+			'description' => 'Panel d\'administration',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -25,12 +26,39 @@ class Admin extends Theme
 
 	public function __init()
 	{
+		if ($update_callback = $this->config->nf_update_callback)
+		{
+			$this->config('nf_update_callback', '');
+
+			foreach (unserialize($update_callback) as $patch)
+			{
+				NeoFrag()->install($patch)->post();
+			}
+
+			refresh();
+		}
+
+		$this	->css('bootstrap.min')
+				->css('fonts/open-sans')
+				->css('fonts/titillium-web')
+				->css('icons/Pe-icon-7-stroke')
+				->css('icons/font-awesome.min')
+				->css('style')
+				->js('jquery-3.2.1.min')
+				->js('popper.min')
+				->js('bootstrap.min')
+				->js('bootstrap-notify.min')
+				->js('modal')
+				->js('notify');
+
+		$this->data = $this->array;
+
 		$content_submenu = [
 			'default' => [],
 			'gaming'  => []
 		];
 
-		foreach ($this->model2('addon')->get('module') as $module)
+		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
 			if ($module->is_administrable($category) && $category != 'none' && $module->is_authorized())
 			{
@@ -48,148 +76,63 @@ class Admin extends Theme
 			});
 		});
 
-		if (file_exists($file = 'cache/monitoring/version.json'))
-		{
-			$version = json_decode(file_get_contents($file))->neofrag;
-
-			if (version_compare(version_format($version->version), version_format(NEOFRAG_VERSION), '>'))
-			{
-				$this->add_data('update', $version);
-				$this->js('update');
-			}
-		}
-
-		$this	->css('bootstrap.min')
-				->css('font-awesome.min')
-				->css('font-awesome-override')
-				->css('notify')
-				->css('font.open-sans.300.400.600.700.800')
-				->css('font.roboto.100.300.400.500.700.900')
-				->css('font.signika-negative.400.600')
-				->css('sb-admin-2')
-				->css('style')
-				->js('jquery-1.11.2.min')
-				->js('jquery-ui.min')
-				->js('metisMenu.min')
-				->js('navigation')
-				->js('slideout.min')
-				->js('popper.min')
-				->js('bootstrap.min')
-				->js('bootstrap-notify.min')
-				->js('notify')
-				->js('user')
-				->add_data('menu', [
-					[
-						'title' => $this->lang('Tableau de bord'),
-						'icon'  => 'fa-dashboard',
-						'url'   => 'admin'
-					],
-					[
-						'title' => $this->lang('Paramètres'),
-						'icon'  => 'fa-cogs',
-						'url'   => [
-							[
-								'title'  => $this->lang('Configuration'),
-								'icon'   => 'fa-wrench',
-								'url'    => 'admin/settings',
-								'access' => $this->user->admin
-							],
-							[
-								'title'  => $this->lang('Maintenance'),
-								'icon'   => 'fa-power-off',
-								'url'    => 'admin/settings/maintenance',
-								'access' => $this->user->admin
-							],
-							[
-								'title'  => $this->lang('Gestion des composants'),
-								'icon'   => 'fa-puzzle-piece',
-								'url'    => 'admin/addons',
-								'access' => $this->user->admin
-							]
-						]
-					],
-					[
-						'title' => $this->lang('Utilisateurs'),
-						'icon'  => 'fa-users',
-						'url'   => [
-							[
-								'title'  => 'Membres / Groupes',
-								'icon'   => 'fa-users',
-								'url'    => 'admin/user',
-								'access' => $this->user->admin
-							],
-							[
-								'title'  => $this->lang('Sessions'),
-								'icon'   => 'fa-globe',
-								'url'    => 'admin/user/sessions',
-								'access' => $this->user->admin
-							],
-							/*array(
-								'title' => 'Profil',
-								'icon'  => 'fa-user',
-								'url'   => 'admin/user'
-							),*/
-							[
-								'title'  => $this->lang('Permissions'),
-								'icon'   => 'fa-unlock-alt',
-								'url'    => 'admin/access',
-								'access' => $this->user->admin
-							],
-							[
-								'title'  => $this->lang('Bannissement'),
-								'icon'   => 'fa-bomb',
-								'url'    => 'admin/user/ban',
-								'access' => $this->user->admin
-							]
-						]
-					],
-					[
-						'title' => $this->lang('Contenu'),
-						'icon'  => 'fa-edit',
-						'url'   => $content_submenu['default']
-					],
-					[
-						'title' => 'Gaming',
-						'icon'  => 'fa-gamepad',
-						'url'   => $content_submenu['gaming']
-					],
-					[
-						'title' => $this->lang('Apparence'),
-						'icon'  => 'fa-paint-brush',
-						'url'   => [
-							[
-								'title'  => $this->lang('Thèmes'),
-								'icon'   => 'fa-tint',
-								'url'    => 'admin/addons#themes',
-								'access' => $this->user->admin
-							],
-							[
-								'title' => $this->lang('Live Editor'),
-								'icon'  => 'fa-desktop',
-								'url'   => 'live-editor',
-								'access' => $this->user->admin
-							]
-						]
-					],
-					[
-						'title'  => 'Monitoring'.$this->module('monitoring')->display(),
-						'icon'   => 'fa-heartbeat',
-						'url'    => 'admin/monitoring',
-						'access' => $this->user->admin
-					],
-					[
-						'title'  => 'Statistiques',
-						'icon'   => 'fa-bar-chart',
-						'url'    => 'admin/statistics',
-						'access' => $this->user->admin
-					],
-					[
-						'title'  => $this->lang('À propos'),
-						'icon'   => 'fa-info',
-						'url'    => 'admin/about',
-						'access' => $this->user->admin
+		$this->data->set('sidebar', [
+			'panel' => FALSE,
+			'links' => [
+				[
+					'title' => 'Tableau de bord',
+					'icon'  => 'fa-dashboard',
+					'url'   => 'admin'
+				],
+				[
+					'title' => 'Paramètres',
+					'icon'  => 'fa-cogs',
+					'url'   => 'admin/settings'
+				],
+				[
+					'title' => 'Thèmes & Addons',
+					'icon'  => 'fa-puzzle-piece',
+					'url'   => 'admin/addons'
+				],
+				[
+					'title' => 'Utilisateurs',
+					'icon'  => 'fa-users',
+					'url'   => [
+						['title' => 'Membres / Groupes',      'icon'  => 'fa-users',        'access' => $this->user->admin, 'url' => 'admin/user'],
+						['title' => 'Sessions',               'icon'  => 'fa-globe',        'access' => $this->user->admin, 'url' => 'admin/user/sessions'],
+						['title' => 'Permissions',            'icon'  => 'fa-unlock-alt',   'access' => $this->user->admin, 'url' => 'admin/access'],
+						//['title' => 'Bannissement',           'icon'  => 'fa-bomb',         'access' => $this->user->admin, 'url' => 'admin/user/ban']
 					]
-				]);
+				],
+				[
+					'title' => 'Contenu',
+					'icon'  => 'fa-edit',
+					'url'   => $content_submenu['default']
+				],
+				[
+					'title' => 'Gaming',
+					'icon'  => 'fa-gamepad',
+					'url'   => $content_submenu['gaming']
+				],
+				[
+					'title' => 'Live Editor',
+					'icon'  => 'fa-desktop',
+					'url'   => 'admin/live-editor'
+				],
+				[
+					'title'  => 'Monitoring'.$this->module('monitoring')->display(),
+					'icon'   => 'fa-heartbeat',
+					'access' => $this->user->admin,
+					'url'    => 'admin/monitoring'
+				],
+				[
+					'title' => 'Statistiques',
+					'icon'  => 'fa-bar-chart',
+					'access' => $this->user->admin,
+					'url'    => 'admin/statistics'
+				]
+			]
+		]);
 	}
 
 	public function styles_row()
@@ -200,5 +143,18 @@ class Admin extends Theme
 	public function styles_widget()
 	{
 		//Nothing to do
+	}
+
+	public function update()
+	{
+		if (file_exists($file = 'cache/monitoring/version.json'))
+		{
+			$version = json_decode(file_get_contents($file))->neofrag;
+
+			if (version_compare(version_format($version->version), version_format(NEOFRAG_VERSION), '>'))
+			{
+				return $version;
+			}
+		}
 	}
 }
