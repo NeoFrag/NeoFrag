@@ -31,12 +31,20 @@ class Index extends Controller_Widget
 						->css('auth_mini');
 			}
 
-			return $this->panel()
-						->heading($this->lang('Espace membre').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''))
-						->body($this->view('index', [
-							'form_id' => $this->form()->token('6e0fbe194d97aa8c83e9f9e6b5d07c66')
-						]))
-						->footer('<a href="'.url('user').'">'.icon('fa-sign-in  fa-rotate-90').' '.$this->lang('Créer un compte').'</a>');
+			return $this->module('user')
+						->form2('login')
+						->button_prepend($this	->button()
+												->title('Créer un compte')
+												->color('secondary')
+												->modal_ajax('ajax/user/register')
+						)
+						->button_prepend($this	->button()
+												->title('Mot de passe oublié ?')
+												->color('link')
+												->modal_ajax('ajax/user/lost-password')
+						)
+						->panel()
+						->title($this->lang('Espace membre').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''));
 		}
 	}
 

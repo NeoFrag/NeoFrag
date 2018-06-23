@@ -10,81 +10,69 @@ use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
 class Checker extends Module_Checker
 {
-	public function edit()
+	public function index()
 	{
-		if (!$this->user->id)
-		{
-			$this->error->unconnected();
-		}
+		$this->error->unconnected();
+
+		return [];
+	}
+
+	public function account($page = '')
+	{
+		$this->error->unconnected();
+
+		return [$this->user->sessions()->order_by('_.last_activity DESC')->paginate($page)];
+	}
+
+	public function profile()
+	{
+		$this->error->unconnected();
 
 		return [];
 	}
 
 	public function sessions($page = '')
 	{
-		if ($this->user->id)
-		{
-			return [$this->module->pagination->get_data($this->user->get_sessions_history(), $page)];
-		}
-
 		$this->error->unconnected();
+
+		return [NeoFrag()->collection('session_history')->where('_.user_id', $this->user->id)->order_by('_.date DESC')->paginate($page)];
 	}
 
 	public function _session_delete($session_id)
 	{
-		$this->ajax();
+		$this->error->unconnected();
 
-		if (!$this->user->id)
+		if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user->id)->where('id', $session_id)->row())
 		{
-			$this->error->unconnected();
-		}
-		else if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user->id)->where('id', $session_id)->row())
-		{
+			$this->ajax();
+
 			return [$session_id];
 		}
 	}
 
-	public function login($error = 0)
+	public function lost_password($token)
 	{
-		if ($this->user())
-		{
-			redirect('user');
-		}
+		$this->error_if($this->user());
 
-		return [$error];
-	}
-
-	public function _lost_password($key_id)
-	{
-		if ($this->user())
+		if (($token = $this->model2('token', $token)) && $token())
 		{
-			redirect('user');
-		}
-
-		if ($user_id = $this->model()->check_key($key_id))
-		{
-			return [$key_id, (int)$user_id];
+			return [$token];
 		}
 	}
 
-	public function _auth($provider)
+	public function auth($provider)
 	{
-		if ($this->user())
-		{
-			redirect('user');
-		}
-
-		$provider = str_replace('-', '_', strtolower($provider));
-
-		if (	($settings = $this->db	->select('settings')
-										->from('nf_settings_authenticators')
-										->where('name', $provider)
-										->where('is_enabled', TRUE)
-										->row()) &&
-				($authenticator = $this->authenticator($provider, TRUE, unserialize($settings))))
+		if (($authenticator = $this->authenticator(str_replace('-', '_', $provider))) && $authenticator->is_setup())
 		{
 			return [$authenticator];
 		}
+	}
+
+	public function _auth($page = '')
+	{
+		$this->error->unconnected();
+
+		return [$this->collection('auth')->where('_.user_id', $this->user->id)->order_by('_.id')->paginate($page)];
 	}
 
 	public function logout()
@@ -160,19 +148,19 @@ class Checker extends Module_Checker
 
 	public function _messages_delete($message_id, $title)
 	{
-		$this->ajax();
-
 		if (($message = $this->model('messages')->get_message($message_id, $title)) && $title == url_title($message['title']))
 		{
+			$this->ajax();
+
 			return $message;
 		}
 	}
 
-	public function _member($user_id, $username)
+	public function _member($id, $username)
 	{
-		if ($user = $this->model()->check_user($user_id, $username))
+		if ($user = NeoFrag()->model2('user', $id)->check($username))
 		{
-			return $user;
+			return [$user];
 		}
 	}
 }

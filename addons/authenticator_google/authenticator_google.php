@@ -27,7 +27,7 @@ class Authenticator_Google extends Authenticator
 	public function config()
 	{
 		return array_merge(parent::config(), [
-			'scope' => ['email profile']
+			'scope' => ['profile']
 		]);
 	}
 
@@ -39,18 +39,9 @@ class Authenticator_Google extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => $data->given_name.$data->family_name,
-					'email'         => $data->email,
-					'first_name'    => $data->given_name,
-					'last_name'     => $data->family_name,
-					'date_of_birth' => '',
-					'sex'           => isset($data->gender) ? $data->gender : '',
-					'language'      => $data->locale,
-					'location'      => '',
-					'signature'     => '',
-					'website'       => '',
-					'avatar'        => $data->picture
+					'id'       => $data->id,
+					'username' => $data->fullname,
+					'avatar'   => $data->pictureURL
 				];
 			};
 		}

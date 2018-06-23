@@ -32,18 +32,8 @@ class Authenticator_Battle_Net extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => preg_replace('/#\d+$/', '', $data->battletag),
-					'email'         => '',
-					'first_name'    => '',
-					'last_name'     => '',
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => '',
-					'location'      => '',
-					'signature'     => '',
-					'website'       => '',
-					'avatar'        => ''
+					'id'       => $data->id,
+					'username' => $data->battletag
 				];
 			};
 		}

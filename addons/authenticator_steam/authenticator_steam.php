@@ -42,18 +42,8 @@ class Authenticator_Steam extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->steamid,
-					'username'      => $data->personaname,
-					'email'         => '',
-					'first_name'    => '',
-					'last_name'     => '',
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => strtolower($data->loccountrycode),
-					'location'      => '',
-					'signature'     => '',
-					'website'       => '',
-					'avatar'        => $data->avatarfull
+					'id'       => $data->id,
+					'username' => $data->username
 				];
 			};
 		}

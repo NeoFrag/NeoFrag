@@ -12,197 +12,198 @@ class Index extends Controller_Module
 {
 	public function index()
 	{
-		if (!$this->user())
-		{
-			return $this->login();
-		}
-
-		$this	->title($this->lang('Espace membre'))
-				->js('user')
-				->css('jquery.mCustomScrollbar.min')
-				->js('jquery.mCustomScrollbar.min');
-
-		return $this->row(
-			$this->col(
-				$this->_panel_profile($user_profile),
-				$this->panel()->body($this->view('menu'), FALSE)
-			),
-			$this->col(
-				$this->_panel_infos(),
-				$this->panel()->body($this->view('index', $user_profile)),
-				$this->_panel_activities()
-			)
-		);
+		return $this->title('Mon activité')
+					->icon('fa-star-o')
+					->row([
+						$this->col(
+							$this	->panel()
+									->heading('Mon profil')
+									->body($this->user->view('user/profile')),
+							$this->_panel_navigation()
+						)->size('col-4'),
+						$this->col(
+							$this->row($this->col($this->panel()->body($this->_panel_infos()))),
+							$this	->row()
+									->append($this	->col()
+													->size('col-6')
+													->append($this	->panel()
+																	->heading('Messagerie')
+																	->body($this->view('index'))
+													)
+									)
+									->append($this	->col()
+													->size('col-6')
+													->append($this->_panel_activities())
+									)
+						)->size('col-8')
+					]);
 	}
 
-	public function edit()
+	public function account($sessions)
 	{
-		$this	->title($this->lang('Gérer mon compte'))
-				->icon('fa-cogs')
-				->breadcrumb();
+		return $this->title('Connexion')
+					->icon('fa-sign-in')
+					->breadcrumb()
+					->form2('username current_password new_password email', $this->user)
+					->success(function($user){
+						if ($user->password_new)
+						{
+							$user->set_password($user->password_new);
+						}
+						else
+						{
+							$user->reset('password');
+						}
 
-		$this->form()
-			->add_rules('user', [
-				'username'      => $this->user->username,
-				'email'         => $this->user->email,
-				'first_name'    => $this->user->profile()->first_name,
-				'last_name'     => $this->user->profile()->last_name,
-				'avatar'        => $this->user->profile()->avatar->id,
-				'signature'     => $this->user->profile()->signature,
-				'date_of_birth' => $this->user->profile()->date_of_birth,
-				'sex'           => $this->user->profile()->sex,
-				'location'      => $this->user->profile()->location,
-				'website'       => $this->user->profile()->website,
-				'quote'         => $this->user->profile()->quote
-			])
-			->add_submit($this->lang('Valider'))
-			->add_back('user');
+						if ($user->has_changed('email') && $this->config->nf_registration_validation)
+						{
+							//TODO
+						}
 
-		if ($this->form()->is_valid($post))
-		{
-			$this->model()->edit_user(	$post['username'],
-										$post['email'],
-										$post['first_name'],
-										$post['last_name'],
-										$post['avatar'],
-										$post['date_of_birth'],
-										$post['sex'],
-										$post['location'],
-										$post['website'],
-										$post['quote'],
-										$post['signature']);
+						$user->update();
 
-			if ($post['password_new'] && $post['password_new'] != $post['password_old'])
-			{
-				$this->model()->update_password($post['password_new']);
+						notify($this->lang('Informations modifiées'));
 
-				$this->db	->where('user_id', $this->user->id)
-							->where('id <>', $this->session->id)
-							->delete('nf_session');
-			}
-
-			redirect_back('user/'.$this->user->id.'/'.url_title($this->user->username));
-		}
-
-		return $this->row(
-			$this->col(
-				$this->_panel_profile(),
-				$this->panel()->body($this->view('menu'), FALSE)
-			),
-			$this->col(
-				$this	->panel()
-						->heading()
-						->body($this->form()->display())
-						->size('col-md-8 col-lg-9')
+						refresh();
+					})
+					->submit('Modifier')
+					->panel()
+					->title('Info de connexion')
+					->style('col-6 offset-3 col-lg-4 offset-lg-4');/*
+					->row()
+					->append(
+						$this	->col()
+								->size('col-6')
+								->append(
+									$this
+								)
 					)
-		);
+					->append(
+						$this	->col()
+								->size('col-6')
+								->append(
+									$this	->table2($sessions)
+											->col(function($session){
+												return user_agent($session->data->session->user_agent);
+											})
+											->col('Adresse IP', function($session){
+												return geolocalisation($ip_address = $session->data->session->ip_address).'<span data-toggle="tooltip" data-original-title="'.$session->data->session->host_name.'">'.$ip_address.'</span>';
+											})
+											->col('Site référent', function($session){
+												return $session->data->session->referer ? urltolink($session->data->session->referer) : $this->lang('Aucun');
+											})
+											->col('Date', function($session){
+												return $session->data->session->date;
+											})
+											->col('Compte tiers', function($session){
+												return $session->auth ? $session->auth : '';
+											})
+											->delete()
+											->panel()
+											->title('Sessions actives', 'fa-globe')
+								)
+								->append(
+									$this	->form2()
+											->rule($this->form_checkbox('delete')
+														->data([
+															'account'   => 'Je souhaite supprimer mon compte',
+															//'keep_data' => 'J\'accepte que mes contributions soient conservées de façon anonyme'
+														])
+											)
+											->form('current_password')
+											->success(function($data){
+												if (in_array('account', $data['delete']))
+												{
+													//TODO
+													if (1 || in_array('keep_data', $data['delete']))
+													{
+														$this->user->set('deleted', TRUE)->update();
+													}
+													else
+													{
+														$this->user->delete();
+													}
+
+													NeoFrag()->collection('session')->where('user_id', $this->user->id)->update([
+														'user_id' => NULL
+													]);
+
+													notify('Compte supprimé');
+
+													redirect();
+												}
+											})
+											->submit('Supprimer', 'danger')
+											->panel()
+											->title('Supprimer mon compte', 'fa-times')
+								)
+					);*/
+	}
+
+	public function profile()
+	{
+		return $this->title('Profil')
+					->icon('fa-pencil')
+					->breadcrumb()
+					->row()
+					->append($this	->col()
+									->size('col-7')
+									->append($this	->form2('profile', $this->user->profile())
+													->success(function($profile){
+														$profile->update();
+														notify($this->lang('Profil modifié'));
+														refresh();
+													})
+													->panel()
+									)
+									->append($this	->form2('profile_socials', $this->user->profile())
+													->success(function($profile){
+														$profile->update();
+														notify($this->lang('Liens modifiés'));
+														refresh();
+													})
+													->panel()
+													->title('Liens', 'fa-globe')
+									)
+					)
+					->append($this	->col()
+									->size('col-5')
+									->append($this	->form2()
+													->rule($this->form_image('avatar', 'user/avatar')
+																->value($this->user->profile()->avatar)
+																->square(250)
+													)
+													->success(function($data){
+														$this->user->profile()->set('avatar', $data['avatar'])->update();
+														notify($this->lang('Avatar modifié'));
+														refresh();
+													})
+													->panel()
+													->title('Avatar', 'fa-user-circle')
+									)
+									->append($this	->form2()
+													->rule($this->form_image('cover', 'user/cover')
+																->value($this->user->profile()->cover)
+																->rectangle(1920, 400)
+													)
+													->success(function($data){
+														$this->user->profile()->set('cover', $data['cover'])->update();
+														notify($this->lang('Photo de couverture modifiée'));
+														refresh();
+													})
+													->panel()
+													->title('Photo de couverture', 'fa-picture-o')
+									)
+					);
 	}
 
 	public function sessions($sessions)
 	{
-		$this	->title('Gérer mes sessions')
-				->icon('fa-globe')
-				->breadcrumb();
-
-		$active_sessions = $this->table()
-			->add_columns([
-				[
-					'content' => function($data){
-						return $data['remember_me'] ? '<i class="fa fa-toggle-on text-green" data-toggle="tooltip" title="'.$this->lang('Connexion persistante').'"></i>' : '<i class="fa fa-toggle-off text-grey" data-toggle="tooltip" title="'.$this->lang('Connexion non persistante').'"></i>';
-					},
-					'size'    => TRUE,
-					'align'   => 'center'
-				],
-				[
-					'content' => function($data){
-						return user_agent($data['user_agent']);
-					},
-					'size'    => TRUE,
-					'align'   => 'center'
-				],
-				[
-					'title'   => $this->lang('Adresse IP'),
-					'content' => function($data){
-						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
-					}
-				],
-				[
-					'title'   => $this->lang('Site référent'),
-					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
-					}
-				],
-				[
-					'title'   => $this->lang('Date d\'arrivée'),
-					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
-					}
-				],
-				[
-					'title'   => $this->lang('Dernière activité'),
-					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['last_activity']).'">'.time_span($data['last_activity']).'</span>';
-					}
-				],
-				[
-					'content' => [function($data){
-						if ($data['session_id'] != NeoFrag()->session->id)
-						{
-							return $this->button_delete('user/sessions/delete/'.$data['session_id']);
-						}
-					}]
-				]
-			])
-			->pagination(FALSE)
-			->data($this->user->get_sessions())
-			->save();
-
-		$sessions_history = $this->table()
-			->add_columns([
-				[
-					'content' => function($data){
-						return user_agent($data['user_agent']);
-					},
-					'size'    => TRUE,
-					'align'   => 'center'
-				],
-				[
-					'title'   => $this->lang('Adresse IP'),
-					'content' => function($data){
-						return geolocalisation($data['ip_address']).'<span data-toggle="tooltip" data-original-title="'.$data['host_name'].'">'.$data['ip_address'].'</span>';
-					}
-				],
-				[
-					'title'   => $this->lang('Site référent'),
-					'content' => function($data){
-						return $data['referer'] ? urltolink($data['referer']) : $this->lang('Aucun');
-					}
-				],
-				[
-					'title'   => $this->lang('Date d\'arrivée'),
-					'content' => function($data){
-						return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
-					}
-				]
-			])
-			->data($sessions)
-			->no_data($this->lang('Aucun historique disponible'));
-
-		return $this->row(
-			$this->col(
-				$this->_panel_profile(),
-				$this->panel()->body($this->view('menu'), FALSE)
-			),
-			$this->col(
-				$this	->panel()
-						->heading($this->lang('Mes sessions actives'), 'fa-shield')
-						->body($active_sessions->display())
-						->size('col-md-8 col-lg-9'),
-				$this	->panel()
-						->heading($this->lang('Historique de mes sessions'), 'fa-power-off')
-						->body($sessions_history->display())
-			)
-		);
+		return $this->title('Historique des sessions')
+					->icon('fa-history')
+					->breadcrumb()
+					->table2('session', $sessions, 'Aucun historique')
+					->panel();
 	}
 
 	public function _session_delete($session_id)
@@ -222,439 +223,75 @@ class Index extends Controller_Module
 		return $this->form()->display();
 	}
 
-	public function _auth($authenticator)
+	public function auth($authenticator)
 	{
-		try
-		{
-			spl_autoload_register(function($name){
-				if (preg_match('/^SocialConnect/', $name))
-				{
-					require_once 'lib/'.str_replace('\\', '/', $name).'.php';
-				}
-			});
+		spl_autoload_register(function($name){
+			if (preg_match('/^SocialConnect/', $name))
+			{
+				require_once 'lib/'.str_replace('\\', '/', $name).'.php';
+			}
+		});
 
-			$service = new \SocialConnect\Auth\Service(
-				new \SocialConnect\Common\Http\Client\Curl(),
-				new \SocialConnect\Provider\Session\NeoFrag($this->session), [
-					'redirectUri' => $this->url->host.url('user/auth'),
-					'provider'    => [
-						$name = str_replace('_', '-', $authenticator->name) => $authenticator->config()
-					]
+		$service = new \SocialConnect\Auth\Service(
+			new \SocialConnect\Common\Http\Client\Curl,
+			new \SocialConnect\Provider\Session\NeoFrag($this->session), [
+				'redirectUri' => $authenticator->static_url(),
+				'provider'    => [
+					$name = str_replace('_', '-', $authenticator->info()->name) => $authenticator->config()
 				]
-			);
-
-			$provider = $service->getProvider($name);
-
-			if ($callback = $authenticator->data($params))
-			{
-				$data = $callback($provider->getIdentity($provider->getAccessTokenByRequestParameters($params)));
-
-				if (!($user_id = $this->db->select('user_id')->from('nf_users_auth')->where('authenticator', $authenticator->name)->where('id', $data['id'])->row()))
-				{
-					if ($data['avatar'])
-					{
-						$this	->network($data['avatar'])
-								->stream($file = NeoFrag()->model2('file')->static_filename('members', 'tmp'));
-
-						$name = pathinfo($data['avatar'], PATHINFO_BASENAME);
-
-						$data['avatar'] = 0;
-
-						if (file_exists($file))
-						{
-							if ((list($w, $h, $type) = getimagesize($file)) && $w == $h && $w >= 250 && in_array($type, array_keys($extensions = [IMAGETYPE_GIF => 'gif', IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png'])))
-							{
-								rename($file, $file = str_replace('.tmp', '.'.$extensions[$type], $file));
-								image_resize($file, 250, 250);
-								$data['avatar'] = NeoFrag()->model2('file')->static_add($file, $name);
-							}
-							else
-							{
-								unlink($file);
-							}
-						}
-					}
-					else
-					{
-						$data['avatar'] = 0;
-					}
-
-					while ($data['username'] && $this->db->select('1')->from('nf_user')->where('username', $data['username'])->row())
-					{
-						$data['username'] = 'guest'.time();
-					}
-
-					if ($data['language'] && !$this->db->select('1')->from('nf_settings_languages')->where('code', $data['language'])->row())
-					{
-						$data['language'] = '';
-					}
-
-					if ($data['email'] && (!is_valid_email($data['email']) || $this->db->select('1')->from('nf_user')->where('email', $data['email'])->row()))
-					{
-						$data['email'] = '';
-					}
-
-					if ($data['website'] && !is_valid_url($data['website']))
-					{
-						$data['website'] = '';
-					}
-
-					$user_id = $this->db->insert('nf_user', [
-						'username' => utf8_htmlentities($data['username']) ?: NULL,
-						'password' => '',
-						'salt'     => '',
-						'email'    => $data['email']    ?: NULL,
-						'language' => $data['language'] ?: NULL
-					]);
-
-					$this->db->insert('nf_users_auth', [
-						'user_id'       => $user_id,
-						'authenticator' => $authenticator->name,
-						'id'            => $data['id']
-					]);
-
-					if (!in_array($data['sex'], ['female', 'male']))
-					{
-						$data['sex'] = NULL;
-					}
-
-					if ($data['first_name'] || $data['last_name'] || $data['avatar'] || $data['signature'] || $data['date_of_birth'] || $data['sex'] ||  $data['location'] ||  $data['website'])
-					{
-						$this->db->insert('nf_user_profile', [
-							'user_id'       => $user_id,
-							'first_name'    => utf8_htmlentities($data['first_name']) ?: '',
-							'last_name'     => utf8_htmlentities($data['last_name'])  ?: '',
-							'avatar'        => $data['avatar']                        ?: NULL,
-							'signature'     => utf8_htmlentities($data['signature'])  ?: '',
-							'date_of_birth' => $data['date_of_birth']                 ?: NULL,
-							'sex'           => $data['sex'],
-							'location'      => utf8_htmlentities($data['location'])   ?: '',
-							'website'       => $data['website']                       ?: ''
-						]);
-					}
-				}
-
-				$this->session->set('session', 'authenticator', $authenticator->name);
-				$this->user->login($user_id, TRUE);
-			}
-			else
-			{
-				header('Location: '.$provider->makeAuthUrl());
-				exit;
-			}
-		}
-		catch (Exception $e)
-		{
-			trigger_error($e->getMessage(), E_USER_WARNING);
-		}
-
-		redirect('user');
-	}
-
-	public function login($error = 0)
-	{
-		$this->title($this->lang('Connexion'));
-
-		$form_login = $this	->form()
-							->set_id('6e0fbe194d97aa8c83e9f9e6b5d07c66')
-							->add_rules([
-								'login' => [
-									'label'       => $this->lang('Identifiant'),
-									'description' => $this->lang('Vous pouvez vous identifier avec votre adresse mail ou bien votre pseudonyme'),
-									'type'        => 'text',
-									'rules'       => 'required|max(50)'
-								],
-								'password' => [
-									'label' => $this->lang('Mot de passe'),
-									'type'  => 'password'
-								],
-								'remember_me' => [
-									'type'   => 'checkbox',
-									'values' => ['on' => $this->lang('Se souvenir de moi')]
-								],
-								'redirect' => [
-								]
-							])
-							->add_submit($this->lang('Connexion'))
-							->display_required(FALSE)
-							->save();
-
-		$rules = [
-			'username' => [
-				'label' => $this->lang('Identifiant'),
-				'icon'  => 'fa-user',
-				'rules' => 'required',
-				'check' => function($value){
-					if (NeoFrag()->db->select('1')->from('nf_user')->where('username', $value)->row())
-					{
-						return $this->lang('Identifiant déjà utilisé');
-					}
-				}
-			],
-			'password' => [
-				'label' => $this->lang('Mot de passe'),
-				'icon'  => 'fa-lock',
-				'type'  => 'password',
-				'rules' => 'required'
-			],
-			'password_confirm' => [
-				'label' => $this->lang('Confirmation'),
-				'icon'  => 'fa-lock',
-				'type'  => 'password',
-				'rules' => 'required',
-				'check' => function($value, $post){
-					if ($post['password'] != $value)
-					{
-						return $this->lang('Les mots de passe doivent être identiques');
-					}
-				}
-			],
-			'email' => [
-				'label' => $this->lang('Email'),
-				'type'  => 'email',
-				'rules' => 'required',
-				'check' => function($value){
-					if (NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
-					{
-						return $this->lang('Addresse email déjà utilisée');
-					}
-				}
 			]
-		];
-
-		if (!empty($this->config->nf_registration_charte))
-		{
-			$rules['registration_charte'] = [
-				'type'   => 'checkbox',
-				'values' => ['on' => 'En vous inscrivant, vous reconnaissez avoir pris connaissance de <a href="#modalCharte" role="dialog" data-toggle="modal" data-target="#modalCharte"">notre règlement</a> et de l\'accepter.'],
-				'rules'  => 'required'
-			];
-		}
-
-		$form_registration = $this
-			->form()
-			->add_rules($rules)
-			->add_captcha()
-			->add_submit($this->lang('Créer un compte'))
-			->fast_mode()
-			->save();
-
-		$rows = [];
-
-		//TODO 0.1.7
-		if (in_array($error, []))// [NeoFrag::UNCONNECTED, NeoFrag::UNAUTHORIZED]))
-		{
-			header('HTTP/1.0 401 Unauthorized');
-
-			$rows[] = $this->row(
-				$this->col(
-					$this	->panel()
-							->heading($this->lang('Connexion requise'), 'fa-warning')
-							->body($this->lang('<p>La page que vous souhaitez consulter n\'est accessible qu\'aux utilisateurs connectés.</p>Connectez-vous si vous avez déjà un compte utilisateur.<br />Vous pouvez aussi créer un nouveau compte en vous inscrivant ci-dessous.'))
-							->color('danger')
-				)
-			);
-		}
-
-		if ($form_login->is_valid($post))
-		{
-			$login       = $post['login'];
-			$password    = $post['password'];
-			$remember_me = in_array('on', $post['remember_me']);
-
-			$user_id = $this->model()->check_login($login, $hash, $salt);
-
-			if ($user_id == -1)
-			{
-				//TODO
-				//$form_login->alert('Compte utilisateur inactif !', 'Ce compte n\'a pas encore été activé par mail. Si vous n\'avez pas reçu de mail d\'activation vous pouvez utiliser la fonction <a href="'.url('user/activate').'" onclick="$(\'#form_activate\').submit(); return false;">Activation de compte</a>.', 'error');
-			}
-			else if ($user_id > 0 && $this->password->is_valid($password.$salt, $hash, (bool)$salt))
-			{
-				if (!$salt)
-				{
-					$this->db	->where('id', $user_id)
-								->update('nf_user', [
-									'password' => $this->password->encrypt($password.($salt = unique_id())),
-									'salt'     => $salt
-								]);
-				}
-
-				$this->user->login($user_id, $remember_me);
-
-				if ($post['redirect'])
-				{
-					redirect($post['redirect']);
-				}
-				else
-				{
-					refresh();
-				}
-			}
-			else
-			{
-				$rows[] = $this->row(
-					$this->col(
-						$this	->panel()
-								->heading($this->lang('Identifiants incorrects !'), 'fa-warning')
-								->body($this->lang('Si vous avez oublié votre mot de passe, utilisez la fonction <a href="'.url('user/lost-password').'">Mot de passe oublié</a>, sinon vous pouvez créer un compte ci-dessous'))
-								->color('danger')
-					)
-				);
-			}
-		}
-		else if ($form_registration->is_valid($post) && $this->config->nf_registration_status == 0)
-		{
-			$user_id = $this->db->insert('nf_user', [
-				'username' => $post['username'],
-				'password' => $this->password->encrypt($post['password'].($salt = unique_id())),
-				'salt'     => $salt,
-				'email'    => $post['email']
-			]);
-
-			if ($this->config->nf_welcome && $this->config->nf_welcome_user_id && $this->config->nf_welcome_title && $this->config->nf_welcome_content)
-			{
-				$this->model('messages')->insert_message($post['username'], $this->config->nf_welcome_title, str_replace('[pseudo]', '@'.$post['username'], $this->config->nf_welcome_content), TRUE);
-			}
-
-			$this->user->login($user_id);
-
-			refresh();
-		}
-
-		$rows[] = $this->row(
-			$col = $this->col(
-						$this	->panel()
-								->heading($this->lang('Se connecter'), 'fa-sign-in')
-								->body($this->view('login', [
-									'form_id' => $form_login->token()
-								]))
-					)
-					->size('col-md-6'),
-			$this	->col(
-						$this	->panel()
-								->heading($this->lang('Pas encore inscrit ?'), 'fa-sign-in fa-rotate-90')
-								->body($this->config->nf_registration_status == 0 ? $this->lang('<p>Créez votre compte maintenant pour profiter pleinement du site</p>').$form_registration->display().($this->config->nf_registration_charte ? $this->view('charte') : '') : '<div class="alert alert-warning m-0">Les inscriptions sur notre site sont fermées...</div>')
-					)
-					->size('col-md-6')
 		);
 
-		if ($authenticators = NeoFrag()->model2('addon')->get('authenticator'))
+		$provider = $service->getProvider($name);
+
+		if ($callback = $authenticator->data($params))
 		{
-			$this->css('auth');
+			$data = array_merge(array_fill_keys(['id', 'username', 'avatar'], ''), $callback($provider->getIdentity($provider->getAccessTokenByRequestParameters($params))));
 
-			$col->prepend(
-				$this	->panel()
-						->heading('Connexion rapide', 'fa-user-circle')
-						->body('<div class="text-center">'.implode($authenticators).'</div>')
-			);
-		}
-
-		return $rows;
-	}
-
-	public function lost_password()
-	{
-		$this->title($this->lang('Mot de passe oublié ?'));
-
-		$this	->form()
-				->add_rules([
-					'email' => [
-						'label' => $this->lang('Email'),
-						'type'  => 'email',
-						'rules' => 'required',
-						'check' => function($value){
-							if (!NeoFrag()->db->select('1')->from('nf_user')->where('email', $value)->row())
-							{
-								return $this->lang('Addresse email introuvable');
-							}
-						}
-					]
-				])
-				->add_submit($this->lang('Valider'))
-				->add_back('user')
-				->fast_mode();
-
-		if ($this->form()->is_valid($post))
-		{
-			$this->email
-				->to($post['email'])
-				->subject($this->lang('Mot de passe oublié ?'))
-				->message('default', [
-					'content' => function($data){
-						return '<a href="'.url('user/lost-password/'.$data['key']).'">'.$this->lang('Réinitialisation de votre mot de passe').'</a>';
-					},
-					'key'     => $this->model()->add_key($this->db->select('id')->from('nf_user')->where('email', $post['email'])->row())
-				])
-				->send();
-
-			redirect_back('user');
-		}
-
-		return $this->panel()
-					->heading($this->lang('Mot de passe oublié ?'), 'fa-unlock-alt')
-					->body($this->form()->display());
-	}
-
-	public function _lost_password($key_id, $user_id)
-	{
-		$this->title($this->lang('Réinitialisation de votre mot de passe'));
-
-		$this	->form()
-				->add_rules([
-					'password' => [
-						'label' => $this->lang('Nouveau mot de passe'),
-						'icon'  => 'fa-lock',
-						'type'  => 'password',
-						'rules' => 'required'
-					],
-					'password_confirm' => [
-						'label' => $this->lang('Confirmation'),
-						'icon'  => 'fa-lock',
-						'type'  => 'password',
-						'rules' => 'required',
-						'check' => function($value, $post){
-							if ($post['password'] != $value)
-							{
-								return $this->lang('Les mots de passe doivent être identiques');
-							}
-						}
-					]
-				])
-				->add_submit($this->lang('Valider'))
-				->add_back('user')
-				->fast_mode();
-
-		if ($this->form()->is_valid($post))
-		{
-			$this->email
-				->to($this->db->select('email')->from('nf_user')->where('id', $user_id)->row())
-				->subject($this->lang('Mot de passe réinitialisé'))
-				->message('default', [
-					'content' => $this->lang('Votre mot de passe a bien été réinitialisé')
-				])
-				->send();
-
-			$this->user->login($user_id);
-
-			$this->model()	->update_password($post['password'])
-							->delete_key($key_id);
-
-			foreach ($this->user->get_sessions() as $session)
+			if (($auth = $this->collection('auth')->where('authenticator_id', $authenticator->__addon->id)->where('key', $data['id'])->row()) && $auth->key == $data['id'])
 			{
-				if ($session['session_id'] != $this->session->id)
+				if ($this->user->id != $auth->user->id)
 				{
-					//TODO ajouter une alerte pour ces sessions pour expliquer pk ils sont déco
-					$this->session->disconnect($session['session_id']);
+					$auth	->set_if($data['username'], 'username', $data['username'])
+							->set_if($data['avatar'],   'avatar',   $data['avatar'])
+							->update();
+
+					$this->session->login($auth->user);
 				}
 			}
+			else if ($this->user())
+			{
+				$auth	->set('user',          $this->user)
+						->set('authenticator', $authenticator->__addon)
+						->set('key',           $data['id'])
+						->set_if($data['username'], 'username', $data['username'])
+						->set_if($data['avatar'],   'avatar',   $data['avatar'])
+						->create();
 
-			redirect_back('user');
+				notify($this->lang('Connexion établie via %s', $authenticator->info()->title));
+			}
+			else
+			{
+				$this->session->append('auth', 'providers', $authenticator->__addon->id.'-'.$data['id'], [$authenticator->__addon->id, $data]);
+
+				notify($this->lang('Compte %s inconnu', $authenticator->info()->title), 'danger');
+			}
+
+			redirect();
 		}
 
-		return $this->panel()
-					->heading($this->lang('Réinitialisation de votre mot de passe'), 'fa-lock')
-					->body($this->form()->display());
+		$this->url->redirect($provider->makeAuthUrl());
+	}
+
+	public function _auth($auths)
+	{
+		return 'auth';
+	}
+
+	public function lost_password($token)
+	{
+		$this->session->append('modals', 'ajax/user/lost-password/'.$token->id);
+		redirect();
 	}
 
 	public function logout()
@@ -667,20 +304,14 @@ class Index extends Controller_Module
 	{
 		$this->breadcrumb();
 
-		return $this->row(
-			$this->col(
-				$this->_panel_messages()
-			),
-			$this->col(
-				$this	->panel()
-						->heading()
-						->body(!$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->view('messages/inbox', [
-							'messages'     => $messages,
-							'allow_delete' => $allow_delete
-						]), FALSE)
-						->size('col-md-8 col-lg-9'),
-				$this->module->pagination->panel()
-			)
+		return $this->col(
+			$this	->panel()
+					->heading()
+					->body(!$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->view('messages/inbox', [
+						'messages'     => $messages,
+						'allow_delete' => $allow_delete
+					]), FALSE),
+			$this->module->pagination->panel()
 		);
 	}
 
@@ -724,21 +355,15 @@ class Index extends Controller_Module
 			redirect('user/messages/'.$message_id.'/'.url_title($title));
 		}
 
-		return $this->row(
-			$this->col(
-				$this->_panel_messages()
-			),
-			$this->col(
-				$this	->panel()
-						->heading($title, 'fa-envelope-o')
-						->body($this->view('messages/replies', [
-							'replies' => $replies
-						]))
-						->size('col-md-8 col-lg-9'),
-				$this	->panel()
-						->heading('Répondre', 'fa-reply')
-						->body($this->form()->display())
-			)
+		return $this->col(
+			$this	->panel()
+					->heading($title, 'fa-envelope-o')
+					->body($this->view('messages/replies', [
+						'replies' => $replies
+					])),
+			$this	->panel()
+					->heading('Répondre', 'fa-reply')
+					->body($this->form()->display())
 		);
 	}
 
@@ -777,17 +402,9 @@ class Index extends Controller_Module
 			}
 		}
 
-		return $this->row(
-			$this->col(
-				$this->_panel_messages()
-			),
-			$this->col(
-				$this	->panel()
-						->heading()
-						->body($this->form()->display())
-						->size('col-md-8 col-lg-9')
-			)
-		);
+		return $this->panel()
+					->heading()
+					->body($this->form()->display());
 	}
 
 	public function _messages_delete($message_id, $title)
@@ -812,16 +429,42 @@ class Index extends Controller_Module
 		return $this->form()->display();
 	}
 
-	public function _member($user_id, $username)
+	public function _member($user)
 	{
-		$this->title($username);
+		$this->output->data->set('pre_module', $this->array
+													->append($user->view('user/cover'))
+													->append('	<div class="user-info">
+																	<div class="container">
+																		'.$this->row($this->col($this->_panel_infos($user))->size('col-8 offset-4')).'
+																	</div>
+																</div>')
+		);
 
-		return $this->array
-					->append($this	->panel()
-									->heading($username, 'fa-user')
-									->body($this->view('profile_public', $this->model()->get_user_profile($user_id)))
+		return $this->title($user->username)
+					->breadcrumb('Profil')
+					->breadcrumb($user->username)
+					->row()
+					->append($this	->col()
+									->size('col-4 user-col')
+									->append($this	->panel()
+													->body($user->view('user/profile'))
+									)
+									->append_if(in_array('donate-0', $this->groups($user->id)), function(){
+										return $this->panel()
+													->style('honor')
+													->body('<h4>'.icon('fa-usd text-success').' Donateur</h4>');
+									})
+									->append_if(in_array('shop2-0', $this->groups($user->id)), function(){
+										return $this->panel()
+													->style('honor')
+													->body('<h4>'.icon('fa-cubes text-warning').' Contributeur</h4>');
+									})
 					)
-					->append($this->panel_back($this->module('members') ? 'members' : ''));
+					->append($this	->col()
+									->size('col-8')
+									->append($this->_panel_activities($user->id))
+									->append($this->panel_back())
+					);
 	}
 
 	public function _panel_profile(&$user_profile = NULL)
@@ -834,36 +477,50 @@ class Index extends Controller_Module
 					->size('col-4 col-lg-3');
 	}
 
-	public function _panel_infos($user_id = NULL)
+	public function _panel_navigation()
 	{
-		if ($user_id === NULL)
-		{
-			$user_id = $this->user->id;
+		$navigation = [
+			'panel' => TRUE,
+			'links' => [
+				[
+					'title' => 'Mon espace',
+					'icon'  => 'fa-user',
+					'url'   => 'user'
+				],
+				[
+					'title' => 'Gérer mon compte',
+					'icon'  => 'fa-cogs',
+					'url'   => 'user/account'
+				],
+				[
+					'title' => 'Messagerie privée',
+					'icon'  => 'fa-envelope-o',
+					'url'   => 'user/messages'
+				],
+				[
+					'title' => 'Gérer mes sessions',
+					'icon'  => 'fa-globe',
+					'url'   => 'user/sessions'
+				]
+			]
+		];
 
-			$infos = [
-				'registration_date'  => $this->user->registration_date,
-				'last_activity_date' => $this->user->last_activity_date
-			];
-		}
-		else
-		{
-			$infos = $this->db	->select('registration_date', 'last_activity_date')
-								->from('nf_user')
-								->where('id', $user_id)
-								->where('deleted', FALSE)
-								->row();
-		}
-
-		$infos['groups'] = $this->groups->user_groups($user_id);
-
-		return $this->panel()
-					->body($this->view('infos', $infos))
-					->size('col-md-8 col-lg-9');
+		return $this->widget('navigation')->output('vertical', $navigation);
 	}
 
-	public function _panel_activities($user_id = NULL)
+	public function _panel_infos($user = NULL)
 	{
-		$this->css('activities');
+		return $this->view('infos', [
+			'user' => $user ?: $this->user
+		]);
+	}
+
+	private function _panel_activities($user_id = NULL)
+	{
+		$this	->css('activities')
+				->js('user')
+				->css('jquery.mCustomScrollbar.min')
+				->js('jquery.mCustomScrollbar.min');
 
 		if ($user_id === NULL)
 		{
@@ -898,14 +555,5 @@ class Index extends Controller_Module
 					->body($this->view('activity', [
 						'user_activity' => $user_activity
 					]));
-	}
-
-	private function _panel_messages()
-	{
-		return $this->panel()
-					->heading('Messagerie privée', 'fa-envelope-o')
-					->body($this->view('messages/menu'), FALSE)
-					->footer('<a href="'.url('user').'">'.icon('fa-arrow-circle-o-left').' Retour sur mon espace</a>', 'left')
-					->size('col-md-4 col-lg-3');
 	}
 }

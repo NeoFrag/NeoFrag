@@ -24,13 +24,6 @@ class Authenticator_Twitter extends Authenticator
 		];
 	}
 
-	public function config()
-	{
-		return array_merge(parent::config(), [
-			'scope' => ['email']
-		]);
-	}
-
 	public function data(&$params = [])
 	{
 		if (!empty($_GET['oauth_token']))
@@ -39,18 +32,9 @@ class Authenticator_Twitter extends Authenticator
 
 			return function($data){
 				return [
-					'id'            => $data->id,
-					'username'      => $data->screen_name,
-					'email'         => $data->email,
-					'first_name'    => '',
-					'last_name'     => '',
-					'date_of_birth' => '',
-					'sex'           => '',
-					'language'      => $data->lang,
-					'location'      => $data->location,
-					'signature'     => $data->description,
-					'website'       => $entities->url->urls[0]->display_url,
-					'avatar'        => $data->profile_image_url_https
+					'id'       => $data->id,
+					'username' => $data->username,
+					'avatar'   => $data->pictureURL
 				];
 			};
 		}
