@@ -40,23 +40,6 @@
 			padding: 0;
 			border: 0!important;
 
-			&:hover, &.active {
-				> .nav-link {
-					border-left: 6px solid $primary;
-					color: #fff;
-
-					i {
-						color: $primary;
-					}
-				}
-			}
-
-			&.active {
-				> .nav {
-					display: block;
-				}
-			}
-
 			.nav-link {
 				color: #6a7779;
 				display: block;
@@ -66,6 +49,21 @@
 				line-height: 50px;
 				border-bottom: 1px solid #2b373a;
 				transition: all .2s ease-in;
+
+				&:hover, &.active {
+					border-left: 6px solid $primary;
+					color: #fff;
+
+					i {
+						color: $primary;
+					}
+				}
+
+				&.active {
+					+ .nav {
+						display: block;
+					}
+				}
 
 				i {
 					margin-right: 11px;

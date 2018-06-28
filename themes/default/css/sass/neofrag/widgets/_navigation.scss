@@ -36,24 +36,21 @@
 .nav {
 	&.flex-column {
 		.nav-item {
-			padding: 5px 1rem;
-
 			+ .nav-item {
 				border-top: 1px solid #ebebeb;
 			}
 
-			&.active {
-				border-left: 5px solid #00d7b3;
-			}
-			
-			&:hover {
-				> .nav-link {
+			> .nav-link {
+				padding: 13px 15px;
+				color: #000;
+
+				&.active {
+					border-left: 5px solid #00d7b3;
+				}
+
+				&:hover {
 					color: #00d7b3;
 				}
-			}
-
-			> .nav-link {
-				color: #000;
 			}
 		}
 	}
