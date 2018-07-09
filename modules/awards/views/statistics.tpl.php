@@ -1,22 +1,22 @@
 <div class="text-center">
-	<h4>Tous nos podiums</h4>
+	<h4><?php echo $this->lang('Tous nos podiums') ?></h4>
 	<ul class="list-inline">
 		<li>
 			<div class="well">
-				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span><br />
-				<?php echo $total_gold[0].($total_gold[0] > 1 ? ' trophées' : ' trophée') ?>
+				<span data-toggle="tooltip" title="<?php echo $this->lang('1ère place') ?>"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span><br />
+				<?php echo $total_gold[0].($total_gold[0] > 1 ? ' '.$this->lang('trophées') : ' '.$this->lang('trophée')) ?>
 			</div>
 		</li>
 		<li>
 			<div class="well">
-				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span><br />
-				<?php echo $total_silver[0].($total_silver[0] > 1 ? ' trophées' : ' trophée') ?>
+				<span data-toggle="tooltip" title="<?php echo $this->lang('2ème place') ?>"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span><br />
+				<?php echo $total_silver[0].($total_silver[0] > 1 ? ' '.$this->lang('trophées') : ' '.$this->lang('trophée')) ?>
 			</div>
 		</li>
 		<li>
 			<div class="well">
-				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span><br />
-				<?php echo $total_bronze[0].($total_bronze[0] > 1 ? ' trophées' : ' trophée') ?>
+				<span data-toggle="tooltip" title="<?php echo $this->lang('3ème place') ?>"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span><br />
+				<?php echo $total_bronze[0].($total_bronze[0] > 1 ? ' '.$this->lang('trophées') : ' '.$this->lang('trophée')) ?>
 			</div>
 		</li>
 	</ul>
@@ -27,7 +27,7 @@
 			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-trophy') ?></h1>
 				<p>
-					La plus récompensée<br />
+					<?php echo $this->lang('La plus récompensée') ?><br />
 					<?php if ($best_team_awards): ?>
 						<b><a href="<?php echo url('awards/team/'.$best_team_awards[0]['team_id'].'/'.$best_team_awards[0]['name']) ?>"><?php echo $best_team_awards[0]['team_title'] ?></a></b>
 					<?php else: ?>
@@ -38,7 +38,7 @@
 			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-star-o') ?></h1>
 				<p>
-					Meilleur classement<br />
+					<?php echo $this->lang('Meilleur classement') ?><br />
 					<?php if ($best_team): ?>
 						<b><a href="<?php echo url('awards/team/'.$best_team[0]['team_id'].'/'.$best_team[0]['name']) ?>"><?php echo $best_team[0]['team_title'] ?></a></b>
 					<?php else: ?>
@@ -49,7 +49,7 @@
 			<td class="col-4 text-center">
 				<h1><?php echo icon('fa-gamepad') ?></h1>
 				<p>
-					Meilleur jeu<br />
+					<?php echo $this->lang('Meilleur jeu') ?><br />
 					<?php if ($best_game_awards): ?>
 						<b><a href="<?php echo url('awards/game/'.$best_game_awards[0]['game_id'].'/'.$best_game_awards[0]['name']) ?>"><?php echo $best_game_awards[0]['game_title'] ?></a></b>
 					<?php else: ?>
@@ -64,11 +64,11 @@
 	<table class="table table-hover m-0">
 		<thead>
 			<tr>
-				<th class="col-6"><h4 class="m-0">Classement de nos équipes</h4></th>
-				<th class="text-center"><span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold') ?></span></th>
-				<th class="text-center"><span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver') ?></span></th>
-				<th class="text-center"><span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze') ?></span></th>
-				<th class="text-center"><span data-toggle="tooltip" title="Autre place"><?php echo icon('fa-plus') ?></span></th>
+				<th class="col-6"><h4 class="m-0"><?php echo $this->lang('Classement de nos équipes') ?></h4></th>
+				<th class="text-center"><span data-toggle="tooltip" title="<?php echo $this->lang('1ère place') ?>"><?php echo icon('fa-trophy trophy-gold') ?></span></th>
+				<th class="text-center"><span data-toggle="tooltip" title="<?php echo $this->lang('2ème place') ?>"><?php echo icon('fa-trophy trophy-silver') ?></span></th>
+				<th class="text-center"><span data-toggle="tooltip" title="<?php echo $this->lang('3ème place') ?>"><?php echo icon('fa-trophy trophy-bronze') ?></span></th>
+				<th class="text-center"><span data-toggle="tooltip" title="<?php echo $this->lang('Autre place') ?>"><?php echo icon('fa-plus') ?></span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -91,7 +91,7 @@
 			<?php endforeach ?>
 			<?php if (!$teams): ?>
 			<tr>
-				<td class="text-center" colspan="5">Aucun classement</td>
+				<td class="text-center" colspan="5"><?php echo $this->lang('Aucun classement') ?></td>
 			</tr>
 			<?php endif ?>
 		</tbody>

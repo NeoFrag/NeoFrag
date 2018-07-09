@@ -13,7 +13,7 @@ class Awards extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => 'Palmarès',
+			'title'       => $this->lang('Palmarès'),
 			'description' => '',
 			'icon'        => 'fa-trophy',
 			'link'        => 'https://neofr.ag',

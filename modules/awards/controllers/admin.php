@@ -17,7 +17,7 @@ class Admin extends Controller_Module
 		$awards = $this	->table()
 						->add_columns([
 							[
-								'title'   => 'Titre',
+								'title'   => $this->lang('Titre'),
 								'content' => function($data){
 									return $data['name'];
 								},
@@ -29,7 +29,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Lieu',
+								'title'   => $this->lang('Lieu'),
 								'content' => function($data){
 									return $data['location'] ? icon('fa-map-marker').$data['location'] : '';
 								},
@@ -41,7 +41,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Date',
+								'title'   => $this->lang('Date'),
 								'content' => function($data){
 									return timetostr(NeoFrag()->lang('%d/%m/%Y'), $data['date']);
 								},
@@ -53,7 +53,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Équipe',
+								'title'   => $this->lang('Équipe'),
 								'content' => function($data){
 									return $data['team_title'];
 								},
@@ -65,7 +65,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Jeu',
+								'title'   => $this->lang('Jeu'),
 								'content' => function($data){
 									return $data['game_title'];
 								},
@@ -77,29 +77,29 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<span data-toggle="tooltip" title="Classement">'.icon('fa-trophy').'</span>',
+								'title'   => '<span data-toggle="tooltip" title="'.$this->lang('Classement').'">'.icon('fa-trophy').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
 									if ($data['ranking'] == 1)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'er / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-gold').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].$this->lang('er')' / '.$data['participants'].' '.$this->lang('équipes').'">'.icon('fa-trophy trophy-gold').'</span>';
 									}
 									else if ($data['ranking'] == 2)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-silver').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].$this->lang('ème')' / '.$data['participants'].' '.$this->lang('équipes').'">'.icon('fa-trophy trophy-silver').'</span>';
 									}
 									else if ($data['ranking'] == 3)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-bronze').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].$this->lang('ème')' / '.$data['participants'].' '.$this->lang('équipes').'">'.icon('fa-trophy trophy-bronze').'</span>';
 									}
 									else
 									{
-										return $data['ranking'].'<small>ème</small>';
+										return $data['ranking'].'<small>'.$this->lang('ème').'</small>';
 									}
 								}
 							],
 							[
-								'title'   => '<span data-toggle="tooltip" title="Plateforme">'.icon('fa-tv').'</span>',
+								'title'   => '<span data-toggle="tooltip" title="'.$this->lang('Plateforme').'">'.icon('fa-tv').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
 									return $data['platform'];
@@ -121,18 +121,18 @@ class Admin extends Controller_Module
 							]
 						])
 						->data($awards)
-						->no_data('Aucun palmarès')
+						->no_data($this->lang('Aucun palmarès'))
 						->display();
 
 		return $this->panel()
-					->heading('Liste des palmarès', 'fa-trophy')
+					->heading($this->lang('Liste des palmarès'), 'fa-trophy')
 					->body($awards)
-					->footer($this->button_create('admin/awards/add', 'Ajouter un palmarès'));
+					->footer($this->button_create('admin/awards/add', $this->lang('Ajouter un palmarès')));
 	}
 
 	public function add()
 	{
-		$this	->subtitle('Ajouter un palmarès')
+		$this	->subtitle($this->lang('Ajouter un palmarès'))
 				->form()
 				->add_rules('awards', [
 					'teams' => $this->model()->get_teams_list(),
@@ -154,19 +154,19 @@ class Admin extends Controller_Module
 										$post['description'],
 										$post['image']);
 
-			notify('Palmarès ajouté avec succès');
+			notify($this->lang('Palmarès ajouté avec succès'));
 
 			redirect_back('admin/awards');
 		}
 
 		return $this->panel()
-					->heading('Nouveau palmarès', 'fa-trophy')
+					->heading($this->lang('Nouveau palmarès'), 'fa-trophy')
 					->body($this->form()->display());
 	}
 
 	public function _edit($award_id, $team_id, $date, $location, $name, $platform, $game_id, $ranking, $participants, $description, $image_id, $team_name, $team_title, $game_name, $game_title)
 	{
-		$this	->subtitle('Équipe '.$team_title)
+		$this	->subtitle($this->lang('Équipe').' '.$team_title)
 				->form()
 				->add_rules('awards', [
 					'award_id'     => $award_id,
@@ -200,28 +200,28 @@ class Admin extends Controller_Module
 										$post['description'],
 										$post['image']);
 
-			notify('Palmarès édité avec succès');
+			notify($this->lang('Palmarès édité avec succès'));
 
 			redirect_back('admin/awards');
 		}
 
 		return $this->panel()
-					->heading('Édition du palmarès', 'fa-trophy')
+					->heading($this->lang('Édition du palmarès'), 'fa-trophy')
 					->body($this->form()->display());
 	}
 
 	public function delete($award_id, $name)
 	{
-		$this	->title('Palmarès')
+		$this	->title($this->lang('Palmarès'))
 				->subtitle($name)
 				->form()
-				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr de vouloir supprimer le palmarès <b>'.$name.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr de vouloir supprimer le palmarès')' <b>'.$name.'</b>?');
 
 		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_awards($award_id);
 
-			return 'OK';
+			return $this->lang('OK');
 		}
 
 		return $this->form()->display();
