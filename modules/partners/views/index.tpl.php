@@ -13,11 +13,11 @@ foreach ($partners as $i => $partner): ?>
 		</div>
 		<div class="col-7">
 			<div class="pull-right"><a class="text-muted" href="<?php echo url('partners/'.$partner['partner_id'].'/'.$partner['name']) ?>" target="_blank"><?php echo preg_replace('_https?://_', '', $partner['website']) ?></a></div>
-			<h4>À propos de <b><?php echo $partner['title'] ?></b></h4>
+			<h4><b><?php echo $this->lang('À propos de').' '.$partner['title'] ?></b></h4>
 			<ul class="list-inline">
 				<?php if ($partner['facebook']) echo '<li><a href="'.$partner['facebook'].'" class="btn-primary" target="_blank" data-toggle="tooltip" title="Facebook">'.icon('fa-facebook').'</a></li>' ?>
 				<?php if ($partner['twitter']) echo '<li><a href="'.$partner['twitter'].'" class="btn-info" target="_blank" data-toggle="tooltip" title="Twitter">'.icon('fa-twitter').'</a></li>' ?>
-				<?php if ($partner['code']) echo '<li><span class="btn-link" data-toggle="tooltip" title="Code promotionnel">'.icon('fa-gift').'</span> '.$partner['code'].'</li>' ?>
+				<?php if ($partner['code']) echo '<li><span class="btn-link" data-toggle="tooltip" title="'.$this->lang('Code promotionnel').'">'.icon('fa-gift').'</span> '.$partner['code'].'</li>' ?>
 			</ul>
 			<?php if ($partner['description']) echo '<p>'.bbcode($partner['description']).'</p>' ?>
 		</div>

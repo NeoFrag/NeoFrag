@@ -6,14 +6,14 @@
 
 $rules = [
 	'title' => [
-		'label'       => 'Nom',
+		'label'       => $this->lang('Nom'),
 		'value'       => $this->form()->value('title'),
 		'type'        => 'text',
 		'rules'       => 'required',
 		'size'        => 'col-6'
 	],
 	'logo_light'      => [
-		'label'       => 'Logo clair',
+		'label'       => $this->lang('Logo clair'),
 		'value'       => $this->form()->value('logo_light'),
 		'type'        => 'file',
 		'upload'      => 'partners',
@@ -24,10 +24,10 @@ $rules = [
 				return $this->lang('Veuiller choisir un fichier d\'image');
 			}
 		},
-		'description' => 'Pour être affiché sur un fond foncé <i>(suivant le thème utilisé)</i>'
+		'description' => $this->lang('Pour être affiché sur un fond foncé <i>(suivant le thème utilisé)</i>')
 	],
 	'logo_dark' => [
-		'label'       => 'Logo foncé',
+		'label'       => $this->lang('Logo foncé'),
 		'value'       => $this->form()->value('logo_dark'),
 		'type'        => 'file',
 		'upload'      => 'partners',
@@ -38,41 +38,41 @@ $rules = [
 				return $this->lang('Veuiller choisir un fichier d\'image');
 			}
 		},
-		'description' => 'Pour être affiché sur un fond clair <i>(suivant le thème utilisé)</i>'
+		'description' => $this->lang('Pour être affiché sur un fond clair <i>(suivant le thème utilisé)</i>')
 	],
 	'description' => [
-		'label'       => 'Présentation',
+		'label'       => $this->lang('Présentation'),
 		'value'       => $this->form()->value('description'),
 		'type'        => 'editor'
 	],
 	'website' => [
-		'label'       => 'Site internet',
+		'label'       => $this->lang('Site internet'),
 		'icon'        => 'fa-globe',
 		'value'       => $this->form()->value('website'),
 		'type'        => 'url',
-		'rules'       => 'required',
+		'rules'       => $this->lang('required'),
 		'size'        => 'col-5'
 	],
 	'facebook' => [
-		'label'       => 'Page Facebook',
+		'label'       => $this->lang('Page Facebook'),
 		'icon'        => 'fa-facebook',
 		'value'       => $this->form()->value('facebook'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'twitter' => [
-		'label'       => 'Page Twitter',
+		'label'       => $this->lang('Page Twitter'),
 		'icon'        => 'fa-twitter',
 		'value'       => $this->form()->value('twitter'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'code' => [
-		'label'       => 'Code promotionnel',
+		'label'       => $this->lang('Code promotionnel'),
 		'icon'        => 'fa-gift',
 		'value'       => $this->form()->value('code'),
 		'type'        => 'text',
-		'description' => 'Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire',
+		'description' => $this->lang('Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire'),
 		'size'        => 'col-3'
 	]
 ];

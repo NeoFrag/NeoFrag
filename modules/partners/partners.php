@@ -13,7 +13,7 @@ class Partners extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => 'Partenaires',
+			'title'       => $this->lang('Partenaires'),
 			'description' => '',
 			'icon'        => 'fa-star-o',
 			'link'        => 'https://neofr.ag',
@@ -34,17 +34,17 @@ class Partners extends Module
 			'settings'    => function(){
 				return $this->form2()
 							->rule($this->form_radio('partners_logo_display')
-										->title('Logo')
-										->info('Utilisez les logos clairs s\'ils sont affichés sur un fond foncé')
+										->title($this->lang('Logo'))
+										->info($this->lang('Utilisez les logos clairs s\'ils sont affichés sur un fond foncé'))
 										->value($this->config->partners_logo_display)
 										->data([
-											'logo_dark'  => 'Foncé',
-											'logo_light' => 'Clair'
+											'logo_dark'  => $this->lang('Foncé'),
+											'logo_light' => $this->lang('Clair')
 										])
 							)
 							->success(function($data){
 								$this->config('partners_logo_display', $data['partners_logo_display']);
-								notify('Configuration modifiée');
+								notify($this->lang('Configuration modifiée'));
 								refresh();
 							});
 			}

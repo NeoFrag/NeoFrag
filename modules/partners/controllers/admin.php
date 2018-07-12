@@ -21,19 +21,19 @@ class Admin extends Controller_Module
 						'size'    => TRUE
 					],
 					[
-						'title'   => 'Nom',
+						'title'   => $this->lang('Nom'),
 						'content' => function($data){
 							return $data['title'];
 						}
 					],
 					[
-						'title'   => 'Site internet',
+						'title'   => $this->lang('Site internet'),
 						'content' => function($data){
 							return '<a href="'.$data['website'].'" target="_blank">'.$data['website'].'</a>';
 						}
 					],
 					[
-						'title'   => '<span data-toggle="tooltip" title="Visites">'.icon('fa-line-chart').'</span>',
+						'title'   => '<span data-toggle="tooltip" title="'.$this->lang('Visites').'">'.icon('fa-line-chart').'</span>',
 						'content' => function($data){
 							return $data['count'];
 						}
@@ -51,17 +51,17 @@ class Admin extends Controller_Module
 					]
 				])
 				->data($this->model()->get_partners())
-				->no_data('Aucun partenaire');
+				->no_data($this->lang('Aucun partenaire'));
 
 		return $this->panel()
-					->heading('Liste des partenaires', 'fa-star-o')
+					->heading($this->lang('Liste des partenaires'), 'fa-star-o')
 					->body($this->table()->display())
-					->footer($this->button_create('admin/partners/add', 'Ajouter un partenaire'));
+					->footer($this->button_create('admin/partners/add', $this->lang('Ajouter un partenaire')));
 	}
 
 	public function add()
 	{
-		$this	->subtitle('Ajouter un partenaire')
+		$this	->subtitle($this->lang('Ajouter un partenaire'))
 				->form()
 				->add_rules('partners')
 				->add_submit($this->lang('Ajouter'))
@@ -78,13 +78,13 @@ class Admin extends Controller_Module
 										$post['twitter'],
 										$post['code']);
 
-			notify('Partenaire ajouté avec succès');
+			notify($this->lang('Partenaire ajouté avec succès'));
 
 			redirect('admin/partners');
 		}
 
 		return $this->panel()
-					->heading('Ajouter un partenaire', 'fa-star-o')
+					->heading($this->lang('Ajouter un partenaire'), 'fa-star-o')
 					->body($this->form()->display());
 	}
 
@@ -117,28 +117,28 @@ class Admin extends Controller_Module
 											$post['twitter'],
 											$post['code']);
 
-			notify('Partenaire modifié avec succès');
+			notify($this->lang('Partenaire modifié avec succès'));
 
 			redirect_back('admin/partners');
 		}
 
 		return $this->panel()
-					->heading('Éditer le partenaire', 'fa-star-o')
+					->heading($this->lang('Éditer le partenaire'), 'fa-star-o')
 					->body($this->form()->display());
 	}
 
 	public function delete($partner_id, $title)
 	{
-		$this	->title('Supprimer le partenaire')
+		$this	->title($this->lang('Supprimer le partenaire'))
 				->subtitle($title)
 				->form()
-				->confirm_deletion($this->lang('Confirmation de suppression'), 'Êtes-vous sûr(e) de vouloir supprimer le partenaire <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le partenaire').' <b>'.$title.'</b> ?');
 
 		if ($this->form()->is_valid())
 		{
 			$this->model()->delete_partner($partner_id);
 
-			return 'OK';
+			return $this->lang('OK');
 		}
 
 		return $this->form()->display();
