@@ -13,7 +13,7 @@ if (($date = $this->session('statistics', 'date')) && time() - $date > strtoseco
 $rules = [
 	[
 		'type'  => 'legend',
-		'label' => 'Période'
+		'label' => $this->lang('Période')
 	],
 	'start' => [
 		'type'  => 'date',
@@ -27,16 +27,16 @@ $rules = [
 		'type'   => 'select',
 		'value'  => $this->session('statistics', 'period') ?: 'month',
 		'values' => [
-			'hour'  => 'Heure',
-			'day'   => 'Jour',
-			'week'  => 'Semaine',
-			'month' => 'Mois',
-			'year'  => 'Année'
+			'hour'  => $this->lang('Heure'),
+			'day'   => $this->lang('Jour'),
+			'week'  => $this->lang('Semaine'),
+			'month' => $this->lang('Mois'),
+			'year'  => $this->lang('Année')
 		]
 	],
 	[
 		'type'  => 'legend',
-		'label' => 'Statistiques'
+		'label' => $this->lang('Statistiques')
 	],
 	'modules' => [
 		'type'   => 'checkbox',

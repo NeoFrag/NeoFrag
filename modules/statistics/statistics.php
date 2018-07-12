@@ -13,7 +13,7 @@ class Statistics extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => 'Statistiques',
+			'title'       => $this->lang('Statistiques'),
 			'description' => '',
 			'icon'        => 'fa-bar-chart',
 			'link'        => 'https://neofr.ag',
