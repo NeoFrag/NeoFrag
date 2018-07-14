@@ -90,13 +90,13 @@ class Participants extends Model
 		{
 			$message_id = $this->db	->ignore_foreign_keys()
 									->insert('nf_users_messages', [
-										'title' => 'Nouvelle invitation :: '.$title
+										'title' => $this->lang('Nouvelle invitation').' :: '.$title
 									]);
 
 			$reply_id = $this->db	->insert('nf_users_messages_replies', [
 										'message_id' => $message_id,
 										'user_id'    => $this->user->id,
-										'message'    => '<div class="alert alert-info m-0"><b>Message automatique.</b><br />Vous êtes invité à participer à l\'événement <b>'.$title.'</b>.<br /><br />Pour indiquer votre disponibilité, <a href="'.url('events/'.$event_id.'/'.url_title($title)).'">cliquer ici</a>.</div>'
+										'message'    => '<div class="alert alert-info m-0"><b>'.$this->lang('Message automatique.').'</b><br />'.$this->lang('Vous êtes invité à participer à l\'événement.').' <b>'.$title.'</b>.<br /><br />'.$this->lang('Pour indiquer votre disponibilité').', <a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$this->lang('cliquer ici').'</a>.</div>'
 									]);
 
 			$this->db	->where('message_id', $message_id)

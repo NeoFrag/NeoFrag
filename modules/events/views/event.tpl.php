@@ -52,7 +52,7 @@
 		<p class="<?php echo count($rounds) > 1 ? 'pull-right' : 'text-center' ?>"><?php echo icon('fa-cog') ?>Mode: <?php echo $mode ?></p>
 	<?php endif ?>
 	<?php if (count($rounds) > 1): ?>
-		<p><?php echo icon('fa-gamepad') ?> <b>Détail des manches</b></p>
+		<p><?php echo icon('fa-gamepad') ?> <b><?php echo $this->lang('Détail des manches') ?></b></p>
 		<?php for ($i = 0; $i < count($rounds); $i++) { ?>
 		<div class="well well-sm<?php echo (($i+1) == count($rounds)) ? ' m-0' : '' ?>">
 			<div class="row vcenter">
@@ -62,7 +62,7 @@
 				</div>
 				<?php endif ?>
 				<div class="col-xs-<?php echo $rounds[$i]['image_id'] ? '3' : '5' ?> vcenter">
-					<h4 class="m-0">Manche <?php echo $i+1 ?></h4>
+					<h4 class="m-0"><?php echo $this->lang('Manche').' '.$i+1 ?></h4>
 					<?php echo $rounds[$i]['title'] ?>
 				</div>
 				<div class="text-right col-3 vcenter">
@@ -101,8 +101,8 @@ endif;
 <?php if ($webtv || $website): ?>
 <div class="panel-body">
 	<ul class="list-inline m-0">
-		<?php echo $webtv ? '<li><a href="'.$webtv.'" target="_blank">'.icon('fa-twitch').' Retransmission sur Twitch</a></li>' : '' ?>
-		<?php echo $website ? '<li><a href="'.$website.'" target="_blank">'.icon('fa-newspaper-o').' On en parle ici</a></li>' : '' ?>
+		<?php echo $webtv ? '<li><a href="'.$webtv.'" target="_blank">'.icon('fa-twitch').' '.$this->lang('Retransmission sur Twitch').'</a></li>' : '' ?>
+		<?php echo $website ? '<li><a href="'.$website.'" target="_blank">'.icon('fa-newspaper-o').' '.$this->lang('On en parle ici').'</a></li>' : '' ?>
 	</ul>
 </div>
 <?php endif ?>
@@ -117,7 +117,7 @@ endif;
 	</div>
 	<ul class="list-inline m-0">
 		<li><?php echo $this->label($type['title'], $type['icon'], $type['color'], 'events/type/'.$type['type_id'].'/'.url_title($type['title'])) ?></li>
-		<li><?php echo icon('fa-clock-o') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $date).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $date).'</span>'.($date_end ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="Durée"><i>'.icon('fa-hourglass-end').(ceil((strtotime($date_end) - strtotime($date)) / ( 60 * 60 ))).'h</i></span>' : '') ?></li>
+		<li><?php echo icon('fa-clock-o') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $date).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $date).'</span>'.($date_end ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="'.$this->lang('Durée').'"><i>'.icon('fa-hourglass-end').(ceil((strtotime($date_end) - strtotime($date)) / ( 60 * 60 ))).''.$this->lang('h').'</i></span>' : '') ?></li>
 		<?php
 		if (!empty($show_details) && $list_participants && $location):
 			foreach ($list_participants as $participant):

@@ -13,7 +13,7 @@ class Events extends Module
 	protected function __info()
 	{
 		return [
-			'title'       => 'Événements',
+			'title'       => $this->lang('Événements'),
 			'description' => '',
 			'icon'        => 'fa-calendar',
 			'link'        => 'https://neofr.ag',
@@ -50,19 +50,19 @@ class Events extends Module
 			'settings'    => function(){
 				return $this->form2()
 							->rule($this->form_number('events_per_page')
-										->title('Nombre d\'événement par page')
+										->title($this->lang('Nombre d\'événement par page'))
 										->value($this->config->events_per_page ?: '10')
 							)
 							->rule($this->form_checkbox('events_alert_mp')
 										->data([
-											'on' => 'Être averti par message privé des invitations'
+											'on' => lang('Être averti par message privé des invitations')
 										])
 										->value([$this->config->events_alert_mp ? 'on' : NULL])
 							)
 							->success(function($data){
 								$this	->config('events_per_page', $data['events_per_page'])
 										->config('events_alert_mp', in_array('on', $data['events_alert_mp']));
-								notify('Configuration modifiée');
+								notify(lang('Configuration modifiée'));
 								refresh();
 							});
 			}
@@ -75,42 +75,42 @@ class Events extends Module
 			'default' => [
 				'access'  => [
 					[
-						'title'  => 'Événements',
+						'title'  => lang('Événements'),
 						'icon'   => 'fa-calendar',
 						'access' => [
 							'add_event' => [
-								'title' => 'Ajouter',
+								'title' => lang('Ajouter'),
 								'icon'  => 'fa-plus',
 								'admin' => TRUE
 							],
 							'modify_event' => [
-								'title' => 'Modifier',
+								'title' => lang('Modifier'),
 								'icon'  => 'fa-edit',
 								'admin' => TRUE
 							],
 							'delete_event' => [
-								'title' => 'Supprimer',
+								'title' => lang('Supprimer'),
 								'icon'  => 'fa-trash-o',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
-						'title'  => 'Types',
+						'title'  => lang('Types'),
 						'icon'   => 'fa-bookmark-o',
 						'access' => [
 							'add_events_type' => [
-								'title' => 'Ajouter un type',
+								'title' => lang('Ajouter un type'),
 								'icon'  => 'fa-plus',
 								'admin' => TRUE
 							],
 							'modify_events_type' => [
-								'title' => 'Modifier un type',
+								'title' => lang('Modifier un type'),
 								'icon'  => 'fa-edit',
 								'admin' => TRUE
 							],
 							'delete_events_type' => [
-								'title' => 'Supprimer un type',
+								'title' => lang('Supprimer un type'),
 								'icon'  => 'fa-trash-o',
 								'admin' => TRUE
 							]
@@ -133,11 +133,11 @@ class Events extends Module
 				],
 				'access'  => [
 					[
-						'title'  => 'Types',
+						'title'  => lang('Types'),
 						'icon'   => 'fa-bookmark-o',
 						'access' => [
 							'access_events_type' => [
-								'title' => 'Visibilité',
+								'title' => lang('Visibilité'),
 								'icon'  => 'fa-eye'
 							]
 						]

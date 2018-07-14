@@ -49,7 +49,7 @@ class Index extends Controller_Module
 		{
 			$panels->append($this	->panel()
 									->heading()
-									->body('<div class="text-center">Aucun événement n\'a été publiée pour le moment</div>')
+									->body('<div class="text-center">'.$this->lang('Aucun événement n\'a été publiée pour le moment').'</div>')
 									->color('info'));
 		}
 		else
@@ -116,7 +116,7 @@ class Index extends Controller_Module
 					],
 					[
 						'content' => function($data){
-							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? $this->lang('Admin') : $this->lang('Membre')).' '.($data['online'] ? $this->lang('en ligne') : $this->lang('hors ligne')).'</small>';
 						}
 					],
 					[
@@ -134,7 +134,7 @@ class Index extends Controller_Module
 					]
 				])
 				->data($this->model('participants')->get_participants($event_id))
-				->no_data('Aucun participant pour cet événement');
+				->no_data($this->lang('Aucun participant pour cet événement'));
 
 		$match = $type == 1 ? $this->model('matches')->get_match_info($event_id) : NULL;
 
@@ -171,7 +171,7 @@ class Index extends Controller_Module
 						'users' => [
 							'type'   => 'checkbox',
 							'values' => $users,
-							'rules'  => 'required'
+							'rules'  => $this->lang('required')
 						]
 					]);
 
@@ -179,17 +179,17 @@ class Index extends Controller_Module
 			{
 				$this->model('participants')->invite($event_id, $title, array_unique($post['users']));
 
-				notify('Invitations envoyées');
+				notify($this->lang('Invitations envoyées'));
 
 				refresh();
 			}
 
-			$modal = $this	->modal('Inviter des membres', 'fa-user-plus')
+			$modal = $this	->modal($this->lang('Inviter des membres'), 'fa-user-plus')
 							->body($this->view('participants', [
 								'users'   => $users,
 								'form_id' => $this->form()->token()
 							]))
-							->submit('Inviter')
+							->submit($this->lang('Inviter'))
 							->cancel()
 							->set_id('c2dac90bb0731401a293d27ee036757a');
 		}
@@ -218,7 +218,7 @@ class Index extends Controller_Module
 									]), FALSE)
 					)
 					->append_if($this->user(), $this	->panel()
-														->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
+														->heading('<a name="participants"></a>'.$this->lang('Participants').(isset($modal) ? '<div class="pull-right">'.$this->button()->title($this->lang('Invitations'))->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
 														->body($this->table()->display())
 					)
 					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $event_id){
@@ -235,16 +235,16 @@ class Index extends Controller_Module
 						'status' => $status
 					]);
 
-		notify('Disponibilité ajoutée');
+		notify($this->lang('Disponibilité ajoutée'));
 
 		redirect('events/'.$event_id.'/'.$title.'#participants');
 	}
 
 	public function _participant_delete($event_id, $user_id)
 	{
-		$this	->title('Suppression participant')
+		$this	->title($this->lang('Suppression participant'))
 				->form()
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cet invité ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer cet invité ?'));
 
 		if ($this->form()->is_valid())
 		{

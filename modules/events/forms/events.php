@@ -6,54 +6,54 @@
 
 $rules = [
 	'title' => [
-		'label'       => 'Titre',
+		'label'       => $this->lang('Titre'),
 		'value'       => $this->form()->value('title'),
 		'type'        => 'text',
-		'rules'       => 'required'
+		'rules'       => $this->lang('required')
 	],
 	'type' => [
-		'label'       => 'Type',
+		'label'       => $this->lang('Type'),
 		'values'      => array_map(function($a){
 			return $a['title'];
 		}, $this->model('types')->get_types()),
 		'value'       => $this->form()->value('type_id'),
 		'type'        => 'select',
 		'size'        => 'col-3',
-		'rules'       => 'required'
+		'rules'       => $this->lang('required')
 	],
 	'date' => [
-		'label'       => 'Date de début',
+		'label'       => $this->lang('Date de début'),
 		'value'       => $this->form()->value('date'),
 		'type'        => 'datetime',
 		'size'        => 'col-3',
-		'rules'       => 'required'
+		'rules'       => $this->lang('required')
 	],
 	'date_end' => [
-		'label'       => 'Date de fin',
+		'label'       => $this->lang('Date de fin'),
 		'value'       => $this->form()->value('date_end'),
 		'type'        => 'datetime',
 		'size'        => 'col-3',
-		'description' => 'Laissez vide pour ne pas indiquer de durée'
+		'description' => $this->lang('Laissez vide pour ne pas indiquer de durée')
 	],
 	'description' => [
-		'label'       => 'Description',
+		'label'       => $this->lang('Description'),
 		'value'       => $this->form()->value('description'),
 		'type'        => 'editor'
 	],
 	'private_description' => [
-		'label'       => 'Description privée',
+		'label'       => $this->lang('Description privée'),
 		'value'       => $this->form()->value('private_description'),
 		'type'        => 'editor',
-		'description' => 'Seulement visible par les participants'
+		'description' => $this->lang('Seulement visible par les participants')
 	],
 	'location' => [
-		'label'       => 'Lieu',
+		'label'       => $this->lang('Lieu'),
 		'value'       => $this->form()->value('location'),
 		'type'        => 'textarea',
-		'description' => 'Seulement visible par les participants'
+		'description' => $this->lang('Seulement visible par les participants')
 	],
 	'image' => [
-		'label'       => 'Image',
+		'label'       => $this->lang('Image'),
 		'value'       => $this->form()->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'events',
@@ -68,6 +68,6 @@ $rules = [
 	'published' => [
 		'type'        => 'checkbox',
 		'checked'     => ['on' => $this->form()->value('published')],
-		'values'      => ['on' => 'Publier']
+		'values'      => ['on' => $this->lang('Publier')]
 	]
 ];

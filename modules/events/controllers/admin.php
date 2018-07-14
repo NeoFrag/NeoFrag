@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="Publié" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
+									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('Publié').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -85,7 +85,7 @@ class Admin extends Controller_Module
 								'content' => function($data){
 									if ($data['type'] == 1 && ($match = $this->model('matches')->get_match_info($data['event_id'])))//Matches
 									{
-										return  ($match['scores'] ? $this->model('matches')->label_global_scores($data['event_id']).'<span style="margin: 0 10px;"> vs </span>' : '<span style="margin-right: 10px;">Match à jouer vs </span>').
+										return  ($match['scores'] ? $this->model('matches')->label_global_scores($data['event_id']).'<span style="margin: 0 10px;"> vs </span>' : '<span style="margin-right: 10px;">'.$this->lang('Match à jouer vs ').'</span>').
 												($match['opponent']['country'] ? '<img src="'.url('themes/default/images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-right: 10px;" alt="" />' : '').
 												$match['opponent']['title'].' <i>('.$match['game']['title'].')</i>';
 									}
@@ -104,7 +104,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Auteur',
+								'title'   => $this->lang('Auteur'),
 								'content' => function($data){
 									return $data['user_id'] ? NeoFrag()->user->link($data['user_id'], $data['username']) : $this->lang('Visiteur');
 								},
@@ -116,7 +116,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => 'Date',
+								'title'   => $this->lang('Date'),
 								'content' => function($data){
 									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
 								},
@@ -125,14 +125,14 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="Participants"></i>',
+								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="'.$this->lang('Participants').'"></i>',
 								'content' => function($data){
 									return '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title']).'#participants').'">'.$this->model('participants')->count_participants($data['event_id']).'</a>';
 								},
 								'size'    => TRUE
 							],
 							[
-								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Commentaires"></i>',
+								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('Commentaires').'"></i>',
 								'content' => function($data){
 									return $this->module('comments')->admin('events', $data['event_id']);
 								},
@@ -151,7 +151,7 @@ class Admin extends Controller_Module
 							]
 						])
 						->data($events)
-						->no_data('Il n\'y a pas encore d\'événement')
+						->no_data($this->lang('Il n\'y a pas encore d\'événement'))
 						->display();
 
 		return $this->row(
@@ -160,16 +160,16 @@ class Admin extends Controller_Module
 								->heading('', 'fa-calendar')
 								->body('<div id="calendar"></div>', FALSE),
 						$this	->panel()
-								->heading('Types d\'événement', 'fa-bookmark-o')
+								->heading($this->lang('Types d\'événement'), 'fa-bookmark-o')
 								->body($types)
-								->footer($this->is_authorized('add_events_type') ? $this->button_create('admin/events/types/add', 'Créer un type d\'événement') : NULL)
+								->footer($this->is_authorized('add_events_type') ? $this->button_create('admin/events/types/add', $this->lang('Créer un type d\'événement')) : NULL)
 					)
 					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
-								->heading('Liste des événements', 'fa-calendar')
+								->heading($this->lang('Liste des événements'), 'fa-calendar')
 								->body('<div class="panel-footer">'.$this->_filters().'</div><div class="panel-body">'.$events.'</div>', FALSE)
-								->footer($this->is_authorized('add_event') ? $this->button_create('admin/events/add', 'Créer un événement') : NULL)
+								->footer($this->is_authorized('add_event') ? $this->button_create('admin/events/add', $this->lang('Créer un événement')) : NULL)
 					)
 					->size('col-8 col-lg-9')
 		);
@@ -197,10 +197,10 @@ class Admin extends Controller_Module
 
 	public function add()
 	{
-		$this	->subtitle('Ajouter un événement')
+		$this	->subtitle($this->lang('Ajouter un événement'))
 				->form()
 				->add_rules('events')
-				->add_submit('Ajouter')
+				->add_submit($this->lang('Ajouter'))
 				->add_back('admin/events');
 
 		if ($this->form()->is_valid($post))
@@ -215,7 +215,7 @@ class Admin extends Controller_Module
 											$post['image'],
 											in_array('on', $post['published']));
 
-			notify('Événement ajouté');
+			notify($this->lang('Événement ajouté'));
 
 			if ($this->db->select('type')->from('nf_events_types')->where('type_id', $post['type'])->row())
 			{
@@ -228,13 +228,13 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Ajouter un événement', 'fa-calendar')
+					->heading($this->lang('Ajouter un événement'), 'fa-calendar')
 					->body($this->form()->display());
 	}
 
 	public function _edit($event_id, $title, $type_id, $date, $date_end, $description, $private_description, $location, $image_id, $published, $type)
 	{
-		$form_default = $this	->title('Éditer l\'événement')
+		$form_default = $this	->title($this->lang('Éditer l\'événement'))
 								->subtitle($title)
 								->form()
 								->add_rules('events', [
@@ -272,49 +272,49 @@ class Admin extends Controller_Module
 			$form_match = $this	->form()
 								->add_rules([
 									'team' => [
-										'label'       => 'Équipe',
+										'label'       => $this->lang('Équipe'),
 										'value'       => isset($match['team_id']) ? $match['team_id'] : NULL,
 										'values'      => $this->module('teams')->model()->get_teams_list(),
 										'type'        => 'select',
-										'rules'       => 'required'
+										'rules'       => $this->lang('required')
 									],
 									'opponent' => [
-										'label'       => 'Adversaire',
+										'label'       => $this->lang('Adversaire'),
 										'value'       => isset($match['opponent_id']) ? $match['opponent_id'] : NULL,
 										'values'      => $this->model('matches')->get_opponents_list(),
 										'type'        => 'select',
-										'rules'       => 'required'
+										'rules'       => $this->lang('required')
 									],
 									'mode' => [
-										'label'       => 'Mode',
+										'label'       => $this->lang('Mode'),
 										'value'       => isset($match['mode_id']) ? $match['mode_id'] : NULL,
 										'values'      => $this->module('games')->model('modes')->get_modes_list(),
 										'type'        => 'select'
 									],
 									'webtv' => [
-										'label'       => 'WebTv',
+										'label'       => $this->lang('WebTv'),
 										'value'       => isset($match['webtv']) ? $match['webtv'] : NULL,
-										'description' => 'Renseignez l\'url de votre chaine Twitch pour indiquer une retransmission en Live.',
+										'description' => $this->lang('Renseignez l\'url de votre chaine Twitch pour indiquer une retransmission en Live.'),
 										'type'        => 'url'
 									],
 									'website' => [
-										'label'       => 'Site web',
+										'label'       => $this->lang('Site web'),
 										'value'       => isset($match['website']) ? $match['website'] : NULL,
-										'description' => 'Renseignez un site qui parle de l\'événement',
+										'description' => $this->lang('Renseignez un site qui parle de l\'événement'),
 										'type'        => 'url'
 									]
 								])
-								->add_submit('Valider')
+								->add_submit($this->lang('Valider'))
 								->save();
 
 			$form_opponent = $this	->form()
 									->add_rules([
 										'title' => [
-											'label'       => 'Nom',
-											'rules'       => 'required'
+											'label'       => $this->lang('Nom'),
+											'rules'       => $this->lang('required')
 										],
 										'image' => [
-											'label'       => 'Image',
+											'label'       => $this->lang('Image'),
 											'type'        => 'file',
 											'upload'      => 'opponents',
 											'info'        => $this->lang(' d\'image (max. %d Mo)', file_upload_max_size() / 1024 / 1024),
@@ -326,40 +326,40 @@ class Admin extends Controller_Module
 											}
 										],
 										'country' => [
-											'label'       => 'Pays',
+											'label'       => $this->lang('Pays'),
 											'values'      => get_countries(),
 											'type'        => 'select'
 										],
 										'website' => [
-											'label'       => 'Site web',
+											'label'       => $this->lang('Site web'),
 											'type'        => 'url'
 										]
 									])
-									->add_submit('Valider')
+									->add_submit($this->lang('Valider'))
 									->save();
 
 			$form_round = $this	->form()
 								->add_rules([
 									'map' => [
-										'label'  => 'Carte',
+										'label'  => $this->lang('Carte'),
 										'type'   => 'select',
 										'values' => $maps,
 										'size'   => 'col-5'
 									],
 									'score1' => [
-										'label'  => 'Notre score',
+										'label'  => $this->lang('Notre score'),
 										'type'   => 'number',
-										'rules'  => 'required',
+										'rules'  => $this->lang('required'),
 										'size'   => 'col-3'
 									],
 									'score2' => [
-										'label'  => 'Score adverse',
+										'label'  => $this->lang('Score adverse'),
 										'type'   => 'number',
-										'rules'  => 'required',
+										'rules'  => $this->lang('required'),
 										'size'   => 'col-3'
 									]
 								])
-								->add_submit('Valider')
+								->add_submit($this->lang('Valider'))
 								->save();
 
 			if ($form_match->is_valid($post))
@@ -373,7 +373,7 @@ class Admin extends Controller_Module
 					'website'     => $post['website']
 				]);
 
-				notify('Rencontre éditée');
+				notify($this->lang('Rencontre éditée'));
 
 				redirect('admin/events/'.$event_id.'/'.url_title($title));
 			}
@@ -386,7 +386,7 @@ class Admin extends Controller_Module
 					'website'  => $post['website']
 				]);
 
-				notify('Adversaire ajouté');
+				notify($this->lang('Adversaire ajouté'));
 
 				redirect('admin/events/'.$event_id.'/'.url_title($title));
 			}
@@ -399,7 +399,7 @@ class Admin extends Controller_Module
 					'score2'   => $post['score2']
 				]);
 
-				notify('Manche ajoutée');
+				notify($this->lang('Manche ajoutée'));
 
 				redirect('admin/events/'.$event_id.'/'.url_title($title));
 			}
@@ -418,7 +418,7 @@ class Admin extends Controller_Module
 									$post['image'],
 									in_array('on', $post['published']));
 
-			notify('Événement édité');
+			notify($this->lang('Événement édité'));
 
 			$new_type = $this->db->select('type')->from('nf_events_types')->where('type_id', $post['type'])->row();
 
@@ -437,12 +437,12 @@ class Admin extends Controller_Module
 		if ($published && !$this->model('participants')->get_participants($event_id))
 		{
 			$alert = $this	->panel()
-							->body('<div class="pull-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">Inviter des membres</a></div><i class="fa fa-info-circle"></i> <b>Pense-bête !</b><br />N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !</b>')
+							->body('<div class="pull-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">'.$this->lang('Inviter des membres').'</a></div><i class="fa fa-info-circle"></i> <b>'.$this->lang('Pense-bête !').'</b><br />'.$this->lang('N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !').'</b>')
 							->color('info');
 		}
 
 		$panel = $this		->panel()
-							->heading('Éditer l\'événement', 'fa-align-left')
+							->heading($this->lang('Éditer l\'événement'), 'fa-align-left')
 							->body($form_default->display());
 
 		if ($type == 1)//Matches
@@ -470,13 +470,13 @@ class Admin extends Controller_Module
 												->where('r.event_id', $event_id)
 												->order_by('r.round_id')
 												->get())
-					->no_data('Aucune manche renseignée');
+					->no_data($this->lang('Aucune manche renseignée'));
 
-			$modal_opponent = $this	->modal('Ajouter un adversaire', 'fa-plus')
+			$modal_opponent = $this	->modal($this->lang('Ajouter un adversaire'), 'fa-plus')
 									->body($form_opponent->display())
 									->open_if($form_opponent->get_errors());
 
-			$modal_round    = $this	->modal('Ajouter une manche', 'fa-plus')
+			$modal_round    = $this	->modal($this->lang('Ajouter une manche'), 'fa-plus')
 									->body($form_round->display())
 									->open_if($form_round->get_errors());
 
@@ -485,12 +485,12 @@ class Admin extends Controller_Module
 						->size('col-8'),
 				$this	->col(
 							$this	->panel()
-									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fa-plus')->modal($modal_opponent).'</div>', 'fa-info-circle')
+									->heading($this->lang('Détails de la rencontre').'<div class="pull-right">'.$this->button()->title($this->lang('Ajouter un adversaire'))->icon('fa-plus')->modal($modal_opponent).'</div>', 'fa-info-circle')
 									->body($form_match->display()),
 							$this	->panel()
-									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right">Résultat global '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
+									->heading($this->lang('Manches jouées').(count($rounds) > 1 ? '<div class="pull-right">'.$this->lang('Résultat global').' '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
 									->body($this->table()->display())
-									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
+									->footer($this->button_create('#', $this->lang('Ajouter une manche'))->modal($modal_round))
 						)
 						->size('col-4')
 			);
@@ -503,10 +503,10 @@ class Admin extends Controller_Module
 
 	public function delete($event_id, $title)
 	{
-		$this	->title('Suppression événement')
+		$this	->title($this->lang('Suppression événement'))
 				->subtitle($title)
 				->form()
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer le l\'événement <b>'.$title.'</b> ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le l\'événement').' <b>'.$title.'</b> ?');
 
 		if ($this->form()->is_valid())
 		{
@@ -520,11 +520,11 @@ class Admin extends Controller_Module
 
 	public function _types_add()
 	{
-		$this	->subtitle('Ajouter un type d\'événement')
+		$this	->subtitle($this->lang('Ajouter un type d\'événement'))
 				->form()
 				->add_rules('types')
 				->add_back('admin/events')
-				->add_submit('Ajouter');
+				->add_submit($this->lang('Ajouter'));
 
 		if ($this->form()->is_valid($post))
 		{
@@ -533,19 +533,19 @@ class Admin extends Controller_Module
 										$post['color'],
 										$post['icon']);
 
-			notify('Type d\'événement ajouté');
+			notify($this->lang('Type d\'événement ajouté'));
 
 			redirect_back('admin/events');
 		}
 
 		return $this->panel()
-					->heading('Ajouter un type d\'événement', 'fa-bookmark-o')
+					->heading($this->lang('Ajouter un type d\'événement'), 'fa-bookmark-o')
 					->body($this->form()->display());
 	}
 
 	public function _types_edit($type_id, $type, $title, $color, $icon)
 	{
-		$this	->subtitle('Type '.$title)
+		$this	->subtitle($this->lang('Type').' '.$title)
 				->form()
 				->add_rules('types', [
 					'type'  => $type,
@@ -564,22 +564,22 @@ class Admin extends Controller_Module
 										$post['color'],
 										$post['icon']);
 
-			notify('Type d\'événement édité');
+			notify($this->lang('Type d\'événement édité'));
 
 			redirect_back('admin/events');
 		}
 
 		return $this->panel()
-					->heading('Éditer le type d\'événement', 'fa-bookmark-o')
+					->heading($this->lang('Éditer le type d\'événement'), 'fa-bookmark-o')
 					->body($this->form()->display());
 	}
 
 	public function _types_delete($type_id, $title)
 	{
-		$this	->title('Suppression type d\'événement')
+		$this	->title($this->lang('Suppression type d\'événement'))
 				->subtitle($title)
 				->form()
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer le type d\'événement <b>'.$title.'</b> ?<br />Tous les événements de ce type seront aussi supprimés.');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer le type d\'événement').' <b>'.$title.'</b> ?<br />'.$this->lang('Tous les événements de ce type seront aussi supprimés.'));
 
 		if ($this->form()->is_valid())
 		{
@@ -593,9 +593,9 @@ class Admin extends Controller_Module
 
 	public function _round_delete($round_id)
 	{
-		$this	->title('Suppression manche')
+		$this	->title($this->lang('Suppression manche'))
 				->form()
-				->confirm_deletion('Confirmation de suppression', 'Êtes-vous sûr(e) de vouloir supprimer cette manche ?');
+				->confirm_deletion($this->lang('Confirmation de suppression'), $this->lang('Êtes-vous sûr(e) de vouloir supprimer cette manche ?'));
 
 		if ($this->form()->is_valid())
 		{
