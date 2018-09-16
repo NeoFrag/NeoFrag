@@ -252,12 +252,24 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 		if ($field = $this->_schema($name))
 		{
-			$value = $field->raw($value);
-
-			if (!$this->_data || $value !== $this->_data[$field->i])
+			if ($field->is_i18n())
 			{
-				$this->_updates[$field->i] = $value;
-				unset($this->_values[$field->i]);
+				$value = $field->raw($value);
+
+				if ($value !== $this->$name->value)
+				{
+					$this->_updates[$field->i] = $this->$name->set('value', $value);
+				}
+			}
+			else
+			{
+				$value = $field->raw($value);
+
+				if (!$this->_data || $value !== $this->_data[$field->i])
+				{
+					$this->_updates[$field->i] = $value;
+					unset($this->_values[$field->i]);
+				}
 			}
 		}
 		else
@@ -442,28 +454,52 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function update()
 	{
-		if ($this->_updates && $this->_data && $this->_get_by_primaries($primaries)->update($this->_table(), $this->_updates()) !== NULL)
+		if ($this->_updates && $this->_data)
 		{
-			$this->_data = $this->_updates + $this->_data;
+			$updated = FALSE;
 
-			$id = [];
-
-			foreach ($this->_primaries() as $field)
+			foreach ($this->_schema() as $name => $field)
 			{
-				$id[] = $this->_data[$field->i];
+				if (array_key_exists($field->i, $this->_updates) && $field->is_i18n())
+				{
+					$this->_updates[$field->i]->update();
+					$updated = TRUE;
+				}
 			}
 
-			if ($this->_id != ($id = static::_id($id)))
+			if (($updates = $this->_updates()) && $this->_get_by_primaries($primaries)->update($this->_table(), $updates = $this->_updates()) !== NULL)
 			{
-				unset($this->_objects[$this->_id]);
-				$this->_objects[$id] = $this;
+				$updated = TRUE;
 			}
 
-			$this->_log('update', $this->_updates, $primaries);
+			if ($updated)
+			{
+				if (!isset($primaries))
+				{
+					$this->_get_by_primaries($primaries);
+				}
 
-			$this->_updates = [];
+				$this->_data = $this->_updates + $this->_data;
 
-			return $this;
+				$id = [];
+
+				foreach ($this->_primaries() as $field)
+				{
+					$id[] = $this->_data[$field->i];
+				}
+
+				if ($this->_id != ($id = static::_id($id)))
+				{
+					unset($this->_objects[$this->_id]);
+					$this->_objects[$id] = $this;
+				}
+
+				$this->_log('update', $this->_updates, $primaries);
+
+				$this->_updates = [];
+
+				return $this;
+			}
 		}
 	}
 
@@ -479,6 +515,14 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 		if ($this->_data)
 		{
+			foreach ($this->_schema() as $name => $field)
+			{
+				if ($field->is_i18n())
+				{
+					$this->{$field->name}->delete();
+				}
+			}
+
 			$this->_get_by_primaries($primaries)->delete($this->_table());
 
 			$this->_log('delete', $this->_data, $primaries);
