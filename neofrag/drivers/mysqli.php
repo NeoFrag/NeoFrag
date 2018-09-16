@@ -66,7 +66,7 @@ class Mysqli extends Driver
 
 	public function escape_keywords($string)
 	{
-		if (in_array(strtolower($string), ['key', 'read', 'order']))
+		if (in_array(strtolower($string), ['key', 'read', 'order', 'primary']))
 		{
 			return '`'.$string.'`';
 		}
