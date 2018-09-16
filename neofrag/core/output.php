@@ -22,6 +22,7 @@ class Output extends Core
 	protected $_title;
 	protected $_error;
 	protected $_route;
+	protected $_admin_theme = 'admin';
 
 	public function __construct($config = [])
 	{
@@ -44,6 +45,11 @@ class Output extends Core
 		if (isset($config['route']) && is_a($config['route'], 'closure'))
 		{
 			$this->_route = $config['route'];
+		}
+
+		if (isset($config['admin_theme']))
+		{
+			$this->_admin_theme = $config['admin_theme'];
 		}
 
 		$this->data = $this->array;
@@ -227,7 +233,7 @@ class Output extends Core
 
 			ob_start();
 
-			$this->_theme = parent::theme($this->url->admin ? 'admin' : $this->config->nf_default_theme);
+			$this->_theme = parent::theme($this->url->admin ? $this->_admin_theme : $this->config->nf_default_theme);
 
 			if (!$this->url->ajax())
 			{
