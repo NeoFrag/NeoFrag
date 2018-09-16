@@ -179,6 +179,14 @@ class Form2 extends Library
 		return $this;
 	}
 
+	public function model($rule)
+	{
+		if (is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
+		{
+			return $this->_values->{$rule->name()};
+		}
+	}
+
 	public function legend($legend, $icon = '')
 	{
 		$this->_rules[] = is_a($legend, 'NF\NeoFrag\Libraries\Forms\Legend') ? $legend : $this->form_legend($legend, $icon);
