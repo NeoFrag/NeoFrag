@@ -20,5 +20,5 @@ DirectorySlash Off
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule .* - [L,QSA]
 
-	RewriteRule .* index.php [E=REMOTE_USER:%{HTTP:Authorization},L,QSA]
+	RewriteRule .* /index.php [E=REMOTE_USER:%{HTTP:Authorization},L,QSA]
 </IfModule>
