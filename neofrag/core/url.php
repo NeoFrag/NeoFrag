@@ -30,6 +30,7 @@ class Url extends Core
 		$this->_const['query']        = !empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '';
 		$this->_const['https']        = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off';
 		$this->_const['location']     = ($this->https ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->_const['request']      = $_SERVER['REQUEST_URI'];
 		$this->_const['cli']          = FALSE;
 
 		$url = parse_url($this->location);
@@ -64,16 +65,21 @@ class Url extends Core
 
 			if (preg_match('/^(humans|robots)\.txt$/', $this->request, $match))
 			{
-				$this->_const['segments']      = explode('/', 'ajax/settings/'.$match[1]);
+				$this->_const['segments'] = explode('/', 'ajax/settings/'.$match[1]);
 			}
 
 			if (isset($config['segments']) && is_a($config['segments'], 'closure'))
 			{
-				$this->_const['segments']      = call_user_func_array($config['segments'], [$this->_const]);
+				$this->_const['segments'] = call_user_func_array($config['segments'], [$this->_const]);
 			}
 
-			$this->_const['admin']             = $this->segments[0] == 'admin';
-			$this->_const['ajax']              = isset($this->segments[(int)$this->admin]) && $this->segments[(int)$this->admin] == 'ajax';
+			$this->_const['admin'] = $this->segments[0] == 'admin';
+			$this->_const['ajax']  = isset($this->segments[(int)$this->admin]) && $this->segments[(int)$this->admin] == 'ajax';
+
+			if (isset($config['override']) && is_a($config['override'], 'closure'))
+			{
+				call_user_func_array($config['override'], [&$this->_const]);
+			}
 		};
 
 		$segments($request);
@@ -95,7 +101,11 @@ class Url extends Core
 			if (array_key_exists($name = $this->segments[0], $langs))
 			{
 				$lang = $langs[$name];
-				$segments(preg_replace('_^'.$name.'/?_', '', $this->request));
+
+				if (($request = preg_replace('_^'.$name.'/?_', '', $this->request)) != $this->request)
+				{
+					$segments($request);
+				}
 			}
 			else if (!preg_match('_^user/auth/_', $this->request))
 			{
@@ -136,13 +146,8 @@ class Url extends Core
 
 	public function __get($name)
 	{
-		if (isset($this->_const[$name]))
+		if (array_key_exists($name, $this->_const))
 		{
-			if ($name == 'base' && $this->_external)
-			{
-				return ($this->https ? 'https' : 'http').'://'.$this->host.$this->_const['base'];
-			}
-
 			return $this->_const[$name];
 		}
 
@@ -156,7 +161,7 @@ class Url extends Core
 
 	public function __invoke($url = '')
 	{
-		$domain = '';
+		$domain = $args = '';
 
 		if ($url == '#')
 		{
@@ -164,6 +169,12 @@ class Url extends Core
 		}
 		else if (substr($url, 0, 2) == '//')
 		{
+			if (preg_match('_(.*)([?#].*)$_', $url, $match))
+			{
+				$url  = $match[1];
+				$args = $match[2];
+			}
+
 			$url = explode('/', substr($url, 2));
 
 			if (($subdomain = array_shift($url)) != $this->subdomain)
@@ -195,7 +206,12 @@ class Url extends Core
 			$url = rtrim($this->config->lang->info()->name.'/'.$url, '/');
 		}
 
-		return str_replace('/#', '#', $domain.$this->base.$url);
+		if ($this->_external)
+		{
+			$domain = ($this->https ? 'https' : 'http').':'.($domain ?: '//'.$this->host);
+		}
+
+		return str_replace('/#', '#', $domain.$this->base.$url.$args);
 	}
 
 	public function ajax()
