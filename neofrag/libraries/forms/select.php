@@ -14,6 +14,7 @@ class Select extends Multiple
 	protected $_optgroup = [];
 	protected $_render;
 	protected $_search;
+	protected $_create;
 
 	public function __invoke($name)
 	{
@@ -56,6 +57,24 @@ class Select extends Multiple
 			$input->append_attr_if($this->_multiple, 'name', '[]', '');
 		};
 
+		return $this;
+	}
+
+	protected function _label()
+	{
+		$label = parent::_label();
+
+		if ($this->_create && ($model = $this->_form->model($this)) && ($button = $model->route()->button_create()))
+		{
+			$label .= $button->style('pull-right');
+		}
+
+		return $label;
+	}
+
+	public function create()
+	{
+		$this->_create = TRUE;
 		return $this;
 	}
 
