@@ -76,6 +76,11 @@ class Collection extends Library
 		return $results;
 	}
 
+	public function array()
+	{
+		return parent::array($this->get());
+	}
+
 	public function row()
 	{
 		return $this->_aggregate($this->_db()->row(FALSE));
