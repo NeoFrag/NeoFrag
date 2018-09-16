@@ -37,12 +37,16 @@ class Date extends Library
 
 	public function __debugInfo()
 	{
-
 		return [
 			'datetime' => $this->_datetime,
 			'html'     => $this->__toString(),
 			'sql'      => $this->sql()
 		];
+	}
+
+	public function __clone()
+	{
+		$this->_datetime = clone $this->_datetime;
 	}
 
 	public function __sleep()
