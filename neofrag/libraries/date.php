@@ -23,7 +23,9 @@ class Date extends Library
 						date_create($datetime);
 		}
 
-		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''))->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''));
+
+		$this->_datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 
 		return $this;
 	}
