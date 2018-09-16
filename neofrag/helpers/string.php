@@ -141,7 +141,7 @@ function is_valid_email($email)
 
 function is_valid_url($url)
 {
-	return filter_var($url, FILTER_VALIDATE_URL) === $url;
+	return preg_match('/^(tel|geo):.+/', $url) || filter_var($url, FILTER_VALIDATE_URL) === $url;
 }
 
 function utf8_htmlentities($string, $flags = ENT_COMPAT)
