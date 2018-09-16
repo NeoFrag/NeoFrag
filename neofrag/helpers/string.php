@@ -136,26 +136,12 @@ function unique_id($list = [])
 
 function is_valid_email($email)
 {
-	if (function_exists('filter_var'))
-	{
-		return filter_var($email, FILTER_VALIDATE_EMAIL);
-	}
-	else
-	{
-		return preg_match('/.+?@.+?\.[a-z0-9]+/i', $email);
-	}
+	return filter_var($email, FILTER_VALIDATE_EMAIL) === $email;
 }
 
 function is_valid_url($url)
 {
-	if (function_exists('filter_var'))
-	{
-		return filter_var($url, FILTER_VALIDATE_URL);
-	}
-	else
-	{
-		return preg_match('#(https?)://.+?#', $url);
-	}
+	return filter_var($url, FILTER_VALIDATE_URL) === $url;
 }
 
 function utf8_htmlentities($string, $flags = ENT_COMPAT)
