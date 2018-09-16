@@ -268,9 +268,9 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		}
 	}
 
-	public function collection()
+	public function collection($name = '')
 	{
-		return parent::collection($this);
+		return parent::collection($name ?: $this);
 	}
 
 	public function db()
