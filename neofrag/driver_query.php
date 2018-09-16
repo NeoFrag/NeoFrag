@@ -107,37 +107,48 @@ class Driver_Query
 
 				foreach ($this->where as $where)
 				{
-					if ($last_operator !== NULL)
-					{
-						$sql .= ' '.$last_operator.' ';
-					}
+					$part = '';
 
 					if (is_array($where))
 					{
 						$last_operator2 = NULL;
 
-						$sql .= '(';
-
 						foreach ($where as $where)
 						{
-							if ($last_operator2 !== NULL)
+							if ($w = $this->where($where))
 							{
-								$sql .= ' '.$last_operator2.' ';
+								if ($last_operator2 !== NULL)
+								{
+									$part .= ' '.$last_operator2.' ';
+								}
+
+								$part .= $w;
+
+								$last_operator2 = $where->operator;
 							}
-
-							$sql .= $this->where($where);
-
-							$last_operator2 = $where->operator;
 						}
 
-						$sql .= ')';
+						if ($part)
+						{
+							$part = '('.$part.')';
+						}
 					}
-					else
+					else if ($w = $this->where($where))
 					{
-						$sql .= $this->where($where);
+						$part .= $w;
 					}
 
-					$last_operator = $where->operator;
+					if ($part)
+					{
+						if ($last_operator !== NULL)
+						{
+							$sql .= ' '.$last_operator.' ';
+						}
+
+						$sql .= $part;
+
+						$last_operator = $where->operator;
+					}
 				}
 
 				$this->sql .= $sql;
@@ -178,9 +189,16 @@ class Driver_Query
 		}
 		else if (is_array($where->value))
 		{
-			$sql = $this->driver->escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
-				return $this->bind($a);
-			}, $where->value)).')';
+			if ($where->value)
+			{
+				$sql = $this->driver->escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
+					return $this->bind($a);
+				}, $where->value)).')';
+			}
+			else
+			{
+				$sql = '';
+			}
 		}
 		else
 		{
