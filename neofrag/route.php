@@ -32,17 +32,10 @@ class Route extends NeoFrag
 
 	public function __call($name, $args)
 	{
-		if (in_array($name, ['create', 'update', 'delete']))
+		if (in_array($name, ['create', 'read', 'update', 'delete']))
 		{
-			if ($args)
-			{
-				$this->_crud[$name] = NeoFrag()->___load('', 'routes/'.$name, $args);
-				return $this;
-			}
-			else
-			{
-				return isset($this->_crud[$name]);
-			}
+			$this->_crud[$name] = NeoFrag()->___load('', 'routes/'.$name, $args);
+			return $this;
 		}
 
 		return parent::__call($name, $args);
@@ -50,15 +43,23 @@ class Route extends NeoFrag
 
 	public function button_create()
 	{
-		if ($this->create())
+		if (array_key_exists('create', $this->_crud))
 		{
 			return parent::button_create()->modal_ajax($this->_url().'/add');
 		}
 	}
 
+	public function button_read()
+	{
+		if (array_key_exists('read', $this->_crud))
+		{
+			return parent::button()->popover_ajax($this->_url().'/info/'.$this->_model->url());
+		}
+	}
+
 	public function button_update()
 	{
-		if ($this->update())
+		if (array_key_exists('update', $this->_crud))
 		{
 			return parent::button_update()->modal_ajax($this->_url().'/edit/'.$this->_model->url());
 		}
@@ -70,7 +71,7 @@ class Route extends NeoFrag
 
 	public function button_delete()
 	{
-		if ($this->delete())
+		if (array_key_exists('delete', $this->_crud))
 		{
 			return parent::button_delete()->modal_ajax($this->_url().'/delete/'.$this->_model->url());
 		}
@@ -92,24 +93,22 @@ class Route extends NeoFrag
 
 		$model = $this->_model;
 
-		if (($method == 'edit' || $method == 'delete') && ($model = $model->read(array_shift($args))) && $model())
+		if (	in_array($method, ['info', 'edit', 'delete']) &&
+				($model = $model->read(array_shift($args))) &&
+				!$model->check(array_shift($args))
+			)
 		{
-			if ($name = array_shift($args))
-			{
-				if ($model->static___check($model, $name))
-				{
-					$this->error();
-				}
-			}
+			$this->error();
 		}
 
 		$actions = [
 			'add'    => 'create',
+			'info'   => 'read',
 			'edit'   => 'update',
 			'delete' => 'delete'
 		];
 
-		if (array_key_exists($method, $actions) && ($action = $actions[$method]) && $this->$action())
+		if (array_key_exists($method, $actions) && ($action = $actions[$method]) && array_key_exists($action, $this->_crud))
 		{
 			return $this->_crud[$action]->__execute($model);
 		}
@@ -129,8 +128,7 @@ class Route extends NeoFrag
 			$url[] = 'ajax';
 		}
 
-		// $url[] = $this->_model->__caller->info()->name;
-		$url[] = $this->output->module()->info()->name;
+		$url[] = $this->_model->__caller->info()->name;
 
 		if ($this->_name)
 		{
