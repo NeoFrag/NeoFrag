@@ -60,7 +60,7 @@ class Admin extends Theme
 
 		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if ($module->is_administrable($category) && $category != 'none' && $module->is_authorized())
+			if ($module->is_enabled() && $module->is_administrable($category) && $category != 'none' && $module->is_authorized())
 			{
 				$content_submenu[isset($content_submenu[$category]) ? $category : 'default'][] = [
 					'title' => (string)$module->info()->title,
