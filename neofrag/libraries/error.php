@@ -37,4 +37,9 @@ class Error extends Library
 			}]);
 		}
 	}
+
+	public function throw($callback)
+	{
+		throw NeoFrag()->___load('', 'exception', [$callback]);
+	}
 }
