@@ -28,7 +28,7 @@ class Email extends Library
 		else
 		{
 			$this->_footer = function(){
-				return $this->config->nf_description.' | <a href="'.url().'">'.$this->config->nf_name.'</a>';
+				return $this->config->nf_description.' | <a href="'.url('//').'">'.$this->config->nf_name.'</a>';
 			};
 		}
 	}
