@@ -28,7 +28,7 @@ class Delete extends NeoFrag
 	public function __execute($model)
 	{
 		return $this->modal_delete('Suppression', $model::$icon)
-					->body(is_a($this->_message, 'closure') ? call_user_func_array($this->_message, [$model]) : $this->_message)
+					->body(is_a($this->_message, 'closure') ? call_user_func_array($this->_message, [$model]) : $model->lang($this->_message, $model))
 					->callback(function() use ($model){
 						$model->delete();
 						refresh();
