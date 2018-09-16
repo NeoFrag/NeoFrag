@@ -102,8 +102,8 @@ class Mysqli extends Driver
 	public function lock($tables)
 	{
 		$this->db->query('LOCK TABLES '.implode(', ', array_map(function($a){
-			return '`'.$a.'` READ';
-		}, $tables)));
+			return $a.' WRITE';
+		}, (array)$tables)));
 	}
 
 	public function unlock($tables)
