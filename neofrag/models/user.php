@@ -36,9 +36,9 @@ class User extends Model2
 		});
 	}
 
-	static public function __check($model, $value)
+	static public function __url($model)
 	{
-		return $value != url_title($model->username);
+		return url_title($model->username);
 	}
 
 	public function profile()
@@ -152,11 +152,6 @@ class User extends Model2
 		}
 
 		return $this;
-	}
-
-	public function url()
-	{
-		return $this->id.'/'.url_title($this->username);
 	}
 
 	public function sessions()

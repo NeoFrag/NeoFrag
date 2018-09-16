@@ -64,10 +64,21 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 	}
 
+	static protected function __url($model)
+	{
+		if (isset($model->name))
+		{
+			return $model->name;
+		}
+		else if (isset($model->title))
+		{
+			return url_title($model->title);
+		}
+	}
+
 	static protected function __check($model, $value)
 	{
-		return 	(isset($model->name) && $value != $model->name) ||
-				(isset($model->title) && $value != url_title($model->title));
+		return static::__url($model) == $value;
 	}
 
 	static protected function field()
@@ -312,14 +323,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 			$url[] = $this->id;
 		}
 
-		if (isset($this->name))
-		{
-			$url[] = $this->name;
-		}
-		else if (isset($this->title))
-		{
-			$url[] = url_title($this->title);
-		}
+		$url[] = static::__url($this);
 
 		return implode('/', $url);
 	}
