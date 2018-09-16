@@ -10,6 +10,8 @@ use NF\NeoFrag\Library;
 
 class Email extends Library
 {
+	static protected $_id;
+
 	protected $_from;
 	protected $_to = [];
 	protected $_subject;
@@ -31,6 +33,11 @@ class Email extends Library
 				return $this->config->nf_description.' | <a href="'.url('//').'">'.$this->config->nf_name.'</a>';
 			};
 		}
+	}
+
+	public function tracking($action = '')
+	{
+		return '?__email='.static::$_id.($action ? '&__action='.$action : '');
 	}
 
 	public function from($from)
@@ -70,6 +77,12 @@ class Email extends Library
 		{
 			return FALSE;
 		}
+
+		do
+		{
+			static::$_id = unique_id();
+		}
+		while ($this->module('newsletter') && $this->db()->select('1')->from('nf_newsletter_campaign_email')->where('id', static::$_id)->row());
 
 		require_once 'lib/phpmailer/class.phpmailer.php';
 
@@ -135,6 +148,6 @@ class Email extends Library
 			]);
 		});
 
-		return $mail->send();
+		return $mail->send() ? static::$_id : FALSE;
 	}
 }
