@@ -160,6 +160,11 @@ class User extends Model2
 						->where('_.user_id', $this->id);
 	}
 
+	public function name()
+	{
+		return $this->profile()->first_name.' '.$this->profile()->last_name;
+	}
+
 	public function delete()
 	{
 		$this	->set('deleted', TRUE)
