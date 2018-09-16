@@ -7,12 +7,14 @@
 function get_colors()
 {
 	return [
-		'default' => '#777777',
-		'primary' => '#337ab7',
-		'success' => '#5cb85c',
-		'info'    => '#5bc0de',
-		'warning' => '#f0ad4e',
-		'danger'  => '#d9534f'
+		'primary'   => '#007bff',
+		'secondary' => '#6c757d',
+		'success'   => '#28a74',
+		'danger'    => '#dc3545',
+		'warning'   => '#ffc107',
+		'info'      => '#17a2b8',
+		'light'     => '#f8f9fa',
+		'dark'      => '#343a40'
 	];
 }
 
