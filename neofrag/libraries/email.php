@@ -71,13 +71,13 @@ class Email extends Library
 			return FALSE;
 		}
 
-		require 'lib/phpmailer/class.phpmailer.php';
+		require_once 'lib/phpmailer/class.phpmailer.php';
 
 		$mail = new \PHPMailer;
 
 		if ($this->config->nf_email_smtp)
 		{
-			require 'lib/phpmailer/class.smtp.php';
+			require_once 'lib/phpmailer/class.smtp.php';
 
 			$mail->SMTPDebug = 1;
 			$mail->Debugoutput = function($message){
