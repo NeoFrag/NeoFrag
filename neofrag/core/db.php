@@ -12,64 +12,35 @@ class Db extends Core
 {
 	static protected $_drivers  = [];
 	static protected $_requests = [];
+	static protected $_config = [];
 
 	protected $_request = [];
 
 	public function __construct($config)
 	{
-		array_walk($config, $connect = function($config) use (&$connect){
-			if (!isset($config['hostname'], $config['username'], $config['password'], $config['database']))
-			{
-				return;
-			}
-
-			if (!isset($config['type']))
-			{
-				$config['type'] = 'default';
-			}
-
-			if (isset(self::$_drivers[$config['type']]))
-			{
-				return;
-			}
-
-			if (!isset($config['driver']))
-			{
-				$config['driver'] = 'mysqli';
-			}
-
-			if ($driver = NeoFrag()->___load('drivers', $config['driver'], [$config['hostname'], $config['username'], $config['password'], $config['database']]))
-			{
-				if ($connection = $driver->connect())
-				{
-					if (is_string($connection))
-					{
-						$config['driver'] = $connection;
-						$connect($config);
-						return;
-					}
-					else
-					{
-						if (isset($config['init']) && is_a($config['init'], 'closure'))
-						{
-							call_user_func($config['init'], $connection);
-						}
-
-						self::$_drivers[$config['type']] = $driver;
-
-						if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
-						{
-							$this->debug('DB', 'Connection established '.$config['type'].' / '.$config['hostname'].' / '.$config['database'].' ('.$config['driver'].')');
-						}
-					}
-				}
-			}
-		});
-
-		if (empty(self::$_drivers['default']))
+		foreach ($config as $c)
 		{
-			header('HTTP/1.0 503 Service Unavailable');
-			exit('Database error check config/db.php');
+			if (!isset($c['hostname'], $c['username'], $c['password'], $c['database']))
+			{
+				continue;
+			}
+
+			if (!isset($c['type']))
+			{
+				$c['type'] = 'default';
+			}
+
+			if (isset(self::$_drivers[$c['type']]))
+			{
+				continue;
+			}
+
+			if (!isset($c['driver']))
+			{
+				$c['driver'] = 'mysqli';
+			}
+
+			static::$_config[$c['type']][] = $c;
 		}
 
 		$this->debug->bar('database', function(&$label){
@@ -415,14 +386,61 @@ class Db extends Core
 		return $this;
 	}
 
+	public function driver()
+	{
+		return self::$_drivers[$this->_driver()];
+	}
+
 	protected function _driver()
 	{
 		if (!($args = func_get_args()))
 		{
-			return isset($this->_request['type']) && isset(self::$_drivers[$this->_request['type']]) ? $this->_request['type'] : 'default';
+			$type = isset($this->_request['type']) ? $this->_request['type'] : 'default';
+
+			if (!isset(self::$_drivers[$type]) && isset(self::$_config[$type]))
+			{
+				array_walk(self::$_config[$type], $connect = function($config) use (&$connect){
+					if ($driver = NeoFrag()->___load('drivers', $config['driver'], [$config['hostname'], $config['username'], $config['password'], $config['database']]))
+					{
+						if ($connection = $driver->connect())
+						{
+							if (is_string($connection))
+							{
+								$config['driver'] = $connection;
+								$connect($config);
+								return;
+							}
+							else
+							{
+								if (isset($config['init']) && is_a($config['init'], 'closure'))
+								{
+									call_user_func($config['init'], $connection);
+								}
+
+								self::$_drivers[$config['type']] = $driver;
+
+								if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
+								{
+									$this->debug('DB', 'Connection established '.$config['type'].' / '.$config['hostname'].' / '.$config['database'].' ('.$config['driver'].')');
+								}
+							}
+						}
+					}
+				});
+
+				if (!isset(self::$_drivers[$type]))
+				{
+					header('HTTP/1.0 503 Service Unavailable');
+					exit('Database error check config/db.php');
+				}
+
+				unset(self::$_config[$type]);
+			}
+
+			return $type;
 		}
 
-		return call_user_func_array([self::$_drivers[$this->_driver()], array_shift($args)], $args);
+		return call_user_func_array([$this->driver(), array_shift($args)], $args);
 	}
 
 	protected function _exec($callback = NULL)
