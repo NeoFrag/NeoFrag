@@ -139,6 +139,16 @@ class Label extends Html
 		return $this;
 	}
 
+	public function popover_ajax($url)
+	{
+		$this->js('popover');
+
+		return $this->url('#')
+					->data([
+						'popover-ajax' => url($url)
+					]);
+	}
+
 	public function icon($icon = '')
 	{
 		if (func_num_args())

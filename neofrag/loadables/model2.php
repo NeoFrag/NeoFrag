@@ -312,6 +312,14 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		return implode('/', $url);
 	}
 
+	public function popover()
+	{
+		if ($button = $this->route()->button_read())
+		{
+			return $button->title($this);
+		}
+	}
+
 	public function tracking(&$unread = FALSE)
 	{
 		if (!isset($this->__tracking))
