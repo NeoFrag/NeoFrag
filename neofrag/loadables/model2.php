@@ -203,7 +203,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function check($value)
 	{
-		if ($this() && !$this->static___check($this, $value))
+		if ($this() && $this->static___check($this, $value))
 		{
 			return $this;
 		}
