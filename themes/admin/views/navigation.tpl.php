@@ -1,7 +1,7 @@
 <ul>
 	<?php
 	foreach ([
-		[icon('pe-7s-home'),             url()],
+		[icon('pe-7s-home'),             url('//')],
 		[$this->lang('Fonctionnalités'), 'https://neofr.ag/#features'],
 		[$this->lang('Thèmes & Addons'), 'https://addons.neofr.ag'],
 		[$this->lang('Documentation'),   'https://docs.neofr.ag'],
