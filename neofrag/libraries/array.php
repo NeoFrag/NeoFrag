@@ -224,9 +224,14 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return array_last_key($this->_array);
 	}
 
+	public function implode($glue = '')
+	{
+		return implode($glue, $this->_array);
+	}
+
 	public function __toString()
 	{
-		return implode($this->_array);
+		return $this->implode();
 	}
 
 	public function __toArray()
