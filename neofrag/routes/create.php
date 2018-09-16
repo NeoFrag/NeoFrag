@@ -8,7 +8,7 @@ namespace NF\NeoFrag\Routes;
 
 use NF\NeoFrag\NeoFrag;
 
-class Delete extends NeoFrag
+class Create extends NeoFrag
 {
 	protected $_title;
 
