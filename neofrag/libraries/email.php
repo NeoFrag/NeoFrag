@@ -122,18 +122,11 @@ class Email extends Library
 		}
 
 		$this->output->email(function() use ($mail){
-			$data = [];
-
-			if (is_a($this->_data, 'closure'))
-			{
-				$data = call_user_func($this->_data);
-			}
-
 			$data = array_merge([
 				'header'  => '',
 				'content' => '',
 				'footer'  => ''
-			], $data);
+			], is_a($this->_data, 'closure') ? call_user_func($this->_data) : $this->_data);
 
 			$data['footer'] .= call_user_func($this->_footer);
 
