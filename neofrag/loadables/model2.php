@@ -183,6 +183,11 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		return $values;
 	}
 
+	public function __toString()
+	{
+		return isset($this->title) ? (string)$this->title : '';
+	}
+
 	public function __clone()
 	{
 		$this->_id   = 0;
