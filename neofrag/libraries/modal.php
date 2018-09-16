@@ -58,14 +58,6 @@ class Modal extends Library
 					'.$content.'
 					'.($this->_buttons ? $this->button->static_footer($this->_buttons, 'right')->append_attr('class', 'modal-footer') : '');
 
-		if ($this->_callback)
-		{
-			$content = $this->html('form')
-							->attr('action', url($this->url->request))
-							->attr('method', 'post')
-							->content($content);
-		}
-
 		if ($this->_template)
 		{
 			call_user_func_array($this->_template, [&$content]);
@@ -74,6 +66,14 @@ class Modal extends Library
 		$content = $this->html()
 						->attr('class', 'modal-content')
 						->content($content);
+
+		if ($this->_callback)
+		{
+			$content = $this->html('form')
+							->attr('action', url($this->url->request))
+							->attr('method', 'post')
+							->content($content);
+		}
 
 		$content = '<div id="'.$this->id.'" class="modal fade" tabindex="-1" role="dialog">
 					<div class="modal-dialog'.($this->_size ? ' modal-'.$this->_size : '').'">
@@ -213,7 +213,7 @@ class Modal extends Library
 	public function ajax($url)
 	{
 		$this	->js('modal')
-				->js_load('modal(\''.$url.'\');');
+				->js_load('modal(\''.url($url).'\');');
 
 		return $this;
 	}
