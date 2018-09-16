@@ -44,9 +44,10 @@ abstract class Widget extends Addon
 			$type     = 'index';
 		}
 
-		$this->_output = implode($this->get_output($type, $settings));
-
-		return $this;
+		if (($controller = $this->controller('index')) && $controller->has_method($type))
+		{
+			return call_user_func_array([$controller, $type], [$settings]);
+		}
 	}
 
 	public function get_output($type, $settings = [])
