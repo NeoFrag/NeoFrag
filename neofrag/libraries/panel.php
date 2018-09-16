@@ -104,11 +104,18 @@ class Panel extends Library
 		return $this;
 	}
 
-	public function body($body, $add_body_tags = TRUE)
+	public function body($body = '', $add_body_tags = TRUE)
 	{
-		$this->_body      = $body;
-		$this->_body_tags = $add_body_tags;
-		return $this;
+		if (func_get_args())
+		{
+			$this->_body      = $body;
+			$this->_body_tags = $add_body_tags;
+			return $this;
+		}
+		else
+		{
+			return $this->_body;
+		}
 	}
 
 	public function footer($footer = '', $align = 'center')
