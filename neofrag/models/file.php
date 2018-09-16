@@ -70,7 +70,7 @@ class File extends Model2
 	{
 		if ($this->path)
 		{
-			return $this->url->base.$this->path;
+			return url($this->path);
 		}
 	}
 
