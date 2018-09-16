@@ -173,11 +173,11 @@ class Config extends Core
 	{
 		if ($name == 'unset')
 		{
-			if (array_key_exists($name, $this->_const))
+			if (array_key_exists($args[0], $this->_const))
 			{
-				unset($this->_const[$name]);
+				unset($this->_const[$args[0]]);
 
-				NeoFrag()->db	->where('name', $name)
+				NeoFrag()->db	->where('name', $args[0])
 								->delete('nf_settings');
 			}
 
