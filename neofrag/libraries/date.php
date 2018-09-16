@@ -37,6 +37,7 @@ class Date extends Library
 
 	public function __debugInfo()
 	{
+
 		return [
 			'datetime' => $this->_datetime,
 			'html'     => $this->__toString(),
@@ -125,5 +126,10 @@ class Date extends Library
 	public function long_date()
 	{
 		return $this->locale($this->config->lang->date()['long_date']);
+	}
+
+	public function long_date_time()
+	{
+		return $this->locale($this->config->lang->date()['long_date_time']);
 	}
 }
