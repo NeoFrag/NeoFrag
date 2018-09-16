@@ -181,8 +181,16 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 	{
 		if (is_string($callback))
 		{
-			$this->_array = array_filter($this->_array, function(&$a) use (&$callback){
-				return method_exists($a, $callback) ? $a->$callback() : $callback($a);
+			$not = FALSE;
+
+			if ($callback[0] == '!')
+			{
+				$callback = substr($callback, 1);
+				$not = TRUE;
+			}
+
+			$this->_array = array_filter($this->_array, function(&$a) use (&$callback, $not){
+				return (method_exists($a, $callback) ? $a->$callback() : $callback($a)) == !$not;
 			});
 		}
 		else if ($callback)
