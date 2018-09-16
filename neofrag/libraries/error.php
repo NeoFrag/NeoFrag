@@ -22,7 +22,7 @@ class Error extends Library
 	{
 		throw NeoFrag()->___load('', 'exception', [function(){
 			header('HTTP/1.0 403 Forbidden');
-			return $this->view('errors/unauthorized');
+			redirect();
 		}]);
 	}
 
