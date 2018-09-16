@@ -115,6 +115,7 @@ class Output extends Core
 				if (!$this->url->admin && $this->url->ajax && $segments[0] == 'theme')
 				{
 					$module = $this->_theme;
+					array_shift($segments);
 				}
 				else
 				{
