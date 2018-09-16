@@ -16,7 +16,7 @@ class Theme extends Controller
 	{
 		return $this->array
 					->set('enable',    ['Activer', 'fa-check', 'success', TRUE, function($addon){
-						return $addon->info()->name != 'admin' && $this->config->nf_default_theme != $addon->info()->name;
+						return $addon->info()->name != 'admin' && !$addon->is_enabled();
 					}])
 					->set('customize', ['Personaliser', 'fa-paint-brush', 'info', FALSE, function($addon){
 						return $addon->info()->name != 'admin' && @$addon->controller('admin');

@@ -28,6 +28,11 @@ abstract class Theme extends Addon
 
 	}
 
+	public function is_enabled()
+	{
+		return $this->config->nf_default_theme == $this->info()->name;
+	}
+
 	public function is_deactivatable()
 	{
 		return parent::is_deactivatable() && NeoFrag()->model2('addon')->get('theme')->count() > 2;
