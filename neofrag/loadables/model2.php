@@ -367,6 +367,24 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		return $this;
 	}
 
+	public function clone()
+	{
+		$clone = clone $this;
+
+		$clone->_attrs   = $this->_attrs;
+		$clone->_updates = array_merge($this->_data, $this->_updates);
+
+		foreach ($clone->_schema() as $name => $field)
+		{
+			if ($name == 'id')
+			{
+				$clone->_updates[$field->i] = 0;
+			}
+		}
+
+		return $clone;
+	}
+
 	public function create()
 	{
 		if ($this->_updates && !$this->_data)
