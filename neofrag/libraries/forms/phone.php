@@ -20,6 +20,6 @@ class Phone extends Text
 		};
 
 		return $this->addon('fa-phone')
-					->size('col-3');
+					->size('col-5');
 	}
 }
