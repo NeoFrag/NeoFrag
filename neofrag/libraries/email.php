@@ -146,6 +146,8 @@ class Email extends Library
 			$mail->Body = (string)$this->view('emails/main', [
 				'body' => $this->view('emails/'.$this->_view, $data)
 			]);
+
+			$mail->AltBody = trim(strip_tags($mail->Body));
 		});
 
 		return $mail->send() ? static::$_id : FALSE;
