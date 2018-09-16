@@ -81,9 +81,16 @@ class Collection extends Library
 		return $this->_aggregate($this->_db()->row(FALSE));
 	}
 
-	public function aggregate($name, $value)
+	public function aggregate($name, $value = '')
 	{
+		if (!$value)
+		{
+			$value = $name;
+			$name = preg_replace('/^.*\./', '', $name);
+		}
+
 		$this->_aggregates[$name] = $value;
+
 		return $this;
 	}
 
