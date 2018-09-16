@@ -25,7 +25,7 @@ function class_name($name)
 	$name = explode('\\', $name);
 
 	array_walk($name, function(&$a){
-		if (in_array(strtolower($a), ['array', 'bool', 'default', 'float', 'int', 'list', 'null']))
+		if (in_array(strtolower($a), ['array', 'bool', 'default', 'float', 'int', 'list', 'null', 'print']))
 		{
 			$a .= '_';
 		}
