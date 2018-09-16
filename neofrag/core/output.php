@@ -174,14 +174,21 @@ class Output extends Core
 				$name = function($default = ''){
 					$name = [];
 
-					if ($this->url->admin)
+					if ($this->url->cli)
 					{
-						$name[] = 'admin';
+						$name[] = 'api';
 					}
-
-					if ($this->url->ajax)
+					else
 					{
-						$name[] = 'ajax';
+						if ($this->url->admin)
+						{
+							$name[] = 'admin';
+						}
+
+						if ($this->url->ajax)
+						{
+							$name[] = 'ajax';
+						}
 					}
 
 					if ($default)
