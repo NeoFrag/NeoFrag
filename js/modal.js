@@ -43,6 +43,15 @@ var modal = function(url){
 				$modal.on('submit', 'form', function(e){
 					e.preventDefault();
 
+					var $submit = $modal.find('[type="submit"]');
+
+					if ($submit.hasClass('disabled'))
+					{
+						return;
+					}
+
+					$submit.addClass('disabled');
+
 					var form = $modal.find('form')[0];
 
 					$.ajax({
@@ -56,6 +65,13 @@ var modal = function(url){
 								location.reload();
 								return;
 							}
+
+							if (typeof data.redirect != 'undefined'){
+								window.location.href = data.redirect;
+								return;
+							}
+
+							$submit.removeClass('disabled');
 
 							if (typeof data.form != 'undefined'){
 								$modal.find('.modal-body').html(data.form);
