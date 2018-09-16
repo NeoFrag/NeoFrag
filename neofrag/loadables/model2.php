@@ -169,7 +169,14 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 		foreach ($this->_schema() as $name => $field)
 		{
-			$values[$name] = $this->_value($field);
+			if (array_key_exists($field->i, $this->_updates))
+			{
+				$values[$name] = $this->_updates[$field->i];
+			}
+			else if (array_key_exists($field->i, $this->_data))
+			{
+				$values[$name] = $this->_data[$field->i];
+			}
 		}
 
 		foreach (get_object_vars($this) as $name => $value)
@@ -280,7 +287,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function form2()
 	{
-		return $this->_data || $this->_attrs ? parent::form2($this->__name, $this) : parent::form2($this->__name);
+		return parent::form2($this->__name, $this);
 	}
 
 	public function view($view, $data = [])
