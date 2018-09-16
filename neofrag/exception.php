@@ -17,6 +17,11 @@ class Exception extends \Exception
 
 	public function __toString()
 	{
-		return (string)call_user_func($this->_callback);
+		return (string)$this();
+	}
+
+	public function __invoke()
+	{
+		return call_user_func($this->_callback);
 	}
 }
