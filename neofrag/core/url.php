@@ -30,6 +30,7 @@ class Url extends Core
 		$this->_const['query']        = !empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '';
 		$this->_const['https']        = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off';
 		$this->_const['location']     = ($this->https ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->_const['cli']          = FALSE;
 
 		$url = parse_url($this->location);
 
@@ -46,9 +47,20 @@ class Url extends Core
 		}
 
 		$segments = function($request) use ($config){
-			$this->_const['request']           = $request;
-			$this->_const['extension']         = extension($this->request);
-			$this->_const['segments']          = explode('/', $this->extension ? substr($this->request, 0, - strlen($this->extension) - 1) : $this->request ?: 'index');
+			$this->_const['request']   = $request;
+			$this->_const['extension'] = extension($this->request);
+
+			global $argv;
+
+			if (php_sapi_name() == 'cli' && !empty($argv[1]))
+			{
+				$this->_const['cli']      = TRUE;
+				$this->_const['segments'] = array_merge(explode('/', $argv[1]), array_slice($argv, 2));
+			}
+			else
+			{
+				$this->_const['segments'] = explode('/', $this->extension ? substr($this->request, 0, - strlen($this->extension) - 1) : $this->request ?: 'index');
+			}
 
 			if (preg_match('/^(humans|robots)\.txt$/', $this->request, $match))
 			{
@@ -188,7 +200,7 @@ class Url extends Core
 
 	public function ajax()
 	{
-		return in_array($this->extension, ['json', 'txt', 'xml']) || $this->ajax || $this->output->data->get('module', 'ajax');
+		return $this->cli || in_array($this->extension, ['json', 'txt', 'xml']) || $this->ajax || $this->output->data->get('module', 'ajax');
 	}
 
 	public function external($external)
