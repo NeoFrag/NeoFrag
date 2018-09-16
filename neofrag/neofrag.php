@@ -182,6 +182,11 @@ class NeoFrag
 		return $this;
 	}
 
+	public function clone($object)
+	{
+		return clone $object;
+	}
+
 	public function __debugInfo()
 	{
 		$properties = [];
