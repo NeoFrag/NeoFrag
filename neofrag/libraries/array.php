@@ -150,7 +150,7 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 
 	public function sort($callback)
 	{
-		uasort($this->_array, $callback);
+		usort($this->_array, $callback);
 		return $this->_extends ?: $this;
 	}
 
