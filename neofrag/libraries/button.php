@@ -47,16 +47,15 @@ class Button extends Label
 			if ($this->_color || $this->_compact || $this->_outline)
 			{
 				$class[] = 'btn';
-				$class[] = 'btn-'.($this->_color ?: 'default');
+				$class[] = $this->array()
+								->append('btn')
+								->append_if($this->_outline, 'outline')
+								->append($this->_color ?: 'default')
+								->implode('-');
 
 				if ($this->_compact)
 				{
 					$class[] = 'btn-sm';
-				}
-
-				if ($this->_outline)
-				{
-					$class[] = 'btn-outline';
 				}
 			}
 
