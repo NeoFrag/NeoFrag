@@ -36,7 +36,7 @@ class Image extends File
 
 		$this->_thumbnail = function(){
 			return '<div class="text-center">
-						<img class="img-thumbnail" src="'.$this->_value->path().'" alt="" />
+						<img class="img-thumbnail" src="'.($this->_value ? $this->_value->path() : '').'" alt="" />
 						<p class="m-5">'.$this->lang('Dimensions %dpx par %dpx (%s max.)', $this->_width, $this->_height, human_size(file_upload_max_size())).'</p>
 					</div>';
 		};
