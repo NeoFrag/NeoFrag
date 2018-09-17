@@ -14,6 +14,11 @@ class Captcha extends Labelable
 
 	public function __invoke($name = '')
 	{
+		if (!$this->config->nf_captcha_public_key || !$this->config->nf_captcha_private_key)
+		{
+			return;
+		}
+
 		$this->__id();
 
 		$this->_check[] = function($post){
@@ -46,7 +51,7 @@ class Captcha extends Labelable
 		};
 
 		$this->_template[] = function(&$input){
-			if (!$this->user() && !$this->_session && $this->config->nf_captcha_public_key && $this->config->nf_captcha_private_key)
+			if (!$this->user() && !$this->_session)
 			{
 				$this->js('captcha');
 
