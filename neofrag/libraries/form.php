@@ -398,7 +398,7 @@ class Form extends Library
 
 	private function _check_date(&$post, $var, $options)
 	{
-		date2sql($post[$var]);
+		$this->config->lang->date2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
 
