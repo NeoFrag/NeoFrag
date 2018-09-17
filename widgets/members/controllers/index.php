@@ -62,7 +62,9 @@ class Index extends Controller_Widget
 			}
 		}
 
-		$output = [
+		$output = $this->array();
+
+		$output->append(
 			$this	->panel()
 					->heading($this->lang('Qui est en ligne ?'))
 					->body($this->view('online', [
@@ -72,24 +74,28 @@ class Index extends Controller_Widget
 						'nb_members'     => $nb_members,
 						'nb_visitors'    => $this->session->current_sessions()->count() - $nb_admins - $nb_members
 					]))
-		];
+		);
 
 		if ($nb_admins)
 		{
-			$output[] = $this->view('online_modal', [
-				'name'  => 'administrators',
-				'title' => $this->lang('Administrateurs en ligne'),
-				'users' => $admins
-			]);
+			$output->append(
+				$this->view('online_modal', [
+					'name'  => 'administrators',
+					'title' => $this->lang('Administrateurs en ligne'),
+					'users' => $admins
+				])
+			);
 		}
 
 		if ($nb_members)
 		{
-			$output[] = $this->view('online_modal', [
-				'name'  => 'members',
-				'title' => $this->lang('Membres en ligne'),
-				'users' => $members
-			]);
+			$output->append(
+				$this->view('online_modal', [
+					'name'  => 'members',
+					'title' => $this->lang('Membres en ligne'),
+					'users' => $members
+				])
+			);
 		}
 
 		return $output;
