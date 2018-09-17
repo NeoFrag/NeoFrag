@@ -166,8 +166,8 @@ class Gallery extends Model
 		$title = empty($title) ? $file['name'] : $title;
 
 		$this->db->insert('nf_gallery_images', [
-			'thumbnail_file_id' => NeoFrag()->model2('file')->static_add($thumbnail, $title),
-			'original_file_id'  => NeoFrag()->model2('file')->static_add($original, $title),
+			'thumbnail_file_id' => NeoFrag()->model2('file')->static_add($thumbnail, $title)->id,
+			'original_file_id'  => NeoFrag()->model2('file')->static_add($original, $title)->id,
 			'file_id'           => $file_id,
 			'gallery_id'        => $gallery_id,
 			'title'             => $title,
