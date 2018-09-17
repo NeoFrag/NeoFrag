@@ -31,9 +31,9 @@ class Admin extends Controller_Module
 
 		foreach ($modules as $module)
 		{
-			$pages[$module->name] = $module->info()->title;
+			$pages[$name = $module->info()->name] = $module->info()->title;
 
-			if ($module->name == 'pages')
+			if ($name == 'pages')
 			{
 				foreach ($module->model()->get_pages() as $page)
 				{
