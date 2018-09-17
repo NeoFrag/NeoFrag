@@ -755,18 +755,18 @@ class Form extends Library
 	private function _display_iconpicker($var, $options, $post)
 	{
 		NeoFrag()	->css('bootstrap-iconpicker.min')
-							->js('bootstrap-iconpicker-iconset-fontawesome-4.3.0.min')
+							->js('bootstrap-iconpicker-iconset-fontawesome-4.7.0.min')
 							->js('bootstrap-iconpicker.min')
 							->js_load('	$(".btn.iconpicker").iconpicker({
 											arrowClass: "btn-danger",
-											arrowPrevIconClass: "glyphicon glyphicon-chevron-left",
-											arrowNextIconClass: "glyphicon glyphicon-chevron-right",
+											arrowPrevIconClass: "fa fa-caret-left",
+											arrowNextIconClass: "fa fa-caret-right",
 											cols: 10,
 											rows: 5,
 											iconset: "fontawesome",
 											labelHeader: "'.NeoFrag()->lang('{0} sur {1} pages').'",
 											labelFooter: "<div class=\"pull-right\">'.NeoFrag()->lang('{2} icônes').'</div>",
-											searchText: "'.NeoFrag()->lang('search...').'",
+											searchText: "'.NeoFrag()->lang('Rechercher...').'",
 											selectedClass: "btn-primary",
 											unselectedClass: ""
 										});');
