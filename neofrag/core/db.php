@@ -130,7 +130,7 @@ class Db extends Core
 		if ($info === NULL)
 		{
 			$info = array_merge($this->_driver('get_info'), [
-				'driver' => strtolower($this->_driver())
+				'driver' => preg_replace('/.+\\\(.+?)$/', '\1', strtolower(get_class($this->driver())))
 			]);
 		}
 
