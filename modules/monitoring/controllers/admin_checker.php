@@ -6,9 +6,9 @@
 
 namespace NF\Modules\Monitoring\Controllers;
 
-use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
-class Admin_Checker extends Controller_Module
+class Admin_Checker extends Module_Checker
 {
 	public function update()
 	{

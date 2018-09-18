@@ -63,7 +63,7 @@ class Admin extends Controller_Module
 		);
 	}
 
-	public function update()
+	public function update($version)
 	{
 		$this->theme('admin')->js('update');
 
