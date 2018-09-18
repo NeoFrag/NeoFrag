@@ -1,4 +1,4 @@
--- NeoFrag Alpha 0.2
+-- NeoFrag Alpha 0.2.0.1
 -- https://neofr.ag
 --
 -- Host: neofrag.localhost
@@ -1239,7 +1239,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_copyright', '', '', 'Copyright {copyright} {year} {name}, tous droits r&eacute;serv&eacute;s &lt;div class=&quot;pull-right&quot;&gt;Propuls&eacute; par {neofrag}&lt;/div&gt;', 'string'),
 ('nf_default_page', '', '', 'news', 'string'),
 ('nf_default_theme', '', '', 'default', 'string'),
-('nf_description', '', '', 'ALPHA 0.2', 'string'),
+('nf_description', '', '', 'ALPHA 0.2.0.1', 'string'),
 ('nf_email_password', '', '', '', 'string'),
 ('nf_email_port', '', '', '25', 'int'),
 ('nf_email_secure', '', '', '', 'string'),
