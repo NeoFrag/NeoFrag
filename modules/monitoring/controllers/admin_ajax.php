@@ -43,8 +43,13 @@ class Admin_Ajax extends Controller_Module
 
 			if ($checksum)
 			{
-				foreach (array_merge(dir_scan($this->model()->folders, 'md5_file'), ['index.php' => md5_file('index.php')]) as $file => $md5)
+				foreach (array_merge(dir_scan(array_diff($this->model()->folders, ['backups', 'cache', 'config', 'logs', 'overrides', 'upload']), 'md5_file'), ['index.php' => md5_file('index.php')]) as $file => $md5)
 				{
+					if (in_string('/sass/', $file) || in_string('/.git/', $file) || preg_match('_\.css\.map$_', $file))
+					{
+						continue;
+					}
+
 					if (!isset($checksum[$file]))
 					{
 						$checksum[$file] = '';
@@ -178,26 +183,23 @@ class Admin_Ajax extends Controller_Module
 
 							$tags = [];
 
-							if (!preg_match('#^(?:backups|cache|config|logs|overrides|upload)/#', $dir))
+							if ($nf_md5 === '')
 							{
-								if ($nf_md5 === '')
+								if (!preg_match('#^(?:modules|themes|widgets)/#', $dir))
 								{
-									if (!preg_match('#^(?:modules|themes|widgets)/#', $dir))
-									{
-										$tags[] = 'Inconnu';
-										$this->_notify('Le fichier <code>'.$dir.$name.'</code> ne devrait pas se trouver là', 'error');
-									}
+									$tags[] = 'Inconnu';
+									$this->_notify('Le fichier <code>'.$dir.$name.'</code> ne devrait pas se trouver là', 'error');
 								}
-								else if ($md5 === '')
-								{
-									$tags[] = 'Manquant';
-									$this->_notify('Le fichier <code>'.$dir.$name.'</code> est manquant', 'error');
-								}
-								else if ($nf_md5 != $md5)
-								{
-									$tags[] = 'Corrompu';
-									$this->_notify('Le fichier <code>'.$dir.$name.'</code> est corrompu', 'warning');
-								}
+							}
+							else if ($md5 === '')
+							{
+								$tags[] = 'Manquant';
+								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est manquant', 'error');
+							}
+							else if ($nf_md5 != $md5)
+							{
+								$tags[] = 'Corrompu';
+								$this->_notify('Le fichier <code>'.$dir.$name.'</code> est corrompu', 'warning');
 							}
 
 							if ($md5 !== '' && !is_writable($dir.$name))
