@@ -135,7 +135,7 @@ class Index extends Controller_Module
 						->no_data('Aucun match disputé...')
 						->display();
 
-		return [
+		return $this->array([
 			$this	->panel()
 					->heading('	<div class="pull-right">
 									<span class="badge badge-default">'.$game.'</span>
@@ -156,6 +156,6 @@ class Index extends Controller_Module
 					->body($matches)
 					->footer_if((count($team_matches) > 10), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('fa-arrow-circle-o-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
 			$this	->panel_back('teams')
-		];
+		]);
 	}
 }
