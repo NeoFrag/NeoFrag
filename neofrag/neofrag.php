@@ -126,6 +126,11 @@ class NeoFrag
 
 	public function __call($name, $args)
 	{
+		if ($name == 'clone')
+		{
+			return clone $this;
+		}
+
 		$callback = NULL;
 
 		if (preg_match('/^(?:static_)?(.+?)_if$/', $name, $match))
@@ -183,11 +188,6 @@ class NeoFrag
 	{
 		$callback($this);
 		return $this;
-	}
-
-	public function clone($object)
-	{
-		return clone $object;
 	}
 
 	public function __debugInfo()
