@@ -29,13 +29,17 @@ class Json extends Library
 
 		if ($this->_notifications && ($notifications = $this->session('notifications')))
 		{
-			$output['notify'] = array_map(function($a){
-				$a['message'] = (string)$a['message'];
-				return $a;
-			}, $notifications);
+			$output['notify'] = $notifications;
 
 			$this->session->destroy('notifications');
 		}
+
+		array_walk_recursive($output, function(&$a){
+			if (is_object($a))
+			{
+				$a = (string)$a;
+			}
+		});
 
 		if (($output = json_encode($output)) === FALSE)
 		{
