@@ -79,6 +79,8 @@ class Label extends Html
 
 			if ($color = $this->_color)
 			{
+				$attrs['class'] = 'badge';
+
 				if (preg_match('/#([0-9A-F]{3}){1,2}/i', $color))
 				{
 					$attrs['style'] = 'background-color: '.$color;
@@ -87,7 +89,7 @@ class Label extends Html
 
 				if (isset(get_colors()[$color]))
 				{
-					$attrs['class'] = 'badge badge-'.$color;
+					$attrs['class'] .= ' badge-'.$color;
 				}
 			}
 		};
