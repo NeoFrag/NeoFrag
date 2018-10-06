@@ -54,7 +54,7 @@ class Teams extends Module
 			$groups[$team['team_id']] = [
 				'name'  => $team['name'],
 				'title' => $team['title'],
-				'users' => $this->db()->select('user.id')->from('nf_teams_users tu')->join('nf_user u', 'tu.user_id = u.id', 'INNER')->where('tu.team_id', $team['team_id'])->where('u.deleted', FALSE)->get()
+				'users' => $this->db()->select('u.id')->from('nf_teams_users tu')->join('nf_user u', 'tu.user_id = u.id', 'INNER')->where('tu.team_id', $team['team_id'])->where('u.deleted', FALSE)->get()
 			];
 		}
 

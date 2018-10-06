@@ -80,7 +80,7 @@ class Groups extends Core
 					'color'  => $group['color'],
 					'icon'   => $group['icon'],
 					'hidden' => (bool)$group['hidden'],
-					'users'  => $this->db()->select('user.id')->from('nf_users_groups ug')->join('nf_user u', 'ug.user_id = u.id', 'INNER')->where('ug.group_id', $group['group_id'])->where('u.deleted', FALSE)->get(),
+					'users'  => $this->db()->select('u.id')->from('nf_users_groups ug')->join('nf_user u', 'ug.user_id = u.id', 'INNER')->where('ug.group_id', $group['group_id'])->where('u.deleted', FALSE)->get(),
 					'auto'   => FALSE,
 					'order'  => $order++
 				];
