@@ -109,4 +109,12 @@ class Html extends Library
 		array_push($this->_content, $content);
 		return $this;
 	}
+
+	public function tag($tag, $end_tag = TRUE)
+	{
+		$this->_tag     = $tag;
+		$this->_end_tag = $end_tag;
+
+		return $this;
+	}
 }
