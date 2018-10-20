@@ -31,13 +31,12 @@ class Panel extends Library
 		{
 			$headers = $this->_heading;
 
-			$headers[] = $this	->html('h4')
-								->attr('class', 'card-title')
-								->content(array_shift($headers));
+			$headers[] = array_shift($headers);
 
 			$output = $this	->button
 							->static_footer($headers, 'left')
-							->append_attr('class', 'card-header');
+							->append_attr('class', 'card-header')
+							->tag('h6');
 		}
 
 		if ($this->_body)
