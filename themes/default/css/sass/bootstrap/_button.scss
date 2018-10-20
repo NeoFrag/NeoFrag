@@ -1,0 +1,9 @@
+.btn {
+	+ .btn {
+		margin-left: 5px;
+	}
+
+	&.btn-sm {
+		padding: .15rem .25rem;
+	}
+}

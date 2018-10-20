@@ -1,0 +1,42 @@
+.alert[data-notify] {
+	color: #fff;
+	opacity: .9;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	button.close[data-notify="dismiss"] {
+		margin-top: -2px;
+	}
+
+	&.alert-default {
+		background-color: #616161;
+		border-color: #616161;
+	}
+
+	&.alert-primary {
+		background-color: #0073b7;
+		border-color: #0073b7;
+	}
+
+	&.alert-success {
+		background-color: #00a65a;
+		border-color: #00a65a;
+	}
+
+	&.alert-info {
+		background-color: #00c0ef;
+		border-color: #00c0ef;
+	}
+
+	&.alert-warning {
+		background-color: #ffc107;
+		border-color: #ffc107;
+	}
+
+	&.alert-danger {
+		background-color: #f56954;
+		border-color: #f56954;
+	}
+}

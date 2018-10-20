@@ -13,12 +13,12 @@ class Default_ extends Theme
 	protected function __info()
 	{
 		return [
-			'title'       => 'Thème de base',
-			'description' => 'Design minimaliste qui peut s\'adapter facilement à n\'importe quel domaine',
+			'title'       => 'Thème par défaut',
+			'description' => 'Base de développement pour la création d\'un thème NeoFrag',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
-			'zones'       => ['Contenu','Avant-contenu', 'Post-contenu', 'Entête', 'Haut', 'Pied de page']
+			'zones'       => ['Haut', 'Entête', 'Avant-contenu', 'Contenu', 'Post-contenu', 'Pied de page']
 		];
 	}
 
@@ -26,8 +26,6 @@ class Default_ extends Theme
 	{
 		$this	->css('bootstrap.min')
 				->css('icons/font-awesome.min')
-				->css('fonts/titillium-web')
-				->css('notify')
 				->css('style')
 				->js('jquery-3.2.1.min')
 				->js('popper.min')
@@ -39,23 +37,16 @@ class Default_ extends Theme
 
 	public function styles_row()
 	{
-		return $this->view('live_editor/row');
+		//Nothing to do
 	}
 
 	public function styles_widget()
 	{
-		return $this->view('live_editor/widget');
+		//Nothing to do
 	}
 
 	public function install($dispositions = [])
 	{
-		$this	->config('default_background',            0, 'int')
-				->config('default_background_repeat',     'no-repeat')
-				->config('default_background_attachment', 'scroll')
-				->config('default_background_position',   'center top')
-				->config('default_background_color',      '#dfdfdf')
-				->config('nf_version_css',                time());
-
 		$header = function(){
 			return $this->row(
 					$this->col(
@@ -63,11 +54,11 @@ class Default_ extends Theme
 							'widget'   => 'header',
 							'type'     => 'index',
 							'settings' => serialize([
-								'align'             => 'text-center',
+								'align'             => 'text-left',
 								'title'             => '',
 								'description'       => '',
 								'color-title'       => '',
-								'color-description' => '#00d7b3'
+								'color-description' => ''
 							])
 						]))
 					)
@@ -120,7 +111,7 @@ class Default_ extends Theme
 								->size('col-5')
 					)
 				)
-				->style('row-white');
+				->style('row-default');
 		};
 
 		$breadcrumb = function($search = TRUE){
@@ -140,10 +131,10 @@ class Default_ extends Theme
 								->size('col-4')
 					) : NULL
 				)
-				->style('row-white');
+				->style('row-default');
 		};
 
-		$dispositions = $this->array;
+		$dispositions = $this->array();
 
 		$dispositions->set('*', 'Contenu', $this->array([
 			$breadcrumb(),
@@ -192,15 +183,15 @@ class Default_ extends Theme
 											'widget' => 'partners',
 											'type'   => 'column',
 											'settings' => serialize([
-												'display_style' => 'light'
+												'display_style' => 'dark'
 											])
 										]))
-										->style('panel-dark'),
+										->style('panel-default'),
 								$this	->widget($this->db->insert('nf_widgets', [
 											'widget' => 'user',
 											'type'   => 'index'
 										]))
-										->style('panel-dark'),
+										->style('panel-default'),
 								$this->widget($this->db->insert('nf_widgets', [
 									'widget' => 'news',
 									'type'   => 'categories'
@@ -216,7 +207,7 @@ class Default_ extends Theme
 											'widget' => 'members',
 											'type'   => 'online'
 										]))
-										->style('panel-red')
+										->style('panel-default')
 							)
 							->size('col-4')
 				)
@@ -237,7 +228,7 @@ class Default_ extends Theme
 									'widget' => 'news',
 									'type'   => 'index'
 								]))
-								->style('panel-dark')
+								->style('panel-default')
 								->size('col-4')
 					),
 					$this->col(
@@ -245,14 +236,12 @@ class Default_ extends Theme
 									'widget' => 'members',
 									'type'   => 'index'
 								]))
-								->style('panel-red')
+								->style('panel-default')
 								->size('col-4')
 					)
 				)
 				->style('row-default')
 		]));
-
-		$dispositions->set('*', 'Post-contenu', $this->array);
 
 		$dispositions->set('*', 'Entête', $this->array([
 			$header(),
@@ -306,7 +295,7 @@ class Default_ extends Theme
 									'widget'   => 'copyright',
 									'type'     => 'index'
 								]))
-								->style('panel-dark')
+								->style('panel-default')
 					)
 				)
 				->style('row-default')
@@ -326,7 +315,7 @@ class Default_ extends Theme
 				->style('row-default')
 		]));
 
-		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*'] as $page)
+		foreach (['forum/*', 'news/_news/*', 'user/*', 'search/*', 'gallery/*'] as $page)
 		{
 			$dispositions->set($page, 'Contenu', $this->array([
 				$breadcrumb($page != 'search/*'),
@@ -349,7 +338,7 @@ class Default_ extends Theme
 										'widget' => 'forum',
 										'type'   => 'statistics'
 									]))
-									->style('panel-red')
+									->style('panel-default')
 									->size('col-4')
 						),
 						$this->col(
@@ -357,7 +346,7 @@ class Default_ extends Theme
 										'widget' => 'forum',
 										'type'   => 'activity'
 									]))
-									->style('panel-dark')
+									->style('panel-default')
 									->size('col-8')
 						)
 					)
@@ -369,14 +358,6 @@ class Default_ extends Theme
 
 	public function uninstall($remove = TRUE)
 	{
-		NeoFrag()->model2('file', $this->config->default_background)->delete();
-
-		$this	->config->unset('default_background')
-				->config->unset('default_background_repeat')
-				->config->unset('default_background_attachment')
-				->config->unset('default_background_position')
-				->config->unset('default_background_color');
-
 		return parent::uninstall($remove);
 	}
 }

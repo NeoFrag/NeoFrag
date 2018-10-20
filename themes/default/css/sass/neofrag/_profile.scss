@@ -1,0 +1,53 @@
+.user-profile {
+	text-align: center;
+
+	> .avatar {
+		height: 150px;
+		margin: auto;
+		width: 150px;
+	}
+
+	> .socials {
+		padding: 15px 0;
+
+		.btn {
+			border-radius: 50%;
+			color: #fff;
+			font-size: 22px;
+			line-height: 36px;
+			height: 40px;
+			padding: 0;
+			position: relative;
+			width: 40px;
+			transition: all .15s ease-in-out;
+
+			+ .btn {
+				margin-left: 5px;
+			}
+
+			&:hover {
+				opacity: .9;
+			}
+
+			&.website {
+				background: #b2b2b2 !important;
+			}
+
+			&.linkedin {
+				background: #0077B5 !important;
+			}
+
+			&.github {
+				background: #24292e !important;
+			}
+
+			&.instagram {
+				background: #e1306c !important;
+			}
+
+			&.twitch {
+				background: #6441a4 !important;
+			}
+		}
+	}
+}

@@ -1,7 +1,9 @@
 .avatar {
-	background: $primary;
+	background: #b3c2d2;
 	border-radius: 50%;
 	position: relative;
+	height: 50px;
+	width: 50px;
 
 	&.online, &.offline {
 		&:after {
@@ -50,7 +52,7 @@
 	}
 }
 
-.card {
+.card, .popover, .modal {
 	.avatar {
 		&.online, &.offline {
 			&:after {

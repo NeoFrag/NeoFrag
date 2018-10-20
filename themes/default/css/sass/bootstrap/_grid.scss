@@ -12,8 +12,24 @@
 			}
 		}
 	}
-	
+
 	.widget + .widget > .card {
 		margin-top: 30px;
+	}
+}
+
+:not(.card-group):not(.card-columns) {
+	> .card {
+		+.card {
+			margin-top: 30px;
+		}
+	}
+}
+
+@media (max-width: 576px) {
+	.col-12 {
+		+ .col-12 {
+			margin-top: 30px;
+		}
 	}
 }

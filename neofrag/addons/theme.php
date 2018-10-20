@@ -40,6 +40,14 @@ abstract class Theme extends Addon
 
 	public function install($dispositions = [])
 	{
+		foreach ($this->info()->zones as $zone)
+		{
+			if ($dispositions->get('*', $zone) === NULL)
+			{
+				$dispositions->set('*', $zone, $this->array());
+			}
+		}
+
 		foreach ($dispositions as $page => $dispositions)
 		{
 			foreach ($dispositions as $zone => $disposition)
@@ -52,6 +60,8 @@ abstract class Theme extends Addon
 				]);
 			}
 		}
+
+		$this->module('tools')->api()->scss();
 
 		return parent::install();
 	}

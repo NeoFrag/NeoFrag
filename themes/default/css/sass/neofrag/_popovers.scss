@@ -1,0 +1,15 @@
+.popover {
+	.user-profile {
+		padding-top: 15px;
+		width: 250px;
+
+		.avatar {
+			height: 120px;
+			width: 120px;
+		}
+
+		> h6 {
+			font-size: 95%;
+		}
+	}
+}
