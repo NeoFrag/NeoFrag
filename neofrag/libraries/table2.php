@@ -179,13 +179,13 @@ class Table2 extends Library
 
 			$columns = $this->_columns;
 
-			foreach ($data as $row)
+			foreach ($data as $i => $row)
 			{
-				foreach ($columns as $i => $col)
+				foreach ($columns as $j => $col)
 				{
-					if ((string)$col->execute($row) !== '')
+					if ((string)$col->execute($i, $row) !== '')
 					{
-						unset($columns[$i]);
+						unset($columns[$j]);
 						continue;
 					}
 				}
@@ -201,14 +201,19 @@ class Table2 extends Library
 				unset($this->_columns[$i]);
 			}
 
+			$i = 0;
+
 			$table = $this	->html('table')
 							->attr('class', 'table table-hover table-striped')
 							->content($this	->html('tbody')
-											->content(array_map(function($row){
+											->content(array_map(function($row) use (&$i){
 												return $this->html('tr')
-															->content(array_map(function($col) use ($row){
-																return $col->display($row);
-															}, $this->_columns));
+															->content(array_map(function($col) use ($row, &$i){
+																return $col->display($i, $row);
+															}, $this->_columns))
+															->exec(function() use (&$i){
+																$i++;
+															});
 											}, $data)));
 
 			if ($this->_has_header())

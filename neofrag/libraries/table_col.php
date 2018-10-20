@@ -72,37 +72,45 @@ class Table_Col extends Library
 		return $this;
 	}
 
-	public function display($data)
+	public function display($i, $data)
 	{
 		return $this->html('td')
 					->attr_if($this->_align, 'class', 'text-'.$this->_align)
 					->append_attr_if($this->_compact, 'class', 'compact')
-					->content($this->execute($data));
+					->content($this->execute($i, $data));
 	}
 
-	public function execute($data)
+	public function execute($i, $data)
 	{
-		$content = $this->_content;
+		static $output = [];
 
-		if (!is_a($content, 'closure'))
+		if (!array_key_exists($id = spl_object_hash($this).'-'.$i, $output))
 		{
-			$content = function($model) use ($content){
-				if ($content === NULL)
-				{
-					return $model;
-				}
-				else if (method_exists($model, $content))
-				{
-					return $model->$content();
-				}
-				else if (isset($model->$content))
-				{
-					return $model->$content;
-				}
-			};
+			$content = $this->_content;
+
+			if (!is_a($content, 'closure'))
+			{
+				$content = function($model) use ($content){
+					if ($content === NULL)
+					{
+						return $model;
+					}
+					else if (method_exists($model, $content))
+					{
+						return $model->$content();
+					}
+					else if (isset($model->$content))
+					{
+						return $model->$content;
+					}
+				};
+			}
+
+			$output[$id] = call_user_func($content, $data);
 		}
 
-		return call_user_func($content, $data);
+		return $output[$id];
+
 	}
 
 	public function header()
