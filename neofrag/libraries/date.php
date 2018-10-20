@@ -128,6 +128,11 @@ class Date extends Library
 		return $this->locale($this->config->lang->date()['long_date']);
 	}
 
+	public function short_date_time()
+	{
+		return $this->locale($this->config->lang->date()['short_date_time']);
+	}
+
 	public function long_date_time()
 	{
 		return $this->locale($this->config->lang->date()['long_date_time']);
