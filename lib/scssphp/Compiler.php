@@ -122,6 +122,8 @@ class Compiler
         'global-variable-shadowing'   => false,
     ];
 
+    protected $preprocessing = null;
+
     protected $encoding = null;
     protected $lineNumberStyle = null;
 
@@ -194,7 +196,7 @@ class Compiler
         $this->stderr         = fopen('php://stderr', 'w');
 
         $this->parser = $this->parserFactory($path);
-        $tree = $this->parser->parse($code);
+        $tree = $this->parser->parse($code, $this->preprocessing);
         $this->parser = null;
 
         $this->formatter = new $this->formatter();
@@ -3428,6 +3430,18 @@ class Compiler
     }
 
     /**
+     * Preprocessing Function
+     *
+     * @api
+     *
+     * @param callable $func
+     */
+    public function preprocessingFunction($func)
+    {
+        $this->preprocessing = $func;
+    }
+
+    /**
      * Import file
      *
      * @param string $path
@@ -3445,7 +3459,7 @@ class Compiler
         } else {
             $code   = file_get_contents($path);
             $parser = $this->parserFactory($path);
-            $tree   = $parser->parse($code);
+            $tree   = $parser->parse($code, $this->preprocessing);
 
             $this->importCache[$realPath] = $tree;
         }
