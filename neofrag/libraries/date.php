@@ -132,4 +132,9 @@ class Date extends Library
 	{
 		return $this->locale($this->config->lang->date()['long_date_time']);
 	}
+
+	public function short_time()
+	{
+		return $this->locale($this->config->lang->date()['long_date_time']);
+	}
 }
