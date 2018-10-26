@@ -21,7 +21,7 @@ class Authenticator extends Controller
 					->set('disable', ['Désactiver', 'fa-times', 'muted', TRUE, function($addon){
 						return $addon->is_enabled();
 					}])
-					//->set('order', ['Ordre', 'fa-sort', 'info', TRUE])
+					->set('order', ['Ordre', 'fa-sort', 'info', TRUE])
 					->set('settings', ['Configuration', 'fa-wrench', 'warning', TRUE]);
 	}
 
@@ -46,17 +46,15 @@ class Authenticator extends Controller
 	public function order()
 	{
 		return $this->modal('Authentificateurs', 'fa-sort')
-					->body(
-						$this	->table2(NeoFrag()->collection('addon')->where('type_id', NeoFrag()->collection('addon_type')->where('name', 'authenticator')->row()->id))
-								->col(function($addon){
-									return $this->button_sort($addon->name, 'admin/ajax/addons/language/sort', '.list-group', 'li');
+					->body($this->table2(NeoFrag()->collection('addon')->where('type_id', NeoFrag()->collection('addon_type')->where('name', 'authenticator')->row()->id))
+								->compact(function($a){
+									return $this->button_sort($a->id, 'admin/addons/order/'.$a->url());
 								})
-								->col(function($addon){
-									return $addon->name;
+								->col(function($a){
+									return $this->label($a->addon()->info()->title, $a->addon()->info()->icon);
 								})
 					)
-					->submit('Ordonner', 'info')
-					->cancel();
+					->close();
 	}
 
 	public function settings($auth)

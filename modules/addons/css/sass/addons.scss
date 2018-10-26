@@ -13,7 +13,7 @@
 			position: absolute;
 			top: 15px;
 			left: 15px;
-			font-size: 65%;
+			font-size: 75%;
 		}
 
 		.icon, .image {
@@ -26,7 +26,7 @@
 		}
 
 		.icon {
-			background: #ccc;
+			background: #ced4da;
 			line-height: 100px;
 			text-align: center;
 			vertical-align: middle;
@@ -34,6 +34,7 @@
 			.fa {
 				background: #fff;
 				border-radius: 50%;
+				box-shadow: 0 0 15px rgba(0, 0, 0, .15);
 				font-size: 30px;
 				line-height: 65px;
 				height: 65px;
@@ -44,17 +45,19 @@
 
 		.dropdown {
 			.dropdown-toggle {
-				border-radius: 50%;
+				background-color: #576069;
+				border-radius: .25rem;
 				font-size: 75%;
-				color: #666;
+				color: #fff;
+				padding: 7px 6px 5px 18px;
 				position: absolute;
 				top: 5px;
-				right: 1px;
-				text-align: center;
-				line-height: 15px;
-				height: 15px;
-				width: 15px;
+				right: 5px;
 				vertical-align: middle;
+
+				&:hover {
+					background-color: #222b2d;
+				}
 			}
 		}
 
@@ -75,4 +78,3 @@
 		}
 	}
 }
-

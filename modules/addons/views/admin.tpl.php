@@ -1,20 +1,39 @@
-<?php /* //TODO <div class="row">
+<div class="row">
 	<div class="col-12">
-		<button type="button" class="btn btn-default btn-outline control" data-filter="all">Tous</button>
-		<button type="button" class="btn btn-primary btn-outline control" data-toggle=".module">Modules</button>
-		<button type="button" class="btn btn-success btn-outline control" data-toggle=".theme">Thèmes</button>
-		<button type="button" class="btn btn-warning btn-outline control" data-toggle=".widget">Widgets</button>
-		<button type="button" class="btn btn-danger  btn-outline control" data-toggle=".language">Langues</button>
-		<button type="button" class="btn btn-info    btn-outline control" data-toggle=".authenticator">Authentificateurs</button>
+		<div class="card">
+			<div class="card-default">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-9">
+							<ul class="list-inline my-0">
+								<li class="list-inline-item"><?php echo icon('fa-filter') ?> Filtrer :</li>
+								<li class="list-inline-item"><a href="#" data-filter="all"><?php echo $this->lang('Tous') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".addon-module"><?php echo $this->lang('Modules') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".addon-theme"><?php echo $this->lang('Thèmes') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".addon-widget"><?php echo $this->lang('Widgets') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".addon-language"><?php echo $this->lang('Langues') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".addon-authenticator"><?php echo $this->lang('Authentificateurs') ?></a></li>
+							</ul>
+						</div>
+						<div class="col-3 text-right">
+							<ul class="list-inline my-0">
+								<li class="list-inline-item"><a href="#" data-filter=".activated"><?php echo $this->lang('Actifs') ?></a></li>
+								<li class="list-inline-item"><a href="#" data-filter=".deactivated"><?php echo $this->lang('Inactifs') ?></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>*/ ?>
+</div>
 <div id="addons" class="row">
 	<?php foreach ($addons as $addon): ?>
-		<div class="col-4 col-md-2 col-sm-3 mix <?php echo $addon->type ? $addon->type->name : 'addon' ?>">
+		<div class="col-12 col-lg-2 col-md-3 col-sm-4 mix <?php echo ($addon->type ? 'addon-'.$addon->type->name : 'addon').' '.($addon->addon()->is_enabled() ? 'activated' : 'deactivated') ?>">
 			<div class="card">
 				<div class="card-body">
 					<div class="dropdown">
-						<a href="#" class="fa fa-ellipsis-v dropdown-toggle" data-toggle="dropdown"></a>
+						<a href="#" class="fa fa-cog dropdown-toggle" data-toggle="dropdown"></a>
 						<div class="dropdown-menu">
 							<?php foreach ($addon->addon()->__actions as $name => $action): ?>
 								<?php if (list($title, $icon, $color, $modal) = $action): ?>

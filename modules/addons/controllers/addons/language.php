@@ -10,7 +10,7 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Language extends Controller
 {
-	public $__label = ['Langues', 'Langue', 'fa-flag', 'danger'];
+	public $__label = ['Langues', 'Langue', 'fa-flag-o', 'danger'];
 
 	public function __actions()
 	{
@@ -44,6 +44,36 @@ class Language extends Controller
 
 	public function order()
 	{
+		$langs = $this->array($this->config->langs);
 
+		if (($post = post_check('id', 'position')) && (list($addon_id, $position) = array_values($post)))
+		{
+			foreach ($langs as $id => $lang)
+			{
+				if ($lang->__addon->id == $addon_id)
+				{
+					break;
+				}
+			}
+
+			foreach ($langs->move($id, $position) as $order => $addon)
+			{
+				$addon->__addon	->set('data', $addon->__addon->data->set('order', $order))
+								->update();
+			}
+
+			return $this->output->json(['success' => 'refresh']);
+		}
+
+		return $this->modal('Préférence des langues', 'fa-flag-o')
+					->body($this->table2($langs)
+								->compact(function($a){
+									return $this->button_sort($a->__addon->id, 'admin/addons/order/'.$a->__addon->url());
+								})
+								->col(function($a){
+									return $this->label($a->info()->title, $a->info()->icon);
+								})
+					)
+					->close();
 	}
 }

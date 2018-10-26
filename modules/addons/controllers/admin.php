@@ -23,7 +23,6 @@ class Admin extends Controller_Module
 			}
 		});
 
-
 		$types = array_count_values(array_map(function($a){
 			return $a->type->id;
 		}, $addons));
@@ -47,12 +46,20 @@ class Admin extends Controller_Module
 
 		$this->add_action($this->button('Ajouter', 'fa-plus', 'primary')->modal_ajax('admin/ajax/addons/install'));
 
-		return $this->css('addons')
-					//->js('mixitup.min')
-					//->js_load('mixitup($("#addons")[0]);')
+		return $this->js('mixitup.min')
+					->js('addons')
+					->css('addons')
 					->view('admin', [
 						'addons' => $addons
 					]);
+	}
+
+	public function help($controller, $method)
+	{
+		return $this->modal('Aide', 'fa-life-bouy')
+					->large()
+					->body(call_user_func([$controller, $method]))
+					->close();
 	}
 
 	public function _action($addon, $controller, $action)

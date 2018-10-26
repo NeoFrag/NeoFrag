@@ -124,6 +124,8 @@ class Admin_Ajax extends Controller_Module
 
 												if ($addon = NeoFrag()->$type($name))
 												{
+													$addon->reset();
+
 													return [
 														'success' => 'Le '.$type.' '.$addon->info()->title.' a été '.(empty($update) ? 'installé' : 'mis-à-jour')
 													];
