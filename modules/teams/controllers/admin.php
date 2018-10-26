@@ -12,8 +12,6 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
-		$this->subtitle($this->lang('Liste des équipes'));
-
 		$teams = $this	->table()
 						->add_columns([
 							[
@@ -145,8 +143,7 @@ class Admin extends Controller_Module
 
 		$roles = $this->model('roles')->get_roles();
 
-		$form_team = $this	->title($this->lang('Éditer l\'équipe'))
-							->subtitle($title)
+		$form_team = $this	->subtitle($title)
 							->form()
 							->add_rules('teams', [
 								'title'        => $title,

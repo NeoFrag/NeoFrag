@@ -16,13 +16,19 @@ class Index extends Controller_Module
 
 		foreach ($this->model()->get_teams() as $team)
 		{
-			$panel = $this->panel()	->heading($team['title'], $team['icon_id'] ?: $team['game_icon'] ?: 'fa-gamepad', 'teams/'.$team['team_id'].'/'.$team['name'])
-									->footer(icon('fa-users').' '.$this->lang('%d joueur|%d joueurs', $team['users'], $team['users']));
-
-			if ($team['image_id'])
-			{
-				$panel->body('<a href="'.url('teams/'.$team['team_id'].'/'.$team['name']).'"><img class="img-fluid" src="'.NeoFrag()->model2('file', $team['image_id'])->path().'" alt="" /></a>', FALSE);
-			}
+			$panel = $this	->panel()
+							->body($this->view('index', [
+								'team_id'    => $team['team_id'],
+								'name'       => $team['name'],
+								'title'      => $team['title'],
+								'icon_id'    => $team['icon_id'],
+								'game_icon'  => $team['game_icon'],
+								'game_title' => $team['game_title'],
+								'image_id'   => $team['image_id'],
+								'players'    => $this->model()->get_players($team['team_id']),
+								'events'     => $this->_get_team_events($team['team_id'])
+							]), FALSE)
+							->footer_if($this->_check_team_recruits($team['team_id']), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>');
 
 			$panels->append($panel);
 		}
@@ -40,44 +46,8 @@ class Index extends Controller_Module
 
 	public function _team($team_id, $name, $title, $image_id, $icon_id, $description, $game_id, $game, $game_icon)
 	{
-		$this->title($title);
-
-		$players = $this->table()
-						->add_columns([
-							[
-								'content' => function($data){
-									return NeoFrag()->model2('user', $data['user_id'])->avatar();
-								},
-								'size'    => TRUE
-							],
-							[
-								'content' => function($data){
-									return '<div>'.NeoFrag()->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.$this->lang($data['admin'] ? 'Administrateur' : 'Membre').' '.$this->lang($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
-								}
-							],
-							[
-								'content' => function($data){
-									return $data['title'];
-								}
-							]
-						])
-						->data($this->model()->get_players($team_id))
-						->no_data($this->lang('Il n\'y a pas encore de joueur dans cette équipe'))
-						->display();
-
-		$events = $this->module('events') ? $this->module('events')->model()->get_events('team', $team_id) : NULL;
-
-		$team_matches = [];
-		foreach ($events as $key => $event)
-		{
-			if ($event['nb_rounds'] > 0)
-			{
-				$team_matches[$key] = $event;
-				$team_matches[$key]['match'] = $this->module('events')->model('matches')->get_match_info($event['event_id']);
-			}
-		}
-
-		array_slice($events, 0, 10);
+		$this	->breadcrumb($title)
+				->title($title);
 
 		$matches = $this->table()
 						->add_columns([
@@ -131,31 +101,73 @@ class Index extends Controller_Module
 								'class'   => 'text-center vcenter'
 							]
 						])
-						->data($team_matches)
+						->data(array_slice($this->_get_team_events($team_id), 0, 10))
 						->no_data('Aucun match disputé...')
 						->display();
 
 		return $this->array([
 			$this	->panel()
-					->heading('	<div class="pull-right">
-									<span class="badge badge-default">'.$game.'</span>
-								</div>
-								<a href="'.url('teams/'.$team_id.'/'.$name).'">'.$title.'</a>',
-								$icon_id ?: $game_icon ?: 'fa-gamepad'
-					)
-					->body($this->view('index', [
+					->body($this->view('team', [
 						'team_id'     => $team_id,
 						'name'        => $name,
 						'title'       => $title,
 						'image_id'    => $image_id,
+						'game'        => $game,
 						'description' => bbcode($description),
-						'users'       => $players
-					]), FALSE),
-			$team_matches ? $this->panel()
+						'players'     => $this->model()->get_players($team_id)
+					]), FALSE)
+					->footer_if($this->_check_team_recruits($team_id), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>'),
+			$team_matches = $this->_get_team_events($team_id) ? $this->panel()
 					->heading('Derniers résultats', 'fa-crosshairs')
 					->body($matches)
-					->footer_if((count($team_matches) > 10), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('fa-arrow-circle-o-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
+					->footer_if((isset($team_matches) && (count($team_matches) > 10)), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('fa-arrow-circle-o-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
 			$this	->panel_back('teams')
 		]);
+	}
+
+	public function _get_team_events($team_id)
+	{
+		$events = $this->module('events') ? $this->module('events')->model()->get_events('team', $team_id) : NULL;
+
+		$team_matches = [];
+		foreach ($events as $key => $event)
+		{
+			if ($event['nb_rounds'] > 0)
+			{
+				$team_matches[$key] = $event;
+				$team_matches[$key]['match'] = $this->module('events')->model('matches')->get_match_info($event['event_id']);
+			}
+		}
+
+		return $team_matches ?: NULL;
+	}
+
+	public function _check_team_recruits($team_id)
+	{
+		$recruits = $this->db	->select('r.*', 'COUNT(DISTINCT rc.candidacy_id) as candidacies', 'COUNT(DISTINCT CASE WHEN rc.status = \'1\' THEN rc.candidacy_id END) as candidacies_pending', 'COUNT(DISTINCT CASE WHEN rc.status = \'2\' THEN rc.candidacy_id END) as candidacies_accepted', 'COUNT(DISTINCT CASE WHEN rc.status = \'3\' THEN rc.candidacy_id END) as candidacies_declined')
+								->from('nf_recruits r')
+								->join('nf_recruits_candidacies rc', 'rc.recruit_id = r.recruit_id')
+								->group_by('r.recruit_id')
+								->where('r.closed', FALSE)
+								->where('r.team_id', $team_id)
+								->get();
+
+		if ($recruits && $this->module('recruits'))
+		{
+			foreach ($recruits as $recruit)
+			{
+				if ($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] && strtotime($recruit['date_end']) < time()))
+				{
+					continue;
+				}
+				else
+				{
+					return TRUE;
+					break;
+				}
+			}
+		}
+
+		return FALSE;
 	}
 }
