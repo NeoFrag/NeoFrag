@@ -1,4 +1,7 @@
-<?php echo icon('fa-search big') ?>
+<h3><?php echo $this->lang('Effectuer une recherche') ?></h3>
+<?php if ($keywords !== '' && !$results): ?>
+<p class="text-info"><?php echo $this->lang('Aucun résultat trouvé pour <b>%s</b>', utf8_htmlentities($keywords)) ?></b></p>
+<?php endif ?>
 <form action="<?php echo url('search') ?>" method="get">
 	<div class="input-group">
 		<input type="text" class="form-control input-lg" name="q" value="<?php echo utf8_htmlentities($keywords) ?>" placeholder="<?php echo $this->lang('Rechercher un ou plusieurs termes sur notre site') ?>" />
@@ -7,6 +10,3 @@
 		</span>
 	</div>
 </form>
-<?php if ($keywords !== '' && !$results): ?>
-<h3><?php echo $this->lang('Aucun résultat trouvé pour <b>%s</b>', utf8_htmlentities($keywords)) ?></b></h3>
-<?php endif ?>

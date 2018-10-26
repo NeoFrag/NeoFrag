@@ -12,8 +12,6 @@ class Index extends Controller_Module
 {
 	public function index($module_name = '', $page = '')
 	{
-		$this->css('search');
-
 		$count  = 0;
 		$row    = $this->array;
 		$search = '';
