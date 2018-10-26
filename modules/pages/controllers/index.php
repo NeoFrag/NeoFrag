@@ -12,7 +12,8 @@ class Index extends Controller_Module
 {
 	public function _index($title, $subtitle, $content)
 	{
-		$this->title($title);
+		$this	->title($title)
+				->breadcrumb($title);
 
 		return $this->panel()
 					->heading($title.($subtitle ? ' <small>'.$subtitle.'</small>' : ''), 'fa-file-text-o')

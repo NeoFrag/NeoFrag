@@ -30,4 +30,35 @@ class Pages extends Module
 			]
 		];
 	}
+
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Pages',
+						'icon'   => 'fa-file-o',
+						'access' => [
+							'add_pages' => [
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_pages' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_pages' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
 }

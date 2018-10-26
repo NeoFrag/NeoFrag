@@ -26,7 +26,7 @@ class Admin extends Controller_Module
 					[
 						'title'   => $this->lang('Titre de la page'),
 						'content' => function($data){
-							return $data['published'] ? '<a href="'.url($data['name']).'">'.$data['title'].'</a> <small class="text-muted">'.$data['subtitle'].'</small>' : $data['title'];
+							return $data['published'] ? '<a href="'.url($data['name']).'">'.$data['title'].'</a><small class="ml-2">'.$data['subtitle'].'</small>' : $data['title'];
 						},
 						'sort'    => function($data){
 							return $data['title'];
@@ -36,15 +36,27 @@ class Admin extends Controller_Module
 						}
 					],
 					[
+						'title'   => $this->lang('Chemin d\'accès'),
+						'content' => function($data){
+							return '<code>/'.$data['name'].'</code>';
+						},
+						'sort'    => function($data){
+							return $data['name'];
+						},
+						'search'  => function($data){
+							return $data['name'];
+						}
+					],
+					[
 						'content' => [
 							function($data){
 								return $data['published'] ? $this->button()->tooltip($this->lang('Voir la page'))->icon('fa-eye')->url($data['name'])->compact()->outline() : '';
 							},
 							function($data){
-								return $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title']));
+								return $this->is_authorized('modify_pages') ? $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title'])) : NULL;
 							},
 							function($data){
-								return $this->button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title']));
+								return $this->is_authorized('delete_pages') ? $this->button_delete('admin/pages/delete/'.$data['page_id'].'/'.url_title($data['title'])) : NULL;
 							}
 						],
 						'size'    => TRUE
@@ -54,9 +66,9 @@ class Admin extends Controller_Module
 				->no_data($this->lang('Il n\'y a pas encore de page'));
 
 		return $this->panel()
-					->heading($this->lang('Liste des pages'), 'fa-align-left')
+					->heading($this->lang('Liste des pages'), 'fa-bars')
 					->body($this->table()->display())
-					->footer($this->button_create('admin/pages/add', $this->lang('Créer une page')));
+					->footer_if($this->is_authorized('add_pages'), $this->button_create('admin/pages/add', $this->lang('Créer une page')));
 	}
 
 	public function add()
