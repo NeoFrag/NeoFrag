@@ -1,0 +1,9 @@
+.forum-profile {
+	text-align: center;
+	padding-bottom: 15px;
+}
+
+.forum-profile .avatar {
+	height: 120px;
+	width: 120px;
+}

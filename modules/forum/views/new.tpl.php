@@ -3,10 +3,10 @@
 		<tbody class="forum-content">
 			<?php if (!empty($forum_id) || !empty($is_topic)): ?>
 			<tr>
-				<td colspan="2"><input type="text" class="form-control" name="<?php echo $form_id ?>[title]" value="<?php echo isset($post['title']) ? $post['title'] : (isset($title) && !empty($is_topic) ? $title : '') ?>" placeholder="<?php echo $this->lang('Titre du sujet') ?>" /></td>
+				<td colspan="2"><input type="text" class="form-control form-control-lg" name="<?php echo $form_id ?>[title]" value="<?php echo isset($post['title']) ? $post['title'] : (isset($title) && !empty($is_topic) ? $title : '') ?>" placeholder="<?php echo $this->lang('Titre du sujet') ?>" /></td>
 			</tr>
 			<?php endif ?>
-			<tr class="row">
+			<tr>
 				<td class="col-3 hidden-xs">
 					<?php echo $this->output->module()->get_profile(!empty($user_id) ? $user_id : $this->user->id) ?>
 				</td>

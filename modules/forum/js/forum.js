@@ -3,13 +3,13 @@ $(function(){
 		axis: 'y',
 		cursor: 'move',
 		intersect: 'pointer',
-		items: '> .panel',
+		items: '> .card',
 		opacity: 0.6,
 		revert: true,
 		update: function(event, ui){
 			$.post('<?php echo url('admin/ajax/forum/categories/move') ?>', {
 				category_id: $(ui.item).find('[data-category-id]:first').data('category-id'),
-				position: $(this).find('.panel').index(ui.item)
+				position: $(this).find('.card').index(ui.item)
 			});
 		}
 	});

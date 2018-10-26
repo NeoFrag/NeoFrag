@@ -14,6 +14,7 @@ class Admin extends Controller_Module
 	{
 		$this	->subtitle($this->lang('Liste des forums'))
 				->css('forum')
+				->js('jquery-ui.min')
 				->js('forum');
 
 		$this	->add_action('admin/forum/categories/add', $this->lang('Ajouter une catégorie'), 'fa-plus')
