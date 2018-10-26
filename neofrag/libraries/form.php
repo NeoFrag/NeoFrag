@@ -386,13 +386,13 @@ class Form extends Library
 
 	private function _check_datetime(&$post, $var, $options)
 	{
-		datetime2sql($post[$var]);
+		$this->config->lang->datetime2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
 
 	private function _check_time(&$post, $var, $options)
 	{
-		time2sql($post[$var]);
+		$this->config->lang->time2sql($post[$var]);
 		return $this->_check_text($post, $var, $options);
 	}
 
