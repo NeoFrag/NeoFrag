@@ -53,7 +53,7 @@ span.monitoring-icon-status {
 	margin-bottom: 2px;
 }
 
-.panel-storage .panel-body {
+.panel-storage .card-body {
 	padding-top: 40px;
 	padding-bottom: 21px;
 }
@@ -76,16 +76,17 @@ span.monitoring-icon-status {
 	right: 0;
 }
 
-.panel-storage .panel-body .row + .row {
+.panel-storage .card-body .row + .row {
 	margin-top: 20px;
 }
 
-.panel-notifications .panel-body {
-	padding: 4px 6px;
+.panel-notifications .card-body {
+	padding: 6px;
 }
 
 .panel-notifications .table-notifications tr > td {
 	border-top: none;
+	padding: 8px 15px;
 }
 
 .panel-notifications .table-notifications span.label {
@@ -96,7 +97,7 @@ span.monitoring-icon-status {
 	text-transform: uppercase;
 }
 
-.panel-infos .panel-body .table:last-child {
+.panel-infos .card-body .table:last-child {
 	margin: 0;
 }
 

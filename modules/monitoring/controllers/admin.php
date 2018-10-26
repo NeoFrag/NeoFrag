@@ -26,30 +26,30 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
-								->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
+								->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Détails').'"><a class="btn btn-outline-info btn-sm" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
 								->body($this->view('infos', [
 									'check'   => $this->model()->check_server()
 								]))
 								->color('default panel-infos')
 					)
-					->size('col-4 col-lg-3'),
+					->size('col-12 col-lg-3'),
 			$this	->col(
 						$this->row(
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right"><a class="btn btn-xs btn-default refresh">'.icon('fa-refresh').'</a></div>Notifications', 'fa-bell-o')
+												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Actualiser').'"><a class="btn btn-outline-info btn-sm refresh" href="#">'.icon('fa-refresh').'</a></div>Notifications', 'fa-bell-o')
 												->body('<table class="table table-notifications m-0"></table>')
 												->color('default panel-notifications')
 									)
-									->size('col-6 col-lg-8'),
+									->size('col-12 col-lg-8'),
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right"><a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
+												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Sauvegarder').'"><a class="btn btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
 												->body($this->view('storage'))
 												->footer($this->view('storage-footer'))
 												->color('default panel-storage')
 									)
-									->size('col-6 col-lg-4')
+									->size('col-12 col-lg-4')
 						),
 						$this->row(
 							$this->col(
@@ -59,7 +59,7 @@ class Admin extends Controller_Module
 							)
 						)
 					)
-					->size('col-8 col-lg-9')
+					->size('col-12 col-lg-9')
 		);
 	}
 

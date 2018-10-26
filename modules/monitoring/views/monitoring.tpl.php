@@ -9,17 +9,17 @@
 </div>
 <div class="panel-body">
 	<div class="row">
-		<div class="col monitoring-legend">
+		<div class="col monitoring-legend pt-2 pb-3">
 			<h3 id="monitoring-info"><?php echo icon('fa-spinner fa-spin') ?></h3>
-			<span class="span-legend"><?php echo icon('fa-exclamation-circle text-blue') ?> Conseils</span>
+			<?php echo icon('fa-exclamation-circle text-info') ?> Conseils
 		</div>
-		<div class="col monitoring-legend">
+		<div class="col monitoring-legend pt-2 pb-3">
 			<h3 id="monitoring-warning"><?php echo icon('fa-spinner fa-spin') ?></h3>
-			<span class="span-legend"><?php echo icon('fa-bolt text-orange') ?> Anomalies</span>
+			<?php echo icon('fa-bolt text-warning') ?> Anomalies
 		</div>
-		<div class="col monitoring-legend">
+		<div class="col monitoring-legend pt-2 pb-3">
 			<h3 id="monitoring-danger"><?php echo icon('fa-spinner fa-spin') ?></h3>
-			<span class="span-legend"><?php echo icon('fa-bug text-red') ?> Erreurs</span>
+			<?php echo icon('fa-bug text-danger') ?> Erreurs
 		</div>
 	</div>
 </div>

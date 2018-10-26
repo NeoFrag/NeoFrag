@@ -18,7 +18,7 @@ class Admin_Ajax extends Controller_Module
 		{
 			$this->config('nf_monitoring_last_check', time());
 
-			if (version_compare(PHP_VERSION, 7, '<'))
+			if (version_compare(PHP_VERSION, 7.2, '<'))
 			{
 				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
 			}

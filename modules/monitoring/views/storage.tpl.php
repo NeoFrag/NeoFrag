@@ -2,13 +2,13 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h5 class="modal-title">Sauvegarde</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('Fermer') ?>"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Sauvegarde</h4>
 			</div>
 			<div class="modal-body">
 				<div class="steps-body text-center">
 					<div class="row">
-						<div class="col-5 col-md-offset-1">
+						<div class="col-5 offset-md-1">
 							<div class="progress">
 								<div class="progress-bar" role="progressbar"></div>
 							</div>
@@ -24,26 +24,25 @@
 							<div class="step">
 								<?php echo icon('fa-floppy-o') ?>
 							</div>
-							<span class="span-legend">Lancement</span>
 						</div>
-						<div class="col-4 col-offset-2">
+						<div class="col-4 offset-2">
 							<div class="step">
 								<?php echo icon('fa-database') ?>
 							</div>
-							<span class="span-legend">Données</span>
+							<?php echo $this->lang('Données') ?>
 						</div>
-						<div class="col-2 col-offset-2">
+						<div class="col-2 offset-2">
 							<div class="step">
 								<?php echo icon('fa-files-o') ?>
 							</div>
-							<span class="span-legend">Fichiers</span>
+							<?php echo $this->lang('Fichiers') ?>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>
-				<a class="btn btn-primary" data-loading-text="Sauvegarde en cours...">Lancer la sauvegarde</a>
+				<a class="btn btn-primary text-white"><?php echo $this->lang('Lancer la sauvegarde') ?></a>
 			</div>
 		</div>
 	</div>
@@ -59,11 +58,11 @@
 </div>
 <div class="row">
 	<div class="col-6 text-center">
-		<h4 id="storage-free" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h4>
-		<span class="span-legend">Libre</span>
+		<h5 id="storage-free" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h5>
+		Libre
 	</div>
 	<div class="col-6 text-center">
-		<h4 id="storage-total" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h4>
-		<span class="span-legend">Total</span>
+		<h5 id="storage-total" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h5>
+		Total
 	</div>
 </div>
