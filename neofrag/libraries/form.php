@@ -471,7 +471,7 @@ class Form extends Library
 
 					if ($this->_fast_mode)
 					{
-						$output .= $display;
+						$output .= '<div class="col">'.$display.'</div>';
 					}
 					else
 					{
