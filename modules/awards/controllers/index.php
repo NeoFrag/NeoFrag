@@ -65,7 +65,7 @@ class Index extends Controller_Module
 										'best_game_awards' => $this->model()->get_best_game_awards(),
 										'best_team'        => $this->model()->get_teams_ranking(1),
 										'teams'            => $this->model()->get_teams_ranking()
-									]))
+									]), FALSE)
 					)
 					->append($this->panel_back());
 	}

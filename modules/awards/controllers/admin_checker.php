@@ -15,8 +15,23 @@ class Admin_Checker extends Module_Checker
 		return [$this->module->pagination->get_data($this->model()->get_awards(), $page)];
 	}
 
+	public function add()
+	{
+		if (!$this->is_authorized('add_awards'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _edit($award_id, $name)
 	{
+		if (!$this->is_authorized('modify_awards'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($award = $this->model()->check_awards($award_id, $name))
 		{
 			return [
@@ -41,6 +56,11 @@ class Admin_Checker extends Module_Checker
 
 	public function delete($award_id, $name)
 	{
+		if (!$this->is_authorized('delete_awards'))
+		{
+			$this->error->unauthorized();
+		}
+
 		$this->ajax();
 
 		if ($award = $this->model()->check_awards($award_id, $name))

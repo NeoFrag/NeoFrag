@@ -111,10 +111,10 @@ class Admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/awards/'.$data['award_id'].'/'.url_title($data['name']));
+										return $this->is_authorized('modify_awards') ? $this->button_update('admin/awards/'.$data['award_id'].'/'.url_title($data['name'])) : NULL;
 									},
 									function($data){
-										return $this->button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name']));
+										return $this->is_authorized('delete_awards') ? $this->button_delete('admin/awards/delete/'.$data['award_id'].'/'.url_title($data['name'])) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -127,7 +127,7 @@ class Admin extends Controller_Module
 		return $this->panel()
 					->heading('Liste des palmarès', 'fa-trophy')
 					->body($awards)
-					->footer($this->button_create('admin/awards/add', 'Ajouter un palmarès'));
+					->footer_if($this->is_authorized('add_awards'), $this->button_create('admin/awards/add', 'Ajouter un palmarès'));
 	}
 
 	public function add()

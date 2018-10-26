@@ -35,6 +35,37 @@ class Awards extends Module
 		];
 	}
 
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Palmarès',
+						'icon'   => 'fa-trophy',
+						'access' => [
+							'add_awards' => [
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_awards' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_awards' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
+
 	public function comments($award_id)
 	{
 		$award = $this->db	->select('name')

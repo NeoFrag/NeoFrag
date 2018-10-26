@@ -1,11 +1,1 @@
-.trophy-bronze {
-	color: #CE7C42;
-}
-
-.trophy-silver {
-	color: #CCCCCC;
-}
-
-.trophy-gold {
-	color: #F0B036;
-}
+.module-awards .trophy-bronze,.widget-awards .trophy-bronze{color:#ce7c42}.module-awards .trophy-silver,.widget-awards .trophy-silver{color:#ccc}.module-awards .trophy-gold,.widget-awards .trophy-gold{color:#f0b036}/*# sourceMappingURL=awards.css.map */
