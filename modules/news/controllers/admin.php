@@ -129,14 +129,14 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('Catégories'), 'fa-align-left')
 						->body($categories)
-						->footer($this->is_authorized('add_news_category') ? $this->button_create('admin/news/categories/add', $this->lang('Créer une catégorie')) : NULL)
+						->footer_if($this->is_authorized('add_news_category'), $this->button_create('admin/news/categories/add', $this->lang('Créer une catégorie')))
 						->size('col-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Liste des actualités'), 'fa-file-text-o')
 						->body($news)
-						->footer($this->is_authorized('add_news') ? $this->button_create('admin/news/add', $this->lang('Ajouter une actualité')) : NULL)
+						->footer_if($this->is_authorized('add_news'), $this->button_create('admin/news/add', $this->lang('Ajouter une actualité')))
 						->size('col-12 col-lg-9')
 			)
 		);

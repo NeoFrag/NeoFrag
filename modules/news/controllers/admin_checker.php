@@ -15,7 +15,7 @@ class Admin_Checker extends Module_Checker
 		return [$this->module->pagination->get_data($this->model()->get_news(), $page)];
 	}
 
-	public function _add()
+	public function add()
 	{
 		if (!$this->is_authorized('add_news'))
 		{
@@ -55,7 +55,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_add()
 	{
-		if (!$this->is_authorized('add_news_categories'))
+		if (!$this->is_authorized('add_news_category'))
 		{
 			$this->error->unauthorized();
 		}
@@ -65,7 +65,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_edit($category_id, $name)
 	{
-		if (!$this->is_authorized('modify_news_categories'))
+		if (!$this->is_authorized('modify_news_category'))
 		{
 			$this->error->unauthorized();
 		}
@@ -78,7 +78,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_delete($category_id, $name)
 	{
-		if (!$this->is_authorized('delete_news_categories'))
+		if (!$this->is_authorized('delete_news_category'))
 		{
 			$this->error->unauthorized();
 		}

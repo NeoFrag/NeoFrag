@@ -60,7 +60,7 @@ class News extends Module
 				'access'  => [
 					[
 						'title'  => 'Actualités',
-						'icon'   => 'file-text-o',
+						'icon'   => 'fa-file-text-o',
 						'access' => [
 							'add_news' => [
 								'title' => 'Ajouter',

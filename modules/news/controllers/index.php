@@ -19,13 +19,7 @@ class Index extends Controller_Module
 			$news['introduction'] = bbcode($news['introduction']);
 
 			$panel = $this	->panel()
-							->heading($news['title'], 'fa-file-text-o', 'news/'.$news['news_id'].'/'.url_title($news['title']))
-							->body($this->view('index', $news));
-
-			if ($news['content'])
-			{
-				$panel->footer('<a href="'.url('news/'.$news['news_id'].'/'.url_title($news['title'])).'">'.$this->lang('Lire la suite').'</a>');
-			}
+							->body($this->view('index', $news), FALSE);
 
 			$panels->append($panel);
 		}
@@ -69,7 +63,6 @@ class Index extends Controller_Module
 		$this->title($title);
 
 		$news = $this	->panel()
-						->heading($title, 'fa-file-text-o')
 						->body($this->view('index', [
 							'news_id'        => $news_id,
 							'category_id'    => $category_id,
@@ -89,32 +82,22 @@ class Index extends Controller_Module
 							'username'       => $username,
 							'avatar'         => $avatar,
 							'sex'            => $sex
-						]));
+						]), FALSE);
 
 		return $this->array
 					->append($this->row($this->col($news)))
 					->append_if($user_id, $this->row(
 												$this->col(
-													$this	->panel()
-															->heading($this->lang('À propos de l\'auteur'), 'fa-user')
-															->body($this->view('author', [
-																'user_id'  => $user_id,
-																'username' => $username,
-																'avatar'   => $avatar,
-																'sex'      => $sex,
-																'admin'    => $admin,
-																'online'   => $online,
-																'quote'    => $quote
-															]))
-															->size('col-6')
-												),
-												$this->col(
-													$this	->panel()
-															->heading($this->lang('Autres actualités de l\'auteur'), 'fa-file-text-o')
-															->body($this->view('author_news', [
-																'news' => $this->model()->get_news_by_user($user_id, $news_id)
-															]), FALSE)
-															->size('col-6')
+													$this->view('about', [
+														'user_id'  => $user_id,
+														'username' => $username,
+														'avatar'   => $avatar,
+														'sex'      => $sex,
+														'admin'    => $admin,
+														'online'   => $online,
+														'quote'    => $quote,
+														'news' => $this->model()->get_news_by_user($user_id, $news_id)
+													])
 												)
 										)
 					)
