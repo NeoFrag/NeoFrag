@@ -181,7 +181,8 @@ class Admin extends Controller_Module
 					'welcome_content' => [
 						'label'   => 'Message de bienvenue',
 						'value'   => $this->config->nf_welcome_content,
-						'type'    => 'editor'
+						'type'    => 'editor',
+						'description' => 'Placez [pseudo] pour afficher automatiquement le pseudo du nouveau membre dans le message'
 					]
 				])
 				->add_submit($this->lang('Valider'))

@@ -1,6 +1,6 @@
 <div class="user-profile">
 	<?php echo $user->avatar() ?>
-	<h2><?php echo $user->username ?></h2>
+	<h4 class="mb-3"><?php echo $user->username ?></h4>
 	<?php echo $this->array
 					->append_if($quote = $user->profile()->quote, '<i class="text-muted">'.$quote.'</i>')
 					->append($user->profile()->first_name.' '.$user->profile()->last_name)
@@ -18,7 +18,7 @@
 					})
 					->filter()
 					->each(function($a){
-						return '<h3>'.$a.'</h3>';
+						return '<h6>'.$a.'</h6>';
 					}) ?>
 	<?php $socials = $this	->array([
 								['website',   'fa-globe',     ''],
@@ -31,7 +31,7 @@
 								return $user->profile()->{$a[0]};
 							})
 							->each(function($a) use ($user){
-								return '<a href="'.$a[2].$user->profile()->{$a[0]}.'" class="btn '.$a[0].'">'.icon($a[1]).'</a>';
+								return '<a href="'.$a[2].$user->profile()->{$a[0]}.'" class="btn '.$a[0].'" target="_blank">'.icon($a[1]).'</a>';
 							});
 	?>
 	<?php if (!$socials->empty()): ?><div class="socials"><?php echo $socials ?></div><?php endif ?>

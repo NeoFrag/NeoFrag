@@ -41,35 +41,46 @@ class Index extends Controller_Module
 
 	public function account($sessions)
 	{
-		return $this->title('Connexion')
-					->icon('fa-sign-in')
-					->breadcrumb()
-					->form2('username current_password new_password email', $this->user)
-					->success(function($user){
-						if ($user->password_new)
-						{
-							$user->set_password($user->password_new);
-						}
-						else
-						{
-							$user->reset('password');
-						}
+		return $this->row([
+						$this->col(
+							$this	->panel()
+									->heading('Mon profil')
+									->body($this->user->view('user/profile')),
+							$this->_panel_navigation()
+						)->size('col-4'),
+						$this->col(
+							$this->title('Connexion')
+								->icon('fa-sign-in')
+								->breadcrumb()
+								->form2('username current_password new_password email', $this->user)
+								->success(function($user){
+									if ($user->password_new)
+									{
+										$user->set_password($user->password_new);
+									}
+									else
+									{
+										$user->reset('password');
+									}
 
-						if ($user->has_changed('email') && $this->config->nf_registration_validation)
-						{
-							//TODO
-						}
+									if ($user->has_changed('email') && $this->config->nf_registration_validation)
+									{
+										//TODO
+									}
 
-						$user->update();
+									$user->update();
 
-						notify($this->lang('Informations modifiées'));
+									notify($this->lang('Informations modifiées'));
 
-						refresh();
-					})
-					->submit('Modifier')
-					->panel()
-					->title('Info de connexion')
-					->style('col-6 offset-3 col-lg-4 offset-lg-4');/*
+									refresh();
+								})
+								->submit('Modifier')
+								->panel()
+								->title('Info de connexion')
+						)->size('col-8')
+					]);
+
+					/* TODO
 					->row()
 					->append(
 						$this	->col()
@@ -199,11 +210,21 @@ class Index extends Controller_Module
 
 	public function sessions($sessions)
 	{
-		return $this->title('Historique des sessions')
-					->icon('fa-history')
-					->breadcrumb()
-					->table2('session', $sessions, 'Aucun historique')
-					->panel();
+		return $this->row([
+						$this->col(
+							$this	->panel()
+									->heading('Mon profil')
+									->body($this->user->view('user/profile')),
+							$this->_panel_navigation()
+						)->size('col-4'),
+						$this->col(
+							$this	->title('Historique des sessions')
+									->icon('fa-history')
+									->breadcrumb()
+									->table2('session', $sessions, 'Aucun historique')
+									->panel()
+						)->size('col-8')
+					]);
 	}
 
 	public function _session_delete($session_id)
@@ -369,8 +390,8 @@ class Index extends Controller_Module
 
 	public function _messages_compose($username)
 	{
-		$this	->title('Nouveau message')
-				->icon('fa-edit')
+		$this	->title('Nouveau message privé')
+				->icon('fa-envelope-o')
 				->breadcrumb()
 				->form()
 				->add_rules([
@@ -431,15 +452,6 @@ class Index extends Controller_Module
 
 	public function _member($user)
 	{
-		$this->output->data->set('pre_module', $this->array
-													->append($user->view('user/cover'))
-													->append('	<div class="user-info">
-																	<div class="container">
-																		'.$this->row($this->col($this->_panel_infos($user))->size('col-8 offset-4')).'
-																	</div>
-																</div>')
-		);
-
 		return $this->title($user->username)
 					->breadcrumb('Profil')
 					->breadcrumb($user->username)
@@ -449,19 +461,12 @@ class Index extends Controller_Module
 									->append($this	->panel()
 													->body($user->view('user/profile'))
 									)
-									->append_if(in_array('donate-0', $this->groups($user->id)), function(){
-										return $this->panel()
-													->style('honor')
-													->body('<h4>'.icon('fa-usd text-success').' Donateur</h4>');
-									})
-									->append_if(in_array('shop2-0', $this->groups($user->id)), function(){
-										return $this->panel()
-													->style('honor')
-													->body('<h4>'.icon('fa-cubes text-warning').' Contributeur</h4>');
-									})
 					)
 					->append($this	->col()
 									->size('col-8')
+									->append($this	->panel()
+													->body($this->_panel_infos($user))
+									)
 									->append($this->_panel_activities($user->id))
 									->append($this->panel_back())
 					);
@@ -488,9 +493,14 @@ class Index extends Controller_Module
 					'url'   => 'user'
 				],
 				[
-					'title' => 'Gérer mon compte',
-					'icon'  => 'fa-cogs',
+					'title' => 'Info de connexion',
+					'icon'  => 'fa-sign-in',
 					'url'   => 'user/account'
+				],
+				[
+					'title' => 'Éditer mon profil',
+					'icon'  => 'fa-pencil',
+					'url'   => 'user/profile'
 				],
 				[
 					'title' => 'Messagerie privée',
@@ -501,6 +511,11 @@ class Index extends Controller_Module
 					'title' => 'Gérer mes sessions',
 					'icon'  => 'fa-globe',
 					'url'   => 'user/sessions'
+				],
+				[
+					'title' => 'Déconnexion',
+					'icon'  => 'fa-close',
+					'url'   => 'user/logout'
 				]
 			]
 		];
@@ -529,7 +544,6 @@ class Index extends Controller_Module
 
 		$user_activity = [];
 
-		//TODO
 		if ($forum = $this->module('forum'))
 		{
 			$categories = array_filter($this->db->select('category_id')->from('nf_forum_categories')->get(), function($a){

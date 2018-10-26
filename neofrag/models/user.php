@@ -43,7 +43,14 @@ class User extends Model2
 
 	public function profile()
 	{
-		return NeoFrag()->model2('user_profile', $this->id);
+		$profile = NeoFrag()->model2('user_profile', $this->id);
+
+		if (!$profile())
+		{
+			$profile->set('user', $this->id);
+		}
+
+		return $profile;
 	}
 
 	public function is_online()

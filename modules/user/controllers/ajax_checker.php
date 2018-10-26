@@ -27,7 +27,7 @@ class Ajax_Checker extends Module_Checker
 
 	public function register()
 	{
-		$this->error_if($this->user());
+		$this->error_if($this->user() || $this->config->nf_registration_status);
 
 		return [];
 	}

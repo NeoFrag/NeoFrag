@@ -2,7 +2,7 @@
 	<h6 class="mb-3"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user->username.'</a>') ?></h6>
 	<?php echo $this->user->avatar()->append_attr('class', 'm-auto') ?>
 </div>
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<li class="list-group-item">
 		<!--<span class="badge badge-success pull-right"><?php echo 0; //TODO nombre de nouvelles notifications ?></span>-->
 		<?php echo icon('fa-user') ?> <a href="<?php echo url('user') ?>"><?php echo $this->lang('Mon espace') ?></a>

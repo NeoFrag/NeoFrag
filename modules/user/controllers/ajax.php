@@ -99,12 +99,15 @@ class Ajax extends Controller_Module
 								return;
 							}
 						}
-						else
-						{
-							notify('Votre compte à bien été créé, bienvenue !');
-						}
 
 						$user->set_password($user->password)->create();
+
+						if ($this->config->nf_welcome && $this->config->nf_welcome_user_id && !empty($this->config->nf_welcome_title) && !empty($this->config->nf_welcome_content))
+						{
+							$this->model('messages')->insert_message($user->username, $this->config->nf_welcome_title, str_replace('[pseudo]', '@'.$user->username, $this->config->nf_welcome_content), TRUE);
+						}
+
+						notify('Votre compte à bien été créé, bienvenue !');
 
 						$this->session->login($user);
 

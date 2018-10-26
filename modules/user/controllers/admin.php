@@ -149,7 +149,7 @@ class Admin extends Controller_Module
 											->success(function($user){
 												$user->update();
 												notify($this->lang('Membre modifié'));
-												refresh();
+												redirect('admin/user/edit/'.$user->url());
 											})
 											->panel()
 											->title('Membre')
@@ -157,7 +157,7 @@ class Admin extends Controller_Module
 								->append(
 									$this	->form2('profile', $user->profile())
 											->success(function($profile){
-												$profile->update();
+												$profile->commit();
 												notify($this->lang('Profil modifié'));
 												refresh();
 											})
@@ -292,10 +292,10 @@ class Admin extends Controller_Module
 	public function _sessions($sessions)
 	{
 		return $this->title($this->lang('Sessions'))
-					->subtitle($this->lang('Liste des sessions actives'))
 					->icon('fa-globe')
 					->table2('session', $sessions)
-					->panel();
+					->panel()
+					->title('Liste des sessions actives', 'fa-bars');
 	}
 
 	public function _sessions_delete($session_id, $username)
