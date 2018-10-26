@@ -195,8 +195,7 @@ class Admin extends Controller_Module
 
 	public function _maps_edit($map_id, $game_id, $image_id, $title, $game)
 	{
-		$this	->title('Éditer la carte')
-				->subtitle($title)
+		$this	->subtitle($title)
 				->form()
 				->add_rules('maps', [
 					'games'    => $this->model()->get_games_list(TRUE),
@@ -332,7 +331,7 @@ class Admin extends Controller_Module
 						->display();
 
 		return $this->panel()
-					->heading('Cartes', 'fa-map-o')
+					->heading('Liste des cartes', 'fa-map-o')
 					->body($maps)
 					->footer($this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : ''),  'Ajouter une carte'));
 	}
