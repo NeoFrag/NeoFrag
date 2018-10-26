@@ -38,7 +38,7 @@ class Admin_Checker extends Module_Checker
 		}
 	}
 
-	public function _add()
+	public function add()
 	{
 		if (!$this->is_authorized('add_event'))
 		{

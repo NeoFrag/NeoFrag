@@ -162,14 +162,14 @@ class Admin extends Controller_Module
 						$this	->panel()
 								->heading('Types d\'événement', 'fa-bookmark-o')
 								->body($types)
-								->footer($this->is_authorized('add_events_type') ? $this->button_create('admin/events/types/add', 'Créer un type d\'événement') : NULL)
+								->footer_if($this->is_authorized('add_events_type'), $this->button_create('admin/events/types/add', 'Créer un type d\'événement'))
 					)
 					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
 								->heading('Liste des événements', 'fa-calendar')
-								->body('<div class="panel-footer">'.$this->_filters().'</div><div class="panel-body">'.$events.'</div>', FALSE)
-								->footer($this->is_authorized('add_event') ? $this->button_create('admin/events/add', 'Créer un événement') : NULL)
+								->body($this->_filters().'<div class="panel-body">'.$events.'</div>')
+								->footer_if($this->is_authorized('add_event'), $this->button_create('admin/events/add', 'Créer un événement'))
 					)
 					->size('col-8 col-lg-9')
 		);
@@ -451,7 +451,7 @@ class Admin extends Controller_Module
 					->add_columns([
 						[
 							'content' => function($data){
-								return $this->model('matches')->label_scores($data['score1'], $data['score2']).($data['title'] ? ' ('.$data['title'].')' : '');
+								return $this->model('matches')->label_scores($data['score1'], $data['score2']).($data['title'] ? ' '.icon('fa-map-o ml-1').' '.$data['title'] : '');
 							}
 						],
 						[
@@ -488,7 +488,7 @@ class Admin extends Controller_Module
 									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fa-plus')->modal($modal_opponent).'</div>', 'fa-info-circle')
 									->body($form_match->display()),
 							$this	->panel()
-									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right">Résultat global '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
+									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right"><small>Résultat global</small> '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
 									->body($this->table()->display())
 									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
 						)

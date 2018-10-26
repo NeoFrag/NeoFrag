@@ -191,7 +191,8 @@ class Index extends Controller_Module
 							]))
 							->submit('Inviter')
 							->cancel()
-							->set_id('c2dac90bb0731401a293d27ee036757a');
+							->set_id('c2dac90bb0731401a293d27ee036757a')
+							->callback(function(){});
 		}
 
 		return $this->_filters()

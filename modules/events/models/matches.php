@@ -126,17 +126,17 @@ class Matches extends Model
 
 		if ($scores[0] > $scores[1])
 		{
-			$color = 'text-green';
+			$color = 'text-success';
 			$icon  = 'fa-angle-up';
 		}
 		else if ($scores[0] < $scores[1])
 		{
-			$color = 'text-red';
+			$color = 'text-danger';
 			$icon  = 'fa-angle-down';
 		}
 		else
 		{
-			$color = 'text-blue';
+			$color = 'text-primary';
 
 			if ($opponents)
 			{
