@@ -26,7 +26,7 @@ $(function(){
 		$.post('<?php echo url('admin/ajax/statistics.json') ?>', data, function(series){
 			$('#highcharts').highcharts('StockChart', {
 				chart: {
-					height: 750,
+					height: 690,
 					zoomType: 'x'
 				},
 				title: {
@@ -44,6 +44,9 @@ $(function(){
 					enabled: false
 				},
 				credits: {
+					enabled: false
+				},
+				rangeSelector: {
 					enabled: false
 				},
 				series: series

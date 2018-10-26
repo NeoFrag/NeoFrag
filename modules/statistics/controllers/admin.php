@@ -18,16 +18,16 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this	->col(
 						$this	->panel()
-								->heading('Statistiques', 'fa-bar-chart')
+								->heading('Période', 'fa-calendar')
 								->body($this	->form()
 												->set_id('sq6fswkfb81n0lu4cb7eyb3tuixcovla')
 												->add_rules('statistics')
 												->fast_mode()
 												->display())
 					)
-					->size('col-4 col-lg-3'),
+					->size('col-lg-3'),
 			$this	->col($this->panel()->body('<div id="highcharts"></div>', FALSE))
-					->size('col-8 col-lg-9')
+					->size('col-lg-9')
 		);
 	}
 }
