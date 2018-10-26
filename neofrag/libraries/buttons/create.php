@@ -16,8 +16,6 @@ class Create extends Library
 					->title($title)
 					->url($url)
 					->icon($icon)
-					->color('primary')
-					->outline()
-					->compact();
+					->color('primary');
 	}
 }
