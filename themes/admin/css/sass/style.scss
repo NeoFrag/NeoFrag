@@ -1,6 +1,11 @@
-@import '../../../default/css/sass/_base';
-
+@import 'variables';
 @import 'general';
+@import 'navbar';
+@import 'sidebar';
 
-@import 'sections/main';
-@import 'sections/sidebar';
+@import 'bootstrap/button';
+@import 'bootstrap/badge';
+@import 'bootstrap/card';
+@import 'bootstrap/form';
+
+@import '../../../default/css/sass/default';

@@ -1,0 +1,22 @@
+$primary: #00d7b3;
+$primary-hover: #39c9b1;
+
+$secondary: #00c7e4;
+$secondary-hover: #00adc6;
+
+$online-color: #4edc5b;
+$offline-color: #a8a8a8;
+
+$gradient-from: $primary;
+$gradient-to: $secondary;
+$gradient-from-hover: $primary-hover;
+$gradient-to-hover: $secondary-hover;
+
+$logo-color: #00ffd4;
+
+$gradient-color: linear-gradient(to right, $gradient-from, $gradient-to);
+$gradient-color-hover: linear-gradient(to right, $gradient-from-hover, $gradient-to-hover);
+$gradient-gray-light: linear-gradient(to right, #f5f5f5, #efeff0);
+
+$text-dark-gray: #545b62;
+$text-light-gray: #a4b5c5;

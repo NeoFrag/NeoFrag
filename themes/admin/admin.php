@@ -49,7 +49,8 @@ class Admin extends Theme
 				->js('bootstrap.min')
 				->js('bootstrap-notify.min')
 				->js('modal')
-				->js('notify');
+				->js('notify')
+				->js('sidebar');
 
 		$this->data = $this->array;
 
@@ -85,14 +86,16 @@ class Admin extends Theme
 					'url'   => 'admin'
 				],
 				[
-					'title' => 'Paramètres',
-					'icon'  => 'fa-cogs',
-					'url'   => 'admin/settings'
+					'title'  => 'Paramètres',
+					'icon'   => 'fa-cogs',
+					'access' => $this->user->admin,
+					'url'    => 'admin/settings'
 				],
 				[
-					'title' => 'Thèmes & Addons',
-					'icon'  => 'fa-puzzle-piece',
-					'url'   => 'admin/addons'
+					'title'  => 'Thèmes & Addons',
+					'icon'   => 'fa-puzzle-piece',
+					'access' => $this->user->admin,
+					'url'    => 'admin/addons'
 				],
 				[
 					'title' => 'Utilisateurs',
@@ -117,13 +120,8 @@ class Admin extends Theme
 				[
 					'title' => 'Live Editor',
 					'icon'  => 'fa-desktop',
-					'url'   => 'admin/live-editor'
-				],
-				[
-					'title'  => 'Monitoring'.$this->module('monitoring')->display(),
-					'icon'   => 'fa-heartbeat',
 					'access' => $this->user->admin,
-					'url'    => 'admin/monitoring'
+					'url'   => 'admin/live-editor'
 				],
 				[
 					'title' => 'Statistiques',

@@ -1,0 +1,25 @@
+.btn {
+	font-size: 13px;
+	padding: 8px 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-family: Poppins,sans-serif;
+
+	&.btn-primary {
+		background-color: $primary;
+		border-color: $primary;
+
+		&:hover {
+			background-color: $primary-hover;
+			border-color: $primary-hover;
+		}
+	}
+
+	&.btn-lg {
+		padding: 12px 14px;
+	}
+
+	&.btn-sm {
+		padding: 3px 5px;
+	}
+}

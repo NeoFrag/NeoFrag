@@ -1,12 +1,13 @@
-.sidebar {
+#sidebar {
+	min-width: 250px;
+	max-width: 250px;
 	background: #222b2d;
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 100;
-	padding: 0;
-	min-width: 200px;
+	color: #fff;
+	transition: all 0.3s;
+
+	.sidebar-header {
+		padding: 15px 15px 25px;
+	}
 
 	.logo {
 		text-align: center;
@@ -21,18 +22,22 @@
 		}
 
 		.badge {
-			background: $primary;
+			background: $secondary;
 			font-family: 'Open Sans', sans-serif;
 			font-weight: 300;
 			font-size: 9px;
 			text-transform: uppercase;
-			text-shadow: 1px 1px rgba(0, 0, 0, .25);
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, .25);
 			letter-spacing: .7px;
 			position: absolute;
-			top: 50px;
+			top: 58px;
 			right: 10px;
 			z-index: 200;
 		}
+	}
+
+	&.active {
+		margin-left: -250px;
 	}
 
 	.nav {
@@ -46,7 +51,7 @@
 				font-weight: 600;
 				padding: 5px 5px 5px 30px;
 				position: relative;
-				line-height: 50px;
+				line-height: 42px;
 				border-bottom: 1px solid #2b373a;
 				transition: all .2s ease-in;
 
@@ -90,10 +95,79 @@
 				.nav-item {
 					.nav-link {
 						border: 0;
-						line-height: 35px;
+						line-height: 25px;
 					}
 				}
 			}
 		}
+	}
+}
+
+#sidebarCollapse {
+	padding: 5px 7px;
+	font-size: 18px;
+}
+
+ul.monitoring {
+	padding: 20px 15px;
+
+	> li {
+		> .btn {
+			border-radius: 5px;
+			font-size: 13px;
+			text-transform: none;
+
+			i.fa-heartbeat.fa-beat {
+				animation:fa-beat 4s ease infinite;
+				font-size: 16px;
+				margin-right: 7px;
+			}
+		}
+
+		> span.badge {
+			margin-top: 10px;
+			margin-right: 10px;
+		}
+	}
+}
+
+@keyframes fa-beat {
+	0% {
+		transform:scale(1);
+	}
+	5% {
+		transform:scale(1.25);
+	}
+	20% {
+		transform:scale(1);
+	}
+	30% {
+		transform:scale(1);
+	}
+	35% {
+		transform:scale(1.25);
+	}
+	50% {
+		transform:scale(1);
+	}
+	55% {
+		transform:scale(1.25);
+	}
+	70% {
+		transform:scale(1);
+	}
+}
+
+@media(max-width:768px){
+	#sidebar {
+		margin-left: -250px;
+	}
+
+	#sidebar.active {
+		margin-left: 0px;
+	}
+
+	#sidebarCollapse span {
+		display: none;
 	}
 }

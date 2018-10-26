@@ -1,0 +1,26 @@
+form {
+	.col-form-label {
+		font-size: 14px;
+		font-weight: 700;
+		color: $text-dark-gray;
+
+		> em {
+			color: $primary;
+		}
+	}
+
+	legend {
+		text-transform: uppercase;
+		font-size: 14px;
+		letter-spacing: 1px;
+		color: $text-light-gray;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+}
+
+.form-control:focus {
+	border-color: $primary;
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(0,215,179,.25);
+}

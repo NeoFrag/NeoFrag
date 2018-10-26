@@ -1,19 +1,18 @@
 $(function(){
-	var progressBar = [];
-
-	$('#modal-update .progress-bar').each(function(i){
-		var $progress = $(this);
-		var start = 0;
-		$.each(String($(this).data('step')).split(','), function(key, value){
-			value = parseInt(value);
-			progressBar.push([$progress.data('index', i), start, value]);
-			start += value;
-		});
-	});
-
-	$('#modal-update .btn-primary').click(function(){
+	$('body').on('click', '#modal-update .btn-primary', function(){
+		var progressBar = [];
 		var $btn = $(this).button('loading');
 		$('#modal-update .step:eq(0)').addClass('active');
+
+		$('#modal-update .progress-bar').each(function(i){
+			var $progress = $(this);
+			var start = 0;
+			$.each(String($(this).data('step')).split(','), function(key, value){
+				value = parseInt(value);
+				progressBar.push([$progress.data('index', i), start, value]);
+				start += value;
+			});
+		});
 
 		$('#modal-update').on('hidden.bs.modal', function(){
 			$btn.button('reset');
