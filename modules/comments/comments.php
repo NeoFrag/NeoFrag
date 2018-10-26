@@ -68,7 +68,7 @@ class Comments extends Module
 					->style('comments')
 					->heading()
 					->heading($this->label($module, $module_id)->align('right'))
-					->body($new.$this->_comments($module, $module_id)->view('comment'));
+					->body('<a name="comments"></a>'.$new.$this->_comments($module, $module_id)->view('comment'));
 	}
 
 	public function admin($module, $module_id)

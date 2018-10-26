@@ -1,9 +1,10 @@
 .comments {
 	.media {
-		padding: 25px 0;
+		padding-bottom: 10px;
 
 		+ .media {
 			border-top: 1px solid #ebebeb;
+			padding-top: 20px;
 		}
 
 		&.comments-child {
@@ -25,14 +26,14 @@
 				margin-bottom: 10px;
 			}
 
-			.list-right {
+			.list-inline {
 				display: none;
 			}
 		}
 
 		&:hover {
 			.media-body {
-				.list-right {
+				.list-inline {
 					display: block;
 				}
 			}

@@ -2,21 +2,15 @@
 	<?php echo $comment->user->avatar() ?>
 	<div class="media-body">
 		<?php
-			$actions = [];
-
-			if ($this->user() && !$comment->parent())
-			{
-				$actions[] = '<li><a class="btn btn-link btn-sm" href="#" data-comment-id="'.$comment->id.'">'.icon('fa-mail-reply').' '.$this->lang('Répondre').'</a></li>';
-			}
-
-			if ($this->user->admin || ($this->user() && $this->user->id == $comment->user->id))
-			{
-				$actions[] = '<li>'.$this->button_delete('ajax/comments/delete/'.$comment->id)->compact().'</li>';
-			}
+			$actions = $this->array()
+							//->append_if($this->user() && !$comment->parent(), '<a class="btn btn-link btn-sm" href="#" data-comment-id="'.$comment->id.'">'.icon('fa-mail-reply').' '.$this->lang('Répondre').'</a>')//TODO
+							->append_if($this->user->admin || ($this->user() && $this->user->id == $comment->user->id), $this->button_delete('ajax/comments/delete/'.$comment->id)->compact());
 
 			if ($actions)
 			{
-				echo '<ul class="list-right">'.implode($actions).'</ul>';
+				echo '<ul class="list-inline pull-right">'.$actions->each(function($a){
+					return '<li class="list-inline-item">'.$a.'</li>';
+				}).'</ul>';
 			}
 		?>
 		<h6>
