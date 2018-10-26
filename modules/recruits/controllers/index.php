@@ -31,11 +31,11 @@ class Index extends Controller_Module
 				}
 				else
 				{
-					$footer = '<a href="'.url('recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-default">'.icon('fa-eye').' En savoir plus</a> <a href="'.url('recruits/postulate/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-primary">'.icon('fa-briefcase').' Postuler</a>';
+					$footer = '<a href="'.url('recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-light">'.icon('fa-eye').' En savoir plus</a> <a href="'.url('recruits/postulate/'.$recruit['recruit_id'].'/'.url_title($recruit['title'])).'" class="btn btn-primary">'.icon('fa-briefcase').' Postuler</a>';
 				}
 
 				$panels->append($this	->panel()
-										->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-default">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
+										->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-dark">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
 										->body($this->view('index', [
 											'recruit_id'   => $recruit['recruit_id'],
 											'title'        => $recruit['title'],
@@ -144,7 +144,7 @@ class Index extends Controller_Module
 																			'date_end'  => $date_end,
 																			'team_id'   => $team_id,
 																			'team_name' => $team_name
-																		]), FALSE)
+																		]))
 									)
 									->size('col-6'),
 							$this	->col($postulate_panel)

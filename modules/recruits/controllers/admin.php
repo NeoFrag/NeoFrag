@@ -62,11 +62,11 @@ class Admin extends Controller_Module
 								[
 									'title'   => icon('fa-black-tie').' Candidatures',
 									'content' => function($data){
-										return '<ul class="list-inline">
-													<li class="text-muted" data-toggle="tooltip" title="En attente">'.icon('fa-clock-o').' '.$data['candidacies_pending'].'</li>
-													<li class="text-success" data-toggle="tooltip" title="Validée">'.icon('fa-check').' '.$data['candidacies_accepted'].'</li>
-													<li class="text-danger" data-toggle="tooltip" title="Refusée">'.icon('fa-ban').' '.$data['candidacies_declined'].'</li>
-													'.($data['candidacies_accepted'] == $data['size'] ? '<li><span class="badge badge-success">Complète</span></li>' : '<li><span class="badge badge-default">Incomplète</span></li>').'
+										return '<ul class="list-inline mb-0">
+													<li class="list-inline-item text-muted" data-toggle="tooltip" title="En attente">'.icon('fa-clock-o').' '.$data['candidacies_pending'].'</li>
+													<li class="list-inline-item text-success" data-toggle="tooltip" title="Validée">'.icon('fa-check').' '.$data['candidacies_accepted'].'</li>
+													<li class="list-inline-item text-danger" data-toggle="tooltip" title="Refusée">'.icon('fa-ban').' '.$data['candidacies_declined'].'</li>
+													'.($data['candidacies_accepted'] == $data['size'] ? '<li class="list-inline-item"><span class="badge badge-success">Complète</span></li>' : '<li class="list-inline-item"><span class="badge badge-dark">Incomplète</span></li>').'
 												</ul>';
 									}
 								],
@@ -105,7 +105,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading('Liste des offres', 'fa-bullhorn')
 						->body($recruits)
-						->footer($this->is_authorized('add_recruit') ? $this->button_create('admin/recruits/add', 'Créer une offre') : NULL)
+						->footer_if($this->is_authorized('add_recruit'), $this->button_create('admin/recruits/add', 'Créer une offre'))
 						->size('col-8 col-lg-9')
 			)
 		);
@@ -207,12 +207,12 @@ class Admin extends Controller_Module
 												'candidacies_accepted' => $candidacies_accepted,
 												'candidacies_declined' => $candidacies_declined
 											]))
-						->footer(($this->is_authorized('candidacy_vote') || $this->is_authorized('candidacy_reply')) ? '<a href="'.url('admin/recruits/candidacies/'.$recruit_id.'/'.url_title($title)).'" class="btn btn-info btn-outline">Voir les candidatures</a>' : '<span class="text-red">Vous n\'êtes pas autorisé à gérer les candidatures...</span>')
+						->footer(($this->is_authorized('candidacy_vote') || $this->is_authorized('candidacy_reply')) ? '<a href="'.url('admin/recruits/candidacies/'.$recruit_id.'/'.url_title($title)).'" class="btn btn-outline-info">Voir les candidatures</a>' : '<span class="text-red">Vous n\'êtes pas autorisé à gérer les candidatures...</span>')
 						->size('col-4'),
 				$this	->panel()
 						->heading('Formulaire', 'fa-tasks')
 						->body($this->view('admin-custom-form'))
-						->footer('<a href="#" class="btn btn-info btn-outline" data-toggle="tooltip" title="Disponible prochainement..." disabled>Personnaliser le formulaire</a>')
+						->footer('<a href="#" class="btn btn-outline-info" data-toggle="tooltip" title="Disponible prochainement..." disabled>Personnaliser le formulaire</a>')
 						->size('col-4')
 			)
 		);
@@ -672,7 +672,7 @@ class Admin extends Controller_Module
 						->color($statut_color)
 						->footer(icon('fa-arrow-circle-left').' Retour aux candidatures de cette offre'),
 				$this	->panel()
-						->heading('<div class="pull-right"><a href="mailto:'.$email.'" class="btn btn-outline btn-info btn-xs" data-toggle="tooltip" title="Contacter par e-mail">'.icon('fa-envelope-o').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fa-black-tie')
+						->heading('<div class="pull-right"><a href="mailto:'.$email.'" class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Contacter par e-mail">'.icon('fa-envelope-o').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fa-black-tie')
 						->body($this->view('candidacy', [
 							'candidacy_id'  => $candidacy_id,
 							'date'          => $date,
@@ -702,7 +702,7 @@ class Admin extends Controller_Module
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right text-right"><ul class="list-inline m-0"><li>'.$total_up.' '.icon('fa-thumbs-o-up text-green').'</li><li>'.$total_down.' '.icon('fa-thumbs-o-down text-red').'</li></ul></div>Tendance des votes', 'fa-commenting-o')
+						->heading('<div class="pull-right text-right"><ul class="list-inline m-0"><li class="list-inline-item">'.$total_up.' '.icon('fa-thumbs-o-up text-green').'</li><li class="list-inline-item">'.$total_down.' '.icon('fa-thumbs-o-down text-red').'</li></ul></div>Tendance des votes', 'fa-commenting-o')
 						->body($this->view('admin-candidacy-status', [
 							'status' => $status,
 							'votes'  => $votes

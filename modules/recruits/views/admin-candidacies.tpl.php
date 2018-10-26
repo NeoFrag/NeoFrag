@@ -1,4 +1,4 @@
-<div class="panel-body text-center">
+<div class="card-body text-center">
 <?php if ($total_pending): ?>
 	<h1 class="m-0"><?php echo icon('fa-clock-o') ?></h1>
 	<a href="<?php echo url('admin/recruits/pending') ?>"><b><?php echo $total_pending.($total_pending > 1 ? ' candidatures' : ' candidature') ?></b></a> en <?php echo $total_pending > 1 ? 'attentes' : 'attente' ?>

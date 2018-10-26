@@ -15,7 +15,7 @@ class Admin_Checker extends Module_Checker
 		return [$this->module->pagination->get_data($this->model()->get_recruits(), $page)];
 	}
 
-	public function _add()
+	public function add()
 	{
 		if (!$this->is_authorized('add_recruit'))
 		{

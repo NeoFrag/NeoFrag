@@ -1,22 +1,10 @@
-<ul class="list-group">
+<ul class="list-unstyled">
 	<?php if ($team_id): ?>
-	<li class="list-group-item">
-		<span class="pull-right"><b><?php echo $team_name ?></b></span>
-		<?php echo icon('fa-gamepad') ?> Equipe
-	</li>
+	<li class="list-item"><b>Equipe:</b> <?php echo $team_name ?></li>
 	<?php endif ?>
-	<li class="list-group-item">
-		<span class="pull-right"><b><?php echo $role ?></b></span>
-		<?php echo icon('fa-sitemap') ?> Rôle proposé
-	</li>
-	<li class="list-group-item">
-		<span class="pull-right"><b><?php echo $size ?></b></span>
-		<?php echo icon('fa-users').' '.($size > 1 ? 'Postes disponibles' : 'Poste disponible') ?>
-	</li>
+	<li class="list-item"><b>Rôle:</b> <?php echo $role ?></li>
+	<li class="list-item"><b><?php echo $size > 1 ? 'Places disponibles:' : 'Place disponible:' ?></b> <?php echo $size ?></li>
 	<?php if ($date_end): ?>
-	<li class="list-group-item">
-		<span class="pull-right"><b><?php echo timetostr('%e %b %Y', $date_end) ?></b></span>
-		<?php echo icon('fa-calendar-o') ?> Date limite
-	</li>
+	<li class="list-item"><b>Expiration:</b> <?php echo timetostr('%e %b %Y', $date_end) ?></li>
 	<?php endif ?>
 </ul>
