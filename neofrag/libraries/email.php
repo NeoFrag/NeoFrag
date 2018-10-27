@@ -123,7 +123,7 @@ class Email extends Library
 			$mail->AddReplyTo($this->_from);
 		}
 
-		$mail->setFrom($this->config->nf_contact, $this->config->nf_name);
+		$mail->setFrom($this->config->nf_contact, $this->config->nf_name, !ini_get('sendmail_from'));
 
 		$mail->CharSet = 'UTF-8';
 		$mail->Subject = utf8_html_entity_decode($this->_subject);
