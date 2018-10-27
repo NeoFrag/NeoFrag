@@ -49,7 +49,7 @@ class Html extends Library
 		}
 
 		array_walk($attrs, function(&$value, $key){
-			$value = $key.($value != '' ? '="'.$value.'"' : '');
+			$value = $key.($value !== NULL ? '="'.$value.'"' : '');
 		});
 
 		$content = '<'.implode(' ', array_merge([$tag], $attrs)).'>'.($content || $this->_end_tag ? $content.'</'.$tag.'>' : '');
@@ -67,13 +67,13 @@ class Html extends Library
 		return isset($this->_attrs[$name]) ? $this->_attrs[$name] : parent::__get($name);
 	}
 
-	public function attr($name, $value = '')
+	public function attr($name, $value = NULL)
 	{
 		$this->_attrs[$name] = $value;
 		return $this;
 	}
 
-	public function append_attr($name, $value, $separator = ' ')
+	public function append_attr($name, $value = NULL, $separator = ' ')
 	{
 		if (empty($this->_attrs[$name]))
 		{
