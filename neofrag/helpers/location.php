@@ -16,8 +16,7 @@ function redirect($location = '')
 
 function redirect_back($default = '')
 {
-	header('Location: '.url(NeoFrag()->url->back() ?: $default));
-	exit;
+	return redirect(NeoFrag()->url->back() ?: $default);
 }
 
 function refresh()
