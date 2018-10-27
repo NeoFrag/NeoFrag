@@ -12,7 +12,7 @@ class Delete extends Modal
 {
 	public function __invoke($title = '', $icon = '')
 	{
-		return parent	::__invoke($title ?: 'Confirmation de suppression', $icon ?: 'fa-time')
+		return parent	::__invoke($title ?: 'Confirmation de suppression', $icon ?: 'fa-trash text-danger')
 						->submit('Supprimer', 'danger')
 						->cancel();
 	}
