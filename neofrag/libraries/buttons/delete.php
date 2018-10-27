@@ -12,8 +12,7 @@ class Delete extends Library
 {
 	public function __invoke($url = '', $title = NULL)
 	{
-		return $this->css('delete')
-					->js('delete')
+		return $this->js('delete')
 					->button()
 					->tooltip($title ?: $this->lang('Supprimer'))
 					->url($url)
