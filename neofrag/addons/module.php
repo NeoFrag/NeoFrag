@@ -171,4 +171,12 @@ abstract class Module extends Addon
 
 		return $allowed[$hash];
 	}
+
+	public function api()
+	{
+		if ($controller = $this->controller('api'))
+		{
+			return NeoFrag()->___load('', 'api', [$controller]);
+		}
+	}
 }

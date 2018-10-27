@@ -57,6 +57,8 @@ class Url extends Core
 			{
 				$this->_const['cli']      = TRUE;
 				$this->_const['segments'] = array_merge(explode('/', $argv[1]), array_slice($argv, 2));
+				$this->_const['base']     = isset($config['base']) ? $config['base'] : '/';
+				chdir(NEOFRAG_CMS);
 			}
 			else
 			{
@@ -107,7 +109,7 @@ class Url extends Core
 					$segments($request);
 				}
 			}
-			else if (!preg_match('_^user/auth/_', $this->request))
+			else if (!$this->cli && !preg_match('_^user/auth/_', $this->request))
 			{
 				$this->on('config_lang_selected', function(){
 					redirect($this->request.$this->query);

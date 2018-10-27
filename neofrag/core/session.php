@@ -22,7 +22,7 @@ class Session extends Core
 			 - asset / ajax
 		*/
 
-		if (is_crawler())
+		if ($this->url->cli || is_crawler())
 		{
 			$this->_session = $this->model2('session');
 			$this->_data    = $this->array;

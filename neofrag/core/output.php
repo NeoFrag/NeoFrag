@@ -61,6 +61,11 @@ class Output extends Core
 
 					echo $output;
 
+					if ($this->url->cli)
+					{
+						echo "\n";
+					}
+
 					if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
 					{
 						$this->debug('OUTPUT', 'HTTP_HEADER', json_encode(headers_list()));
@@ -232,18 +237,25 @@ class Output extends Core
 				parent::error();
 			};
 
-			ob_start();
-
-			$this->_theme = parent::theme($this->url->admin ? $this->_admin_theme : $this->config->nf_default_theme);
-
-			if (!$this->url->ajax())
+			if ($this->url->cli)
 			{
-				$this->_theme->__init();
+				$output = $exec();
 			}
+			else
+			{
+				ob_start();
 
-			$output = $exec();
+				$this->_theme = parent::theme($this->url->admin ? $this->_admin_theme : $this->config->nf_default_theme);
 
-			$output = preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()).$output;
+				if (!$this->url->ajax())
+				{
+					$this->_theme->__init();
+				}
+
+				$output = $exec();
+
+				$output = preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()).$output;
+			}
 		}
 		catch (\NF\NeoFrag\Exception $error)
 		{
