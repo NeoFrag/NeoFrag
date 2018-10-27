@@ -136,7 +136,7 @@ class News extends Model
 
 	public function delete_news($news_id)
 	{
-		$this->file->delete($this->db->select('image_id')->from('nf_news')->where('news_id', $news_id)->row());
+		NeoFrag()->model2('file', $this->db->select('image_id')->from('nf_news')->where('news_id', $news_id)->row())->delete();
 
 		if ($comments = $this->module('comments'))
 		{

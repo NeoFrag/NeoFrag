@@ -123,7 +123,7 @@ class Events extends Model
 
 	public function delete($event_id)
 	{
-		$this->file->delete($this->db->select('image_id')->from('nf_events')->where('event_id', $event_id)->row());
+		NeoFrag()->model2('file', $this->db->select('image_id')->from('nf_events')->where('event_id', $event_id)->row())->delete();
 
 		if ($comments = $this->module('comments'))
 		{
