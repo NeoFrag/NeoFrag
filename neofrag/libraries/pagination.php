@@ -200,7 +200,7 @@ class Pagination extends Library
 
 	public function get_url()
 	{
-		return url(preg_replace('_/?(page/\d+|all)$_', '', $this->url->request));
+		return url(preg_replace('_/?(page/\d+|all)$_', '', $this->url->request ?: 'index'));
 	}
 
 	public function get_items_per_page()
