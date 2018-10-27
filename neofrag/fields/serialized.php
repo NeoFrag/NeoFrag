@@ -8,8 +8,18 @@ namespace NF\NeoFrag\Fields;
 
 class Serialized
 {
+	public function init($field)
+	{
+		$field->default(NeoFrag()->array());
+	}
+
 	public function value($value)
 	{
+		if (is_a($value, 'NF\NeoFrag\Libraries\Array_'))
+		{
+			return $value;
+		}
+
 		return $value ? NeoFrag()->array(unserialize($value)) : NeoFrag()->array;
 	}
 

@@ -15,9 +15,9 @@ class Text
 		$this->_size = $size;
 	}
 
-	public function default_()
+	public function init($field)
 	{
-		return '';
+		$field->default('');
 	}
 
 	public function value($value)

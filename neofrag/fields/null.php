@@ -15,9 +15,11 @@ class Null_
 
 	public function raw($value)
 	{
-		if (!empty($value))
+		if ((string)$value === '')
 		{
-			return $value;
+			$value = NULL;
 		}
+
+		return $value;
 	}
 }

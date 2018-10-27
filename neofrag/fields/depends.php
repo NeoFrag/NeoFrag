@@ -29,6 +29,11 @@ class Depends
 
 	public function value($value)
 	{
+		if (is_a($value, 'NF\NeoFrag\Loadables\Model2'))
+		{
+			return $value;
+		}
+
 		if (isset($this->_model[1]))
 		{
 			$value = NeoFrag()->module($this->_model[0])->model2($this->_model[1], $value);

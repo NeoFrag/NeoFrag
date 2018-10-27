@@ -254,22 +254,15 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		{
 			if ($field->is_i18n())
 			{
-				$value = $field->raw($value);
-
 				if ($value !== $this->$name->value)
 				{
 					$this->_updates[$field->i] = $this->$name->set('value', $value);
 				}
 			}
-			else
+			else if (!$this->_data || $value !== $this->_data[$field->i])
 			{
-				$value = $field->raw($value);
-
-				if (!$this->_data || $value !== $this->_data[$field->i])
-				{
-					$this->_updates[$field->i] = $value;
-					unset($this->_values[$field->i]);
-				}
+				$this->_updates[$field->i] = $value;
+				unset($this->_values[$field->i]);
 			}
 		}
 		else
@@ -594,7 +587,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		{
 			if (array_key_exists($field->i, $this->_updates) && !$field->is_i18n())
 			{
-				$updates[$field->key($name)] = $this->_updates[$field->i];
+				$updates[$field->key($name)] = $field->raw($this->_updates[$field->i]);
 			}
 		}
 
@@ -615,7 +608,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 			}
 			else
 			{
-				$this->_values[$key] = $field->value($this);
+				$this->_values[$key] = $field->value($this, $this->_updates[$key] = $field->init());
 			}
 		}
 

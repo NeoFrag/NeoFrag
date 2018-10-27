@@ -19,7 +19,7 @@ class Session_History extends Model2
 			'host_name'  => self::field()->text(100),
 			'referer'    => self::field()->text(100),
 			'user_agent' => self::field()->text(250),
-			'auth'       => self::field()->serialized()->null(),
+			'auth'       => self::field()->serialized(),
 			'date'       => self::field()->datetime()
 		];
 	}

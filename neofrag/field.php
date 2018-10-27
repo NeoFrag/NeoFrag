@@ -9,17 +9,25 @@ namespace NF\NeoFrag;
 class Field
 {
 	protected $_fields = [];
+	protected $_default;
 
 	public function __call($name, $args)
 	{
-		if (preg_match('/^is_(.+)/', $name, $match))
+		if ($name == 'default')
 		{
-			return isset($this->_fields[$match[1]]);
+			$this->_default = $args[0];
 		}
-
-		if (method_exists($field = $this->_fields[$name] = NeoFrag()->___load('fields', $name, $args), 'init'))
+		else
 		{
-			$field->init($this);
+			if (preg_match('/^is_(.+)/', $name, $match))
+			{
+				return isset($this->_fields[$match[1]]);
+			}
+
+			if (method_exists($field = $this->_fields[$name] = NeoFrag()->___load('fields', $name, $args), 'init'))
+			{
+				$field->init($this);
+			}
 		}
 
 		return $this;
@@ -42,13 +50,7 @@ class Field
 	{
 		if (!func_num_args())
 		{
-			foreach ($this->_fields as $field)
-			{
-				if (method_exists($field, 'default_'))
-				{
-					$value = $field->default_($value);
-				}
-			}
+			$value = $this->_default;
 		}
 
 		foreach ($this->_fields as $field)
@@ -62,19 +64,8 @@ class Field
 		return $value;
 	}
 
-	public function value($model, $value = NULL)
+	public function value($model, $value)
 	{
-		if (func_num_args() < 2)
-		{
-			foreach ($this->_fields as $field)
-			{
-				if (method_exists($field, 'default_'))
-				{
-					$value = $field->default_($value, $model, $this);
-				}
-			}
-		}
-
 		foreach ($this->_fields as $field)
 		{
 			if (method_exists($field, 'value'))
@@ -84,5 +75,10 @@ class Field
 		}
 
 		return $value;
+	}
+
+	public function init()
+	{
+		return $this->_default;
 	}
 }
