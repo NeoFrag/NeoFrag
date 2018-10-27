@@ -34,8 +34,8 @@ class Route extends NeoFrag
 	{
 		if (in_array($name, ['create', 'read', 'update', 'delete']))
 		{
-			$this->_crud[$name] = NeoFrag()->___load('', 'routes/'.$name, $args);
-			return $this;
+			$this->_crud[$name] = $route = NeoFrag()->___load('', 'routes/'.$name, $args);
+			return $route;
 		}
 
 		return parent::__call($name, $args);
@@ -43,7 +43,7 @@ class Route extends NeoFrag
 
 	public function button_create()
 	{
-		if (array_key_exists('create', $this->_crud))
+		if ($this->_check('create'))
 		{
 			return parent::button_create()->modal_ajax($this->_url().'/add');
 		}
@@ -51,7 +51,7 @@ class Route extends NeoFrag
 
 	public function button_read()
 	{
-		if (array_key_exists('read', $this->_crud))
+		if ($this->_check('read'))
 		{
 			return parent::button()->popover_ajax($this->_url().'/info/'.$this->_model->url());
 		}
@@ -59,7 +59,7 @@ class Route extends NeoFrag
 
 	public function button_update()
 	{
-		if (array_key_exists('update', $this->_crud))
+		if ($this->_check('update'))
 		{
 			return parent::button_update()->modal_ajax($this->_url().'/edit/'.$this->_model->url());
 		}
@@ -71,7 +71,7 @@ class Route extends NeoFrag
 
 	public function button_delete()
 	{
-		if (array_key_exists('delete', $this->_crud))
+		if ($this->_check('delete'))
 		{
 			return parent::button_delete()->modal_ajax($this->_url().'/delete/'.$this->_model->url());
 		}
@@ -108,10 +108,15 @@ class Route extends NeoFrag
 			'delete' => 'delete'
 		];
 
-		if (array_key_exists($method, $actions) && ($action = $actions[$method]) && array_key_exists($action, $this->_crud))
+		if (array_key_exists($method, $actions) && ($action = $actions[$method]) && $this->_check($action))
 		{
 			return $this->_crud[$action]->__execute($model);
 		}
+	}
+
+	protected function _check($action)
+	{
+		return array_key_exists($action, $this->_crud) && call_user_func_array($this->_crud[$action]->check(), [$this->_model]);
 	}
 
 	protected function _url($ajax = TRUE)
@@ -128,7 +133,9 @@ class Route extends NeoFrag
 			$url[] = 'ajax';
 		}
 
-		$url[] = $this->_model->__caller->info()->name;
+		$caller = $this->_model->__caller != NeoFrag() ? $this->_model->__caller : $this->output->module();
+
+		$url[] = $caller->info()->name;
 
 		if ($this->_name)
 		{

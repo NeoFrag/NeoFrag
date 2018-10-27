@@ -6,9 +6,7 @@
 
 namespace NF\NeoFrag\Routes;
 
-use NF\NeoFrag\NeoFrag;
-
-class Delete extends NeoFrag
+class Delete extends Route
 {
 	protected $_title;
 	protected $_message;

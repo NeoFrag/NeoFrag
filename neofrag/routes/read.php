@@ -6,9 +6,7 @@
 
 namespace NF\NeoFrag\Routes;
 
-use NF\NeoFrag\NeoFrag;
-
-class Read extends NeoFrag
+class Read extends Route
 {
 	public function __construct()
 	{

@@ -6,9 +6,7 @@
 
 namespace NF\NeoFrag\Routes;
 
-use NF\NeoFrag\NeoFrag;
-
-class Update extends NeoFrag
+class Update extends Route
 {
 	protected $_title;
 
@@ -24,6 +22,7 @@ class Update extends NeoFrag
 							$model->update();
 							refresh();
 						})
-						->modal($this->_title, $model::$icon);
+						->modal($this->_title, $model::$icon)
+						->cancel();
 	}
 }
