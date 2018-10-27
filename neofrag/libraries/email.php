@@ -18,6 +18,7 @@ class Email extends Library
 	protected $_view;
 	protected $_data;
 	protected $_footer;
+	protected $_attachments = [];
 
 	public function __construct($caller, $config = [])
 	{
@@ -68,6 +69,12 @@ class Email extends Library
 		$this->_data = array_pop($args);
 		$this->_view = array_shift($args) ?: 'default';
 
+		return $this;
+	}
+
+	public function attachment($file)
+	{
+		$this->_attachments[] = $file;
 		return $this;
 	}
 
@@ -134,6 +141,11 @@ class Email extends Library
 		foreach (array_unique($this->_to) as $to)
 		{
 			$mail->addAddress($to);
+		}
+
+		foreach ($this->_attachments as $file)
+		{
+			$mail->addAttachment($file->path, utf8_html_entity_decode($file->name));
 		}
 
 		$this->output->email(function() use ($mail){
