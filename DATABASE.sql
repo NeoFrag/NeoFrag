@@ -164,7 +164,8 @@ INSERT INTO `nf_addon` (`id`, `type_id`, `name`, `data`) VALUES
 (56, 5, 'steam', 'a:4:{s:5:\"order\";i:4;s:7:\"enabled\";b:0;s:3:\"dev\";a:1:{s:3:\"key\";s:0:\"\";}s:4:\"prod\";a:1:{s:3:\"key\";s:0:\"\";}}'),
 (57, 5, 'twitch', 'a:4:{s:5:\"order\";i:5;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
 (58, 5, 'twitter', 'a:4:{s:5:\"order\";i:1;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
-(59, 3, 'copyright', 'a:1:{s:7:\"enabled\";b:1;}');
+(59, 3, 'copyright', 'a:1:{s:7:\"enabled\";b:1;}'),
+(60, 1, 'tools', 'a:1:{s:7:\"enabled\";b:1;}');
 
 -- --------------------------------------------------------
 
