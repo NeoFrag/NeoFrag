@@ -86,16 +86,18 @@ class Email extends Library
 
 		require_once 'lib/phpmailer/class.phpmailer.php';
 
+		$debug = [];
+
 		$mail = new \PHPMailer;
+
+		$mail->SMTPDebug   = 2;
+		$mail->Debugoutput = function($message) use (&$debug){
+			$debug[] = $message;
+		};
 
 		if ($this->config->nf_email_smtp)
 		{
 			require_once 'lib/phpmailer/class.smtp.php';
-
-			$mail->SMTPDebug = 1;
-			$mail->Debugoutput = function($message){
-				$this->debug('PHPMAILER', trim($message));
-			};
 
 			$mail->isSMTP();
 
@@ -150,6 +152,14 @@ class Email extends Library
 			$mail->AltBody = trim(strip_tags($mail->Body));
 		});
 
-		return $mail->send() ? static::$_id : FALSE;
+		if (!($result = $mail->send() ? static::$_id : FALSE))
+		{
+			foreach ($debug as $message)
+			{
+				trigger_error($message, E_USER_WARNING);
+			}
+		}
+
+		return $result;
 	}
 }
