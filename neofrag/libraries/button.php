@@ -8,10 +8,11 @@ namespace NF\NeoFrag\Libraries;
 
 class Button extends Label
 {
-	protected $_compact = FALSE;
-	protected $_outline = FALSE;
-	protected $_style   = [];
-	protected $_data    = [];
+	protected $_compact  = FALSE;
+	protected $_outline  = FALSE;
+	protected $_disabled = FALSE;
+	protected $_style    = [];
+	protected $_data     = [];
 
 	static public function footer($buttons, $align = 'center')
 	{
@@ -73,6 +74,11 @@ class Button extends Label
 				}
 			}
 
+			if ($this->_disabled)
+			{
+				$class[] = 'disabled';
+			}
+
 			$attrs['class'] = implode(' ', $class);
 		};
 
@@ -88,6 +94,12 @@ class Button extends Label
 	public function outline()
 	{
 		$this->_outline = TRUE;
+		return $this;
+	}
+
+	public function disabled()
+	{
+		$this->_disabled = TRUE;
 		return $this;
 	}
 
