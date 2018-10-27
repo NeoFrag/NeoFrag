@@ -417,14 +417,14 @@ class Form extends Library
 			if ($this->url->ajax())
 			{
 				return '<div class="modal-header">
+							<h5 class="modal-title">'.$title.'</h5>
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.NeoFrag()->lang('Fermer').'</span></button>
-							<h4 class="modal-title">'.$title.'</h4>
 						</div>
 						<div class="modal-body">
 							'.$message.'
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">'.NeoFrag()->lang('Annuler').'</button>
+							<button type="button" class="btn btn-light" data-dismiss="modal">'.NeoFrag()->lang('Annuler').'</button>
 							<a class="btn btn-danger delete-confirm" href="'.url($this->url->request).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">'.NeoFrag()->lang('Supprimer').'</a>
 						</div>';
 			}
