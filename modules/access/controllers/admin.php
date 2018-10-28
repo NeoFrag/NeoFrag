@@ -88,6 +88,7 @@ class Admin extends Controller_Module
 		$this	->title($module->info()->title)
 				->subtitle($title ?: $this->lang('Gestion des permissions'))
 				->icon($module->info()->icon)
+				->add_action('admin/'.$module->info()->name, $this->lang('Accéder au module %s', $module->info()->title), $module->info()->icon)
 				->css('access')
 				->js('access')
 				->css('table')

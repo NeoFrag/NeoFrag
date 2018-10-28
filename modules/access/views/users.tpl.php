@@ -2,8 +2,8 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h5 class="modal-title"><?php echo icon($icon).' '.$title ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $this->lang('Fermer') ?>"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"><?php echo icon($icon).' '.$title ?></h4>
 			</div>
 			<div class="modal-body">
 				<?php echo $users ?>

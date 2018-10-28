@@ -156,8 +156,8 @@ $(function(){
 				<div class="modal-dialog">\
 					<div class="modal-content">\
 						<div class="modal-header">\
+							<h5 class="modal-title"><?php echo $this->lang('Confirmation de réinitialisation des permissions') ?></h5>\
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
-							<h4 class="modal-title"><?php echo $this->lang('Confirmation de réinitialisation des permissions') ?></h4>\
 						</div>\
 						<div class="modal-body">\
 							<?php echo $this->lang('Êtes-vous sûr(e) de vouloir réinitialiser les permissions ?') ?>\
