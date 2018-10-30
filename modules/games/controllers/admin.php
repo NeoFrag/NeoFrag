@@ -26,10 +26,10 @@ class Admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/games/'.$data['game_id'].'/'.$data['name']);
+										return $this->is_authorized('modify_games') ? $this->button_update('admin/games/'.$data['game_id'].'/'.$data['name']) : NULL;
 									},
 									function($data){
-										return $this->button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name']);
+										return $this->is_authorized('delete_games') ? $this->button_delete('admin/games/delete/'.$data['game_id'].'/'.$data['name']) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -45,7 +45,7 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('Liste des jeux'), 'fa-gamepad')
 						->body($games)
-						->footer($this->button_create('admin/games/add', $this->lang('Ajouter un jeu')))
+						->footer_if($this->is_authorized('add_games'), $this->button_create('admin/games/add', $this->lang('Ajouter un jeu')))
 						->size('col-12 col-lg-4')
 			),
 			$this	->col($this->_panel_maps($maps))
@@ -317,10 +317,10 @@ class Admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title']));
+										return $this->is_authorized('modify_games_maps') ? $this->button_update('admin/games/maps/edit/'.$data['map_id'].'/'.url_title($data['title'])) : NULL;
 									},
 									function($data){
-										return $this->button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title']));
+										return $this->is_authorized('delete_games_maps') ? $this->button_delete('admin/games/maps/delete/'.$data['map_id'].'/'.url_title($data['title'])) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -333,6 +333,6 @@ class Admin extends Controller_Module
 		return $this->panel()
 					->heading('Liste des cartes', 'fa-map-o')
 					->body($maps)
-					->footer($this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : ''),  'Ajouter une carte'));
+					->footer_if($this->is_authorized('add_games_maps'), $this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : ''),  'Ajouter une carte'));
 	}
 }

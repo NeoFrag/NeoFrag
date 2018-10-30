@@ -41,4 +41,56 @@ class Games extends Module
 			]
 		];
 	}
+
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Jeux',
+						'icon'   => 'fa-gamepad',
+						'access' => [
+							'add_games' => [
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_games' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_games' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					],
+					[
+						'title'  => 'Cartes',
+						'icon'   => 'fa-map-o',
+						'access' => [
+							'add_games_maps' => [
+								'title' => 'Ajouter une carte',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_games_maps' => [
+								'title' => 'Modifier une carte',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_games_maps' => [
+								'title' => 'Supprimer une carte',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
 }

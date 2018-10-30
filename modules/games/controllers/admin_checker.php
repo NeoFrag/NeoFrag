@@ -15,8 +15,23 @@ class Admin_Checker extends Module_Checker
 		return [$this->module->pagination->get_data($this->model('maps')->get_maps(), $page)];
 	}
 
+	public function add()
+	{
+		if (!$this->is_authorized('add_games'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _edit($game_id, $name, $page = '')
 	{
+		if (!$this->is_authorized('modify_games'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($game = $this->model()->check_game($game_id, $name, 'default'))
 		{
 			return array_merge($game, [$this->module->pagination->get_data($this->model('maps')->get_maps($game_id), $page)]);
@@ -25,6 +40,11 @@ class Admin_Checker extends Module_Checker
 
 	public function delete($game_id, $name)
 	{
+		if (!$this->is_authorized('delete_games'))
+		{
+			$this->error->unauthorized();
+		}
+
 		$this->ajax();
 
 		if ($game = $this->model()->check_game($game_id, $name))
@@ -35,6 +55,11 @@ class Admin_Checker extends Module_Checker
 
 	public function _maps_add($game_id = NULL, $title = NULL)
 	{
+		if (!$this->is_authorized('add_games_maps'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($game_id === NULL && $title === NULL)
 		{
 			return [];
@@ -48,6 +73,11 @@ class Admin_Checker extends Module_Checker
 
 	public function _maps_edit($map_id, $title)
 	{
+		if (!$this->is_authorized('modify_games_maps'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($map = $this->model('maps')->check_map($map_id, $title))
 		{
 			return $map;
@@ -56,6 +86,11 @@ class Admin_Checker extends Module_Checker
 
 	public function _maps_delete($map_id, $title)
 	{
+		if (!$this->is_authorized('delete_games_maps'))
+		{
+			$this->error->unauthorized();
+		}
+
 		$this->ajax();
 
 		if ($map = $this->model('maps')->check_map($map_id, $title))
