@@ -41,10 +41,10 @@ class Admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return $this->button_update('admin/partners/'.$data['partner_id'].'/'.$data['name']);
+								return $this->is_authorized('modify_partners') ? $this->button_update('admin/partners/'.$data['partner_id'].'/'.$data['name']) : NULL;
 							},
 							function($data){
-								return $this->button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name']);
+								return $this->is_authorized('delete_partners') ? $this->button_delete('admin/partners/delete/'.$data['partner_id'].'/'.$data['name']) : NULL;
 							}
 						],
 						'size'    => TRUE
@@ -56,7 +56,7 @@ class Admin extends Controller_Module
 		return $this->panel()
 					->heading('Liste des partenaires', 'fa-star-o')
 					->body($this->table()->display())
-					->footer($this->button_create('admin/partners/add', 'Ajouter un partenaire'));
+					->footer_if($this->is_authorized('add_partners'), $this->button_create('admin/partners/add', 'Ajouter un partenaire'));
 	}
 
 	public function add()

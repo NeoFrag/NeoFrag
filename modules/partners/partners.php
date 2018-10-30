@@ -50,4 +50,35 @@ class Partners extends Module
 			}
 		];
 	}
+
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Partenaires',
+						'icon'   => 'fa-star-o',
+						'access' => [
+							'add_partners' => [
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_partners' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_partners' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
 }
