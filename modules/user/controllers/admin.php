@@ -106,15 +106,15 @@ class Admin extends Controller_Module
 			$this->db	->where('user_id', $user->id)
 						->delete('nf_users_groups');
 
-			$this->db	->where('user_id', $user->id)
-						->update('nf_users', [
+			$this->db	->where('id', $user->id)
+						->update('nf_user', [
 							'admin' => FALSE
 						]);
 
 			if (in_array('admins', $post['groups']))
 			{
-				$this->db	->where('user_id', $user->id)
-							->update('nf_users', [
+				$this->db	->where('id', $user->id)
+							->update('nf_user', [
 								'admin' => TRUE
 							]);
 			}
@@ -140,6 +140,7 @@ class Admin extends Controller_Module
 		return $this->title($this->lang('Édition du membre'))
 					->subtitle($user->username)
 					->css('groups')
+					->js('groups')
 					->row()
 					->append(
 						$this	->col()
