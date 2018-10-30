@@ -42,10 +42,10 @@ class Admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/teams/'.$data['team_id'].'/'.$data['name']);
+										return $this->is_authorized('modify_teams') ? $this->button_update('admin/teams/'.$data['team_id'].'/'.$data['name']) : NULL;
 									},
 									function($data){
-										return $this->button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name']);
+										return $this->is_authorized('delete_teams') ? $this->button_delete('admin/teams/delete/'.$data['team_id'].'/'.$data['name']) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -65,16 +65,16 @@ class Admin extends Controller_Module
 								],
 								[
 									'content' => function($data){
-										return '<a href="'.url('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
+										return $data['title'];
 									}
 								],
 								[
 									'content' => [
 										function($data){
-											return $this->button_update('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title']));
+											return $this->is_authorized('modify_teams_roles') ? $this->button_update('admin/teams/roles/'.$data['role_id'].'/'.url_title($data['title'])) : NULL;
 										},
 										function($data){
-											return $this->button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title']));
+											return $this->is_authorized('delete_teams_roles') ? $this->button_delete('admin/teams/roles/delete/'.$data['role_id'].'/'.url_title($data['title'])) : NULL;
 										}
 									],
 									'size'    => TRUE
@@ -90,14 +90,14 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('Rôles'), 'fa-sitemap')
 						->body($roles)
-						->footer($this->button_create('admin/teams/roles/add', $this->lang('Ajouter un rôle')))
+						->footer_if($this->is_authorized('add_teams_roles'), $this->button_create('admin/teams/roles/add', $this->lang('Ajouter un rôle')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Liste des équipes'), 'fa-gamepad')
 						->body($teams)
-						->footer($this->button_create('admin/teams/add', $this->lang('Ajouter une équipe')))
+						->footer_if($this->is_authorized('add_teams'), $this->button_create('admin/teams/add', $this->lang('Ajouter une équipe')))
 						->size('col-12 col-lg-8')
 			)
 		);

@@ -39,6 +39,58 @@ class Teams extends Module
 		];
 	}
 
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Équipes',
+						'icon'   => 'fa-gamepad',
+						'access' => [
+							'add_teams' => [
+								'title' => 'Ajouter',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_teams' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_teams' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					],
+					[
+						'title'  => 'Rôles',
+						'icon'   => 'fa-sitemap',
+						'access' => [
+							'add_teams_roles' => [
+								'title' => 'Ajouter un rôle',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_teams_roles' => [
+								'title' => 'Modifier un rôle',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_teams_roles' => [
+								'title' => 'Supprimer un rôle',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
+
 	public function groups()
 	{
 		$teams = NeoFrag()->db	->select('t.team_id', 't.name', 'tl.title')

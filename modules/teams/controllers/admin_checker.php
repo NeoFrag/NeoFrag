@@ -10,8 +10,23 @@ use NF\NeoFrag\Loadables\Controllers\Module_Checker;
 
 class Admin_Checker extends Module_Checker
 {
+	public function add()
+	{
+		if (!$this->is_authorized('add_teams'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _edit($team_id, $name)
 	{
+		if (!$this->is_authorized('modify_teams'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($team = $this->model()->check_team($team_id, $name))
 		{
 			return $team;
@@ -20,6 +35,11 @@ class Admin_Checker extends Module_Checker
 
 	public function delete($team_id, $name)
 	{
+		if (!$this->is_authorized('delete_teams'))
+		{
+			$this->error->unauthorized();
+		}
+
 		$this->ajax();
 
 		if ($team = $this->model()->check_team($team_id, $name))
@@ -28,8 +48,23 @@ class Admin_Checker extends Module_Checker
 		}
 	}
 
+	public function _roles_add()
+	{
+		if (!$this->is_authorized('add_teams_roles'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _roles_edit($role_id, $name)
 	{
+		if (!$this->is_authorized('modify_teams_roles'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($role = $this->model('roles')->check_role($role_id, $name))
 		{
 			return $role;
@@ -38,6 +73,11 @@ class Admin_Checker extends Module_Checker
 
 	public function _roles_delete($role_id, $name)
 	{
+		if (!$this->is_authorized('delete_teams_roles'))
+		{
+			$this->error->unauthorized();
+		}
+
 		$this->ajax();
 
 		if ($role = $this->model('roles')->check_role($role_id, $name))
