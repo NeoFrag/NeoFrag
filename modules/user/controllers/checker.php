@@ -85,13 +85,13 @@ class Checker extends Module_Checker
 		return [];
 	}
 
-	private function _messages($page, $box)
+	private function _messages($box)
 	{
 		if ($this->user->id)
 		{
 			$this->css('inbox');
 
-			return [$this->module->pagination->fix_items_per_page(10)->get_data($this->model('messages')->get_messages_inbox($box), $page)];
+			return [$this->model('messages')->get_messages_inbox($box), $box];
 		}
 		else
 		{
@@ -99,26 +99,31 @@ class Checker extends Module_Checker
 		}
 	}
 
-	public function _messages_inbox($page = '')
+	public function _messages_inbox()
 	{
-		return $this->_messages($page, 'inbox');
+		return $this->_messages('inbox', TRUE);
 	}
 
-	public function _messages_sent($page = '')
+	public function _messages_sent()
 	{
-		return $this->_messages($page, 'sent');
+		return $this->_messages('sent');
 	}
 
-	public function _messages_archives($page = '')
+	public function _messages_archives()
 	{
-		return $this->_messages($page, 'archives');
+		return $this->_messages('archives');
 	}
 
-	public function _messages_read($message_id, $title)
+	public function _messages_read($message_id, $title, $box = 'inbox')
 	{
+		if (!in_array($box, array('sent', 'archives')))
+		{
+			$box = 'inbox';
+		}
+
 		if (($message = $this->model('messages')->get_message($message_id, $title)) && $title == url_title($message['title']))
 		{
-			return array_merge($message, [$this->model('messages')->get_replies($message_id)]);
+			return [$message['message_id'], $message['title'], $this->model('messages')->get_replies($message_id), $box];
 		}
 	}
 

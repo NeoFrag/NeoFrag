@@ -321,71 +321,93 @@ class Index extends Controller_Module
 		redirect();
 	}
 
-	public function _messages($messages, $allow_delete = FALSE)
+	public function _messages($messages, $allow_delete = FALSE, $page_title, $page_icon, $box = 'inbox')
 	{
-		$this->breadcrumb();
+		$this	->breadcrumb()
+				->css('jquery.mCustomScrollbar.min')
+				->js('jquery.mCustomScrollbar.min')
+				->js('user');
 
-		return $this->col(
-			$this	->panel()
-					->heading()
-					->body(!$messages ? '<h4 class="text-center">Aucun message</h4>' : $this->view('messages/inbox', [
+		return $this->panel()
+					->body($this->view('messages', [
+						'page_title'   => $page_title,
+						'page_icon'    => $page_icon,
 						'messages'     => $messages,
-						'allow_delete' => $allow_delete
-					]), FALSE),
-			$this->module->pagination->panel()
-		);
+						'allow_delete' => $allow_delete,
+						'box'          => $box
+					]), FALSE)
+					->style('card-group border-0');
 	}
 
 	public function _messages_inbox($messages)
 	{
-		return $this	->title('Boîte de réception')
-						->icon('fa-inbox')
-						->_messages($messages, TRUE);
+		return $this->_messages($messages, TRUE, 'Boîte de réception', 'fa-inbox');
 	}
 
 	public function _messages_sent($messages)
 	{
-		return $this	->title('Messages envoyés')
-						->icon('fa-send-o')
-						->_messages($messages);
+		return $this->_messages($messages, FALSE, 'Messages envoyés', 'fa-send-o', 'sent');
 	}
 
 	public function _messages_archives($messages)
 	{
-		return $this	->title('Archives')
-						->icon('fa-archive')
-						->_messages($messages);
+		return $this->_messages($messages, FALSE, 'Archives', 'fa-archive', 'archives');
 	}
 
-	public function _messages_read($message_id, $title, $replies)
+	public function _messages_read($message_id, $title, $replies, $box, $allow_delete = FALSE)
 	{
-		$this	->form()
-				->add_rules([
-					'message' => [
-						'label' => 'Mon message',
-						'type'  => 'editor',
-						'rules' => 'required'
-					]
-				])
-				->add_submit('Envoyer');
+		$this	->css('jquery.mCustomScrollbar.min')
+				->js('jquery.mCustomScrollbar.min')
+				->js('user');
 
-		if ($this->form()->is_valid($post))
+		if ($box == 'inbox')
+		{
+			$page_title   = $this->lang('Boîte de réception');
+			$page_icon    = 'fa-inbox';
+			$allow_delete = TRUE;
+		}
+		else if ($box == 'sent')
+		{
+			$page_title = $this->lang('Messages envoyés');
+			$page_icon  = 'fa-send-o';
+		}
+		else if ($box == 'archives')
+		{
+			$page_title = $this->lang('Archives');
+			$page_icon  = 'fa-archive';
+		}
+
+		$form_reply = $this	->form()
+							->add_rules([
+								'message' => [
+									'type'  => 'editor',
+									'rules' => 'required'
+								]
+							])
+							->fast_mode(TRUE)
+							->add_submit('Envoyer le message')
+							->save();
+
+		if ($form_reply->is_valid($post))
 		{
 			$this->model('messages')->reply($message_id, $post['message']);
 
 			redirect('user/messages/'.$message_id.'/'.url_title($title));
 		}
 
-		return $this->col(
-			$this	->panel()
-					->heading($title, 'fa-envelope-o')
-					->body($this->view('messages/replies', [
-						'replies' => $replies
-					])),
-			$this	->panel()
-					->heading('Répondre', 'fa-reply')
-					->body($this->form()->display())
-		);
+		return $this->panel()
+					->body($this->view('messages', [
+						'page_title'   => $page_title,
+						'page_icon'    => $page_icon,
+						'messages'     => $this->model('messages')->get_messages_inbox($box),
+						'allow_delete' => $allow_delete,
+						'message_id'   => $message_id,
+						'title'        => $title,
+						'replies'      => $replies,
+						'form_reply'   => $form_reply,
+						'box'          => $box
+					]), FALSE)
+					->style('card-group border-0');
 	}
 
 	public function _messages_compose($username)
