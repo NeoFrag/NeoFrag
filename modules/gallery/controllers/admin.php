@@ -65,10 +65,10 @@ class Admin extends Controller_Module
 							[
 								'content' => [
 									function($data){
-										return $this->button_update('admin/gallery/'.$data['gallery_id'].'/'.$data['name']);
+										return $this->is_authorized('modify_gallery') ? $this->button_update('admin/gallery/'.$data['gallery_id'].'/'.$data['name']) : NULL;
 									},
 									function($data){
-										return $this->button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name']);
+										return $this->is_authorized('delete_gallery') ? $this->button_delete('admin/gallery/delete/'.$data['gallery_id'].'/'.$data['name']) : NULL;
 									}
 								],
 								'size'    => TRUE
@@ -97,10 +97,10 @@ class Admin extends Controller_Module
 								[
 									'content' => [
 										function($data){
-											return $this->button_update('admin/gallery/categories/'.$data['category_id'].'/'.$data['name']);
+											return $this->is_authorized('modify_gallery_categories') ? $this->button_update('admin/gallery/categories/'.$data['category_id'].'/'.$data['name']) : NULL;
 										},
 										function($data){
-											return $this->button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name']);
+											return $this->is_authorized('delete_gallery_categories') ? $this->button_delete('admin/gallery/categories/delete/'.$data['category_id'].'/'.$data['name']) : NULL;
 										}
 									],
 									'size'    => TRUE
@@ -116,14 +116,14 @@ class Admin extends Controller_Module
 				$this	->panel()
 						->heading($this->lang('Catégories'), 'fa-book')
 						->body($categories)
-						->footer($this->button_create('admin/gallery/categories/add', $this->lang('Ajouter une catégorie')))
+						->footer_if($this->is_authorized('add_gallery_categories'), $this->button_create('admin/gallery/categories/add', $this->lang('Ajouter une catégorie')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
 						->heading($this->lang('Liste des albums photos'), 'fa-photo')
 						->body($gallery)
-						->footer($this->button_create('admin/gallery/add', $this->lang('Créer un album')))
+						->footer_if($this->is_authorized('add_gallery'), $this->button_create('admin/gallery/add', $this->lang('Créer un album')))
 						->size('col-12 col-lg-8')
 			)
 		);

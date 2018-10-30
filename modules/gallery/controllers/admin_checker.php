@@ -15,8 +15,23 @@ class Admin_Checker extends Module_Checker
 		return [$this->module->pagination->get_data($this->model()->get_gallery(), $page)];
 	}
 
+	public function add()
+	{
+		if (!$this->is_authorized('add_gallery'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _edit($gallery_id, $title)
 	{
+		if (!$this->is_authorized('edit_gallery'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($gallery = $this->model()->check_gallery($gallery_id, $title, 'default'))
 		{
 			return $gallery;
@@ -25,10 +40,12 @@ class Admin_Checker extends Module_Checker
 
 	public function delete($gallery_id, $title)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if (!$this->is_authorized('delete_gallery'))
 		{
-			$this->ajax();
+			$this->error->unauthorized();
 		}
+
+		$this->ajax();
 
 		if ($gallery = $this->model()->check_gallery($gallery_id, $title, 'default'))
 		{
@@ -36,8 +53,23 @@ class Admin_Checker extends Module_Checker
 		}
 	}
 
+	public function _categories_add()
+	{
+		if (!$this->is_authorized('add_gallery_categories'))
+		{
+			$this->error->unauthorized();
+		}
+
+		return [];
+	}
+
 	public function _categories_edit($category_id, $name)
 	{
+		if (!$this->is_authorized('modify_gallery_categories'))
+		{
+			$this->error->unauthorized();
+		}
+
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
 		{
 			return $category;
@@ -46,10 +78,12 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_delete($category_id, $name)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+		if (!$this->is_authorized('delete_gallery_categories'))
 		{
-			$this->ajax();
+			$this->error->unauthorized();
 		}
+
+		$this->ajax();
 
 		if ($category = $this->model()->check_category($category_id, $name, 'default'))
 		{

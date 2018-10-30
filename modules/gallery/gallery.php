@@ -42,6 +42,63 @@ class Gallery extends Module
 		];
 	}
 
+	public function permissions()
+	{
+		return [
+			'default' => [
+				'access'  => [
+					[
+						'title'  => 'Albums photos',
+						'icon'   => 'fa-photo',
+						'access' => [
+							'add_gallery' => [
+								'title' => 'Créer',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_gallery' => [
+								'title' => 'Modifier',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_gallery' => [
+								'title' => 'Supprimer',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							],
+							'post_gallery_image' => [
+								'title' => 'Poster un dans un album',
+								'icon'  => 'fa-photo',
+								'admin' => TRUE
+							]
+						]
+					],
+					[
+						'title'  => 'Catégories',
+						'icon'   => 'fa-book',
+						'access' => [
+							'add_gallery_categories' => [
+								'title' => 'Ajouter une catégorie',
+								'icon'  => 'fa-plus',
+								'admin' => TRUE
+							],
+							'modify_gallery_categories' => [
+								'title' => 'Modifier une catégorie',
+								'icon'  => 'fa-edit',
+								'admin' => TRUE
+							],
+							'delete_gallery_categories' => [
+								'title' => 'Supprimer une catégorie',
+								'icon'  => 'fa-trash-o',
+								'admin' => TRUE
+							]
+						]
+					]
+				]
+			]
+		];
+	}
+
 	public function comments($image_id)
 	{
 		$image = $this->db	->select('title')
