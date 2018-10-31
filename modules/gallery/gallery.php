@@ -28,7 +28,6 @@ class Gallery extends Module
 				//Index
 				'{id}/{url_title}'                         => '_category',
 				'album/{id}/{url_title}{page}'             => '_gallery',
-				'image/{id}/{url_title}'                   => '_image',
 				//Admin
 				'admin{pages}'                             => 'index',
 				'admin/{id}/{url_title}'                   => '_edit',
@@ -38,7 +37,19 @@ class Gallery extends Module
 				'admin/ajax/image/add/{id}/{url_title}'    => '_image_add',
 				'admin/image/{id}/{url_title}'             => '_image_edit',
 				'admin/image/delete/{id}/{url_title}'      => '_image_delete'
-			]
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->rule($this->form_number('images_per_page')
+										->title('Images par page')
+										->value($this->config->images_per_page)
+							)
+							->success(function($data){
+								$this->config('images_per_page', $data['images_per_page']);
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
 		];
 	}
 
@@ -48,7 +59,7 @@ class Gallery extends Module
 			'default' => [
 				'access'  => [
 					[
-						'title'  => 'Albums photos',
+						'title'  => $this->lang('Albums photos'),
 						'icon'   => 'fa-photo',
 						'access' => [
 							'add_gallery' => [
@@ -65,32 +76,61 @@ class Gallery extends Module
 								'title' => 'Supprimer',
 								'icon'  => 'fa-trash-o',
 								'admin' => TRUE
-							],
-							'post_gallery_image' => [
-								'title' => 'Poster un dans un album',
-								'icon'  => 'fa-photo',
-								'admin' => TRUE
 							]
 						]
 					],
 					[
-						'title'  => 'Catégories',
-						'icon'   => 'fa-book',
+						'title'  => $this->lang('Catégories'),
+						'icon'   => 'fa-align-left',
 						'access' => [
-							'add_gallery_categories' => [
+							'add_gallery_category' => [
 								'title' => 'Ajouter une catégorie',
 								'icon'  => 'fa-plus',
 								'admin' => TRUE
 							],
-							'modify_gallery_categories' => [
+							'modify_gallery_category' => [
 								'title' => 'Modifier une catégorie',
 								'icon'  => 'fa-edit',
 								'admin' => TRUE
 							],
-							'delete_gallery_categories' => [
+							'delete_gallery_category' => [
 								'title' => 'Supprimer une catégorie',
 								'icon'  => 'fa-trash-o',
 								'admin' => TRUE
+							]
+						]
+					]
+				]
+			],
+			'gallery' => [
+				'get_all' => function(){
+					return NeoFrag()->db->select('gallery_id', 'title')->from('nf_gallery_lang')->where('lang', $this->config->lang->info()->name)->get();
+				},
+				'check'   => function($gallery_id){
+					if (($gallery = NeoFrag()->db->select('title')->from('nf_gallery_lang')->where('gallery_id', $gallery_id)->where('lang', $this->config->lang->info()->name)->row()) !== [])
+					{
+						return $gallery;
+					}
+				},
+				'init'    => [
+					'gallery_see'     => [
+					],
+					'gallery_post'    => [
+						['admins', TRUE]
+					]
+				],
+				'access'  => [
+					[
+						'title'  => $this->lang('Galeries'),
+						'icon'   => 'fa-photo',
+						'access' => [
+							'gallery_see' => [
+								'title' => $this->lang('Voir l\'album'),
+								'icon'  => 'fa-eye'
+							],
+							'gallery_post' => [
+								'title' => $this->lang('Poster une photo'),
+								'icon'  => 'fa-pencil'
 							]
 						]
 					]

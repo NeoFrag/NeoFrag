@@ -27,7 +27,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _edit($gallery_id, $title)
 	{
-		if (!$this->is_authorized('edit_gallery'))
+		if (!$this->is_authorized('modify_gallery'))
 		{
 			$this->error->unauthorized();
 		}
@@ -55,7 +55,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_add()
 	{
-		if (!$this->is_authorized('add_gallery_categories'))
+		if (!$this->is_authorized('add_gallery_category'))
 		{
 			$this->error->unauthorized();
 		}
@@ -65,7 +65,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_edit($category_id, $name)
 	{
-		if (!$this->is_authorized('modify_gallery_categories'))
+		if (!$this->is_authorized('modify_gallery_category'))
 		{
 			$this->error->unauthorized();
 		}
@@ -78,7 +78,7 @@ class Admin_Checker extends Module_Checker
 
 	public function _categories_delete($category_id, $name)
 	{
-		if (!$this->is_authorized('delete_gallery_categories'))
+		if (!$this->is_authorized('delete_gallery_category'))
 		{
 			$this->error->unauthorized();
 		}
@@ -97,7 +97,8 @@ class Admin_Checker extends Module_Checker
 		{
 			return [
 				$image_id,
-				$image['thumbnail_file_id'],
+				$image['gallery_name'],
+				$image['file_id'],
 				$image['title'],
 				$image['description'],
 				$image['gallery_id'],

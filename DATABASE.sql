@@ -1231,6 +1231,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('events_per_page', '', '', '10', 'string'),
 ('forum_messages_per_page', '', '', '15', 'int'),
 ('forum_topics_per_page', '', '', '20', 'int'),
+('images_per_page', '', '', '24', 'int'),
 ('news_per_page', '', '', '5', 'int'),
 ('nf_analytics', '', '', '', 'string'),
 ('nf_captcha_private_key', '', '', '', 'string'),

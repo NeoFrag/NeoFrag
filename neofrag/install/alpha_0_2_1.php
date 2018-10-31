@@ -23,5 +23,7 @@ class Alpha_0_2_1 extends Install
 						->unset('nf_maintenance_steam')
 						->unset('nf_maintenance_twitch')
 						->unset('nf_maintenance_twitter');
+
+		$this->config('images_per_page', 24, 'int');
 	}
 }

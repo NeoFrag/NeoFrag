@@ -10,78 +10,119 @@ use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
 
 class Index extends Controller_Module
 {
-	public function index()
+	public function index($category_id = NULL, $name = NULL, $breadcrumb = NULL)
 	{
-		$this->css('gallery');
+		$this->breadcrumb_if($breadcrumb, $breadcrumb);
 
-		$panels = $this->array;
+		$gallery = $this->model()->get_gallery($category_id);
 
-		foreach ($this->model()->get_categories() as $category)
+		if ($category_id && $name)
 		{
-			$panels->append($this	->panel()
-									->heading($category['title'], $category['icon_id'] ?: 'fa-photo', 'gallery/'.$category['category_id'].'/'.$category['name'])
-									->body($this->view('index', [
-										'category_image' => $category['image_id'],
-										'gallery'        => $this->model()->get_gallery($category['category_id'])
-									]), FALSE));
+			$category = $this->model()->check_category($category_id, $name);
 		}
 
-		if ($panels->empty())
+		foreach ($gallery as $key => $galerie)
 		{
-			$panels->append($this	->panel()
-									->heading($this->lang('Galerie'), 'fa-photo')
-									->body('<div class="text-center">'.$this->lang('Aucune catégorie n\'a été créée pour le moment').'</div>')
-									->color('info'));
+			if (!$this->access('gallery', 'gallery_see', $galerie['gallery_id']))
+			{
+				unset($gallery[$key]);
+			}
 		}
 
-		return $panels;
+		return $this->row()
+					->append(
+						$this	->col()
+								->append(
+									$this	->widget('navigation')
+											->output('vertical', [
+												'links' => $this->array()
+																->append([
+																	'title' => 'Tous les albums',
+																	'url'   => 'gallery'
+																])
+																->exec(function($array){
+																	foreach ($this->model()->get_categories() as $category)
+																	{
+																		$array->append([
+																			'title' => $category['title'],
+																			'url'   => 'gallery/'.$category['category_id'].'/'.$category['name']
+																		]);
+																	}
+																})
+																->__toArray()
+											])
+											->title('Galeries', 'fa-photo')
+								)
+								->size('col-md-4 col-lg-3')
+					)
+					->append(
+						$this	->col()
+								->append(
+									$this->view('gallery', [
+										'category_id' => $category_id,
+										'category'    => isset($category) ? $category : NULL,
+										'gallery'     => $gallery
+									])
+								)
+								->size('col-md-8 col-lg-9')
+					);
 	}
 
-	public function _category($category_id, $name, $title, $image_id, $icon_id)
+	public function _category($category_id, $name, $title)
 	{
-		return $this->css('gallery')
-					->panel()
-					->heading($title, $icon_id ?: 'fa-photo', 'gallery/'.$category_id.'/'.$name)
-					->body($this->view('index', [
-						'category_image' => $image_id,
-						'gallery'        => $this->model()->get_gallery($category_id)
-					]), FALSE);
+		return $this->index($category_id, $name, $title);
 	}
 
 	public function _gallery($gallery_id, $category_id, $image_id, $name, $published, $title, $description, $category_name, $category_title, $image, $category_icon, $images)
 	{
-		$this	->css('gallery')
-				->js('gallery')
-				->js('modal-carousel');
+		$this	->breadcrumb($category_title, 'gallery/'.$category_id.'/'.url_title($category_name))
+				->breadcrumb($title);
 
-		$panels = $this->array;
-
-		$panels->append($this	->panel()
-								->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/'.$category_id.'/'.$category_name).'">'.$category_title.'</a></div>'.$title, 'fa-photo')
-								->body($this->view('gallery', [
-									'title'           => $title,
-									'description'     => $description,
-									'image_id'        => $image_id,
-									'images'          => $images,
-									'carousel_images' => $carousel_images = $this->model()->get_images($gallery_id),
-									'total_images'    => count($carousel_images),
-									'pagination'      => $this->module->pagination->get_pagination()
-								]), FALSE));
-
-		if (empty($images))
-		{
-			$panels->append($this	->panel()
-									->heading($this->lang('Photos'), 'fa-photo')
-									->body('<div class="text-center">'.icon('fa-photo fa-4x').'<h4>'.$this->lang('Aucune image dans cette galerie').'</h4></div>')
-									->color('info'));
-		}
-
-		return $panels;
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->body($this->view('album', [
+							'image_id'       => $image_id,
+							'title'          => $title,
+							'description'    => $description,
+							'category_id'    => $category_id,
+							'category_name'  => $category_name,
+							'category_title' => $category_title,
+							'image'          => $image,
+							'count'          => count($this->model()->get_images($gallery_id))
+						]), FALSE)
+						->footer_if($this->access('gallery', 'gallery_post', $gallery_id), $this->button($this->lang('Poster une image'), 'fa-plus', 'primary btn-block')->modal_ajax('ajax/gallery/post/'.$gallery_id.'/'.url_title($name)))
+						->size('col-12 col-lg-4')
+			),
+			$this->col(
+				$this->view('images', [
+					'images'     => $images,
+					'pagination' => $this->module->pagination->get_pagination()
+				])
+			)->size('col-12 col-lg-8')
+		);
 	}
 
+	/*
 	public function _image($image_id, $thumbnail_file_id, $original_file_id, $file_id, $gallery_id, $title, $description, $date, $views, $gallery_name, $gallery_title)
 	{
-		$this->css('gallery');
+		return $this->row(
+			$this->col(
+				$this	->panel()
+						->heading()
+						->body($this->view('image', [
+							'file_id'       => $file_id,
+							'title'         => $title,
+							'description'   => $description,
+							'date'          => $date,
+							'views'         => $views,
+							'gallery_id'    => $gallery_id,
+							'gallery_name'  => $gallery_name,
+							'gallery_title' => $gallery_title
+						]))
+						->size('col-12')
+			)
+		);
 
 		$images         = $this->db->select('image_id')->from('nf_gallery_images')->where('gallery_id', $gallery_id)->get();
 		$last_image_id  = max($images);
@@ -127,4 +168,5 @@ class Index extends Controller_Module
 					})
 					->append($this->panel_back());
 	}
+	*/
 }

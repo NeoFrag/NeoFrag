@@ -66,25 +66,3 @@ $('#gallery-dropzone').dropzone({
 		});
 	}
 });
-
-/* Actions pour changer de type d'affichage */
-$('.vignettes-content > #gallery-table').hide();
-$('.vignettes-content > #gallery-vignettes').show();
-
-$('#gallery-display-vignettes').on('click', function() {
-	$('.vignettes-content > #gallery-table').hide();
-	$('.vignettes-content > #gallery-vignettes').show();
-
-	$(this).toggleClass('active');
-
-	$('#gallery-display-tableau').removeClass('active');
-});
-
-$('#gallery-display-tableau').on('click', function() {
-	$('.vignettes-content > #gallery-table').show();
-	$('.vignettes-content > #gallery-vignettes').hide();
-
-	$(this).toggleClass('active');
-
-	$('#gallery-display-vignettes').removeClass('active');
-});

@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function _gallery($gallery_id, $name, $page = '')
 	{
-		if ($gallery = $this->model()->check_gallery($gallery_id, $name))
+		if ($this->access('gallery', 'gallery_see', $gallery_id) && ($gallery = $this->model()->check_gallery($gallery_id, $name)))
 		{
 			return [
 				$gallery_id,
@@ -24,18 +24,20 @@ class Checker extends Module_Checker
 				$gallery['description'],
 				$gallery['category_name'],
 				$gallery['category_title'],
-				$gallery['image'],
+				$gallery['category_image'],
 				$gallery['category_icon'],
-				$this->module->pagination->fix_items_per_page($this->config->forum_messages_per_page)->get_data($this->model()->get_images($gallery_id), $page)
+				$this->module->pagination->fix_items_per_page($this->config->images_per_page)->get_data($this->model()->get_images($gallery_id), $page)
 			];
 		}
+
+		$this->error->unauthorized();
 	}
 
 	public function _category($category_id, $name)
 	{
 		if ($category = $this->model()->check_category($category_id, $name))
 		{
-			return $category;
+			return [$category['category_id'], $category['name'], $category['title']];
 		}
 	}
 

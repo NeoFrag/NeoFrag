@@ -43,7 +43,7 @@ class Gallery extends Model
 			$lang = $this->config->lang->info()->name;
 		}
 
-		$this->db	->select('g.*', 'gl.title', 'gl.description', 'c.name as category_name', 'cl.title as category_title', 'g.image_id as image', 'c.icon_id as category_icon')
+		$this->db	->select('g.*', 'gl.title', 'gl.description', 'c.name as category_name', 'cl.title as category_title', 'c.image_id as category_image', 'c.icon_id as category_icon')
 					->from('nf_gallery g')
 					->join('nf_gallery_lang gl',            'g.gallery_id  = gl.gallery_id')
 					->join('nf_gallery_categories c',       'g.category_id = c.category_id')
@@ -83,6 +83,8 @@ class Gallery extends Model
 						'title'       => $title,
 						'description' => $description
 					]);
+
+		$this->access->init('gallery', 'gallery', $gallery_id);
 
 		return $gallery_id;
 	}
