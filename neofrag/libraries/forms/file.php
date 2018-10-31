@@ -62,7 +62,7 @@ class File extends Labelable
 					}
 					else if (!$this->_errors)
 					{
-						$data[$this->_name] = NeoFrag()->model2('file')->static_uploaded_file($_FILES[$this->_name], $upload_dir, $this->_value->id);
+						$data[$this->_name] = NeoFrag()->model2('file')->static_uploaded_file($_FILES[$this->_name], $upload_dir, $this->_value ? $this->_value->id : NULL);
 
 						if ($data[$this->_name]->path())
 						{
