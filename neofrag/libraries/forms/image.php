@@ -21,7 +21,7 @@ class Image extends File
 		$this->_precheck = function($file){
 			list($width, $height) = getimagesize($file);
 
-			if ($this->_width != $width || $this->_height != $height)
+			if (($this->_width && $this->_width != $width) || ($this->_height && $this->_height != $height))
 			{
 				if ($this->_width == $this->_height)
 				{
@@ -35,10 +35,13 @@ class Image extends File
 		};
 
 		$this->_thumbnail = function(){
-			return '<div class="text-center">
-						<img class="img-thumbnail" src="'.($this->_value ? $this->_value->path() : '').'" alt="" />
-						<p class="m-5">'.$this->lang('Dimensions %dpx par %dpx (%s max.)', $this->_width, $this->_height, human_size(file_upload_max_size())).'</p>
-					</div>';
+			if ($this->_value)
+			{
+				return '<div class="text-center">
+							<img class="img-thumbnail" src="'.$this->_value->path().'" alt="" />
+							<p class="m-4">'.$this->lang('Dimensions %dpx par %dpx <i>(%s max.)</i>', $this->_width, $this->_height, human_size(file_upload_max_size())).'</p>
+						</div>';
+			}
 		};
 
 		return parent::__invoke($name, $upload_dir);
