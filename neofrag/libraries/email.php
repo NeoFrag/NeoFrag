@@ -14,6 +14,7 @@ class Email extends Library
 
 	protected $_from;
 	protected $_to = [];
+	protected $_bcc = [];
 	protected $_subject;
 	protected $_view;
 	protected $_data;
@@ -51,6 +52,13 @@ class Email extends Library
 	public function to($to)
 	{
 		$this->_to[] = strtolower($to);
+
+		return $this;
+	}
+
+	public function bcc($to)
+	{
+		$this->_bcc[] = strtolower($to);
 
 		return $this;
 	}
@@ -141,6 +149,11 @@ class Email extends Library
 		foreach (array_unique($this->_to) as $to)
 		{
 			$mail->addAddress($to);
+		}
+
+		foreach (array_unique($this->_bcc) as $to)
+		{
+			$mail->AddBCC($to);
 		}
 
 		foreach ($this->_attachments as $file)
