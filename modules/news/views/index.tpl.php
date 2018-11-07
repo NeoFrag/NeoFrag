@@ -7,6 +7,13 @@
 	<h5 class="card-title"><a href="<?php echo url('news/'.$news_id.'/'.url_title($title)) ?>"><?php echo $title ?></a></h5>
 	<p class="card-text"><?php echo $introduction ?></p>
 	<blockquote class="blockquote mb-0">
+		<?php if (isset($next)): ?>
+		<div class="btn-group pull-right">
+			<a class="btn btn-default btn-sm" href="https://www.facebook.com/sharer.php?u=<?php echo $url = rawurlencode($this->url->location) ?>" target="_blank"><?php echo icon('fa-facebook text-primary') ?></a>
+			<a class="btn btn-default btn-sm" href="https://twitter.com/share?url=<?php echo $url ?>" target="_blank"><?php echo icon('fa-twitter text-info') ?></a>
+			<a class="btn btn-default btn-sm" href="https://plus.google.com/share?url=<?php echo $url ?>" target="_blank"><?php echo icon('fa-google-plus text-danger') ?></a>
+		</div>
+		<?php endif ?>
 		<footer class="blockquote-footer"><?php echo $this->lang('Par').' '.($user_id ? $this->user->link($user_id, $username) : $this->lang('Visiteur')).' '.$this->lang('le').' '.timetostr('%e %b %Y', $date) ?> / <a href="<?php echo url('news/category/'.$category_id.'/'.$category_name) ?>"><?php echo $category_title ?></a><?php echo (($comments = $this->module('comments')) && $comments->is_enabled()) ? ' / '.$comments->link('news', $news_id, 'news/'.$news_id.'/'.url_title($title)) : '' ?></footer>
 	</blockquote>
 </div>
