@@ -40,27 +40,28 @@ class Index extends Controller_Module
 	public function _tag($tag, $news)
 	{
 		$this->subtitle($this->lang('Tag %s', $tag));
-		return $this->_filter($news, $this->lang('Actualités').' <small>'.$tag.'</small>');
+		return $this->_filter($news, $this->lang('Tag').' <small>'.$tag.'</small>');
 	}
 
 	public function _category($title, $news)
 	{
 		$this->subtitle($this->lang('Catégorie %s', $title));
-		return $this->_filter($news, $this->lang('Catégorie d\'actualité').' <small>'.$title.'</small>');
+		return $this->_filter($news, $this->lang('Catégorie').' <small>'.$title.'</small>');
 	}
 
 	private function _filter($news, $filter)
 	{
 		$news = $this->index($news);
 
-		array_unshift($news, $this->panel()->body('<h2 class="m-0">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h2>'));
+		$news->prepend($this->panel()->body('<h3 class="m-0">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h3>'));
 
 		return $news;
 	}
 
 	public function _news($news_id, $category_id, $user_id, $image_id, $date, $published, $views, $vote, $title, $introduction, $content, $tags, $category_name, $category_title, $image, $category_icon, $username, $admin, $online, $quote, $avatar, $sex)
 	{
-		$this->title($title);
+		$this	->title($title)
+				->breadcrumb($title);
 
 		$news = $this	->panel()
 						->body($this->view('index', [
@@ -81,7 +82,8 @@ class Index extends Controller_Module
 							'category_title' => $category_title,
 							'username'       => $username,
 							'avatar'         => $avatar,
-							'sex'            => $sex
+							'sex'            => $sex,
+							'next'           => TRUE
 						]), FALSE);
 
 		return $this->array
