@@ -6,7 +6,7 @@
 	<ul class="list-inline<?php echo $players ? '' : ' mb-0' ?>">
 		<li class="list-inline-item"><?php echo icon('fa-gamepad').' '.$game_title ?></li>
 		<li class="list-inline-item"><?php echo icon('fa-users').' '.$this->lang('%d joueur|%d joueurs', count($players), count($players)) ?></li>
-		<li class="list-inline-item"><?php echo icon('fa-crosshairs').' '.$this->lang('%d match réalisé|%d matchs réalisés', count($events), count($events)) ?></li>
+		<?php if ($this->config->teams_display_matches): ?><li class="list-inline-item"><?php echo icon('fa-crosshairs').' '.$this->lang('%d match réalisé|%d matchs réalisés', count($events), count($events)) ?></li><?php endif ?>
 	</ul>
 	<?php if ($players): ?>
 	<ul class="list-inline mb-0">

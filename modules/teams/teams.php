@@ -35,7 +35,19 @@ class Teams extends Module
 				'admin/roles/delete/{id}/{url_title}'        => '_roles_delete',
 				'admin/players/delete/{id}/{url_title}/{id}' => '_players_delete',
 				'admin/ajax/roles/sort'                      => '_roles_sort'
-			]
+			],
+			'settings'    => function(){
+				return $this->form2()
+							->rule($this->form_checkbox('teams_display_matches')
+										->data(['on' => 'Afficher les matchs réalisés'])
+										->value([$this->config->teams_display_matches ? 'on' : NULL])
+							)
+							->success(function($data){
+								$this->config('teams_display_matches', $data['teams_display_matches']);
+								notify('Configuration modifiée');
+								refresh();
+							});
+			}
 		];
 	}
 

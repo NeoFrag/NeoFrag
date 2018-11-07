@@ -49,61 +49,64 @@ class Index extends Controller_Module
 		$this	->breadcrumb($title)
 				->title($title);
 
-		$matches = $this->table()
-						->add_columns([
-							[
-								'title'   => 'Date',
-								'content' => function($data){
-									return timetostr('%d/%m/%Y', $data['date']);
-								},
-								'size'    => TRUE,
-								'class'   => 'vcenter'
-							],
-							[
-								'content' => function($data){
-									if ($data['match']['opponent']['image_id'])
-									{
-										return '<img src="'.NeoFrag()->model2('file', $data['match']['opponent']['image_id'])->path().'" style="max-height: 35px; max-width: 50px;" alt="" />';
-									}
-									else
-									{
-										return '';
-									}
-								},
-								'class'   => 'col-1 text-center vcenter'
-							],
-							[
-								'title'   => 'Adversaire',
-								'content' => function($data){
-									if ($data['match']['opponent']['country'])
-									{
-										$opponent = '<img src="'.url('themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-right: 8px;" alt="" />';
-									}
+		if ($this->config->teams_display_matches)
+		{
+			$matches = $this->table()
+							->add_columns([
+								[
+									'title'   => 'Date',
+									'content' => function($data){
+										return timetostr('%d/%m/%Y', $data['date']);
+									},
+									'size'    => TRUE,
+									'class'   => 'vcenter'
+								],
+								[
+									'content' => function($data){
+										if ($data['match']['opponent']['image_id'])
+										{
+											return '<img src="'.NeoFrag()->model2('file', $data['match']['opponent']['image_id'])->path().'" style="max-height: 35px; max-width: 50px;" alt="" />';
+										}
+										else
+										{
+											return '';
+										}
+									},
+									'class'   => 'col-1 text-center vcenter'
+								],
+								[
+									'title'   => 'Adversaire',
+									'content' => function($data){
+										if ($data['match']['opponent']['country'])
+										{
+											$opponent = '<img src="'.url('themes/default/images/flags/'.$data['match']['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$data['match']['opponent']['country']].'" style="margin-right: 8px;" alt="" />';
+										}
 
-									$opponent .= $data['match']['opponent']['title'];
+										$opponent .= $data['match']['opponent']['title'];
 
-									return $opponent;
-								},
-								'class'   => 'vcenter'
-							],
-							[
-								'title'   => 'Événement',
-								'content' => function($data){
-									return '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
-								},
-								'class'   => 'vcenter'
-							],
-							[
-								'title'   => '<div class="text-center">Score</div>',
-								'content' => function($data){
-									return $this->module('events')->model('matches')->display_scores($data['match']['scores'], $color).'<span class="'.$color.'">'.$data['match']['scores'][0].':'.$data['match']['scores'][1].'</span>';
-								},
-								'class'   => 'text-center vcenter'
-							]
-						])
-						->data(array_slice($this->_get_team_events($team_id), 0, 10))
-						->no_data('Aucun match disputé...')
-						->display();
+										return $opponent;
+									},
+									'class'   => 'vcenter'
+								],
+								[
+									'title'   => 'Événement',
+									'content' => function($data){
+										return '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
+									},
+									'class'   => 'vcenter'
+								],
+								[
+									'title'   => '<div class="text-center">Score</div>',
+									'content' => function($data){
+										return $this->module('events')->model('matches')->display_scores($data['match']['scores'], $color).'<span class="'.$color.'">'.$data['match']['scores'][0].':'.$data['match']['scores'][1].'</span>';
+									},
+									'class'   => 'text-center vcenter'
+								]
+							])
+							->data(array_slice($this->_get_team_events($team_id), 0, 10))
+							->no_data('Aucun match disputé...')
+							->display();
+		}
 
 		return $this->array([
 			$this	->panel()
@@ -117,7 +120,7 @@ class Index extends Controller_Module
 						'players'     => $this->model()->get_players($team_id)
 					]), FALSE)
 					->footer_if($this->_check_team_recruits($team_id), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>'),
-			$team_matches = $this->_get_team_events($team_id) ? $this->panel()
+			$team_matches = ($this->_get_team_events($team_id) && $this->config->teams_display_matches) ? $this->panel()
 					->heading('Derniers résultats', 'fa-crosshairs')
 					->body($matches)
 					->footer_if((isset($team_matches) && (count($team_matches) > 10)), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('fa-arrow-circle-o-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
