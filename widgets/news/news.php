@@ -24,7 +24,8 @@ class News extends Widget
 			],
 			'types'       => [
 				'index'      => $this->lang('Actualités récentes'),
-				'categories' => $this->lang('Catégories')
+				'categories' => $this->lang('Catégories'),
+				'tags'       => $this->lang('Tags')
 			]
 		];
 	}
