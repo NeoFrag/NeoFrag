@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<?php foreach ($members as $member): ?>
 	<li class="list-group-item">
 		<span class="pull-right"><?php echo icon('fa-clock-o').' '.time_span($member['registration_date']) ?></span>
