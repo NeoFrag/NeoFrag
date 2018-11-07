@@ -1,0 +1,8 @@
+.widget-news .img-cover {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	border-radius: 3px;
+	height: 50px;
+	width: 65px;
+}

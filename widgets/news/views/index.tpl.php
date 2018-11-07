@@ -1,12 +1,13 @@
 <?php foreach ($news as $news): ?>
 <div class="media">
-	<?php echo NeoFrag()->model2('user', $news['user_id'])->avatar() ?>
+	<?php if ($news['image']): ?>
+	<div class="media-left">
+		<div class="img-cover" style="background-image: url(<?php echo NeoFrag()->model2('file', $news['image'])->path() ?>);"></div>
+	</div>
+	<?php endif ?>
 	<div class="media-body">
-		<a href="<?php echo url('news/'.$news['news_id'].'/'.url_title($news['title'])) ?>"><?php echo $news['title'] ?></a>
-		<?php echo icon('fa-clock-o').' '.time_span($news['date']) ?>
-		<?php if (($comments = $this->module('comments')) && $comments->is_enabled()): ?>
-			<?php echo $comments->link('news', $news['news_id'], 'news/'.$news['news_id'].'/'.url_title($news['title'])) ?>
-		<?php endif ?>
+		<a href="<?php echo url('news/category/'.$news['category_id'].'/'.$news['category_name']) ?>" class="badge badge-dark"><?php echo $news['category_title'] ?></a><br />
+		<a href="<?php echo url('news/'.$news['news_id'].'/'.url_title($news['title'])) ?>"><?php echo $news['title'] ?></a><br />
 	</div>
 </div>
 <?php endforeach ?>
