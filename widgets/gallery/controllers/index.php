@@ -68,7 +68,6 @@ class Index extends Controller_Widget
 		if (!empty($images))
 		{
 			return $this->panel()
-						->heading($images['title'])
 						->body($this->view('slider', [
 							'images' => $images
 						]), FALSE);

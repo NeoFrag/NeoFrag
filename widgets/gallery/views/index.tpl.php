@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<?php foreach ($categories as $category): ?>
 	<li class="list-group-item<?php echo ($this->url->request == 'gallery/'.$category['category_id'].'/'.$category['name']) ? ' active' : ''  ?>">
 		<span class="badge badge-default pull-right"><?php echo $category['nb_gallery'] ?></span>
