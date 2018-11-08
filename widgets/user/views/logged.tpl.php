@@ -14,7 +14,7 @@
 		<?php echo icon('fa-eye') ?> <a href="<?php echo url('user/'.$this->user->id.'/'.url_title($username)) ?>"><?php echo $this->lang('Voir mon profil') ?></a>
 	</li>
 	<li class="list-group-item">
-		<?php /* if ($messages = $this->user->get_messages()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif */ ?>
+		<?php if ($messages = $this->module('user')->model('messages')->get_messages_unreads()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif ?>
 		<?php echo icon('fa-envelope-o') ?> <a href="<?php echo url('user/messages') ?>">Messagerie</a>
 	</li>
 	<?php if ($this->access->admin()): ?>

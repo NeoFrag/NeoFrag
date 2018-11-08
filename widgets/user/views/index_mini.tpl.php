@@ -1,10 +1,12 @@
 <ul class="nav <?php echo !empty($align) ? $align : 'justify-content-end' ?>">
 	<?php if ($this->user()): ?>
 		<li class="nav-item"><span class="nav-link"><?php echo $this->lang('Bienvenue <a href="'.url('user').'">'.$this->user->username.'</a>') ?></span></li>
-		<li class="nav-item" data-toggle="tooltip" title="Gérer mon compte"><a class="nav-link" href="<?php echo url('user/account') ?>"><?php echo icon('fa-cogs') ?></a></li>
+		<li class="nav-item" data-toggle="tooltip" title="Éditer mon profil"><a class="nav-link" href="<?php echo url('user/profile') ?>"><?php echo icon('fa-cog') ?></a></li>
 		<li class="nav-item" data-toggle="tooltip" title="Messagerie">
-			<?php /*if ($messages = $this->user->get_messages()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif */ ?>
-			<a class="nav-link" href="<?php echo url('user/messages') ?>"><?php echo icon('fa-envelope-o') ?></a>
+			<a class="nav-link" href="<?php echo url('user/messages') ?>">
+				<?php echo icon('fa-envelope-o') ?>
+				<?php if ($messages = $this->module('user')->model('messages')->get_messages_unreads()): ?><span class="badge badge-danger"><?php echo $messages ?></span><?php endif  ?>
+			</a>
 		</li>
 		<?php if ($this->access->admin()): ?>
 			<li class="nav-item" data-toggle="tooltip" title="Administration"><a class="nav-link" href="<?php echo url('admin') ?>"><?php echo icon('fa-dashboard') ?></a></li>

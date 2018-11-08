@@ -185,4 +185,34 @@ class Messages extends Model
 			return FALSE;
 		}
 	}
+
+	public function get_messages_unreads()
+	{
+		$unreads = 0;
+
+		$messages = $this->db	->select('m.message_id', 'm.title', 'UNIX_TIMESTAMP(mr.date) as date')
+								->from('nf_users_messages            m')
+								->join('nf_users_messages_recipients r',   'r.message_id   = m.message_id', 'INNER')
+								->join('nf_users_messages_replies    mr',  'mr.reply_id    = m.last_reply_id')
+								->join('nf_users_messages_replies    mr2', 'mr2.message_id = m.message_id', 'INNER')
+								->where('r.user_id', $this->user->id)
+								->group_by('m.message_id')
+								->get();
+
+		foreach ($messages as $message)
+		{
+			if ((bool)$this->db	->select('1')
+								->from('nf_users_messages_recipients r')
+								->where('r.message_id', $message['message_id'])
+								->where('r.user_id', $this->user->id)
+								->where('r.date', NULL, 'OR', 'UNIX_TIMESTAMP(r.date) <', $message['date'])
+								->row()
+			)
+			{
+				$unreads++;
+			}
+		}
+
+		return $unreads;
+	}
 }
