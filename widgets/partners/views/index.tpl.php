@@ -26,7 +26,7 @@
 		<?php
 		$i = 0;
 		for ($slider = 1; $slider <= $total_slides; $slider++): ?>
-		<div class="item<?php if ($slider == 1) echo ' active' ?>">
+		<div class="carousel-item<?php if ($slider == 1) echo ' active' ?>">
 			<div class="row">
 				<?php
 				$max = $slider == $total_slides ? $total_partners - (($slider - 1) * $display_number) : $display_number;
@@ -51,11 +51,13 @@
 		<?php endfor ?>
 	</div>
 	<?php if ($total_slides > 1): ?>
-	<a class="left carousel-control" href="#partners-carousel-<?php echo $id ?>" role="button" data-slide="prev">
-		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	<a class="carousel-control-prev" href="#partners-carousel-<?php echo $id ?>" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
 	</a>
-	<a class="right carousel-control" href="#partners-carousel-<?php echo $id ?>" role="button" data-slide="next">
-		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	<a class="carousel-control-next" href="#partners-carousel-<?php echo $id ?>" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
 	</a>
 	<?php endif ?>
 </div>
