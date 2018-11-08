@@ -1,5 +1,5 @@
 <?php if ($matches): ?>
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<?php foreach ($matches as $match): ?>
 	<li class="list-group-item">
 		<div class="row">
@@ -11,7 +11,8 @@
 				<img src="<?php echo NeoFrag()->model2('file', $match['match']['opponent']['image_id'])->path() ?>" class="img-fluid" alt="" />
 			</div>
 			<?php endif ?>
-			<div class="text-left col-<?php echo $match['match']['opponent']['image_id'] ? 7 : 8 ?>">
+			<div class="text-left col-<?php echo $match['match']['opponent']['image_id'] ? 10 : 10 ?>">
+				<span class="pull-right <?php echo $color ?>"><?php echo $match['match']['scores'][0] ?>:<?php echo $match['match']['scores'][1] ?></span>
 				<a href="<?php echo url('events/'.$match['event_id'].'/'.url_title($match['title'])) ?>">
 				<?php
 					$opponent = $match['match']['opponent']['title'];
@@ -25,13 +26,10 @@
 				?>
 				</a>
 			</div>
-			<div class="col-3 text-right">
-				<span class="<?php echo $color ?>"><?php echo $match['match']['scores'][0] ?>:<?php echo $match['match']['scores'][1] ?></span>
-			</div>
 		</div>
 	</li>
 	<?php endforeach ?>
 </ul>
 <?php else: ?>
-<div class="panel-body">Aucun résultat...</div>
+<div class="card-body">Aucun résultat...</div>
 <?php endif ?>

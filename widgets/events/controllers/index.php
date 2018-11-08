@@ -27,6 +27,7 @@ class Index extends Controller_Widget
 	public function types($settings = [])
 	{
 		return $this->panel()
+					->heading('Evénements', 'fa-calendar')
 					->body($this->view('types', [
 						'types' => $this->model()->get_types()
 					]), FALSE)

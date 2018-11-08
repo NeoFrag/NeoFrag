@@ -1,5 +1,5 @@
 <?php if ($events): ?>
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<?php foreach ($events as $event): ?>
 	<li class="list-group-item">
 		<?php if ($event['type'] == 1): ?>
@@ -33,5 +33,5 @@
 	<?php endforeach ?>
 </ul>
 <?php else: ?>
-<div class="panel-body">Aucun événement...</div>
+<div class="card-body">Aucun événement...</div>
 <?php endif ?>

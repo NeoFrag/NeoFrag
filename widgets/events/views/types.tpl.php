@@ -1,5 +1,5 @@
 <?php if ($types): ?>
-<div class="list-group">
+<div class="list-group list-group-flush">
 	<?php foreach ($types as $type): ?>
 	<a href="<?php echo url('events/type/'.$type['type_id'].'/'.url_title($type['title'])) ?>" class="list-group-item<?php echo ($this->url->request == 'events/type/'.$type['type_id'].'/'.url_title($type['title'])) ? ' active' : '' ?>">
 		<div class="pull-right">
