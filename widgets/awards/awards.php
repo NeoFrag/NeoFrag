@@ -19,9 +19,6 @@ class Awards extends Widget
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
 			'version'     => '1.0',
-			'depends'     => [
-				'neofrag' => 'Alpha 0.2'
-			],
 			'types'       => [
 				'index'     => 'Derniers palmarès',
 				'best_team' => 'Équipe la plus récompensée',
