@@ -13,6 +13,7 @@ class Checker extends Widget_Checker
 	public function index($settings = [])
 	{
 		return [
+			'display'           => in_array($settings['display'], ['logo', 'title']) ? $settings['display'] : 'title',
 			'align'             => in_array($settings['align'], ['text-left', 'text-right']) ? $settings['align'] : 'text-center',
 			'title'             => utf8_htmlentities($settings['title']),
 			'description'       => utf8_htmlentities($settings['description']),

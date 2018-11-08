@@ -6,6 +6,15 @@
 		<div id="navigation-options" class="tab-pane active" role="tabpanel">
 			<div class="form-horizontal">
 				<div class="form-group">
+					<label for="settings-display" class="col-sm-3 control-label"><?php echo $this->lang('Affichage') ?></label>
+					<div class="col-sm-3">
+						<select class="form-control" name="settings[display]" id="settings-display">
+							<option value="logo"<?php if (isset($display) && $display == 'logo') echo ' selected="selected"' ?>><?php echo $this->lang('Logo') ?></option>
+							<option value="title"<?php if (!isset($display) || $display == 'title') echo ' selected="selected"' ?>><?php echo $this->lang('Titre et slogan') ?></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="settings-align" class="col-sm-3 control-label"><?php echo $this->lang('Alignement') ?></label>
 					<div class="col-sm-3">
 						<select class="form-control" name="settings[align]" id="settings-align">

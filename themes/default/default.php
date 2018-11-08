@@ -54,6 +54,7 @@ class Default_ extends Theme
 							'widget'   => 'header',
 							'type'     => 'index',
 							'settings' => serialize([
+								'display'           => 'logo',
 								'align'             => 'text-left',
 								'title'             => '',
 								'description'       => '',
