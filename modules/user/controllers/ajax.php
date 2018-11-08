@@ -71,7 +71,7 @@ class Ajax extends Controller_Module
 
 	public function register()
 	{
-		return $this->form2('username password_required email', NeoFrag()->model2('user'))
+		return $this->form2(!empty($this->config->nf_registration_charte) ? 'username password_required email charte' : 'username password_required email', NeoFrag()->model2('user'))
 					->compact()
 					->captcha()
 					->success(function($user, $form){
