@@ -1,11 +1,11 @@
 <?php if ($image_id): ?>
 <img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="" />
 <?php endif ?>
-<div class="panel-body">
+<div class="card-body">
 	<p><big><?php echo icon($icon) ?> <a href="<?php echo url('recruits/'.$recruit_id.'/'.url_title($title)) ?>"><?php echo $title ?></a></big></p>
 	<?php echo $introduction ?>
 </div>
-<ul class="list-group">
+<ul class="list-group list-group-flush">
 	<?php if ($team_id): ?>
 	<li class="list-group-item">
 		<span class="pull-right"><b><?php echo $team_name ?></b></span>
