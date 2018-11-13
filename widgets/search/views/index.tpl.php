@@ -1,4 +1,4 @@
-<form class="form-inline pull-right mt-3" action="<?php echo url('search') ?>" method="get">
+<form class="form-inline pull-right" action="<?php echo url('search') ?>" method="get">
 	<div class="input-group input-group-sm">
 		<input type="text" class="form-control" name="q" placeholder="<?php echo $this->lang('Rechercher...') ?>" />
 		<span class="input-group-append">
