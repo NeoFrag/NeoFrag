@@ -19,7 +19,7 @@ class Admin extends Controller_Module
 
 		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if ($module->is_administrable())
+			if (@$module->controller('index') && !in_array($module->info()->name, ['settings']))
 			{
 				$modules[] = $module;
 			}
