@@ -18,6 +18,12 @@ class Alpha_0_2_1 extends Install
 			'data'    => 'a:1:{s:7:"enabled";b:1;}'
 		]);
 
+		$this->db()->insert('nf_addon', [
+			'type_id' => 3,
+			'name'    => 'about',
+			'data'    => 'a:1:{s:7:"enabled";b:1;}'
+		]);
+
 		$this->config	->unset('nf_maintenance_facebook')
 						->unset('nf_maintenance_google-plus')
 						->unset('nf_maintenance_steam')
