@@ -44,7 +44,7 @@ $(function(){
 
 	refresh();
 
-	$('.widget.widget-talks .panel-body').mCustomScrollbar({
+	$('.widget.widget-talks .card-body').mCustomScrollbar({
 		theme: 'dark',
 		callbacks: {
 			onScroll:function(){
@@ -55,7 +55,7 @@ $(function(){
 		}
 	});
 
-	$('.widget.widget-talks .panel-footer form').submit(function(){
+	$('.widget.widget-talks .card-footer form').submit(function(){
 		var $input = $(this).find('input[type="text"]');
 		var $talks = $(this).parents('.widget.widget-talks:first').find('[data-talk-id]:first');
 
