@@ -19,7 +19,7 @@ class Index extends Controller_Widget
 
 		$this->module('talks')->js('talks');
 
-		$this->css('talks')
+		$this	->css('talks')
 				->js('jquery.mCustomScrollbar.min')
 				->css('jquery.mCustomScrollbar.min');
 

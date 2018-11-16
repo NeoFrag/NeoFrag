@@ -95,7 +95,7 @@ class Admin extends Controller_Module
 				)
 			),
 			$this->row(
-				$this->col($this->widget('talks')->output('index', ['talk_id' => 1]))->size('col-8'),
+				$this->col('<div class="widget widget-talks">'.$this->widget('talks')->output('index', ['talk_id' => 1]).'</div>')->size('col-8'),
 				$this	->col(
 							$this	->panel()
 									->heading($this->lang('Utilisateurs connectés'), 'fa-globe')
