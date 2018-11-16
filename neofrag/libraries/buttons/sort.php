@@ -10,9 +10,10 @@ use NF\NeoFrag\Library;
 
 class Sort extends Library
 {
-	public function __invoke($id, $url, $parent = 'table', $items = 'tr')
+	public function __invoke($id, $url, $parent = 'tbody', $items = 'tr')
 	{
-		return $this->js('sortable')
+		return $this->js('jquery-ui.min')
+					->js('sortable')
 					->button()
 					->tooltip($this->lang('Ordonner'))
 					->icon('fa-arrows-v')
