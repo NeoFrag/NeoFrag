@@ -22,7 +22,7 @@ class Admin extends Controller_Module
 
 		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if (@$module->controller('index') && !in_array($module->name, ['live_editor', 'pages']))
+			if (@$module->controller('index') && !in_array($module->info()->name, ['pages', 'settings']))
 			{
 				$modules[$module->info()->name] = $module->info()->title;
 			}

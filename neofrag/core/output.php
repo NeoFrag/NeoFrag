@@ -394,8 +394,7 @@ class Output extends Core
 
 		if ($dispositions === NULL)
 		{
-			$this->db	->select('zone', 'disposition_id', 'disposition', 'page')
-						->from('nf_dispositions')
+			$this->db	->from('nf_dispositions')
 						->where('theme', $this->_theme->info()->name)
 						->order_by('page DESC');
 
@@ -421,7 +420,6 @@ class Output extends Core
 			{
 				if (!isset($dispositions[$zone = $disposition['zone']]))
 				{
-					unset($disposition['zone']);
 					$dispositions[$zone] = $disposition;
 				}
 			}
@@ -429,8 +427,7 @@ class Output extends Core
 
 		if (!empty($dispositions[$zone_id]))
 		{
-			$disposition = $dispositions[$zone_id];
-			return parent::zone()->display($disposition['disposition_id'], unserialize($disposition['disposition']), $disposition['page'], $zone_id);
+			return parent::zone()->display($dispositions[$zone_id]);
 		}
 
 		return '';
@@ -461,9 +458,9 @@ class Output extends Core
 
 	public function live_editor()
 	{
-		if (($live_editor = post('live_editor')) && $this->user->admin)
+		if (($live_editor = post('live_editor')) !== NULL && $this->user->admin)
 		{
-			$this->session->set('live_editor', $live_editor);
+			$this->session->set('live_editor', $live_editor = $live_editor ?: self::WIDGETS);
 			return $live_editor;
 		}
 

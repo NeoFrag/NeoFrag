@@ -5,17 +5,17 @@ var modal_style = function(title, $element, styles, callback){
 
 	var $modal = $('\
 		<div class="modal live-editor-modal fade" role="dialog">\
-			<div class="modal-dialog">\
+			<div class="modal-dialog modal-lg">\
 				<div class="modal-content">\
 					<div class="modal-header">\
+						<h5 class="modal-title"><?php echo icon('fa-paint-brush') ?> '+title+'</h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
-						<h4 class="modal-title"><?php echo icon('fa-paint-brush') ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+$(styles).html()+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-dark" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
 						<button type="button" class="btn btn-info"><?php echo $this->lang('Valider') ?></button>\
 					</div>\
 				</div>\
@@ -78,17 +78,17 @@ var modal_settings = function(title, settings, callback){
 
 	var $modal = $('\
 		<div class="modal live-editor-modal fade" role="dialog">\
-			<div class="modal-dialog">\
+			<div class="modal-dialog modal-lg">\
 				<div class="modal-content">\
 					<div class="modal-header">\
+						<h5 class="modal-title"><?php echo icon('fa-cogs') ?> '+title+'</h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
-						<h4 class="modal-title"><?php echo icon('fa-cogs') ?> '+title+'</h4>\
 					</div>\
 					<div class="modal-body">\
 						'+settings+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-dark" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
 						<button type="button" class="btn btn-info"><?php echo $this->lang('Valider') ?></button>\
 					</div>\
 				</div>\
@@ -198,14 +198,14 @@ var modal_fork = function(callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
+						<h5 class="modal-title"><?php echo $this->lang('Revenir à la disposition commune') ?></h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
-						<h4 class="modal-title"><?php echo $this->lang('Revenir à la disposition commune') ?></h4>\
 					</div>\
 					<div class="modal-body">\
 						<?php echo $this->lang('Êtes-vous sûr(e) de vouloir revenir à la disposition commune ?<br />Toutes les <b>colonnes</b> et <b>widgets</b> associés à cette zone seront perdus.') ?>\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-dark" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
 						<button type="button" class="btn btn-danger"><?php echo $this->lang('Continuer') ?></button>\
 					</div>\
 				</div>\
@@ -232,14 +232,14 @@ var modal_delete = function(message, callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
+						<h5 class="modal-title"><?php echo icon('fa-trash-o').' '.$this->lang('Confirmation de suppression') ?></h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
-						<h4 class="modal-title"><?php echo icon('fa-trash-o').' '.$this->lang('Confirmation de suppression') ?></h4>\
 					</div>\
 					<div class="modal-body">\
 						'+message+'\
 					</div>\
 					<div class="modal-footer">\
-						<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+						<button type="button" class="btn btn-dark" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
 						<button type="button" class="btn btn-danger"><?php echo icon('fa-trash-o') ?> <?php echo $this->lang('Supprimer') ?></button>\
 					</div>\
 				</div>\
@@ -321,7 +321,7 @@ $(function(){
 				$iframe.find('.widget-hover').remove();
 				$('	<div class="widget-hover">\
 						<div class="widget-hover-content">\
-							<h4>'+($(this).hasClass('module') ? '<b><?php echo $this->lang('Module') ?></b> ' : '')+$(this).data('title')+'</h4>\
+							<h5>'+($(this).hasClass('module') ? '<b><?php echo $this->lang('Module') ?></b> ' : '')+$(this).data('title')+'</h5>\
 							<div class="btn-group" role="group">\
 								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo $this->lang('Apparence') ?>"><?php echo icon('fa-paint-brush') ?></button>' : '')+'\
 								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Configurer') ?>"><?php echo icon('fa-cogs') ?></button>\
@@ -521,11 +521,17 @@ $(function(){
 		/* Col Size */
 		$iframe.on('click', '.live-editor-col .live-editor-size', function(){
 			var $col = $(this).parents('[data-col-id]:first');
+			var size;
+			var old_size = size = 12;
 
-			if (match = $col.prop('class').match(/col-(\d{1,2})/)){
-				var size = Math.max(1, Math.min(12, parseInt(match[1])+parseInt($(this).data('size'))));
+			if (match = $col.prop('class').match(/col-lg-(\d{1,2})/)){
+				old_size = parseInt(match[1]);
+			}
 
-				$col.switchClass('col-'+match[1], 'col-'+size, 200);
+			size = Math.max(1, Math.min(12, old_size+parseInt($(this).data('size'))));
+
+			if (size != old_size){
+				$col.switchClass('col-lg-'+old_size, 'col-lg-'+size, 200);
 
 				$('.live-editor-save').show();
 
@@ -631,7 +637,7 @@ $(function(){
 				widget_id: $widget.data('widget-id')
 			};
 
-			modal_style('<?php echo $this->lang('Apparence du Widget') ?>', $widget.children('.panel'), '.live-editor-styles-widget', function(style){
+			modal_style('<?php echo $this->lang('Apparence du Widget') ?>', $widget.children('.card'), '.live-editor-styles-widget', function(style){
 				$.extend(data, {
 					style: style
 				});

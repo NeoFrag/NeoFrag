@@ -12,49 +12,66 @@ class Admin_Ajax extends Controller_Module
 {
 	public function zone_fork($disposition_id, $disposition, $url, $theme, $page, $zone)
 	{
-		$url = str_replace(url(), '', $url);
+		$url = ltrim(preg_replace('_^'.$this->url().'_', '', $url), '/');
 
-		if (!$url || preg_match('#^index(?:\.|/)#', $url))
+		if (!$url || preg_match('#^index(/.*)?$#', $url))
 		{
 			$url = '/';
 		}
-
-		$url = explode('/', $url.'/*');
-
-		if (!empty($url[0]))
+		else
 		{
-			if ($module = $this->module($url[0]))
+			$url = explode('/', $url.'/*');
+
+			if (!empty($url[0]))
 			{
-				if (!empty($module->info()->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
+				if ($module = $this->module($url[0]))
 				{
-					$url = [$url[0], $method, '*'];
+					if (!empty($module->info()->routes) && ($method = $module->get_method(array_slice($url, 1, -1), TRUE)))
+					{
+						$url = [$url[0], $method, '*'];
+					}
+				}
+				else if ($module = $this->module('pages'))
+				{
+					$url = ['pages', '_index', $url[0], '*'];
 				}
 			}
-			else if ($module = $this->module('pages'))
-			{
-				$url = ['pages', '_index', $url[0], '*'];
-			}
-		}
 
-		$url = implode('/', $url);
+			$url = implode('/', $url);
+		}
 
 		if ($page == '*' || !$this->db->select('1')->from('nf_dispositions')->where('page', $url)->row())
 		{
-			array_walk($disposition, function($c){
-				$c->traversal(function($w){
-					$w->widget_id($this->db->insert('nf_widgets', $this->db	->select('widget', 'type', 'title', 'settings')
-																			->from('nf_widgets')
-																			->where('widget_id', $w->widget_id())
-																			->row()));
-				});
-			});
+			$traversal = function($array) use (&$traversal){
+				$array->each(function($a) use (&$traversal){
+					if (is_a($a, 'NF\NeoFrag\Libraries\Array_') && !is_a($a, 'NF\NeoFrag\Displayables\Widget'))
+					{
+						$traversal($a);
+					}
+					else
+					{
+						$a->widget_id($this->db->insert('nf_widgets', $this->db	->select('widget', 'type', 'title', 'settings')
+																				->from('nf_widgets')
+																				->where('widget_id', $a->widget_id())
+																				->row()));
+					}
 
-			return $this->zone($this->db->insert('nf_dispositions', [
+					return $a;
+				});
+			};
+
+			$traversal($disposition);
+
+			$id = $this->db->insert('nf_dispositions', $disposition = [
 				'theme'       => $theme,
 				'page'        => $url,
 				'zone'        => $zone,
 				'disposition' => serialize($disposition)
-			]), $disposition, $url, $zone, TRUE);
+			]);
+
+			$disposition['disposition_id'] = $id;
+
+			return $this->zone()->display($disposition);
 		}
 		else
 		{
@@ -63,14 +80,13 @@ class Admin_Ajax extends Controller_Module
 			$this->db	->where('disposition_id', $disposition_id)
 						->delete('nf_dispositions');
 
-			$disposition = $this->db->select('disposition_id', 'disposition')
-									->from('nf_dispositions')
+			$disposition = $this->db->from('nf_dispositions')
 									->where('theme', $theme)
 									->where('page', '*')
 									->where('zone', $zone)
 									->row();
 
-			return $this->zone($disposition['disposition_id'], unserialize($disposition['disposition']), '*', $zone, TRUE);
+			return $this->zone()->display($disposition);
 		}
 	}
 

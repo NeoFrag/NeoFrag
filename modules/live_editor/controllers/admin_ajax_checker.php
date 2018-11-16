@@ -57,7 +57,7 @@ class Admin_Ajax_Checker extends Module_Checker
 
 	public function widget_add()
 	{
-		if ($args = list($disposition_id, $disposition, $row_id, $col_id, $title, $widget_name, $type, $settings) = $this->_check_disposition('disposition_id', 'row_id', 'col_id', 'title', 'widget', 'type', 'settings'))
+		if ($args = list(,,,,, $widget_name, $type) = $this->_check_disposition('disposition_id', 'row_id', 'col_id', 'title', 'widget', 'type', 'settings'))
 		{
 			$this->model()->get_widgets($widgets, $types);
 

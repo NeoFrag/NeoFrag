@@ -73,24 +73,20 @@ class Widget extends Displayable
 		{
 			$widget->data = NeoFrag()->array;
 
-			/*$output = implode(array_map(function($a) use ($widget_data){
-				if (is_a($a, 'NF\NeoFrag\Libraries\Panel'))
-				{
-					if (!empty($widget_data['title']))
-					{
-						$a->title($widget_data['title']);
-					}
+			$output = $widget->output($widget_data['type'], is_array($settings = unserialize($widget_data['settings'])) ? $settings : []);
 
-					if (!empty($this->_style))
-					{
-						$a->style($this->_style);
-					}
+			if (is_a($output, 'NF\NeoFrag\Libraries\Panel'))
+			{
+				if (!empty($widget_data['title']))
+				{
+					$output->title($widget_data['title']);
 				}
 
-				return $a;
-			}, );*/
-
-			$output = $widget->output($widget_data['type'], is_array($settings = unserialize($widget_data['settings'])) ? $settings : []);
+				if (!empty($this->_style))
+				{
+					$output->style($this->_style);
+				}
+			}
 
 			if ($widget_data['widget'] == 'module')
 			{

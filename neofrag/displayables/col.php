@@ -25,7 +25,7 @@ class Col extends Displayable
 
 	public function __toString()
 	{
-		$size = '';
+		$size = $this->_size;
 
 		foreach ($this as $i => $child)
 		{
@@ -33,6 +33,11 @@ class Col extends Displayable
 			{
 				$size = $child->size();
 			}
+		}
+
+		if (preg_match('/^col-(\d+)$/', $size, $match) && $match[0] < 12)
+		{
+			$size = 'col-12 col-lg-'.$match[1];
 		}
 
 		if ($this->_id !== NULL)
@@ -58,6 +63,6 @@ class Col extends Displayable
 						</div>';
 		}
 
-		return '<div class="'.($this->_size ?: $size ?: 'col-12').'"'.($this->_id !== NULL ? ' data-col-id="'.$this->_id.'"' : '').'>'.$output.'</div>';
+		return '<div class="'.($size ?: 'col-12').'"'.($this->_id !== NULL ? ' data-col-id="'.$this->_id.'"' : '').'>'.$output.'</div>';
 	}
 }
