@@ -6,14 +6,14 @@
 
 namespace NF\Widgets\User\Controllers;
 
-use NF\NeoFrag\Loadables\Controllers\Widget_Checker;
+use NF\NeoFrag\Loadables\Controller;
 
-class Checker extends Widget_Checker
+class Checker extends Controller
 {
 	public function index_mini($settings = [])
 	{
 		return [
-			'align' => !empty($settings['align']) && in_array($settings['align'], ['navbar-left', 'navbar-right']) ? $settings['align'] : 'navbar-right'
+			'align' => !empty($settings['align']) && in_array($settings['align'], ['justify-content-start', 'justify-content-end']) ? $settings['align'] : 'justify-content-end'
 		];
 	}
 }

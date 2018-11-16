@@ -1,21 +1,17 @@
-<div role="tabpanel">
-	<ul id="navigation-tabs" class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#options" aria-controls="links" role="tab" data-toggle="tab"><?php echo icon('fa-cogs') ?> Options</a></li>
-	</ul>
-	<div class="tab-content">
-		<div id="options" class="tab-pane active" role="tabpanel">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label for="settings-title" class="col-sm-3 control-label">Alignement</label>
-					<div class="col-sm-5">
-						<label class="radio-inline">
-							<input type="radio" name="settings[align]" value="navbar-left"<?php if (!isset($align) || $align != 'navbar-right') echo ' checked="checked"' ?> /> à gauche
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="settings[align]" value="navbar-right"<?php if (isset($align) && $align == 'navbar-right') echo ' checked="checked"' ?> /> à droite
-						</label>
-					</div>
-				</div>
+<ul class="nav nav-pills" id="pills-tab" role="tablist">
+	<li class="nav-item"><a class="nav-link active" id="pills-options-tab" data-toggle="pill" href="#pills-options" role="tab" aria-controls="pills-options" aria-selected="true"><?php echo icon('fa-cogs').' Options' ?></a></li>
+</ul>
+<div class="tab-content border-light" id="pills-tabContent">
+	<div class="tab-pane fade show active" id="pills-options" role="tabpanel" aria-labelledby="pills-options-tab">
+		<div class="form-group row">
+			<label for="settings-title" class="col-3 col-form-label">Alignement</label>
+			<div class="col-4">
+				<label class="radio-inline">
+					<input type="radio" name="settings[align]" value="justify-content-start"<?php if (!isset($align) || $align != 'justify-content-start') echo ' checked="checked"' ?> /> à gauche
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="settings[align]" value="justify-content-end"<?php if (isset($align) && $align == 'justify-content-end') echo ' checked="checked"' ?> /> à droite
+				</label>
 			</div>
 		</div>
 	</div>
