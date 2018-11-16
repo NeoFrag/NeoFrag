@@ -18,6 +18,8 @@ class Index extends Controller_Widget
 								->js('locale-all')
 								->js('events');
 
+		$this->css('events');
+
 		return $this->panel()
 					->heading('Calendrier', 'fa-calendar')
 					->body('<div id="calendar"></div>')
