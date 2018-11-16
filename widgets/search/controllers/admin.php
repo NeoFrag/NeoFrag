@@ -6,12 +6,12 @@
 
 namespace NF\Widgets\Search\Controllers;
 
-use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+use NF\NeoFrag\Loadables\Controller;
 
-class Index extends Controller_Widget
+class Admin extends Controller
 {
 	public function index($settings = [])
 	{
-		return $this->view('index', $settings);
+		return $this->view('admin', $settings);
 	}
 }
