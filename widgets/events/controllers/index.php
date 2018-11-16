@@ -12,12 +12,11 @@ class Index extends Controller_Widget
 {
 	public function index($settings = [])
 	{
-		$this	->css('fullcalendar.min')
-				->css('events')
-				->js('moment.min')
-				->js('fullcalendar.min')
-				->js('lang-all')
-				->js('events');
+		$this->module('events')	->css('fullcalendar.min')
+								->js('moment.min')
+								->js('fullcalendar.min')
+								->js('locale-all')
+								->js('events');
 
 		return $this->panel()
 					->heading('Calendrier', 'fa-calendar')

@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 				->css('admin')
 				->js('moment.min')
 				->js('fullcalendar.min')
-				->js('lang-all')
+				->js('locale-all')
 				->js('events');
 
 		$types = $this	->table()
