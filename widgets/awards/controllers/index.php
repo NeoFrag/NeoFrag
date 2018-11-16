@@ -14,7 +14,7 @@ class Index extends Controller_Widget
 	{
 		if ($awards = $this->module('awards')->model()->get_awards())
 		{
-			$this->css('awards');
+			$this->module('awards')->css('awards');
 
 			return $this->panel()
 						->heading('Nos derniers palmarès')
