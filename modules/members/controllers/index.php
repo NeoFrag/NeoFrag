@@ -13,9 +13,23 @@ class Index extends Controller_Module
 	public function index($members)
 	{
 		return $this->table2($members, $this->lang('Il n\'y a pas encore de membre dans ce groupe'))
-					->col('', 'avatar')
+					->col('', 'col-1', 'avatar')
 					->col(function($data){
-						return '<div>'.$data->link().'</div><small>'.icon('fa-circle '.($data->is_online() ? 'text-green' : 'text-gray')).' '.$this->lang($data->admin ? 'Administrateur' : 'Membre').' '.$this->lang($data->is_online() ? 'en ligne' : 'hors ligne').'</small>';
+						$socials = $this	->array([
+							['website',   'fa-globe',     ''],
+							['linkedin',  'fa-linkedin',  'https://www.linkedin.com/in/'],
+							['github',    'fa-github',    'https://github.com/'],
+							['instagram', 'fa-instagram', 'https://www.instagram.com/'],
+							['twitch',    'fa-twitch',    'https://www.twitch.tv/']
+						])
+						->filter(function($a) use ($data){
+							return $data->profile()->{$a[0]};
+						})
+						->each(function($a) use ($data){
+							return '<a href="'.$a[2].$data->profile()->{$a[0]}.'" class="btn btn-light btn-sm" target="_blank">'.icon($a[1]).'</a>';
+						});
+
+						return '<div>'.$data->link().'</div>'.(!$socials->empty() ? '<div class="socials">'.$socials.'</div>' : '');
 					})
 					->col(function($data){
 						return $this->user() && $this->user->id != $data->id ? $this->button()->icon('fa-envelope-o')->url('user/messages/compose/'.$data->id.'/'.url_title($data->username))->compact()->outline() : '';
