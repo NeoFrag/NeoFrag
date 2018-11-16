@@ -6,9 +6,9 @@
 
 namespace NF\Widgets\Recruits\Controllers;
 
-use NF\NeoFrag\Loadables\Controllers\Widget as Controller_Widget;
+use NF\NeoFrag\Loadables\Controller;
 
-class Admin extends Controller_Widget
+class Admin extends Controller
 {
 	public function recruit($settings = [])
 	{
