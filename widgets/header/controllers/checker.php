@@ -6,9 +6,9 @@
 
 namespace NF\Widgets\Header\Controllers;
 
-use NF\NeoFrag\Loadables\Controllers\Widget_Checker;
+use NF\NeoFrag\Loadables\Controller;
 
-class Checker extends Widget_Checker
+class Checker extends Controller
 {
 	public function index($settings = [])
 	{
