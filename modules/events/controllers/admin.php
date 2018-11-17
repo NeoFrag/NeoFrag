@@ -364,11 +364,11 @@ class Admin extends Controller_Module
 
 			if ($form_match->is_valid($post))
 			{
-				$this->db->replace('nf_events_matches', [
+				$this->db->replace('nf_events_matches', $a = [
 					'event_id'    => $event_id,
 					'team_id'     => $post['team'],
 					'opponent_id' => $post['opponent'],
-					'mode_id'     => isset($post['mode']) ? $post['mode'] : NULL,
+					'mode_id'     => !empty($post['mode']) ? $post['mode'] : NULL,
 					'webtv'       => $post['webtv'],
 					'website'     => $post['website']
 				]);
