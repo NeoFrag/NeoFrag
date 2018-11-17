@@ -22,12 +22,14 @@
 </head>
 <body>
 <?php if ($this->config->nf_maintenance && !$this->url->admin && isset($this->user) && $this->user->admin && $this->output->module()->name != 'live_editor'): ?>
-	<nav class="navbar m-0 bg-danger">
+	<div class="bg-danger py-2">
 		<div class="container">
-			<p class="navbar-text"><?php echo icon('fa-power-off').' '.$this->lang('Site en opération de maintenance') ?></p>
-			<a href="<?php echo url('admin/settings/maintenance') ?>" class="btn btn-danger navbar-btn navbar-right"><?php echo $this->lang('Ouvrir le site') ?></a>
+			<div class="row align-items-center">
+				<div class="col-6 text-white"><?php echo icon('fa-power-off').' '.$this->lang('Site en opération de maintenance') ?></div>
+				<div class="col-6 text-right"><a href="<?php echo url('admin/settings/maintenance') ?>" class="btn btn-outline-light"><?php echo $this->lang('Ouvrir le site') ?></a></div>
+			</div>
 		</div>
-	</nav>
+	</div>
 <?php endif ?>
 <?php echo $body ?>
 <?php echo $debug_bar ?>

@@ -17,5 +17,11 @@ class Alpha_0_2_1 extends Install
 			'name'    => 'tools',
 			'data'    => 'a:1:{s:7:"enabled";b:1;}'
 		]);
+
+		$this->config	->unset('nf_maintenance_facebook')
+						->unset('nf_maintenance_google-plus')
+						->unset('nf_maintenance_steam')
+						->unset('nf_maintenance_twitch')
+						->unset('nf_maintenance_twitter');
 	}
 }

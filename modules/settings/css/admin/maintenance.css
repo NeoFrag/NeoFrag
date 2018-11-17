@@ -1,0 +1,21 @@
+.switch .btn:first-child {
+	-webkit-border-top-left-radius: 30px;
+	-webkit-border-bottom-left-radius: 30px;
+	-moz-border-radius-topleft: 30px;
+	-moz-border-radius-bottomleft: 30px;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+}
+
+.switch .btn:last-child {
+	-webkit-border-top-right-radius: 30px;
+	-webkit-border-bottom-right-radius: 30px;
+	-moz-border-radius-topright: 30px;
+	-moz-border-radius-bottomright: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.switch .btn-default {
+	background-color: #ebebeb;
+}

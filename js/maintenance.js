@@ -7,12 +7,4 @@ $(function(){
 			}
 		}
 	});
-
-	$('.btn-login').on('click', function(){
-		$('#login').animate({right: 0}, 'fast');
-	});
-
-	$('.btn-close').on('click', function(){
-		$('#login').animate({right: -340}, 'fast');
-	});
 });

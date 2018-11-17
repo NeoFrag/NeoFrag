@@ -489,8 +489,8 @@ class Admin extends Controller_Module
 	{
 		$this	->subtitle($this->lang('Maintenance'))
 				->icon('fa-power-off')
-				->css('maintenance')
-				->js('maintenance');
+				->css('admin/maintenance')
+				->js('admin/maintenance');
 
 		$form_opening = $this->form()
 			->add_rules([
@@ -512,7 +512,7 @@ class Admin extends Controller_Module
 				],
 				'content' => [
 					'label' => $this->lang('Contenu'),
-					'type'  => 'editor',
+					'type'  => 'textarea',
 					'value' => $this->config->nf_maintenance_content
 				],
 				'logo' => [
@@ -574,42 +574,14 @@ class Admin extends Controller_Module
 				'background_color' => [
 					'label' => $this->lang('Couleur de fond'),
 					'value' => $this->config->nf_maintenance_background_color,
-					'type'  => 'colorpicker'
+					'type'  => 'colorpicker',
+					'size'  => 'col-4'
 				],
 				'text_color' => [
 					'label' => $this->lang('Couleur du texte'),
 					'value' => $this->config->nf_maintenance_text_color,
-					'type'  => 'colorpicker'
-				],
-				'facebook' => [
-					'label' => 'Facebook',
-					'icon'  => 'fa-facebook',
-					'value' => $this->config->nf_maintenance_facebook,
-					'type'  => 'url'
-				],
-				'twitter' => [
-					'label' => 'Twitter',
-					'icon'  => 'fa-twitter',
-					'value' => $this->config->nf_maintenance_twitter,
-					'type'  => 'url'
-				],
-				'google' => [
-					'label' => 'Google+',
-					'icon'  => 'fa-google-plus',
-					'value' => $this->config->{'nf_maintenance_google-plus'},
-					'type'  => 'url'
-				],
-				'steam' => [
-					'label' => 'Steam',
-					'icon'  => 'fa-steam',
-					'value' => $this->config->nf_maintenance_steam,
-					'type'  => 'url'
-				],
-				'twitch' => [
-					'label' => 'Twitch',
-					'icon'  => 'fa-twitch',
-					'value' => $this->config->nf_maintenance_twitch,
-					'type'  => 'url'
+					'type'  => 'colorpicker',
+					'size'  => 'col-4'
 				]
 			])
 			->add_submit($this->lang('Valider'))
@@ -629,26 +601,22 @@ class Admin extends Controller_Module
 					->config('nf_maintenance_background_repeat',   $post['repeat'])
 					->config('nf_maintenance_background_position', $post['positionX'].' '.$post['positionY'])
 					->config('nf_maintenance_background_color',    $post['background_color'])
-					->config('nf_maintenance_text_color',          $post['text_color'])
-					->config('nf_maintenance_facebook',            $post['facebook'])
-					->config('nf_maintenance_twitter',             $post['twitter'])
-					->config('nf_maintenance_google-plus',         $post['google'])
-					->config('nf_maintenance_steam',               $post['steam'])
-					->config('nf_maintenance_twitch',              $post['twitch'])
-					->config('nf_version_css',                     time());
+					->config('nf_maintenance_text_color',          $post['text_color']);
+
+			$this->module('tools')->api()->scss();
 
 			refresh();
 		}
 
 		return $this->_layout(function($right, $left) use ($form_maintenance, $form_opening){
-			$right->append($this	->panel()
+			$right->append($this->panel()
 								->heading($this->lang('Personnalisation de la page de maintenance'), 'fa-paint-brush')
 								->body($form_maintenance->display())
 			);
 
 			$left	->append($this	->panel()
-								->heading($this->lang('Statut du site'), 'fa-power-off')
-								->body($this->view('maintenance'))
+									->heading($this->lang('Statut du site'), 'fa-power-off')
+									->body($this->view('admin/maintenance'))
 					)
 					->append($this	->panel()
 									->heading($this->lang('Ouverture programmée'), 'fa-clock-o')

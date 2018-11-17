@@ -305,7 +305,7 @@ class Output extends Core
 							->js('jquery-ui.min');
 				}
 
-				$body .= $this->_theme->view('body');
+				$body .= $this->url->maintenance ? $this->module() : $this->_theme->view('body');
 
 				if ($modals = $this->session('modals'))
 				{

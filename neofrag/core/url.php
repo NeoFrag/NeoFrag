@@ -86,10 +86,34 @@ class Url extends Core
 
 		$segments($request);
 
-		$this->on('config_init', function(){
+		$this->on('config_init', function() use ($segments){
 			if (is_asset())
 			{
 				asset($this->request);
+			}
+			else if ($this->config->nf_maintenance)
+			{
+				if ($this->config->nf_maintenance_opening && ($opening = $this->date($this->config->nf_maintenance_opening)) && $opening->diff() <= 0)
+				{
+					$this	->config('nf_maintenance', FALSE, 'bool')
+							->config('nf_maintenance_opening', '');
+				}
+				else if (!$this->user->admin && !preg_match('#(ajax/user/(lost-password|login)|user/lost-password/[a-z0-9]+|user/logout)#', $this->url->request))
+				{
+					header('HTTP/1.0 503 Service Unavailable');
+
+					$this->_const['maintenance'] = TRUE;
+
+					if (!empty($opening))
+					{
+						header('Retry-After: '.$opening->timezone('UTC')->format('D, d M Y H:i:s \G\M\T'));
+					}
+
+					if (!$this->url->ajax_header)
+					{
+						$segments('settings/maintenance');
+					}
+				}
 			}
 
 			if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
