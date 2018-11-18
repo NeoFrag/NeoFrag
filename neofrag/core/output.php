@@ -84,6 +84,8 @@ class Output extends Core
 	{
 		header('Content-Type: text/html; charset=UTF-8');
 
+		$error = FALSE;
+
 		try
 		{
 			$exec = function(){
@@ -119,7 +121,7 @@ class Output extends Core
 
 				if (!$this->url->admin && $this->url->ajax && $segments[0] == 'theme')
 				{
-					$module = $this->_theme;
+					$module = $this->_theme = parent::theme($this->config->nf_default_theme);
 					array_shift($segments);
 				}
 				else
@@ -245,21 +247,15 @@ class Output extends Core
 			{
 				ob_start();
 
-				$this->_theme = parent::theme($this->url->admin ? $this->_admin_theme : $this->config->nf_default_theme);
-
-				if (!$this->url->ajax())
-				{
-					$this->_theme->__init();
-				}
-
 				$output = $exec();
 
 				$output = preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()).$output;
 			}
 		}
-		catch (\NF\NeoFrag\Exception $error)
+		catch (\NF\NeoFrag\Exception $e)
 		{
-			$this->_error = $error;
+			$error = TRUE;
+			$this->_error = (string)$e;
 		}
 
 		if ($this->url->ajax())
@@ -268,14 +264,30 @@ class Output extends Core
 		}
 		else
 		{
-			if (!$this->_error)
+			$this->_theme = parent::theme($this->url->admin && $this->access->admin() && $this->_module->is_authorized() ? $this->_admin_theme : $this->config->nf_default_theme);
+
+			$css     = $this->data->get('css');
+			$js      = $this->data->get('js');
+			$js_load = $this->data->get('js_load');
+
+			$this->data->set('css',     []);
+			$this->data->set('js',      []);
+			$this->data->set('js_load', []);
+
+			$this->_theme->__init();
+
+			$this->data->merge_if($css,     'css',     $css);
+			$this->data->merge_if($js,      'js',      $js);
+			$this->data->merge_if($js_load, 'js_load', $js_load);
+
+			if (!$error)
 			{
 				$this->data->set('module', 'content', $output);
 			}
 
 			notifications();
 
-			if (!$this->_error && $this->_module->info()->name == 'live_editor')
+			if (!$error && $this->_module->info()->name == 'live_editor')
 			{
 				$body = $this->_module;
 			}
