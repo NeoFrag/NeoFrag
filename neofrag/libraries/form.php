@@ -670,8 +670,8 @@ class Form extends Library
 			$options['icon'] = FALSE;
 
 			NeoFrag()	->css('bootstrap-colorpicker.min')
-								->js('bootstrap-colorpicker.min')
-								->js_load('$(".input-group.color").colorpicker({format: "hex", component: ".input-group-prepend,input", colorSelectors: '.json_encode(get_colors()).'});');
+						->js('bootstrap-colorpicker.min')
+						->js('colorpicker');
 		}
 
 		$output = '';
