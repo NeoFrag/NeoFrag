@@ -11,6 +11,7 @@ use NF\NeoFrag\Library;
 class Table2 extends Library
 {
 	protected $_collection;
+	protected $_data;
 	protected $_no_data = '';
 	protected $_columns = [];
 
@@ -34,8 +35,25 @@ class Table2 extends Library
 			array_shift($args);
 		}
 
-		$this->_collection = is_a($data = array_shift($args), 'NF\NeoFrag\Libraries\Collection') ? $data : $data->collection();
-		$this->_no_data    = array_shift($args);
+		if (is_a($data = array_shift($args), 'NF\NeoFrag\Libraries\Collection'))
+		{
+			$this->_collection = $data;
+		}
+		else if (is_a($data, 'NF\NeoFrag\Loadables\Model2'))
+		{
+			$this->_collection = $data->collection();
+		}
+
+		if (is_a($data, 'NF\NeoFrag\Libraries\Array_'))
+		{
+			$this->_data = $data->__toArray();
+		}
+		else if (is_array($data))
+		{
+			$this->_data = $data;
+		}
+
+		$this->_no_data = array_shift($args);
 
 		return $this;
 	}
@@ -172,7 +190,7 @@ class Table2 extends Library
 			$col->collection($this->_collection, post('search'), '');
 		});
 
-		if ($data = $this->_collection->get())
+		if ($data = $this->_collection ? $this->_collection->get() : $this->_data)
 		{
 			NeoFrag()	->css('table2')
 						->js('table2');
