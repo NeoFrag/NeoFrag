@@ -21,10 +21,12 @@ class Dropdown extends Button
 
 			if ($this->_dropdown)
 			{
-				$dropdown = $this	->html('ul')
+				$dropdown = $this	->html()
 									->attr('class', 'dropdown-menu')
 									->content(array_map(function($a){
-										return $this->html('li')->content($a);
+										return $this->html()
+													->attr('class', 'dropdown-item')
+													->content($a);
 									}, $this->_dropdown));
 			}
 
@@ -34,13 +36,12 @@ class Dropdown extends Button
 		};
 
 		$this->_template[] = function(&$content, &$attrs, &$tag){
-			$content .= ' <span class="caret"></span>';
 			$attrs['type'] = 'button';
+			$attrs['class'] .= ' dropdown-toggle';
 			$tag = 'button';
 		};
 
-		return $this->attr('class', 'dropdown-toggle')
-					->data('toggle', 'dropdown');
+		return $this->data('toggle', 'dropdown');
 	}
 
 	public function dropdown($dropdown)
