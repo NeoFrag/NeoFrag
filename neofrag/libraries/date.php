@@ -54,6 +54,12 @@ class Date extends Library
 		return ['_datetime'];
 	}
 
+	public function timezone($timezone)
+	{
+		$this->_datetime->setTimezone(new \DateTimeZone($timezone));
+		return $this;
+	}
+
 	public function modify($modify)
 	{
 		$this->_datetime->modify($modify);
