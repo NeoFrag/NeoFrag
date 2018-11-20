@@ -179,7 +179,7 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 			}
 			else
 			{
-				$a = $callback($a);
+				$a = $callback($a, $key);
 			}
 		});
 
