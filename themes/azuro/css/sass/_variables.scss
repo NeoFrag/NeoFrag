@@ -1,0 +1,16 @@
+$primary: <?php echo color2hex($this->config->azuro_primary_color) ?: '#03c1a2' ?>;
+$primary-hover: #343a40;
+
+$secondary: <?php echo color2hex($this->config->azuro_secondary_color) ?: '#00c7e4' ?>;
+$secondary-hover: #343a40;
+
+$gradient-from: $primary;
+$gradient-to: $secondary;
+
+$logo-color: #00ffd4;
+
+$gradient-color: linear-gradient(to right, $gradient-from, $gradient-to);
+$gradient-gray-light: linear-gradient(to right, #f5f5f5, #efeff0);
+
+$text-dark-gray: #545b62;
+$text-light-gray: #a4b5c5;

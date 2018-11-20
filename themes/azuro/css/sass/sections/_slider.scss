@@ -1,0 +1,10 @@
+#slider {
+	> .container-fluid {
+		> .row {
+			> .col-12 {
+				padding-right: 0;
+				padding-left: 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+.breadcrumb {
+	background-color: #fff;
+	border: 1px solid #dfdfdf;
+	border-radius: 0;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+	padding: 1rem;
+}
+
+.haut, .entete, #post-contenu, .footer {
+	.breadcrumb {
+		background-color: #3c4248;
+		border-color: #3c4248;
+		color: #f1f1f1;
+
+		.breadcrumb-item {
+			> a {
+				&:hover, &:focus {
+					color: #fff;
+				}
+			}
+		}
+	}
+}

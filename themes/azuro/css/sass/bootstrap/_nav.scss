@@ -1,0 +1,256 @@
+.haut {
+	.widget-navigation {
+		> ul.nav {
+			> li.nav-item {
+				> a.nav-link {
+					color: #fff;
+					font-family: "Titillium Web", sans-serif;
+					font-size: 13px;
+					font-weight: 500;
+					opacity: .7;
+					padding: 10px 0;
+					text-transform: uppercase;
+					transition: all .15s ease-in-out;
+
+					&:hover, &.active {
+						opacity: 1;
+					}
+				}
+
+				+li.nav-item {
+					margin-left: 8px;
+				}
+			}
+		}
+	}
+}
+
+.menu {
+	.widget-navigation {
+		> ul.nav {
+			> li.nav-item {
+				> a.nav-link {
+					background-color: #fff;
+					color: #2b373a;
+					font-family: "Titillium Web", sans-serif;
+					font-size: 15px;
+					font-weight: 700;
+					padding: 22px 16px;
+					text-transform: uppercase;
+					transition: all .15s ease-in-out;
+
+					&:hover {
+						background-color: $secondary;
+						color: #fff;
+					}
+
+					&.active {
+						color: $primary;
+
+						&:hover {
+							background-color: $secondary;
+							color: #fff;
+						}
+					}
+				}
+
+				+ li.nav-item {
+					border-left: 1px solid #e8e9ea;
+				}
+
+				&:first-child {
+					border-left: 1px solid #e8e9ea;
+				}
+
+				&:last-child {
+					border-right: 1px solid #e8e9ea;
+				}
+			}
+		}
+	}
+}
+
+ul.nav {
+	&.flex-column {
+		> li.nav-item {
+			> a.nav-link {
+				background-color: transparent;
+				color: #212537;
+				font-size: 14px;
+				font-family: "Titillium Web", sans-serif;
+				font-weight: 600;
+				padding: .75rem 1rem;
+				text-transform: uppercase;
+				transition: all .15s ease-in-out;
+
+				&:hover {
+					background-color: rgba(0, 0, 0, .1);
+					color: $primary;
+				}
+
+				&.active {
+					background-color: rgba(0, 0, 0, .1);
+					color: $secondary;
+				}
+
+				> i.fa {
+					color: $text-light-gray;
+				}
+			}
+
+			+li.nav-item {
+				border-top: 1px solid rgba(0, 0, 0, .1);
+			}
+		}
+	}
+}
+
+.list-group {
+	> .list-group-item {
+		> a {
+			color: #212537;
+			font-size: 14px;
+			font-family: "Titillium Web", sans-serif;
+			font-weight: 600;
+			transition: all .15s ease-in-out;
+
+			&:hover {
+				color: $primary;
+			}
+
+			&.active {
+				color: $secondary;
+			}
+		}
+
+		+.nav-item {
+			border-top: 1px solid rgba(0, 0, 0, .1);
+		}
+
+		> i.fa {
+			color: $text-light-gray;
+		}
+	}
+
+	> a.list-group-item {
+		color: #212537;
+		font-size: 14px;
+		font-family: "Titillium Web", sans-serif;
+		font-weight: 600;
+		transition: all .15s ease-in-out;
+
+		&:hover {
+			color: $primary;
+		}
+
+		&.active {
+			background-color: #f5f5f5;
+			border-color: rgba(0, 0, 0, .125);
+			color: $secondary;
+		}
+	}
+}
+
+.haut, .entete, #post-contenu, .footer {
+	.card-transparent {
+		.list-group-item {
+			a {
+				color: rgba(255, 255, 255, .85);
+				font-size: 14px;
+				font-family: "Titillium Web", sans-serif;
+				font-weight: 600;
+				transition: all .15s ease-in-out;
+
+				&:hover {
+					color: $primary;
+				}
+
+				&.active {
+					color: $secondary;
+				}
+			}
+
+			+.nav-item {
+				border-top: 1px solid rgba(255, 255, 255, .1);
+			}
+
+			> i.fa {
+				color: $text-light-gray;
+			}
+		}
+
+		a.list-group-item {
+			color: rgba(255, 255, 255, .85);
+			font-size: 14px;
+			font-family: "Titillium Web", sans-serif;
+			font-weight: 600;
+			transition: all .15s ease-in-out;
+
+			&:hover {
+				color: $primary;
+			}
+
+			&.active {
+				background-color: rgba(255, 255, 255, .1);
+				border-color: rgba(0, 0, 0, .125);
+				color: $secondary;
+			}
+		}
+	}
+}
+
+.card {
+	&.card-dark, &.card-primary, &.card-secondary {
+		ul.nav {
+			&.flex-column {
+				> li.nav-item {
+					> a.nav-link {
+						color: rgba(255, 255, 255, .85);
+
+						&:hover {
+							background-color: rgba(255, 255, 255, .1);
+							color: #fff;
+						}
+
+						&.active {
+							background-color: rgba(0, 0, 0, .15);
+							color: #fff;
+						}
+
+						> i.fa {
+							color: rgba(255, 255, 255, .7);
+						}
+					}
+
+					+li.nav-item {
+						border-top: 1px solid rgba(255, 255, 255, .1);
+					}
+				}
+			}
+		}
+
+		ul.list-group {
+			> li.list-group-item {
+				> a {
+					color: rgba(255, 255, 255, .85);
+
+					&:hover {
+						color: #fff;
+					}
+
+					&.active {
+						color: #fff;
+					}
+				}
+
+				+li.nav-item {
+					border-top: 1px solid rgba(255, 255, 255, .1);
+				}
+
+				> i.fa {
+					color: rgba(255, 255, 255, .7);
+				}
+			}
+		}
+	}
+}

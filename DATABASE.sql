@@ -99,7 +99,7 @@ CREATE TABLE `nf_addon` (
   UNIQUE KEY `name` (`name`,`type_id`),
   KEY `type_id` (`type_id`),
   CONSTRAINT `nf_addon_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `nf_addon_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `nf_addon`
@@ -131,7 +131,7 @@ INSERT INTO `nf_addon` (`id`, `type_id`, `name`, `data`) VALUES
 (23, 1, 'teams', 'a:1:{s:7:\"enabled\";b:1;}'),
 (24, 1, 'user', 'a:1:{s:7:\"enabled\";b:1;}'),
 (25, 2, 'admin', NULL),
-(26, 2, 'default', NULL),
+(26, 2, 'azuro', NULL),
 (27, 3, 'awards', 'a:1:{s:7:\"enabled\";b:1;}'),
 (28, 3, 'breadcrumb', 'a:1:{s:7:\"enabled\";b:1;}'),
 (29, 3, 'events', 'a:1:{s:7:\"enabled\";b:1;}'),
@@ -257,25 +257,29 @@ CREATE TABLE `nf_dispositions` (
   `disposition` text NOT NULL,
   PRIMARY KEY (`disposition_id`),
   UNIQUE KEY `theme` (`theme`,`page`,`zone`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `nf_dispositions`
 --
 
 INSERT INTO `nf_dispositions` (`disposition_id`, `theme`, `page`, `zone`, `disposition`) VALUES
-(1, 'default', '*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:1;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:2;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:3;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:6:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:4;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:1;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:5;s:9:\"\0*\0_style\";s:10:\"panel-dark\";s:8:\"\0*\0_size\";N;}i:2;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:6;s:9:\"\0*\0_style\";s:10:\"panel-dark\";s:8:\"\0*\0_size\";N;}i:3;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:7;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:4;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:8;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:5;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:9;s:9:\"\0*\0_style\";s:9:\"panel-red\";s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(2, 'default', '*', 1, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:3:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:10;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:11;s:9:\"\0*\0_style\";s:10:\"panel-dark\";s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:2;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:12;s:9:\"\0*\0_style\";s:9:\"panel-red\";s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(3, 'default', '*', 2, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:0:{}}'),
-(4, 'default', '*', 3, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:13;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:14;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-7\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:15;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-5\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}}}'),
-(5, 'default', '*', 4, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:16;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:17;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(6, 'default', '*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:18;s:9:\"\0*\0_style\";s:10:\"panel-dark\";s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(7, 'default', '/', 3, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:3:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:19;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:20;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-7\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:21;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-5\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:2;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:22;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(8, 'default', 'forum/*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:23;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:24;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:25;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(9, 'default', 'forum/*', 2, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:34;s:9:\"\0*\0_style\";s:9:\"panel-red\";s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:35;s:9:\"\0*\0_style\";s:10:\"panel-dark\";s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(10, 'default', 'news/_news/*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:26;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:27;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:28;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(11, 'default', 'user/*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:29;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:30;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:31;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}'),
-(12, 'default', 'search/*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:32;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;N;}s:9:\"\0*\0_style\";s:9:\"row-white\";}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:33;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:11:\"row-default\";}}}');
+(1, 'azuro', '*', 0, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:3:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:1;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-7\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:2;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-3\";}}s:8:\"\0*\0_size\";N;}i:2;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:3;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-2\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:18:\"align-items-center\";}}}'),
+(2, 'azuro', '*', 1, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:4;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:18:\"align-items-center\";}}}'),
+(3, 'azuro', '*', 2, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:5;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-7\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:6;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-5\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";s:18:\"align-items-center\";}}}'),
+(4, 'azuro', '*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:7;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:6:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:8;s:9:\"\0*\0_style\";s:9:\"card-dark\";s:8:\"\0*\0_size\";N;}i:1;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:9;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:2;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:10;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:3;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:11;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:4;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:12;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}i:5;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:13;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:9:\"\0*\0_style\";N;}}}'),
+(5, 'azuro', '*', 7, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:14;s:9:\"\0*\0_style\";s:16:\"card-transparent\";s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(6, 'azuro', '*', 3, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:0:{}}'),
+(7, 'azuro', '*', 4, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:0:{}}'),
+(8, 'azuro', '*', 6, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:0:{}}'),
+(9, 'azuro', '/', 3, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:15;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(10, 'azuro', '/', 4, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:3:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:16;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:17;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:2;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:18;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(11, 'azuro', 'forum/*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:19;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(12, 'azuro', 'forum/*', 6, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:2:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:24;s:9:\"\0*\0_style\";s:9:\"card-dark\";s:8:\"\0*\0_size\";s:5:\"col-4\";}}s:8:\"\0*\0_size\";N;}i:1;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:25;s:9:\"\0*\0_style\";s:9:\"card-dark\";s:8:\"\0*\0_size\";s:5:\"col-8\";}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(13, 'azuro', 'news/_news/*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:20;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(14, 'azuro', 'user/*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:21;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(15, 'azuro', 'search/*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:22;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}'),
+(16, 'azuro', 'gallery/*', 5, 'O:27:\"NF\\NeoFrag\\Libraries\\Array_\":1:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Row\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:27:\"NF\\NeoFrag\\Displayables\\Col\":2:{s:9:\"\0*\0_array\";a:1:{i:0;O:30:\"NF\\NeoFrag\\Displayables\\Widget\":3:{s:10:\"\0*\0_widget\";i:23;s:9:\"\0*\0_style\";N;s:8:\"\0*\0_size\";N;}}s:8:\"\0*\0_size\";N;}}s:9:\"\0*\0_style\";N;}}}');
 
 -- --------------------------------------------------------
 
@@ -1222,11 +1226,14 @@ CREATE TABLE `nf_settings` (
 --
 
 INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
-('default_background', '', '', '0', 'int'),
-('default_background_attachment', '', '', 'scroll', 'string'),
-('default_background_color', '', '', '#dfdfdf', 'string'),
-('default_background_position', '', '', 'center top', 'string'),
-('default_background_repeat', '', '', 'no-repeat', 'string'),
+('azuro_background', '', '', '0', 'int'),
+('azuro_background_attachment', '', '', 'scroll', 'string'),
+('azuro_background_color', '', '', '#343a40', 'string'),
+('azuro_background_position', '', '', 'center top', 'string'),
+('azuro_background_repeat', '', '', 'no-repeat', 'string'),
+('azuro_primary_color', '', '', '#00d7b3', 'string'),
+('azuro_secondary_color', '', '', '#00c7e4', 'string'),
+('azuro_text_color', '', '', '#212529', 'string'),
 ('events_alert_mp', '', '', '1', 'string'),
 ('events_per_page', '', '', '10', 'string'),
 ('forum_messages_per_page', '', '', '15', 'int'),
@@ -1241,7 +1248,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_cookie_name', '', '', 'session', 'string'),
 ('nf_copyright', '', '', 'Copyright {copyright} {year} {name}, tous droits r&eacute;serv&eacute;s &lt;div class=&quot;pull-right&quot;&gt;Propuls&eacute; par {neofrag}&lt;/div&gt;', 'string'),
 ('nf_default_page', '', '', 'news', 'string'),
-('nf_default_theme', '', '', 'default', 'string'),
+('nf_default_theme', '', '', 'azuro', 'string'),
 ('nf_description', '', '', 'ALPHA 0.2.0.1', 'string'),
 ('nf_email_password', '', '', '', 'string'),
 ('nf_email_port', '', '', '25', 'int'),
@@ -1639,48 +1646,38 @@ CREATE TABLE `nf_widgets` (
   `settings` text,
   PRIMARY KEY (`widget_id`),
   KEY `widget_name` (`widget`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `nf_widgets`
 --
 
 INSERT INTO `nf_widgets` (`widget_id`, `widget`, `type`, `title`, `settings`) VALUES
-(1, 'breadcrumb', 'index', NULL, NULL),
-(2, 'search', 'index', NULL, NULL),
-(3, 'module', 'index', NULL, NULL),
-(4, 'navigation', 'vertical', NULL, 'a:1:{s:5:\"links\";a:6:{i:0;a:2:{s:5:\"title\";s:17:\"Actualit&eacute;s\";s:3:\"url\";s:4:\"news\";}i:1;a:2:{s:5:\"title\";s:7:\"Membres\";s:3:\"url\";s:7:\"members\";}i:2;a:2:{s:5:\"title\";s:11:\"Recrutement\";s:3:\"url\";s:8:\"recruits\";}i:3;a:2:{s:5:\"title\";s:6:\"Photos\";s:3:\"url\";s:7:\"gallery\";}i:4;a:2:{s:5:\"title\";s:10:\"Rechercher\";s:3:\"url\";s:6:\"search\";}i:5;a:2:{s:5:\"title\";s:7:\"Contact\";s:3:\"url\";s:7:\"contact\";}}}'),
-(5, 'partners', 'column', NULL, 'a:1:{s:13:\"display_style\";s:5:\"light\";}'),
-(6, 'user', 'index', NULL, NULL),
-(7, 'news', 'categories', NULL, NULL),
-(8, 'talks', 'index', NULL, 'a:1:{s:7:\"talk_id\";i:2;}'),
-(9, 'members', 'online', NULL, NULL),
-(10, 'forum', 'topics', NULL, NULL),
-(11, 'news', 'index', NULL, NULL),
-(12, 'members', 'index', NULL, NULL),
-(13, 'header', 'index', NULL, 'a:5:{s:5:\"align\";s:11:\"text-center\";s:5:\"title\";s:0:\"\";s:11:\"description\";s:0:\"\";s:11:\"color-title\";s:0:\"\";s:17:\"color-description\";s:7:\"#00d7b3\";}'),
-(14, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:6:{i:0;a:2:{s:5:\"title\";s:7:\"Accueil\";s:3:\"url\";s:0:\"\";}i:1;a:2:{s:5:\"title\";s:5:\"Forum\";s:3:\"url\";s:5:\"forum\";}i:2;a:2:{s:5:\"title\";s:14:\"&Eacute;quipes\";s:3:\"url\";s:5:\"teams\";}i:3;a:2:{s:5:\"title\";s:6:\"Matchs\";s:3:\"url\";s:14:\"events/matches\";}i:4;a:2:{s:5:\"title\";s:11:\"Partenaires\";s:3:\"url\";s:8:\"partners\";}i:5;a:2:{s:5:\"title\";s:15:\"Palmar&egrave;s\";s:3:\"url\";s:6:\"awards\";}}}'),
-(15, 'user', 'index_mini', NULL, NULL),
-(16, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:4:{i:0;a:2:{s:5:\"title\";s:8:\"Facebook\";s:3:\"url\";s:1:\"#\";}i:1;a:2:{s:5:\"title\";s:7:\"Twitter\";s:3:\"url\";s:1:\"#\";}i:2;a:2:{s:5:\"title\";s:6:\"Origin\";s:3:\"url\";s:1:\"#\";}i:3;a:2:{s:5:\"title\";s:5:\"Steam\";s:3:\"url\";s:1:\"#\";}}}'),
-(17, 'members', 'online_mini', NULL, NULL),
-(18, 'copyright', 'index', NULL, NULL),
-(19, 'header', 'index', NULL, 'a:5:{s:5:\"align\";s:11:\"text-center\";s:5:\"title\";s:0:\"\";s:11:\"description\";s:0:\"\";s:11:\"color-title\";s:0:\"\";s:17:\"color-description\";s:7:\"#00d7b3\";}'),
-(20, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:6:{i:0;a:2:{s:5:\"title\";s:7:\"Accueil\";s:3:\"url\";s:0:\"\";}i:1;a:2:{s:5:\"title\";s:5:\"Forum\";s:3:\"url\";s:5:\"forum\";}i:2;a:2:{s:5:\"title\";s:14:\"&Eacute;quipes\";s:3:\"url\";s:5:\"teams\";}i:3;a:2:{s:5:\"title\";s:6:\"Matchs\";s:3:\"url\";s:14:\"events/matches\";}i:4;a:2:{s:5:\"title\";s:11:\"Partenaires\";s:3:\"url\";s:8:\"partners\";}i:5;a:2:{s:5:\"title\";s:15:\"Palmar&egrave;s\";s:3:\"url\";s:6:\"awards\";}}}'),
-(21, 'user', 'index_mini', NULL, NULL),
-(22, 'slider', 'index', NULL, NULL),
-(23, 'breadcrumb', 'index', NULL, NULL),
-(24, 'search', 'index', NULL, NULL),
-(25, 'module', 'index', NULL, NULL),
-(26, 'breadcrumb', 'index', NULL, NULL),
-(27, 'search', 'index', NULL, NULL),
-(28, 'module', 'index', NULL, NULL),
-(29, 'breadcrumb', 'index', NULL, NULL),
-(30, 'search', 'index', NULL, NULL),
-(31, 'module', 'index', NULL, NULL),
-(32, 'breadcrumb', 'index', NULL, NULL),
-(33, 'module', 'index', NULL, NULL),
-(34, 'forum', 'statistics', NULL, NULL),
-(35, 'forum', 'activity', NULL, NULL);
+(1, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:4:{i:0;a:2:{s:5:\"title\";s:8:\"Facebook\";s:3:\"url\";s:1:\"#\";}i:1;a:2:{s:5:\"title\";s:7:\"Twitter\";s:3:\"url\";s:1:\"#\";}i:2;a:2:{s:5:\"title\";s:6:\"Origin\";s:3:\"url\";s:1:\"#\";}i:3;a:2:{s:5:\"title\";s:5:\"Steam\";s:3:\"url\";s:1:\"#\";}}}'),
+(2, 'members', 'online_mini', NULL, NULL),
+(3, 'search', 'index', NULL, NULL),
+(4, 'header', 'index', NULL, 'a:6:{s:7:\"display\";s:4:\"logo\";s:5:\"align\";s:11:\"text-center\";s:5:\"title\";s:0:\"\";s:11:\"description\";s:0:\"\";s:11:\"color-title\";s:4:\"#fff\";s:17:\"color-description\";s:7:\"#a4b5c5\";}'),
+(5, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:6:{i:0;a:2:{s:5:\"title\";s:7:\"Accueil\";s:3:\"url\";s:0:\"\";}i:1;a:2:{s:5:\"title\";s:5:\"Forum\";s:3:\"url\";s:5:\"forum\";}i:2;a:2:{s:5:\"title\";s:14:\"&Eacute;quipes\";s:3:\"url\";s:5:\"teams\";}i:3;a:2:{s:5:\"title\";s:6:\"Matchs\";s:3:\"url\";s:14:\"events/matches\";}i:4;a:2:{s:5:\"title\";s:11:\"Partenaires\";s:3:\"url\";s:8:\"partners\";}i:5;a:2:{s:5:\"title\";s:15:\"Palmar&egrave;s\";s:3:\"url\";s:6:\"awards\";}}}'),
+(6, 'user', 'index_mini', NULL, NULL),
+(7, 'module', 'index', NULL, NULL),
+(8, 'navigation', 'vertical', NULL, 'a:1:{s:5:\"links\";a:7:{i:0;a:2:{s:5:\"title\";s:17:\"Actualit&eacute;s\";s:3:\"url\";s:4:\"news\";}i:1;a:2:{s:5:\"title\";s:7:\"Membres\";s:3:\"url\";s:7:\"members\";}i:2;a:2:{s:5:\"title\";s:11:\"Recrutement\";s:3:\"url\";s:8:\"recruits\";}i:3;a:2:{s:5:\"title\";s:6:\"Photos\";s:3:\"url\";s:7:\"gallery\";}i:4;a:2:{s:5:\"title\";s:24:\"&Eacute;v&eacute;nements\";s:3:\"url\";s:6:\"events\";}i:5;a:2:{s:5:\"title\";s:10:\"Rechercher\";s:3:\"url\";s:6:\"search\";}i:6;a:2:{s:5:\"title\";s:7:\"Contact\";s:3:\"url\";s:7:\"contact\";}}}'),
+(9, 'partners', 'column', NULL, 'a:1:{s:13:\"display_style\";s:4:\"dark\";}'),
+(10, 'user', 'index', NULL, NULL),
+(11, 'news', 'categories', NULL, NULL),
+(12, 'talks', 'index', NULL, 'a:1:{s:7:\"talk_id\";i:2;}'),
+(13, 'members', 'online', NULL, NULL),
+(14, 'copyright', 'index', NULL, NULL),
+(15, 'slider', 'index', NULL, NULL),
+(16, 'forum', 'topics', NULL, NULL),
+(17, 'news', 'index', NULL, NULL),
+(18, 'members', 'index', NULL, NULL),
+(19, 'module', 'index', NULL, NULL),
+(20, 'module', 'index', NULL, NULL),
+(21, 'module', 'index', NULL, NULL),
+(22, 'module', 'index', NULL, NULL),
+(23, 'module', 'index', NULL, NULL),
+(24, 'forum', 'statistics', NULL, NULL),
+(25, 'forum', 'activity', NULL, NULL);
 
 -- --------------------------------------------------------
 

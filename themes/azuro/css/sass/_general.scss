@@ -1,0 +1,53 @@
+body {
+	background-color: #f5f5f5;
+	color: <?php echo color2hex($this->config->azuro_text_color) ?: '#212529' ?>;
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+a {
+	color: $primary;
+
+	&:hover {
+		color: #212529;
+		text-decoration: none;
+		transition: all .15s ease-in-out;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Titillium Web", sans-serif;
+	font-weight: 700;
+}
+
+small {
+	color: $text-dark-gray;
+	font-weight: 500;
+}
+
+.blockquote {
+	font-size: 1.1rem;
+}
+
+.module {
+	+.widget {
+		margin-top: 30px;
+	}
+}
+
+.azuro-bg-primary {
+	background-color: $primary;
+}
+
+.azuro-bg-secondary {
+	background-color: $secondary;
+}
+
+.azuro-bg-dark {
+	background-color: #545b62;
+}
+
+.azuro-bg-gradient {
+	background: $gradient-color;
+}

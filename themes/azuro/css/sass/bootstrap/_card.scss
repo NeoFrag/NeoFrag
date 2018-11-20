@@ -1,0 +1,150 @@
+.card {
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+
+	> .card-header {
+		background-color: #fff;
+		border-bottom: 1px solid rgba(0,0,0,.125);
+		margin: 7px 19px 0;
+		padding: 10px 0 17px 0;
+		font-size: 18px;
+		font-weight: 700;
+		margin-bottom: 0;
+
+		:not(.btn) {
+			> i.fa {
+				color: $text-light-gray;
+				margin-right: 8px;
+			}
+		}
+	}
+
+	> .card-body {
+		> .row {
+			margin-bottom: 0;
+		}
+	}
+
+	> .card-footer {
+		background: $gradient-gray-light;
+		border-top: 1px solid rgba(0,0,0,.025);
+	}
+
+	&.card-transparent {
+		box-shadow: none;
+
+		> h6.card-header {
+			border-bottom: 0;
+			font-size: 20px;
+		}
+
+		.btn-light {
+			color: #212529;
+			background-color: #e2e6ea;
+			border-color: #dae0e5;
+
+			&:hover, &:focus {
+				color: #fff;
+				background-color: #212529;
+				border-color: #212529;
+			}
+		}
+	}
+
+	&.card-dark {
+		background-color: #3c4248;
+	}
+
+	&.card-primary {
+		background-color: $primary;
+	}
+
+	&.card-secondary {
+		background-color: $secondary;
+	}
+
+	&.card-dark, &.card-primary, &.card-secondary {
+		color: #fff;
+
+		a:not(.badge) {
+			color: #fff;
+			opacity: .75;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
+		small {
+			color: #fff;
+			opacity: .85;
+		}
+
+		.list-group-item {
+			background-color: transparent;
+
+			+.list-group-item {
+				border-color: rgba(255, 255, 255, .125);
+			}
+		}
+
+		> .card-header {
+			background-color: transparent;
+			border-color: rgba(255, 255, 255, .125);
+
+			i.fa {
+				color: rgba(255, 255, 255, .75);
+			}
+		}
+
+		> .card-footer {
+			background: rgba(0, 0, 0, .125);
+			border-color: rgba(255, 255, 255, .125);
+		}
+	}
+
+	> .roster {
+		a {
+			opacity: 1 !important;
+		}
+	}
+}
+
+.widget {
+	> .card {
+		&.card-transparent {
+			> .card-header {
+				background-color: transparent;
+				margin: 0 0 15px 0;
+				padding: 0 0 15px 0;
+			}
+
+			> .list-group-flush {
+				border: none;
+
+				> li.list-group-item {
+					background-color: transparent;
+					border: none;
+					padding: 3px 0;
+				}
+			}
+
+			> .card-footer {
+				background: none;
+				margin: 10px 0 0 0;
+				padding: .75rem 0;
+			}
+		}
+	}
+}
+
+.haut, .entete, #post-contenu, .footer {
+	.card {
+		&.card-transparent, &.card-dark, &.card-primary, &.card-secondary {
+			color: #fff;
+
+			a:hover {
+				color: #fff;
+			}
+		}
+	}
+}

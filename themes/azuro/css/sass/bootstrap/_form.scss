@@ -1,0 +1,38 @@
+form {
+	.col-form-label {
+		font-size: 14px;
+		font-weight: 700;
+		color: <?php echo color2hex($this->config->azuro_text_color) ?: '#212529' ?>;
+
+		> em {
+			color: $primary;
+		}
+	}
+
+	legend {
+		text-transform: uppercase;
+		font-size: 14px;
+		letter-spacing: 1px;
+		color: $text-light-gray;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+}
+
+.form-control:focus {
+	border-color: $primary;
+	outline: 0;
+	box-shadow: none;
+}
+
+.header, #post-contenu, .footer, .card-dark, .card-primary, .card-secondary {
+	.form-control {
+		color: #fff;
+		background-color: rgba(0, 0, 0, .1);
+		border-color: rgba(255, 255, 255, .1);
+
+		&::placeholder {
+			color: rgba(255, 255, 255, .7);
+		}
+	}
+}

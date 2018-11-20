@@ -25,5 +25,19 @@ class Alpha_0_2_1 extends Install
 						->unset('nf_maintenance_twitter');
 
 		$this->config('images_per_page', 24, 'int');
+
+		$this->db()->insert('nf_addon', [
+			'type_id' => 2,
+			'name'    => 'azuro',
+			'data'    => ''
+		]);
+
+		$this->config('nf_update_callback', serialize(['alpha_0_2_1']), 'string');
+	}
+
+	public function post()
+	{
+		$this->theme('azuro')->install();
+		$this->config('nf_default_theme', 'azuro');
 	}
 }

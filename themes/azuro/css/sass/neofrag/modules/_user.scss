@@ -1,0 +1,15 @@
+.user-cover {
+	background: 50% 50% no-repeat #2b373a;
+	height: 400px;
+}
+
+.module-user {
+	.user-col .card {
+		position: relative;
+		top: -120px;
+	}
+
+	.badge {
+		margin-top: 4px;
+	}
+}
