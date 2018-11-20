@@ -77,7 +77,7 @@ class Date extends Library
 		return $this;
 	}
 
-	public function diff($date)
+	public function diff($date = NULL)
 	{
 		if (!is_a($date, 'NF\NeoFrag\Libraries\Date'))
 		{
