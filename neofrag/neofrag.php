@@ -137,14 +137,17 @@ class NeoFrag
 
 			$args = array_slice($args, 1);
 
-			array_walk($args, function(&$a) use ($contition){
-				if (is_a($a, 'closure'))
-				{
-					$a = $a($contition);
-				}
-			});
+			if (($name = $match[1]) != 'exec')
+			{
+				array_walk($args, function(&$a) use ($contition){
+					if (is_a($a, 'closure'))
+					{
+						$a = $a($contition);
+					}
+				});
+			}
 
-			$callback = [$this, $match[1]];
+			$callback = [$this, $name];
 		}
 
 		if (preg_match('/^static_(.+)/', $name, $match))
