@@ -209,7 +209,9 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	public function __clone()
 	{
 		$this->_id   = 0;
-		$this->_data = $this->_attrs = $this->_updates = $this->_values = [];
+
+		$this->_updates = array_merge($this->_data, $this->_updates);
+		$this->_values = $this->_data = [];
 	}
 
 	public function check($value)
@@ -237,6 +239,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		if (!isset($this->_objects[$id = static::_id($id)]))
 		{
 			$model = clone $this;
+			$model->_updates = $model->_attrs = [];
 			$model->_data($values, $id);
 		}
 
@@ -370,24 +373,6 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		}
 
 		return $this;
-	}
-
-	public function clone()
-	{
-		$clone = clone $this;
-
-		$clone->_attrs   = $this->_attrs;
-		$clone->_updates = array_merge($this->_data, $this->_updates);
-
-		foreach ($clone->_schema() as $name => $field)
-		{
-			if ($name == 'id')
-			{
-				$clone->_updates[$field->i] = 0;
-			}
-		}
-
-		return $clone;
 	}
 
 	public function create()
