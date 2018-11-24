@@ -13,7 +13,7 @@ class Session extends Core
 	protected $_session;
 	protected $_data;
 
-	public function __construct()
+	public function __construct($config = [])
 	{
 		/*
 			TODO 0.2
@@ -22,7 +22,7 @@ class Session extends Core
 			 - asset / ajax
 		*/
 
-		if ($this->url->cli || is_crawler())
+		if ($this->url->cli || is_crawler() || (isset($config['avoid']) && is_a($config['avoid'], 'closure') && $config['avoid']()))
 		{
 			$this->_session = $this->model2('session');
 			$this->_data    = $this->array;
