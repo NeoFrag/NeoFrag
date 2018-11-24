@@ -310,10 +310,18 @@ class Db extends Core
 	public function index()
 	{
 		$list = [];
+		$n = 0;
 
 		foreach ($this->get(FALSE) as $row)
 		{
-			$list[array_shift($row)] = array_shift($row);
+			$id = array_shift($row);
+
+			if (!$n)
+			{
+				$n = count($row);
+			}
+
+			$list[$id] = $n == 1 ? array_shift($row) : array_values($row);
 		}
 
 		return $list;
