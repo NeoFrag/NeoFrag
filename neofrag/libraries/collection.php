@@ -169,8 +169,6 @@ class Collection extends Library
 			{
 				$select[] = $value.' AS `'.$name.'`';
 			}
-
-			$this->_db->group_by('_.id');
 		}
 
 		return call_user_func_array([$this->_db, 'select'], $select)->__invoke();
