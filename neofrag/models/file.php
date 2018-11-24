@@ -66,6 +66,12 @@ class File extends Model2
 		return FALSE;
 	}
 
+	static public function save_file($content, $file, $dir = NULL)
+	{
+		file_put_contents($filename = static::filename($dir, extension($file)), $content);
+		return static::add($filename, $file);
+	}
+
 	public function path()
 	{
 		if ($this->path)
