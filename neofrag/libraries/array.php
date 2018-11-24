@@ -205,20 +205,6 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->_extends ?: $this;
 	}
 
-	public function traversal($callback)
-	{
-		return $this->each(function(&$a) use (&$callback){
-			if (is_a($a, 'NF\NeoFrag\Libraries\Array_'))
-			{
-				$a->traversal($callback);
-			}
-			else
-			{
-				$callback($a);
-			}
-		});
-	}
-
 	public function last_key()
 	{
 		return array_last_key($this->_array);
