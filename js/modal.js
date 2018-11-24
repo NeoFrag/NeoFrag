@@ -1,116 +1,127 @@
-var modals = [];
+var modal = new function(){
+	var _modals = {};
+	var _scripts;
 
-var modal = function(url){
-	var show = function(){
-		$('.modal.show').modal('hide');
-		modals[url].modal();
-	};
+	this.exec = function(callback){
+		return function(data){
+			if (typeof data.success != 'undefined' && data.success == 'refresh'){
+				location.reload();
+				return;
+			}
 
-	if (typeof modals[url] == 'undefined'){
-		$.ajax({
-			url: url,
-			cache: false,
-			success: function(data){
-				if (typeof data.success != 'undefined' && data.success == 'refresh'){
-					location.reload();
-					return;
-				}
+			if (typeof data.redirect != 'undefined'){
+				window.location.href = data.redirect;
+				return;
+			}
 
-				if (typeof data.css != 'undefined'){
-					$('head').append(data.css);
-				}
+			if (typeof data.css != 'undefined'){
+				$('head').append(data.css);
+			}
 
-				if (typeof data.js != 'undefined'){
-					var scripts = [];
+			var promises = [];
+
+			if (typeof data.js != 'undefined'){
+				if (typeof _scripts == 'undefined'){
+					_scripts = [];
 
 					$('script').each(function(){
 						var src = $(this).attr('src');
 
 						if (typeof src != 'undefined'){
-							scripts.push(src);
-						}
-					});
-
-					$.each(data.js, function(_, js){
-						if ($.inArray(js, scripts) == -1){
-							$.getScript(js);
+							_scripts.push(src);
 						}
 					});
 				}
 
-				var $modal = $(data.content).appendTo('body').closest('.modal');
+				$.each(data.js, function(_, js){
+					if ($.inArray(js, _scripts) == -1){
+						var d = $.Deferred();
 
-				$modal.on('submit', 'form', function(e){
-					e.preventDefault();
+						$.when.apply($, promises).then(function(){
+							$.getScript(js).then(function(){
+								_scripts.push(js);
+								d.resolve();
+							});
+						});
 
-					var $submit = $modal.find('[type="submit"]');
+						promises.push(d);
+					}
+				});
+			}
 
-					if ($submit.hasClass('disabled'))
-					{
-						return;
+			if (typeof data.notify != 'undefined'){
+				$.each(data.notify, function(_, n){
+					notify(n.message, n.type);
+				});
+			}
+
+			$.when.apply($, promises).then(function(){
+				callback(data);
+			});
+		};
+	};
+
+	this.load = function(url){
+		var show = function(){
+			$('.modal.show').modal('hide');
+			_modals[url].modal();
+		};
+
+		if (typeof _modals[url] == 'undefined'){
+			$.ajax({
+				url: url,
+				cache: false,
+				success: this.exec(function(data){
+					var $modal = $(data.content).appendTo('body').closest('.modal');
+
+					var $form = $modal.find('form');
+
+					if (typeof form != 'undefined' && $form.length){
+						$modal.on('submit', 'form', function(e){
+							e.preventDefault();
+
+							var $submit = $modal.find('[type="submit"]');
+
+							if ($submit.hasClass('disabled'))
+							{
+								return;
+							}
+
+							$submit.addClass('disabled');
+
+							form.submit($form).then(function(data){
+								$submit.removeClass('disabled');
+
+								if (typeof data.modal != 'undefined' && data.modal == 'dispose'){
+									//TODO modal('dispose') doesn't work?
+									$modal.modal('hide').on('hidden.bs.modal', function(){
+										$modal.remove();
+										delete _modals[url];
+									});
+								}
+							});
+						});
+
+						form.load($form);
 					}
 
-					$submit.addClass('disabled');
+					_modals[url] = $modal;
 
-					var form = $modal.find('form')[0];
+					show();
+				})
+			});
+		}
+		else {
+			show();
+		}
+	};
 
-					$.ajax({
-						url: form.action,
-						type: form.method,
-						data: new FormData(form),
-						processData: false,
-						contentType: false,
-						success: function(data){
-							if (typeof data.success != 'undefined' && data.success == 'refresh'){
-								location.reload();
-								return;
-							}
-
-							if (typeof data.redirect != 'undefined'){
-								window.location.href = data.redirect;
-								return;
-							}
-
-							$submit.removeClass('disabled');
-
-							if (typeof data.form != 'undefined'){
-								$modal.find('.modal-body').html(data.form);
-								$('body').trigger('nf.load');
-							}
-
-							if (typeof data.modal != 'undefined' && data.modal == 'dispose'){
-								//TODO modal('dispose') doesn't work?
-								$modal.modal('hide').on('hidden.bs.modal', function(){
-									$modal.remove();
-									delete modals[url];
-								});
-							}
-
-							if (typeof data.notify != 'undefined'){
-								$.each(data.notify, function(_, n){
-									notify(n.message, n.type);
-								});
-							}
-						}
-					});
-				});
-
-				$('body').trigger('nf.load');
-
-				modals[url] = $modal;
-
-				show();
-			}
-		});
-	}
-	else {
-		show();
-	}
+	return this;
 };
 
 $(function(){
 	$(document).on('click', '[data-modal-ajax]', function(e){
-		modal($(this).data('modal-ajax'));
+		modal.load($(this).data('modal-ajax'));
 		e.preventDefault();
 	});
 });

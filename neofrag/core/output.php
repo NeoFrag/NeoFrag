@@ -436,9 +436,26 @@ class Output extends Core
 		return '';
 	}
 
-	public function json($json = NULL)
+	public function json($data = NULL)
 	{
-		$json = parent::json($json);
+		if ($js_load = $this->js_load())
+		{
+			$data['script'] = $js_load;
+		}
+
+		if ($css = $this->css())
+		{
+			$data['css'] = $css;
+		}
+
+		if ($js = $this->data->get('js'))
+		{
+			$data['js'] = array_values(array_unique(array_map(function($a){
+				return $a->path();
+			}, $js)));
+		}
+
+		$json = parent::json($data);
 		$this->trigger('output', $json);
 	}
 

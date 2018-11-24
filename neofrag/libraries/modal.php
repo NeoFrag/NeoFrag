@@ -69,6 +69,8 @@ class Modal extends Library
 
 		if ($this->_callback)
 		{
+			$this->js('form');
+
 			$content = $this->html('form')
 							->attr('action', url($this->url->request))
 							->attr('method', 'post')
@@ -83,32 +85,9 @@ class Modal extends Library
 
 		if ($this->url->ajax())
 		{
-			if ($js_load = $this->output->js_load())
-			{
-				$content .= '<script type="text/javascript">
-								$(function(){
-									'.$js_load.'
-								});
-							</script>';
-			}
-
-			$output = [
+			return $this->output->json([
 				'content' => $content
-			];
-
-			if ($css = $this->output->css())
-			{
-				$output['css'] = $css;
-			}
-
-			if ($js = $this->output->data->get('js'))
-			{
-				$output['js'] = array_unique(array_map(function($a){
-					return $a->path();
-				}, $js));
-			}
-
-			return (string)$this->json($output);
+			]);
 		}
 		else
 		{
@@ -213,7 +192,7 @@ class Modal extends Library
 	public function ajax($url)
 	{
 		$this	->js('modal')
-				->js_load('modal(\''.url($url).'\');');
+				->js_load('modal.load(\''.url($url).'\');');
 
 		return $this;
 	}
