@@ -209,33 +209,18 @@ abstract class Labelable extends Library
 
 	public function disabled()
 	{
-		if ($this->_read_only || $this->_required)
-		{
-			trigger_error(get_class().' can only have one state among disabled, readonly and required at a time', E_USER_ERROR);
-		}
-
 		$this->_disabled = TRUE;
 		return $this;
 	}
 
 	public function read_only()
 	{
-		if ($this->_disabled || $this->_required)
-		{
-			trigger_error(get_class().' can only have one state among disabled, readonly and required at a time', E_USER_ERROR);
-		}
-
 		$this->_read_only = TRUE;
 		return $this;
 	}
 
 	public function required()
 	{
-		if ($this->_read_only || $this->_disabled)
-		{
-			trigger_error(get_class().' can only have one state among disabled, readonly and required at a time', E_USER_ERROR);
-		}
-
 		$this->_required = TRUE;
 		return $this;
 	}

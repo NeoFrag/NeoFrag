@@ -18,6 +18,7 @@ class Form2 extends Library
 	protected $_values  = [];
 	protected $_errors  = [];
 	protected $_success = [];
+	protected $_read_only;
 	protected $_display;
 	protected $_template;
 	protected $_token;
@@ -67,7 +68,7 @@ class Form2 extends Library
 			}
 		}
 
-		if (isset($post['_']) && $post['_'] == $this->token())
+		if (!$this->_read_only && isset($post['_']) && $post['_'] == $this->token())
 		{
 			$success = TRUE;
 			$data    = [];
@@ -266,6 +267,12 @@ class Form2 extends Library
 		return $this;
 	}
 
+	public function read_only()
+	{
+		$this->_read_only = TRUE;
+		return $this;
+	}
+
 	public function panel()
 	{
 		$this->_template = function($fields){
@@ -312,7 +319,7 @@ class Form2 extends Library
 	{
 		$buttons = $this->_buttons;
 
-		if (!$this->_has_submit())
+		if (!$this->_read_only && !$this->_has_submit())
 		{
 			$buttons[] = $this->button_submit();
 		}
@@ -378,6 +385,11 @@ class Form2 extends Library
 
 		foreach ($rules as $rule)
 		{
+			if ($this->_read_only && (method_exists($rule, $method = 'disabled') || method_exists($rule, $method = 'read_only')))
+			{
+				$rule->$method();
+			}
+
 			if (method_exists($rule, 'size') && $rule->size())
 			{
 				$last = end($fields);
