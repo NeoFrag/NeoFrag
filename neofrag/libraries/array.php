@@ -148,9 +148,18 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->_extends ?: $this;
 	}
 
-	public function sort($callback)
+	public function sort($sort)
 	{
-		usort($this->_array, $callback);
+		if (func_num_args() == 2)
+		{
+			list($callback, $user_callback) = func_get_args();
+
+			$sort = function($a, $b) use ($callback, $user_callback){
+				return $callback($user_callback($a), $user_callback($b));
+			};
+		}
+
+		usort($this->_array, $sort);
 		return $this->_extends ?: $this;
 	}
 
