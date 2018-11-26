@@ -213,7 +213,14 @@ class Url extends Core
 			$domain = ($this->https ? 'https' : 'http').':'.($domain ?: '//'.$this->host);
 		}
 
-		return str_replace('/#', '#', $domain.$this->base.$url.$args);
+		$url = str_replace('/#', '#', $domain.$this->base.$url.$args);
+
+		if ($this->_external && is_a($this->_external, 'closure'))
+		{
+			$url = call_user_func($this->_external, $url);
+		}
+
+		return $url;
 	}
 
 	public function ajax()
