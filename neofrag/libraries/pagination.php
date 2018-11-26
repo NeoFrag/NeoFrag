@@ -114,7 +114,7 @@ class Pagination extends Library
 		}
 		else if ($count === NULL)
 		{
-			$count = count($this->_data);
+			$count = $this->_data ? count($this->_data) : 0;
 		}
 
 		return $count;
