@@ -43,7 +43,7 @@ abstract class Library extends NeoFrag
 
 			if (!$id)
 			{
-				$id = md5(implode([get_class($this->__caller), $this->output->data->get('module', 'controller'), $this->output->data->get('module', 'method'), $class, $_classes[$class]++]));
+				$id = md5(implode([$this->url->request, get_class($this->__caller), $this->output->data->get('module', 'controller'), $this->output->data->get('module', 'method'), $class, $_classes[$class]++]));
 			}
 
 			$_id[$hash] = $id;
