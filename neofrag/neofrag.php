@@ -142,7 +142,7 @@ class NeoFrag
 				array_walk($args, function(&$a) use ($contition){
 					if (is_a($a, 'closure'))
 					{
-						$a = $a($contition);
+						$a = $a($contition, $this);
 					}
 				});
 			}
