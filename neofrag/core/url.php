@@ -290,4 +290,9 @@ class Url extends Core
 
 		$this->trigger('output', $output);
 	}
+
+	public function __toString()
+	{
+		return ($this->https ? 'https' : 'http').'://'.$this->host;
+	}
 }
