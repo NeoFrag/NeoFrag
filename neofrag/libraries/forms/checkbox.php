@@ -14,6 +14,16 @@ class Checkbox extends Radio
 	protected function _value(&$input, $value)
 	{
 		$input	->append_attr('name', '[]', '')
-				->attr_if(in_array($value, $this->_value), 'checked');
+				->attr_if(in_array($value, $this->_value ?: []), 'checked');
+	}
+
+	public function value($value)
+	{
+		if (is_bool($value) && count($this->_data) == 1 && $value)
+		{
+			$value = [array_keys($this->_data)[0]];
+		}
+
+		return parent::value($value);
 	}
 }

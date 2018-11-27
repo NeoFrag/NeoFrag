@@ -53,6 +53,6 @@ class Radio extends Multiple
 
 	protected function _value(&$input, $value)
 	{
-		$input->attr_if($this->_value == $value, 'checked');
+		$input->attr_if((string)$this->_value === (string)$value, 'checked');
 	}
 }
