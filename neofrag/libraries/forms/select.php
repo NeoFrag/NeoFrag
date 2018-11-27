@@ -21,7 +21,7 @@ class Select extends Multiple
 		$this->_template[] = function(&$input){
 			$encode = function($data){
 				array_walk($data, function(&$value, $key){
-					$value = array_merge([$key], (array)$value);
+					$value = array_merge([$key], array_map('utf8_html_entity_decode', (array)$value));
 				});
 
 				return utf8_htmlentities(json_encode(array_values($data)));
