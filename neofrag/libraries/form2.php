@@ -131,6 +131,13 @@ class Form2 extends Library
 
 	public function form($form, $values = [])
 	{
+		$this->_values = $values;
+
+		if (func_num_args() == 1 && ($model = $this->model2($form)))
+		{
+			$this->_values = $model;
+		}
+
 		$found = FALSE;
 
 		foreach (explode(' ', $form) as $form)
@@ -150,28 +157,18 @@ class Form2 extends Library
 			}
 		}
 
-		if ($found)
+		if ($found && is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
 		{
-			$this->_values = $values;
-
-			if (func_num_args() == 1 && ($model = $this->model2($form)))
+			foreach ($this->_rules as $rule)
 			{
-				$this->_values = $model;
-			}
-
-			if (is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
-			{
-				foreach ($this->_rules as $rule)
+				if (method_exists($rule, 'value'))
 				{
-					if (method_exists($rule, 'value'))
+					if (is_a($value = $this->_values->{$rule->name()}, 'NF\NeoFrag\Loadables\Model2') && !is_a($value, 'NF\NeoFrag\Models\I18n'))
 					{
-						if (is_a($value = $this->_values->{$rule->name()}, 'NF\NeoFrag\Loadables\Model2') && !is_a($value, 'NF\NeoFrag\Models\I18n'))
-						{
-							$value = $value->id;
-						}
-
-						$rule->value($value);
+						$value = $value->id;
 					}
+
+					$rule->value($value);
 				}
 			}
 		}
@@ -179,11 +176,11 @@ class Form2 extends Library
 		return $this;
 	}
 
-	public function model($rule)
+	public function model($rule = NULL)
 	{
 		if (is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
 		{
-			return $this->_values->{$rule->name()};
+			return $rule ? $this->_values->{$rule->name()} : $this->_values;
 		}
 	}
 
@@ -261,12 +258,15 @@ class Form2 extends Library
 	public function panel()
 	{
 		$this->_template = function($fields){
-			return 	$this	->html()
-							->attr('class', 'card-body')
-							->content($fields).
-					$this	->html()
-							->attr('class', 'card-footer text-right')
-							->content($this->_buttons());
+			return $this->array()
+						->append($this	->html()
+										->attr('class', 'card-body')
+										->content($fields)
+						)
+						->append_if($buttons = $this->_buttons(), $this	->html()
+																		->attr('class', 'card-footer text-right')
+																		->content($buttons)
+						);
 		};
 
 		return parent	::panel()
