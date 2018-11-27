@@ -46,6 +46,32 @@ abstract class Controller extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function is_authorized($action)
 	{
+		static $permissions = [];
+
+		if (!isset($permissions[$module = $this->__caller->info()->name][$action]))
+		{
+			if (($all_permissions = $this->__caller->get_permissions('default')))
+			{
+				$found = FALSE;
+
+				foreach ($all_permissions['access'] as $a)
+				{
+					if (array_key_exists($action, $a['access']))
+					{
+						$found = TRUE;
+						break;
+					}
+				}
+
+				if (!$found)
+				{
+					trigger_error('Undeclared permission: '.$module.'::'.$action, E_USER_WARNING);
+				}
+			}
+
+			$permissions[$module][$action] = TRUE;
+		}
+
 		return $this->access($this->__caller->info()->name, $action);
 	}
 }

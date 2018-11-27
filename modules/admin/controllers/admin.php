@@ -12,6 +12,11 @@ class Admin extends Controller_Module
 {
 	public function index()
 	{
+		if (!$this->user->admin)
+		{
+			return '';
+		}
+
 		$users = $this
 			->title($this->lang('Tableau de bord'))
 			->js('jquery.knob')

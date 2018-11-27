@@ -56,8 +56,7 @@ class Access extends Core
 		}
 		else if (!$access)
 		{
-			//TODO return FALSE;
-			return $action == 'module_access';
+			return FALSE;
 		}
 
 		$authorized = array_fill(0, 2, 0);
@@ -205,7 +204,7 @@ class Access extends Core
 			{
 				$allowed = TRUE;
 			}
-			else if (isset($this->groups($this->user->id)[1]))
+			else
 			{
 				foreach ($this->model2('addon')->get('module') as $module)
 				{

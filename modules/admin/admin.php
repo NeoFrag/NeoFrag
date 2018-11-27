@@ -22,4 +22,9 @@ class Admin extends Module
 			'admin'       => FALSE
 		];
 	}
+
+	public function is_authorized()
+	{
+		return $this->access->admin();
+	}
 }

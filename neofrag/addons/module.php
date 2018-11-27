@@ -152,13 +152,13 @@ abstract class Module extends Addon
 				{
 					$allowed[$hash] = TRUE;
 				}
-				else if (isset($this->groups($this->user->id)[1]) && ($all_permissions = $this->get_permissions('default')))
+				else if (($all_permissions = $this->get_permissions('default')))
 				{
 					foreach ($all_permissions['access'] as $a)
 					{
 						foreach ($a['access'] as $action => $access)
 						{
-							if (!empty($access['admin']) && $this->access($this->name, $action))
+							if (!empty($access['admin']) && $this->access($this->info()->name, $action))
 							{
 								$allowed[$hash] = TRUE;
 								break 2;
