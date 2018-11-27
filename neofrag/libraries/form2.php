@@ -17,7 +17,7 @@ class Form2 extends Library
 	protected $_rules   = [];
 	protected $_values  = [];
 	protected $_errors  = [];
-	protected $_success;
+	protected $_success = [];
 	protected $_display;
 	protected $_template;
 	protected $_token;
@@ -43,26 +43,34 @@ class Form2 extends Library
 	{
 		$post = post();
 
-		if ($this->_success && isset($post['_']) && $post['_'] == $this->token())
+		foreach ($post as $key => &$value)
+		{
+			if (is_array($value))
+			{
+				array_walk_recursive($value, function(&$v){
+					$v = utf8_htmlentities(trim($v));
+				});
+			}
+			else if ($value !== NULL)
+			{
+				$value = utf8_htmlentities(trim($value));
+			}
+		}
+
+		unset($value);
+
+		foreach ($this->_rules as $rule)
+		{
+			if (method_exists($rule, 'bind') && ($callback = $rule->bind()))
+			{
+				$callback(array_key_exists($rule->name(), $post) ? $post[$rule->name()] : $this->_values->{$rule->name()}, $rule);
+			}
+		}
+
+		if (isset($post['_']) && $post['_'] == $this->token())
 		{
 			$success = TRUE;
 			$data    = [];
-
-			foreach ($post as $key => &$value)
-			{
-				if (is_array($value))
-				{
-					array_walk_recursive($value, function(&$v){
-						$v = utf8_htmlentities(trim($v));
-					});
-				}
-				else if ($value !== NULL)
-				{
-					$value = utf8_htmlentities(trim($value));
-				}
-			}
-
-			unset($value);
 
 			foreach ($this->_rules as $rule)
 			{
@@ -84,7 +92,10 @@ class Form2 extends Library
 					$data = $this->_values;
 				}
 
-				call_user_func_array($this->_success, [$data, $this]);
+				foreach ($this->_success as $callback)
+				{
+					call_user_func_array($callback, [$data, $this]);
+				}
 			}
 
 			return TRUE;
@@ -245,7 +256,7 @@ class Form2 extends Library
 
 	public function success($success)
 	{
-		$this->_success = $success;
+		array_unshift($this->_success, $success);
 		return $this;
 	}
 
@@ -363,20 +374,6 @@ class Form2 extends Library
 								->content($this->label($error, 'fa-exclamation-triangle'));
 		}
 
-		if ($check && $this->url->ajax())
-		{
-			$this->output->json([
-				'form' => implode(array_merge($errors, $rules))
-			]);
-		}
-
-		if (!$this->_template)
-		{
-			$this->_template = function($fields){
-				return implode($fields);
-			};
-		}
-
 		$fields = [];
 
 		foreach ($rules as $rule)
@@ -396,6 +393,22 @@ class Form2 extends Library
 			{
 				$fields[] = $rule;
 			}
+		}
+
+		$this->js('form');
+
+		if ($this->url->ajax() && $check)
+		{
+			$this->output->json([
+				'form' => implode(array_merge($errors, $fields))
+			]);
+		}
+
+		if (!$this->_template)
+		{
+			$this->_template = function($fields){
+				return implode($fields);
+			};
 		}
 
 		return $this->html('form')

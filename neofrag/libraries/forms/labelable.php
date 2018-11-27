@@ -24,6 +24,7 @@ abstract class Labelable extends Library
 	protected $_template = [];
 	protected $_check  = [];
 	protected $_errors = [];
+	protected $_bind;
 
 	public function __invoke($name)
 	{
@@ -32,6 +33,14 @@ abstract class Labelable extends Library
 		$this->_template[] = function(&$input){
 			$input	->attr_if($id = $this->id(), 'id', $id)
 					->attr('name', $this->_name);
+
+			if ($this->_bind)
+			{
+				$this	->js('form')
+						->js('form_bind');
+
+				$input->attr('data-bind');
+			}
 		};
 
 		$this->_check[] = function($post, &$data){
@@ -129,6 +138,20 @@ abstract class Labelable extends Library
 
 			return empty($this->_errors);
 		}
+	}
+
+	public function bind($callback = NULL)
+	{
+		if (func_num_args())
+		{
+			$this->_bind = $callback;
+		}
+		else
+		{
+			return $this->_bind;
+		}
+
+		return $this;
 	}
 
 	public function name()

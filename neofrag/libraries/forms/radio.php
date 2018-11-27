@@ -33,6 +33,14 @@ class Radio extends Multiple
 
 				$this->_value($input, $value);
 
+				if ($this->_bind)
+				{
+					$this	->js('form')
+							->js('form_bind');
+
+					$input->attr('data-bind');
+				}
+
 				$output[] = '<div class="form-check'.($this->_inline || ($this->_form->display() & \NF\NeoFrag\Libraries\Form2::FORM_INLINE) ? ' form-check-inline' : '').'">
 								'.$input.'
 								<label class="form-check-label" for="'.$id.'">'.$label.'</label>

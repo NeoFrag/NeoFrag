@@ -46,7 +46,8 @@ class Select extends Multiple
 			$this	->css('selectize')
 					->css('selectize.bootstrap3')
 					->js('selectize.min')
-					->js('select');
+					->js('form')
+					->js('form_select');
 
 			$this->_placeholder($input, 'data-placeholder');
 		};
