@@ -18,9 +18,9 @@ class Text extends Labelable
 			$input = parent	::html('input', TRUE)
 							->attr('class', 'form-control')
 							->attr('type',  $this->_type)
-							->attr_if($this->_value,     'value', $this->_value)
-							->attr_if($this->_disabled,  'disabled')
-							->attr_if($this->_read_only, 'readonly')
+							->attr_if($this->_value !== '', 'value', $this->_value)
+							->attr_if($this->_disabled,     'disabled')
+							->attr_if($this->_read_only,    'readonly')
 							->attr_if(is_a($this, 'NF\NeoFrag\Libraries\Forms\Password'), 'autocomplete');
 
 			$this->_placeholder($input);
