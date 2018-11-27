@@ -141,6 +141,13 @@ class Form2 extends Library
 		return $this;
 	}
 
+	public function after($after, $rule)
+	{
+		$i = 0;
+		while (current($this->_rules) != $after && next($this->_rules) && ++$i);
+		array_splice($this->_rules, $i + 1, 0, [$rule]);
+	}
+
 	public function form($form, $values = [])
 	{
 		$this->_values = $values;
