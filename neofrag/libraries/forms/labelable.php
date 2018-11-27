@@ -30,9 +30,7 @@ abstract class Labelable extends Library
 		$this->_name = $name;
 
 		$this->_template[] = function(&$input){
-			$input	->attr_if($this->_form, 'id', function(){
-						return $this->_form->token().'_'.$this->_name;
-					})
+			$input	->attr_if($id = $this->id(), 'id', $id)
 					->attr('name', $this->_name);
 		};
 
@@ -94,6 +92,14 @@ abstract class Labelable extends Library
 										})
 						)
 						->__toString();
+	}
+
+	public function id()
+	{
+		if ($this->_form)
+		{
+			return $this->_form->token().'_'.$this->_name;
+		}
 	}
 
 	public function check($post, &$data = [])
