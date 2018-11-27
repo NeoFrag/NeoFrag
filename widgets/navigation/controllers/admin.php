@@ -14,4 +14,9 @@ class Admin extends Controller_Widget
 	{
 		return $this->view('admin', $settings);
 	}
+
+	public function vertical($settings = [])
+	{
+		return $this->view('admin', $settings);
+	}
 }
