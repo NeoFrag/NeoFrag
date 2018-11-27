@@ -66,7 +66,7 @@ class Select extends Multiple
 
 		if ($this->_create && ($model = $this->_form->model($this)) && ($button = $model->route()->button_create()))
 		{
-			$label .= $button->style('pull-right');
+			$label .= $button;
 		}
 
 		return $label;
