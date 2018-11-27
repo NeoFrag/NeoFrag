@@ -35,7 +35,6 @@ class Date extends Text
 				}
 			}
 
-			var_dump($data[$this->_name]);
 			$this->value($data[$this->_name]);
 		};
 
@@ -48,6 +47,11 @@ class Date extends Text
 
 			$input->append_attr('class', $this->_datetime_type);
 		};
+
+		if (is_a($this->_value, 'NF\NeoFrag\Libraries\Date'))
+		{
+			$this->_value = $this->_value->short_date();
+		}
 
 		return $this->addon($this->_datetime_icon)
 					->size($this->_datetime_size);

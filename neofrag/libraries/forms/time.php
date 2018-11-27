@@ -15,7 +15,6 @@ class Time extends Date
 
 	public function value($value)
 	{
-		$this->_value = $value !== '' && $value !== '00:00:00' ? timetostr($this->lang('%H:%M'), $value) : '';
-		return $this;
+		return parent::value(is_a($value, 'NF\NeoFrag\Libraries\Date') ? $value->short_time() : $value);
 	}
 }
