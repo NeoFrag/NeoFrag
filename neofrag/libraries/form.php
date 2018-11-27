@@ -758,7 +758,6 @@ class Form extends Library
 							->js('bootstrap-iconpicker-iconset-fontawesome-4.7.0.min')
 							->js('bootstrap-iconpicker.min')
 							->js_load('	$(".btn.iconpicker").iconpicker({
-											arrowClass: "btn-danger",
 											arrowPrevIconClass: "fa fa-caret-left",
 											arrowNextIconClass: "fa fa-caret-right",
 											cols: 10,
