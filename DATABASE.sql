@@ -1,4 +1,4 @@
--- NeoFrag Alpha 0.2.0.1
+-- NeoFrag Alpha 0.2.1
 -- https://neofr.ag
 --
 -- Host: neofrag.localhost
@@ -1250,7 +1250,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_copyright', '', '', 'Copyright {copyright} {year} {name}, tous droits r&eacute;serv&eacute;s &lt;div class=&quot;pull-right&quot;&gt;Propuls&eacute; par {neofrag}&lt;/div&gt;', 'string'),
 ('nf_default_page', '', '', 'news', 'string'),
 ('nf_default_theme', '', '', 'azuro', 'string'),
-('nf_description', '', '', 'ALPHA 0.2.0.1', 'string'),
+('nf_description', '', '', 'ALPHA 0.2.1', 'string'),
 ('nf_email_password', '', '', '', 'string'),
 ('nf_email_port', '', '', '25', 'int'),
 ('nf_email_secure', '', '', '', 'string'),
@@ -1270,7 +1270,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_maintenance_text_color', '', '', '', 'string'),
 ('nf_maintenance_title', '', '', '', 'string'),
 ('nf_monitoring_last_check', '', '', '0', 'int'),
-('nf_name', '', '', 'NeoFrag CMS', 'string'),
+('nf_name', '', '', 'NeoFrag', 'string'),
 ('nf_registration_charte', '', '', '', 'string'),
 ('nf_registration_status', '', '', '0', 'string'),
 ('nf_robots_txt', '', '', 'User-agent: *\r\nDisallow:', 'string'),

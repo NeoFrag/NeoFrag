@@ -35,7 +35,7 @@ NeoFrag nécessite un hébergement web Apache / PHP / MySQL pour fonctionner.
 - Créer une base de données MySQL et importer le fichier DATABASE.sql
 - Éditer le fichier de configuration de la base de données ./config/db.php
 - Connectez-vous sur votre site web avec comme identifiant: admin et mot de passe: admin123
-- Profitez de [NeoFrag](https://neofr.ag) Alpha 0.2.0.1 !
+- Profitez de [NeoFrag](https://neofr.ag) Alpha 0.2.1 !
 
 ## :uk: Installation
 
@@ -43,7 +43,7 @@ NeoFrag nécessite un hébergement web Apache / PHP / MySQL pour fonctionner.
 - Create a MySQL database and import DATABASE.sql
 - Edit database config file in ./config/db.php
 - Connect on your website and login with username: admin and password: admin123
-- Let's enjoy [NeoFrag](https://neofr.ag) Alpha 0.2.0.1!
+- Let's enjoy [NeoFrag](https://neofr.ag) Alpha 0.2.1!
 
 ## Contribuer
 
@@ -52,4 +52,4 @@ Si ce projet vous intéresse et que vous souhaitez nous aider, rendez-nous visit
 - Signalez-nous les bugs que vous remarquez sur [notre forum](https://neofr.ag) ou via [Github](https://github.com/NeoFragCMS/neofrag-cms/issues).
 - Suivez [@NeoFragCMS](https://twitter.com/NeoFragCMS) sur Twitter
 
-Copyright © 2018 Michaël BILCOT
+Copyright © 2018 Michaël BILCOT & Jérémy VALENTIN
