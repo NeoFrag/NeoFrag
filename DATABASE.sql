@@ -9,6 +9,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET TIME_ZONE = "+02:00";
+SET NAMES utf8;
 
 --
 -- Database: `neofrag`

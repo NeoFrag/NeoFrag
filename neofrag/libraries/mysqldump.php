@@ -45,7 +45,8 @@ class Mysqldump extends Library
 						'-- PHP Version: '.PHP_VERSION.PHP_EOL.PHP_EOL.
 						'SET FOREIGN_KEY_CHECKS = 0;'.PHP_EOL.
 						'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";'.PHP_EOL.
-						'SET TIME_ZONE = "'.$this->db->get_info('time_zone').'";'.PHP_EOL.PHP_EOL.
+						'SET TIME_ZONE = "'.$this->db->get_info('time_zone').'";'.PHP_EOL.
+						'SET NAMES utf8;'.PHP_EOL.PHP_EOL.
 						'--'.PHP_EOL.
 						'-- Database: '.self::_delimite($this->db->get_info('name')).PHP_EOL.
 						'--'.PHP_EOL);
@@ -100,7 +101,7 @@ class Mysqldump extends Library
 					}
 					else
 					{
-						$values[] = '\''.$this->db->escape_string($value).'\'';
+						$values[] = '\''.static::_utf8($this->db->escape_string($value)).'\'';
 					}
 				}
 
@@ -137,5 +138,15 @@ class Mysqldump extends Library
 	static private function _delimite($s)
 	{
 		return '`'.str_replace('`', '``', $s).'`';
+	}
+
+	static private function _utf8($s)
+	{
+		if (($encoding = mb_detect_encoding($s, 'auto', TRUE)) != 'UTF-8')
+		{
+			$s = mb_convert_encoding($s, 'UTF-8', $encoding ?: 'Windows-1252');
+		}
+
+		return $s;
 	}
 }
