@@ -21,11 +21,19 @@ class Access extends Core
 	{
 		$this->_access = [];
 
-		foreach ($this->db	->select('ad.entity', 'ad.type', 'ad.authorized', 'a.action', 'a.id', 'a.module')
-							->from('nf_access a')
-							->join('nf_access_details ad', 'a.access_id = ad.access_id')
-							->order_by('type <> "user"', 'authorized DESC')
-							->get() as $access)
+		$all_access = $this->db()	->select('ad.entity', 'ad.type', 'ad.authorized', 'a.action', 'a.id', 'a.module')
+									->from('nf_access a')
+									->join('nf_access_details ad', 'a.access_id = ad.access_id')
+									->order_by('type <> "user"', 'authorized DESC')
+									->get();
+
+		if ($all_access === NULL)
+		{
+			header('HTTP/1.0 503 Service Unavailable');
+			exit('Database is empty');
+		}
+
+		foreach ($all_access as $access)
 		{
 			if ($access['entity'])
 			{
