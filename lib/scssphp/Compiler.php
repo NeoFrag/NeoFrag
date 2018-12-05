@@ -170,6 +170,22 @@ class Compiler
     }
 
     /**
+     * Compile scss from file path
+     *
+     * @api
+     *
+     * @param string $code
+     * @param string $path
+     *
+     * @return string
+     */
+    public function compile_file($file, $path = null)
+    {
+		$code = $this->preprocessing ? call_user_func($this->preprocessing, $file) : file_get_contents($file);
+		return $this->compile($code, $path);
+	}
+
+    /**
      * Compile scss
      *
      * @api
@@ -196,7 +212,7 @@ class Compiler
         $this->stderr         = fopen('php://stderr', 'w');
 
         $this->parser = $this->parserFactory($path);
-        $tree = $this->parser->parse($code, $this->preprocessing);
+        $tree = $this->parser->parse($code);
         $this->parser = null;
 
         $this->formatter = new $this->formatter();
@@ -3457,9 +3473,9 @@ class Compiler
 
             $tree = $this->importCache[$realPath];
         } else {
-            $code   = file_get_contents($path);
+            $code   = $this->preprocessing ? call_user_func($this->preprocessing, $path) : file_get_contents($path);
             $parser = $this->parserFactory($path);
-            $tree   = $parser->parse($code, $this->preprocessing);
+            $tree   = $parser->parse($code);
 
             $this->importCache[$realPath] = $tree;
         }

@@ -23,47 +23,6 @@ function icon($icon)
 	return '<i class="icon">'.$icon.'</i>';
 }
 
-function asset($file_path, $file_name = '')
-{
-	if (check_file($file_path))
-	{
-		$content = file_get_contents($file_path);
-		$date    = filemtime($file_path);
-
-		if (in_array($ext = extension($file_path), ['css', 'js']))
-		{
-			$content = NeoFrag()->view->content($content);
-		}
-
-		ob_end_clean();
-
-		header('Last-Modified: '.date('r', $date));
-		header('Etag: '.($etag = md5($content)));
-		header('Content-Type: '.get_mime_by_extension($ext));
-
-		if ($ext == 'zip')
-		{
-			header('Content-Disposition: attachment; filename="'.basename($file_name ?: $file_path).'"');
-		}
-
-		if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $date) || (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag))
-		{
-			header('HTTP/1.1 304 Not Modified');
-			exit;
-		}
-		else
-		{
-			header('HTTP/1.1 200 OK');
-			header('Content-Length: '.strlen($content));
-			exit($content);
-		}
-	}
-	else if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
-	{
-		NeoFrag()->debug('INFO', 'ASSET', 'Not exists on disk');
-	}
-}
-
 function path($file, $file_type = '', $caller = NULL)
 {
 	if (is_valid_url($file))

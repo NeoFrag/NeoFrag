@@ -45,8 +45,10 @@ class Api extends Controller_Module
 					$scss = new \Leafo\ScssPhp\Compiler();
 					$scss->setFormatter('Leafo\ScssPhp\Formatter\Crunched');
 					$scss->setSourceMap(\Leafo\ScssPhp\Compiler::SOURCE_MAP_FILE);
-					$scss->preprocessingFunction(function($buffer){
-						return $this->view->content($buffer);
+					$scss->preprocessingFunction(function($file){
+						ob_start();
+						include $file;
+						return ob_get_clean();
 					});
 					$scss->setImportPaths($path.'/sass');
 					$scss->setSourceMapOptions([
@@ -58,7 +60,7 @@ class Api extends Controller_Module
 					try
 					{
 						$md5 = md5_file($css);
-						file_put_contents($css, @$scss->compile(file_get_contents($file)));
+						file_put_contents($css, @$scss->compile_file($file));
 
 						if ($md5 != md5_file($css))
 						{

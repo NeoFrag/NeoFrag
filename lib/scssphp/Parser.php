@@ -141,12 +141,8 @@ class Parser
      *
      * @return \Leafo\ScssPhp\Block
      */
-    public function parse($buffer, $preprocessing = NULL)
+    public function parse($buffer)
     {
-        if ($preprocessing && is_callable($preprocessing)) {
-            $buffer = $preprocessing($buffer);
-        }
-
         // strip BOM (byte order marker)
         if (substr($buffer, 0, 3) === "\xef\xbb\xbf") {
             $buffer = substr($buffer, 3);

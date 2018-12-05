@@ -29,11 +29,6 @@ class Debug extends Core
 		set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext){
 			if (error_reporting() !== 0)
 			{
-				if (in_string(' : eval()\'d code', $errfile) && isset($errcontext['this']) && is_a($errcontext['this'], 'NF\NeoFrag\Libraries\View'))
-				{
-					trigger_error('Eval error on view: '.$errcontext['this']->path(), E_USER_WARNING);
-				}
-
 				if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
 				{
 					if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR]))

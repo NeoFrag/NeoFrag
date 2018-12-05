@@ -27,28 +27,21 @@ class View extends Library
 		return $this;
 	}
 
-	public function content($__content, $data = [])
-	{
-		if (in_string('<?php', $__content))
-		{
-			foreach ($data as $var => $value)
-			{
-				$$var = $value;
-			}
-
-			$__content = eval('ob_start(); ?>'.$__content.'<?php return ob_get_clean();');
-		}
-
-		return $__content;
-	}
-
 	public function __toString()
 	{
 		$paths = [];
 
 		if ($path = $this->__caller->__path('views', $this->_name.'.tpl.php', $paths))
 		{
-			return $this->content(file_get_contents($this->_path = $path), $this->_data);
+			ob_start();
+
+			$this->_path = $path;
+
+			extract($this->_data);
+
+			include $this->_path;
+
+			return ob_get_clean();
 		}
 
 		trigger_error('Unfound view: '.$this->_name.' in paths ['.implode(';', $paths).']', E_USER_WARNING);

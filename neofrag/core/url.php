@@ -89,7 +89,7 @@ class Url extends Core
 		$this->on('config_init', function() use ($segments){
 			if (is_asset())
 			{
-				asset($this->request);
+				$this->output->asset($this->request);
 			}
 			else if ($this->config->nf_maintenance)
 			{
