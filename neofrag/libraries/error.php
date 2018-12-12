@@ -22,7 +22,7 @@ class Error extends Library
 	{
 		if ($name == 'throw')
 		{
-			return NeoFrag()->___load('', 'exception', $args);
+			throw NeoFrag()->___load('', 'exception', $args);
 		}
 
 		return parent::__call($name, $args);
