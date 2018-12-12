@@ -266,13 +266,13 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 				$not = TRUE;
 			}
 
-			$this->_array = array_filter($this->_array, function(&$a) use (&$callback, $not){
-				return (method_exists($a, $callback) ? $a->$callback() : $callback($a)) == !$not;
-			});
+			$this->_array = array_filter($this->_array, function(&$a, $key) use (&$callback, $not){
+				return (method_exists($a, $callback) ? $a->$callback($key) : $callback($a, $key)) == !$not;
+			}, ARRAY_FILTER_USE_BOTH);
 		}
 		else if ($callback)
 		{
-			$this->_array = array_filter($this->_array, $callback);
+			$this->_array = array_filter($this->_array, $callback, ARRAY_FILTER_USE_BOTH);
 		}
 		else
 		{
