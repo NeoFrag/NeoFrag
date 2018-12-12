@@ -52,7 +52,19 @@ class Index extends Controller_Widget
 			return $this->html('a')
 						->attr('class', 'nav-link')
 						->append_attr_if($active, 'class', 'active')
-						->attr('href', !is_array($link['url']) ? url($link['url']) : '#')
+						->exec(function($a) use ($link){
+							if (isset($link['modal']))
+							{
+								$this->js('modal');
+
+								$a	->attr('href',            '#')
+									->attr('data-modal-ajax', url($link['modal']));
+							}
+							else
+							{
+								$a->attr('href', !is_array($link['url']) ? url($link['url']) : '#');
+							}
+						})
 						->content(icon($link['icon']).' '.$this->lang($link['title']));
 		};
 
