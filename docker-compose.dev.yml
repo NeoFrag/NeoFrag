@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.7
+    command: --sql_mode="STRICT_ALL_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: neofrag
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+      - ./DATABASE.sql:/docker-entrypoint-initdb.d/DATABASE.sql
+  web:
+    build: .
+    depends_on:
+      - database
+    ports: 
+      - "80:80"
+    volumes:
+      - ./:/var/www
+    environment:
+      - PHP_ERROR_REPORTING="E_ALL & ~E_STRICT"
+volumes:
+  mysql-datavolume:
