@@ -29,11 +29,14 @@ class Session extends Core
 		}
 		else
 		{
-			$expiration_date = $this->date()->sub($this->config->nf_cookie_expire);
+			if ($this->config->nf_cookie_expire)
+			{
+				$expiration_date = $this->date()->sub($this->config->nf_cookie_expire);
 
-			$this->db	->where('remember', FALSE)
-						->where('last_activity <', $expiration_date->sql())
-						->delete('nf_session');
+				$this->db	->where('remember', FALSE)
+							->where('last_activity <', $expiration_date->sql())
+							->delete('nf_session');
+			}
 
 			$this->_session = $this->model2('session', isset($_COOKIE[$this->config->nf_cookie_name]) ? $_COOKIE[$this->config->nf_cookie_name] : NULL);
 
@@ -53,7 +56,7 @@ class Session extends Core
 			{
 				//TODO 0.2 check levenshtein() on ip / user_agent?
 
-				if ($this->_session->last_activity->timestamp() < $expiration_date->timestamp())
+				if (isset($expiration_date) && $this->_session->last_activity->timestamp() < $expiration_date->timestamp())
 				{
 					$set_cookie();
 				}
