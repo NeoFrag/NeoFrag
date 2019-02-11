@@ -14,6 +14,7 @@ class Email extends Library
 	protected $_from;
 	protected $_reply_to;
 	protected $_to = [];
+	protected $_cc = [];
 	protected $_bcc = [];
 	protected $_subject;
 	protected $_view;
@@ -88,6 +89,13 @@ class Email extends Library
 		{
 			$this->_reply_to[] = utf8_html_entity_decode($name);
 		}
+
+		return $this;
+	}
+
+	public function cc($to)
+	{
+		$this->_cc[] = strtolower($to);
 
 		return $this;
 	}
@@ -207,6 +215,11 @@ class Email extends Library
 		foreach (array_unique($this->_to) as $to)
 		{
 			$PHPMailer->addAddress($to);
+		}
+
+		foreach (array_unique($this->_cc) as $to)
+		{
+			$mail->AddCC($to);
 		}
 
 		foreach (array_unique($this->_bcc) as $to)
