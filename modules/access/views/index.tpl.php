@@ -2,7 +2,6 @@
 <input type="hidden" name="type" value="<?php echo $type ?>" />
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 <?php foreach ($access as $category): ?>
-<div class="table-responsive">
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -21,5 +20,4 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-</div>
 <?php endforeach ?>

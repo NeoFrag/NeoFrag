@@ -343,7 +343,7 @@ class Table extends Library
 
 			$count = count($this->_data);
 
-			$output .= '<div class="table-responsive"><table class="table table-hover table-striped">';
+			$output .= '<table class="table table-hover table-striped">';
 
 			if ($this->_display_header())
 			{
@@ -463,7 +463,7 @@ class Table extends Library
 				$output .= '<tfoot>'.$header.'</tfoot>';
 			}
 
-			$output .= '</table></div>';
+			$output .= '</table>';
 
 			if (!empty($pagination))
 			{
