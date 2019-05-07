@@ -160,48 +160,20 @@ class Index extends Controller_Module
 					->append($this	->col()
 									->size('col-7')
 									->append($this	->form2('profile', $this->user->profile())
-													->success(function($profile){
-														$profile->update();
-														notify($this->lang('Profil modifié'));
-														refresh();
-													})
 													->panel()
 									)
 									->append($this	->form2('profile_socials', $this->user->profile())
-													->success(function($profile){
-														$profile->update();
-														notify($this->lang('Liens modifiés'));
-														refresh();
-													})
 													->panel()
 													->title('Liens', 'fas fa-globe')
 									)
 					)
 					->append($this	->col()
 									->size('col-5')
-									->append($this	->form2()
-													->rule($this->form_image('avatar', 'user/avatar')
-																->value($this->user->profile()->avatar)
-																->square(250)
-													)
-													->success(function($data){
-														$this->user->profile()->set('avatar', $data['avatar'])->update();
-														notify($this->lang('Avatar modifié'));
-														refresh();
-													})
+									->append($this	->form2('avatar', $this->user->profile())
 													->panel()
 													->title('Avatar', 'fas fa-user-circle')
 									)
-									->append($this	->form2()
-													->rule($this->form_image('cover', 'user/cover')
-																->value($this->user->profile()->cover)
-																->rectangle(1920, 400)
-													)
-													->success(function($data){
-														$this->user->profile()->set('cover', $data['cover'])->update();
-														notify($this->lang('Photo de couverture modifiée'));
-														refresh();
-													})
+									->append($this	->form2('cover', $this->user->profile())
 													->panel()
 													->title('Photo de couverture', 'far fa-image')
 									)

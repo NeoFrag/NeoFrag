@@ -26,4 +26,9 @@ $this	->rule($this->form_url('website')
 					->title('Twitch')
 					->info('Nom du compte Twitch')
 					->addon('fab fa-twitch')
-		);
+		)
+		->success(function($profile){
+			$profile->commit();
+			notify($this->lang('Liens modifiés'));
+			refresh();
+		});

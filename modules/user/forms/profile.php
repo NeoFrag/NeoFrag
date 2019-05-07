@@ -12,12 +12,6 @@ $this	->rule($this->form_text('first_name')
 					->title('Nom')
 					->size('col-6')
 		)
-		/*->rule($this->form_file('avatar')
-					->title('Avatar')
-		)
-		->rule($this->form_file('cover')
-					->title('Photo de couverture')
-		)*/
 		->rule($this->form_date('date_of_birth')
 					->title('Date de naissance')
 					->size('col-6')
@@ -45,4 +39,9 @@ $this	->rule($this->form_text('first_name')
 		->rule($this->form_bbcode('signature')
 					->title('Signature')
 					->rows(5)
-		);
+		)
+		->success(function($profile){
+			$profile->commit();
+			notify($this->lang('Profil modifié'));
+			refresh();
+		});
