@@ -161,7 +161,7 @@ class Index extends Controller_Module
 									->size('col-7')
 									->append($this	->form2('profile', $this->user->profile())
 													->success(function($profile){
-														$profile->update();
+														$profile->commit();
 														notify($this->lang('Profil modifié'));
 														refresh();
 													})
@@ -169,7 +169,7 @@ class Index extends Controller_Module
 									)
 									->append($this	->form2('profile_socials', $this->user->profile())
 													->success(function($profile){
-														$profile->update();
+														$profile->commit();
 														notify($this->lang('Liens modifiés'));
 														refresh();
 													})
