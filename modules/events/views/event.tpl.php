@@ -1,4 +1,4 @@
-<?php $link = url('events/'.$event_id.'/'.url_title($title)) ?>
+﻿<?php $link = url('events/'.$event_id.'/'.url_title($title)) ?>
 <?php if ($image_id): ?>
 	<a href="<?php echo $link ?>"><img src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" class="img-fluid" alt="" /></a>
 <?php endif ?>
@@ -34,7 +34,7 @@
 
 					if ($match['opponent']['country'])
 					{
-						$opponent .= '<img src="'.url('themes/default/images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
+						$opponent .= '<img src="'.url('images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
 					}
 
 					if ($match['opponent']['website'])
