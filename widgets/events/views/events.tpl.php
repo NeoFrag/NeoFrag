@@ -1,4 +1,4 @@
-<?php if ($events): ?>
+﻿<?php if ($events): ?>
 <ul class="list-group list-group-flush">
 	<?php foreach ($events as $event): ?>
 	<li class="list-group-item">
@@ -12,7 +12,7 @@
 
 			if ($match['opponent']['country'])
 			{
-				$opponent .= '<img src="'.url('themes/default/images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
+				$opponent .= '<img src="'.url('images/flags/'.$match['opponent']['country'].'.png').'" data-toggle="tooltip" title="'.get_countries()[$match['opponent']['country']].'" style="margin-left: 10px;" alt="" />';
 			}
 
 			echo '<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$opponent.'</a>';
