@@ -45,8 +45,35 @@ class Authenticator extends Controller
 
 	public function order()
 	{
+		$authenticators = [];
+
+		foreach (NeoFrag()->collection('addon')->where('type_id', NeoFrag()->collection('addon_type')->where('name', 'authenticator')->row()->id)->get() as $authenticator)
+		{
+			if ($authenticator->data->get('enabled'))
+			{
+				$authenticators[$authenticator->id] = $authenticator;
+			}
+		}
+
+		uasort($authenticators, function($a, $b){
+			return strnatcmp($a->data->get('order'), $b->data->get('order'));
+		});
+
+		$authenticators = $this->array($authenticators);
+
+		if (($post = post_check('id', 'position')) && (list($addon_id, $position) = array_values($post)))
+		{
+			foreach ($authenticators->move($addon_id, $position)->values() as $order => $addon)
+			{
+				$addon	->set('data', $addon->data->set('order', $order))
+						->update();
+			}
+
+			return $this->output->json(['success' => 'refresh']);
+		}
+
 		return $this->modal('Authentificateurs', 'fas fa-sort')
-					->body($this->table2(NeoFrag()->collection('addon')->where('type_id', NeoFrag()->collection('addon_type')->where('name', 'authenticator')->row()->id))
+					->body($this->table2($authenticators)
 								->compact(function($a){
 									return $this->button_sort($a->id, 'admin/addons/order/'.$a->url());
 								})

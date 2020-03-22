@@ -44,7 +44,10 @@ class Language extends Controller
 
 	public function order()
 	{
-		$langs = $this->array($this->config->langs);
+		$langs = $this	->array($this->config->langs)
+						->sort(function($a, $b){
+							return strnatcmp($a->settings()->order, $b->settings()->order);
+						});
 
 		if (($post = post_check('id', 'position')) && (list($addon_id, $position) = array_values($post)))
 		{
@@ -56,7 +59,7 @@ class Language extends Controller
 				}
 			}
 
-			foreach ($langs->move($id, $position) as $order => $addon)
+			foreach ($langs->move($id, $position)->values() as $order => $addon)
 			{
 				$addon->__addon	->set('data', $addon->__addon->data->set('order', $order))
 								->update();

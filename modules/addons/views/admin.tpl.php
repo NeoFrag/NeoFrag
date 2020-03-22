@@ -37,7 +37,7 @@
 						<div class="dropdown-menu">
 							<?php foreach ($addon->addon()->__actions as $name => $action): ?>
 								<?php if (list($title, $icon, $color, $modal) = $action): ?>
-									<?php $url = url('admin/addons/'.$name.'/'.$addon->id.'/'.url_title($addon->name)) ?>
+									<?php $url = url('admin/addons/'.$name.'/'.$addon->url()) ?>
 									<a class="dropdown-item" <?php echo $modal ? 'href="#" data-modal-ajax="'.$url.'"' : 'href="'.$url.'"' ?>"><?php echo $this->html('span')->attr('class', 'text-'.$color)->content(icon($icon)).' '.$title ?></a>
 								<?php else: ?>
 									<div class="dropdown-divider"></div>

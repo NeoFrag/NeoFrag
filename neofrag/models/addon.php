@@ -20,6 +20,11 @@ class Addon extends Model2
 		];
 	}
 
+	static public function __url($addon)
+	{
+		return url_title($addon->name);
+	}
+
 	public function addon()
 	{
 		return @NeoFrag()->{$this->type() ? $this->type->name : 'addon'}($this->name, $this);

@@ -36,6 +36,6 @@ class Admin_Checker extends Module_Checker
 
 	private function _check_addon($id, $title)
 	{
-		return NeoFrag()->model2('addon', $id)->check(str_replace('-', '_', $title));
+		return NeoFrag()->model2('addon', $id)->check($title);
 	}
 }
