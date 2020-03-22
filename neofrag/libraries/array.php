@@ -149,11 +149,17 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->_extends ?: $this;
 	}
 
-	public function move($id, $move_to)
+	public function move()
 	{
-		$child = $this->_array[$id];
-		unset($this->_array[$id]);
-		$this->_array = array_slice($this->_array, 0, $move_to, TRUE) + [$id => $child] + array_slice($this->_array, $move_to, NULL, TRUE);
+		$args    = func_get_args();
+		$move_to = array_pop($args);
+
+		$this->_browse($args, -1, function(&$node, $name) use ($move_to){
+			$child = $node[$name];
+			unset($node[$name]);
+			$node = array_slice($node, 0, $move_to, TRUE) + [$name => $child] + array_slice($node, $move_to, NULL, TRUE);
+		});
+
 		return $this->_extends ?: $this;
 	}
 
@@ -219,6 +225,17 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		{
 			$this->_array = array_filter($this->_array);
 		}
+
+		return $this->_extends ?: $this;
+	}
+
+	public function unique()
+	{
+		$args = func_get_args();
+
+		$this->_browse($args, -1, function(&$node, $name){
+			$node = array_unique($node, SORT_REGULAR);
+		});
 
 		return $this->_extends ?: $this;
 	}
