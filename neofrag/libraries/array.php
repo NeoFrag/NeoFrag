@@ -272,6 +272,11 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return array_values($this->_array);
 	}
 
+	public function keys()
+	{
+		return array_keys($this->_array);
+	}
+
 	public function last_key()
 	{
 		return array_last_key($this->_array);
