@@ -1474,8 +1474,8 @@ CREATE TABLE `nf_user` (
   `data` text NOT NULL,
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
+  KEY `username` (`username`),
+  KEY `email` (`email`),
   KEY `language` (`language`),
   KEY `deleted` (`deleted`),
   CONSTRAINT `nf_user_ibfk_1` FOREIGN KEY (`language`) REFERENCES `nf_addon` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
