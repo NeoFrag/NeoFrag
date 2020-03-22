@@ -1267,7 +1267,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_monitoring_last_check', '', '', '0', 'int'),
 ('nf_name', '', '', 'NeoFrag', 'string'),
 ('nf_registration_charte', '', '', '', 'string'),
-('nf_registration_status', '', '', '0', 'string'),
+('nf_registration_status', '', '', '1', 'bool'),
 ('nf_robots_txt', '', '', 'User-agent: *\r\nDisallow:', 'string'),
 ('nf_social_behance', '', '', '', 'string'),
 ('nf_social_deviantart', '', '', '', 'string'),

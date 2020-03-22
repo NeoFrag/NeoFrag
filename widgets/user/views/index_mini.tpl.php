@@ -13,7 +13,7 @@
 		<?php endif ?>
 		<li data-toggle="tooltip" title="Déconnexion"><a class="nav-link" href="<?php echo url('user/logout') ?>"><?php echo icon('fas fa-times') ?></a></li>
 	<?php else: ?>
-		<?php if ($this->config->nf_registration_status == 0): ?>
+		<?php if ($this->config->nf_registration_status): ?>
 		<li class="nav-item"><a class="nav-link" href="#" data-modal-ajax="<?php echo url('ajax/user/register') ?>"><?php echo $this->lang('Créer un compte') ?></a></li>
 		<?php endif ?>
 		<li class="nav-item"><a class="nav-link" href="#" data-modal-ajax="<?php echo url('ajax/user/auth') ?>"><?php echo icon('fas fa-sign-in-alt').' '.$this->lang('Connexion') ?></a></li>

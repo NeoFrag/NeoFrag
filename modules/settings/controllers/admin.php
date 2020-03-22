@@ -144,7 +144,7 @@ class Admin extends Controller_Module
 						'label'   => 'Statut',
 						'type'    => 'radio',
 						'value'   => $this->config->nf_registration_status,
-						'values'  => ['Ouvertes', 'Fermées']
+						'values'  => ['Fermées', 'Ouvertes']
 					],
 					/*'registration_validation' => [
 						'label'   => 'Validation',
