@@ -168,6 +168,12 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->_extends ?: $this;
 	}
 
+	public function reverse($preserve_keys = FALSE)
+	{
+		$this->_array = array_reverse($this->_array, $preserve_keys);
+		return $this->_extends ?: $this;
+	}
+
 	public function sort($sort)
 	{
 		if (func_num_args() == 2)
