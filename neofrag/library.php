@@ -8,6 +8,7 @@ namespace NF\NeoFrag;
 
 abstract class Library extends NeoFrag
 {
+	private $__id;
 	protected $__caller;
 
 	public function __construct($caller)
@@ -29,26 +30,20 @@ abstract class Library extends NeoFrag
 
 	public function __id($id = NULL)
 	{
-		static $_id      = [];
-		static $_classes = [];
-
-		$hash = spl_object_hash($this);
-
-		if ($id || !isset($_id[$hash]))
+		if ($id !== NULL)
 		{
-			if (!isset($_classes[$class = get_called_class()]))
-			{
-				$_classes[$class] = 0;
-			}
+			$this->__id = $id;
+		}
+		else if ($this->__id === NULL)
+		{
+			$this->__id = $this->crypt->hash(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
 
-			if (!$id)
+			if (preg_match('/^\d/', $this->__id))
 			{
-				$id = md5(implode([$this->url->request, get_class($this->__caller), $this->output->data->get('module', 'controller'), $this->output->data->get('module', 'method'), $class, $_classes[$class]++]));
+				$this->__id = '_'.$this->__id;
 			}
-
-			$_id[$hash] = $id;
 		}
 
-		return $_id[$hash];
+		return $this->__id;
 	}
 }
