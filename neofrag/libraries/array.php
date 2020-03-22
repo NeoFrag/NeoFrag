@@ -59,6 +59,43 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->get($name) !== NULL;
 	}
 
+	public function index($key = NULL)
+	{
+		$list = [];
+		$n = 0;
+
+		foreach ($this->_array as $row)
+		{
+			if (is_a($row, 'NF\NeoFrag\Loadables\Model2'))
+			{
+				$list[$row->{$key === NULL ? 'id' : $key}] = $row;
+			}
+			else
+			{
+				if ($key === NULL)
+				{
+					$id = array_shift($row);
+				}
+				else
+				{
+					$id = $row[$key];
+					unset($row[$key]);
+				}
+
+				if (!$n)
+				{
+					$n = count($row);
+				}
+
+				$list[$id] = $n == 1 ? array_shift($row) : array_values($row);
+			}
+		}
+
+		$this->_array = $list;
+
+		return $this->_extends ?: $this;
+	}
+
 	public function count()
 	{
 		return count($this->_array);
