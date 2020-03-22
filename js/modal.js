@@ -72,42 +72,43 @@ var modal = new function(){
 				url: url,
 				cache: false,
 				success: this.exec(function(data){
-					var $modal = $(data.content).appendTo('body').closest('.modal');
+					if (typeof data.content != 'undefined'){
+						var $modal = _modals[url] = $(data.content).appendTo('body').closest('.modal');
 
-					var $form = $modal.find('form');
+						$('body').trigger('nf.load');
 
-					if (typeof form != 'undefined' && $form.length){
-						$modal.on('submit', 'form', function(e){
-							e.preventDefault();
+						var $form = $modal.find('form');
 
-							var $submit = $modal.find('[type="submit"]');
+						if (typeof form != 'undefined' && $form.length){
+							$modal.on('submit', 'form', function(e){
+								e.preventDefault();
 
-							if ($submit.hasClass('disabled'))
-							{
-								return;
-							}
+								var $submit = $modal.find('[type="submit"]');
 
-							$submit.addClass('disabled');
-
-							form.submit($form).then(function(data){
-								$submit.removeClass('disabled');
-
-								if (typeof data.modal != 'undefined' && data.modal == 'dispose'){
-									//TODO modal('dispose') doesn't work?
-									$modal.modal('hide').on('hidden.bs.modal', function(){
-										$modal.remove();
-										delete _modals[url];
-									});
+								if ($submit.hasClass('disabled')){
+									return;
 								}
+
+								$submit.addClass('disabled');
+
+								form.submit($form).then(function(data){
+									$submit.removeClass('disabled');
+
+									if (typeof data.modal != 'undefined' && data.modal == 'dispose'){
+										//TODO modal('dispose') doesn't work?
+										$modal.modal('hide').on('hidden.bs.modal', function(){
+											$modal.remove();
+											delete _modals[url];
+										});
+									}
+								});
 							});
-						});
 
-						form.load($form);
+							form.load($form);
+						}
+
+						show();
 					}
-
-					_modals[url] = $modal;
-
-					show();
 				})
 			});
 		}
