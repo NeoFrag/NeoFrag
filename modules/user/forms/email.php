@@ -4,7 +4,7 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-$this	->rule($this->form_text('email')
+$this	->rule($this->form_email('email')
 					->title('Email')
 					->required()
 					->check(function($data){
