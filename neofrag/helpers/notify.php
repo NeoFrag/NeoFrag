@@ -23,7 +23,7 @@ function notifications()
 	{
 		foreach ($notifications as $notification)
 		{
-			NeoFrag()->js_load('notify(\''.$notification['message'].'\', \''.$notification['type'].'\');');
+			NeoFrag()->js_load('notify(\''.addcslashes($notification['message'], '\'').'\', \''.$notification['type'].'\');');
 		}
 
 		NeoFrag()->session->destroy('notifications');
