@@ -29,7 +29,8 @@ class Bbcode extends Library
 		'\[(left|center|right)\](.*?)\[/\1\]'               => '<div style="text-align: \1;">\2</div>',
 		'\[quote\](.*?)\[/quote\]'                          => '<blockquote>\1</blockquote>',
 		'\[code\](.*?)\[/code\]'                            => '<code>\1</code>',
-		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>'
+		'\[(table)\](.*?)\[/\1\]'                           => '<\1 class="table table-bordered">\2</\1>',
+		'\[(h[1-6])\](.*?)\[/\1\]'."(?:\r\n|\n)?"           => '<\1>\2</\1>'
 	];
 
 	public function bbcode2html($output)
