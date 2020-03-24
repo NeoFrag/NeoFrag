@@ -9,6 +9,7 @@ namespace NF\NeoFrag\Libraries\Forms;
 class Text extends Labelable
 {
 	protected $_type   = 'text';
+	protected $_data   = [];
 	protected $_addons = [];
 	protected $_iconpicker;
 
@@ -24,6 +25,33 @@ class Text extends Labelable
 							->attr_if(is_a($this, 'NF\NeoFrag\Libraries\Forms\Password'), 'autocomplete');
 
 			$this->_placeholder($input);
+
+			if ($this->_data)
+			{
+				$this	->css('jquery-ui.min')
+						->css('form_text')
+						->js('jquery-ui.min')
+						->js('form')
+						->js('form_text');
+
+				$encode = function($data){
+					if (method_exists($data, '__toArray'))
+					{
+						$data = $data->__toArray();
+					}
+
+					array_walk($data, function(&$value, $key){
+						$value = utf8_html_entity_decode($value);
+					});
+
+					natsort($data);
+
+					return utf8_htmlentities(json_encode(array_values($data)));
+				};
+
+				$input	->append_attr('class', 'autocomplete')
+						->attr('data-source', $encode($this->_data));
+			}
 		};
 
 		parent::__invoke($name);
@@ -81,6 +109,12 @@ class Text extends Labelable
 			}
 		};
 
+		return $this;
+	}
+
+	public function data($data)
+	{
+		$this->_data = $data;
 		return $this;
 	}
 
