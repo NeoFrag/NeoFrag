@@ -43,7 +43,7 @@ class Language_En extends Language
 			'short_time'      => '%l:%M %p',
 			'long_time'       => '%l:%M:%S %p',
 			'short_date_time' => '%m/%d/%Y %l:%M %p',
-			'long_date_time'  => '%A, %B%e, %Y %l:%M %p'
+			'long_date_time'  => '%A, %B %e, %Y %l:%M %p'
 		];
 	}
 

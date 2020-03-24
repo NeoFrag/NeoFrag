@@ -31,7 +31,7 @@ function timetostr($format, $timestamp = NULL)
 		$format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
 	}
 
-	return utf8_string(ucfirst(strtolower(strftime($format, $timestamp))));
+	return utf8_string(ucfirst(preg_replace('/ +/', ' ', strtolower(strftime($format, $timestamp)))));
 }
 
 function time_span($timestamp)

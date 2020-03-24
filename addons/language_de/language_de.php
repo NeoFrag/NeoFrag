@@ -41,7 +41,7 @@ class Language_De extends Language
 			'long_time'       => '%H:%M:%S',
 			'time_short'      => '%H:%M',
 			'short_date_time' => '%d.%m.%Y %H:%M',
-			'long_date_time'  => '%A,%e. %B %Y %H:%M'
+			'long_date_time'  => '%A, %e. %B %Y %H:%M'
 		];
 	}
 
