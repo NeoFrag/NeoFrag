@@ -100,9 +100,7 @@ class Admin_Ajax extends Controller_Module
 
 	public function row_move($disposition_id, $disposition, $row_id, $position)
 	{
-		$row = $disposition[$row_id];
-		unset($disposition[$row_id]);
-		$this->model()->set_disposition($disposition_id, array_slice($disposition, 0, $position, TRUE) + [$row_id => $row] + array_slice($disposition, $position, NULL, TRUE));
+		$this->model()->set_disposition($disposition_id, $disposition->move($row_id, $position));
 	}
 
 	public function row_style($disposition_id, $disposition, $row_id, $style)
