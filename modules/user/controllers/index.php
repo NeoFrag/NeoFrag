@@ -544,18 +544,21 @@ class Index extends Controller_Module
 				return $this->access('forum', 'category_read', $a);
 			});
 
-			$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.id as user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
-										->from('nf_forum_messages m')
-										->join('nf_forum_topics   t',  'm.topic_id  = t.topic_id')
-										->join('nf_forum          f',  't.forum_id  = f.forum_id')
-										->join('nf_forum          f2', 'f.parent_id = f2.forum_id AND f.is_subforum = "1"')
-										->join('nf_user           u',  'm.user_id   = u.id AND u.deleted = "0"')
-										->join('nf_user_profile   up', 'u.id        = up.id')
-										->where('m.user_id', $user_id)
-										->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
-										->order_by('m.date DESC')
-										->limit(10)
-										->get();
+			if ($categories)
+			{
+				$user_activity = $this->db	->select('m.message_id', 'm.topic_id', 't.title', 'u.id as user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'm.message', 'UNIX_TIMESTAMP(m.date) as date')
+											->from('nf_forum_messages m')
+											->join('nf_forum_topics   t',  'm.topic_id  = t.topic_id')
+											->join('nf_forum          f',  't.forum_id  = f.forum_id')
+											->join('nf_forum          f2', 'f.parent_id = f2.forum_id AND f.is_subforum = "1"')
+											->join('nf_user           u',  'm.user_id   = u.id AND u.deleted = "0"')
+											->join('nf_user_profile   up', 'u.id        = up.id')
+											->where('m.user_id', $user_id)
+											->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
+											->order_by('m.date DESC')
+											->limit(10)
+											->get();
+			}
 		}
 
 		return $this->panel()
