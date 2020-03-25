@@ -52,7 +52,7 @@
 <?php if (!empty($rounds)): ?>
 <div class="card-body">
 	<?php if ($mode): ?>
-		<p class="<?php echo count($rounds) > 1 ? 'pull-right' : 'text-center' ?>"><?php echo icon('fas fa-cog') ?>Mode: <?php echo $mode ?></p>
+		<p class="<?php echo count($rounds) > 1 ? 'float-right' : 'text-center' ?>"><?php echo icon('fas fa-cog') ?>Mode: <?php echo $mode ?></p>
 	<?php endif ?>
 	<?php if (count($rounds) > 1): ?>
 		<p><?php echo icon('fas fa-chess') ?> <b>Détail des manches</b></p>
@@ -112,7 +112,7 @@ endif;
 </div>
 <?php endif ?>
 <div class="card-footer">
-	<div class="pull-right">
+	<div class="float-right">
 		<ul class="list-inline m-0">
 			<li class="list-inline-item"><a href="<?php echo $link.'#participants' ?>"><?php echo icon('fas fa-users').' '.$participants ?></a></li>
 			<?php if (($comments = $this->module('comments')) && $comments->is_enabled()): ?>

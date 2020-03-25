@@ -6,7 +6,7 @@
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="multiple">
 			<div class="upload-infos">
-				<span class="progress-size pull-right"></span>
+				<span class="progress-size float-right"></span>
 				<span class="progress-percent"></span>
 				<div class="progress">
 					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>

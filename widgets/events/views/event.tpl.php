@@ -42,7 +42,7 @@
 	<?php endif ?>
 </div>
 <div class="card-footer">
-	<div class="pull-right">
+	<div class="float-right">
 		<ul class="list-inline m-0">
 			<li class="list-inline-item"><a href="<?php echo $link.'#participants' ?>"><small><?php echo icon('fas fa-users').' '.$participants ?></small></a></li>
 			<?php if (($comments = $this->module('comments')) && $comments->is_enabled()): ?>

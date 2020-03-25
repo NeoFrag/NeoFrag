@@ -1,7 +1,7 @@
 <ul class="list-group list-group-flush">
 	<?php foreach ($recruits as $recruit): ?>
 	<li class="list-group-item">
-		<div class="pull-right">
+		<div class="float-right">
 			<?php if ($recruit['closed'] || ($recruit['candidacies_accepted'] >= $recruit['size']) || ($recruit['date_end'] && strtotime($recruit['date_end']) < time())): ?>
 				<span class="badge badge-danger">Clôturée</span>
 			<?php else: ?>

@@ -2,7 +2,7 @@
 	<thead class="forum-heading">
 		<tr>
 			<th colspan="2">
-				<div class="pull-right">
+				<div class="float-right">
 					<?php echo icon('far fa-eye').' '.$this->lang('%d vue|%d vues', $views, $views) ?>
 				</div>
 				<h5 class="m-0"><?php echo icon('far fa-file-alt').' '.$title ?></h5>
@@ -15,7 +15,7 @@
 				<?php echo $this->output->module()->get_profile($user_id, $profile) ?>
 			</td>
 			<td class="col-9">
-				<div class="actions pull-right">
+				<div class="actions float-right">
 				<?php if (($this->user() && $this->user->id == $user_id) || $this->access('forum', 'category_modify', $category_id)): ?>
 					<a href="<?php echo url('forum/message/edit/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" title="<?php echo $this->lang('Editer le sujet') ?>"><?php echo icon('fas fa-edit') ?></a>
 					<a href="<?php echo url('forum/message/delete/'.$message_id.'/'.url_title($title)) ?>" class="btn btn-sm btn-primary delete" data-toggle="tooltip" title="<?php echo $this->lang('Supprimer le sujet') ?>"><?php echo icon('fas fa-times') ?></a>

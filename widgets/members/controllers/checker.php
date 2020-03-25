@@ -13,7 +13,7 @@ class Checker extends Controller
 	public function online_mini($settings = [])
 	{
 		return [
-			'align' => !empty($settings['align']) && in_array($settings['align'], ['pull-left', 'pull-right']) ? $settings['align'] : 'pull-right'
+			'align' => !empty($settings['align']) && in_array($settings['align'], ['float-left', 'float-right']) ? $settings['align'] : 'float-right'
 		];
 	}
 }

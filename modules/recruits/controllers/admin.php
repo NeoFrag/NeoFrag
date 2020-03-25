@@ -192,7 +192,7 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_access($recruit_id, 'recruit').'</div>'.$title, 'fas fa-briefcase')
+						->heading('<div class="float-right">'.$this->button_access($recruit_id, 'recruit').'</div>'.$title, 'fas fa-briefcase')
 						->body($this->form()->display())
 						->size('col-8')
 			),
@@ -672,7 +672,7 @@ class Admin extends Controller_Module
 						->color($statut_color)
 						->footer(icon('fas fa-arrow-circle-left').' Retour aux candidatures de cette offre'),
 				$this	->panel()
-						->heading('<div class="pull-right"><a href="mailto:'.$email.'" class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Contacter par e-mail">'.icon('far fa-envelope').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fab fa-black-tie')
+						->heading('<div class="float-right"><a href="mailto:'.$email.'" class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Contacter par e-mail">'.icon('far fa-envelope').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fab fa-black-tie')
 						->body($this->view('candidacy', [
 							'candidacy_id'  => $candidacy_id,
 							'date'          => $date,
@@ -702,7 +702,7 @@ class Admin extends Controller_Module
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right text-right"><ul class="list-inline m-0"><li class="list-inline-item">'.$total_up.' '.icon('far fa-thumbs-up text-green').'</li><li class="list-inline-item">'.$total_down.' '.icon('far fa-thumbs-down text-red').'</li></ul></div>Tendance des votes', 'far fa-comment-dots')
+						->heading('<div class="float-right text-right"><ul class="list-inline m-0"><li class="list-inline-item">'.$total_up.' '.icon('far fa-thumbs-up text-green').'</li><li class="list-inline-item">'.$total_down.' '.icon('far fa-thumbs-down text-red').'</li></ul></div>Tendance des votes', 'far fa-comment-dots')
 						->body($this->view('admin-candidacy-status', [
 							'status' => $status,
 							'votes'  => $votes

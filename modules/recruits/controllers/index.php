@@ -35,7 +35,7 @@ class Index extends Controller_Module
 				}
 
 				$panels->append($this	->panel()
-										->heading($candidacy ? $recruit['title'].'<div class="pull-right"><span class="badge badge-dark">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fas fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
+										->heading($candidacy ? $recruit['title'].'<div class="float-right"><span class="badge badge-dark">J\'ai postulé !</span></div>' : $recruit['title'], $recruit['icon'] ?: 'fas fa-bullhorn', 'recruits/'.$recruit['recruit_id'].'/'.url_title($recruit['title']))
 										->body($this->view('index', [
 											'recruit_id'   => $recruit['recruit_id'],
 											'title'        => $recruit['title'],

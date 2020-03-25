@@ -72,21 +72,21 @@ class Index extends Controller_Module
 									'topics' => $topics
 								]), FALSE));
 
-		$content = '<a class="btn btn-light pull-left" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
+		$content = '<a class="btn btn-light float-left" href="'.url(($this->url->back() ?: 'forum')).'">'.$this->lang('Retour').'</a>';
 
 		if ($pagination = $this->module->pagination->get_pagination())
 		{
-			$content .= '<div class="pull-left ml-1">'.$pagination.'</div>';
+			$content .= '<div class="float-left ml-1">'.$pagination.'</div>';
 		}
 
 		if ($this->access('forum', 'category_write', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-primary ml-1" href="'.url('forum/new/'.$forum_id.'/'.url_title($title)).'">'.$this->lang('Nouveau sujet').'</a>';
+			$content .= '<a class="float-right btn btn-primary ml-1" href="'.url('forum/new/'.$forum_id.'/'.url_title($title)).'">'.$this->lang('Nouveau sujet').'</a>';
 		}
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-light" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('far fa-eye').'</a>';
+			$content .= '<a class="float-right btn btn-light" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('far fa-eye').'</a>';
 		}
 
 		$actions = $this	->panel()
@@ -214,11 +214,11 @@ class Index extends Controller_Module
 			}
 		}
 
-		$content = '<a class="btn btn-light pull-left" href="'.url($this->url->back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('Retour').'</a>';
+		$content = '<a class="btn btn-light float-left" href="'.url($this->url->back() ?: 'forum/'.$forum_id.'/'.url_title($forum_title)).'">'.$this->lang('Retour').'</a>';
 
 		if ($pagination = $this->module->pagination->get_pagination())
 		{
-			$content .= '<div class="pull-left ml-1">'.$pagination.'</div>';
+			$content .= '<div class="float-left ml-1">'.$pagination.'</div>';
 		}
 
 		if (!$is_locked && $this->access('forum', 'category_write', $category_id))
@@ -230,23 +230,23 @@ class Index extends Controller_Module
 				$page = url('forum/topic/'.$topic_id.'/'.url_title($title).'/page/'.$last_page);
 			}
 
-			$content .= '<a class="pull-right btn btn-primary ml-1" href="'.$page.'#reply">'.$this->lang('Répondre').'</a>';
+			$content .= '<a class="float-right btn btn-primary ml-1" href="'.$page.'#reply">'.$this->lang('Répondre').'</a>';
 		}
 
 		if (($this->user() && $topic['user_id'] == $this->user->id) || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-light delete ml-1" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fas fa-times').'</a>';
+			$content .= '<a class="float-right btn btn-light delete ml-1" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fas fa-times').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fas fa-unlock').'</a>';
+				$content .= '<a class="float-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fas fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fas fa-lock').'</a>';
+				$content .= '<a class="float-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fas fa-lock').'</a>';
 			}
 		}
 
@@ -254,17 +254,17 @@ class Index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('far fa-flag').'</a>';
+				$content .= '<a class="float-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('far fa-flag').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fas fa-flag').'</a>';
+				$content .= '<a class="float-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fas fa-flag').'</a>';
 			}
 		}
 
 		if ($this->access('forum', 'category_move', $category_id))
 		{
-			$content .= '<span class="pull-right btn btn-light topic-move" data-toggle="tooltip" data-modal-ajax="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fas fa-reply fa-flip-horizontal').'</span>';
+			$content .= '<span class="float-right btn btn-light topic-move" data-toggle="tooltip" data-modal-ajax="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fas fa-reply fa-flip-horizontal').'</span>';
 		}
 
 		$panels = $this->array;

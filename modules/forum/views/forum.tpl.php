@@ -16,7 +16,7 @@
 				<?php
 					if ($topic['count_messages'] > $this->config->forum_messages_per_page)
 					{
-						echo '<div class="pull-right">'.$this->pagination->display(url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title'])), ceil($topic['count_messages'] / $this->config->forum_messages_per_page), 'xs').'</div>';
+						echo '<div class="float-right">'.$this->pagination->display(url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title'])), ceil($topic['count_messages'] / $this->config->forum_messages_per_page), 'xs').'</div>';
 					}
 				?>
 				<h5 class="m-0"><a href="<?php echo url('forum/topic/'.$topic['topic_id'].'/'.url_title($topic['title'])) ?>"><?php echo $topic['title'] ?></a></h5>

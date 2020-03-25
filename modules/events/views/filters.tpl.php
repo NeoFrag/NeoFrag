@@ -1,5 +1,5 @@
 <?php if ($type && !$this->url->admin): ?>
-<ul class="list-inline pull-right m-0">
+<ul class="list-inline float-right m-0">
 	<li><?php echo $this->label($type['title'], $type['icon'], $type['color']) ?></li>
 </ul>
 <?php endif ?>

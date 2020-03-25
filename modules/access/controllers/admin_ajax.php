@@ -21,7 +21,7 @@ class Admin_Ajax extends Controller_Module
 
 		return $this->col(
 			$this	->panel()
-					->heading('<span class="pull-right">'.$this->button()->tooltip($this->lang('Utilisateurs'))->icon('fas fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
+					->heading('<span class="float-right">'.$this->button()->tooltip($this->lang('Utilisateurs'))->icon('fas fa-users')->color('info access-users')->compact()->outline().'</span>'.$title, $icon)
 					->body($this->view('details', [
 						'groups' => $groups
 					]), FALSE)

@@ -146,7 +146,7 @@ class Index extends Controller_Module
 		}
 
 		$panel = $this	->panel()
-						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'far fa-image')
+						->heading('<div class="float-right"><a class="badge badge-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'far fa-image')
 						->body($this->view('image', [
 							'image_id'          => $image_id,
 							'file_id'           => $file_id,

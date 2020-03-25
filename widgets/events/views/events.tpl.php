@@ -17,7 +17,7 @@
 
 			echo '<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$opponent.'</a>';
 			?>
-			<div class="pull-right">
+			<div class="float-right">
 				<?php if ($event['nb_rounds'] > 0): ?>
 					<?php echo $this->module('events')->model('matches')->display_scores($match['scores'], $color) ?>
 					<span class="<?php echo $color ?>"><?php echo $match['scores'][0] ?>:<?php echo $match['scores'][1] ?></span>

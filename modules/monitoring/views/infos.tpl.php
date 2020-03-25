@@ -6,7 +6,7 @@
 					<tr>
 						<th>
 							<?php echo icon($check['icon']).' '.$check['title'] ?>
-							<?php if (isset($check['value'])): ?><span class="pull-right"><?php echo $check['value'] ?></span><?php endif ?>
+							<?php if (isset($check['value'])): ?><span class="float-right"><?php echo $check['value'] ?></span><?php endif ?>
 						</th>
 					</tr>
 				</thead>

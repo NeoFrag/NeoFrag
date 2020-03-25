@@ -1,7 +1,7 @@
 <ul class="list-group list-group-flush">
 	<?php foreach ($awards as $award): ?>
 	<li class="list-group-item">
-		<div class="pull-right">
+		<div class="float-right">
 			<span data-toggle="tooltip" title="<?php echo $award['location'] ?>"><?php echo icon('fas fa-map-marker-alt') ?></span>
 			<a href="<?php echo url('awards/'.$award['award_id'].'/'.url_title($award['name'])) ?>"><?php echo str_shortener($award['name'], 20) ?></a>
 		</div>

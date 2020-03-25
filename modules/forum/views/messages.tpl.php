@@ -2,7 +2,7 @@
 	<thead class="forum-heading">
 		<tr>
 			<th colspan="2">
-				<div class="pull-right">
+				<div class="float-right">
 					<?php echo icon('fas fa-users').' '.$this->lang('%d participant|%d participants', $nb_users, $nb_users) ?>
 				</div>
 				<h5 class="m-0"><?php echo icon('far fa-comments').' '.$this->lang('%d réponse|%d réponses', $nb_messages, $nb_messages) ?></h5>
@@ -16,7 +16,7 @@
 				<?php echo $this->output->module()->get_profile($message['user_id'], $profile) ?>
 			</td>
 			<td class="col-9">
-				<div class="actions pull-right">
+				<div class="actions float-right">
 				<?php if (($this->user() && $this->user->id == $message['user_id']) || $this->access('forum', 'category_modify', $category_id)): ?>
 					<a href="<?php echo url('forum/message/edit/'.$message['message_id'].'/'.url_title($title)) ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" title="<?php echo $this->lang('Editer') ?>"><?php echo icon('fas fa-edit') ?></a>
 					<a href="<?php echo url('forum/message/delete/'.$message['message_id'].'/'.url_title($title)) ?>" class="btn btn-sm btn-primary delete" data-toggle="tooltip" title="<?php echo $this->lang('Supprimer') ?>"><?php echo icon('fas fa-times') ?></a>

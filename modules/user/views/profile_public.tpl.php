@@ -1,10 +1,10 @@
 <?php if ($this->user()): ?>
 	<?php if ($this->user->id == $user_id): ?>
-	<div class="pull-right">
+	<div class="float-right">
 		<a class="btn btn-default" href="<?php echo url('user') ?>"><?php echo icon('fas fa-cogs') ?><span class="hidden-xs"> <?php echo $this->lang('Gérer mon compte') ?></span></a>
 	</div>
 	<?php else: ?>
-	<div class="pull-right">
+	<div class="float-right">
 		<a class="btn btn-default" href="<?php echo url('user/messages/compose/'.$user_id.'/'.url_title($username)) ?>"><?php echo icon('far fa-envelope') ?><span class="hidden-xs"> <?php echo $this->lang('Contacter') ?></span></a>
 	</div>
 	<?php endif ?>

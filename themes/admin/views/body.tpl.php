@@ -80,7 +80,7 @@
 		<?php endif ?>
 		<footer class="footer">
 			<span class="text-muted"><?php echo $this->lang('Propulsé par').' NeoFrag '.NEOFRAG_VERSION ?></span>
-			<ul class="mb-0 list-inline pull-right">
+			<ul class="mb-0 list-inline float-right">
 				<?php
 				foreach ([
 					[$this->lang('Fonctionnalités'), 'https://neofr.ag/#features'],

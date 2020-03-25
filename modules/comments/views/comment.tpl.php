@@ -8,7 +8,7 @@
 
 			if ($actions)
 			{
-				echo '<ul class="list-inline pull-right">'.$actions->each(function($a){
+				echo '<ul class="list-inline float-right">'.$actions->each(function($a){
 					return '<li class="list-inline-item">'.$a.'</li>';
 				}).'</ul>';
 			}

@@ -27,7 +27,7 @@
 					echo '<ul class="subforums mb-0 mt-1'.($this->url->admin ? ' list-group' : ' list-inline').'">';
 					foreach ($forum['subforums'] as $subforum):
 						echo '<li'.($this->url->admin ? ' data-forum-id="'.$subforum['forum_id'].'" class="list-group-item p-2"' : ' class="list-inline-item"').'>'.
-								($this->url->admin ? '<div class="pull-right">'.$this->button_update('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).' '.$this->button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'</div>' : '')
+								($this->url->admin ? '<div class="float-right">'.$this->button_update('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).' '.$this->button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'</div>' : '')
 								.($this->url->admin ? icon('fas fa-arrows-alt-v') : $subforum['icon']).' <a href="'.url('forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'">'.$subforum['title'].'</a>'.
 							'</li>';
 					endforeach;

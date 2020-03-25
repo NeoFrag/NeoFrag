@@ -7,10 +7,10 @@
 			<label for="settings-title" class="col-3 col-form-label">Alignement</label>
 			<div class="col-4">
 				<label class="radio-inline">
-					<input type="radio" name="settings[align]" value="pull-left"<?php if (!isset($align) || $align != 'pull-left') echo ' checked="checked"' ?> /> à gauche
+					<input type="radio" name="settings[align]" value="float-left"<?php if (!isset($align) || $align != 'float-left') echo ' checked="checked"' ?> /> à gauche
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="settings[align]" value="pull-right"<?php if (isset($align) && $align == 'pull-right') echo ' checked="checked"' ?> /> à droite
+					<input type="radio" name="settings[align]" value="float-right"<?php if (isset($align) && $align == 'float-right') echo ' checked="checked"' ?> /> à droite
 				</label>
 			</div>
 		</div>

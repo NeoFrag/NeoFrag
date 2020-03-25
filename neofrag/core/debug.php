@@ -156,7 +156,7 @@ class Debug extends Core
 
 			foreach ($this->_timeline as $time)
 			{
-				$class = 'pull-left';
+				$class = 'float-left';
 
 				if (preg_match('/class="(.*?)"/', $time[0], $match))
 				{
@@ -166,7 +166,7 @@ class Debug extends Core
 				$output .= '	<tr>
 									<td class="col-1">'.$time[0].'</td>
 									<td>
-										<div class="pull-left" style="height: 25px; width: '.str_replace(',', '.', floor(($time[1] - $this->_timeline[0][1]) * 100 / $total)).'%;"></div>
+										<div class="float-left" style="height: 25px; width: '.str_replace(',', '.', floor(($time[1] - $this->_timeline[0][1]) * 100 / $total)).'%;"></div>
 										<div class="'.$class.'" style="height: 25px; display: block; padding: 0; width: '.str_replace(',', '.', max(1, floor(($time[2] - $time[1]) * 100 / $total))).'%;"></div>
 									</td>
 								</tr>';
@@ -269,7 +269,7 @@ class Debug extends Core
 								}
 
 								$result .= '	<tr>
-													<td class="col-1"><b>'.($i + 1).'</b><div class="pull-right">'.$type.'</div></td>
+													<td class="col-1"><b>'.($i + 1).'</b><div class="float-right">'.$type.'</div></td>
 													<td class="col-8">'.utf8_htmlentities($text).'</td>
 													<td class="col-3 text-right">'.$file.' <code>'.$line.'</code></td>
 												</tr>';

@@ -52,7 +52,7 @@ class Db extends Core
 			foreach (self::$_requests as $i => $request)
 			{
 				$result .= '	<tr>
-									<td class="col-1"><b>'.($i + 1).'</b><div class="pull-right"><span class="badge badge-'.(!empty($request->error) ? 'danger' : 'success').'">'.round($request->time * 1000, 3).' ms</span></div></td>
+									<td class="col-1"><b>'.($i + 1).'</b><div class="float-right"><span class="badge badge-'.(!empty($request->error) ? 'danger' : 'success').'">'.round($request->time * 1000, 3).' ms</span></div></td>
 									<td class="col-8">'.$request->debug().'</td>
 									<td class="col-3 text-right">'.(isset($request->file) ? $request->file.' <code>'.$request->line : '').'</code></td>
 								</tr>';
@@ -64,7 +64,7 @@ class Db extends Core
 			if (!empty(self::$_requests))
 			{
 				$result .= '	<tr>
-									<td><b>Total</b><div class="pull-right"><span class="badge badge-success">'.round($total_time * 1000, 3).' ms</span></div></td>
+									<td><b>Total</b><div class="float-right"><span class="badge badge-success">'.round($total_time * 1000, 3).' ms</span></div></td>
 									<td colspan="2"></td>
 								</tr>';
 			}

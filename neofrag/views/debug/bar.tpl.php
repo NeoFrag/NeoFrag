@@ -5,7 +5,7 @@
 		<?php foreach ($tabs as $name => $tab): ?>
 			<div class="debug-bar-tab<?php if ($active == $name) echo ' active' ?>" data-debug-bar="<?php echo $name ?>"><?php echo icon($tab[1]) ?><span class="hidden-sm hidden-md"> <?php echo $tab[0] ?></span><?php if (!empty($tab[3])) echo ' '.$tab[3] ?></div>
 		<?php endforeach ?>
-		<div class="pull-right">
+		<div class="float-right">
 			<p class="hidden-sm"><?php echo '<span class="badge">'.(post() ? 'POST' : 'GET').'</span> '.implode(' ', array_map(function($a){ return '<span class="badge">'.utf8_htmlentities($a).'</span>'; }, $this->url->segments)) ?></p>
 			<p><?php echo icon('far fa-clock').' '.round((microtime(TRUE) - NEOFRAG_TIME) * 1000, 2).' ms' ?></p>
 			<p><?php echo icon('fas fa-cogs').' '.ceil((memory_get_peak_usage() - NEOFRAG_MEMORY) / 1024).' kB' ?></p>

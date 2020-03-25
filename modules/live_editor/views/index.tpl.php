@@ -10,7 +10,7 @@
 				<?php endforeach ?>
 			</ul>
 		</div>
-		<div class="pull-right">
+		<div class="float-right">
 			<p class="hidden-xs hidden-sm"><?php echo $this->lang('Gestion du contenu') ?></p>
 			<div class="btn-group">
 				<button type="button" class="live-editor-mode<?php echo $live_editor & \NF\NeoFrag\Core\Output::ZONES ? ' active' : '' ?>" data-mode="<?php echo \NF\NeoFrag\Core\Output::ZONES ?>"><?php echo icon('far fa-square').' '.$this->lang('Zones') ?></button>

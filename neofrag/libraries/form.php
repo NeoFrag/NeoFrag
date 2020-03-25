@@ -768,7 +768,7 @@ class Form extends Library
 									rows: 5,
 									iconset: "fontawesome",
 									labelHeader: "'.NeoFrag()->lang('{0} sur {1} pages').'",
-									labelFooter: "<div class=\"pull-right\">'.NeoFrag()->lang('{2} icônes').'</div>",
+									labelFooter: "<div class=\"float-right\">'.NeoFrag()->lang('{2} icônes').'</div>",
 									searchText: "'.NeoFrag()->lang('Rechercher...').'",
 									selectedClass: "btn-primary",
 									unselectedClass: ""

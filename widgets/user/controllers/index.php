@@ -44,7 +44,7 @@ class Index extends Controller_Widget
 												->modal_ajax('ajax/user/lost-password')
 						)
 						->panel()
-						->title($this->lang('Espace membre').($authenticators ? '<div class="pull-right">'.implode($authenticators).'</div>' : ''));
+						->title($this->lang('Espace membre').($authenticators ? '<div class="float-right">'.implode($authenticators).'</div>' : ''));
 		}
 	}
 

@@ -280,7 +280,7 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading(($this->user->admin ? '<div class="pull-right">'.$this->button_access($gallery_id, 'gallery').'</div>' : NULL).$this->lang('Édition de l\'album'), 'far fa-image')
+						->heading(($this->user->admin ? '<div class="float-right">'.$this->button_access($gallery_id, 'gallery').'</div>' : NULL).$this->lang('Édition de l\'album'), 'far fa-image')
 						->body($form_album->display())
 						->size('col-12 col-lg-7')
 			),
@@ -425,7 +425,7 @@ class Admin extends Controller_Module
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('Aperçu de l\'image'), 'far fa-image')
+						->heading('<div class="float-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('Aperçu de l\'image'), 'far fa-image')
 						->body('<img class="img-fluid" src="'.NeoFrag()->model2('file', $file_id)->path().'" alt="" />')
 						->size('col-12 col-lg-5')
 			)

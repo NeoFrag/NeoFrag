@@ -21,7 +21,7 @@
 						<span data-toggle="tooltip" title="<?php echo $message['username'] ?>"><?php echo NeoFrag()->model2('user', $message['user_id'])->avatar()->append_attr('class', 'mr-2') ?></span>
 						<div class="media-body">
 							<?php if ($allow_delete): ?>
-							<div class="pull-right">
+							<div class="float-right">
 								<?php echo $this->button_delete('user/messages/delete/'.$message['message_id'].'/'.url_title($message['title'])) ?>
 							</div>
 							<?php endif ?>

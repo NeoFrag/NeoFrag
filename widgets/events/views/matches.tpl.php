@@ -12,7 +12,7 @@
 			</div>
 			<?php endif ?>
 			<div class="text-left col-<?php echo $match['match']['opponent']['image_id'] ? 10 : 10 ?>">
-				<span class="pull-right <?php echo $color ?>"><?php echo $match['match']['scores'][0] ?>:<?php echo $match['match']['scores'][1] ?></span>
+				<span class="float-right <?php echo $color ?>"><?php echo $match['match']['scores'][0] ?>:<?php echo $match['match']['scores'][1] ?></span>
 				<a href="<?php echo url('events/'.$match['event_id'].'/'.url_title($match['title'])) ?>">
 				<?php
 					$opponent = $match['match']['opponent']['title'];

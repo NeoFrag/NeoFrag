@@ -26,7 +26,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
-								->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Détails').'"><a class="btn btn-outline-info btn-sm" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fas fa-info').'</a></div>Informations serveur', 'fas fa-info-circle')
+								->heading('<div class="float-right" data-toggle="tooltip" title="'.$this->lang('Détails').'"><a class="btn btn-outline-info btn-sm" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fas fa-info').'</a></div>Informations serveur', 'fas fa-info-circle')
 								->body($this->view('infos', [
 									'check'   => $this->model()->check_server()
 								]))
@@ -37,14 +37,14 @@ class Admin extends Controller_Module
 						$this->row(
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Actualiser').'"><a class="btn btn-outline-info btn-sm refresh" href="#">'.icon('fas fa-sync').'</a></div>Notifications', 'far fa-bell')
+												->heading('<div class="float-right" data-toggle="tooltip" title="'.$this->lang('Actualiser').'"><a class="btn btn-outline-info btn-sm refresh" href="#">'.icon('fas fa-sync').'</a></div>Notifications', 'far fa-bell')
 												->body('<table class="table table-notifications m-0"></table>')
 												->color('default panel-notifications')
 									)
 									->size('col-12 col-lg-8'),
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Sauvegarder').'"><a class="btn btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('far fa-save').'</a></div>Stockage', 'far fa-copy')
+												->heading('<div class="float-right" data-toggle="tooltip" title="'.$this->lang('Sauvegarder').'"><a class="btn btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('far fa-save').'</a></div>Stockage', 'far fa-copy')
 												->body($this->view('storage'))
 												->footer($this->view('storage-footer'))
 												->color('default panel-storage')

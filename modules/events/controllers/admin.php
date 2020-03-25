@@ -437,7 +437,7 @@ class Admin extends Controller_Module
 		if ($published && !$this->model('participants')->get_participants($event_id))
 		{
 			$alert = $this	->panel()
-							->body('<div class="pull-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">Inviter des membres</a></div><i class="fas fa-info-circle"></i> <b>Pense-bête !</b><br />N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !</b>')
+							->body('<div class="float-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">Inviter des membres</a></div><i class="fas fa-info-circle"></i> <b>Pense-bête !</b><br />N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !</b>')
 							->color('info');
 		}
 
@@ -485,10 +485,10 @@ class Admin extends Controller_Module
 						->size('col-8'),
 				$this	->col(
 							$this	->panel()
-									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fas fa-plus')->modal($modal_opponent).'</div>', 'fas fa-info-circle')
+									->heading('Détails de la rencontre<div class="float-right">'.$this->button()->title('Ajouter un adversaire')->icon('fas fa-plus')->modal($modal_opponent).'</div>', 'fas fa-info-circle')
 									->body($form_match->display()),
 							$this	->panel()
-									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right"><small>Résultat global</small> '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fas fa-chess')
+									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="float-right"><small>Résultat global</small> '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fas fa-chess')
 									->body($this->table()->display())
 									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
 						)

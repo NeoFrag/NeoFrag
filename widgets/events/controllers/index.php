@@ -54,7 +54,7 @@ class Index extends Controller_Widget
 		}
 
 		return $this->panel()
-					->heading('<div class="pull-right">'.$label.'</div>Événements', 'fas fa-calendar-alt')
+					->heading('<div class="float-right">'.$label.'</div>Événements', 'fas fa-calendar-alt')
 					->body($this->view('events', ['events' => array_slice($events, 0, 5)]), FALSE)
 					->footer_if(count($events) > 5, '<a href="'.url('events').'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les événements</a>', 'right');
 	}

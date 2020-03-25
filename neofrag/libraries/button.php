@@ -24,7 +24,7 @@ class Button extends Label
 
 			foreach ($buttons as $footer)
 			{
-				$footers[] = method_exists($footer, 'align') ? $footer->append_attr('class', 'pull-'.$footer->align() ?: $align) : $footer;
+				$footers[] = method_exists($footer, 'align') ? $footer->append_attr('class', 'float-'.$footer->align() ?: $align) : $footer;
 			}
 
 			$output->content($footers);

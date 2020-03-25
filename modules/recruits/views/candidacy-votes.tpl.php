@@ -1,5 +1,5 @@
 <?php if(!empty($votes)): ?>
-<div class="pull-right text-right">
+<div class="float-right text-right">
 	<ul class="list-inline m-0">
 		<li class="text-success"><?php echo $total_up ?> <?php echo icon('far fa-thumbs-up') ?></li>
 		<li class="text-danger"><?php echo $total_down ?> <?php echo icon('far fa-thumbs-down') ?></li>
@@ -16,7 +16,7 @@
 		<div class="media">
 			<?php echo $this->user->avatar() ?>
 			<div class="media-body">
-				<div class="pull-right">
+				<div class="float-right">
 					<span class="badge<?php echo $vote['vote'] ? ' badge-success' : ' badge-danger' ?>" style="display: inline-block"><?php echo $vote['vote'] ? icon('far fa-thumbs-up').' Favorable' : icon('far fa-thumbs-down').' Défavorable' ?></span>
 				</div>
 				<?php echo $this->user->link($vote['user_id'], $vote['username']) ?>

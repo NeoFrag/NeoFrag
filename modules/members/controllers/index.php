@@ -40,7 +40,7 @@ class Index extends Controller_Module
 	public function _group($title, $members)
 	{
 		return $this->array
-					->append($this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fas fa-times')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'))
+					->append($this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fas fa-times')->url('members')->color('danger float-right')->compact()->outline().'</h2>'))
 					->append($this->index($members));
 	}
 }

@@ -21,7 +21,7 @@ class Index extends Controller_Widget
 
 		if (!in_string('{neofrag}', $copyright = utf8_html_entity_decode($this->config->nf_copyright)))
 		{
-			$copyright .= '<div class="pull-right">'.$this->lang('Propulsé par %s', '{neofrag}').'</div>';
+			$copyright .= '<div class="float-right">'.$this->lang('Propulsé par %s', '{neofrag}').'</div>';
 		}
 
 		return $this->panel()

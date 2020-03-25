@@ -9,7 +9,7 @@
 			</div>
 			<?php endif ?>
 			<div class="col-<?php echo $match['match']['opponent']['image_id'] ? 11 : 12 ?>">
-				<span class="pull-right"><small><?php echo icon('far fa-clock') ?> <?php echo timetostr('%d/%m/%Y', $match['date']) ?></small></span>
+				<span class="float-right"><small><?php echo icon('far fa-clock') ?> <?php echo timetostr('%d/%m/%Y', $match['date']) ?></small></span>
 				<a href="<?php echo url('events/'.$match['event_id'].'/'.url_title($match['title'])) ?>">
 				<?php
 					$opponent = $match['match']['opponent']['title'];
