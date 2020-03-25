@@ -4,14 +4,13 @@
  * @author: Michaël BILCOT <michael.bilcot@neofr.ag>
  */
 
-$this	->col(function($a){
-			return user_agent($a->user_agent);
+$this	->col(function($session){
+			return user_agent($session->data->session->user_agent);
 		})
-		->col('Adresse IP', function($a){
-						return geolocalisation($ip_address = $a->data->session->ip_address).'<span data-toggle="tooltip" data-original-title="'.$a->data->session->host_name.'">'.$ip_address.'</span>';
+		->col('Adresse IP', function($session){
+			return geolocalisation($ip_address = $session->data->session->ip_address).'<span data-toggle="tooltip" data-original-title="'.$session->data->session->host_name.'">'.$ip_address.'</span>';
 		})
-		->col('Site référent', function($a){
-			return ($referer = $a->data->session->referer) ? urltolink($referer) : $this->lang('Aucun');
+		->col('Site référent', function($session){
+			return ($referer = $session->data->session->referer) ? urltolink($referer) : $this->lang('Aucun');
 		})
-		->col('Date', 'last_activity')
-		->col('Compte tiers', 'auth');
+		->col('Date', 'last_activity');

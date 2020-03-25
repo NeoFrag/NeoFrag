@@ -193,7 +193,7 @@ class Index extends Controller_Module
 							$this	->title('Historique des sessions')
 									->icon('fas fa-history')
 									->breadcrumb()
-									->table2('session', $sessions, 'Aucun historique')
+									->table2('session_history', $sessions, 'Aucun historique')
 									->panel()
 						)->size('col-8')
 					]);

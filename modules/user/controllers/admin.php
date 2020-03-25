@@ -187,7 +187,7 @@ class Admin extends Controller_Module
 	{
 		return $this->title($this->lang('Sessions'))
 					->icon('fas fa-globe')
-					->table2('session', $sessions)
+					->table2('session', $sessions, 'Aucune session active')
 					->panel()
 					->title('Liste des sessions actives', 'fas fa-bars');
 	}
