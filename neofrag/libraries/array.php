@@ -140,6 +140,11 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->_extends ?: $this;
 	}
 
+	public function shift()
+	{
+		return array_shift($this->_array);
+	}
+
 	public function destroy()
 	{
 		$this->_browse(func_get_args(), -1, function(&$node, $name){
