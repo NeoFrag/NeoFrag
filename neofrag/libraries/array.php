@@ -145,6 +145,11 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return array_shift($this->_array);
 	}
 
+	public function pop()
+	{
+		return array_pop($this->_array);
+	}
+
 	public function destroy()
 	{
 		$this->_browse(func_get_args(), -1, function(&$node, $name){
