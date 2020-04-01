@@ -87,9 +87,25 @@ class Email extends Library
 		return $this;
 	}
 
-	public function attachment($file)
+	public function attachment($file, $name = '')
 	{
-		$this->_attachments[] = $file;
+		if (is_a($file, 'NF\NeoFrag\Models\File'))
+		{
+			if ($name === '')
+			{
+				$name = utf8_html_entity_decode($file->name);
+			}
+
+			$file = $file->path;
+		}
+
+		if ($name === '')
+		{
+			$name = basename($file);
+		}
+
+		$this->_attachments[] = [$file, $name];
+
 		return $this;
 	}
 
@@ -167,9 +183,9 @@ class Email extends Library
 			$PHPMailer->AddBCC($to);
 		}
 
-		foreach ($this->_attachments as $file)
+		foreach ($this->_attachments as $attachment)
 		{
-			$PHPMailer->addAttachment($file->path, utf8_html_entity_decode($file->name));
+			$PHPMailer->addAttachment(...$attachment);
 		}
 
 		$this->output->email(function() use ($PHPMailer){
