@@ -214,14 +214,7 @@ class Db extends Core
 			$join .= ' ON '.$on;
 		}
 
-		if (isset($this->_request['join']))
-		{
-			$this->_request['join'] .= ' '.$join;
-		}
-		else
-		{
-			$this->_request['join'] = $join;
-		}
+		$this->_request['join'][] = $join;
 
 		return $this;
 	}

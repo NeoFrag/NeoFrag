@@ -64,7 +64,7 @@ class Driver_Query
 
 				if (!empty($this->join))
 				{
-					$this->sql .= ' '.$this->join;
+					$this->sql .= ' '.implode(' ', array_unique($this->join));
 				}
 			}
 			else if (!empty($this->update) && !empty($this->set))
