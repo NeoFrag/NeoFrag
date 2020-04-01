@@ -44,6 +44,11 @@ class Email extends Library
 		}
 	}
 
+	public function __sleep()
+	{
+		return ['_key', '_from', '_reply_to', '_to', '_cc', '_bcc', '_subject'];
+	}
+
 	public function tracking($action = '')
 	{
 		return '?__email='.static::$_id.($action ? '&__action='.$action : '');
