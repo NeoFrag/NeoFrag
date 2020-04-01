@@ -92,7 +92,11 @@ class Db extends Core
 	public function __call($name, $args)
 	{
 		//TODO 5.6 compatibility
-		if ($name == 'empty')
+		if ($name == 'array')
+		{
+			return parent::__call('array', $this->get(...$args));
+		}
+		else if ($name == 'empty')
 		{
 			return !$this->select('1')->row();
 		}
