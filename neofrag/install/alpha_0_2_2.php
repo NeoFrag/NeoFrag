@@ -42,5 +42,37 @@ class Alpha_0_2_2 extends Install
 
 		dir_remove('install');
 		@rename('.htaccess_old', '.htaccess');
+
+		$config = file_get_contents('config/email.php');
+
+		foreach ([
+					'smtp'     => 'host',
+					'username' => '',
+					'password' => '',
+					'secure'   => '',
+					'port'     => ''
+				]
+			as $key => $name)
+		{
+			$value = addcslashes(utf8_html_entity_decode($this->config->{'nf_email_'.$key}), '\'');
+			$this->config->unset('nf_email_'.$key);
+
+			if ($key == 'secure' && !in_array($value, ['tls', 'ssl']))
+			{
+				$value = $value ? 'tls' : ($this->config->nf_email_port != 25 ? 'ssl' : '');
+			}
+			else if ($key == 'port')
+			{
+				$value = intval($value);
+			}
+
+			$config = preg_replace_callback('/(\''.($name ?: $key).'\' +=> (\'?))(.*?)(\2,?)$/m', function($match) use ($value){
+				unset($match[0], $match[2]);
+				$match[3] = $value;
+				return implode($match);
+			}, $config);
+		}
+
+		file_put_contents('config/email.php', $config);
 	}
 }

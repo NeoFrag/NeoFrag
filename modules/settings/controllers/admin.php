@@ -425,66 +425,6 @@ class Admin extends Controller_Module
 		});
 	}
 
-	public function email()
-	{
-		$this	->subtitle('Serveur e-mail')
-				->icon('far fa-envelope');
-
-		$this	->form()
-				->add_rules([
-					'email_smtp' => [
-						'label'  => 'Serveur SMTP',
-						'value'  => $this->config->nf_email_smtp,
-						'type'   => 'text'
-					],
-					'email_username' => [
-						'label'  => 'Utilisateur',
-						'value'  => $this->config->nf_email_username,
-						'type'   => 'text',
-						'size'   => 'col-5'
-					],
-					'email_password' => [
-						'label'  => 'Mot de passe',
-						'value'  => $this->config->nf_email_password,
-						'type'   => 'password',
-						'size'   => 'col-5'
-					],
-					'email_secure' => [
-						'label'  => 'Sécurité',
-						'type'   => 'radio',
-						'value'  => $this->config->nf_email_secure,
-						'values' => ['SSL', 'TLS']
-					],
-					'email_port' => [
-						'label'  => 'Port',
-						'value'  => $this->config->nf_email_port,
-						'type'   => 'number',
-						'size'   => 'col-2'
-					]
-				])
-				->add_submit($this->lang('Valider'))
-				->display_required(FALSE);
-
-		if ($this->form()->is_valid($post))
-		{
-			foreach ($post as $var => $value)
-			{
-				$this->config('nf_'.$var, $value);
-			}
-
-			notify('Configuration du serveur SMTP sauvegardée avec succès');
-
-			refresh();
-		}
-
-		return $this->_layout(function($col){
-			$col->append($this	->panel()
-								->heading('Serveur e-mail', 'far fa-envelope')
-								->body($this->form()->display())
-			);
-		});
-	}
-
 	public function maintenance()
 	{
 		$this	->subtitle($this->lang('Maintenance'))
@@ -691,11 +631,6 @@ class Admin extends Controller_Module
 					'icon'  => 'fas fa-shield-alt',
 					'url'   => 'admin/settings/captcha'
 				],
-				/*[
-					'title' => 'Serveur e-mail',
-					'icon'  => 'far fa-envelope',
-					'url'   => 'admin/settings/email'
-				],*/
 				[
 					'title' => 'Copyright',
 					'icon'  => 'far fa-copyright',

@@ -20,10 +20,17 @@ class Email extends Library
 	protected $_data;
 	protected $_footer;
 	protected $_attachments = [];
+	protected $_config = [];
 
 	public function __construct($caller, $config = [])
 	{
 		parent::__construct($caller);
+
+		$this->_config = array_merge_recursive([
+			'smtp' => []
+		], $config);
+
+		unset($this->_config['footer']);
 
 		if (isset($config['footer']) && is_a($config['footer'], 'closure'))
 		{
@@ -111,28 +118,28 @@ class Email extends Library
 			$debug[] = $message;
 		};
 
-		if ($this->config->nf_email_smtp)
+		if (!empty($this->_config['smtp']['host']))
 		{
 			require_once 'lib/phpmailer/SMTP.php';
 
 			$PHPMailer->isSMTP();
 
-			$PHPMailer->Host = $this->config->nf_email_smtp;
+			$PHPMailer->Host = $this->_config['smtp']['host'];
 
-			if ($PHPMailer->SMTPAuth = $this->config->nf_email_username && $this->config->nf_email_password)
+			if ($PHPMailer->SMTPAuth = $this->_config['smtp']['username'] && $this->_config['smtp']['password'])
 			{
-				$PHPMailer->Username = $this->config->nf_email_username;
-				$PHPMailer->Password = $this->config->nf_email_password;
+				$PHPMailer->Username = $this->_config['smtp']['username'];
+				$PHPMailer->Password = $this->_config['smtp']['password'];
 			}
 
-			if ($this->config->nf_email_secure)
+			if ($this->_config['smtp']['secure'])
 			{
-				$PHPMailer->SMTPSecure = $this->config->nf_email_secure;
+				$PHPMailer->SMTPSecure = $this->_config['smtp']['secure'];
 			}
 
-			if ($this->config->nf_email_port)
+			if ($this->_config['smtp']['port'])
 			{
-				$PHPMailer->Port = $this->config->nf_email_port;
+				$PHPMailer->Port = $this->_config['smtp']['port'];
 			}
 		}
 
