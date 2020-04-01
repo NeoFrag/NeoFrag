@@ -12,11 +12,18 @@ class Enum
 
 	public function __construct()
 	{
-		$this->_values = func_get_args();
+		$this->_values = array_map('strval', func_get_args());
 	}
 
-	public function raw($value)
+	public function raw($value, $is_nullable)
 	{
-		return (string)$value;
+		$value = strval($value);
+
+		if (!in_array($value, $this->_values, TRUE))
+		{
+			$value = $is_nullable ? NULL : reset($this->_values);
+		}
+
+		return $value;
 	}
 }

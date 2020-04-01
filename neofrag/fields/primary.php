@@ -10,7 +10,7 @@ class Primary
 {
 	public function init($field)
 	{
-		if (!$field->is_text())
+		if (!$field->is_text() && !$field->is_depends())
 		{
 			$field->int();
 		}

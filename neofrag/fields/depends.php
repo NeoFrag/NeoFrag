@@ -24,7 +24,7 @@ class Depends
 
 	public function raw($value)
 	{
-		return is_a($value, 'NF\NeoFrag\Loadables\Model2') ? ($value->id ?: NULL) : $value;
+		return (is_a($value, 'NF\NeoFrag\Loadables\Model2') ? $value->id : $value) ?: NULL;
 	}
 
 	public function value($value)

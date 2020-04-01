@@ -8,6 +8,11 @@ namespace NF\NeoFrag\Fields;
 
 class Float_
 {
+	public function init($field)
+	{
+		$field->default(0);
+	}
+
 	public function value($value)
 	{
 		return (float)$value;

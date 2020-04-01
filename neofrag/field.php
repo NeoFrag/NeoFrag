@@ -9,6 +9,7 @@ namespace NF\NeoFrag;
 class Field
 {
 	protected $_fields = [];
+	protected $_nullable;
 	protected $_default;
 
 	public function __call($name, $args)
@@ -33,6 +34,12 @@ class Field
 		return $this;
 	}
 
+	public function null()
+	{
+		$this->_nullable = TRUE;
+		return $this;
+	}
+
 	public function key($key)
 	{
 		foreach ($this->_fields as $field)
@@ -46,18 +53,13 @@ class Field
 		return $key;
 	}
 
-	public function raw($value = NULL)
+	public function raw($value)
 	{
-		if (!func_num_args())
-		{
-			$value = $this->_default;
-		}
-
 		foreach ($this->_fields as $field)
 		{
-			if (method_exists($field, 'raw'))
+			if (method_exists($field, 'raw') && (!$this->_nullable || $value !== NULL))
 			{
-				$value = $field->raw($value);
+				$value = $field->raw($value, $this->_nullable);
 			}
 		}
 
@@ -68,7 +70,7 @@ class Field
 	{
 		foreach ($this->_fields as $field)
 		{
-			if (method_exists($field, 'value'))
+			if (method_exists($field, 'value') && ($this->is_depends() || !$this->_nullable || $value !== NULL))
 			{
 				$value = $field->value($value, $model, $this);
 			}
@@ -79,6 +81,6 @@ class Field
 
 	public function init()
 	{
-		return $this->_default;
+		return $this->_default !== NULL ? $this->_default : NULL;
 	}
 }

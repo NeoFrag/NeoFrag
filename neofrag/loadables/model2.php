@@ -387,7 +387,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 			{
 				if (!array_key_exists($key = $field->key($name), $values) && !$field->is_i18n())
 				{
-					$values[$key] = $field->raw();
+					$values[$key] = $field->raw($field->init());
 				}
 			}
 

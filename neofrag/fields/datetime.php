@@ -10,7 +10,7 @@ class Datetime
 {
 	public function init($field)
 	{
-		$field->default(NeoFrag()->date());
+		$field->default(NeoFrag()->date()->sql());
 	}
 
 	public function value($value)

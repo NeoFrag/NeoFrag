@@ -8,6 +8,11 @@ namespace NF\NeoFrag\Fields;
 
 class Int_
 {
+	public function init($field)
+	{
+		$field->default(0);
+	}
+
 	public function value($value)
 	{
 		return (int)$value;

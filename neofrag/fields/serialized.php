@@ -10,7 +10,7 @@ class Serialized
 {
 	public function init($field)
 	{
-		$field->default(NeoFrag()->array());
+		$field->default('');
 	}
 
 	public function value($value)
@@ -25,10 +25,20 @@ class Serialized
 
 	public function raw($value)
 	{
-		if (is_a($value, 'NF\NeoFrag\Libraries\Array_'))
-		{
-			$value = $value->__toArray();
-		}
+		$convert = function(&$value) use (&$convert){
+			if (method_exists($value, '__toArray'))
+			{
+				$value = $value->__toArray();
+
+				array_walk($value, $convert);
+			}
+			else if (is_a($value, 'NF\NeoFrag\Libraries\Date'))
+			{
+				$value = $value->sql();
+			}
+		};
+
+		$convert($value);
 
 		return $value ? serialize($value) : '';
 	}
