@@ -13,6 +13,7 @@ class Email extends Library
 	static protected $_id;
 
 	protected $_from;
+	protected $_reply_to;
 	protected $_to = [];
 	protected $_bcc = [];
 	protected $_subject;
@@ -54,9 +55,14 @@ class Email extends Library
 		return '?__email='.static::$_id.($action ? '&__action='.$action : '');
 	}
 
-	public function from($from)
+	public function from($from, $name = '')
 	{
-		$this->_from = $from;
+		$this->_from = [$from];
+
+		if ((string)$name !== '')
+		{
+			$this->_from[] = $name;
+		}
 
 		return $this;
 	}
@@ -64,6 +70,18 @@ class Email extends Library
 	public function to($to)
 	{
 		$this->_to[] = strtolower($to);
+
+		return $this;
+	}
+
+	public function reply_to($to, $name = '')
+	{
+		$this->_reply_to = [strtolower($to)];
+
+		if ((string)$name !== '')
+		{
+			$this->_reply_to[] = utf8_html_entity_decode($name);
+		}
 
 		return $this;
 	}
@@ -164,12 +182,15 @@ class Email extends Library
 			}
 		}
 
-		if ($this->_from)
+		if ($this->_reply_to)
 		{
-			$PHPMailer->AddReplyTo($this->_from);
+			call_user_func_array([$PHPMailer, 'AddReplyTo'], $this->_reply_to);
 		}
 
-		$PHPMailer->setFrom($this->config->nf_contact, $this->config->nf_name, !ini_get('sendmail_from'));
+		$PHPMailer->setFrom(strtolower($this->_from && array_key_exists(0, $this->_from) ? $this->_from[0] : $this->config->nf_contact),
+							utf8_html_entity_decode($this->_from && array_key_exists(1, $this->_from) ? $this->_from[1] : $this->config->nf_name),
+							!ini_get('sendmail_from')
+		);
 
 
 		$PHPMailer->XMailer  = ' ';
