@@ -10,8 +10,7 @@ use NF\NeoFrag\Library;
 
 class Email extends Library
 {
-	static protected $_id;
-
+	protected $_key;
 	protected $_from;
 	protected $_reply_to;
 	protected $_to = [];
@@ -50,9 +49,16 @@ class Email extends Library
 		return ['_key', '_from', '_reply_to', '_to', '_cc', '_bcc', '_subject'];
 	}
 
-	public function tracking($action = '')
+	public function key(&$key = NULL)
 	{
-		return '?__email='.static::$_id.($action ? '&__action='.$action : '');
+		if ($key === NULL)
+		{
+			$key = unique_id($this->db()->select('key')->from('nf_emailing_email_recipient')->get());
+		}
+
+		$this->_key = $key;
+
+		return $this;
 	}
 
 	public function from($from, $name = '')
@@ -139,12 +145,6 @@ class Email extends Library
 			return FALSE;
 		}
 
-		do
-		{
-			static::$_id = unique_id();
-		}
-		while ($this->module('newsletter') && $this->db()->select('1')->from('nf_newsletter_campaign_email')->where('id', static::$_id)->row());
-
 		require_once 'lib/phpmailer/PHPMailer.php';
 		require_once 'lib/phpmailer/Exception.php';
 
@@ -193,6 +193,11 @@ class Email extends Library
 		);
 
 
+		if ($this->_key)
+		{
+			$PHPMailer->MessageID = '<'.$this->_key.'@'.preg_replace('/^.+?@/', '', $PHPMailer->From).'>';
+		}
+
 		$PHPMailer->XMailer  = ' ';
 		$PHPMailer->Encoding = 'quoted-printable';
 		$PHPMailer->CharSet  = 'UTF-8';
@@ -230,7 +235,9 @@ class Email extends Library
 			$PHPMailer->AltBody = trim(strip_tags($PHPMailer->Body));
 		});
 
-		if (!($result = $PHPMailer->send() ? static::$_id : FALSE))
+		$sent = $PHPMailer->send();
+
+		if (!$sent)
 		{
 			foreach ($debug as $message)
 			{
@@ -238,6 +245,6 @@ class Email extends Library
 			}
 		}
 
-		return $result;
+		return $sent;
 	}
 }
