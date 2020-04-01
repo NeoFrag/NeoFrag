@@ -50,7 +50,7 @@ class File extends Labelable
 
 					$this->_errors[] = $this->lang($errors[$_FILES[$this->_name]['error']]);
 				}
-				else if (!in_array($_FILES[$this->_name]['type'], $this->_mimes))
+				else if ($this->_mimes && !in_array($_FILES[$this->_name]['type'], $this->_mimes))
 				{
 					$this->_errors[] = NeoFrag()->lang('Type de fichier non autorisé');
 				}
