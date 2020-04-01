@@ -332,7 +332,7 @@ class Output extends Core
 				$this->js_load('$.post(\''.url('admin/ajax/monitoring.json').'\', {refresh: false});');
 			}
 
-			$output = $this->view('theme/main', [
+			$output = $this->_theme->view('theme/main', [
 				'title'     => call_user_func($this->_title),
 				'body'      => $body,
 				'debug_bar' => $this->debug->bar()
