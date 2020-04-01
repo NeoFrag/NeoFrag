@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo icon('fa-check') ?> J'ai pris connaissance du règlement</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo icon('fas fa-check') ?> J'ai pris connaissance du règlement</button>
 			</div>
 		</div>
 	</div>

@@ -150,7 +150,7 @@ class Admin extends Controller
 					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
-								->heading($this->lang('Tableau de bord'), 'fa-cog')
+								->heading($this->lang('Tableau de bord'), 'fas fa-cog')
 								->body($this->view('admin/index', [
 									'theme'           => $this->__caller->info(),
 									'form_background' => $form_background->display(),

@@ -20,7 +20,7 @@
 		<td>
 			<ul class="extensions">
 			<?php foreach ($extensions as $extension): ?>
-				<li><a href="#module_<?php echo $extension ?>"><?php echo icon('fa-puzzle-piece').' '.$extension ?></a></li>
+				<li><a href="#module_<?php echo $extension ?>"><?php echo icon('fas fa-puzzle-piece').' '.$extension ?></a></li>
 			<?php endforeach ?>
 			</ul>
 		</td>

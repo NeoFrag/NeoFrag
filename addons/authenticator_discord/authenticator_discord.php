@@ -14,7 +14,7 @@ class Authenticator_Discord extends Authenticator
 	{
 		return [
 			'title'   => 'Discord',
-			'icon'    => 'fa-commenting-o',
+			'icon'    => 'far fa-comment-dots',
 			'color'   => '#7289DA',
 			'help'    => 'https://discordapp.com/developers/applications/me#top',
 			'version' => '1.0',

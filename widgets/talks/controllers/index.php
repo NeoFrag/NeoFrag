@@ -34,7 +34,7 @@ class Index extends Controller_Widget
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="'.$this->lang('Votre message...').'" />
 									<span class="input-group-append">
-										<button class="btn btn-primary" type="submit">'.icon('fa-check').'</button>
+										<button class="btn btn-primary" type="submit">'.icon('fas fa-check').'</button>
 									</span>
 								</div>
 							</form>');

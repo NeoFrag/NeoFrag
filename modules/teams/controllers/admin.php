@@ -33,7 +33,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="'.$this->lang('Joueurs').'"></i>',
+								'title'   => '<i class="fas fa-users" data-toggle="tooltip" title="'.$this->lang('Joueurs').'"></i>',
 								'content' => function($data){
 									return $data['users'];
 								},
@@ -88,14 +88,14 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Rôles'), 'fa-sitemap')
+						->heading($this->lang('Rôles'), 'fas fa-sitemap')
 						->body($roles)
 						->footer_if($this->is_authorized('add_teams_roles'), $this->button_create('admin/teams/roles/add', $this->lang('Ajouter un rôle')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Liste des équipes'), 'fa-gamepad')
+						->heading($this->lang('Liste des équipes'), 'fas fa-headset')
 						->body($teams)
 						->footer_if($this->is_authorized('add_teams'), $this->button_create('admin/teams/add', $this->lang('Ajouter une équipe')))
 						->size('col-12 col-lg-8')
@@ -127,7 +127,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une équipe'), 'fa-gamepad')
+					->heading($this->lang('Ajouter une équipe'), 'fas fa-headset')
 					->body($this->form()->display());
 	}
 
@@ -228,13 +228,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Éditer l\'équipe'), 'fa-gamepad')
+						->heading($this->lang('Éditer l\'équipe'), 'fas fa-headset')
 						->body($form_team->display())
 						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Joueurs'), 'fa-users')
+						->heading($this->lang('Joueurs'), 'fas fa-users')
 						->body($this->table()->display())
 						->footer($this->view('users', [
 							'users'   => $users,
@@ -281,7 +281,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter un rôle'), 'fa-sitemap')
+					->heading($this->lang('Ajouter un rôle'), 'fas fa-sitemap')
 					->body($this->form()->display());
 	}
 
@@ -305,7 +305,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Éditer le rôle'), 'fa-sitemap')
+					->heading($this->lang('Éditer le rôle'), 'fas fa-sitemap')
 					->body($this->form()->display());
 	}
 

@@ -3,7 +3,7 @@
 	<div class="media-body">
 		<div><?php echo $this->user->link($user_id, $username) ?></div>
 		<p>
-			<small><?php echo icon('fa-circle '.($online ? 'text-green' : 'text-gray')).' '.$this->lang($admin ? 'Administrateur' : 'Membre').' '.$this->lang($online ? 'en ligne' : 'hors ligne') ?></small>
+			<small><?php echo icon('fas fa-circle '.($online ? 'text-green' : 'text-gray')).' '.$this->lang($admin ? 'Administrateur' : 'Membre').' '.$this->lang($online ? 'en ligne' : 'hors ligne') ?></small>
 		</p>
 	</div>
 </div>

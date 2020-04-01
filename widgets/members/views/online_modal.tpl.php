@@ -11,7 +11,7 @@
 					<?php echo NeoFrag()->model2('user', $user['user_id'])->avatar() ?>
 					<div class="media-body">
 						<?php echo $this->user->link($user['user_id'], $user['username']) ?><br />
-						<small><?php echo icon('fa-clock-o').' '.time_span($user['last_activity']) ?></small>
+						<small><?php echo icon('far fa-clock').' '.time_span($user['last_activity']) ?></small>
 					</div>
 				</div>
 				<?php endforeach ?>

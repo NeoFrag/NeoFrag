@@ -17,7 +17,7 @@ class Index extends Controller_Module
 		if (!empty($partners))
 		{
 			return $this->panel()
-						->heading('Nos partenaires', 'fa-star-o')
+						->heading('Nos partenaires', 'far fa-handshake')
 						->body($this->view('index', [
 							'partners' => $partners
 						]));
@@ -25,7 +25,7 @@ class Index extends Controller_Module
 		else
 		{
 			return $this->panel()
-						->heading('Nos partenaires', 'fa-star-o')
+						->heading('Nos partenaires', 'far fa-handshake')
 						->body('<div class="text-center">Aucun partenaire</div>')
 						->color('info');
 		}

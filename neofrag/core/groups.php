@@ -21,7 +21,7 @@ class Groups extends Core
 				'name'   => 'admins',
 				'title'  => NeoFrag()->lang('Administrateurs'),
 				'color'  => 'danger',
-				'icon'   => 'fa-rocket',
+				'icon'   => 'fas fa-rocket',
 				'hidden' => FALSE,
 				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return $a['admin'];}))),
 				'auto'   => 'neofrag'
@@ -30,7 +30,7 @@ class Groups extends Core
 				'name'   => 'members',
 				'title'  => NeoFrag()->lang('Membres'),
 				'color'  => 'success',
-				'icon'   => 'fa-user',
+				'icon'   => 'fas fa-user',
 				'hidden' => FALSE,
 				'users'  => array_map('intval', array_map(function($a){return intval($a['id']);}, array_filter($users, function($a){return !$a['admin'];}))),
 				'auto'   => 'neofrag'

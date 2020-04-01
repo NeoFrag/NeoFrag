@@ -16,11 +16,11 @@ class Index extends Controller_Module
 					->col('', 'col-1', 'avatar')
 					->col(function($data){
 						$socials = $this	->array([
-							['website',   'fa-globe',     ''],
-							['linkedin',  'fa-linkedin',  'https://www.linkedin.com/in/'],
-							['github',    'fa-github',    'https://github.com/'],
-							['instagram', 'fa-instagram', 'https://www.instagram.com/'],
-							['twitch',    'fa-twitch',    'https://www.twitch.tv/']
+							['website',   'fas fa-globe',       ''],
+							['linkedin',  'fab fa-linkedin-in', 'https://www.linkedin.com/in/'],
+							['github',    'fab fa-github',      'https://github.com/'],
+							['instagram', 'fab fa-instagram',   'https://www.instagram.com/'],
+							['twitch',    'fab fa-twitch',      'https://www.twitch.tv/']
 						])
 						->filter(function($a) use ($data){
 							return $data->profile()->{$a[0]};
@@ -32,7 +32,7 @@ class Index extends Controller_Module
 						return '<div>'.$data->link().'</div>'.(!$socials->empty() ? '<div class="socials">'.$socials.'</div>' : '');
 					})
 					->col(function($data){
-						return $this->user() && $this->user->id != $data->id ? $this->button()->icon('fa-envelope-o')->url('user/messages/compose/'.$data->id.'/'.url_title($data->username))->compact()->outline() : '';
+						return $this->user() && $this->user->id != $data->id ? $this->button()->icon('far fa-envelope')->url('user/messages/compose/'.$data->id.'/'.url_title($data->username))->compact()->outline() : '';
 					})
 					->panel();
 	}
@@ -40,7 +40,7 @@ class Index extends Controller_Module
 	public function _group($title, $members)
 	{
 		return $this->array
-					->append($this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fa-close')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'))
+					->append($this->panel()->body('<h2 class="m-0">'.$this->lang('Groupe').' <small>'.$title.'</small>'.$this->button()->tooltip($this->lang('Voir tous les membres'))->icon('fas fa-times')->url('members')->color('danger pull-right')->compact()->outline().'</h2>'))
 					->append($this->index($members));
 	}
 }

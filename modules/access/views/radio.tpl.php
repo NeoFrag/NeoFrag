@@ -1,1 +1,1 @@
-<td class="text-center access-radio<?php if ($active) echo ' '.$class ?>" data-class="<?php echo $class ?>"><big><i class="fa fa-toggle-<?php echo $active ? 'on' : 'off' ?> fa-fw text-<?php echo $active ? $class : 'muted' ?>"></i></big></td>
+<td class="text-center access-radio<?php if ($active) echo ' '.$class ?>" data-class="<?php echo $class ?>"><big><i class="<?php echo $active ? 'fas fa-toggle-on' : 'fas fa-toggle-off' ?> fa-fw text-<?php echo $active ? $class : 'muted' ?>"></i></big></td>

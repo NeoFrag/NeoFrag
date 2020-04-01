@@ -16,7 +16,7 @@ class Index extends Controller_Module
 				->breadcrumb($title);
 
 		return $this->panel()
-					->heading($title.($subtitle ? ' <small>'.$subtitle.'</small>' : ''), 'fa-file-text-o')
+					->heading($title.($subtitle ? ' <small>'.$subtitle.'</small>' : ''), 'far fa-file-alt')
 					->body(bbcode($content));
 	}
 }

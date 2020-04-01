@@ -16,7 +16,7 @@ class Index extends Controller_Widget
 			'name'      => '<a href="'.url().'">'.$this->config->nf_name.'</a>',
 			'neofrag'   => '<a href="https://neofr.ag">NeoFrag</a>',
 			'year'      => date('Y'),
-			'copyright' => icon('fa-copyright')
+			'copyright' => icon('far fa-copyright')
 		];
 
 		if (!in_string('{neofrag}', $copyright = utf8_html_entity_decode($this->config->nf_copyright)))

@@ -31,7 +31,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Lieu',
 								'content' => function($data){
-									return $data['location'] ? icon('fa-map-marker').$data['location'] : '';
+									return $data['location'] ? icon('fas fa-map-marker-alt').$data['location'] : '';
 								},
 								'sort'    => function($data){
 									return $data['location'];
@@ -77,20 +77,20 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<span data-toggle="tooltip" title="Classement">'.icon('fa-trophy').'</span>',
+								'title'   => '<span data-toggle="tooltip" title="Classement">'.icon('fas fa-trophy').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
 									if ($data['ranking'] == 1)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'er / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-gold').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].'er / '.$data['participants'].' équipes">'.icon('fas fa-trophy trophy-gold').'</span>';
 									}
 									else if ($data['ranking'] == 2)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-silver').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fas fa-trophy trophy-silver').'</span>';
 									}
 									else if ($data['ranking'] == 3)
 									{
-										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fa-trophy trophy-bronze').'</span>';
+										return '<span data-toggle="tooltip" title="'.$data['ranking'].'ème / '.$data['participants'].' équipes">'.icon('fas fa-trophy trophy-bronze').'</span>';
 									}
 									else
 									{
@@ -99,7 +99,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<span data-toggle="tooltip" title="Plateforme">'.icon('fa-tv').'</span>',
+								'title'   => '<span data-toggle="tooltip" title="Plateforme">'.icon('fas fa-tv').'</span>',
 								'size'    => TRUE,
 								'content' => function($data){
 									return $data['platform'];
@@ -125,7 +125,7 @@ class Admin extends Controller_Module
 						->display();
 
 		return $this->panel()
-					->heading('Liste des palmarès', 'fa-trophy')
+					->heading('Liste des palmarès', 'fas fa-trophy')
 					->body($awards)
 					->footer_if($this->is_authorized('add_awards'), $this->button_create('admin/awards/add', 'Ajouter un palmarès'));
 	}
@@ -160,7 +160,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Nouveau palmarès', 'fa-trophy')
+					->heading('Nouveau palmarès', 'fas fa-trophy')
 					->body($this->form()->display());
 	}
 
@@ -206,7 +206,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Édition du palmarès', 'fa-trophy')
+					->heading('Édition du palmarès', 'fas fa-trophy')
 					->body($this->form()->display());
 	}
 

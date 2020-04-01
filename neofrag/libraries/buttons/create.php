@@ -10,7 +10,7 @@ use NF\NeoFrag\Library;
 
 class Create extends Library
 {
-	public function __invoke($url = '', $title = '', $icon = 'fa-plus')
+	public function __invoke($url = '', $title = '', $icon = 'fas fa-plus')
 	{
 		return $this->button()
 					->title($title)

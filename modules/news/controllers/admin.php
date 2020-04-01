@@ -18,7 +18,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('Publiée').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
+									return $data['published'] ? '<i class="fas fa-circle" data-toggle="tooltip" title="'.$this->lang('Publiée').'" style="color: #7bbb17;"></i>' : '<i class="far fa-circle" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -71,7 +71,7 @@ class Admin extends Controller_Module
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="'.$this->lang('Commentaires').'"></i>',
+								'title'   => '<i class="far fa-comments" data-toggle="tooltip" title="'.$this->lang('Commentaires').'"></i>',
 								'content' => function($data){
 									return $this->module('comments')->admin('news', $data['news_id']);
 								},
@@ -127,14 +127,14 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Catégories'), 'fa-align-left')
+						->heading($this->lang('Catégories'), 'fas fa-align-left')
 						->body($categories)
 						->footer_if($this->is_authorized('add_news_category'), $this->button_create('admin/news/categories/add', $this->lang('Créer une catégorie')))
 						->size('col-12 col-lg-3')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Liste des actualités'), 'fa-file-text-o')
+						->heading($this->lang('Liste des actualités'), 'far fa-file-alt')
 						->body($news)
 						->footer_if($this->is_authorized('add_news'), $this->button_create('admin/news/add', $this->lang('Ajouter une actualité')))
 						->size('col-12 col-lg-9')
@@ -168,7 +168,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une actualité'), 'fa-file-text-o')
+					->heading($this->lang('Ajouter une actualité'), 'far fa-file-alt')
 					->body($this->form()->display());
 	}
 
@@ -208,7 +208,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Éditer l\'actualité'), 'fa-align-left')
+					->heading($this->lang('Éditer l\'actualité'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 
@@ -249,7 +249,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une catégorie'), 'fa-align-left')
+					->heading($this->lang('Ajouter une catégorie'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 
@@ -278,7 +278,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Éditer la catégorie'), 'fa-align-left')
+					->heading($this->lang('Éditer la catégorie'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 

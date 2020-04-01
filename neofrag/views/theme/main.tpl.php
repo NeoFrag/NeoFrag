@@ -25,7 +25,7 @@
 	<div class="bg-danger py-2">
 		<div class="container">
 			<div class="row align-items-center">
-				<div class="col-6 text-white"><?php echo icon('fa-power-off').' '.$this->lang('Site en opération de maintenance') ?></div>
+				<div class="col-6 text-white"><?php echo icon('fas fa-power-off').' '.$this->lang('Site en opération de maintenance') ?></div>
 				<div class="col-6 text-right"><a href="<?php echo url('admin/settings/maintenance') ?>" class="btn btn-outline-light"><?php echo $this->lang('Ouvrir le site') ?></a></div>
 			</div>
 		</div>

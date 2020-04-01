@@ -8,7 +8,7 @@ var modal_style = function(title, $element, styles, callback){
 			<div class="modal-dialog modal-lg">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<h5 class="modal-title"><?php echo icon('fa-paint-brush') ?> '+title+'</h5>\
+						<h5 class="modal-title"><?php echo icon('fas fa-paint-brush') ?> '+title+'</h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 					</div>\
 					<div class="modal-body">\
@@ -81,7 +81,7 @@ var modal_settings = function(title, settings, callback){
 			<div class="modal-dialog modal-lg">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<h5 class="modal-title"><?php echo icon('fa-cogs') ?> '+title+'</h5>\
+						<h5 class="modal-title"><?php echo icon('fas fa-cogs') ?> '+title+'</h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 					</div>\
 					<div class="modal-body">\
@@ -232,7 +232,7 @@ var modal_delete = function(message, callback){
 			<div class="modal-dialog">\
 				<div class="modal-content">\
 					<div class="modal-header">\
-						<h5 class="modal-title"><?php echo icon('fa-trash-o').' '.$this->lang('Confirmation de suppression') ?></h5>\
+						<h5 class="modal-title"><?php echo icon('far fa-trash-alt').' '.$this->lang('Confirmation de suppression') ?></h5>\
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 					</div>\
 					<div class="modal-body">\
@@ -240,7 +240,7 @@ var modal_delete = function(message, callback){
 					</div>\
 					<div class="modal-footer">\
 						<button type="button" class="btn btn-dark" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
-						<button type="button" class="btn btn-danger"><?php echo icon('fa-trash-o') ?> <?php echo $this->lang('Supprimer') ?></button>\
+						<button type="button" class="btn btn-danger"><?php echo icon('far fa-trash-alt') ?> <?php echo $this->lang('Supprimer') ?></button>\
 					</div>\
 				</div>\
 			</div>\
@@ -295,7 +295,7 @@ $(function(){
 	});
 
 	$('#modules-links-collapse').on('click', 'a', function(){
-		$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
+		$('#live-editor-map').html('<?php echo icon('fas fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
 		$('#modules-links-collapse').removeClass('in');
 		$('form[target="live-editor-iframe"]').prop('action', $(this).attr('href')).submit();
 
@@ -323,9 +323,9 @@ $(function(){
 						<div class="widget-hover-content">\
 							<h5>'+($(this).hasClass('module') ? '<b><?php echo $this->lang('Module') ?></b> ' : '')+$(this).data('title')+'</h5>\
 							<div class="btn-group" role="group">\
-								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo $this->lang('Apparence') ?>"><?php echo icon('fa-paint-brush') ?></button>' : '')+'\
-								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Configurer') ?>"><?php echo icon('fa-cogs') ?></button>\
-								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Supprimer') ?>"><?php echo icon('fa-trash-o') ?></button>\
+								'+(!$(this).hasClass('module') ? '<button type="button" class="btn btn-info live-editor-style" data-toggle="tooltip" data-container="body" data-placement="bottom" title="<?php echo $this->lang('Apparence') ?>"><?php echo icon('fas fa-paint-brush') ?></button>' : '')+'\
+								<button type="button" class="btn btn-warning live-editor-setting" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Configurer') ?>"><?php echo icon('fas fa-cogs') ?></button>\
+								<button type="button" class="btn btn-danger live-editor-delete" data-toggle="tooltip" data-placement="bottom" data-container="body" title="<?php echo $this->lang('Supprimer') ?>"><?php echo icon('far fa-trash-alt') ?></button>\
 							</div>\
 						</div>\
 					</div>').prependTo(this).fadeTo('fast', 1);
@@ -340,7 +340,7 @@ $(function(){
 			var href = $(this).attr('href');
 
 			if (href.match(/<?php echo str_replace('/', '\/', url()) ?>(?!(admin|live-editor|#))/)){
-				$('#live-editor-map').html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
+				$('#live-editor-map').html('<?php echo icon('fas fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
 				$('form[target="live-editor-iframe"]').prop('action', href).submit();
 			}
 

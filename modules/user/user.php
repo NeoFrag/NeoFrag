@@ -15,7 +15,7 @@ class User extends Module
 		return [
 			'title'       => 'Utilisateur',
 			'description' => '',
-			'icon'        => 'fa-user',
+			'icon'        => 'fas fa-user',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

@@ -15,7 +15,7 @@ class Admin extends Controller_Module
 		if (!$modules)
 		{
 			return $this->panel()
-						->heading($this->lang('Permissions'), 'fa-unlock-alt')
+						->heading($this->lang('Permissions'), 'fas fa-unlock-alt')
 						->body($this->lang('Il n\'y a aucune permission à administrer'));
 		}
 
@@ -63,7 +63,7 @@ class Admin extends Controller_Module
 								[
 									'content' => [
 										function($data) use ($module, $type){
-											return $this->button()->tooltip($this->lang('Réinitialiser'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+											return $this->button()->tooltip($this->lang('Réinitialiser'))->icon('fas fa-sync')->color('info access-reset')->compact()->outline()->data([
 												'module' => $module->info()->name,
 												'type'   => $type,
 												'id'     => $data['id']
@@ -99,11 +99,11 @@ class Admin extends Controller_Module
 						$this->row(
 							$this->col(
 								$this	->panel()
-										->heading($this->lang('Liste des permissions').'<div class="pull-right">'.$this->button()->tooltip($this->lang('Réinitialiser toutes les permissions'))->icon('fa-refresh')->color('info access-reset')->compact()->outline()->data([
+										->heading($this->lang('Liste des permissions').'<div class="pull-right">'.$this->button()->tooltip($this->lang('Réinitialiser toutes les permissions'))->icon('fas fa-sync')->color('info access-reset')->compact()->outline()->data([
 											'module' => $module->info()->name,
 											'type'   => $type,
 											'id'     => $id
-										]).'</div>', 'fa-unlock-alt')
+										]).'</div>', 'fas fa-unlock-alt')
 										->body($this->view('index', [
 											'loader' => $module,
 											'module' => $module->info()->name,

@@ -31,17 +31,17 @@ class Admin extends Controller_Module
 									'content' => function($data){
 										if ($data['closed'] || ($data['candidacies_accepted'] >= $data['size']) || ($data['date_end'] && strtotime($data['date_end']) < time()))
 										{
-											return '<i class="fa fa-circle-o" data-toggle="tooltip" title="Offre clôturée" style="color: #535353;"></i>';
+											return '<i class="far fa-circle" data-toggle="tooltip" title="Offre clôturée" style="color: #535353;"></i>';
 										}
 										else
 										{
-											return '<i class="fa fa-circle" data-toggle="tooltip" title="Offre active" style="color: #7bbb17;"></i>';
+											return '<i class="fas fa-circle" data-toggle="tooltip" title="Offre active" style="color: #7bbb17;"></i>';
 										}
 									},
 									'size'    => TRUE
 								],
 								[
-									'title'   => '<span data-toggle="tooltip" title="Nombre de poste">'.icon('fa-briefcase').'</span>',
+									'title'   => '<span data-toggle="tooltip" title="Nombre de poste">'.icon('fas fa-briefcase').'</span>',
 									'content' => function($data){
 										return $data['size'];
 									},
@@ -60,12 +60,12 @@ class Admin extends Controller_Module
 									}
 								],
 								[
-									'title'   => icon('fa-black-tie').' Candidatures',
+									'title'   => icon('fab fa-black-tie').' Candidatures',
 									'content' => function($data){
 										return '<ul class="list-inline mb-0">
-													<li class="list-inline-item text-muted" data-toggle="tooltip" title="En attente">'.icon('fa-clock-o').' '.$data['candidacies_pending'].'</li>
-													<li class="list-inline-item text-success" data-toggle="tooltip" title="Validée">'.icon('fa-check').' '.$data['candidacies_accepted'].'</li>
-													<li class="list-inline-item text-danger" data-toggle="tooltip" title="Refusée">'.icon('fa-ban').' '.$data['candidacies_declined'].'</li>
+													<li class="list-inline-item text-muted" data-toggle="tooltip" title="En attente">'.icon('far fa-clock').' '.$data['candidacies_pending'].'</li>
+													<li class="list-inline-item text-success" data-toggle="tooltip" title="Validée">'.icon('fas fa-check').' '.$data['candidacies_accepted'].'</li>
+													<li class="list-inline-item text-danger" data-toggle="tooltip" title="Refusée">'.icon('fas fa-ban').' '.$data['candidacies_declined'].'</li>
 													'.($data['candidacies_accepted'] == $data['size'] ? '<li class="list-inline-item"><span class="badge badge-success">Complète</span></li>' : '<li class="list-inline-item"><span class="badge badge-dark">Incomplète</span></li>').'
 												</ul>';
 									}
@@ -92,7 +92,7 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading('Candidatures', 'fa-black-tie')
+						->heading('Candidatures', 'fab fa-black-tie')
 						->body($this->view('admin-candidacies', [
 							'total_candidacies' => $total_candidacies,
 							'total_pending'     => $total_pending,
@@ -103,7 +103,7 @@ class Admin extends Controller_Module
 			),
 			$this->col(
 				$this	->panel()
-						->heading('Liste des offres', 'fa-bullhorn')
+						->heading('Liste des offres', 'fas fa-bullhorn')
 						->body($recruits)
 						->footer_if($this->is_authorized('add_recruit'), $this->button_create('admin/recruits/add', 'Créer une offre'))
 						->size('col-8 col-lg-9')
@@ -141,7 +141,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Créer une offre de recrutement', 'fa-bullhorn')
+					->heading('Créer une offre de recrutement', 'fas fa-bullhorn')
 					->body($this->form()->display());
 	}
 
@@ -192,13 +192,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_access($recruit_id, 'recruit').'</div>'.$title, 'fa-briefcase')
+						->heading('<div class="pull-right">'.$this->button_access($recruit_id, 'recruit').'</div>'.$title, 'fas fa-briefcase')
 						->body($this->form()->display())
 						->size('col-8')
 			),
 			$this->col(
 				$this	->panel()
-						->heading('Candidatures déposées', 'fa-black-tie')
+						->heading('Candidatures déposées', 'fab fa-black-tie')
 						->body($this->view('admin-recruit-status', [
 												'size'                 => $size,
 												'available'            => $size - $candidacies_accepted,
@@ -210,7 +210,7 @@ class Admin extends Controller_Module
 						->footer(($this->is_authorized('candidacy_vote') || $this->is_authorized('candidacy_reply')) ? '<a href="'.url('admin/recruits/candidacies/'.$recruit_id.'/'.url_title($title)).'" class="btn btn-outline-info">Voir les candidatures</a>' : '<span class="text-red">Vous n\'êtes pas autorisé à gérer les candidatures...</span>')
 						->size('col-4'),
 				$this	->panel()
-						->heading('Formulaire', 'fa-tasks')
+						->heading('Formulaire', 'fas fa-tasks')
 						->body($this->view('admin-custom-form'))
 						->footer('<a href="#" class="btn btn-outline-info" data-toggle="tooltip" title="Disponible prochainement..." disabled>Personnaliser le formulaire</a>')
 						->size('col-4')
@@ -248,7 +248,7 @@ class Admin extends Controller_Module
 									->add_columns([
 										[
 											'content' => function($data){
-												return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('fa-envelope-o').'</a>';
+												return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('far fa-envelope').'</a>';
 											},
 											'sort'    => function($data){
 												return $data['email'];
@@ -316,7 +316,7 @@ class Admin extends Controller_Module
 
 		return $this->array
 					->append($this	->panel()
-									->heading('Liste des candidatures en attentes', 'fa-black-tie')
+									->heading('Liste des candidatures en attentes', 'fab fa-black-tie')
 									->body($candidacies_pending)
 									->size('col-8')
 					)
@@ -503,7 +503,7 @@ class Admin extends Controller_Module
 
 		return $this->array
 					->append($this	->panel()
-									->heading('Liste des candidatures', 'fa-briefcase')
+									->heading('Liste des candidatures', 'fas fa-briefcase')
 									->body($this->view('admin-recruit-candidacies', [
 														'table_pending'  => $candidacies_pending,
 														'table_accepted' => $candidacies_accepted,
@@ -610,8 +610,8 @@ class Admin extends Controller_Module
 									'label'  => 'Je suis',
 									'value'  => isset($user_vote['vote']) ? $user_vote['vote'] : NULL,
 									'values' => [
-										'1' => icon('fa-thumbs-o-up').' <span class="text-green">Favorable</span>',
-										'0' => icon('fa-thumbs-o-down').' <span class="text-red">Défavorable</span>'
+										'1' => icon('far fa-thumbs-up').' <span class="text-green">Favorable</span>',
+										'0' => icon('far fa-thumbs-down').' <span class="text-red">Défavorable</span>'
 									],
 									'type'   => 'radio',
 									'rules'  => 'required'
@@ -651,17 +651,17 @@ class Admin extends Controller_Module
 
 		if ($status == 1)
 		{
-			$statut_heading = icon('fa-hourglass-end').' Candidature <b>en cours d\'éxamination</b>';
+			$statut_heading = icon('fas fa-hourglass-end').' Candidature <b>en cours d\'éxamination</b>';
 			$statut_color   = 'bg-teal';
 		}
 		else if ($status == 2)
 		{
-			$statut_heading = icon('fa-check').' Candidature <b>acceptée</b>';
+			$statut_heading = icon('fas fa-check').' Candidature <b>acceptée</b>';
 			$statut_color   = 'bg-green';
 		}
 		else
 		{
-			$statut_heading = icon('fa-close').' Candidature <b>refusée</b>';
+			$statut_heading = icon('fas fa-times').' Candidature <b>refusée</b>';
 			$statut_color   = 'bg-red';
 		}
 
@@ -670,9 +670,9 @@ class Admin extends Controller_Module
 				$this	->panel_box()
 						->heading($statut_heading, '', 'admin/recruits/candidacies/'.$recruit_id.'/'.url_title($title))
 						->color($statut_color)
-						->footer(icon('fa-arrow-circle-left').' Retour aux candidatures de cette offre'),
+						->footer(icon('fas fa-arrow-circle-left').' Retour aux candidatures de cette offre'),
 				$this	->panel()
-						->heading('<div class="pull-right"><a href="mailto:'.$email.'" class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Contacter par e-mail">'.icon('fa-envelope-o').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fa-black-tie')
+						->heading('<div class="pull-right"><a href="mailto:'.$email.'" class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Contacter par e-mail">'.icon('far fa-envelope').'</a></div>Candidature de <b>'.$pseudo.'</b>', 'fab fa-black-tie')
 						->body($this->view('candidacy', [
 							'candidacy_id'  => $candidacy_id,
 							'date'          => $date,
@@ -695,20 +695,20 @@ class Admin extends Controller_Module
 							'team_name'     => $team_name
 						])),
 				$this	->panel()
-						->heading('Réponse au candidat', 'fa-lock')
+						->heading('Réponse au candidat', 'fas fa-lock')
 						->body($this->is_authorized('candidacy_reply') ? $reply_form->display() : '<span class="text-red">Vous n\'êtes pas autorisé à gérer le statut de la candidature.</span>')
 						->size('col-7'),
 				$this->button_back()
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right text-right"><ul class="list-inline m-0"><li class="list-inline-item">'.$total_up.' '.icon('fa-thumbs-o-up text-green').'</li><li class="list-inline-item">'.$total_down.' '.icon('fa-thumbs-o-down text-red').'</li></ul></div>Tendance des votes', 'fa-commenting-o')
+						->heading('<div class="pull-right text-right"><ul class="list-inline m-0"><li class="list-inline-item">'.$total_up.' '.icon('far fa-thumbs-up text-green').'</li><li class="list-inline-item">'.$total_down.' '.icon('far fa-thumbs-down text-red').'</li></ul></div>Tendance des votes', 'far fa-comment-dots')
 						->body($this->view('admin-candidacy-status', [
 							'status' => $status,
 							'votes'  => $votes
 						])),
 				$this	->panel()
-						->heading('Mon avis sur la candidature', 'fa-star-o')
+						->heading('Mon avis sur la candidature', 'far fa-star')
 						->body($this->is_authorized('candidacy_vote') ? $vote_form->display() : '<span class="text-red">Vous n\'êtes pas autorisé à déposer votre avis.</span>')
 						->size('col-5')
 			)

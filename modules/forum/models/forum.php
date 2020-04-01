@@ -193,7 +193,7 @@ class Forum extends Model
 				$forum['subforums'] = [];
 			}
 
-			$forum['icon']       = icon(($forum['url'] ? 'fa-globe' : 'fa-comments'.($forum['has_unread'] ? '' : '-o')).($mini ? '' : ' fa-3x'));
+			$forum['icon']       = icon(($forum['url'] ? 'fas fa-globe' : ($forum['has_unread'] ? 'fas fa-comments' : 'far fa-comments')).($mini ? '' : ' fa-3x'));
 		}
 
 		return $forums;
@@ -253,8 +253,8 @@ class Forum extends Model
 			$last_message_date = strtotime($topic['last_message_date'] ?: $topic['date']);
 			$unread = $this->user() && $forum_read < $last_message_date && (!isset($topics_read[$topic['topic_id']]) || $topics_read[$topic['topic_id']] < $last_message_date);
 			$topic['icon'] = '	<span class="topic-icon">
-								'.icon('fa-'.($topic['announce'] ? 'flag' : 'comments').($unread ? '' : '-o').' fa-3x').'
-								'.($topic['locked'] ? icon('fa-lock fa-3x') : '').'
+								'.icon(($unread ? 'fas' : 'far').' fa-'.($topic['announce'] ? 'flag' : 'comments').' fa-3x').'
+								'.($topic['locked'] ? icon('fas fa-lock fa-3x') : '').'
 							</span>';
 
 			if (!$unread)

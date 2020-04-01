@@ -15,7 +15,7 @@ class Games extends Module
 		return [
 			'title'       => $this->lang('Jeux / Cartes'),
 			'description' => '',
-			'icon'        => 'fa-gamepad',
+			'icon'        => 'fas fa-gamepad',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -49,42 +49,42 @@ class Games extends Module
 				'access'  => [
 					[
 						'title'  => 'Jeux',
-						'icon'   => 'fa-gamepad',
+						'icon'   => 'fas fa-gamepad',
 						'access' => [
 							'add_games' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_games' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_games' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
 						'title'  => 'Cartes',
-						'icon'   => 'fa-map-o',
+						'icon'   => 'far fa-map',
 						'access' => [
 							'add_games_maps' => [
 								'title' => 'Ajouter une carte',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_games_maps' => [
 								'title' => 'Modifier une carte',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_games_maps' => [
 								'title' => 'Supprimer une carte',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]

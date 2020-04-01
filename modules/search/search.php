@@ -15,7 +15,7 @@ class Search extends Module
 		return [
 			'title'       => $this->lang('Rechercher'),
 			'description' => '',
-			'icon'        => 'fa-search',
+			'icon'        => 'fas fa-search',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

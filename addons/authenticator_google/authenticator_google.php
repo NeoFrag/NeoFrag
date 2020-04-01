@@ -14,7 +14,7 @@ class Authenticator_Google extends Authenticator
 	{
 		return [
 			'title'   => 'Google',
-			'icon'    => 'fa-google',
+			'icon'    => 'fab fa-google',
 			'color'   => '#db4437',
 			'help'    => 'https://console.developers.google.com/apis/credentials',
 			'version' => '1.0',

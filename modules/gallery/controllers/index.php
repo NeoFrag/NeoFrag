@@ -51,7 +51,7 @@ class Index extends Controller_Module
 																})
 																->__toArray()
 											])
-											->title('Galeries', 'fa-photo')
+											->title('Galeries', 'far fa-image')
 								)
 								->size('col-md-4 col-lg-3')
 					)
@@ -91,7 +91,7 @@ class Index extends Controller_Module
 							'image'          => $image,
 							'count'          => count($this->model()->get_images($gallery_id))
 						]), FALSE)
-						->footer_if($this->access('gallery', 'gallery_post', $gallery_id), $this->button($this->lang('Poster une image'), 'fa-plus', 'primary btn-block')->modal_ajax('ajax/gallery/post/'.$gallery_id.'/'.url_title($name)))
+						->footer_if($this->access('gallery', 'gallery_post', $gallery_id), $this->button($this->lang('Poster une image'), 'fas fa-plus', 'primary btn-block')->modal_ajax('ajax/gallery/post/'.$gallery_id.'/'.url_title($name)))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
@@ -146,7 +146,7 @@ class Index extends Controller_Module
 		}
 
 		$panel = $this	->panel()
-						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'fa-photo')
+						->heading('<div class="pull-right"><a class="badge badge-default" href="'.url('gallery/album/'.$gallery_id.'/'.$gallery_name).'">'.$gallery_title.'</a></div>'.$title, 'far fa-image')
 						->body($this->view('image', [
 							'image_id'          => $image_id,
 							'file_id'           => $file_id,

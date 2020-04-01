@@ -15,7 +15,7 @@ class Partners extends Module
 		return [
 			'title'       => 'Partenaires',
 			'description' => '',
-			'icon'        => 'fa-star-o',
+			'icon'        => 'far fa-handshake',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -58,21 +58,21 @@ class Partners extends Module
 				'access'  => [
 					[
 						'title'  => 'Partenaires',
-						'icon'   => 'fa-star-o',
+						'icon'   => 'far fa-star',
 						'access' => [
 							'add_partners' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_partners' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_partners' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]

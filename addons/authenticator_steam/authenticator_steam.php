@@ -14,7 +14,7 @@ class Authenticator_Steam extends Authenticator
 	{
 		return [
 			'title'   => 'Steam',
-			'icon'    => 'fa-steam',
+			'icon'    => 'fab fa-steam',
 			'color'   => '#171a21',
 			'help'    => 'http://steamcommunity.com/dev/apikey',
 			'version' => '1.0',

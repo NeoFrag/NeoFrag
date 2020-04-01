@@ -15,7 +15,7 @@ class Forum extends Module
 		return [
 			'title'       => $this->lang('Forum'),
 			'description' => '',
-			'icon'        => 'fa-comments',
+			'icon'        => 'fas fa-comments',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -103,41 +103,41 @@ class Forum extends Module
 				'access'  => [
 					[
 						'title'  => $this->lang('Catégorie'),
-						'icon'   => 'fa-navicon',
+						'icon'   => 'fas fa-bars',
 						'access' => [
 							'category_read' => [
 								'title' => $this->lang('Lire'),
-								'icon'  => 'fa-eye'
+								'icon'  => 'far fa-eye'
 							],
 							'category_write' => [
 								'title' => $this->lang('Écrire'),
-								'icon'  => 'fa-reply'
+								'icon'  => 'fas fa-reply'
 							]
 						]
 					],
 					[
 						'title'  => $this->lang('Modération'),
-						'icon'   => 'fa-user',
+						'icon'   => 'fas fa-user',
 						'access' => [
 							'category_modify' => [
 								'title' => $this->lang('Éditer un sujet / message'),
-								'icon'  => 'fa-edit'
+								'icon'  => 'fas fa-edit'
 							],
 							'category_delete' => [
 								'title' => $this->lang('Supprimer un sujet / message'),
-								'icon'  => 'fa-trash-o'
+								'icon'  => 'far fa-trash-alt'
 							],
 							'category_announce' => [
 								'title' => $this->lang('Mettre un sujet en annonce'),
-								'icon'  => 'fa-flag'
+								'icon'  => 'fas fa-flag'
 							],
 							'category_lock' => [
 								'title' => $this->lang('Vérouiller un sujet'),
-								'icon'  => 'fa-lock'
+								'icon'  => 'fas fa-lock'
 							],
 							'category_move' => [
 								'title' => 'Déplacer un sujet',
-								'icon'  => 'fa-reply fa-flip-horizontal'
+								'icon'  => 'fas fa-reply fa-flip-horizontal'
 							]
 						]
 					]

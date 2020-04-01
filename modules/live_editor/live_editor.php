@@ -15,7 +15,7 @@ class Live_Editor extends Module
 		return [
 			'title'       => $this->lang('Live Editor'),
 			'description' => '',
-			'icon'        => 'fa-desktop',
+			'icon'        => 'fas fa-desktop',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

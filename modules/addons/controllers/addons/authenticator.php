@@ -10,19 +10,19 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Authenticator extends Controller
 {
-	public $__label = ['Authentificateurs', 'Authentificateur', 'fa-lock', 'info'];
+	public $__label = ['Authentificateurs', 'Authentificateur', 'fas fa-lock', 'info'];
 
 	public function __actions()
 	{
 		return $this->array
-					->set('enable', ['Activer', 'fa-check', 'success', TRUE, function($addon){
+					->set('enable', ['Activer', 'fas fa-check', 'success', TRUE, function($addon){
 						return !$addon->is_enabled();
 					}])
-					->set('disable', ['Désactiver', 'fa-times', 'muted', TRUE, function($addon){
+					->set('disable', ['Désactiver', 'fas fa-times', 'muted', TRUE, function($addon){
 						return $addon->is_enabled();
 					}])
-					->set('order', ['Ordre', 'fa-sort', 'info', TRUE])
-					->set('settings', ['Configuration', 'fa-wrench', 'warning', TRUE]);
+					->set('order', ['Ordre', 'fas fa-sort', 'info', TRUE])
+					->set('settings', ['Configuration', 'fas fa-wrench', 'warning', TRUE]);
 	}
 
 	public function enable($addon)
@@ -45,7 +45,7 @@ class Authenticator extends Controller
 
 	public function order()
 	{
-		return $this->modal('Authentificateurs', 'fa-sort')
+		return $this->modal('Authentificateurs', 'fas fa-sort')
 					->body($this->table2(NeoFrag()->collection('addon')->where('type_id', NeoFrag()->collection('addon_type')->where('name', 'authenticator')->row()->id))
 								->compact(function($a){
 									return $this->button_sort($a->id, 'admin/addons/order/'.$a->url());
@@ -61,7 +61,7 @@ class Authenticator extends Controller
 	{
 		return $this->form2()
 					->info('<div class="alert alert-primary">
-								<h5 class="alert-heading">'.$this->label('Informations', 'fa-info-circle').'</h5>
+								<h5 class="alert-heading">'.$this->label('Informations', 'fas fa-info-circle').'</h5>
 								<dl>
 									<dt>Enregistrez votre site via</dt>
 										<dd><a href="'.$auth->info()->help.'" target="_blank">'.$auth->info()->help.'</a></dd>
@@ -100,7 +100,7 @@ class Authenticator extends Controller
 
 						refresh();
 					})
-					->modal($auth->info()->title, 'fa-wrench')
+					->modal($auth->info()->title, 'fas fa-wrench')
 					->cancel();
 	}
 }

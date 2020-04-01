@@ -3,15 +3,15 @@
 		<h5>Tous nos podiums</h5>
 		<ul class="list-inline">
 			<li class="list-inline-item">
-				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold fa-2x') ?></span><br />
+				<span data-toggle="tooltip" title="1ère place"><?php echo icon('fas fa-trophy trophy-gold fa-2x') ?></span><br />
 				<?php echo $total_gold[0].($total_gold[0] > 1 ? ' trophées' : ' trophée') ?>
 			</li>
 			<li class="list-inline-item">
-				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver fa-2x') ?></span><br />
+				<span data-toggle="tooltip" title="2ème place"><?php echo icon('fas fa-trophy trophy-silver fa-2x') ?></span><br />
 				<?php echo $total_silver[0].($total_silver[0] > 1 ? ' trophées' : ' trophée') ?>
 			</li>
 			<li class="list-inline-item">
-				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze fa-2x') ?></span><br />
+				<span data-toggle="tooltip" title="3ème place"><?php echo icon('fas fa-trophy trophy-bronze fa-2x') ?></span><br />
 				<?php echo $total_bronze[0].($total_bronze[0] > 1 ? ' trophées' : ' trophée') ?>
 			</li>
 		</ul>
@@ -19,7 +19,7 @@
 	<hr />
 	<div class="row text-center">
 		<div class="col">
-			<h1><?php echo icon('fa-trophy') ?></h1>
+			<h1><?php echo icon('fas fa-trophy') ?></h1>
 			<p>
 				La plus récompensée<br />
 				<?php if ($best_team_awards): ?>
@@ -30,7 +30,7 @@
 			</p>
 		</div>
 		<div class="col">
-			<h1><?php echo icon('fa-star-o') ?></h1>
+			<h1><?php echo icon('far fa-star') ?></h1>
 			<p>
 				Meilleur classement<br />
 				<?php if ($best_team): ?>
@@ -41,7 +41,7 @@
 			</p>
 		</div>
 		<div class="col">
-			<h1><?php echo icon('fa-gamepad') ?></h1>
+			<h1><?php echo icon('fas fa-gamepad') ?></h1>
 			<p>
 				Meilleur jeu<br />
 				<?php if ($best_game_awards): ?>
@@ -57,10 +57,10 @@
 	<thead>
 		<tr>
 			<th class="col-6"><h4>Classement de nos équipes</h4></th>
-			<th class="text-center"><span data-toggle="tooltip" title="1ère place"><?php echo icon('fa-trophy trophy-gold') ?></span></th>
-			<th class="text-center"><span data-toggle="tooltip" title="2ème place"><?php echo icon('fa-trophy trophy-silver') ?></span></th>
-			<th class="text-center"><span data-toggle="tooltip" title="3ème place"><?php echo icon('fa-trophy trophy-bronze') ?></span></th>
-			<th class="text-center"><span data-toggle="tooltip" title="Autre place"><?php echo icon('fa-plus') ?></span></th>
+			<th class="text-center"><span data-toggle="tooltip" title="1ère place"><?php echo icon('fas fa-trophy trophy-gold') ?></span></th>
+			<th class="text-center"><span data-toggle="tooltip" title="2ème place"><?php echo icon('fas fa-trophy trophy-silver') ?></span></th>
+			<th class="text-center"><span data-toggle="tooltip" title="3ème place"><?php echo icon('fas fa-trophy trophy-bronze') ?></span></th>
+			<th class="text-center"><span data-toggle="tooltip" title="Autre place"><?php echo icon('fas fa-plus') ?></span></th>
 		</tr>
 	</thead>
 	<tbody>

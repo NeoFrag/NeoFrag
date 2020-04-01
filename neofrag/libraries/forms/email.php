@@ -19,6 +19,6 @@ class Email extends Text
 			}
 		};
 
-		return $this->addon('fa-envelope-o');
+		return $this->addon('far fa-envelope');
 	}
 }

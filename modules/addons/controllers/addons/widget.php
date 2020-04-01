@@ -10,15 +10,15 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Widget extends Controller
 {
-	public $__label = ['Widgets', 'Widget', 'fa-cube', 'warning'];
+	public $__label = ['Widgets', 'Widget', 'fas fa-cube', 'warning'];
 
 	public function __actions()
 	{
 		return $this->array
-					->set('enable', ['Activer', 'fa-check', 'success', TRUE, function($addon){
+					->set('enable', ['Activer', 'fas fa-check', 'success', TRUE, function($addon){
 						return $addon->is_deactivatable() && !$addon->is_enabled();
 					}])
-					->set('disable', ['Désactiver', 'fa-times', 'muted', TRUE, function($addon){
+					->set('disable', ['Désactiver', 'fas fa-times', 'muted', TRUE, function($addon){
 						return $addon->is_deactivatable() && $addon->is_enabled();
 					}]);
 	}

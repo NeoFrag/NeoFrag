@@ -15,7 +15,7 @@ class Update extends Library
 		return $this->button()
 					->tooltip($title ?: $this->lang('Éditer'))
 					->url($url)
-					->icon('fa-pencil')
+					->icon('fas fa-pencil-alt')
 					->color('info')
 					->compact()
 					->outline();

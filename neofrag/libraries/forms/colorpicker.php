@@ -27,7 +27,7 @@ class Colorpicker extends Text
 			$input->append_attr('class', 'color');
 		};
 
-		return $this->addon('fa-eyedropper', 'right')
+		return $this->addon('fas fa-eye-dropper', 'right')
 					->addon($this->label()->title('<i></i>'))
 					->size('col-3');
 	}

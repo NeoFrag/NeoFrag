@@ -400,7 +400,7 @@ CREATE TABLE `nf_events_types` (
   `type` smallint(5) unsigned NOT NULL DEFAULT '0',
   `title` varchar(100) NOT NULL,
   `color` varchar(20) NOT NULL,
-  `icon` varchar(20) NOT NULL,
+  `icon` varchar(50) NOT NULL,
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -409,12 +409,12 @@ CREATE TABLE `nf_events_types` (
 --
 
 INSERT INTO `nf_events_types` (`type_id`, `type`, `title`, `color`, `icon`) VALUES
-(1, 1, 'Entrainement', 'success', 'fa-gamepad'),
-(2, 1, 'Match amical', 'info', 'fa-angellist'),
-(3, 1, 'Match officiel', 'warning', 'fa-trophy'),
-(4, 0, 'IRL', 'primary', 'fa-glass'),
-(5, 0, 'Divers', 'default', 'fa-comments'),
-(6, 1, 'Réunion', 'danger', 'fa-briefcase');
+(1, 1, 'Entrainement', 'success', 'fas fa-gamepad'),
+(2, 1, 'Match amical', 'info', 'fab fa-angellist'),
+(3, 1, 'Match officiel', 'warning', 'fas fa-trophy'),
+(4, 0, 'IRL', 'primary', 'fas fa-glass-martini'),
+(5, 0, 'Divers', 'default', 'fas fa-comments'),
+(6, 1, 'Réunion', 'danger', 'fas fa-briefcase');
 
 -- --------------------------------------------------------
 
@@ -800,7 +800,7 @@ CREATE TABLE `nf_groups` (
   `group_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `color` varchar(20) NOT NULL,
-  `icon` varchar(20) NOT NULL,
+  `icon` varchar(50) NOT NULL,
   `hidden` enum('0','1') NOT NULL DEFAULT '0',
   `auto` enum('0','1') NOT NULL DEFAULT '0',
   `order` smallint(6) unsigned NOT NULL DEFAULT '0',

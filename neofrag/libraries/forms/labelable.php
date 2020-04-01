@@ -97,7 +97,7 @@ abstract class Labelable extends Library
 										})
 										->append($input)
 										->append_if($this->_errors && ($display & \NF\NeoFrag\Libraries\Form2::FORM_COMPACT), function(){
-											return $this->label(implode('<br />', $this->_errors), 'fa-exclamation-triangle')->attr('class', 'text-danger');
+											return $this->label(implode('<br />', $this->_errors), 'fas fa-exclamation-triangle')->attr('class', 'text-danger');
 										})
 						)
 						->__toString();
@@ -232,18 +232,18 @@ abstract class Labelable extends Library
 
 	protected function _label()
 	{
-		$label = $this->label($this->_title, $this->_errors ? 'fa-exclamation-triangle' : $this->_icon);
+		$label = $this->label($this->_title, $this->_errors ? 'fas fa-exclamation-triangle' : $this->_icon);
 
 		if ($this->_info || $this->_errors)
 		{
-			$label	->icon_if(!$this->_errors, $icon = 'fa-info-circle text-info')
+			$label	->icon_if(!$this->_errors, $icon = 'fas fa-info-circle text-info')
 					->attr('data-toggle',    'popover')
 					->attr('data-trigger',   'hover')
 					->attr('data-placement', 'auto')
 					->attr('data-html',      'true')
 					->attr('data-content',   utf8_htmlentities(implode('<br /><br />', array_filter([
 						$this->_info   ? $this->label($this->_info, $icon) : '',
-						$this->_errors ? $this->label(implode('<br />', $this->_errors), 'fa-exclamation-triangle')->attr('class', 'text-danger') : ''
+						$this->_errors ? $this->label(implode('<br />', $this->_errors), 'fas fa-exclamation-triangle')->attr('class', 'text-danger') : ''
 					]))));
 		}
 

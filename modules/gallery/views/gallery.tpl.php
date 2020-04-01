@@ -1,7 +1,7 @@
 <?php if ($category): ?>
 <div class="card mb-4">
 	<div class="card-body">
-		<h6 class="card-title mb-0"><?php echo icon('fa-book').' '.$category['title'] ?></h6>
+		<h6 class="card-title mb-0"><?php echo icon('fas fa-book').' '.$category['title'] ?></h6>
 	</div>
 	<?php if ($category['image_id']): ?>
 	<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $category['image_id'])->path() ?>" alt="" />
@@ -17,7 +17,7 @@
 		<?php endif ?>
 		<div class="card-body">
 			<h6 class="card-title mb-0"><a href="<?php echo url('gallery/album/'.$gallerie['gallery_id'].'/'.url_title($gallerie['name'])) ?>"><?php echo $gallerie['title'] ?></a></h6>
-			<p class="card-text"><small class="text-muted"><?php echo icon('fa-photo').' '.$this->lang('%d image|%d images', $gallerie['images'], $gallerie['images']) ?></small></p>
+			<p class="card-text"><small class="text-muted"><?php echo icon('far fa-image').' '.$this->lang('%d image|%d images', $gallerie['images'], $gallerie['images']) ?></small></p>
 		</div>
 	</div>
 	<?php endforeach ?>

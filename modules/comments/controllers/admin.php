@@ -22,6 +22,6 @@ class Admin extends Controller_Module
 					->col('Date', 'date')
 					->col('Message', 'content')
 					->panel()
-					->title('Liste des commentaires postés', 'fa-bars');
+					->title('Liste des commentaires postés', 'fas fa-bars');
 	}
 }

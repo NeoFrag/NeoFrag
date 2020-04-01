@@ -1,7 +1,7 @@
 /* Déclaration de la zone de téléchargement des images */
 Dropzone.autoDiscover = false;
 $('#gallery-dropzone').dropzone({
-	dictDefaultMessage: '<div class="text-center"><h2><?php echo icon('fa-cloud-upload') ?> DropZone</h2><p class="text-muted">Déposez vos images dans cette zone, ou cliquez ici</p></div>',
+	dictDefaultMessage: '<div class="text-center"><h2><?php echo icon('fas fa-cloud-upload-alt') ?> DropZone</h2><p class="text-muted">Déposez vos images dans cette zone, ou cliquez ici</p></div>',
 	addRemoveLinks: true,
 	autoProcessQueue: false,
 	parallelUploads: 20,
@@ -15,7 +15,7 @@ $('#gallery-dropzone').dropzone({
 
 		/* On lance l'upload sur clic du bouton */
 		submitButton.on('click', function() {
-			submitButton.html('<i class="fa fa-spinner fa-spin"></i> Téléchargement en cours...');
+			submitButton.html('<i class="fas fa-spinner fa-spin"></i> Téléchargement en cours...');
 			submitButton.prop('disabled', true);
 			myDropzone.processQueue();
 		});
@@ -23,7 +23,7 @@ $('#gallery-dropzone').dropzone({
 		/* Event: quand un fichier est ajouté, on affiche le bouton d'upload */
 		myDropzone.on('addedfile', function() {
 			submitButton.show();
-			submitButton.html('<?php echo icon('fa-cloud-upload') ?> Ajouter les images');
+			submitButton.html('<?php echo icon('fas fa-cloud-upload-alt') ?> Ajouter les images');
 			submitButton.prop('disabled', false);
 			$('.label-dropzone').hide();
 		});
@@ -57,9 +57,9 @@ $('#gallery-dropzone').dropzone({
 			var sentsizeInMB = (totalBytesSent / (1024*1024)).toFixed(2);
 			progressBar.css({width:totalPercentage+'%'});
 			if(totalPercentage === 100) {
-				$('.progress-percent').html('<i class="fa fa-spinner fa-spin"></i> Encore un tout petit instant...');
+				$('.progress-percent').html('<i class="fas fa-spinner fa-spin"></i> Encore un tout petit instant...');
 			} else {
-				$('.progress-percent').html('<b><i class="fa fa-spinner fa-spin"></i> '+Math.round(totalPercentage)+'%</b> Veuillez patienter...');
+				$('.progress-percent').html('<b><i class="fas fa-spinner fa-spin"></i> '+Math.round(totalPercentage)+'%</b> Veuillez patienter...');
 			}
 			$('.progress-size').html(sentsizeInMB+'/'+sizeInMB+' Mo');
 			$('.upload-infos').show();

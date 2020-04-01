@@ -13,7 +13,7 @@ class Ajax extends Controller_Module
 	public function index()
 	{
 		return $this->form2('contact')
-					->modal($this->lang('Nous contacter'), 'fa-envelope-o')
+					->modal($this->lang('Nous contacter'), 'far fa-envelope')
 					->cancel();
 	}
 }

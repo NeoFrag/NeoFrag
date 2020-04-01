@@ -15,7 +15,7 @@ class Access extends Library
 		return $this->button()
 					->tooltip($title ?: $this->lang('Permissions'))
 					->url('admin/access/edit/'.($access ? ($module ?: $this->output->module()->info()->name).'/'.$id.'-'.$access : $id))
-					->icon('fa-unlock-alt')
+					->icon('fas fa-unlock-alt')
 					->color('success')
 					->compact()
 					->outline();

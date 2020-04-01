@@ -15,7 +15,7 @@ class Comments extends Module
 		return [
 			'title'       => $this->lang('Commentaires'),
 			'description' => '',
-			'icon'        => 'fa-comments-o',
+			'icon'        => 'far fa-comments',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -59,7 +59,7 @@ class Comments extends Module
 		}
 		else
 		{
-			$new = '<div class="alert alert-danger" role="alert">'.icon('fa-ban').' '.$this->lang('Vous devez être identifié pour pouvoir poster un commentaire').'</div>';
+			$new = '<div class="alert alert-danger" role="alert">'.icon('fas fa-ban').' '.$this->lang('Vous devez être identifié pour pouvoir poster un commentaire').'</div>';
 		}
 
 		return $this->css('comments')

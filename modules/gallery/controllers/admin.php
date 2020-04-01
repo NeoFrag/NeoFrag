@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$this->lang('Publiée dans la galerie').'"></i>' : '<i class="fa fa-eye-slash text-muted" data-toggle="tooltip" title="'.$this->lang('Non visible dans la galerie').'"></i>';
+									return $data['published'] ? '<i class="fas fa-circle" data-toggle="tooltip" title="" style="color: #7bbb17;" data-original-title="'.$this->lang('Publiée dans la galerie').'"></i>' : '<i class="far fa-eye-slash text-muted" data-toggle="tooltip" title="'.$this->lang('Non visible dans la galerie').'"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -49,12 +49,12 @@ class Admin extends Controller_Module
 							],
 							/* //TODO
 							array(
-								'title'   => 'Intégration <i class="fa fa-info-circle text-muted" data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode"></i>',
+								'title'   => 'Intégration <i class="fas fa-info-circle text-muted" data-toggle="tooltip" title="Code à intégrer pour afficher cette galerie dans un contenu libre de type html/bbcode"></i>',
 								'content' => '<code>[gallery-{gallery_id}]</code>'
 							),
 							*/
 							[
-								'title'   => '<i class="fa fa-photo" data-toggle="tooltip" title="'.$this->lang('Images').'"></i>',
+								'title'   => '<i class="far fa-image" data-toggle="tooltip" title="'.$this->lang('Images').'"></i>',
 								'content' => function($data){
 									return $data['images'];
 								},
@@ -117,14 +117,14 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Catégories'), 'fa-book')
+						->heading($this->lang('Catégories'), 'fas fa-book')
 						->body($categories)
 						->footer_if($this->is_authorized('add_gallery_category'), $this->button_create('admin/gallery/categories/add', $this->lang('Ajouter une catégorie')))
 						->size('col-12 col-lg-4')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Liste des albums photos'), 'fa-photo')
+						->heading($this->lang('Liste des albums photos'), 'far fa-image')
 						->body($gallery)
 						->footer_if($this->is_authorized('add_gallery'), $this->button_create('admin/gallery/add', $this->lang('Créer un album')))
 						->size('col-12 col-lg-8')
@@ -156,7 +156,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Nouvel album photo'), 'fa-file-image-o')
+					->heading($this->lang('Nouvel album photo'), 'far fa-file-image')
 					->body($this->form()->display());
 	}
 
@@ -280,13 +280,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading(($this->user->admin ? '<div class="pull-right">'.$this->button_access($gallery_id, 'gallery').'</div>' : NULL).$this->lang('Édition de l\'album'), 'fa-photo')
+						->heading(($this->user->admin ? '<div class="pull-right">'.$this->button_access($gallery_id, 'gallery').'</div>' : NULL).$this->lang('Édition de l\'album'), 'far fa-image')
 						->body($form_album->display())
 						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Ajouter des images'), 'fa-photo')
+						->heading($this->lang('Ajouter des images'), 'far fa-image')
 						->body($this->view('admin/upload', [
 							'gallery_id' => $gallery_id,
 							'name'       => $name,
@@ -338,7 +338,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une catégorie'), 'fa-align-left')
+					->heading($this->lang('Ajouter une catégorie'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 
@@ -367,7 +367,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Éditer la catégorie'), 'fa-align-left')
+					->heading($this->lang('Éditer la catégorie'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 
@@ -419,13 +419,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Éditer l\'image'), 'fa-photo')
+						->heading($this->lang('Éditer l\'image'), 'far fa-image')
 						->body($this->form()->display())
 						->size('col-12 col-lg-7')
 			),
 			$this->col(
 				$this	->panel()
-						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('Aperçu de l\'image'), 'fa-photo')
+						->heading('<div class="pull-right">'.$this->button_delete('admin/gallery/image/delete/'.$image_id.'/'.url_title($title)).'</div>'.$this->lang('Aperçu de l\'image'), 'far fa-image')
 						->body('<img class="img-fluid" src="'.NeoFrag()->model2('file', $file_id)->path().'" alt="" />')
 						->size('col-12 col-lg-5')
 			)

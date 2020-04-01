@@ -11,10 +11,10 @@ use NF\NeoFrag\Loadables\Model;
 class Participants extends Model
 {
 	private $_status = [
-		['En attente', 'info',    'fa-question'],
-		['Présent',    'success', 'fa-check'],
-		['Absent',     'danger',  'fa-times'],
-		['Peut-être',  'warning', 'fa-ellipsis-h']
+		['En attente', 'info',    'fas fa-question'],
+		['Présent',    'success', 'fas fa-check'],
+		['Absent',     'danger',  'fas fa-times'],
+		['Peut-être',  'warning', 'fas fa-ellipsis-h']
 	];
 
 	public function count_participants($event_id)

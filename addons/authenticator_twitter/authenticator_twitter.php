@@ -14,7 +14,7 @@ class Authenticator_Twitter extends Authenticator
 	{
 		return [
 			'title'   => 'Twitter',
-			'icon'    => 'fa-twitter',
+			'icon'    => 'fab fa-twitter',
 			'color'   => '#1da1f2',
 			'help'    => 'https://apps.twitter.com/app/new',
 			'version' => '1.0',

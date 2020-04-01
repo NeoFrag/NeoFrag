@@ -26,7 +26,7 @@ class Index extends Controller_Widget
 						->body($this->view('index', [
 							'members'  => $members
 						]), FALSE)
-						->footer('<a href="'.url('members').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Liste des membres').'</a>', 'right');
+						->footer('<a href="'.url('members').'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Liste des membres').'</a>', 'right');
 		}
 		else
 		{

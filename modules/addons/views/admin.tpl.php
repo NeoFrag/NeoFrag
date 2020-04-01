@@ -6,7 +6,7 @@
 					<div class="row">
 						<div class="col-9">
 							<ul class="list-inline my-0">
-								<li class="list-inline-item"><?php echo icon('fa-filter') ?> Filtrer :</li>
+								<li class="list-inline-item"><?php echo icon('fas fa-filter') ?> Filtrer :</li>
 								<li class="list-inline-item"><a href="#" data-filter="all"><?php echo $this->lang('Tous') ?></a></li>
 								<li class="list-inline-item"><a href="#" data-filter=".addon-module"><?php echo $this->lang('Modules') ?></a></li>
 								<li class="list-inline-item"><a href="#" data-filter=".addon-theme"><?php echo $this->lang('Thèmes') ?></a></li>
@@ -33,7 +33,7 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="dropdown">
-						<a href="#" class="fa fa-cog dropdown-toggle" data-toggle="dropdown"></a>
+						<a href="#" class="fas fa-cog dropdown-toggle" data-toggle="dropdown"></a>
 						<div class="dropdown-menu">
 							<?php foreach ($addon->addon()->__actions as $name => $action): ?>
 								<?php if (list($title, $icon, $color, $modal) = $action): ?>

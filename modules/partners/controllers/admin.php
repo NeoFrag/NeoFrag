@@ -33,7 +33,7 @@ class Admin extends Controller_Module
 						}
 					],
 					[
-						'title'   => '<span data-toggle="tooltip" title="Visites">'.icon('fa-line-chart').'</span>',
+						'title'   => '<span data-toggle="tooltip" title="Visites">'.icon('fas fa-chart-line').'</span>',
 						'content' => function($data){
 							return $data['count'];
 						}
@@ -54,7 +54,7 @@ class Admin extends Controller_Module
 				->no_data('Aucun partenaire');
 
 		return $this->panel()
-					->heading('Liste des partenaires', 'fa-star-o')
+					->heading('Liste des partenaires', 'fas fa-bars')
 					->body($this->table()->display())
 					->footer_if($this->is_authorized('add_partners'), $this->button_create('admin/partners/add', 'Ajouter un partenaire'));
 	}
@@ -84,7 +84,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Ajouter un partenaire', 'fa-star-o')
+					->heading('Ajouter un partenaire', 'far fa-handshake')
 					->body($this->form()->display());
 	}
 
@@ -123,7 +123,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Éditer le partenaire', 'fa-star-o')
+					->heading('Éditer le partenaire', 'far fa-handshake')
 					->body($this->form()->display());
 	}
 

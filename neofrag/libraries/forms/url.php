@@ -19,6 +19,6 @@ class Url extends Text
 			}
 		};
 
-		return $this->addon('fa-globe');
+		return $this->addon('fas fa-globe');
 	}
 }

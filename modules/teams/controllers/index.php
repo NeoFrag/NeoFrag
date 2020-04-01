@@ -36,7 +36,7 @@ class Index extends Controller_Module
 		if ($panels->empty())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang('Équipe'), 'fa-gamepad')
+									->heading($this->lang('Équipe'), 'fas fa-headset')
 									->body('<div class="text-center">'.$this->lang('Aucune équipe n\'a été créée pour le moment').'</div>')
 									->color('info'));
 		}
@@ -121,9 +121,9 @@ class Index extends Controller_Module
 					]), FALSE)
 					->footer_if($this->_check_team_recruits($team_id), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>'),
 			$team_matches = ($this->_get_team_events($team_id) && $this->config->teams_display_matches) ? $this->panel()
-					->heading('Derniers résultats', 'fa-crosshairs')
+					->heading('Derniers résultats', 'fas fa-crosshairs')
 					->body($matches)
-					->footer_if((isset($team_matches) && (count($team_matches) > 10)), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('fa-arrow-circle-o-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
+					->footer_if((isset($team_matches) && (count($team_matches) > 10)), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
 			$this	->panel_back('teams')
 		]);
 	}

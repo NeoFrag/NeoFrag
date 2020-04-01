@@ -10,7 +10,7 @@ use NF\NeoFrag\Loadables\Model2;
 
 class User extends Model2
 {
-	static public $icon = 'fa-user';
+	static public $icon = 'fas fa-user';
 
 	static public function __schema()
 	{

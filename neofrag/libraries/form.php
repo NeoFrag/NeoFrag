@@ -197,6 +197,11 @@ class Form extends Library
 
 		foreach ($this->_rules as $var => $options)
 		{
+			if (isset($options['type']) && $options['type'] == 'iconpicker' && !empty($post[$var]) && $post[$var] == 'empty')
+			{
+				$post[$var] = '';
+			}
+
 			if (!is_array($options) || !isset($options['type']) || !in_array($type = $options['type'], self::$types) || !method_exists($this, '_check_'.$type))
 			{
 				$type = 'text';
@@ -595,12 +600,12 @@ class Form extends Library
 
 		if (!empty($options['description']))
 		{
-			$popover[] = ($icons[] = '<span class="text-info">'.icon('fa-info-circle').'</span>').' '.$options['description'];
+			$popover[] = ($icons[] = '<span class="text-info">'.icon('fas fa-info-circle').'</span>').' '.$options['description'];
 		}
 
 		if (!empty($this->_errors[$var]))
 		{
-			$popover[] = ($icons[] = '<span class="text-danger">'.icon('fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
+			$popover[] = ($icons[] = '<span class="text-danger">'.icon('fas fa-exclamation-triangle').'</span>').' <span class="text-danger">'.$this->_errors[$var].'</span>';
 		}
 
 		$icons = implode(' ', $icons);
@@ -629,7 +634,7 @@ class Form extends Library
 
 			if (empty($options['icon']))
 			{
-				$options['icon'] = $type == 'time' ? 'fa-clock-o' : 'fa-calendar';
+				$options['icon'] = $type == 'time' ? 'far fa-clock' : 'fas fa-calendar-alt';
 			}
 
 			$type = 'text';
@@ -640,7 +645,7 @@ class Form extends Library
 
 			if (empty($options['icon']))
 			{
-				$options['icon'] = 'fa-envelope-o';
+				$options['icon'] = 'far fa-envelope';
 			}
 		}
 		else if ($type == 'url')
@@ -649,7 +654,7 @@ class Form extends Library
 
 			if (empty($options['icon']))
 			{
-				$options['icon'] = 'fa-globe';
+				$options['icon'] = 'fas fa-globe';
 			}
 		}
 		else if ($type == 'phone')
@@ -658,7 +663,7 @@ class Form extends Library
 
 			if (empty($options['icon']))
 			{
-				$options['icon'] = 'fa-phone';
+				$options['icon'] = 'fas fa-phone';
 			}
 		}
 		else if ($type == 'colorpicker')
@@ -710,7 +715,7 @@ class Form extends Library
 		{
 			$post = post();
 
-			$input = '<div style="margin: 7px 0;"><p>'.icon('fa-download').' '.NeoFrag()->lang('Télécharger un fichier').(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
+			$input = '<div style="margin: 7px 0;"><p>'.icon('fas fa-download').' '.NeoFrag()->lang('Télécharger un fichier').(!empty($options['info']) ? $options['info'] : '').'</p>'.$input.'</div>';
 
 			if (!empty($options['value']))
 			{
@@ -725,7 +730,7 @@ class Form extends Library
 										<div class="thumbnail">
 											<img src="'.url($this->db->select('path')->from('nf_file')->where('id', $options['value'])->row()).'" class="img-fluid mb-1" alt="" />
 											<div class="caption text-center">
-												<a class="btn btn-outline-danger btn-block btn-sm form-file-delete" href="#" data-input="'.$this->token().'['.$var.']">'.icon('fa-trash-o').' '.NeoFrag()->lang('Supprimer').'</a>
+												<a class="btn btn-outline-danger btn-block btn-sm form-file-delete" href="#" data-input="'.$this->token().'['.$var.']">'.icon('far fa-trash-alt').' '.NeoFrag()->lang('Supprimer').'</a>
 											</div>
 										</div>
 									</div>
@@ -743,7 +748,7 @@ class Form extends Library
 		{
 			if (in_array('color', $classes))
 			{
-				$output .= '<div class="input-group-append"><span class="input-group-text"><span class="fa fa-eyedropper"></span></span></div>';
+				$output .= '<div class="input-group-append"><span class="input-group-text"><span class="fas fa-eye-dropper"></span></span></div>';
 			}
 
 			$output .= '</div>';
@@ -755,20 +760,19 @@ class Form extends Library
 	private function _display_iconpicker($var, $options, $post)
 	{
 		NeoFrag()	->css('bootstrap-iconpicker.min')
-							->js('bootstrap-iconpicker-iconset-fontawesome-4.7.0.min')
-							->js('bootstrap-iconpicker.min')
-							->js_load('	$(".btn.iconpicker").iconpicker({
-											arrowPrevIconClass: "fa fa-caret-left",
-											arrowNextIconClass: "fa fa-caret-right",
-											cols: 10,
-											rows: 5,
-											iconset: "fontawesome",
-											labelHeader: "'.NeoFrag()->lang('{0} sur {1} pages').'",
-											labelFooter: "<div class=\"pull-right\">'.NeoFrag()->lang('{2} icônes').'</div>",
-											searchText: "'.NeoFrag()->lang('Rechercher...').'",
-											selectedClass: "btn-primary",
-											unselectedClass: ""
-										});');
+					->js('bootstrap-iconpicker.bundle.min')
+					->js_load('	$(".btn.iconpicker").iconpicker({
+									arrowPrevIconClass: "fas fa-caret-left",
+									arrowNextIconClass: "fas fa-caret-right",
+									cols: 10,
+									rows: 5,
+									iconset: "fontawesome",
+									labelHeader: "'.NeoFrag()->lang('{0} sur {1} pages').'",
+									labelFooter: "<div class=\"pull-right\">'.NeoFrag()->lang('{2} icônes').'</div>",
+									searchText: "'.NeoFrag()->lang('Rechercher...').'",
+									selectedClass: "btn-primary",
+									unselectedClass: ""
+								});');
 
 		return '<button id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
 	}

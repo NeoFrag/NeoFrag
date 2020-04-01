@@ -43,7 +43,7 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Liste des jeux'), 'fa-gamepad')
+						->heading($this->lang('Liste des jeux'), 'fas fa-gamepad')
 						->body($games)
 						->footer_if($this->is_authorized('add_games'), $this->button_create('admin/games/add', $this->lang('Ajouter un jeu')))
 						->size('col-12 col-lg-4')
@@ -76,7 +76,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Nouveau jeu'), 'fa-gamepad')
+					->heading($this->lang('Nouveau jeu'), 'fas fa-gamepad')
 					->body($this->form()->display());
 	}
 
@@ -136,13 +136,13 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Édition du jeu %s', $title), 'fa-gamepad')
+						->heading($this->lang('Édition du jeu %s', $title), 'fas fa-gamepad')
 						->body($this->form()->display())
 						->size('col-7')
 			),
 			$this	->col(
 						$this	->panel()
-								->heading('Modes', 'fa-cog')
+								->heading('Modes', 'fas fa-cog')
 								->body($modes)
 								->footer($this->button_create('admin/games/modes/add/'.$game_id.'/'.url_title($title),  'Ajouter un mode')),
 						$this->_panel_maps($maps, $game_id, $title)
@@ -189,7 +189,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Nouvelle carte', 'fa-map-o')
+					->heading('Nouvelle carte', 'far fa-map')
 					->body($this->form()->display());
 	}
 
@@ -217,7 +217,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Éditer la carte', 'fa-map-o')
+					->heading('Éditer la carte', 'far fa-map')
 					->body($this->form()->display());
 	}
 
@@ -254,7 +254,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Nouveau mode', 'fa-cog')
+					->heading('Nouveau mode', 'fas fa-cog')
 					->body($this->form()->display());
 	}
 
@@ -277,7 +277,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Éditer le mode', 'fa-cog')
+					->heading('Éditer le mode', 'fas fa-cog')
 					->body($this->form()->display());
 	}
 
@@ -331,7 +331,7 @@ class Admin extends Controller_Module
 						->display();
 
 		return $this->panel()
-					->heading('Liste des cartes', 'fa-map-o')
+					->heading('Liste des cartes', 'far fa-map')
 					->body($maps)
 					->footer_if($this->is_authorized('add_games_maps'), $this->button_create('admin/games/maps/add'.($game_id ? '/'.$game_id.'/'.url_title($title) : ''),  'Ajouter une carte'));
 	}

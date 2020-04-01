@@ -16,7 +16,7 @@ class Sort extends Library
 					->js('sortable')
 					->button()
 					->tooltip($this->lang('Ordonner'))
-					->icon('fa-arrows-v')
+					->icon('fas fa-arrows-alt-v')
 					->color('link')
 					->style('btn-sortable')
 					->data([

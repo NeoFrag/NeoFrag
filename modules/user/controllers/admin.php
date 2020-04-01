@@ -13,7 +13,7 @@ class Admin extends Controller_Module
 	public function index($members)
 	{
 		$this	->title('Membres / Groupes')
-				->icon('fa-users');
+				->icon('fas fa-users');
 
 		$table_groups = $this
 			->table()
@@ -34,7 +34,7 @@ class Admin extends Controller_Module
 				],
 				[
 					'content' => function($data){
-						return $data['hidden'] ? $this->button()->icon('fa-eye-slash')->tooltip('Groupe caché') : NULL;
+						return $data['hidden'] ? $this->button()->icon('far fa-eye-slash')->tooltip('Groupe caché') : NULL;
 					},
 					'size'    => TRUE
 				],
@@ -61,7 +61,7 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this->col(
 				$this	->panel()
-						->heading($this->lang('Groupes'), 'fa-users')
+						->heading($this->lang('Groupes'), 'fas fa-users')
 						->body($table_groups->display())
 						->footer($this->button_create('admin/user/groups/add', $this->lang('Ajouter un groupe')))
 						->size('col-12 col-lg-3')
@@ -80,7 +80,7 @@ class Admin extends Controller_Module
 						->update()
 						->delete()
 						->panel()
-						->title('Membres', 'fa-users')
+						->title('Membres', 'fas fa-users')
 						->size('col-12 col-lg-9')
 			)
 		);
@@ -173,12 +173,12 @@ class Admin extends Controller_Module
 												refresh();
 											})
 											->panel()
-											->title('Liens', 'fa-globe')
+											->title('Liens', 'fas fa-globe')
 								)
 					)
 					->append($this->col(
 						$this	->panel()
-								->heading($this->lang('Groupes'), 'fa-users')
+								->heading($this->lang('Groupes'), 'fas fa-users')
 								->body($this->view('admin/groups', [
 									'user_id' => $user->id,
 									'form_id' => $form_groups->token()
@@ -186,7 +186,7 @@ class Admin extends Controller_Module
 								->size('col-12 col-lg-5'),
 						$this	->table2('session', $user->sessions())
 								->panel()
-								->title($this->lang('Sessions actives'), 'fa-globe')
+								->title($this->lang('Sessions actives'), 'fas fa-globe')
 								->size('col-12 col-lg-5')
 					));
 	}
@@ -216,7 +216,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter un groupe'), 'fa-users')
+					->heading($this->lang('Ajouter un groupe'), 'fas fa-users')
 					->body($this->form()->display())
 					->size('col-12');
 	}
@@ -266,7 +266,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Éditer un groupe'), 'fa-users')
+					->heading($this->lang('Éditer un groupe'), 'fas fa-users')
 					->body($this->form()->display())
 					->size('col-12');
 	}
@@ -293,10 +293,10 @@ class Admin extends Controller_Module
 	public function _sessions($sessions)
 	{
 		return $this->title($this->lang('Sessions'))
-					->icon('fa-globe')
+					->icon('fas fa-globe')
 					->table2('session', $sessions)
 					->panel()
-					->title('Liste des sessions actives', 'fa-bars');
+					->title('Liste des sessions actives', 'fas fa-bars');
 	}
 
 	public function _sessions_delete($session_id, $username)

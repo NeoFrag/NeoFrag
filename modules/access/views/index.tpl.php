@@ -7,7 +7,7 @@
 		<thead>
 			<tr>
 				<th class="col-8"><?php echo icon($category['icon']).' '.$category['title'] ?></th>
-				<th class="col-8 col-sm-4" colspan="2"><?php echo icon('fa-key').' '.$this->lang('Accès') ?></th>
+				<th class="col-8 col-sm-4" colspan="2"><?php echo icon('fas fa-key').' '.$this->lang('Accès') ?></th>
 			</tr>
 		</thead>
 		<tbody>

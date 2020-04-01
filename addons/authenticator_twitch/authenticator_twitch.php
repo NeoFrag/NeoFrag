@@ -14,7 +14,7 @@ class Authenticator_Twitch extends Authenticator
 	{
 		return [
 			'title'   => 'Twitch',
-			'icon'    => 'fa-twitch',
+			'icon'    => 'fab fa-twitch',
 			'color'   => '#6441a4',
 			'help'    => 'https://www.twitch.tv/kraken/oauth2/clients/new',
 			'version' => '1.0',

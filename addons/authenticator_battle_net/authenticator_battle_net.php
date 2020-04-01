@@ -14,7 +14,7 @@ class Authenticator_Battle_Net extends Authenticator
 	{
 		return [
 			'title'   => 'Battle.net',
-			'icon'    => 'fa-bold',
+			'icon'    => 'fas fa-bold',
 			'color'   => '#19547c',
 			'help'    => 'https://dev.battle.net/apps/register',
 			'version' => '1.0',

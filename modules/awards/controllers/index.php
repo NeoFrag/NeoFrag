@@ -17,19 +17,19 @@ class Index extends Controller_Module
 		$panels = $this->array;
 
 		$panels->append($this	->panel()
-								->heading('Palmarès', 'fa-trophy')
+								->heading('Palmarès', 'fas fa-trophy')
 								->body($this->view('resume', [
 									'teams'        => $this->model()->get_teams_ranking(3),
 									'total_gold'   => $this->model()->count_awards(1, NULL, NULL),
 									'total_silver' => $this->model()->count_awards(2, NULL, NULL),
 									'total_bronze' => $this->model()->count_awards(3, NULL, NULL)
 								]))
-								->footer('<a href="'.url('awards/statistics').'">'.icon('fa-line-chart').' Voir toutes nos statistiques</a>'));
+								->footer('<a href="'.url('awards/statistics').'">'.icon('fas fa-chart-line').' Voir toutes nos statistiques</a>'));
 
 		foreach ($this->model()->get_years() as $year)
 		{
 			$panels->append($this	->panel()
-									->heading('Année '.$year, 'fa-calendar-o')
+									->heading('Année '.$year, 'far fa-calendar')
 									->body($this->view('index', [
 										'stats-team' => FALSE,
 										'stats-game' => FALSE,
@@ -40,7 +40,7 @@ class Index extends Controller_Module
 		if ($panels->empty())
 		{
 			$panels->append($this	->panel()
-									->heading('Palmarès', 'fa-trophy')
+									->heading('Palmarès', 'fas fa-trophy')
 									->body('<div class="text-center">'.$this->lang('no_award_yet').'</div>')
 									->color('info'));
 		}
@@ -56,7 +56,7 @@ class Index extends Controller_Module
 
 		return $this->array
 					->append($this	->panel()
-									->heading('Les trophées de nos équipes', 'fa-trophy')
+									->heading('Les trophées de nos équipes', 'fas fa-trophy')
 									->body($this->view('statistics', [
 										'total_silver'     => $this->model()->count_awards(2, NULL, NULL),
 										'total_gold'       => $this->model()->count_awards(1, NULL, NULL),
@@ -75,7 +75,7 @@ class Index extends Controller_Module
 		return $this->css('awards')
 					->array
 					->append($this	->panel()
-									->heading($name, 'fa-trophy')
+									->heading($name, 'fas fa-trophy')
 									->body($this->view('award', [
 										'game_id'      => $game_id,
 										'team_id'      => $team_id,
@@ -107,7 +107,7 @@ class Index extends Controller_Module
 		{
 			return $this->array
 						->append($this	->panel()
-										->heading('Palmarès de l\'équipe '.$team['title'], 'fa-trophy')
+										->heading('Palmarès de l\'équipe '.$team['title'], 'fas fa-trophy')
 										->body($this->view('index', [
 											'stats-team' => TRUE,
 											'stats-game' => FALSE,
@@ -124,7 +124,7 @@ class Index extends Controller_Module
 		{
 			return $this->array
 						->append($this	->panel()
-										->heading('Palmarès sur le jeu '.$game['title'], 'fa-trophy')
+										->heading('Palmarès sur le jeu '.$game['title'], 'fas fa-trophy')
 										->body($this->view('index', [
 											'stats-team' => FALSE,
 											'stats-game' => TRUE,

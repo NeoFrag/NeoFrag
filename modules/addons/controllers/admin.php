@@ -44,7 +44,7 @@ class Admin extends Controller_Module
 			}
 		});
 
-		$this->add_action($this->button('Ajouter', 'fa-plus', 'primary')->modal_ajax('admin/ajax/addons/install'));
+		$this->add_action($this->button('Ajouter', 'fas fa-plus', 'primary')->modal_ajax('admin/ajax/addons/install'));
 
 		return $this->js('mixitup.min')
 					->js('addons')
@@ -56,7 +56,7 @@ class Admin extends Controller_Module
 
 	public function help($controller, $method)
 	{
-		return $this->modal('Aide', 'fa-life-bouy')
+		return $this->modal('Aide', 'far fa-life-ring')
 					->large()
 					->body(call_user_func([$controller, $method]))
 					->close();

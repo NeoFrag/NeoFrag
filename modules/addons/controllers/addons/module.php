@@ -10,21 +10,21 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Module extends Controller
 {
-	public $__label = ['Modules', 'Module', 'fa-sticky-note-o', 'primary'];
+	public $__label = ['Modules', 'Module', 'far fa-sticky-note', 'primary'];
 
 	public function __actions()
 	{
 		return $this->array
-					->set('enable', ['Activer', 'fa-check', 'success', TRUE, function($addon){
+					->set('enable', ['Activer', 'fas fa-check', 'success', TRUE, function($addon){
 						return $addon->is_deactivatable() && !$addon->is_enabled();
 					}])
-					->set('disable', ['Désactiver', 'fa-times', 'muted', TRUE, function($addon){
+					->set('disable', ['Désactiver', 'fas fa-times', 'muted', TRUE, function($addon){
 						return $addon->is_deactivatable() && $addon->is_enabled();
 					}])
-					->set('settings', ['Configuration', 'fa-wrench', 'warning', TRUE, function($addon){
+					->set('settings', ['Configuration', 'fas fa-wrench', 'warning', TRUE, function($addon){
 						return isset($addon->info()->settings);
 					}])
-					->set('access', ['Permissions', 'fa-unlock-alt', 'success', FALSE, function($addon){
+					->set('access', ['Permissions', 'fas fa-unlock-alt', 'success', FALSE, function($addon){
 						return $addon->get_permissions('default');
 					}]);
 	}
@@ -49,7 +49,7 @@ class Module extends Controller
 
 	public function settings($addon)
 	{
-		return call_user_func($addon->info()->settings)	->modal($addon->info()->title, 'fa-wrench')
+		return call_user_func($addon->info()->settings)	->modal($addon->info()->title, 'fas fa-wrench')
 														->cancel();
 	}
 

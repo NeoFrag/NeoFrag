@@ -27,7 +27,7 @@ class Index extends Controller_Module
 		if ($panels->empty())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang('Actualités'), 'fa-file-text-o')
+									->heading($this->lang('Actualités'), 'far fa-file-alt')
 									->body('<div class="text-center">'.$this->lang('Aucune actualité n\'a été publiée pour le moment').'</div>')
 									->color('info'));
 		}
@@ -53,7 +53,7 @@ class Index extends Controller_Module
 	{
 		$news = $this->index($news);
 
-		$news->prepend($this->panel()->body('<h3 class="m-0">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fa-close')->url('news')->color('danger pull-right')->compact()->outline().'</h3>'));
+		$news->prepend($this->panel()->body('<h3 class="m-0">'.$filter.$this->button()->tooltip($this->lang('Voir toutes les actualités'))->icon('fas fa-times')->url('news')->color('danger pull-right')->compact()->outline().'</h3>'));
 
 		return $news;
 	}

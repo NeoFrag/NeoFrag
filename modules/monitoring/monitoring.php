@@ -15,7 +15,7 @@ class Monitoring extends Module
 		return [
 			'title'       => 'Monitoring',
 			'description' => '',
-			'icon'        => 'fa-heartbeat',
+			'icon'        => 'fas fa-heartbeat',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

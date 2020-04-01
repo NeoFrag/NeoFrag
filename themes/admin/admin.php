@@ -42,7 +42,7 @@ class Admin extends Theme
 				->css('fonts/open-sans')
 				->css('fonts/titillium-web')
 				->css('icons/Pe-icon-7-stroke')
-				->css('icons/font-awesome.min')
+				->css('icons/fontawesome.min')
 				->css('style')
 				->js('jquery-3.2.1.min')
 				->js('popper.min')
@@ -82,50 +82,50 @@ class Admin extends Theme
 			'links' => [
 				[
 					'title' => 'Tableau de bord',
-					'icon'  => 'fa-dashboard',
+					'icon'  => 'fas fa-tachometer-alt',
 					'url'   => 'admin'
 				],
 				[
 					'title'  => 'Paramètres',
-					'icon'   => 'fa-cogs',
+					'icon'   => 'fas fa-cogs',
 					'access' => $this->user->admin,
 					'url'    => 'admin/settings'
 				],
 				[
 					'title'  => 'Thèmes & Addons',
-					'icon'   => 'fa-puzzle-piece',
+					'icon'   => 'fas fa-puzzle-piece',
 					'access' => $this->user->admin,
 					'url'    => 'admin/addons'
 				],
 				[
 					'title' => 'Utilisateurs',
-					'icon'  => 'fa-users',
+					'icon'  => 'fas fa-users',
 					'url'   => [
-						['title' => 'Membres / Groupes',      'icon'  => 'fa-users',        'access' => $this->user->admin, 'url' => 'admin/user'],
-						['title' => 'Sessions',               'icon'  => 'fa-globe',        'access' => $this->user->admin, 'url' => 'admin/user/sessions'],
-						['title' => 'Permissions',            'icon'  => 'fa-unlock-alt',   'access' => $this->user->admin, 'url' => 'admin/access'],
-						//['title' => 'Bannissement',           'icon'  => 'fa-bomb',         'access' => $this->user->admin, 'url' => 'admin/user/ban']
+						['title' => 'Membres / Groupes',      'icon'  => 'fas fa-users',        'access' => $this->user->admin, 'url' => 'admin/user'],
+						['title' => 'Sessions',               'icon'  => 'fas fa-globe',        'access' => $this->user->admin, 'url' => 'admin/user/sessions'],
+						['title' => 'Permissions',            'icon'  => 'fas fa-unlock-alt',   'access' => $this->user->admin, 'url' => 'admin/access'],
+						//['title' => 'Bannissement',           'icon'  => 'fas fa-bomb',         'access' => $this->user->admin, 'url' => 'admin/user/ban']
 					]
 				],
 				[
 					'title' => 'Contenu',
-					'icon'  => 'fa-edit',
+					'icon'  => 'fas fa-edit',
 					'url'   => $content_submenu['default']
 				],
 				[
 					'title' => 'Gaming',
-					'icon'  => 'fa-gamepad',
+					'icon'  => 'fas fa-gamepad',
 					'url'   => $content_submenu['gaming']
 				],
 				[
 					'title' => 'Live Editor',
-					'icon'  => 'fa-desktop',
+					'icon'  => 'fas fa-desktop',
 					'access' => $this->user->admin,
 					'url'   => 'admin/live-editor'
 				],
 				[
 					'title' => 'Statistiques',
-					'icon'  => 'fa-bar-chart',
+					'icon'  => 'far fa-chart-bar',
 					'access' => $this->user->admin,
 					'url'    => 'admin/statistics'
 				]

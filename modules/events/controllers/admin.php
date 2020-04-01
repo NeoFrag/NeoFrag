@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 						->add_columns([
 							[
 								'content' => function($data){
-									return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="Publié" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
+									return $data['published'] ? '<i class="fas fa-circle" data-toggle="tooltip" title="Publié" style="color: #7bbb17;"></i>' : '<i class="far fa-circle" data-toggle="tooltip" title="En attente de publication" style="color: #535353;"></i>';
 								},
 								'sort'    => function($data){
 									return $data['published'];
@@ -118,21 +118,21 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Date',
 								'content' => function($data){
-									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fas fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
 								},
 								'sort'    => function($data){
 									return $data['date'];
 								}
 							],
 							[
-								'title'   => '<i class="fa fa-users" data-toggle="tooltip" title="Participants"></i>',
+								'title'   => '<i class="fas fa-users" data-toggle="tooltip" title="Participants"></i>',
 								'content' => function($data){
 									return '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title']).'#participants').'">'.$this->model('participants')->count_participants($data['event_id']).'</a>';
 								},
 								'size'    => TRUE
 							],
 							[
-								'title'   => '<i class="fa fa-comments-o" data-toggle="tooltip" title="Commentaires"></i>',
+								'title'   => '<i class="far fa-comments" data-toggle="tooltip" title="Commentaires"></i>',
 								'content' => function($data){
 									return $this->module('comments')->admin('events', $data['event_id']);
 								},
@@ -157,17 +157,17 @@ class Admin extends Controller_Module
 		return $this->row(
 			$this	->col(
 						$this	->panel()
-								->heading('', 'fa-calendar')
+								->heading('', 'fas fa-calendar-alt')
 								->body('<div id="calendar"></div>', FALSE),
 						$this	->panel()
-								->heading('Types d\'événement', 'fa-bookmark-o')
+								->heading('Types d\'événement', 'far fa-bookmark')
 								->body($types)
 								->footer_if($this->is_authorized('add_events_type'), $this->button_create('admin/events/types/add', 'Créer un type d\'événement'))
 					)
 					->size('col-4 col-lg-3'),
 			$this	->col(
 						$this	->panel()
-								->heading('Liste des événements', 'fa-calendar')
+								->heading('Liste des événements', 'fas fa-calendar-alt')
 								->body($this->_filters().'<div class="panel-body">'.$events.'</div>')
 								->footer_if($this->is_authorized('add_event'), $this->button_create('admin/events/add', 'Créer un événement'))
 					)
@@ -228,7 +228,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Ajouter un événement', 'fa-calendar')
+					->heading('Ajouter un événement', 'fas fa-calendar-alt')
 					->body($this->form()->display());
 	}
 
@@ -437,12 +437,12 @@ class Admin extends Controller_Module
 		if ($published && !$this->model('participants')->get_participants($event_id))
 		{
 			$alert = $this	->panel()
-							->body('<div class="pull-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">Inviter des membres</a></div><i class="fa fa-info-circle"></i> <b>Pense-bête !</b><br />N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !</b>')
+							->body('<div class="pull-right"><a href="'.url('events/'.$event_id.'/'.url_title($title).'#participants').'" class="btn btn-info">Inviter des membres</a></div><i class="fas fa-info-circle"></i> <b>Pense-bête !</b><br />N\'oubliez pas d\'envoyer vos demandes de participation à vos membres !</b>')
 							->color('info');
 		}
 
 		$panel = $this		->panel()
-							->heading('Éditer l\'événement', 'fa-align-left')
+							->heading('Éditer l\'événement', 'fas fa-align-left')
 							->body($form_default->display());
 
 		if ($type == 1)//Matches
@@ -451,7 +451,7 @@ class Admin extends Controller_Module
 					->add_columns([
 						[
 							'content' => function($data){
-								return $this->model('matches')->label_scores($data['score1'], $data['score2']).($data['title'] ? ' '.icon('fa-map-o ml-1').' '.$data['title'] : '');
+								return $this->model('matches')->label_scores($data['score1'], $data['score2']).($data['title'] ? ' '.icon('far fa-map ml-1').' '.$data['title'] : '');
 							}
 						],
 						[
@@ -472,11 +472,11 @@ class Admin extends Controller_Module
 												->get())
 					->no_data('Aucune manche renseignée');
 
-			$modal_opponent = $this	->modal('Ajouter un adversaire', 'fa-plus')
+			$modal_opponent = $this	->modal('Ajouter un adversaire', 'fas fa-plus')
 									->body($form_opponent->display())
 									->open_if($form_opponent->get_errors());
 
-			$modal_round    = $this	->modal('Ajouter une manche', 'fa-plus')
+			$modal_round    = $this	->modal('Ajouter une manche', 'fas fa-plus')
 									->body($form_round->display())
 									->open_if($form_round->get_errors());
 
@@ -485,10 +485,10 @@ class Admin extends Controller_Module
 						->size('col-8'),
 				$this	->col(
 							$this	->panel()
-									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fa-plus')->modal($modal_opponent).'</div>', 'fa-info-circle')
+									->heading('Détails de la rencontre<div class="pull-right">'.$this->button()->title('Ajouter un adversaire')->icon('fas fa-plus')->modal($modal_opponent).'</div>', 'fas fa-info-circle')
 									->body($form_match->display()),
 							$this	->panel()
-									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right"><small>Résultat global</small> '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fa-gamepad')
+									->heading('Manches jouées'.(count($rounds) > 1 ? '<div class="pull-right"><small>Résultat global</small> '.$this->model('matches')->label_global_scores($event_id).'</div>' : ''), 'fas fa-chess')
 									->body($this->table()->display())
 									->footer($this->button_create('#', 'Ajouter une manche')->modal($modal_round))
 						)
@@ -539,7 +539,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Ajouter un type d\'événement', 'fa-bookmark-o')
+					->heading('Ajouter un type d\'événement', 'far fa-bookmark')
 					->body($this->form()->display());
 	}
 
@@ -570,7 +570,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading('Éditer le type d\'événement', 'fa-bookmark-o')
+					->heading('Éditer le type d\'événement', 'far fa-bookmark')
 					->body($this->form()->display());
 	}
 

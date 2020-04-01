@@ -15,7 +15,7 @@ class Teams extends Module
 		return [
 			'title'       => $this->lang('Équipes'),
 			'description' => '',
-			'icon'        => 'fa-gamepad',
+			'icon'        => 'fas fa-headset',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -58,42 +58,42 @@ class Teams extends Module
 				'access'  => [
 					[
 						'title'  => 'Équipes',
-						'icon'   => 'fa-gamepad',
+						'icon'   => 'fas fa-headset',
 						'access' => [
 							'add_teams' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_teams' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_teams' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
 						'title'  => 'Rôles',
-						'icon'   => 'fa-sitemap',
+						'icon'   => 'fas fa-sitemap',
 						'access' => [
 							'add_teams_roles' => [
 								'title' => 'Ajouter un rôle',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_teams_roles' => [
 								'title' => 'Modifier un rôle',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_teams_roles' => [
 								'title' => 'Supprimer un rôle',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]

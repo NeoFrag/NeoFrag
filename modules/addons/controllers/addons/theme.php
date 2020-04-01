@@ -10,18 +10,18 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Theme extends Controller
 {
-	public $__label = ['Thèmes', 'Thème', 'fa-tint', 'success'];
+	public $__label = ['Thèmes', 'Thème', 'fas fa-tint', 'success'];
 
 	public function __actions()
 	{
 		return $this->array
-					->set('enable',    ['Activer', 'fa-check', 'success', TRUE, function($addon){
+					->set('enable',    ['Activer', 'fas fa-check', 'success', TRUE, function($addon){
 						return $addon->info()->name != 'admin' && !$addon->is_enabled();
 					}])
-					->set('customize', ['Personaliser', 'fa-paint-brush', 'info', FALSE, function($addon){
+					->set('customize', ['Personaliser', 'fas fa-paint-brush', 'info', FALSE, function($addon){
 						return $addon->info()->name != 'admin' && @$addon->controller('admin');
 					}])
-					->set('reset',     ['Réinstaller par défaut', 'fa-refresh', 'warning', TRUE, function($addon){
+					->set('reset',     ['Réinstaller par défaut', 'fas fa-sync', 'warning', TRUE, function($addon){
 						return $addon->info()->name != 'admin';
 					}]);
 	}
@@ -39,14 +39,14 @@ class Theme extends Controller
 	{
 		$controller	->title($theme->info()->title)
 					->subtitle('Personnalisation du thème')
-					->icon('fa-paint-brush');
+					->icon('fas fa-paint-brush');
 
 		return $theme->controller('admin')->index();
 	}
 
 	public function reset($theme)
 	{
-		return $this->modal('Réinstaller par défaut', 'fa-refresh')
+		return $this->modal('Réinstaller par défaut', 'fas fa-sync')
 					->body($this->lang('Êtes-vous sûr(e) de vouloir réinstaller le thème <b>%s</b> ?<br />Toutes les dispositions et configurations de widgets seront perdues.', $theme->info()->title))
 					->submit('Réinstaller', 'warning')
 					->cancel()

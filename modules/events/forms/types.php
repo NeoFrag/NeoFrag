@@ -26,7 +26,7 @@ $rules = [
 	'icon' => [
 		'label'   => 'Icône',
 		'value'   => $this->form()->value('icon'),
-		'default' => 'fa-clock-o',
+		'default' => 'far fa-clock',
 		'type'    => 'iconpicker'
 	]
 ];

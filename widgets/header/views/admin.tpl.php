@@ -1,5 +1,5 @@
 <ul class="nav nav-pills" id="pills-tab" role="tablist">
-	<li class="nav-item"><a class="nav-link active" id="pills-options-tab" data-toggle="pill" href="#pills-options" role="tab" aria-controls="pills-options" aria-selected="true"><?php echo icon('fa-cogs').' Options' ?></a></li>
+	<li class="nav-item"><a class="nav-link active" id="pills-options-tab" data-toggle="pill" href="#pills-options" role="tab" aria-controls="pills-options" aria-selected="true"><?php echo icon('fas fa-cogs').' Options' ?></a></li>
 </ul>
 <div class="tab-content border-light" id="pills-tabContent">
 	<div class="tab-pane fade show active" id="pills-options" role="tabpanel" aria-labelledby="pills-options-tab">
@@ -30,7 +30,7 @@
 			<div class="col-3">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
+						<span class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></span>
 					</div>
 					<input type="text" class="form-control" name="settings[color-title]" value="<?php if (isset(${'color-title'})) echo ${'color-title'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
 				</div>
@@ -44,7 +44,7 @@
 			<div class="col-3">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<span class="input-group-text"><?php echo icon('fa-paint-brush') ?></span>
+						<span class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></span>
 					</div>
 					<input type="text" class="form-control" name="settings[color-description]" value="<?php if (isset(${'color-description'})) echo ${'color-description'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
 				</div>

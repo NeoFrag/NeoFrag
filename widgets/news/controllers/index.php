@@ -25,7 +25,7 @@ class Index extends Controller_Widget
 						->body($this->view('index', [
 							'news' => array_slice($news, 0, 3)
 						]))
-						->footer('<a href="'.url('news').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir toutes les actualités').'</a>', 'right');
+						->footer('<a href="'.url('news').'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Voir toutes les actualités').'</a>', 'right');
 		}
 		else
 		{

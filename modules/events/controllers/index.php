@@ -20,11 +20,11 @@ class Index extends Controller_Module
 		{
 			if ($types[$event['type_id']]['type'] == 1)//Matches
 			{
-				$icon = 'fa-crosshairs';
+				$icon = 'fas fa-crosshairs';
 			}
 			else
 			{
-				$icon = 'fa-calendar-o';
+				$icon = 'far fa-calendar';
 			}
 
 			$data = [
@@ -40,7 +40,7 @@ class Index extends Controller_Module
 			if ($this->access('events', 'access_events_type', $event['type_id']))
 			{
 				$panels->append($this	->panel()
-										->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="pull-right">'.($data['match']['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $data['match']['game']['icon_id'])->path().'" alt="" />' : icon('fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
+										->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="pull-right">'.($data['match']['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $data['match']['game']['icon_id'])->path().'" alt="" />' : icon('fas fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
 										->body($this->view('event', array_merge($event, $data)), FALSE));
 			}
 		}
@@ -116,7 +116,7 @@ class Index extends Controller_Module
 					],
 					[
 						'content' => function($data){
-							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
+							return '<div>'.$this->user->link($data['user_id'], $data['username']).'</div><small>'.icon('fas fa-circle '.($data['online'] ? 'text-green' : 'text-gray')).' '.($data['admin'] ? 'Admin' : 'Membre').' '.($data['online'] ? 'en ligne' : 'hors ligne').'</small>';
 						}
 					],
 					[
@@ -184,7 +184,7 @@ class Index extends Controller_Module
 				refresh();
 			}
 
-			$modal = $this	->modal('Inviter des membres', 'fa-user-plus')
+			$modal = $this	->modal('Inviter des membres', 'fas fa-user-plus')
 							->body($this->view('participants', [
 								'users'   => $users,
 								'form_id' => $this->form()->token()
@@ -197,7 +197,7 @@ class Index extends Controller_Module
 
 		return $this->_filters()
 					->append($this	->panel()
-									->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="pull-right">'.($match['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $match['game']['icon_id'])->path().'" alt="" />' : icon('fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fa-crosshairs' : 'fa-calendar-o')
+									->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="pull-right">'.($match['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $match['game']['icon_id'])->path().'" alt="" />' : icon('fas fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fas fa-crosshairs' : 'far fa-calendar')
 									->body($this->view('event', [
 										'event_id'             => $event_id,
 										'title'                => $title,
@@ -219,7 +219,7 @@ class Index extends Controller_Module
 									]), FALSE)
 					)
 					->append_if($this->user(), $this	->panel()
-														->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fa-user-plus')->modal($modal).'</div>' : ''), 'fa-users')
+														->heading('<a name="participants"></a>Participants'.(isset($modal) ? '<div class="pull-right">'.$this->button()->title('Invitations')->icon('fas fa-user-plus')->modal($modal).'</div>' : ''), 'fas fa-users')
 														->body($this->table()->display())
 					)
 					->append_if(($comments = $this->module('comments')) && $comments->is_enabled(), function() use (&$comments, $event_id){

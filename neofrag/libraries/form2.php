@@ -385,7 +385,7 @@ class Form2 extends Library
 		{
 			$errors[] = $this	->html('p')
 								->attr('class', 'text-danger')
-								->content($this->label($error, 'fa-exclamation-triangle'));
+								->content($this->label($error, 'fas fa-exclamation-triangle'));
 		}
 
 		$fields = [];

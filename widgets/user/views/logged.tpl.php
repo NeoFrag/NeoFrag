@@ -5,21 +5,21 @@
 <ul class="list-group list-group-flush">
 	<li class="list-group-item">
 		<!--<span class="badge badge-success pull-right"><?php echo 0; //TODO nombre de nouvelles notifications ?></span>-->
-		<?php echo icon('fa-user') ?> <a href="<?php echo url('user') ?>"><?php echo $this->lang('Mon espace') ?></a>
+		<?php echo icon('fas fa-user') ?> <a href="<?php echo url('user') ?>"><?php echo $this->lang('Mon espace') ?></a>
 	</li>
 	<li class="list-group-item">
-		<?php echo icon('fa-cogs') ?> <a href="<?php echo url('user/account') ?>"><?php echo $this->lang('Gérer mon compte') ?></a>
+		<?php echo icon('fas fa-cogs') ?> <a href="<?php echo url('user/account') ?>"><?php echo $this->lang('Gérer mon compte') ?></a>
 	</li>
 	<li class="list-group-item">
-		<?php echo icon('fa-eye') ?> <a href="<?php echo url('user/'.$this->user->id.'/'.url_title($username)) ?>"><?php echo $this->lang('Voir mon profil') ?></a>
+		<?php echo icon('far fa-eye') ?> <a href="<?php echo url('user/'.$this->user->id.'/'.url_title($username)) ?>"><?php echo $this->lang('Voir mon profil') ?></a>
 	</li>
 	<li class="list-group-item">
 		<?php if ($messages = $this->module('user')->model('messages')->get_messages_unreads()): ?><span class="badge badge-danger pull-right"><?php echo $messages ?></span><?php endif ?>
-		<?php echo icon('fa-envelope-o') ?> <a href="<?php echo url('user/messages') ?>">Messagerie</a>
+		<?php echo icon('far fa-envelope') ?> <a href="<?php echo url('user/messages') ?>">Messagerie</a>
 	</li>
 	<?php if ($this->access->admin()): ?>
 	<li class="list-group-item">
-		<?php echo icon('fa-dashboard') ?> <a href="<?php echo url('admin') ?>"><?php echo $this->lang('Administration') ?></a>
+		<?php echo icon('fas fa-tachometer-alt') ?> <a href="<?php echo url('admin') ?>"><?php echo $this->lang('Administration') ?></a>
 	</li>
 	<?php endif ?>
 </ul>

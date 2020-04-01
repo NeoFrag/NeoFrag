@@ -25,7 +25,7 @@ class Admin extends Controller_Module
 			->add_columns([
 				[
 					'content' => function($data){
-						return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('fa-envelope').'</a>';
+						return '<a href="mailto:'.$data['email'].'" data-toggle="tooltip" title="'.$data['email'].'">'.icon('fas fa-envelope').'</a>';
 					}
 				],
 				[
@@ -47,65 +47,65 @@ class Admin extends Controller_Module
 			$this->row(
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Actualité|Actualités', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'fa-newspaper-o', 'admin/news')
+							->heading($this->lang('Actualité|Actualités', $count = $this->db->select('COUNT(*)')->from('nf_news')->where('published', TRUE)->row()), 'far fa-newspaper', 'admin/news')
 							->body($count)
 							->color('bg-aqua')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Voir la liste').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Voir la liste').' '.icon('fas fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Membre|Membres', $count = $this->db->select('COUNT(*)')->from('nf_user')->where('deleted', FALSE)->row()), 'fa-users', 'admin/user')
+							->heading($this->lang('Membre|Membres', $count = $this->db->select('COUNT(*)')->from('nf_user')->where('deleted', FALSE)->row()), 'fas fa-users', 'admin/user')
 							->body($count)
 							->color('bg-green')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Gérer les utilisateurs').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les utilisateurs').' '.icon('fas fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Événement|Événements', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fa-calendar', 'admin/events')
+							->heading($this->lang('Événement|Événements', $count = $this->db->select('COUNT(*)')->from('nf_events')->where('published', TRUE)->row()), 'fas fa-calendar-alt', 'admin/events')
 							->body($count)
 							->color('bg-blue')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Gérer le calendrier').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer le calendrier').' '.icon('fas fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Équipe|Équipes', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fa-gamepad', 'admin/teams')
+							->heading($this->lang('Équipe|Équipes', $count = $this->db->select('COUNT(*)')->from('nf_teams')->row()), 'fas fa-headset', 'admin/teams')
 							->body($count)
 							->color('bg-red')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Gérer les équipes').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les équipes').' '.icon('fas fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Message|Messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fa-comments', 'admin/forum')
+							->heading($this->lang('Message|Messages', $count = $this->db->select('COUNT(*)')->from('nf_forum_messages')->row()), 'fas fa-comments', 'admin/forum')
 							->body($count)
 							->color('bg-teal')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Gérer le forum').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer le forum').' '.icon('fas fa-arrow-circle-right'))
 				),
 				$this->col(
 					$this	->panel_box()
-							->heading($this->lang('Commentaire|Commentaires', $count = $this->db->select('COUNT(*)')->from('nf_comment')->row()), 'fa-comments-o', 'admin/comments')
+							->heading($this->lang('Commentaire|Commentaires', $count = $this->db->select('COUNT(*)')->from('nf_comment')->row()), 'far fa-comments', 'admin/comments')
 							->body($count)
 							->color('bg-maroon')
 							->size('col-4 col-lg-2')
-							->footer($this->lang('Gérer les commentaires').' '.icon('fa-arrow-circle-right'))
+							->footer($this->lang('Gérer les commentaires').' '.icon('fas fa-arrow-circle-right'))
 				)
 			),
 			$this->row(
 				$this->col('<div class="widget widget-talks">'.$this->widget('talks')->output('index', ['talk_id' => 1]).'</div>')->size('col-8'),
 				$this	->col(
 							$this	->panel()
-									->heading($this->lang('Utilisateurs connectés'), 'fa-globe')
+									->heading($this->lang('Utilisateurs connectés'), 'fas fa-globe')
 									->body($this->view('users_online', [
 										'currently' => $this->db->select('COUNT(*)')->from('nf_session')->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row(),
 										'max'       => statistics('nf_sessions_max_simultaneous')
 									]))
 									->footer('<a href="'.url('admin/user/sessions').'">'.$this->lang('Voir toutes les sessions actives').'</a>'),
 							$this	->panel()
-									->heading($this->lang('Dernières inscriptions'), 'fa-users')
+									->heading($this->lang('Dernières inscriptions'), 'fas fa-users')
 									->body($users)
 						)
 						->size('col-4')

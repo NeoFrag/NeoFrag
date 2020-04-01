@@ -10,7 +10,7 @@ class Time extends Date
 {
 	protected $_datetime_type   = 'time';
 	protected $_datetime_format = 'LT';
-	protected $_datetime_icon   = 'fa-clock-o';
+	protected $_datetime_icon   = 'far fa-clock';
 	protected $_datetime_regexp = '\d{2}(:\d{2}){2}';
 
 	public function value($value)

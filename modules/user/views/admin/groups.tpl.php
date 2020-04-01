@@ -12,7 +12,7 @@
 		<?php endforeach ?>
 		</ul>
 		<div class="text-center">
-			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fa-check').' '.$this->lang('Valider') ?></button>
+			<button style="margin-top: 15px;" class="btn btn-outline btn-primary"><?php echo icon('fas fa-check').' '.$this->lang('Valider') ?></button>
 		</div>
 	</form>
 <?php endif ?>

@@ -15,7 +15,7 @@ class Access extends Module
 		return [
 			'title'       => $this->lang('Permissions'),
 			'description' => '',
-			'icon'        => 'fa-unlock-alt',
+			'icon'        => 'fas fa-unlock-alt',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

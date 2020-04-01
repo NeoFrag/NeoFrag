@@ -1,9 +1,9 @@
 <table class="table table-hover"<?php if ($this->url->admin) echo ' data-category-id="'.$category_id.'"' ?>>
 	<thead class="forum-heading">
 		<tr>
-			<th class="col-<?php echo $this->url->admin ? 6 : 7 ?>" colspan="2"><h5 class="m-0"><?php echo icon($this->url->admin ? 'fa-arrows-v' : 'fa-navicon').' '.$title ?></h5></th>
-			<th class="col-2"><h5 class="m-0"><?php echo icon('fa-signal') ?><span class="d-none d-sm-inline-block ml-1"><?php echo $this->lang('Statistiques') ?></span></h5></th>
-			<th class="col-3"><h5 class="m-0"><?php echo icon('fa-comment-o') ?><span class="d-none d-sm-inline-block ml-1"><?php echo $this->lang('Dernier message') ?></span></h5></th>
+			<th class="col-<?php echo $this->url->admin ? 6 : 7 ?>" colspan="2"><h5 class="m-0"><?php echo icon($this->url->admin ? 'fas fa-arrows-alt-v' : 'fas fa-bars').' '.$title ?></h5></th>
+			<th class="col-2"><h5 class="m-0"><?php echo icon('fas fa-signal') ?><span class="d-none d-sm-inline-block ml-1"><?php echo $this->lang('Statistiques') ?></span></h5></th>
+			<th class="col-3"><h5 class="m-0"><?php echo icon('far fa-comment') ?><span class="d-none d-sm-inline-block ml-1"><?php echo $this->lang('Dernier message') ?></span></h5></th>
 			<?php if ($this->url->admin): ?>
 			<th class="col-1 text-right">
 				<?php echo $this->button_access($category_id, 'category') ?>
@@ -17,7 +17,7 @@
 		<?php foreach ($forums as $forum): ?>
 		<tr<?php if ($this->url->admin) echo ' data-forum-id="'.$forum['forum_id'].'"' ?>>
 			<td class="col-1">
-				<?php echo $this->url->admin ? icon('fa-arrows-v') : $forum['icon'] ?>
+				<?php echo $this->url->admin ? icon('fas fa-arrows-alt-v') : $forum['icon'] ?>
 			</td>
 			<td class="col-<?php echo $this->url->admin ? 5 : 6 ?>">
 				<h5 class="m-0"><a href="<?php echo url('forum/'.$forum['forum_id'].'/'.url_title($forum['title'])) ?>"><?php echo $forum['title'] ?></a></h5>
@@ -28,7 +28,7 @@
 					foreach ($forum['subforums'] as $subforum):
 						echo '<li'.($this->url->admin ? ' data-forum-id="'.$subforum['forum_id'].'" class="list-group-item p-2"' : ' class="list-inline-item"').'>'.
 								($this->url->admin ? '<div class="pull-right">'.$this->button_update('admin/forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).' '.$this->button_delete('admin/forum/delete/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'</div>' : '')
-								.($this->url->admin ? icon('fa-arrows-v') : $subforum['icon']).' <a href="'.url('forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'">'.$subforum['title'].'</a>'.
+								.($this->url->admin ? icon('fas fa-arrows-alt-v') : $subforum['icon']).' <a href="'.url('forum/'.$subforum['forum_id'].'/'.url_title($subforum['title'])).'">'.$subforum['title'].'</a>'.
 							'</li>';
 					endforeach;
 					echo '</ul>';
@@ -51,8 +51,8 @@
 			<td class="col-3">
 				<?php if (!$forum['url']): ?>
 				<?php if ($forum['last_title']): ?>
-					<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $this->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $this->config->forum_messages_per_page) : '').'#'.$forum['last_message_id']) ?>"><?php echo icon('fa-comment-o').' '.str_shortener($forum['last_title'], 40) ?></a></div>
-					<div><small><?php echo icon('fa-user').' '.($forum['user_id'] ? $this->user->link($forum['user_id'], $forum['username']) : '<i>'.$this->lang('Visiteur').'</i>').' '.icon('fa-clock-o').' '.time_span($forum['last_message_date']) ?></small></div>
+					<div><a href="<?php echo url('forum/topic/'.$forum['topic_id'].'/'.url_title($forum['last_title']).($forum['last_count_messages'] > $this->config->forum_messages_per_page ? '/page/'.ceil($forum['last_count_messages'] / $this->config->forum_messages_per_page) : '').'#'.$forum['last_message_id']) ?>"><?php echo icon('far fa-comment').' '.str_shortener($forum['last_title'], 40) ?></a></div>
+					<div><small><?php echo icon('fas fa-user').' '.($forum['user_id'] ? $this->user->link($forum['user_id'], $forum['username']) : '<i>'.$this->lang('Visiteur').'</i>').' '.icon('far fa-clock').' '.time_span($forum['last_message_date']) ?></small></div>
 				<?php else: ?>
 					<?php echo $this->lang('Aucun message') ?>
 				<?php endif; endif ?>

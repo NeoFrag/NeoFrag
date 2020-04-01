@@ -10,7 +10,7 @@ class Date extends Text
 {
 	protected $_datetime_type   = 'date';
 	protected $_datetime_format = 'L';
-	protected $_datetime_icon   = 'fa-calendar';
+	protected $_datetime_icon   = 'fas fa-calendar-alt';
 	protected $_datetime_size   = 'col-3';
 	protected $_datetime_regexp = '\d{4}(-\d{2}){2}';
 

@@ -47,7 +47,7 @@ $rules = [
 	],
 	'website' => [
 		'label'       => 'Site internet',
-		'icon'        => 'fa-globe',
+		'icon'        => 'fas fa-globe',
 		'value'       => $this->form()->value('website'),
 		'type'        => 'url',
 		'rules'       => 'required',
@@ -55,21 +55,21 @@ $rules = [
 	],
 	'facebook' => [
 		'label'       => 'Page Facebook',
-		'icon'        => 'fa-facebook',
+		'icon'        => 'fab fa-facebook-f',
 		'value'       => $this->form()->value('facebook'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'twitter' => [
 		'label'       => 'Page Twitter',
-		'icon'        => 'fa-twitter',
+		'icon'        => 'fab fa-twitter',
 		'value'       => $this->form()->value('twitter'),
 		'type'        => 'url',
 		'size'        => 'col-5'
 	],
 	'code' => [
 		'label'       => 'Code promotionnel',
-		'icon'        => 'fa-gift',
+		'icon'        => 'fas fa-gift',
 		'value'       => $this->form()->value('code'),
 		'type'        => 'text',
 		'description' => 'Indiquez le code promotionnel que vos utilisateurs peuvent utiliser pour profiter de promotions grâce à votre partenaire',

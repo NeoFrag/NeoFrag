@@ -4,7 +4,7 @@
 	<li class="list-group-item">
 		<?php if ($event['type'] == 1): ?>
 			<?php
-			echo icon('fa-crosshairs');
+			echo icon('fas fa-crosshairs');
 
 			$match = $this->module('events')->model('matches')->get_match_info($event['event_id']);
 
@@ -26,7 +26,7 @@
 				<?php endif ?>
 			</div>
 		<?php else: ?>
-			<?php echo icon('fa-calendar-o') ?>
+			<?php echo icon('far fa-calendar') ?>
 			<a href="<?php echo url('events/'.$event['event_id'].'/'.url_title($event['title'])) ?>"><?php echo str_shortener($event['title'], 30) ?></a>
 		<?php endif ?>
 	</li>

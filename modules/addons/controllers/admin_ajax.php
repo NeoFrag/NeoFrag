@@ -193,7 +193,7 @@ class Admin_Ajax extends Controller_Module
 						}
 					})
 					->submit('Ajouter')
-					->modal('Ajouter', 'fa-plus')
+					->modal('Ajouter', 'fas fa-plus')
 					->cancel();
 	}
 }

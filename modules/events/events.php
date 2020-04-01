@@ -15,7 +15,7 @@ class Events extends Module
 		return [
 			'title'       => 'Événements',
 			'description' => '',
-			'icon'        => 'fa-calendar',
+			'icon'        => 'fas fa-calendar-alt',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -76,42 +76,42 @@ class Events extends Module
 				'access'  => [
 					[
 						'title'  => 'Événements',
-						'icon'   => 'fa-calendar',
+						'icon'   => 'fas fa-calendar-alt',
 						'access' => [
 							'add_event' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_event' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_event' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
 						'title'  => 'Types',
-						'icon'   => 'fa-bookmark-o',
+						'icon'   => 'far fa-bookmark',
 						'access' => [
 							'add_events_type' => [
 								'title' => 'Ajouter un type',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_events_type' => [
 								'title' => 'Modifier un type',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_events_type' => [
 								'title' => 'Supprimer un type',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
@@ -134,11 +134,11 @@ class Events extends Module
 				'access'  => [
 					[
 						'title'  => 'Types',
-						'icon'   => 'fa-bookmark-o',
+						'icon'   => 'far fa-bookmark',
 						'access' => [
 							'access_events_type' => [
 								'title' => 'Visibilité',
-								'icon'  => 'fa-eye'
+								'icon'  => 'far fa-eye'
 							]
 						]
 					]

@@ -15,7 +15,7 @@ class Recruits extends Module
 		return [
 			'title'       => 'Recrutements',
 			'description' => '',
-			'icon'        => 'fa-bullhorn',
+			'icon'        => 'fas fa-bullhorn',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -83,42 +83,42 @@ class Recruits extends Module
 				'access'  => [
 					[
 						'title'  => 'Offres de recrutement',
-						'icon'   => 'fa-bullhorn',
+						'icon'   => 'fas fa-bullhorn',
 						'access' => [
 							'add_recruit' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_recruit' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_recruit' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
 						'title'  => 'Candidatures',
-						'icon'   => 'fa-black-tie',
+						'icon'   => 'fab fa-black-tie',
 						'access' => [
 							'candidacy_vote' => [
 								'title' => 'Déposer son avis',
-								'icon'  => 'fa-star-o',
+								'icon'  => 'far fa-star',
 								'admin' => TRUE
 							],
 							'candidacy_reply' => [
 								'title' => 'Accepter / Refuser les candidats',
-								'icon'  => 'fa-lock',
+								'icon'  => 'fas fa-lock',
 								'admin' => TRUE
 							],
 							'candidacy_delete' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
@@ -143,11 +143,11 @@ class Recruits extends Module
 				'access' => [
 					[
 						'title'  => 'Postulants',
-						'icon'   => 'fa-black-tie',
+						'icon'   => 'fab fa-black-tie',
 						'access' => [
 							'recruit_postulate' => [
 								'title' => 'Déposer une candidature',
-								'icon'  => 'fa-briefcase'
+								'icon'  => 'fas fa-briefcase'
 							]
 						]
 					]

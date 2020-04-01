@@ -44,7 +44,7 @@
 	margin-top: 5px;
 }
 
-.small-box .icon {
+.small-box > .icon {
 	bottom: 15px;
 	color: rgba(0, 0, 0, 0.15);
 	font-size: 90px;

@@ -15,7 +15,7 @@ class Members extends Module
 		return [
 			'title'       => $this->lang('Liste des membres'),
 			'description' => '',
-			'icon'        => 'fa-users',
+			'icon'        => 'fas fa-users',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

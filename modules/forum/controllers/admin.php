@@ -17,8 +17,8 @@ class Admin extends Controller_Module
 				->js('jquery-ui.min')
 				->js('forum');
 
-		$this	->add_action('admin/forum/categories/add', $this->lang('Ajouter une catégorie'), 'fa-plus')
-				->add_action('admin/forum/add',            $this->lang('Ajouter un forum'),    'fa-plus');
+		$this	->add_action('admin/forum/categories/add', $this->lang('Ajouter une catégorie'), 'fas fa-plus')
+				->add_action('admin/forum/add',            $this->lang('Ajouter un forum'),    'fas fa-plus');
 
 		$panels = $this->array;
 
@@ -31,7 +31,7 @@ class Admin extends Controller_Module
 		if (empty($panels))
 		{
 			$panels[] = $this	->panel()
-								->heading($this->lang('Forum'), 'fa-comments')
+								->heading($this->lang('Forum'), 'fas fa-comments')
 								->body('<div class="text-center">'.$this->lang('Aucun forum').'</div>')
 								->color('info');
 		}
@@ -62,7 +62,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter un forum'), 'fa-comments')
+					->heading($this->lang('Ajouter un forum'), 'fas fa-comments')
 					->body($this->form()->display());
 	}
 
@@ -120,7 +120,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Édition du forum'), 'fa-comments')
+					->heading($this->lang('Édition du forum'), 'fas fa-comments')
 					->body($this->form()->display());
 	}
 
@@ -159,7 +159,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une catégorie'), 'fa-comments')
+					->heading($this->lang('Ajouter une catégorie'), 'fas fa-comments')
 					->body($this->form()->display());
 	}
 
@@ -184,7 +184,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Édition de la catégorie'), 'fa-comments')
+					->heading($this->lang('Édition de la catégorie'), 'fas fa-comments')
 					->body($this->form()->display());
 	}
 

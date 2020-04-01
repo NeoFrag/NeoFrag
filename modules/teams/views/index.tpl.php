@@ -4,9 +4,9 @@
 <div class="card-body">
 	<h3 class="mb-0"><a href="<?php echo url('teams/'.$team_id.'/'.url_title($name)) ?>"><?php echo $title ?></a></h3>
 	<ul class="list-inline<?php echo $players ? '' : ' mb-0' ?>">
-		<li class="list-inline-item"><?php echo icon('fa-gamepad').' '.$game_title ?></li>
-		<li class="list-inline-item"><?php echo icon('fa-users').' '.$this->lang('%d joueur|%d joueurs', count($players), count($players)) ?></li>
-		<?php if ($this->config->teams_display_matches): ?><li class="list-inline-item"><?php echo icon('fa-crosshairs').' '.$this->lang('%d match réalisé|%d matchs réalisés', count($events), count($events)) ?></li><?php endif ?>
+		<li class="list-inline-item"><?php echo icon('fas fa-gamepad').' '.$game_title ?></li>
+		<li class="list-inline-item"><?php echo icon('fas fa-users').' '.$this->lang('%d joueur|%d joueurs', count($players), count($players)) ?></li>
+		<?php if ($this->config->teams_display_matches): ?><li class="list-inline-item"><?php echo icon('fas fa-crosshairs').' '.$this->lang('%d match réalisé|%d matchs réalisés', count($events), count($events)) ?></li><?php endif ?>
 	</ul>
 	<?php if ($players): ?>
 	<ul class="list-inline mb-0">

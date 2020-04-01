@@ -23,7 +23,7 @@ $rules = [
 		'label'       => 'Rôle proposé',
 		'value'       => $this->form()->value('role'),
 		'type'        => 'text',
-		'icon'        => 'fa-sitemap',
+		'icon'        => 'fas fa-sitemap',
 		'description' => 'Exemple: Joueurs, Manager, etc...',
 		'size'        => 'col-4',
 		'rules'       => 'required'
@@ -31,7 +31,7 @@ $rules = [
 	'icon' => [
 		'label'       => 'Icône',
 		'value'       => $this->form()->value('icon'),
-		'default'     => 'fa-bullhorn',
+		'default'     => 'fas fa-bullhorn',
 		'type'        => 'iconpicker'
 	],
 	'size' => [

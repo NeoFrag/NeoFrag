@@ -25,7 +25,7 @@ class Index extends Controller_Widget
 						->body($this->view('index', [
 							'teams'    => $teams
 						]), FALSE)
-						->footer('<a href="'.url('teams').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir toutes nos équipes').'</a>', 'right');
+						->footer('<a href="'.url('teams').'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Voir toutes nos équipes').'</a>', 'right');
 		}
 		else
 		{

@@ -13,7 +13,7 @@ class Admin extends Controller_Module
 	public function index()
 	{
 		$this	->subtitle($this->lang('Préférences générales'))
-				->icon('fa-cog');
+				->icon('fas fa-cog');
 
 		$modules = $pages = [];
 
@@ -108,7 +108,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading($this->lang('Préférences générales'), 'fa-cog')
+								->heading($this->lang('Préférences générales'), 'fas fa-cog')
 								->body($this->form()->display())
 			);
 		});
@@ -117,7 +117,7 @@ class Admin extends Controller_Module
 	public function registration()
 	{
 		$this	->subtitle('Gestions des inscriptions')
-				->icon('fa-sign-in fa-rotate-90');
+				->icon('fas fa-sign-in-alt fa-rotate-90');
 
 		$users = $this->db	->select('id as user_id', 'username')
 							->from('nf_user')
@@ -207,7 +207,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading('Gestions des inscriptions', 'fa-sign-in fa-rotate-90')
+								->heading('Gestions des inscriptions', 'fas fa-sign-in-alt fa-rotate-90')
 								->body($this->form()->display())
 			);
 		});
@@ -216,7 +216,7 @@ class Admin extends Controller_Module
 	public function team()
 	{
 		$this	->subtitle('Notre structure')
-				->icon('fa-users');
+				->icon('fas fa-users');
 
 		$this	->form()
 				->add_rules([
@@ -275,7 +275,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading('Notre structure', 'fa-users')
+								->heading('Notre structure', 'fas fa-users')
 								->body($this->form()->display())
 			);
 		});
@@ -284,79 +284,79 @@ class Admin extends Controller_Module
 	public function socials()
 	{
 		$this	->subtitle('Réseaux sociaux')
-				->icon('fa-globe');
+				->icon('fas fa-globe');
 
 		$this	->form()
 				->add_rules([
 					'social_facebook' => [
 						'label' => 'Facebook',
-						'icon'  => 'fa-facebook',
+						'icon'  => 'fab fa-facebook-f',
 						'value' => $this->config->nf_social_facebook,
 						'type'  => 'url'
 					],
 					'social_twitter' => [
 						'label' => 'Twitter',
-						'icon'  => 'fa-twitter',
+						'icon'  => 'fab fa-twitter',
 						'value' => $this->config->nf_social_twitter,
 						'type'  => 'url'
 					],
 					'social_google' => [
 						'label' => 'Google+',
-						'icon'  => 'fa-google-plus',
+						'icon'  => 'fab fa-google-plus-g',
 						'value' => $this->config->nf_social_google,
 						'type'  => 'url'
 					],
 					'social_steam' => [
 						'label' => 'Page Steam',
-						'icon'  => 'fa-steam',
+						'icon'  => 'fab fa-steam',
 						'value' => $this->config->nf_social_steam,
 						'type'  => 'url'
 					],
 					'social_twitch' => [
 						'label' => 'Twitch',
-						'icon'  => 'fa-twitch',
+						'icon'  => 'fab fa-twitch',
 						'value' => $this->config->nf_social_twitch,
 						'type'  => 'url'
 					],
 					'social_dribble' => [
 						'label' => 'Dribbble',
-						'icon'  => 'fa-dribbble',
+						'icon'  => 'fab fa-dribbble',
 						'value' => $this->config->nf_social_dribble,
 						'type'  => 'url'
 					],
 					'social_behance' => [
 						'label' => 'Behance',
-						'icon'  => 'fa-behance',
+						'icon'  => 'fab fa-behance',
 						'value' => $this->config->nf_social_behance,
 						'type'  => 'url'
 					],
 					'social_deviantart' => [
 						'label' => 'DeviantArt',
-						'icon'  => 'fa-deviantart',
+						'icon'  => 'fab fa-deviantart',
 						'value' => $this->config->nf_social_deviantart,
 						'type'  => 'url'
 					],
 					'social_flickr' => [
 						'label' => 'Flickr',
-						'icon'  => 'fa-flickr',
+						'icon'  => 'fab fa-flickr',
 						'value' => $this->config->nf_social_flickr,
 						'type'  => 'url'
 					],
 					'social_github' => [
 						'label' => 'Github',
-						'icon'  => 'fa-github',
+						'icon'  => 'fab fa-github',
 						'value' => $this->config->nf_social_github,
 						'type'  => 'url'
 					],
 					'social_instagram' => [
 						'label' => 'Instagram',
-						'icon'  => 'fa-instagram',
+						'icon'  => 'fab fa-instagram',
 						'value' => $this->config->nf_social_instagram,
 						'type'  => 'url'
 					],
 					'social_youtube' => [
 						'label' => 'Youtube',
-						'icon'  => 'fa-youtube',
+						'icon'  => 'fab fa-youtube',
 						'value' => $this->config->nf_social_youtube,
 						'type'  => 'url'
 					]
@@ -378,7 +378,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading('Réseaux sociaux', 'fa-globe')
+								->heading('Réseaux sociaux', 'fas fa-globe')
 								->body($this->form()->display())
 			);
 		});
@@ -387,7 +387,7 @@ class Admin extends Controller_Module
 	public function captcha()
 	{
 		$this	->subtitle('Sécurité anti-bots')
-				->icon('fa-shield');
+				->icon('fas fa-shield-alt');
 
 		$this	->form()
 				->add_rules([
@@ -419,7 +419,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading('Configuration de Google reCAPTCHA', 'fa-shield')
+								->heading('Configuration de Google reCAPTCHA', 'fas fa-shield-alt')
 								->body('<div class="alert alert-info"><a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">https://www.google.com/recaptcha/intro/index.html</a></div>'.$this->form()->display())
 			);
 		});
@@ -428,7 +428,7 @@ class Admin extends Controller_Module
 	public function email()
 	{
 		$this	->subtitle('Serveur e-mail')
-				->icon('fa-envelope-o');
+				->icon('far fa-envelope');
 
 		$this	->form()
 				->add_rules([
@@ -479,7 +479,7 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($col){
 			$col->append($this	->panel()
-								->heading('Serveur e-mail', 'fa-envelope-o')
+								->heading('Serveur e-mail', 'far fa-envelope')
 								->body($this->form()->display())
 			);
 		});
@@ -488,7 +488,7 @@ class Admin extends Controller_Module
 	public function maintenance()
 	{
 		$this	->subtitle($this->lang('Maintenance'))
-				->icon('fa-power-off')
+				->icon('fas fa-power-off')
 				->css('admin/maintenance')
 				->js('admin/maintenance');
 
@@ -610,16 +610,16 @@ class Admin extends Controller_Module
 
 		return $this->_layout(function($right, $left) use ($form_maintenance, $form_opening){
 			$right->append($this->panel()
-								->heading($this->lang('Personnalisation de la page de maintenance'), 'fa-paint-brush')
+								->heading($this->lang('Personnalisation de la page de maintenance'), 'fas fa-paint-brush')
 								->body($form_maintenance->display())
 			);
 
 			$left	->append($this	->panel()
-									->heading($this->lang('Statut du site'), 'fa-power-off')
+									->heading($this->lang('Statut du site'), 'fas fa-power-off')
 									->body($this->view('admin/maintenance'))
 					)
 					->append($this	->panel()
-									->heading($this->lang('Ouverture programmée'), 'fa-clock-o')
+									->heading($this->lang('Ouverture programmée'), 'far fa-clock')
 									->body($form_opening->display())
 					);
 		});
@@ -628,7 +628,7 @@ class Admin extends Controller_Module
 	public function copyright()
 	{
 		return $this->subtitle('Copyright')
-					->icon('fa-copyright')
+					->icon('far fa-copyright')
 					->_layout(function($col){
 						$col->append($this	->form2()
 											->info($this->html()
@@ -639,7 +639,7 @@ class Admin extends Controller_Module
 																			<dd>{neofrag}</dd>
 																		<dt>Nom du site</dt>
 																			<dd>{name}</dd>
-																		<dt>Symbole '.icon('fa-copyright').'</dt>
+																		<dt>Symbole '.icon('far fa-copyright').'</dt>
 																			<dd>{copyright}</dd>
 																		<dt>Année</dt>
 																			<dd>{year}</dd>
@@ -663,42 +663,42 @@ class Admin extends Controller_Module
 			'links' => [
 				[
 					'title' => 'Préférences générales',
-					'icon'  => 'fa-cog',
+					'icon'  => 'fas fa-cog',
 					'url'   => 'admin/settings'
 				],
 				[
 					'title' => 'Maintenance',
-					'icon'  => 'fa-power-off',
+					'icon'  => 'fas fa-power-off',
 					'url'   => 'admin/settings/maintenance'
 				],
 				[
 					'title' => 'Gestions des inscriptions',
-					'icon'  => 'fa-sign-in fa-rotate-90',
+					'icon'  => 'fas fa-sign-in-alt fa-rotate-90',
 					'url'   => 'admin/settings/registration'
 				],
 				[
 					'title' => 'Notre structure',
-					'icon'  => 'fa-users',
+					'icon'  => 'fas fa-users',
 					'url'   => 'admin/settings/team'
 				],
 				[
 					'title' => 'Réseaux sociaux',
-					'icon'  => 'fa-globe',
+					'icon'  => 'fas fa-globe',
 					'url'   => 'admin/settings/socials'
 				],
 				[
 					'title' => 'Sécurité anti-bots',
-					'icon'  => 'fa-shield',
+					'icon'  => 'fas fa-shield-alt',
 					'url'   => 'admin/settings/captcha'
 				],
 				/*[
 					'title' => 'Serveur e-mail',
-					'icon'  => 'fa-envelope-o',
+					'icon'  => 'far fa-envelope',
 					'url'   => 'admin/settings/email'
 				],*/
 				[
 					'title' => 'Copyright',
-					'icon'  => 'fa-copyright',
+					'icon'  => 'far fa-copyright',
 					'url'   => 'admin/settings/copyright'
 				]
 			]

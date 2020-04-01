@@ -54,7 +54,7 @@ class Admin extends Controller_Module
 				->no_data($this->lang('Il n\'y a pas encore de discussion'));
 
 		return $this->panel()
-					->heading($this->lang('Liste des discussions'), 'fa-comment-o')
+					->heading($this->lang('Liste des discussions'), 'far fa-comment')
 					->body($this->table()->display())
 					->footer($this->button_create('admin/talks/add', $this->lang('Créer une discussion')));
 	}
@@ -77,7 +77,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une discussion'), 'fa-comment-o')
+					->heading($this->lang('Ajouter une discussion'), 'far fa-comment')
 					->body($this->form()->display());
 	}
 
@@ -101,7 +101,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Édition de la discussion'), 'fa-comment-o')
+					->heading($this->lang('Édition de la discussion'), 'far fa-comment')
 					->body($this->form()->display());
 	}
 

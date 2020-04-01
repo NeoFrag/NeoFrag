@@ -11,16 +11,16 @@ function is_asset($extension = NULL)
 
 function icon($icon)
 {
-	if (preg_match('/^fa-(.+)/', $icon, $match))
+	if (preg_match('/^(fa[bsrld] fa-.+)/', $icon, $match))
 	{
-		return '<i class="fa fa-fw fa-'.$match[1].'"></i>';
+		return '<i class="icon '.$match[0].' fa-fw"></i>';
 	}
 	else if (preg_match('/^pe-7s-.+/', $icon, $match))
 	{
-		return '<i class="'.$match[0].'"></i>';
+		return '<i class="icon '.$match[0].'"></i>';
 	}
 
-	return '<i class="fa">'.$icon.'</i>';
+	return '<i class="icon">'.$icon.'</i>';
 }
 
 function asset($file_path, $file_name = '')

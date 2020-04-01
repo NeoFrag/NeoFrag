@@ -44,7 +44,7 @@
 <div class="card-footer">
 	<div class="pull-right">
 		<ul class="list-inline m-0">
-			<li class="list-inline-item"><a href="<?php echo $link.'#participants' ?>"><small><?php echo icon('fa-users').' '.$participants ?></small></a></li>
+			<li class="list-inline-item"><a href="<?php echo $link.'#participants' ?>"><small><?php echo icon('fas fa-users').' '.$participants ?></small></a></li>
 			<?php if (($comments = $this->module('comments')) && $comments->is_enabled()): ?>
 				<li class="list-inline-item"><small><?php echo $comments->link('events', $event_id, 'events/'.$event_id.'/'.url_title($title)) ?></small></li>
 			<?php endif ?>
@@ -53,13 +53,13 @@
 	<ul class="list-inline m-0">
 		<li class="list-inline-item">
 			<?php echo $this->label($type['title'], $type['icon'], $type['color'], 'events/type/'.$type['type_id'].'/'.url_title($type['title'])) ?>
-			<?php echo '<small>'.icon('fa-clock-o').timetostr('%d/%m/%Y', $date).'</small>' ?>
+			<?php echo '<small>'.icon('far fa-clock').timetostr('%d/%m/%Y', $date).'</small>' ?>
 		</li>
 		<?php
 		if (!empty($show_details) && $list_participants && $location):
 			foreach ($list_participants as $participant):
 				if ($this->user->admin || ($participant['user_id'] == $this->user->id)): ?>
-					<div style="padding-top: 5px;"><?php if (($location = explode("\n", $location))) echo '<li class="list-inline-item"><small>'.$this->label(current($location), 'fa-map-marker')->popover_if(count($location) > 1, bbcode($location)).'</small></li>' ?></div>
+					<div style="padding-top: 5px;"><?php if (($location = explode("\n", $location))) echo '<li class="list-inline-item"><small>'.$this->label(current($location), 'fas fa-map-marker-alt')->popover_if(count($location) > 1, bbcode($location)).'</small></li>' ?></div>
 					<?php
 					break;
 				endif;

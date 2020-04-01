@@ -4,7 +4,7 @@ $(function(){
 		lang: '<?php echo NeoFrag()->config->lang->info()->name ?>',
 		eventSources: ['<?php echo url('ajax/events.json') ?>'],
 		eventRender: function(event, element){
-			element.find('.fc-content').prepend('<i class="fa fa-fw '+event.icon+'"></i>');
+			element.find('.fc-content').prepend('<i class="icon '+event.icon+' fa-fw"></i>');
 
 			element.on('mouseenter', function(){
 				if (element.data('bs.popover') !== undefined){

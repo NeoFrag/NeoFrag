@@ -13,7 +13,7 @@ $rules = [
 	],
 	'location' => [
 		'label' => 'Lieu',
-		'icon'  => 'fa-map-marker',
+		'icon'  => 'fas fa-map-marker-alt',
 		'value' => $this->form()->value('location'),
 		'type'  => 'text'
 	],
@@ -48,7 +48,7 @@ $rules = [
 	],
 	'platform' => [
 		'label'  => 'Plateforme',
-		'icon'   => 'fa-tv',
+		'icon'   => 'fas fa-tv',
 		'value'  => $this->form()->value('platform'),
 		'values' => [
 			'PC'       => 'PC',
@@ -65,7 +65,7 @@ $rules = [
 	],
 	'ranking' => [
 		'label' => 'Classement',
-		'icon'  => 'fa-trophy',
+		'icon'  => 'fas fa-trophy',
 		'value' => $this->form()->value('ranking'),
 		'type'  => 'number',
 		'size'  => 'col-2',
@@ -73,7 +73,7 @@ $rules = [
 	],
 	'participants' => [
 		'label' => 'Nombre d\'équipes',
-		'icon'  => 'fa-users',
+		'icon'  => 'fas fa-users',
 		'value' => $this->form()->value('participants'),
 		'type'  => 'number',
 		'size'  => 'col-2',

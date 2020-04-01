@@ -75,9 +75,7 @@
 				}
 
 				&[data-toggle="collapse"] {
-					&:after {
-						content: "\f107";
-						font: normal normal normal 14px/1 FontAwesome;
+					> .fa-angle-down {
 						margin-left: 15px;
 					}
 				}

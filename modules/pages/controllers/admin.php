@@ -16,7 +16,7 @@ class Admin extends Controller_Module
 				->add_columns([
 					[
 						'content' => function($data){
-							return $data['published'] ? '<i class="fa fa-circle" data-toggle="tooltip" title="'.$this->lang('Publiée').'" style="color: #7bbb17;"></i>' : '<i class="fa fa-circle-o" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
+							return $data['published'] ? '<i class="fas fa-circle" data-toggle="tooltip" title="'.$this->lang('Publiée').'" style="color: #7bbb17;"></i>' : '<i class="far fa-circle" data-toggle="tooltip" title="'.$this->lang('En attente de publication').'" style="color: #535353;"></i>';
 						},
 						'sort'    => function($data){
 							return $data['published'];
@@ -50,7 +50,7 @@ class Admin extends Controller_Module
 					[
 						'content' => [
 							function($data){
-								return $data['published'] ? $this->button()->tooltip($this->lang('Voir la page'))->icon('fa-eye')->url($data['name'])->compact()->outline() : '';
+								return $data['published'] ? $this->button()->tooltip($this->lang('Voir la page'))->icon('far fa-eye')->url($data['name'])->compact()->outline() : '';
 							},
 							function($data){
 								return $this->is_authorized('modify_pages') ? $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title'])) : NULL;
@@ -66,7 +66,7 @@ class Admin extends Controller_Module
 				->no_data($this->lang('Il n\'y a pas encore de page'));
 
 		return $this->panel()
-					->heading($this->lang('Liste des pages'), 'fa-bars')
+					->heading($this->lang('Liste des pages'), 'fas fa-bars')
 					->body($this->table()->display())
 					->footer_if($this->is_authorized('add_pages'), $this->button_create('admin/pages/add', $this->lang('Créer une page')));
 	}
@@ -93,7 +93,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Ajouter une page'), 'fa-align-left')
+					->heading($this->lang('Ajouter une page'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 
@@ -127,7 +127,7 @@ class Admin extends Controller_Module
 		}
 
 		return $this->panel()
-					->heading($this->lang('Édition de la page'), 'fa-align-left')
+					->heading($this->lang('Édition de la page'), 'fas fa-align-left')
 					->body($this->form()->display());
 	}
 

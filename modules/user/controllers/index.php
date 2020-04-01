@@ -13,7 +13,7 @@ class Index extends Controller_Module
 	public function index()
 	{
 		return $this->title('Mon activité')
-					->icon('fa-star-o')
+					->icon('far fa-star')
 					->row([
 						$this->col(
 							$this	->panel()
@@ -50,7 +50,7 @@ class Index extends Controller_Module
 						)->size('col-4'),
 						$this->col(
 							$this->title('Connexion')
-								->icon('fa-sign-in')
+								->icon('fas fa-sign-in-alt')
 								->breadcrumb()
 								->form2('username current_password new_password email', $this->user)
 								->success(function($user){
@@ -111,7 +111,7 @@ class Index extends Controller_Module
 											})
 											->delete()
 											->panel()
-											->title('Sessions actives', 'fa-globe')
+											->title('Sessions actives', 'fas fa-globe')
 								)
 								->append(
 									$this	->form2()
@@ -146,7 +146,7 @@ class Index extends Controller_Module
 											})
 											->submit('Supprimer', 'danger')
 											->panel()
-											->title('Supprimer mon compte', 'fa-times')
+											->title('Supprimer mon compte', 'fas fa-times')
 								)
 					);*/
 	}
@@ -154,7 +154,7 @@ class Index extends Controller_Module
 	public function profile()
 	{
 		return $this->title('Profil')
-					->icon('fa-pencil')
+					->icon('fas fa-pencil-alt')
 					->breadcrumb()
 					->row()
 					->append($this	->col()
@@ -174,7 +174,7 @@ class Index extends Controller_Module
 														refresh();
 													})
 													->panel()
-													->title('Liens', 'fa-globe')
+													->title('Liens', 'fas fa-globe')
 									)
 					)
 					->append($this	->col()
@@ -190,7 +190,7 @@ class Index extends Controller_Module
 														refresh();
 													})
 													->panel()
-													->title('Avatar', 'fa-user-circle')
+													->title('Avatar', 'fas fa-user-circle')
 									)
 									->append($this	->form2()
 													->rule($this->form_image('cover', 'user/cover')
@@ -203,7 +203,7 @@ class Index extends Controller_Module
 														refresh();
 													})
 													->panel()
-													->title('Photo de couverture', 'fa-picture-o')
+													->title('Photo de couverture', 'far fa-image')
 									)
 					);
 	}
@@ -219,7 +219,7 @@ class Index extends Controller_Module
 						)->size('col-4'),
 						$this->col(
 							$this	->title('Historique des sessions')
-									->icon('fa-history')
+									->icon('fas fa-history')
 									->breadcrumb()
 									->table2('session', $sessions, 'Aucun historique')
 									->panel()
@@ -341,17 +341,17 @@ class Index extends Controller_Module
 
 	public function _messages_inbox($messages)
 	{
-		return $this->_messages($messages, TRUE, 'Boîte de réception', 'fa-inbox');
+		return $this->_messages($messages, TRUE, 'Boîte de réception', 'fas fa-inbox');
 	}
 
 	public function _messages_sent($messages)
 	{
-		return $this->_messages($messages, FALSE, 'Messages envoyés', 'fa-send-o', 'sent');
+		return $this->_messages($messages, FALSE, 'Messages envoyés', 'far fa-paper-plane', 'sent');
 	}
 
 	public function _messages_archives($messages)
 	{
-		return $this->_messages($messages, FALSE, 'Archives', 'fa-archive', 'archives');
+		return $this->_messages($messages, FALSE, 'Archives', 'fas fa-archive', 'archives');
 	}
 
 	public function _messages_read($message_id, $title, $replies, $box, $allow_delete = FALSE)
@@ -363,18 +363,18 @@ class Index extends Controller_Module
 		if ($box == 'inbox')
 		{
 			$page_title   = $this->lang('Boîte de réception');
-			$page_icon    = 'fa-inbox';
+			$page_icon    = 'fas fa-inbox';
 			$allow_delete = TRUE;
 		}
 		else if ($box == 'sent')
 		{
 			$page_title = $this->lang('Messages envoyés');
-			$page_icon  = 'fa-send-o';
+			$page_icon  = 'far fa-paper-plane';
 		}
 		else if ($box == 'archives')
 		{
 			$page_title = $this->lang('Archives');
-			$page_icon  = 'fa-archive';
+			$page_icon  = 'fas fa-archive';
 		}
 
 		$form_reply = $this	->form()
@@ -413,7 +413,7 @@ class Index extends Controller_Module
 	public function _messages_compose($username)
 	{
 		$this	->title('Nouveau message privé')
-				->icon('fa-envelope-o')
+				->icon('far fa-envelope')
 				->breadcrumb()
 				->form()
 				->add_rules([
@@ -499,7 +499,7 @@ class Index extends Controller_Module
 		$this->css('profile');
 
 		return $this->panel()
-					->heading('Mon profil', 'fa-user')
+					->heading('Mon profil', 'fas fa-user')
 					->body($this->view('profile', $user_profile = $this->model()->get_user_profile($this->user->id)))
 					->size('col-4 col-lg-3');
 	}
@@ -511,32 +511,32 @@ class Index extends Controller_Module
 			'links' => [
 				[
 					'title' => 'Mon espace',
-					'icon'  => 'fa-user',
+					'icon'  => 'fas fa-user',
 					'url'   => 'user'
 				],
 				[
 					'title' => 'Info de connexion',
-					'icon'  => 'fa-sign-in',
+					'icon'  => 'fas fa-sign-in-alt',
 					'url'   => 'user/account'
 				],
 				[
 					'title' => 'Éditer mon profil',
-					'icon'  => 'fa-pencil',
+					'icon'  => 'fas fa-pencil-alt',
 					'url'   => 'user/profile'
 				],
 				[
 					'title' => 'Messagerie privée',
-					'icon'  => 'fa-envelope-o',
+					'icon'  => 'far fa-envelope',
 					'url'   => 'user/messages'
 				],
 				[
 					'title' => 'Gérer mes sessions',
-					'icon'  => 'fa-globe',
+					'icon'  => 'fas fa-globe',
 					'url'   => 'user/sessions'
 				],
 				[
 					'title' => 'Déconnexion',
-					'icon'  => 'fa-close',
+					'icon'  => 'fas fa-times',
 					'url'   => 'user/logout'
 				]
 			]

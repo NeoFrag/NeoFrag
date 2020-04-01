@@ -54,11 +54,11 @@ class Col extends Displayable
 		{
 			$output = '<div class="live-editor-col">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Réduire').'">'.icon('fa-compress fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Augmenter').'">'.icon('fa-expand fa-rotate-45').'</button>
-								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Supprimer').'">'.icon('fa-close').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="-1" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Réduire').'">'.icon('fas fa-compress fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-default live-editor-size" data-size="1" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Augmenter').'">'.icon('fas fa-expand fa-rotate-45').'</button>
+								<button type="button" class="btn btn-sm btn-danger live-editor-delete" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Supprimer').'">'.icon('fas fa-times').'</button>
 							</div>
-							<h3>'.NeoFrag()->lang('Col').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Nouveau Widget').'">'.icon('fa-plus').'</button></div></h3>
+							<h3>'.NeoFrag()->lang('Col').' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-widget" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Nouveau Widget').'">'.icon('fas fa-plus').'</button></div></h3>
 							'.$output.'
 						</div>';
 		}

@@ -16,11 +16,11 @@ class Index extends Controller_Widget
 
 		if (empty($links) && $this->url->segments[0] == 'index')
 		{
-			array_unshift($links, [$this->lang('Accueil'), '', 'fa-map-marker']);
+			array_unshift($links, [$this->lang('Accueil'), '', 'fas fa-map-marker-alt']);
 		}
 		else if ($this->output->module())
 		{
-			array_unshift($links, [$this->output->module()->info()->title, $this->output->module()->info()->name == 'pages' ? $this->url->request : $this->output->module()->info()->name, $this->output->module()->info()->icon ?: 'fa-map-marker']);
+			array_unshift($links, [$this->output->module()->info()->title, $this->output->module()->info()->name == 'pages' ? $this->url->request : $this->output->module()->info()->name, $this->output->module()->info()->icon ?: 'fas fa-map-marker-alt']);
 		}
 
 		array_walk($links, function(&$value, $key) use ($count){

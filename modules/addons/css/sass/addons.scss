@@ -16,7 +16,7 @@
 			font-size: 75%;
 		}
 
-		.icon, .image {
+		.addon, .image {
 			height: 100px;
 		}
 
@@ -25,13 +25,14 @@
 			background-position: 50% 50%;
 		}
 
-		.icon {
+		.addon {
 			background: #ced4da;
 			line-height: 100px;
 			text-align: center;
 			vertical-align: middle;
 
-			.fa {
+			.icon {
+				display: inline-block;
 				background: #fff;
 				border-radius: 50%;
 				box-shadow: 0 0 15px rgba(0, 0, 0, .15);

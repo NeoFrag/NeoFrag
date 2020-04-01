@@ -15,7 +15,7 @@ class Tools extends Module
 		return [
 			'title'       => 'Tools',
 			'description' => '',
-			'icon'        => 'fa-wrench',
+			'icon'        => 'fas fa-wrench',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>'

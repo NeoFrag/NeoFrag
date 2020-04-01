@@ -15,7 +15,7 @@ class News extends Module
 		return [
 			'title'       => $this->lang('Actualités'),
 			'description' => '',
-			'icon'        => 'fa-file-text-o',
+			'icon'        => 'far fa-file-alt',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -60,42 +60,42 @@ class News extends Module
 				'access'  => [
 					[
 						'title'  => 'Actualités',
-						'icon'   => 'fa-file-text-o',
+						'icon'   => 'far fa-file-alt',
 						'access' => [
 							'add_news' => [
 								'title' => 'Ajouter',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_news' => [
 								'title' => 'Modifier',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_news' => [
 								'title' => 'Supprimer',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]
 					],
 					[
 						'title'  => 'Catégories',
-						'icon'   => 'fa-align-left',
+						'icon'   => 'fas fa-align-left',
 						'access' => [
 							'add_news_category' => [
 								'title' => 'Ajouter une catégorie',
-								'icon'  => 'fa-plus',
+								'icon'  => 'fas fa-plus',
 								'admin' => TRUE
 							],
 							'modify_news_category' => [
 								'title' => 'Modifier une catégorie',
-								'icon'  => 'fa-edit',
+								'icon'  => 'fas fa-edit',
 								'admin' => TRUE
 							],
 							'delete_news_category' => [
 								'title' => 'Supprimer une catégorie',
-								'icon'  => 'fa-trash-o',
+								'icon'  => 'far fa-trash-alt',
 								'admin' => TRUE
 							]
 						]

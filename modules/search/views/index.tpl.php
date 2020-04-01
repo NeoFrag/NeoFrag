@@ -6,7 +6,7 @@
 	<div class="input-group">
 		<input type="text" class="form-control input-lg" name="q" value="<?php echo utf8_htmlentities($keywords) ?>" placeholder="<?php echo $this->lang('Rechercher un ou plusieurs termes sur notre site') ?>" />
 		<span class="input-group-append btn-group-lg">
-			<button class="btn btn-primary btn-lg" type="submit"><?php echo icon('fa-search').' '.$this->lang('Rechercher') ?></button>
+			<button class="btn btn-primary btn-lg" type="submit"><?php echo icon('fas fa-search').' '.$this->lang('Rechercher') ?></button>
 		</span>
 	</div>
 </form>

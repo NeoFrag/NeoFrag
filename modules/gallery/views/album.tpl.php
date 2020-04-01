@@ -9,5 +9,5 @@
 	<?php if ($description): ?>
 		<p><?php echo bbcode($description) ?></p>
 	<?php endif ?>
-	<p class="card-text"><small class="text-muted"><?php echo icon('fa-photo').' '.$this->lang('%d image|%d images', $count, $count) ?></small></p>
+	<p class="card-text"><small class="text-muted"><?php echo icon('far fa-image').' '.$this->lang('%d image|%d images', $count, $count) ?></small></p>
 </div>

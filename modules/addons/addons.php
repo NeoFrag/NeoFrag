@@ -15,7 +15,7 @@ class Addons extends Module
 		return [
 			'title'       => 'Thèmes & Addons',
 			'description' => '',
-			'icon'        => 'fa-puzzle-piece',
+			'icon'        => 'fas fa-puzzle-piece',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

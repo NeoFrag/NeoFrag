@@ -20,11 +20,11 @@ $(function(){
 
 		loading = true;
 		$('.knob').val(0).trigger('change');
-		$('.module-monitoring .refresh fa').addClass('fa-spin');
+		$('.module-monitoring .refresh > i').addClass('fa-spin');
 		$('#storage-pourcent, #monitoring-text').html('&nbsp')
-		$('#storage-total, #storage-free, #storage-database, #storage-files, #storage-used, #monitoring-danger, #monitoring-warning, #monitoring-info').html('<?php echo icon('fa-spinner fa-spin') ?>');
+		$('#storage-total, #storage-free, #storage-database, #storage-files, #storage-used, #monitoring-danger, #monitoring-warning, #monitoring-info').html('<?php echo icon('fas fa-spinner fa-spin') ?>');
 		$('.table-notifications').html('');
-		$('.panel-infos .fa.text-success, .panel-infos .fa.text-danger').addClass('fa-spinner fa-spin').removeClass('fa-check-square text-success fa-exclamation-triangle text-danger');
+		$('.panel-infos i.text-success, .panel-infos i.text-danger').addClass('fas fa-spinner fa-spin').removeClass('fa-check-square text-success fa-exclamation-triangle text-danger');
 		$('.panel-infos [data-label]').each(function(){
 			$(this).html($(this).data('label'));
 		});
@@ -56,7 +56,7 @@ $(function(){
 
 			$.each(data.notifications, function(i, notification){
 				notifications += '	<tr>\
-										<td class="col-2"><span class="badge badge-'+notification[1]+'">'+(notification[1] == 'danger' ? '<?php echo icon('fa-bug') ?> Erreur' : (notification[1] == 'warning' ? '<?php echo icon('fa-flash') ?> Anomalie' : '<?php echo icon('fa-exclamation-circle') ?> Conseil'))+'</span></td>\
+										<td class="col-2"><span class="badge badge-'+notification[1]+'">'+(notification[1] == 'danger' ? '<?php echo icon('fas fa-bug') ?> Erreur' : (notification[1] == 'warning' ? '<?php echo icon('fas fa-bolt') ?> Anomalie' : '<?php echo icon('fas fa-exclamation-circle') ?> Conseil'))+'</span></td>\
 										<td class="vcenter">'+notification[0]+'</td>\
 									</tr>';
 				count[notification[1]]++;
@@ -74,9 +74,9 @@ $(function(){
 
 			$('#tree').treeview({
 				data: data.files,
-				collapseIcon: 'fa fa-folder-open-o',
-				expandIcon: 'fa fa-folder-o',
-				emptyIcon: 'fa fa-file-o',
+				collapseIcon: 'far fa-folder-open',
+				expandIcon: 'far fa-folder',
+				emptyIcon: 'far fa-file',
 				showTags: true,
 				levels: 1
 			});
@@ -89,11 +89,11 @@ $(function(){
 					$('#server-'+key+' > span').attr('data-label', $('#server-'+key+' > span').html()).html(value[1]);
 				}
 
-				$('#server-'+key+' .fa').removeClass('fa-spinner fa-spin').addClass(result ? 'fa-check-square text-success' : 'fa-exclamation-triangle text-danger');
+				$('#server-'+key+' > i').removeClass('fas fa-spinner fa-spin').addClass(result ? 'fas fa-check-square text-success' : 'fas fa-exclamation-triangle text-danger');
 			});
 
 			loading = false;
-			$('.module-monitoring .refresh .fa').removeClass('fa-spin');
+			$('.module-monitoring .refresh > i').removeClass('fa-spin');
 		});
 	};
 
@@ -104,7 +104,7 @@ $(function(){
 	$('#modal-backup .btn-primary').click(function(){
 		var $btn = $(this);
 
-		$btn.html('<?php echo icon('fa-spinner fa-spin').' '.$this->lang('Sauvegarde en cours...') ?>').addClass('disabled');
+		$btn.html('<?php echo icon('fas fa-spinner fa-spin').' '.$this->lang('Sauvegarde en cours...') ?>').addClass('disabled');
 		$('#modal-backup .step:eq(0)').addClass('active');
 
 		$('#modal-backup').on('hidden.bs.modal', function(){

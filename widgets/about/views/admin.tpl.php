@@ -1,7 +1,7 @@
 <ul class="nav nav-pills" id="pills-tab" role="tablist">
-	<li class="nav-item"><a class="nav-link active" id="pills-options-tab" data-toggle="pill" href="#pills-options" role="tab" aria-controls="pills-options" aria-selected="true"><?php echo icon('fa-cogs').' Contenu' ?></a></li>
-	<li class="nav-item"><a class="nav-link" id="pills-display-tab" data-toggle="pill" href="#pills-display" role="tab" aria-controls="pills-display" aria-selected="false"><?php echo icon('fa-desktop').' Affichage' ?></a></li>
-	<li class="nav-item"><a class="nav-link" id="pills-style-tab" data-toggle="pill" href="#pills-style" role="tab" aria-controls="pills-style" aria-selected="false"><?php echo icon('fa-paint-brush').' Style' ?></a></li>
+	<li class="nav-item"><a class="nav-link active" id="pills-options-tab" data-toggle="pill" href="#pills-options" role="tab" aria-controls="pills-options" aria-selected="true"><?php echo icon('fas fa-cogs').' Contenu' ?></a></li>
+	<li class="nav-item"><a class="nav-link" id="pills-display-tab" data-toggle="pill" href="#pills-display" role="tab" aria-controls="pills-display" aria-selected="false"><?php echo icon('fas fa-desktop').' Affichage' ?></a></li>
+	<li class="nav-item"><a class="nav-link" id="pills-style-tab" data-toggle="pill" href="#pills-style" role="tab" aria-controls="pills-style" aria-selected="false"><?php echo icon('fas fa-paint-brush').' Style' ?></a></li>
 </ul>
 <div class="tab-content border-light" id="pills-tabContent">
 	<div class="tab-pane fade show active" id="pills-options" role="tabpanel" aria-labelledby="pills-options-tab">
@@ -16,13 +16,13 @@
 			<div class="col-3">
 				<div class="btn-group" data-toggle="buttons">
 					<label class="btn btn-light<?php if ($teamname_align == 'text-left') echo ' active' ?>">
-						<input type="radio" name="settings[teamname_align]" value="text-left"<?php if ($teamname_align == 'text-left') echo ' checked' ?>><?php echo icon('fa-align-left') ?>
+						<input type="radio" name="settings[teamname_align]" value="text-left"<?php if ($teamname_align == 'text-left') echo ' checked' ?>><?php echo icon('fas fa-align-left') ?>
 					</label>
 					<label class="btn btn-light<?php if ($teamname_align == 'text-center') echo ' active' ?>">
-						<input type="radio" name="settings[teamname_align]" value="text-center"<?php if ($teamname_align == 'text-center') echo ' checked' ?>><?php echo icon('fa-align-center') ?>
+						<input type="radio" name="settings[teamname_align]" value="text-center"<?php if ($teamname_align == 'text-center') echo ' checked' ?>><?php echo icon('fas fa-align-center') ?>
 					</label>
 					<label class="btn btn-light<?php if ($teamname_align == 'text-right') echo ' active' ?>">
-						<input type="radio" name="settings[teamname_align]" value="text-right"<?php if ($teamname_align == 'text-right') echo ' checked' ?>><?php echo icon('fa-align-right') ?>
+						<input type="radio" name="settings[teamname_align]" value="text-right"<?php if ($teamname_align == 'text-right') echo ' checked' ?>><?php echo icon('fas fa-align-right') ?>
 					</label>
 				</div>
 			</div>
@@ -38,13 +38,13 @@
 			<div class="col-3">
 				<div class="btn-group" data-toggle="buttons">
 					<label class="btn btn-light<?php if ($logo_align == 'text-left') echo ' active' ?>">
-						<input type="radio" name="settings[logo_align]" value="text-left"<?php if ($logo_align == 'text-left') echo ' checked' ?>><?php echo icon('fa-align-left') ?>
+						<input type="radio" name="settings[logo_align]" value="text-left"<?php if ($logo_align == 'text-left') echo ' checked' ?>><?php echo icon('fas fa-align-left') ?>
 					</label>
 					<label class="btn btn-light<?php if ($logo_align == 'text-center') echo ' active' ?>">
-						<input type="radio" name="settings[logo_align]" value="text-center"<?php if ($logo_align == 'text-center') echo ' checked' ?>><?php echo icon('fa-align-center') ?>
+						<input type="radio" name="settings[logo_align]" value="text-center"<?php if ($logo_align == 'text-center') echo ' checked' ?>><?php echo icon('fas fa-align-center') ?>
 					</label>
 					<label class="btn btn-light<?php if ($logo_align == 'text-right') echo ' active' ?>">
-						<input type="radio" name="settings[logo_align]" value="text-right"<?php if ($logo_align == 'text-right') echo ' checked' ?>><?php echo icon('fa-align-right') ?>
+						<input type="radio" name="settings[logo_align]" value="text-right"<?php if ($logo_align == 'text-right') echo ' checked' ?>><?php echo icon('fas fa-align-right') ?>
 					</label>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-arrows-h') ?></div>
+							<div class="input-group-text"><?php echo icon('fas fa-arrows-alt-h') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[logo_width]" value="<?php echo $logo_width ? $logo_width : '200' ?>">
 						<div class="input-group-append">
@@ -91,13 +91,13 @@
 			<div class="col-3">
 				<div class="btn-group" data-toggle="buttons">
 					<label class="btn btn-light<?php if ($biographie_align == 'text-left') echo ' active' ?>">
-						<input type="radio" name="settings[biographie_align]" value="text-left"<?php if ($biographie_align == 'text-left') echo ' checked' ?>><?php echo icon('fa-align-left') ?>
+						<input type="radio" name="settings[biographie_align]" value="text-left"<?php if ($biographie_align == 'text-left') echo ' checked' ?>><?php echo icon('fas fa-align-left') ?>
 					</label>
 					<label class="btn btn-light<?php if ($data['biographie_align'] == 'text-center') echo ' active' ?>">
-						<input type="radio" name="settings[biographie_align]" value="text-center"<?php if ($biographie_align == 'text-center') echo ' checked' ?>><?php echo icon('fa-align-center') ?>
+						<input type="radio" name="settings[biographie_align]" value="text-center"<?php if ($biographie_align == 'text-center') echo ' checked' ?>><?php echo icon('fas fa-align-center') ?>
 					</label>
 					<label class="btn btn-light<?php if ($biographie_align == 'text-right') echo ' active' ?>">
-						<input type="radio" name="settings[biographie_align]" value="text-right"<?php if ($biographie_align == 'text-right') echo ' checked' ?>><?php echo icon('fa-align-right') ?>
+						<input type="radio" name="settings[biographie_align]" value="text-right"<?php if ($biographie_align == 'text-right') echo ' checked' ?>><?php echo icon('fas fa-align-right') ?>
 					</label>
 				</div>
 			</div>
@@ -119,7 +119,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-up') ?></div>
+							<div class="input-group-text"><?php echo icon('fas fa-caret-up') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[margin_top]" value="<?php echo $margin_top ? $margin_top : '0' ?>">
 						<div class="input-group-append">
@@ -135,7 +135,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-right') ?></div>
+							<div class="input-group-text"><?php echo icon('fas fa-caret-right') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[margin_right]" value="<?php echo $margin_right ? $margin_right : '0' ?>">
 						<div class="input-group-append">
@@ -151,7 +151,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-down') ?></div>
+							<div class="input-group-text"><?php echo icon('fas fa-caret-down') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[margin_bottom]" value="<?php echo $margin_bottom ? $margin_bottom : '0' ?>">
 						<div class="input-group-append">
@@ -167,7 +167,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-left') ?></div>
+							<div class="input-group-text"><?php echo icon('fas fa-caret-left') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[margin_left]" value="<?php echo $margin_left ? $margin_left : '0' ?>">
 						<div class="input-group-append">
@@ -183,7 +183,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-square-o-up') ?></div>
+							<div class="input-group-text"><?php echo icon('far fa-caret-square-up') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[padding_top]" value="<?php echo $padding_top ? $padding_top : '0' ?>">
 						<div class="input-group-append">
@@ -199,7 +199,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-square-o-right') ?></div>
+							<div class="input-group-text"><?php echo icon('far fa-caret-square-right') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[padding_right]" value="<?php echo $padding_right ? $padding_right : '0' ?>">
 						<div class="input-group-append">
@@ -215,7 +215,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-square-o-down') ?></div>
+							<div class="input-group-text"><?php echo icon('far fa-caret-square-down') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[padding_bottom]" value="<?php echo $padding_bottom ? $padding_bottom : '0' ?>">
 						<div class="input-group-append">
@@ -231,7 +231,7 @@
 				<div class="form-group mb-0">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text"><?php echo icon('fa-caret-square-o-left') ?></div>
+							<div class="input-group-text"><?php echo icon('far fa-caret-square-left') ?></div>
 						</div>
 						<input type="number" class="form-control" name="settings[padding_left]" value="<?php echo $padding_left ? $padding_left : '0' ?>">
 						<div class="input-group-append">
@@ -248,7 +248,7 @@
 			<div class="col-4">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<div class="input-group-text"><?php echo icon('fa-paint-brush') ?></div>
+						<div class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></div>
 					</div>
 					<input type="text" class="form-control" name="settings[style_title]" value="<?php echo $style_title ?>" placeholder="#000000..." />
 				</div>
@@ -259,7 +259,7 @@
 			<div class="col-4">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<div class="input-group-text"><?php echo icon('fa-paint-brush') ?></div>
+						<div class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></div>
 					</div>
 					<input type="text" class="form-control" name="settings[style_text]" value="<?php echo $style_text ?>" placeholder="#000000..." />
 				</div>

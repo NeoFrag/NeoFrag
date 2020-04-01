@@ -21,7 +21,7 @@ class Index extends Controller_Widget
 						->body($this->view('index', [
 							'categories' => $categories
 						]), FALSE)
-						->footer('<a href="'.url('gallery').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir notre galerie').'</a>', 'right');
+						->footer('<a href="'.url('gallery').'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Voir notre galerie').'</a>', 'right');
 		}
 		else
 		{
@@ -38,7 +38,7 @@ class Index extends Controller_Widget
 					->body($this->view('gallery', [
 						'gallery' => $this->model()->get_gallery($settings['category_id'])
 					]), FALSE)
-					->footer('<a href="'.url('gallery').'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Voir notre galerie').'</a>', 'right');
+					->footer('<a href="'.url('gallery').'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Voir notre galerie').'</a>', 'right');
 	}
 
 	public function image($settings = [])
@@ -51,7 +51,7 @@ class Index extends Controller_Widget
 			return $this->panel()
 						->heading($image['title'])
 						->body('<a href="'.$href.'"><img class="img-fluid" src="'.NeoFrag()->model2('file', $image['file_id'])->path().'" alt="" /></a>', FALSE)
-						->footer('<a href="'.$href.'">'.icon('fa-arrow-circle-o-right').' '.$this->lang('Détails').'</a>', 'right');
+						->footer('<a href="'.$href.'">'.icon('far fa-arrow-alt-circle-right').' '.$this->lang('Détails').'</a>', 'right');
 		}
 		else
 		{

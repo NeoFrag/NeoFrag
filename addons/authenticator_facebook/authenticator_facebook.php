@@ -14,7 +14,7 @@ class Authenticator_Facebook extends Authenticator
 	{
 		return [
 			'title'   => 'Facebook',
-			'icon'    => 'fa-facebook',
+			'icon'    => 'fab fa-facebook-f',
 			'color'   => '#3b5998',
 			'help'    => 'https://developers.facebook.com/',
 			'version' => '1.0',

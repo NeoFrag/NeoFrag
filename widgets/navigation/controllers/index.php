@@ -107,7 +107,7 @@ class Index extends Controller_Widget
 											$nav_link($link, $active)
 												->attr('data-toggle', 'collapse')
 												->attr('href',        '#')
-												->content(icon($link['icon']).' <span class="hidden-xs">'.$this->lang($link['title']).'</span><span class="fa arrow"></span>').'<ul class="nav flex-column">'.$submenu.'</ul>'
+												->content(icon($link['icon']).' <span class="hidden-xs">'.$this->lang($link['title']).'</span><span class="fas fa-angle-down"></span>').'<ul class="nav flex-column">'.$submenu.'</ul>'
 										)
 					);
 				}

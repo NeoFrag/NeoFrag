@@ -21,7 +21,7 @@ class Index extends Controller_Widget
 						->body($this->view('logged', [
 							'username' => $this->user->username
 						]), FALSE)
-						->footer('<a href="'.url('user/logout').'">'.icon('fa-close').' '.$this->lang('Se déconnecter').'</a>');
+						->footer('<a href="'.url('user/logout').'">'.icon('fas fa-times').' '.$this->lang('Se déconnecter').'</a>');
 		}
 		else
 		{
@@ -67,10 +67,10 @@ class Index extends Controller_Widget
 								->get();
 
 		return $this->panel()
-					->heading($this->lang('Messages privés'), 'fa-envelope')
+					->heading($this->lang('Messages privés'), 'fas fa-envelope')
 					->body($this->view('messages_inbox', [
 						'messages' => $messages
 					]), FALSE)
-					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fa-edit').' '.$this->lang('Rédiger').'</a>');
+					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fas fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fas fa-edit').' '.$this->lang('Rédiger').'</a>');
 	}
 }

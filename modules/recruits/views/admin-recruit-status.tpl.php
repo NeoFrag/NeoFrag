@@ -18,14 +18,14 @@
 	<ul class="list-inline">
 		<?php
 		for ($i = 1; $i <= $candidacies_accepted; $i++) {
-			echo '<li class="list-inline-item" style="color:#7bbb17;">'.icon('fa-circle').'</li>';
+			echo '<li class="list-inline-item" style="color:#7bbb17;">'.icon('fas fa-circle').'</li>';
 		}
 		for ($i = 1; $i <= $available; $i++) {
-			echo '<li class="list-inline-item text-muted">'.icon('fa-circle-o').'</li>';
+			echo '<li class="list-inline-item text-muted">'.icon('far fa-circle').'</li>';
 		}
 		?>
 	</ul>
 	<?php else: ?>
-	<div class="alert alert-success m-0"><?php echo icon('fa-check') ?> Offre complète !</div>
+	<div class="alert alert-success m-0"><?php echo icon('fas fa-check') ?> Offre complète !</div>
 	<?php endif ?>
 </div>

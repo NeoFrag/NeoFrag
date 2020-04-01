@@ -73,7 +73,7 @@ $(function(){
 
 				if (typeof data.user_authorized != 'undefined' && typeof data.user_forced != 'undefined'){
 					if (data.user_forced){
-						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('Remettre en automatique') ?>"><?php echo icon('fa-thumb-tack') ?></a>');
+						$tr.find('.access-status').html('<a class="access-revoke" href="#" data-toggle="tooltip" title="<?php echo $this->lang('Remettre en automatique') ?>"><?php echo icon('fas fa-thumbtack') ?></a>');
 					}
 					else {
 						$tr.find('.access-status').html('');
@@ -91,11 +91,11 @@ $(function(){
 		var color = $btn.data('class');
 
 		if (!$btn.hasClass(color)){
-			$btn.addClass(color).find('i').addClass('text-'+color).removeClass('text-muted').removeClass('fa-toggle-off').addClass('fa-toggle-on');
+			$btn.addClass(color).find('i').addClass('text-'+color).removeClass('text-muted').removeClass('fas fa-toggle-off').addClass('fas fa-toggle-on');
 			$btn.parent().find('.access-radio').each(function(){
 				if ($(this)[0] != $btn[0]){
 					var color = $(this).data('class')
-					$(this).removeClass(color).find('i').removeClass('text-'+color).addClass('text-muted').removeClass('fa-toggle-on').addClass('fa-toggle-off');
+					$(this).removeClass(color).find('i').removeClass('text-'+color).addClass('text-muted').removeClass('fas fa-toggle-on').addClass('fas fa-toggle-off');
 				}
 			});
 

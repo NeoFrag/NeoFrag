@@ -14,7 +14,7 @@ class Authenticator_Linkedin extends Authenticator
 	{
 		return [
 			'title'   => 'LinkedIn',
-			'icon'    => 'fa-linkedin',
+			'icon'    => 'fab fa-linkedin-in',
 			'color'   => '#0077B5',
 			'help'    => 'https://www.linkedin.com/secure/developer?newapp=',
 			'version' => '1.0',

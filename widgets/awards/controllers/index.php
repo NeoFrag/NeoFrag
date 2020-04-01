@@ -21,7 +21,7 @@ class Index extends Controller_Widget
 						->body($this->view('index', [
 							'awards' => array_slice($awards, 0, 5)
 						]), FALSE)
-						->footer('<a href="'.url('awards').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
+						->footer('<a href="'.url('awards').'">'.icon('far fa-arrow-alt-circle-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class Index extends Controller_Widget
 							'team_title' => $best_team[0]['team_title'],
 							'nb_awards'  => $best_team[0]['nb_awards']
 						]))
-						->footer('<a href="'.url('awards').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
+						->footer('<a href="'.url('awards').'">'.icon('far fa-arrow-alt-circle-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{
@@ -65,7 +65,7 @@ class Index extends Controller_Widget
 							'game_title' => $best_game[0]['game_title'],
 							'nb_awards'  => $best_game[0]['nb_awards']
 						]))
-						->footer('<a href="'.url('awards').'">'.icon('fa-arrow-circle-o-right').' Tous nos palmarès</a>', 'right');
+						->footer('<a href="'.url('awards').'">'.icon('far fa-arrow-alt-circle-right').' Tous nos palmarès</a>', 'right');
 		}
 		else
 		{

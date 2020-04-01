@@ -10,18 +10,18 @@ use NF\NeoFrag\Loadables\Controller;
 
 class Language extends Controller
 {
-	public $__label = ['Langues', 'Langue', 'fa-flag-o', 'danger'];
+	public $__label = ['Langues', 'Langue', 'far fa-flag', 'danger'];
 
 	public function __actions()
 	{
 		return $this->array
-					->set('enable', ['Activer', 'fa-check', 'success', TRUE, function($addon){
+					->set('enable', ['Activer', 'fas fa-check', 'success', TRUE, function($addon){
 						return !$addon->is_enabled();
 					}])
-					->set('disable', ['Désactiver', 'fa-times', 'muted', TRUE, function($addon){
+					->set('disable', ['Désactiver', 'fas fa-times', 'muted', TRUE, function($addon){
 						return count($this->config->langs) > 1 && $addon->is_enabled();
 					}])
-					->set('order', ['Ordre', 'fa-sort', 'info', TRUE]);
+					->set('order', ['Ordre', 'fas fa-sort', 'info', TRUE]);
 	}
 
 	public function enable($addon)
@@ -65,7 +65,7 @@ class Language extends Controller
 			return $this->output->json(['success' => 'refresh']);
 		}
 
-		return $this->modal('Préférence des langues', 'fa-flag-o')
+		return $this->modal('Préférence des langues', 'far fa-flag')
 					->body($this->table2($langs)
 								->compact(function($a){
 									return $this->button_sort($a->__addon->id, 'admin/addons/order/'.$a->__addon->url());

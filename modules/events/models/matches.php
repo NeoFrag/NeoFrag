@@ -127,12 +127,12 @@ class Matches extends Model
 		if ($scores[0] > $scores[1])
 		{
 			$color = 'text-success';
-			$icon  = 'fa-angle-up';
+			$icon  = 'fas fa-angle-up';
 		}
 		else if ($scores[0] < $scores[1])
 		{
 			$color = 'text-danger';
-			$icon  = 'fa-angle-down';
+			$icon  = 'fas fa-angle-down';
 		}
 		else
 		{
@@ -140,11 +140,11 @@ class Matches extends Model
 
 			if ($opponents)
 			{
-				$icon  = 'fa-angle-left';
+				$icon  = 'fas fa-angle-left';
 			}
 			else
 			{
-				$icon  = 'fa-angle-right';
+				$icon  = 'fas fa-angle-right';
 			}
 		}
 

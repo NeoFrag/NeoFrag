@@ -7,4 +7,4 @@
 		<?php echo in_array('admins', $this->groups($user_id)) ? 'Administrateur' : 'Membre' ?>
 	</li>
 </ul>
-<a href="<?php echo url('user/logout') ?>" class="btn btn-dark btn-block"><?php echo icon('fa-power-off') ?> Se déconnecter</a>
+<a href="<?php echo url('user/logout') ?>" class="btn btn-dark btn-block"><?php echo icon('fas fa-power-off') ?> Se déconnecter</a>

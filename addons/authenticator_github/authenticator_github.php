@@ -14,7 +14,7 @@ class Authenticator_Github extends Authenticator
 	{
 		return [
 			'title'   => 'GitHub',
-			'icon'    => 'fa-github',
+			'icon'    => 'fab fa-github',
 			'color'   => '#24292e',
 			'help'    => 'https://github.com/settings/applications/new',
 			'version' => '1.0',

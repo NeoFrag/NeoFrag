@@ -15,7 +15,7 @@ class Admin extends Module
 		return [
 			'title'       => 'Tableau de bord',
 			'description' => '',
-			'icon'        => 'fa-dashboard',
+			'icon'        => 'fas fa-tachometer-alt',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

@@ -22,18 +22,18 @@
 					<div class="row steps-legends">
 						<div class="col-2">
 							<div class="step">
-								<?php echo icon('fa-floppy-o') ?>
+								<?php echo icon('far fa-save') ?>
 							</div>
 						</div>
 						<div class="col-4 offset-2">
 							<div class="step">
-								<?php echo icon('fa-database') ?>
+								<?php echo icon('fas fa-database') ?>
 							</div>
 							<?php echo $this->lang('Données') ?>
 						</div>
 						<div class="col-2 offset-2">
 							<div class="step">
-								<?php echo icon('fa-files-o') ?>
+								<?php echo icon('far fa-copy') ?>
 							</div>
 							<?php echo $this->lang('Fichiers') ?>
 						</div>
@@ -52,17 +52,17 @@
 		<div class="knob-storage">
 			<input class="knob" type="text" value="0" data-thickness="0.2" data-angleArc="180" data-angleOffset="-90" data-min="0" data-max="100" data-width="190" data-height="180" data-displayInput="false" data-readonly="true" autocomplete="off" />
 		</div>
-		<h2 id="storage-used" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h2>
+		<h2 id="storage-used" class="monitoring-storage-title"><?php echo icon('fas fa-spinner fa-spin') ?></h2>
 		<span id="storage-pourcent" class="span-legend">&nbsp;</span>
 	</div>
 </div>
 <div class="row">
 	<div class="col-6 text-center">
-		<h5 id="storage-free" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h5>
+		<h5 id="storage-free" class="monitoring-storage-title"><?php echo icon('fas fa-spinner fa-spin') ?></h5>
 		Libre
 	</div>
 	<div class="col-6 text-center">
-		<h5 id="storage-total" class="monitoring-storage-title"><?php echo icon('fa-spinner fa-spin') ?></h5>
+		<h5 id="storage-total" class="monitoring-storage-title"><?php echo icon('fas fa-spinner fa-spin') ?></h5>
 		Total
 	</div>
 </div>

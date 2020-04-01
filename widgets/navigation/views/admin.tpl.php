@@ -1,7 +1,7 @@
-<a id="link-delete" class="btn btn-outline-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('Supprimer un lien') ?>" data-content="<?php echo $this->lang('Déplacez un lien ici pour le supprimer') ?>" data-placement="top"><?php echo icon('fa-trash-o').$this->lang('Supprimer') ?></a>
+<a id="link-delete" class="btn btn-outline-danger pull-right" href="#" data-toggle="popover" title="<?php echo $this->lang('Supprimer un lien') ?>" data-content="<?php echo $this->lang('Déplacez un lien ici pour le supprimer') ?>" data-placement="top"><?php echo icon('far fa-trash-alt').$this->lang('Supprimer') ?></a>
 <ul class="nav nav-pills" id="pills-tab" role="tablist">
-	<li class="nav-item"><a class="nav-link active" id="pills-links-tab" data-toggle="pill" href="#pills-links" role="tab" aria-controls="pills-links" aria-selected="true"><?php echo icon('fa-cogs').' Liens' ?></a></li>
-	<li class="nav-item"><a class="nav-link" id="pills-add-tab" data-toggle="pill" href="#pills-add" role="tab" aria-controls="pills-add" aria-selected="false"><?php echo icon('fa-plus').' Ajouter' ?></a></li>
+	<li class="nav-item"><a class="nav-link active" id="pills-links-tab" data-toggle="pill" href="#pills-links" role="tab" aria-controls="pills-links" aria-selected="true"><?php echo icon('fas fa-cogs').' Liens' ?></a></li>
+	<li class="nav-item"><a class="nav-link" id="pills-add-tab" data-toggle="pill" href="#pills-add" role="tab" aria-controls="pills-add" aria-selected="false"><?php echo icon('fas fa-plus').' Ajouter' ?></a></li>
 </ul>
 <div class="tab-content border-light" id="pills-tabContent">
 	<div class="tab-pane fade show active" id="pills-links" role="tabcard" aria-labelledby="pills-links-tab">
@@ -12,8 +12,8 @@
 				<input type="hidden" name="settings[url][]" id="edit-url" value="<?php echo $link['url'] ?>" />
 				<input type="hidden" name="settings[target][]" id="edit-target" value="<?php echo !empty($link['target']) ? $link['target'] : '_parent' ?>" />
 				<ul class="list-inline m-0">
-					<li class="list-inline-item"><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>
-					<li class="list-inline-item"><span data-toggle="tooltip" title="<?php echo $link['url'] ?>"><?php echo icon('fa-link') ?></span></li>
+					<li class="list-inline-item"><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fas fa-arrows-alt-v') ?></a></li>
+					<li class="list-inline-item"><span data-toggle="tooltip" title="<?php echo $link['url'] ?>"><?php echo icon('fas fa-link') ?></span></li>
 					<li class="list-inline-item"><?php echo $link['title'] ?></li>
 				</ul>
 			</li>
@@ -25,7 +25,7 @@
 			<div class="card px-2 py-3">
 				<div class="card-heading">
 					<a class="type-collapse" role="button" data-toggle="collapse" data-parent="#add-link" href="#type-module" aria-controls="type-module">
-						<?php echo icon('fa-edit') ?> <b>Lien vers un module</b>
+						<?php echo icon('fas fa-edit') ?> <b>Lien vers un module</b>
 					</a>
 				</div>
 				<div id="type-module" class="card-collapse collapse" role="tabcard">
@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-5">
 								<button class="btn btn-primary"><?php echo $this->lang('Ajouter') ?></button>
-								<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('Annuler') ?></a>
+								<a class="btn btn-default cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
 							</div>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 			<div class="card px-2 py-3" style="margin-top: 5px !important;">
 				<div class="card-heading">
 					<a class="type-collapse" role="button" data-toggle="collapse" data-parent="#add-link" href="#type-page" aria-controls="type-page">
-						<?php echo icon('fa-file-text-o') ?> <b>Lien vers une page</b>
+						<?php echo icon('far fa-file-alt') ?> <b>Lien vers une page</b>
 					</a>
 				</div>
 				<div id="type-page" class="card-collapse collapse" role="tabcard">
@@ -129,7 +129,7 @@
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-5">
 								<button class="btn btn-primary"><?php echo $this->lang('Ajouter') ?></button>
-								<a class="btn btn-default cancel-link"><?php echo icon('fa-close').' '.$this->lang('Annuler') ?></a>
+								<a class="btn btn-default cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
 							</div>
 						</div>
 					</div>
@@ -139,7 +139,7 @@
 			<div class="card px-2 py-3" style="margin-top: 5px !important;">
 				<div class="card-heading">
 					<a class="type-collapse link-item" role="button" data-link-title="" data-link-url="" data-toggle="collapse" data-parent="#add-link" href="#type-custom" aria-controls="type-custom">
-						<?php echo icon('fa-link') ?> <b>Lien personnalisé</b>
+						<?php echo icon('fas fa-link') ?> <b>Lien personnalisé</b>
 					</a>
 				</div>
 				<div id="type-custom" class="card-collapse collapse" role="tabcard">
@@ -253,8 +253,8 @@
 						<input type="hidden" name="settings[url][]" id="edit-url" value="'+url+'" />\
 						<input type="hidden" name="settings[target][]" id="edit-target" value="'+target+'" />\
 						<ul class="list-inline m-0">\
-							<li class="list-inline-item"><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fa-arrows-v') ?></a></li>\
-							<li class="list-inline-item"><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fa-link') ?></span></li>\
+							<li class="list-inline-item"><a href="#" class="move-link" data-toggle="tooltip" title="<?php echo $this->lang('Ordonner') ?>"><?php echo icon('fas fa-arrows-alt-v') ?></a></li>\
+							<li class="list-inline-item"><span data-toggle="tooltip" title="'+url+'"><?php echo icon('fas fa-link') ?></span></li>\
 							<li class="list-inline-item">'+title+'</li>\
 						</ul>\
 					</li>').appendTo('#pills-links .list-group');

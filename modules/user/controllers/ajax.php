@@ -26,7 +26,7 @@ class Ajax extends Controller_Module
 
 		if (!$authenticators->empty())
 		{
-			return $this->modal('Connexion rapide', 'fa-user-circle')
+			return $this->modal('Connexion rapide', 'fas fa-user-circle')
 						->large()
 						->body($this->view('authenticators', [
 							'authenticators' => $authenticators
@@ -56,7 +56,7 @@ class Ajax extends Controller_Module
 	public function login()
 	{
 		return $this->form2('login')
-					->modal('Se connecter', 'fa-sign-in')
+					->modal('Se connecter', 'fas fa-sign-in-alt')
 					->button_prepend($this	->button()
 											->title('Créer un compte')
 											->color('secondary')
@@ -113,7 +113,7 @@ class Ajax extends Controller_Module
 
 						refresh();
 					})
-					->modal('Créer un compte', 'fa-sign-in fa-rotate-90')
+					->modal('Créer un compte', 'fas fa-sign-in-alt fa-rotate-90')
 					->cancel();
 	}
 
@@ -159,7 +159,7 @@ class Ajax extends Controller_Module
 							}
 						}
 					})
-					->modal('Récupération de mot de passe', 'fa-unlock-alt')
+					->modal('Récupération de mot de passe', 'fas fa-unlock-alt')
 					->cancel();
 	}
 
@@ -179,7 +179,7 @@ class Ajax extends Controller_Module
 
 						refresh();
 					})
-					->modal('Réinitialisation de mot de passe', 'fa-unlock-alt')
+					->modal('Réinitialisation de mot de passe', 'fas fa-unlock-alt')
 					->cancel();
 	}
 }

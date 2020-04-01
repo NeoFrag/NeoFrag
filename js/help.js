@@ -9,7 +9,7 @@ $(function(){
 					$('#alerts').append('<div class="col-12">\
 											<div class="help alert alert-info fade in">\
 												<button data-dismiss="alert" class="close" type="button">×</button>\
-												<h4 class="alert-heading"><?php echo icon('fa-life-bouy').' '.$this->lang('Aide') ?></h4>\
+												<h4 class="alert-heading"><?php echo icon('far fa-life-ring').' '.$this->lang('Aide') ?></h4>\
 												'+data+'\
 											</div>\
 										</div>');

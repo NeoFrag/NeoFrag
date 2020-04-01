@@ -7,9 +7,9 @@
 		<?php endforeach ?>
 		<div class="pull-right">
 			<p class="hidden-sm"><?php echo '<span class="badge">'.(post() ? 'POST' : 'GET').'</span> '.implode(' ', array_map(function($a){ return '<span class="badge">'.utf8_htmlentities($a).'</span>'; }, $this->url->segments)) ?></p>
-			<p><?php echo icon('fa-clock-o').' '.round((microtime(TRUE) - NEOFRAG_TIME) * 1000, 2).' ms' ?></p>
-			<p><?php echo icon('fa-cogs').' '.ceil((memory_get_peak_usage() - NEOFRAG_MEMORY) / 1024).' kB' ?></p>
-			<div class="debug-bar-close<?php if ($active) echo ' active' ?>"><?php echo icon('fa-close') ?></div>
+			<p><?php echo icon('far fa-clock').' '.round((microtime(TRUE) - NEOFRAG_TIME) * 1000, 2).' ms' ?></p>
+			<p><?php echo icon('fas fa-cogs').' '.ceil((memory_get_peak_usage() - NEOFRAG_MEMORY) / 1024).' kB' ?></p>
+			<div class="debug-bar-close<?php if ($active) echo ' active' ?>"><?php echo icon('fas fa-times') ?></div>
 		</div>
 	</nav>
 	<div class="debug-bar-content"<?php if ($height = $this->session('debug', 'height')) echo ' style="height: '.max(200, $height).'px"' ?>>

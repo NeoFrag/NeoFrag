@@ -13,6 +13,6 @@ class Password extends Text
 	public function __invoke($name)
 	{
 		return parent	::__invoke($name)
-						->addon('fa-lock');
+						->addon('fas fa-lock');
 	}
 }

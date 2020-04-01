@@ -22,7 +22,7 @@ class Index extends Controller_Module
 		if ($panels->empty())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang('Forum'), 'fa-comments')
+									->heading($this->lang('Forum'), 'fas fa-comments')
 									->body('<div class="text-center">'.$this->lang('Aucun forum').'</div>')
 									->color('info'));
 		}
@@ -30,7 +30,7 @@ class Index extends Controller_Module
 		if ($this->user())
 		{
 			$actions = $this->panel()
-							->body('<a class="btn btn-light" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>')
+							->body('<a class="btn btn-light" href="'.url('forum/mark-all-as-read').'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('far fa-eye').'</a>')
 							->style('card-transparent text-right');
 
 			$panels->prepend($actions)->append($actions);
@@ -60,7 +60,7 @@ class Index extends Controller_Module
 			$panels->append($this	->panel()
 									->body($this->view('forum', [
 										'title'  => $this->lang('Annonces'),
-										'icon'   => 'fa-flag',
+										'icon'   => 'fas fa-flag',
 										'topics' => $announces
 									]), FALSE));
 		}
@@ -68,7 +68,7 @@ class Index extends Controller_Module
 		$panels->append($this	->panel()
 								->body($this->view('forum', [
 									'title'  => $title,
-									'icon'   => 'fa-navicon',
+									'icon'   => 'fas fa-bars',
 									'topics' => $topics
 								]), FALSE));
 
@@ -86,7 +86,7 @@ class Index extends Controller_Module
 
 		if ($this->user())
 		{
-			$content .= '<a class="pull-right btn btn-light" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('fa-eye').'</a>';
+			$content .= '<a class="pull-right btn btn-light" href="'.url('forum/mark-all-as-read/'.$forum_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Marquer tous les messages comme étant lus').'">'.icon('far fa-eye').'</a>';
 		}
 
 		$actions = $this	->panel()
@@ -144,12 +144,12 @@ class Index extends Controller_Module
 		if ($errors = $this->form()->get_errors())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang('Veuillez remplir tous les champs'), 'fa-warning')
+									->heading($this->lang('Veuillez remplir tous les champs'), 'fas fa-exclamation-triangle')
 									->color('danger'));
 		}
 
 		$panels->append($this	->panel()
-								->heading($this->lang('Nouveau sujet'), 'fa-pencil')
+								->heading($this->lang('Nouveau sujet'), 'fas fa-pencil-alt')
 								->body($this->view('new', [
 									'form_id'     => $this->form()->token(),
 									'post'        => $post,
@@ -235,18 +235,18 @@ class Index extends Controller_Module
 
 		if (($this->user() && $topic['user_id'] == $this->user->id) || $this->access('forum', 'category_delete', $category_id))
 		{
-			$content .= '<a class="pull-right btn btn-light delete ml-1" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fa-close').'</a>';
+			$content .= '<a class="pull-right btn btn-light delete ml-1" href="'.url('forum/message/delete/'.$topic['message_id'].'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Supprimer le sujet').'">'.icon('fas fa-times').'</a>';
 		}
 
 		if ($this->access('forum', 'category_lock', $category_id))
 		{
 			if ($is_locked)
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fa-unlock').'</a>';
+				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Déverrouiller le sujet').'">'.icon('fas fa-unlock').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fa-lock').'</a>';
+				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/lock/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Verrouiller le sujet').'">'.icon('fas fa-lock').'</a>';
 			}
 		}
 
@@ -254,17 +254,17 @@ class Index extends Controller_Module
 		{
 			if ($is_announce)
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('fa-flag-o').'</a>';
+				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Retirer des annonces').'">'.icon('far fa-flag').'</a>';
 			}
 			else
 			{
-				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fa-flag').'</a>';
+				$content .= '<a class="pull-right btn btn-light ml-1" href="'.url('forum/announce/'.$topic_id.'/'.url_title($title)).'" data-toggle="tooltip" title="'.$this->lang('Mettre en annonce').'">'.icon('fas fa-flag').'</a>';
 			}
 		}
 
 		if ($this->access('forum', 'category_move', $category_id))
 		{
-			$content .= '<span class="pull-right btn btn-light topic-move" data-toggle="tooltip" data-modal-ajax="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fa-reply fa-flip-horizontal').'</span>';
+			$content .= '<span class="pull-right btn btn-light topic-move" data-toggle="tooltip" data-modal-ajax="'.url('ajax/forum/topic/move/'.$topic_id.'/'.url_title($title)).'" title="'.$this->lang('Déplacer le sujet').'">'.icon('fas fa-reply fa-flip-horizontal').'</span>';
 		}
 
 		$panels = $this->array;
@@ -272,7 +272,7 @@ class Index extends Controller_Module
 		if ($is_locked)
 		{
 			$panels->append($this	->panel()
-									->heading('<a name="reply"></a>'.$this->lang('Le sujet est verrouillé'), 'fa-warning')
+									->heading('<a name="reply"></a>'.$this->lang('Le sujet est verrouillé'), 'fas fa-exclamation-triangle')
 									->color('danger'));
 		}
 
@@ -341,13 +341,13 @@ class Index extends Controller_Module
 			if ($errors = $this->form()->get_errors())
 			{
 				$panels->append($this	->panel()
-										->heading('<a name="reply"></a>'.$this->lang('Veuillez remplir un message'), 'fa-warning')
+										->heading('<a name="reply"></a>'.$this->lang('Veuillez remplir un message'), 'fas fa-exclamation-triangle')
 										->color('danger')
 				);
 			}
 
 			$panels->append($this	->panel()
-									->heading('<a name="reply"></a>'.$this->lang('Répondre au sujet'), 'fa-file-text-o')
+									->heading('<a name="reply"></a>'.$this->lang('Répondre au sujet'), 'far fa-file-alt')
 									->body($this->view('new', [
 										'form_id'  => $this->form()->token()
 									]), FALSE));
@@ -428,13 +428,13 @@ class Index extends Controller_Module
 		if ($errors = $this->form()->get_errors())
 		{
 			$panels->append($this	->panel()
-									->heading($this->lang($is_topic ? 'Veuillez remplir tous les champs' : 'Veuillez remplir un message'), 'fa-warning')
+									->heading($this->lang($is_topic ? 'Veuillez remplir tous les champs' : 'Veuillez remplir un message'), 'fas fa-exclamation-triangle')
 									->color('danger')
 			);
 		}
 
 		$panels->append($this	->panel()
-								->heading($this->lang($is_topic ? 'Édition du sujet' : 'Édition du message'), 'fa-file-text-o')
+								->heading($this->lang($is_topic ? 'Édition du sujet' : 'Édition du message'), 'far fa-file-alt')
 								->body($this->view('new', [
 									'form_id'  => $this->form()->token(),
 									'post'     => $post,

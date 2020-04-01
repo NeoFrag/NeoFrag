@@ -15,7 +15,7 @@ class Talks extends Module
 		return [
 			'title'       => $this->lang('Discussion'),
 			'description' => '',
-			'icon'        => 'fa-comment-o',
+			'icon'        => 'far fa-comment',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',
@@ -57,25 +57,25 @@ class Talks extends Module
 				'access'  => [
 					[
 						'title'  => $this->lang('Discussion'),
-						'icon'   => 'fa-comment-o',
+						'icon'   => 'far fa-comment',
 						'access' => [
 							'read' => [
 								'title' => $this->lang('Lire'),
-								'icon'  => 'fa-eye'
+								'icon'  => 'far fa-eye'
 							],
 							'write' => [
 								'title' => $this->lang('Écrire'),
-								'icon'  => 'fa-reply'
+								'icon'  => 'fas fa-reply'
 							]
 						]
 					],
 					[
 						'title'  => $this->lang('Modération'),
-						'icon'   => 'fa-user',
+						'icon'   => 'fas fa-user',
 						'access' => [
 							'delete' => [
 								'title' => $this->lang('Supprimer un message'),
-								'icon'  => 'fa-trash-o'
+								'icon'  => 'far fa-trash-alt'
 							]
 						]
 					]

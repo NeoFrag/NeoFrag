@@ -25,7 +25,7 @@ class Default_ extends Theme
 	public function __init()
 	{
 		$this	->css('bootstrap.min')
-				->css('icons/font-awesome.min')
+				->css('icons/fontawesome.min')
 				->css('style')
 				->js('jquery-3.2.1.min')
 				->js('popper.min')

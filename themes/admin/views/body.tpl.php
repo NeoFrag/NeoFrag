@@ -9,7 +9,7 @@
 		<?php if ($update = $this->__caller->update()): ?>
 		<div class="py-4 text-white bg-black alert-update">
 			<div class="col-12 text-center">
-				<?php echo icon('fa-bell-o fa-2x mb-2') ?>
+				<?php echo icon('far fa-bell fa-2x mb-2') ?>
 				<h6 class="mb-3">
 					Nouvelle mise à jour !<br />
 					<small class="text-muted">NeoFrag <?php echo $update->version ?></small>
@@ -23,7 +23,7 @@
 		<ul class="list-unstyled mb-0 monitoring">
 			<li>
 				<?php echo $this->module('monitoring')->display() ?>
-				<a href="<?php echo url('admin/monitoring') ?>" class="btn btn-secondary btn-lg btn-block text-left"><?php echo icon('fa-heartbeat fa-beat') ?> Monitoring</a>
+				<a href="<?php echo url('admin/monitoring') ?>" class="btn btn-secondary btn-lg btn-block text-left"><?php echo icon('fas fa-heartbeat fa-beat') ?> Monitoring</a>
 			</li>
 		</ul>
 		<?php endif ?>
@@ -31,7 +31,7 @@
 	<div class="content">
 		<nav class="navbar navbar-expand-lg navbar-user navbar-dark mb-0">
 			<button type="button" id="sidebarCollapse" class="btn btn-primary">
-				<?php echo icon('fa-bars') ?>
+				<?php echo icon('fas fa-bars') ?>
 			</button>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_user" aria-controls="navbar_user" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -39,9 +39,9 @@
 			<div class="collapse navbar-collapse" id="navbar_user">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link btn btn-link" href="<?php echo url('user') ?>"><?php echo $this->user->username ?></a></li>
-					<li class="nav-item"><a class="nav-link btn btn-link" href="<?php echo url('user/logout') ?>"><?php echo icon('fa-close') ?> Se déconnecter</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-link" href="<?php echo url('user/logout') ?>"><?php echo icon('fas fa-times') ?> Se déconnecter</a></li>
 					<li class="nav-item nav-item-separator d-none d-lg-block">/</li>
-					<li class="nav-item"><a class="nav-link btn btn-link" href="<?php echo url() ?>"><?php echo icon('fa-home') ?> Retourner sur le site</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-link" href="<?php echo url() ?>"><?php echo icon('fas fa-home') ?> Retourner sur le site</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -59,9 +59,9 @@
 					$module_method = $this->output->data->get('module', 'method');
 
 					$actions = $this->array($this->output->data->get('module', 'actions'))
-									->append_if($module_method == 'index' && $module->get_permissions('default') && $this->module('access')->is_authorized(), $this->button('Permissions', 'fa-unlock-alt', 'success', 'admin/access/edit/'.$module_name)->outline())
-									->append_if(isset($module->info()->settings) && $this->module('addons')->is_authorized(), $this->button('Configuration', 'fa-wrench', 'warning')->outline()->modal_ajax('admin/addons/settings/'.$module->__addon->id.'/'.$module_name))
-									->append_if(($help_controller = @$module->controller('admin_help')) && $help_controller->has_method($module_method), $this->button('Aide', 'fa-life-bouy', 'info')->outline()->modal_ajax('admin/addons/help/'.$module->__addon->id.'/'.$module_name.'/'.$module_method));
+									->append_if($module_method == 'index' && $module->get_permissions('default') && $this->module('access')->is_authorized(), $this->button('Permissions', 'fas fa-unlock-alt', 'success', 'admin/access/edit/'.$module_name)->outline())
+									->append_if(isset($module->info()->settings) && $this->module('addons')->is_authorized(), $this->button('Configuration', 'fas fa-wrench', 'warning')->outline()->modal_ajax('admin/addons/settings/'.$module->__addon->id.'/'.$module_name))
+									->append_if(($help_controller = @$module->controller('admin_help')) && $help_controller->has_method($module_method), $this->button('Aide', 'far fa-life-ring', 'info')->outline()->modal_ajax('admin/addons/help/'.$module->__addon->id.'/'.$module_name.'/'.$module_method));
 				?>
 				<?php if (!$actions->empty()): ?>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_header" aria-controls="navbar_header" aria-expanded="false" aria-label="Toggle navigation">

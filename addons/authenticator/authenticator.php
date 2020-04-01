@@ -14,7 +14,7 @@ class Authenticator extends Addon
 	{
 		return [
 			'title'   => 'Authentificateur',
-			'icon'    => 'fa-sign-in',
+			'icon'    => 'fas fa-sign-in-alt',
 			'version' => '1.0',
 			'depends' => [
 				'neofrag' => 'Alpha 0.2'

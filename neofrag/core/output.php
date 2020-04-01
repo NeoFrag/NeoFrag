@@ -297,7 +297,7 @@ class Output extends Core
 
 				if ($this->live_editor())
 				{
-					$body = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label('Accueil', 'fa-map-marker') : $this->data->get('module', 'title')).'"></div>';
+					$body = '<div id="live_editor" data-module-title="'.utf8_htmlentities($this->url->segments[0] == 'index' ? $this->label('Accueil', 'fas fa-map-marker-alt') : $this->data->get('module', 'title')).'"></div>';
 
 					parent	::css('fonts/open-sans')
 							->css('live-editor')

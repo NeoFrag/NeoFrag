@@ -15,7 +15,7 @@ class Statistics extends Module
 		return [
 			'title'       => 'Statistiques',
 			'description' => '',
-			'icon'        => 'fa-bar-chart',
+			'icon'        => 'far fa-chart-bar',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

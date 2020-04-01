@@ -26,7 +26,7 @@ class Admin extends Controller_Module
 			$this	->col(
 						$this->panel()->body($this->view('monitoring'), FALSE),
 						$this	->panel()
-								->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Détails').'"><a class="btn btn-outline-info btn-sm" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fa-info').'</a></div>Informations serveur', 'fa-info-circle')
+								->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Détails').'"><a class="btn btn-outline-info btn-sm" href="#" data-modal-ajax="'.url('admin/ajax/monitoring/phpinfo').'">'.icon('fas fa-info').'</a></div>Informations serveur', 'fas fa-info-circle')
 								->body($this->view('infos', [
 									'check'   => $this->model()->check_server()
 								]))
@@ -37,14 +37,14 @@ class Admin extends Controller_Module
 						$this->row(
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Actualiser').'"><a class="btn btn-outline-info btn-sm refresh" href="#">'.icon('fa-refresh').'</a></div>Notifications', 'fa-bell-o')
+												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Actualiser').'"><a class="btn btn-outline-info btn-sm refresh" href="#">'.icon('fas fa-sync').'</a></div>Notifications', 'far fa-bell')
 												->body('<table class="table table-notifications m-0"></table>')
 												->color('default panel-notifications')
 									)
 									->size('col-12 col-lg-8'),
 							$this	->col(
 										$this	->panel()
-												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Sauvegarder').'"><a class="btn btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('fa-floppy-o').'</a></div>Stockage', 'fa-files-o')
+												->heading('<div class="pull-right" data-toggle="tooltip" title="'.$this->lang('Sauvegarder').'"><a class="btn btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#modal-backup">'.icon('far fa-save').'</a></div>Stockage', 'far fa-copy')
 												->body($this->view('storage'))
 												->footer($this->view('storage-footer'))
 												->color('default panel-storage')
@@ -54,7 +54,7 @@ class Admin extends Controller_Module
 						$this->row(
 							$this->col(
 								$this	->panel()
-										->heading('Votre installation NeoFrag', 'fa-heartbeat')
+										->heading('Votre installation NeoFrag', 'fas fa-heartbeat')
 										->body('<div id="tree"></div>', FALSE)
 							)
 						)
@@ -67,7 +67,7 @@ class Admin extends Controller_Module
 	{
 		$this->theme('admin')->js('update');
 
-		return $this->modal('Mise à jour de NeoFrag', 'fa-rocket')
+		return $this->modal('Mise à jour de NeoFrag', 'fas fa-rocket')
 					->large()
 					->set_id('modal-update')
 					->body('<div class="update-features">
@@ -95,25 +95,25 @@ class Admin extends Controller_Module
 								<div class="row steps-legends">
 									<div class="col">
 										<div class="step">
-											'.icon('fa-refresh').'
+											'.icon('fas fa-sync').'
 										</div>
 										Lancement
 									</div>
 									<div class="col">
 										<div class="step">
-											'.icon('fa-floppy-o').'
+											'.icon('far fa-save').'
 										</div>
 										Sauvegarde
 									</div>
 									<div class="col">
 										<div class="step">
-											'.icon('fa-arrow-circle-o-down').'
+											'.icon('far fa-arrow-alt-circle-down').'
 										</div>
 										Téléchargement
 									</div>
 									<div class="col">
 										<div class="step">
-											'.icon('fa-cog').'
+											'.icon('fas fa-cog').'
 										</div>
 										Installation
 									</div>

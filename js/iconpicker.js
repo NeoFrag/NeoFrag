@@ -4,8 +4,8 @@ $(function(){
 			$(this)	.addClass('iconpickered')
 					.iconpicker({
 						arrowClass: 'btn-danger',
-						arrowPrevIconClass: 'fa fa-caret-left',
-						arrowNextIconClass: 'fa fa-caret-right',
+						arrowPrevIconClass: 'fas fa-caret-left',
+						arrowNextIconClass: 'fas fa-caret-right',
 						cols: 10,
 						rows: 5,
 						iconset: 'fontawesome',

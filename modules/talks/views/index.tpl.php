@@ -44,7 +44,7 @@ foreach ($messages as $i => $message)
 		?>
 		<h6>
 		<?php
-			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('Visiteur').'</i>', '<small>'.icon('fa-clock-o').' '.time_span($message['date']).'</small>'];
+			$title = [$message['user_id'] ? $this->user->link($message['user_id'], $message['username']) : '<i>'.$this->lang('Visiteur').'</i>', '<small>'.icon('far fa-clock').' '.time_span($message['date']).'</small>'];
 
 			if ($media == 'right')
 			{

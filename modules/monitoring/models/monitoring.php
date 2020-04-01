@@ -29,7 +29,7 @@ class Monitoring extends Model
 		return [
 			[
 				'title' => $server['php_server'],
-				'icon'  => 'fa-server',
+				'icon'  => 'fas fa-server',
 				'check' => [
 					'php_curl' => [
 						'title' => 'cURL',
@@ -95,7 +95,7 @@ class Monitoring extends Model
 			],
 			[
 				'title' => $server['web_server'],
-				'icon'  => 'fa-globe',
+				'icon'  => 'fas fa-globe',
 				'check' => [
 					'mod_rewrite' => [
 						'title' => 'mod_rewrite',
@@ -113,7 +113,7 @@ class Monitoring extends Model
 			],
 			[
 				'title' => $server['databases_server'],
-				'icon'  => 'fa-database',
+				'icon'  => 'fas fa-database',
 				'check' => [
 					'innodb' => [
 						'title' => 'InnoDB',
@@ -131,7 +131,7 @@ class Monitoring extends Model
 			],
 			[
 				'title' => 'Envoi d\'email',
-				'icon'  => 'fa-envelope-o',
+				'icon'  => 'far fa-envelope',
 				'check' => [
 					'email' => [
 						'title' => 'Test du serveur...',

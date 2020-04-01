@@ -13,7 +13,7 @@
 				<tbody>
 					<?php foreach ($check['check'] as $name => $check): ?>
 					<tr>
-						<td id="<?php echo 'server-'.$name ?>"><?php echo icon('fa-spinner fa-spin').' <span>'.$check['title'].'</span>' ?></td>
+						<td id="<?php echo 'server-'.$name ?>"><?php echo icon('fas fa-spinner fa-spin').' <span>'.$check['title'].'</span>' ?></td>
 					</tr>
 					<?php endforeach ?>
 				</tbody>

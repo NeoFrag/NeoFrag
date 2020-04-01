@@ -219,7 +219,7 @@ class Debug extends Core
 					}
 					else if (is_bool($data))
 					{
-						return $data ? '<i class="fa fa-check text-success" title="TRUE"></i>' : '<i class="fa fa-close text-danger" title="FALSE"></i>';
+						return $data ? '<i class="fas fa-check text-success" title="TRUE"></i>' : '<i class="fas fa-times text-danger" title="FALSE"></i>';
 					}
 					else if ($data === NULL)
 					{
@@ -315,15 +315,15 @@ class Debug extends Core
 						->js('debug-bar');
 
 				$tabs = [
-					'console'  => ['Console',  'fa-terminal'],
-					'database' => ['Database', 'fa-database'],
-					'loader'   => ['Loader',   'fa-puzzle-piece'],
-					'timeline' => ['Timeline', 'fa-clock-o'],
-					'request'  => ['Request',  'fa-hand-pointer-o'],
-					'output'   => ['Result',   'fa-share'],
-					'settings' => ['Settings', 'fa-cogs'],
-					'session'  => ['Session',  'fa-flag'],
-					'server'   => ['Server',   'fa-server']
+					'console'  => ['Console',  'fas fa-terminal'],
+					'database' => ['Database', 'fas fa-database'],
+					'loader'   => ['Loader',   'fas fa-puzzle-piece'],
+					'timeline' => ['Timeline', 'far fa-clock'],
+					'request'  => ['Request',  'far fa-hand-pointer'],
+					'output'   => ['Result',   'fas fa-share'],
+					'settings' => ['Settings', 'fas fa-cogs'],
+					'session'  => ['Session',  'fas fa-flag'],
+					'server'   => ['Server',   'fas fa-server']
 				];
 
 				array_walk($tabs, function(&$a, $name) use ($debug_bar, &$table){

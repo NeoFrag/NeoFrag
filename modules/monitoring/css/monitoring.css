@@ -123,12 +123,12 @@ span.monitoring-icon-status {
 	border-bottom: 0;
 }
 
-.treeview .list-group .list-group-item.node-selected span.icon.fa-file-o,
+.treeview .list-group .list-group-item.node-selected span.icon.far.fa-file,
 .treeview .list-group .list-group-item.node-selected span.icon.expand-icon {
 	color: #fff;
 }
 
-span.icon.fa-file-o {
+span.icon.far.fa-file {
 	color: #9e9e9e;
 }
 

@@ -18,7 +18,7 @@ $rules = [
 	'icon' => [
 		'label'   => $this->lang('Icône'),
 		'value'   => $this->form()->value('icon'),
-		'default' => 'fa-user',
+		'default' => 'fas fa-user',
 		'type'    => 'iconpicker'
 	],
 	'hidden' => [

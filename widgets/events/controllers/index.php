@@ -21,15 +21,15 @@ class Index extends Controller_Widget
 		$this->css('events');
 
 		return $this->panel()
-					->heading('Calendrier', 'fa-calendar')
+					->heading('Calendrier', 'fas fa-calendar-alt')
 					->body('<div id="calendar"></div>')
-					->footer('<a href="'.url('events').'">'.icon('fa-arrow-circle-o-right').' Voir tous les événements</a>', 'right');
+					->footer('<a href="'.url('events').'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les événements</a>', 'right');
 	}
 
 	public function types($settings = [])
 	{
 		return $this->panel()
-					->heading('Evénements', 'fa-calendar')
+					->heading('Evénements', 'fas fa-calendar-alt')
 					->body($this->view('types', [
 						'types' => $this->model()->get_types()
 					]), FALSE)
@@ -54,9 +54,9 @@ class Index extends Controller_Widget
 		}
 
 		return $this->panel()
-					->heading('<div class="pull-right">'.$label.'</div>Événements', 'fa-calendar')
+					->heading('<div class="pull-right">'.$label.'</div>Événements', 'fas fa-calendar-alt')
 					->body($this->view('events', ['events' => array_slice($events, 0, 5)]), FALSE)
-					->footer_if(count($events) > 5, '<a href="'.url('events').'">'.icon('fa-arrow-circle-o-right').' Voir tous les événements</a>', 'right');
+					->footer_if(count($events) > 5, '<a href="'.url('events').'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les événements</a>', 'right');
 	}
 
 	public function event($settings = [])
@@ -68,11 +68,11 @@ class Index extends Controller_Widget
 
 		if ($types[$event['type_id']]['type'] == 1)
 		{
-			$icon = 'fa-crosshairs';
+			$icon = 'fas fa-crosshairs';
 		}
 		else
 		{
-			$icon = 'fa-calendar-o';
+			$icon = 'far fa-calendar';
 		}
 
 		$data = [
@@ -111,11 +111,11 @@ class Index extends Controller_Widget
 		}
 
 		return $this->panel()
-					->heading('Derniers résultats', 'fa-crosshairs')
+					->heading('Derniers résultats', 'fas fa-crosshairs')
 					->body($this->view('matches', [
 						'matches' => array_slice($matches, 0, 5)
 					]), FALSE)
-					->footer_if(!empty($matches), '<a href="'.url('events/matches').'">'.icon('fa-crosshairs').' Tous nos résultats</a>', 'right');
+					->footer_if(!empty($matches), '<a href="'.url('events/matches').'">'.icon('fas fa-crosshairs').' Tous nos résultats</a>', 'right');
 	}
 
 	public function upcoming($settings = [])
@@ -136,10 +136,10 @@ class Index extends Controller_Widget
 		}
 
 		return $this->panel()
-					->heading('Prochains matchs', 'fa-crosshairs')
+					->heading('Prochains matchs', 'fas fa-crosshairs')
 					->body($this->view('upcoming', [
 						'matches' => array_slice($matches, 0, 5)
 					]), FALSE)
-					->footer_if(!empty($matches), '<a href="'.url('events/upcoming').'">'.icon('fa-crosshairs').' Voir les matchs à venir</a>', 'right');
+					->footer_if(!empty($matches), '<a href="'.url('events/upcoming').'">'.icon('fas fa-crosshairs').' Voir les matchs à venir</a>', 'right');
 	}
 }

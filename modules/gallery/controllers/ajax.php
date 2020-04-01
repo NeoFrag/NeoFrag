@@ -23,13 +23,13 @@ class Ajax extends Controller_Module
 						notify('Image postée dans l\'album avec succès !');
 						refresh();
 					})
-					->modal('Poster une image', 'fa-photo')
+					->modal('Poster une image', 'far fa-image')
 					->cancel();
 	}
 
 	public function image($image)
 	{
-		return $this->modal($image['title'], 'fa-photo')
+		return $this->modal($image['title'], 'far fa-image')
 					->large()
 					->body($this->view('image', [
 						'original_file_id' => $image['original_file_id']

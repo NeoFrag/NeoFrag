@@ -5,7 +5,7 @@
 	</div>
 	<?php endif ?>
 	<div class="col-<?php echo $image_id ? '8' : '12' ?>">
-		<p><i><?php echo icon('fa-clock-o') ?> Offre publiée le <?php echo timetostr('%e %b %Y', $date) ?></i></p>
+		<p><i><?php echo icon('far fa-clock') ?> Offre publiée le <?php echo timetostr('%e %b %Y', $date) ?></i></p>
 		<ul class="list-unstyled">
 			<?php if ($team_id): ?>
 			<li><b>Equipe:</b> <?php echo $team_name ?></li>

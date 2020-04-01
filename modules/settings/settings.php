@@ -15,7 +15,7 @@ class Settings extends Module
 		return [
 			'title'       => $this->lang('Paramètres'),
 			'description' => '',
-			'icon'        => 'fa-cogs',
+			'icon'        => 'fas fa-cogs',
 			'link'        => 'https://neofr.ag',
 			'author'      => 'Michaël BILCOT & Jérémy VALENTIN <contact@neofrag.com>',
 			'license'     => 'LGPLv3 <https://neofr.ag/license>',

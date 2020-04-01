@@ -27,7 +27,7 @@
 				{
 					if ($url = $this->config->{'nf_social_'.$name})
 					{
-						echo '<a class="nav-link" href="'.$url.'" data-toggle="tooltip" title="'.$title.'">'.icon('fa-'.$name).'</a>';
+						echo '<a class="nav-link" href="'.$url.'" data-toggle="tooltip" title="'.$title.'">'.icon('fab fa-'.$name).'</a>';
 					}
 				}
 				?>
@@ -36,7 +36,7 @@
 					<?php echo $this->user->username ?>
 				</div>
 				<?php endif ?>
-				<?php echo $this->user() ? '<a href="'.url('user/logout').'" class="nav-link">'.icon('fa-close').' Déconnexion'.'</a>' : '<a href="'.url('user/logout').'" class="nav-link ml-5" data-modal-ajax="'.url('ajax/user/login').'">'.icon('fa-sign-in').' Se connecter'.'</a>' ?>
+				<?php echo $this->user() ? '<a href="'.url('user/logout').'" class="nav-link">'.icon('fas fa-times').' Déconnexion'.'</a>' : '<a href="'.url('user/logout').'" class="nav-link ml-5" data-modal-ajax="'.url('ajax/user/login').'">'.icon('fas fa-sign-in-alt').' Se connecter'.'</a>' ?>
 			</nav>
 		</div>
 	</header>

@@ -28,9 +28,9 @@ class Zone extends Displayable
 				$theme   = $this->theme($disposition['theme']);
 
 				$output = '	<div class="pull-right">
-								'.($disposition['page'] == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fa-toggle-off').' '.NeoFrag()->lang('Disposition commune').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fa-toggle-on').' '.NeoFrag()->lang('Disposition spécifique à la page').'</button>').'
+								'.($disposition['page'] == '*' ? '<button type="button" class="btn btn-link live-editor-fork" data-enabled="0">'.icon('fas fa-toggle-off').' '.NeoFrag()->lang('Disposition commune').'</button>' : '<button type="button" class="btn btn-link live-editor-fork" data-enabled="1">'.icon('fas fa-toggle-on').' '.NeoFrag()->lang('Disposition spécifique à la page').'</button>').'
 							</div>
-							<h3>'.(!empty($theme->info()->zones[$zone_id]) ? $theme->info()->zones[$zone_id] : NeoFrag()->lang('Zone #%d', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Nouveau Row').'">'.icon('fa-plus').'</button></div></h3>'.
+							<h3>'.(!empty($theme->info()->zones[$zone_id]) ? $theme->info()->zones[$zone_id] : NeoFrag()->lang('Zone #%d', $zone_id)).' <div class="btn-group"><button type="button" class="btn btn-xs btn-success live-editor-add-row" data-toggle="tooltip" data-container="body" title="'.NeoFrag()->lang('Nouveau Row').'">'.icon('fas fa-plus').'</button></div></h3>'.
 							$output;
 			}
 
