@@ -89,6 +89,11 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		return static::__url($model) == $value;
 	}
 
+	static protected function __status()
+	{
+		return [];
+	}
+
 	static protected function field()
 	{
 		return new \NF\NeoFrag\Field;
@@ -333,6 +338,49 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		}
 
 		return $this;
+	}
+
+	public function status()
+	{
+		if (!empty(static::__status()))
+		{
+			$status = static::__status();
+
+			if ($args = func_get_args())
+			{
+				if ($args[0] == '__list')
+				{
+					return array_map(function($status){
+						return parent::label($status[1])->color($status[2]);
+					}, static::__status());
+				}
+				else
+				{
+					$status = array_flip(array_column($status, 0));
+
+					$results = [];
+
+					foreach ($args as $key)
+					{
+						if (array_key_exists($key, $status))
+						{
+							$results[] = $status[$key];
+						}
+						else
+						{
+							trigger_error('Undefined status: '.get_class($this).'::'.$key, E_USER_WARNING);
+						}
+					}
+
+					return count($results) > 1 ? $results : $results[0];
+				}
+			}
+			else
+			{
+				$status = $status[$this->status];
+				return parent::label($status[1])->color($status[2]);
+			}
+		}
 	}
 
 	public function has_changed($name)
