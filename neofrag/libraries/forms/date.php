@@ -8,11 +8,12 @@ namespace NF\NeoFrag\Libraries\Forms;
 
 class Date extends Text
 {
-	protected $_datetime_type   = 'date';
-	protected $_datetime_format = 'L';
-	protected $_datetime_icon   = 'fas fa-calendar-alt';
-	protected $_datetime_size   = 'col-3';
-	protected $_datetime_regexp = '\d{4}(-\d{2}){2}';
+	protected $_datetime_type    = 'date';
+	protected $_datetime_format  = 'L';
+	protected $_datetime_icon    = 'fas fa-calendar-alt';
+	protected $_datetime_size    = 'col-3';
+	protected $_datetime_regexp  = '\d{4}(-\d{2}){2}';
+	protected $_datetime_printer = 'short_date';
 
 	public function __invoke($name)
 	{
@@ -48,17 +49,22 @@ class Date extends Text
 			$input->append_attr('class', $this->_datetime_type);
 		};
 
-		if (is_a($this->_value, 'NF\NeoFrag\Libraries\Date'))
-		{
-			$this->_value = $this->_value->short_date();
-		}
-
 		return $this->addon($this->_datetime_icon)
 					->size($this->_datetime_size);
 	}
 
 	public function value($value)
 	{
-		return parent::value(is_a($value, 'NF\NeoFrag\Libraries\Date') ? $value->short_date() : $value);
+		if ($value)
+		{
+			if (!is_a($value, 'NF\NeoFrag\Libraries\Date'))
+			{
+				$value = $this->date($value);
+			}
+
+			$value = $value->{$this->_datetime_printer}();
+		}
+
+		return parent::value($value);
 	}
 }
