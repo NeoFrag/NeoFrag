@@ -6,8 +6,15 @@
 
 function user_agent($user_agent)
 {
-	NeoFrag()->js('user-agent');
-	return '<img src="'.image('ajax-loader.gif').'" data-user-agent="'.$user_agent.'" alt="" />';
+	if (!is_empty($user_agent))
+	{
+		NeoFrag()->js('user-agent');
+		return '<img src="'.image('ajax-loader.gif').'" data-user-agent="'.$user_agent.'" alt="" />';
+	}
+	else
+	{
+		return '<img src="'.image('icons/user-silhouette-question.png').'" alt="" />';
+	}
 }
 
 function is_crawler()
