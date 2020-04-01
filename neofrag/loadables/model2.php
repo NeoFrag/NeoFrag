@@ -142,6 +142,21 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		{
 			return $this->_attrs[$name];
 		}
+		else if ($field = $this->_col($name))
+		{
+			$key = $field->i;
+
+			if (array_key_exists($key, $this->_updates))
+			{
+				return $this->_updates[$key];
+			}
+			else if (array_key_exists($key, $this->_data))
+			{
+				return $this->_data[$key];
+			}
+
+			return NULL;
+		}
 
 		return $this->__caller->$name;
 	}
@@ -627,6 +642,17 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		}
 
 		return $name ? (isset(self::$__schemas[$this->__table][$name]) ? self::$__schemas[$this->__table][$name] : NULL) : self::$__schemas[$this->__table];
+	}
+
+	protected function _col($name)
+	{
+		foreach ($this->_schema() as $field)
+		{
+			if ($field->key($field->name) == $name)
+			{
+				return $field;
+			}
+		}
 	}
 
 	protected function _db()
