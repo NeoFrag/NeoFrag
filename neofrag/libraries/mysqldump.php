@@ -30,9 +30,7 @@ class Mysqldump extends Library
 
 			foreach ($tables as $table)
 			{
-				$total += $this->db	->select('COUNT(*)')
-									->from($table)
-									->row();
+				$total += $this->db->from($table)->count();
 			}
 		}
 

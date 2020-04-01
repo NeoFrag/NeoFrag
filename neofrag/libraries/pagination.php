@@ -124,7 +124,7 @@ class Pagination extends Library
 	{
 		if ($this->_db)
 		{
-			$this->count($total = $this->_db()->select('COUNT(*)')->row());
+			$this->count($total = $this->_db()->count());
 
 			if ($total && ($this->_page - 1) * $this->_items_per_page >= $total)
 			{

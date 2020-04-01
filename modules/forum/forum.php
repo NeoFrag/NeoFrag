@@ -177,13 +177,12 @@ class Forum extends Module
 			}
 			else
 			{
-				$profiles[$user_id]['topics'] = $this->db	->select('COUNT(*)')
-															->from('nf_forum_topics t')
+				$profiles[$user_id]['topics'] = $this->db	->from('nf_forum_topics t')
 															->join('nf_forum_messages m', 't.message_id = m.message_id')
 															->where('m.user_id', $user_id)
-															->row();
+															->count();
 
-				$profiles[$user_id]['replies'] = $this->db->select('COUNT(*)')->from('nf_forum_messages')->where('user_id', $user_id)->row() - $profiles[$user_id]['topics'];
+				$profiles[$user_id]['replies'] = $this->db->from('nf_forum_messages')->where('user_id', $user_id)->count() - $profiles[$user_id]['topics'];
 			}
 		}
 

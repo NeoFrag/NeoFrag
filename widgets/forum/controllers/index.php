@@ -76,7 +76,7 @@ class Index extends Controller_Widget
 					->heading($this->lang('Activité du forum'), 'fas fa-globe')
 					->body($this->view('activity', [
 						'users'    => $users,
-						'visitors' => $this->db->select('COUNT(*)')->from('nf_session')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->row()
+						'visitors' => $this->db->from('nf_session')->where('user_id', NULL)->where('last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')->count()
 					]));
 	}
 }

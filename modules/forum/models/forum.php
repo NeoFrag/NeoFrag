@@ -567,10 +567,9 @@ class Forum extends Model
 
 	public function count_messages($topic_id)
 	{
-		return $this->db	->select('COUNT(*) - 1')
-							->from('nf_forum_messages')
-							->where('topic_id', $topic_id)
-							->row();
+		return $this->db->from('nf_forum_messages')
+						->where('topic_id', $topic_id)
+						->count() - 1;
 	}
 
 	public function _has_unread($forum)

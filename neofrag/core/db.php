@@ -331,6 +331,11 @@ class Db extends Core
 		return $list;
 	}
 
+	public function count()
+	{
+		return $this->select('COUNT(*)')->order_by()->row();
+	}
+
 	public function row($cast = TRUE)
 	{
 		$row = $this->limit(1)->_exec('row');
