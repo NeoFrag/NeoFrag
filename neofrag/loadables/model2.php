@@ -66,6 +66,10 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		{
 			return $model->name;
 		}
+		else if (method_exists($model, 'title'))
+		{
+			return url_title($model->title());
+		}
 		else if (isset($model->title))
 		{
 			return url_title($model->title);
