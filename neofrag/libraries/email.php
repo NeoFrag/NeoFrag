@@ -99,69 +99,73 @@ class Email extends Library
 		}
 		while ($this->module('newsletter') && $this->db()->select('1')->from('nf_newsletter_campaign_email')->where('id', static::$_id)->row());
 
-		require_once 'lib/phpmailer/class.phpmailer.php';
+		require_once 'lib/phpmailer/PHPMailer.php';
+		require_once 'lib/phpmailer/Exception.php';
 
 		$debug = [];
 
-		$mail = new \PHPMailer;
+		$PHPMailer = new \PHPMailer\PHPMailer\PHPMailer;
 
-		$mail->SMTPDebug   = 2;
-		$mail->Debugoutput = function($message) use (&$debug){
+		$PHPMailer->SMTPDebug   = 2;
+		$PHPMailer->Debugoutput = function($message) use (&$debug){
 			$debug[] = $message;
 		};
 
 		if ($this->config->nf_email_smtp)
 		{
-			require_once 'lib/phpmailer/class.smtp.php';
+			require_once 'lib/phpmailer/SMTP.php';
 
-			$mail->isSMTP();
+			$PHPMailer->isSMTP();
 
-			$mail->Host = $this->config->nf_email_smtp;
+			$PHPMailer->Host = $this->config->nf_email_smtp;
 
-			if ($mail->SMTPAuth = $this->config->nf_email_username && $this->config->nf_email_password)
+			if ($PHPMailer->SMTPAuth = $this->config->nf_email_username && $this->config->nf_email_password)
 			{
-				$mail->Username = $this->config->nf_email_username;
-				$mail->Password = $this->config->nf_email_password;
+				$PHPMailer->Username = $this->config->nf_email_username;
+				$PHPMailer->Password = $this->config->nf_email_password;
 			}
 
 			if ($this->config->nf_email_secure)
 			{
-				$mail->SMTPSecure = $this->config->nf_email_secure;
+				$PHPMailer->SMTPSecure = $this->config->nf_email_secure;
 			}
 
 			if ($this->config->nf_email_port)
 			{
-				$mail->Port = $this->config->nf_email_port;
+				$PHPMailer->Port = $this->config->nf_email_port;
 			}
 		}
 
 		if ($this->_from)
 		{
-			$mail->AddReplyTo($this->_from);
+			$PHPMailer->AddReplyTo($this->_from);
 		}
 
-		$mail->setFrom($this->config->nf_contact, $this->config->nf_name, !ini_get('sendmail_from'));
+		$PHPMailer->setFrom($this->config->nf_contact, $this->config->nf_name, !ini_get('sendmail_from'));
 
-		$mail->CharSet = 'UTF-8';
-		$mail->Subject = utf8_html_entity_decode($this->_subject);
-		$mail->isHTML(TRUE);
+
+		$PHPMailer->XMailer  = ' ';
+		$PHPMailer->Encoding = 'quoted-printable';
+		$PHPMailer->CharSet  = 'UTF-8';
+		$PHPMailer->Subject  = utf8_html_entity_decode($this->_subject);
+		$PHPMailer->isHTML(TRUE);
 
 		foreach (array_unique($this->_to) as $to)
 		{
-			$mail->addAddress($to);
+			$PHPMailer->addAddress($to);
 		}
 
 		foreach (array_unique($this->_bcc) as $to)
 		{
-			$mail->AddBCC($to);
+			$PHPMailer->AddBCC($to);
 		}
 
 		foreach ($this->_attachments as $file)
 		{
-			$mail->addAttachment($file->path, utf8_html_entity_decode($file->name));
+			$PHPMailer->addAttachment($file->path, utf8_html_entity_decode($file->name));
 		}
 
-		$this->output->email(function() use ($mail){
+		$this->output->email(function() use ($PHPMailer){
 			$data = array_merge([
 				'header'  => '',
 				'content' => '',
@@ -170,14 +174,14 @@ class Email extends Library
 
 			$data['footer'] .= call_user_func($this->_footer);
 
-			$mail->Body = (string)$this->view('emails/main', [
+			$PHPMailer->Body = (string)$this->view('emails/main', [
 				'body' => $this->view('emails/'.$this->_view, $data)
 			]);
 
-			$mail->AltBody = trim(strip_tags($mail->Body));
+			$PHPMailer->AltBody = trim(strip_tags($PHPMailer->Body));
 		});
 
-		if (!($result = $mail->send() ? static::$_id : FALSE))
+		if (!($result = $PHPMailer->send() ? static::$_id : FALSE))
 		{
 			foreach ($debug as $message)
 			{
