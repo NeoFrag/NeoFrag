@@ -139,7 +139,10 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function __invoke()
 	{
-		return (bool)$this->_id;
+		if ($this->_id)
+		{
+			return $this;
+		}
 	}
 
 	public function __debugInfo()
