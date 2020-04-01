@@ -472,7 +472,7 @@ class Index extends Controller_Module
 				$this->db	->where('forum_id', $forum_id)
 							->update('nf_forum', 'count_messages = count_messages - '.$count_messages);
 			}
-			else if ($this->db->select('message_id')->from('nf_forum_messages')->where('topic_id', $topic_id)->order_by('message_id DESC')->limit(1)->row() == $message_id)
+			else if ($this->db->select('message_id')->from('nf_forum_messages')->where('topic_id', $topic_id)->order_by('message_id DESC')->row() == $message_id)
 			{
 				$this->db	->where('message_id', $message_id)
 							->delete('nf_forum_messages');
@@ -483,7 +483,7 @@ class Index extends Controller_Module
 				$this->db	->where('forum_id', $forum_id)
 							->update('nf_forum', 'count_messages = count_messages - 1');
 
-				if (($last_message_id = $this->db->select('message_id')->from('nf_forum_messages')->where('topic_id', $topic_id)->order_by('message_id DESC')->limit(1)->row()) &&
+				if (($last_message_id = $this->db->select('message_id')->from('nf_forum_messages')->where('topic_id', $topic_id)->order_by('message_id DESC')->row()) &&
 					 $last_message_id != $this->db->select('message_id')->from('nf_forum_topics')->where('topic_id', $topic_id)->row())
 				{
 					$this->db	->where('topic_id', $topic_id)

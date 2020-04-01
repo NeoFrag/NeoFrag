@@ -560,7 +560,6 @@ class Forum extends Model
 								->join('nf_forum_topics t', 't.topic_id = m.topic_id')
 								->where('t.forum_id', $forum_id)
 								->order_by('message_id DESC')
-								->limit(1)
 								->row();
 
 		return $message_id ?: NULL;

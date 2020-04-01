@@ -329,7 +329,7 @@ class Db extends Core
 
 	public function row($cast = TRUE)
 	{
-		$row = $this->_exec('row');
+		$row = $this->limit(1)->_exec('row');
 
 		if ($cast && count($row) == 1)
 		{

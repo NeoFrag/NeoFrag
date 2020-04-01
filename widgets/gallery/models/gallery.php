@@ -32,8 +32,7 @@ class Gallery extends Model
 	public function get_random_image($gallery_id = FALSE)
 	{
 		$this->db	->from('nf_gallery_images')
-					->order_by('RAND()')
-					->limit(1);
+					->order_by('RAND()');
 
 		if (!empty($gallery_id) || ($gallery_id > 0))
 		{

@@ -52,7 +52,6 @@ class Messages extends Model
 										->from('nf_users_messages_replies')
 										->where('message_id', $message['message_id'])
 										->order_by('reply_id DESC')
-										->limit(1)
 										->row(FALSE);
 
 			if ($box == 'sent')
@@ -64,7 +63,6 @@ class Messages extends Model
 										->where('u.id <>', $this->user->id)
 										->where('r.message_id', $message['message_id'])
 										->order_by('u.username')
-										->limit(1)
 										->row();
 			}
 			else
@@ -76,7 +74,6 @@ class Messages extends Model
 										->where('u.id <>', $this->user->id)
 										->where('mr.message_id', $message['message_id'])
 										->order_by('mr.reply_id DESC')
-										->limit(1)
 										->row();
 			}
 

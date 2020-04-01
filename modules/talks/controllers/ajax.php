@@ -46,7 +46,7 @@ class Ajax extends Controller_Module
 
 		if ($this->form()->is_valid())
 		{
-			if ($this->db->select('message_id')->from('nf_talks_messages')->where('talk_id', $talk_id)->order_by('message_id DESC')->limit(1)->row() == $message_id)
+			if ($this->db->select('message_id')->from('nf_talks_messages')->where('talk_id', $talk_id)->order_by('message_id DESC')->row() == $message_id)
 			{
 				$this->db	->where('message_id', $message_id)
 							->delete('nf_talks_messages');
