@@ -42,7 +42,7 @@ abstract class Multiple extends Labelable
 			{
 				$this->_value = $data[$this->_name] = '';
 
-				if (isset($post[$this->_name]) && isset($this->_data[$post[$this->_name]]))
+				if (array_key_exists($this->_name, $post) && array_key_exists($post[$this->_name], $this->_data))
 				{
 					$this->_value = $data[$this->_name] = $post[$this->_name];
 				}

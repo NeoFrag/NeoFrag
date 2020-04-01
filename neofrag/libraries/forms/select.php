@@ -34,7 +34,7 @@ class Select extends Multiple
 							->attr_if($this->_disabled || $this->_read_only, 'disabled')
 							->attr_if(!empty($this->_render[0]),             'data-render-option', utf8_htmlentities($this->_render[0]))
 							->attr_if($this->_search,                        'data-search-field',  $this->_search + 1)
-							->attr_if($this->_value,                         'data-value',         implode(',', (array)$this->_value));
+							->attr_if(!is_empty($this->_value),              'data-value',         implode(',', (array)$this->_value));
 
 			if ($this->_optgroup)
 			{

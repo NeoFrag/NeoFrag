@@ -39,7 +39,7 @@ form.find('select.selectize', function(){
 		data.placeholder = $(this).data('placeholder');
 	}
 
-	if ($(this).data('value')){
+	if (typeof $(this).data('value') != 'undefined'){
 		data.items = String($(this).data('value')).split(',');
 	}
 
