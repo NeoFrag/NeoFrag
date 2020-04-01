@@ -52,7 +52,7 @@ class Checker extends Module_Checker
 	{
 		$status = $this->model('participants')->status();
 
-		if (isset($status[$current_status]) && $this->model()->check_event($event_id, $title) && $this->db->select('1')->from('nf_events_participants')->where('user_id', $this->user->id)->where('event_id', $event_id)->row())
+		if (isset($status[$current_status]) && $this->model()->check_event($event_id, $title) && !$this->db->from('nf_events_participants')->where('user_id', $this->user->id)->where('event_id', $event_id)->empty())
 		{
 			return [$event_id, $title, $current_status];
 		}
@@ -67,7 +67,7 @@ class Checker extends Module_Checker
 
 		$this->ajax();
 
-		if ($this->model()->check_event($event_id, $title) && $this->db->select('1')->from('nf_events_participants')->where('user_id', $user_id)->where('event_id', $event_id)->row())
+		if ($this->model()->check_event($event_id, $title) && !$this->db->from('nf_events_participants')->where('user_id', $user_id)->where('event_id', $event_id)->empty())
 		{
 			return [$event_id, $user_id];
 		}

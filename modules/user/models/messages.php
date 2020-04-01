@@ -36,12 +36,11 @@ class Messages extends Model
 		{
 			if ($box == 'inbox')
 			{
-				$message['unread'] = (bool)$this->db->select('1')
-													->from('nf_users_messages_recipients r')
-													->where('r.message_id', $message['message_id'])
-													->where('r.user_id', $this->user->id)
-													->where('r.date', NULL, 'OR', 'UNIX_TIMESTAMP(r.date) <', $message['date'])
-													->row();
+				$message['unread'] = !$this->db	->from('nf_users_messages_recipients r')
+												->where('r.message_id', $message['message_id'])
+												->where('r.user_id', $this->user->id)
+												->where('r.date', NULL, 'OR', 'UNIX_TIMESTAMP(r.date) <', $message['date'])
+												->empty();
 			}
 			else
 			{
@@ -198,12 +197,11 @@ class Messages extends Model
 
 		foreach ($messages as $message)
 		{
-			if ((bool)$this->db	->select('1')
-								->from('nf_users_messages_recipients r')
-								->where('r.message_id', $message['message_id'])
-								->where('r.user_id', $this->user->id)
-								->where('r.date', NULL, 'OR', 'UNIX_TIMESTAMP(r.date) <', $message['date'])
-								->row()
+			if (!$this->db	->from('nf_users_messages_recipients r')
+							->where('r.message_id', $message['message_id'])
+							->where('r.user_id', $this->user->id)
+							->where('r.date', NULL, 'OR', 'UNIX_TIMESTAMP(r.date) <', $message['date'])
+							->empty()
 			)
 			{
 				$unreads++;

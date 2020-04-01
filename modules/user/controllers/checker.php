@@ -42,7 +42,7 @@ class Checker extends Module_Checker
 	{
 		$this->error->unconnected();
 
-		if ($this->db->select('1')->from('nf_session')->where('user_id', $this->user->id)->where('id', $session_id)->row())
+		if (!$this->db->from('nf_session')->where('user_id', $this->user->id)->where('id', $session_id)->empty())
 		{
 			$this->ajax();
 

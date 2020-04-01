@@ -12,7 +12,7 @@ class Admin_Ajax_Checker extends Module_Checker
 {
 	public function sort()
 	{
-		if (($check = post_check('id', 'position')) && $this->db->select('1')->from('nf_partners')->where('partner_id', $check['id'])->row())
+		if (($check = post_check('id', 'position')) && !$this->db->from('nf_partners')->where('partner_id', $check['id'])->empty())
 		{
 			return $check;
 		}

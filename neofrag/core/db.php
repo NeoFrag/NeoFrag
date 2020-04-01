@@ -89,6 +89,17 @@ class Db extends Core
 		return $db;
 	}
 
+	public function __call($name, $args)
+	{
+		//TODO 5.6 compatibility
+		if ($name == 'empty')
+		{
+			return !$this->select('1')->row();
+		}
+
+		return parent::__call($name, $args);
+	}
+
 	public function __debugInfo()
 	{
 		return static::$_requests;

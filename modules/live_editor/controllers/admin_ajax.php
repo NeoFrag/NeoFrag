@@ -40,7 +40,7 @@ class Admin_Ajax extends Controller_Module
 			$url = implode('/', $url);
 		}
 
-		if ($page == '*' || !$this->db->select('1')->from('nf_dispositions')->where('page', $url)->row())
+		if ($page == '*' || $this->db->from('nf_dispositions')->where('page', $url)->empty())
 		{
 			$traversal = function($array) use (&$traversal){
 				$array->each(function($a) use (&$traversal){

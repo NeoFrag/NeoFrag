@@ -551,7 +551,7 @@ class Admin extends Controller_Module
 
 			if ($post['status'] == 2)
 			{
-				if ($team_id && $user_id && $this->model()->check_team($team_id, url_title($team_name)) && $status != 2 && !$this->db->select('1')->from('nf_teams_users')->where('user_id', $user_id)->where('team_id', $team_id)->row())
+				if ($team_id && $user_id && $this->model()->check_team($team_id, url_title($team_name)) && $status != 2 && $this->db->from('nf_teams_users')->where('user_id', $user_id)->where('team_id', $team_id)->empty())
 				{
 					if ($check_role = $this->model()->check_role($role))
 					{

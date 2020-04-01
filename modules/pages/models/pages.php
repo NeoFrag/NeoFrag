@@ -68,12 +68,11 @@ class Pages extends Model
 
 	public function edit_page($page_id, $name, $title, $published, $subtitle, $content, $lang)
 	{
-		if ($this->db	->select('1')
-						->from('nf_pages p')
+		if (!$this->db	->from('nf_pages p')
 						->join('nf_pages_lang l', 'p.page_id = l.page_id')
 						->where('p.page_id', $page_id)
 						->where('l.lang', $lang)
-						->row())
+						->empty())
 		{
 			$this->db	->where('page_id', $page_id)
 						->where('lang', $lang)

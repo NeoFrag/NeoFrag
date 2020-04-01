@@ -76,7 +76,7 @@ class Lang extends Library
 			}
 			else
 			{
-				if (NEOFRAG_LOGS_I18N && !$this->db()->select('1')->from('nf_log_i18n')->where('language', $language)->where('key', $key)->where('file', $class = get_class($this->__caller))->row())
+				if (NEOFRAG_LOGS_I18N && $this->db()->from('nf_log_i18n')->where('language', $language)->where('key', $key)->where('file', $class = get_class($this->__caller))->empty())
 				{
 					NeoFrag()->model2('log_i18n')->set('language', $language)->set('key', $key)->set('locale', $locale)->set('file', $class)->create();
 				}
