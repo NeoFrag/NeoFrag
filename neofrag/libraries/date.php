@@ -296,6 +296,11 @@ class Date extends Library
 		return $this->locale($this->config->lang->date()['short_time']);
 	}
 
+	public function long_time()
+	{
+		return $this->locale($this->config->lang->date()['long_time']);
+	}
+
 	protected function _timezone(&$timezone)
 	{
 		if (!is_a($timezone, 'DateTimeZone'))
