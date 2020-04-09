@@ -293,7 +293,7 @@ class Date extends Library
 
 	public function short_time()
 	{
-		return $this->locale($this->config->lang->date()['long_date_time']);
+		return $this->locale($this->config->lang->date()['short_time']);
 	}
 
 	protected function _timezone(&$timezone)
