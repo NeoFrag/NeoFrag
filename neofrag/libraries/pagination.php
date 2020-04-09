@@ -128,7 +128,7 @@ class Pagination extends Library
 
 			if ($total && ($this->_page - 1) * $this->_items_per_page >= $total)
 			{
-				$this->error();
+				redirect($this->get_url());
 			}
 		}
 
