@@ -43,6 +43,7 @@ class Date extends Library
 							date_create_from_format(                 'Y-m-d H:i:s', $datetime, $timezone) ?:
 							date_create_from_format($this->_format = 'Y-m-d',       $datetime, $timezone) ?:
 							date_create_from_format($this->_format = 'H:i:s',       $datetime, $timezone) ?:
+							date_create_from_format($this->_format = 'H:i',         $datetime, $timezone) ?:
 							($this->_format = '') ?:
 							date_create($datetime, $timezone);
 			}
