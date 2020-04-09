@@ -11,8 +11,9 @@ use NF\NeoFrag\Library;
 class Css extends Library
 {
 	protected $_file;
+	protected $_media;
 
-	public function __invoke($file, $media = 'screen')
+	public function __invoke($file, $media = '')
 	{
 		$this->_file  = $file;
 		$this->_media = $media;
@@ -38,6 +39,11 @@ class Css extends Library
 			}
 		}
 
-		return '<link rel="stylesheet" href="'.$path.'" type="text/css" media="'.$this->_media.'">';
+		return $this->html('link', TRUE)
+					->attr('rel',  'stylesheet')
+					->attr('href', $path)
+					->attr('type', 'text/css')
+					->attr_if(!is_empty($this->_media), 'media', $this->_media)
+					->__toString();
 	}
 }
