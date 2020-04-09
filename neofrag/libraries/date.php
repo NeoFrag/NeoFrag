@@ -242,6 +242,21 @@ class Date extends Library
 		}
 	}
 
+	public function between($start, $end)
+	{
+		if (!is_a($start, 'NF\NeoFrag\Libraries\Date'))
+		{
+			$start = $this->date($start);
+		}
+
+		if (!is_a($end, 'NF\NeoFrag\Libraries\Date'))
+		{
+			$end = $this->date($end);
+		}
+
+		return $this->diff($start) != -1 && $this->diff($end) != 1;
+	}
+
 	public function sql()
 	{
 		return $this->format($this->_format ?: 'Y-m-d H:i:s');
