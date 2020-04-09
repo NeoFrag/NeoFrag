@@ -11,21 +11,37 @@ use NF\NeoFrag\Library;
 class Date extends Library
 {
 	protected $_datetime;
+	protected $_format;
 
-	public function __invoke($datetime = NULL)
+	public function __invoke($datetime = NULL, $format = '')
 	{
 		if (is_a($datetime, 'NF\NeoFrag\Libraries\Date'))
 		{
 			return $datetime;
 		}
 
-		if ($datetime !== NULL && !is_a($datetime, '\DateTime'))
+		if ($datetime === NULL)
 		{
-			$datetime = date_create_from_format('U',           $datetime) ?:
-						date_create_from_format('Y-m-d H:i:s', $datetime) ?:
-						date_create_from_format('Y-m-d',       $datetime) ?:
-						date_create_from_format('H:i:s',       $datetime) ?:
-						date_create($datetime);
+			$this->_format = $format;
+		}
+		else if (!is_a($datetime, '\DateTime'))
+		{
+			if ($format)
+			{
+				if ($datetime = date_create_from_format($format, $datetime))
+				{
+					$this->_format = $format;
+				}
+			}
+			else
+			{
+				$datetime = date_create_from_format(                 'U',           $datetime) ?:
+							date_create_from_format(                 'Y-m-d H:i:s', $datetime) ?:
+							date_create_from_format($this->_format = 'Y-m-d',       $datetime) ?:
+							date_create_from_format($this->_format = 'H:i:s',       $datetime) ?:
+							($this->_format = '') ?:
+							date_create($datetime);
+			}
 		}
 
 		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''));
@@ -224,7 +240,7 @@ class Date extends Library
 
 	public function sql()
 	{
-		return $this->format('Y-m-d H:i:s');
+		return $this->format($this->_format ?: 'Y-m-d H:i:s');
 	}
 
 	public function interval($date = NULL)
@@ -242,9 +258,9 @@ class Date extends Library
 		return $this->_datetime->getTimestamp();
 	}
 
-	public function format($format)
+	public function format($format = NULL)
 	{
-		return $this->_datetime->format($format);
+		return $this->_datetime->format($format ?: $this->_format ?: 'Y-m-d H:i:s.u P');
 	}
 
 	public function locale($format)
