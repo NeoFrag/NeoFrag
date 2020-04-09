@@ -227,7 +227,7 @@ class Date extends Library
 		return $this->format('Y-m-d H:i:s');
 	}
 
-	public function interval($date)
+	public function interval($date = NULL)
 	{
 		if (!is_a($date, 'NF\NeoFrag\Libraries\Date'))
 		{
