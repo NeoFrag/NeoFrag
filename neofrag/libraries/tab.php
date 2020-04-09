@@ -119,7 +119,7 @@ class Tab extends Library
 
 		foreach ($tabs['sections'] as $section)
 		{
-			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="'.rtrim($base_url.'/'.$section['url'], '/').'">'.$section['name'].'</a></li>';
+			$output .= '	<li'.(($section['active']) ? ' class="active"' : '').'><a href="'.url(rtrim($base_url.'/'.$section['url'], '/')).'">'.$section['name'].'</a></li>';
 		}
 
 		$output .= '	</ul>

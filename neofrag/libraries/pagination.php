@@ -134,7 +134,7 @@ class Pagination extends Library
 
 		if ($this->_items_per_page && $this->count() > $this->_items_per_page)
 		{
-			return $this->display($this->get_url(), $this->count(), $size, $this->_items_per_page, $this->_fixed, $this->_page);
+			return $this->display(url($this->get_url()), $this->count(), $size, $this->_items_per_page, $this->_fixed, $this->_page);
 		}
 
 		return '';
@@ -200,7 +200,7 @@ class Pagination extends Library
 
 	public function get_url()
 	{
-		return url(preg_replace('_/?(page/\d+|all)$_', '', $this->url->request ?: 'index'));
+		return preg_replace('_/?(page/\d+|all)$_', '', $this->url->request);
 	}
 
 	public function get_items_per_page()
