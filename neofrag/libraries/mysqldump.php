@@ -22,10 +22,17 @@ class Mysqldump extends Library
 	const DATA         = 1;
 	const STRUCTURE    = 2;
 
+	protected $_db;
 	protected $_skip_auto_increment;
 	protected $_skip_data;
 	protected $_skip_structure;
 	protected $_tables = [];
+
+	public function __invoke($db)
+	{
+		$this->_db = $db;
+		return $this;
+	}
 
 	public function skip_auto_increment()
 	{
@@ -59,9 +66,13 @@ class Mysqldump extends Library
 
 	public function dump($handle, $callback = NULL)
 	{
+		$db = function(){
+			return $this->db($this->_db) ?: $this->db;
+		};
+
 		$tables = [];
 
-		foreach ($this->db->tables() as $table)
+		foreach ($db()->tables() as $table)
 		{
 			$tables[$table] = 0;
 
@@ -82,19 +93,19 @@ class Mysqldump extends Library
 						'--'.PHP_EOL.
 						'-- Host: '.$_SERVER['HTTP_HOST'].PHP_EOL.
 						'-- Generation Time: '.date('r').PHP_EOL.
-						'-- Server version: '.$this->db->get_info('server').' '.$this->db->get_info('version').PHP_EOL.
+						'-- Server version: '.$db()->get_info('server').' '.$db()->get_info('version').PHP_EOL.
 						'-- PHP Version: '.PHP_VERSION.PHP_EOL.PHP_EOL.
 						'SET FOREIGN_KEY_CHECKS = 0;'.PHP_EOL.
 						'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";'.PHP_EOL.
-						'SET TIME_ZONE = "'.$this->db->get_info('time_zone').'";'.PHP_EOL.
+						'SET TIME_ZONE = "'.$db()->get_info('time_zone').'";'.PHP_EOL.
 						'SET NAMES utf8;'.PHP_EOL.PHP_EOL.
 						'--'.PHP_EOL.
-						'-- Database: '.self::_delimite($this->db->get_info('name')).PHP_EOL.
+						'-- Database: '.self::_delimite($db()->get_info('name')).PHP_EOL.
 						'--'.PHP_EOL);
 
 		if ($tables)
 		{
-			$this->db->lock($tables);
+			$db()->lock($tables);
 
 			if (is_callable($callback))
 			{
@@ -104,7 +115,7 @@ class Mysqldump extends Library
 				{
 					if ($action & self::DATA)
 					{
-						$total += $this->db->from($table)->count();
+						$total += $db()->from($table)->count();
 					}
 				}
 			}
@@ -113,7 +124,7 @@ class Mysqldump extends Library
 			{
 				if ($action & self::STRUCTURE)
 				{
-					$structure = $this->db->table_create($table);
+					$structure = $db()->table_create($table);
 
 					if ($this->_skip_auto_increment)
 					{
@@ -131,14 +142,14 @@ class Mysqldump extends Library
 
 				if ($action & self::DATA)
 				{
-					$cols = $this->db->table_columns($table);
+					$cols = $db()->table_columns($table);
 
 					$cols_list = implode(', ', array_map([$this, '_delimite'], array_keys($cols)));
 
 					$size = $dump = 0;
 
-					$res = $this->db->query('SELECT * FROM '.self::_delimite($table).' ORDER BY '.$cols_list)->results();
-					while ($row = $this->db->fetch($res))
+					$res = $db()->query('SELECT * FROM '.self::_delimite($table).' ORDER BY '.$cols_list)->results();
+					while ($row = $db()->fetch($res))
 					{
 						if (!$dump)
 						{
@@ -173,7 +184,7 @@ class Mysqldump extends Library
 							}
 							else
 							{
-								$values[] = '\''.utf8_string($this->db->escape_string($value)).'\'';
+								$values[] = '\''.utf8_string($db()->escape_string($value)).'\'';
 							}
 						}
 
@@ -192,7 +203,7 @@ class Mysqldump extends Library
 						}
 					}
 
-					$this->db->free($res);
+					$db()->free($res);
 
 					if ($size)
 					{
@@ -201,7 +212,7 @@ class Mysqldump extends Library
 				}
 			}
 
-			$this->db->unlock($tables);
+			$db()->unlock($tables);
 		}
 
 		fwrite($handle, PHP_EOL.'-- --------------------------------------------------------'.PHP_EOL.PHP_EOL.'SET FOREIGN_KEY_CHECKS = 1;'.PHP_EOL);
