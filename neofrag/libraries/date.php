@@ -10,15 +10,19 @@ use NF\NeoFrag\Library;
 
 class Date extends Library
 {
+	static protected $default_timezone;
+
 	protected $_datetime;
 	protected $_format;
 
-	public function __invoke($datetime = NULL, $format = '')
+	public function __invoke($datetime = NULL, $format = '', $timezone = NULL)
 	{
 		if (is_a($datetime, 'NF\NeoFrag\Libraries\Date'))
 		{
 			return $datetime;
 		}
+
+		$this->_timezone($timezone);
 
 		if ($datetime === NULL)
 		{
@@ -28,27 +32,25 @@ class Date extends Library
 		{
 			if ($format)
 			{
-				if ($datetime = date_create_from_format($format, $datetime))
+				if ($datetime = date_create_from_format($format, $datetime, $timezone))
 				{
 					$this->_format = $format;
 				}
 			}
 			else
 			{
-				$datetime = date_create_from_format(                 'U',           $datetime) ?:
-							date_create_from_format(                 'Y-m-d H:i:s', $datetime) ?:
-							date_create_from_format($this->_format = 'Y-m-d',       $datetime) ?:
-							date_create_from_format($this->_format = 'H:i:s',       $datetime) ?:
+				$datetime = date_create_from_format(                 'U',           $datetime, $timezone) ?:
+							date_create_from_format(                 'Y-m-d H:i:s', $datetime, $timezone) ?:
+							date_create_from_format($this->_format = 'Y-m-d',       $datetime, $timezone) ?:
+							date_create_from_format($this->_format = 'H:i:s',       $datetime, $timezone) ?:
 							($this->_format = '') ?:
-							date_create($datetime);
+							date_create($datetime, $timezone);
 			}
 		}
 
-		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''));
+		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''), $timezone);
 
-		$this->_datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-
-		return $this;
+		return $this->timezone();
 	}
 
 	public function __toString()
@@ -194,9 +196,10 @@ class Date extends Library
 		return ['_datetime'];
 	}
 
-	public function timezone($timezone)
+	public function timezone($timezone = NULL)
 	{
-		$this->_datetime->setTimezone(new \DateTimeZone($timezone));
+		$this->_timezone($timezone);
+		$this->_datetime->setTimezone($timezone);
 		return $this;
 	}
 
@@ -291,5 +294,26 @@ class Date extends Library
 	public function short_time()
 	{
 		return $this->locale($this->config->lang->date()['long_date_time']);
+	}
+
+	protected function _timezone(&$timezone)
+	{
+		if (!is_a($timezone, 'DateTimeZone'))
+		{
+			if ($timezone)
+			{
+				$timezone = @timezone_open($timezone);
+			}
+
+			if (!$timezone)
+			{
+				if (!static::$default_timezone)
+				{
+					static::$default_timezone = timezone_open(date_default_timezone_get());
+				}
+
+				$timezone = static::$default_timezone;
+			}
+		}
 	}
 }
