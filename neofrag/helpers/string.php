@@ -51,6 +51,18 @@ function in_string($needle, $haystack, $strict = TRUE)
 	}
 }
 
+function is_empty($data)
+{
+	if (is_array($data))
+	{
+		return !$data;
+	}
+	else
+	{
+		return (string)$data === '';
+	}
+}
+
 function url_title($string)
 {
 	static $strings = [];
