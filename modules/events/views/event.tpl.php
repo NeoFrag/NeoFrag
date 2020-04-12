@@ -5,14 +5,18 @@
 <?php if (!empty($match['opponent']))://Matches ?>
 <div class="card-body text-center">
 	<div class="row align-items-center">
-		<div class="text-right col-5">
+		<div class="text-right col-<?php echo ($icon = NeoFrag()->model2('file', $match['team']['icon_id'])->path()) ? 4 : 5 ?>">
 			<h5 class="m-0">
 				<a href="<?php echo url('events/team/'.$match['team_id'].'/'.$match['team']['name']) ?>">
-				<?php if ($icon = NeoFrag()->model2('file', $match['team']['icon_id'])->path()) echo '<img src="'.NeoFrag()->model2('file', $icon)->path().'" style="margin-right: 10px;" alt="" />' ?>
 				<?php echo $match['team']['title'].' '.$this->model('matches')->display_scores($match['scores'], $color) ?>
 				</a>
 			</h5>
 		</div>
+		<?php if ($icon): ?>
+		<div class="text-left col-1">
+			<img src="<?php echo $icon ?>" class="img-fluid" alt="" />
+		</div>
+		<?php endif ?>
 		<?php if ($match['scores']): ?>
 			<div class="text-center col-2">
 				<h3 class="<?php echo $color ?> m-0"><?php echo $match['scores'][0] ?>:<?php echo $match['scores'][1] ?></h3>
