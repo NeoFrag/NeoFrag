@@ -44,7 +44,7 @@ class Index extends Controller_Module
 																	foreach ($this->model()->get_categories() as $category)
 																	{
 																		$array->append([
-																			'title' => $category['title'],
+																			'title' => ($category['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $category['icon_id'])->path().'" class="img-icon mr-2" alt="" />' : '').$category['title'],
 																			'url'   => 'gallery/'.$category['category_id'].'/'.$category['name']
 																		]);
 																	}

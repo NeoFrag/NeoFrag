@@ -53,9 +53,6 @@ $rules = [
 			{
 				return $this->lang('Le logo doit faire au moins %dpx', 16);
 			}
-		},
-		'post_upload' => function($filename){
-			image_resize($filename, 16, 16);
 		}
 	],
 	'description' => [

@@ -40,7 +40,7 @@ class Index extends Controller_Module
 			if ($this->access('events', 'access_events_type', $event['type_id']))
 			{
 				$panels->append($this	->panel()
-										->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="float-right">'.($data['match']['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $data['match']['game']['icon_id'])->path().'" alt="" />' : icon('fas fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
+										->heading('<a href="'.url('events/'.$event['event_id'].'/'.url_title($event['title'])).'">'.$event['title'].'</a>'.(!empty($data['match']) ? '<div class="float-right">'.($data['match']['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $data['match']['game']['icon_id'])->path().'" class="img-icon" alt="" />' : icon('fas fa-gamepad')).' '.$data['match']['game']['title'].'</div>' : ''), $icon)
 										->body($this->view('event', array_merge($event, $data)), FALSE));
 			}
 		}
@@ -197,7 +197,7 @@ class Index extends Controller_Module
 
 		return $this->_filters()
 					->append($this	->panel()
-									->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="float-right">'.($match['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $match['game']['icon_id'])->path().'" alt="" />' : icon('fas fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fas fa-crosshairs' : 'far fa-calendar')
+									->heading('<a href="'.url('events/'.$event_id.'/'.url_title($title)).'">'.$title.'</a>'.(!empty($match) ? '<div class="float-right">'.($match['game']['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $match['game']['icon_id'])->path().'" class="img-icon" alt="" />' : icon('fas fa-gamepad')).' '.$match['game']['title'].'</div>' : ''), $type == 1 ? 'fas fa-crosshairs' : 'far fa-calendar')
 									->body($this->view('event', [
 										'event_id'             => $event_id,
 										'title'                => $title,

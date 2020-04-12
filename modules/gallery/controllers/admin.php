@@ -38,7 +38,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => $this->lang('Catégorie'),
 								'content' => function($data){
-									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.NeoFrag()->model2('file', $data['category_icon'])->path().'" alt="" /> '.$data['category_title'].'</a>';
+									return '<a href="'.url('admin/gallery/categories/'.$data['category_id'].'/'.$data['category_name']).'"><img src="'.NeoFrag()->model2('file', $data['category_icon'])->path().'" class="img-icon" alt="" /> '.$data['category_title'].'</a>';
 								},
 								'sort'    => function($data){
 									return $data['category_title'];
@@ -85,7 +85,7 @@ class Admin extends Controller_Module
 							->add_columns([
 								[
 									'content' => function($data){
-										return '<img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" alt="" />';
+										return '<img src="'.NeoFrag()->model2('file', $data['icon_id'])->path().'" class="img-icon" alt="" />';
 									},
 									'size'    => TRUE
 								],

@@ -46,9 +46,6 @@ $rules = [
 			{
 				return $this->lang('L\'icône doit faire au moins %dpx', 16);
 			}
-		},
-		'post_upload' => function($filename){
-			image_resize($filename, 16, 16);
 		}
 	]
 ];
