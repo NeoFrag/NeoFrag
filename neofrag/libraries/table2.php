@@ -14,6 +14,7 @@ class Table2 extends Library
 	protected $_data     = [];
 	protected $_no_data  = '';
 	protected $_columns  = [];
+	protected $_counters = [];
 	protected $_filters  = '';
 
 	public function __invoke($data)
@@ -106,6 +107,12 @@ class Table2 extends Library
 		return $this;
 	}
 
+	public function counter($select, $label, $db = NULL)
+	{
+		$this->_counters[] = [$select, $label, $db];
+		return $this;
+	}
+
 	public function compact($content)
 	{
 		return $this->col($this	->table_col()
@@ -136,12 +143,43 @@ class Table2 extends Library
 
 	public function panel()
 	{
-		$table  = (string)$this;
-		$footer = '';
+		$footers = [];
+
+		if ($this->_counters)
+		{
+			$counters = [];
+
+			$collection = $this->_collection->clone();
+
+			foreach ($this->_counters as list($select,, $db))
+			{
+				if (is_a($db, 'closure'))
+				{
+					call_user_func_array($db, [$collection]);
+				}
+
+				$counters[] = $select;
+			}
+
+			$results = array_values($collection->select(...$counters)->aggregate()->order_by()->limit()->row(FALSE));
+
+			$counters = [];
+
+			foreach ($this->_counters as $i => list(, $label))
+			{
+				$counters[] = is_a($label, 'closure') ? $label($results[$i]) : $this->lang($label, $results[$i], print_number($results[$i]));
+			}
+
+			$footers[] = $this	->html()
+								->align('right')
+								->content(implode('&nbsp;&nbsp;&bull;&nbsp;&nbsp;', $counters));
+		}
+
+		$table = (string)$this;
 
 		if (!empty($this->_collection->pagination) && ($pagination = $this->_collection->pagination->get_pagination()))
 		{
-			$footer = (string)$pagination;
+			$footers[] = $pagination;
 		}
 
 		$panel = parent	::panel()
@@ -185,7 +223,7 @@ class Table2 extends Library
 			$panel->body($table, FALSE);
 		}
 
-		if ($footer)
+		foreach ($footers as $footer)
 		{
 			$panel->footer($footer);
 		}
