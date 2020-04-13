@@ -44,10 +44,17 @@ class Widget extends Displayable
 		}
 	}
 
-	public function style($style)
+	public function style($style = NULL)
 	{
-		$this->_style = $style;
-		return $this;
+		if (func_num_args())
+		{
+			$this->_style = $style;
+			return $this;
+		}
+		else
+		{
+			return $this->_style;
+		}
 	}
 
 	public function size($size = '')
