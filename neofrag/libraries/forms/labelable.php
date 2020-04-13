@@ -23,6 +23,7 @@ abstract class Labelable extends Library
 	protected $_required;
 	protected $_template = [];
 	protected $_check  = [];
+	protected $_filter  = [];
 	protected $_errors = [];
 	protected $_bind;
 
@@ -63,6 +64,17 @@ abstract class Labelable extends Library
 		};
 
 		return $this;
+	}
+
+	public function __call($name, $args)
+	{
+		//TODO 5.6 compatibility
+		if ($name == 'default')
+		{
+			return $this->_value;
+		}
+
+		return parent::__call($name, $args);
 	}
 
 	public function __toString()
@@ -197,9 +209,9 @@ abstract class Labelable extends Library
 		return $this;
 	}
 
-	public function value($value)
+	public function value($value, $erase = FALSE)
 	{
-		if ($this->_value === NULL)
+		if ($this->_value === NULL || $erase)
 		{
 			$this->_value = $value;
 		}
@@ -223,6 +235,19 @@ abstract class Labelable extends Library
 	{
 		$this->_required = TRUE;
 		return $this;
+	}
+
+	public function filter()
+	{
+		if ($filter = func_get_args())
+		{
+			$this->_filter = $filter;
+			return $this;
+		}
+		else
+		{
+			return $this->_filter;
+		}
 	}
 
 	public function errors()

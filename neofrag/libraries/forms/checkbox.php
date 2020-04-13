@@ -17,13 +17,13 @@ class Checkbox extends Radio
 				->attr_if(in_array($value, $this->_value ?: []), 'checked');
 	}
 
-	public function value($value)
+	public function value($value, $erase = FALSE)
 	{
 		if (is_bool($value) && count($this->_data) == 1 && $value)
 		{
 			$value = [array_keys($this->_data)[0]];
 		}
 
-		return parent::value($value);
+		return parent::value($value, $erase);
 	}
 }

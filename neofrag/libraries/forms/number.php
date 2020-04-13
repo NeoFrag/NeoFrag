@@ -29,9 +29,9 @@ class Number extends Text
 		return $this;
 	}
 
-	public function value($value)
+	public function value($value, $erase = FALSE)
 	{
-		return parent::value(str_replace(',', '.', $value));
+		return parent::value(str_replace(',', '.', $value), $erase);
 	}
 
 	public function step($step)

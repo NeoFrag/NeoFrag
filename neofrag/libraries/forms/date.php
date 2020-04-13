@@ -53,7 +53,7 @@ class Date extends Text
 					->size($this->_datetime_size);
 	}
 
-	public function value($value)
+	public function value($value, $erase = FALSE)
 	{
 		if ($value)
 		{
@@ -65,6 +65,6 @@ class Date extends Text
 			$value = $value->{$this->_datetime_printer}();
 		}
 
-		return parent::value($value);
+		return parent::value($value, $erase);
 	}
 }

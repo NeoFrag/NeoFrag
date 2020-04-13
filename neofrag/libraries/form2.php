@@ -19,10 +19,12 @@ class Form2 extends Library
 	protected $_errors  = [];
 	protected $_success = [];
 	protected $_is_model;
+	protected $_collection;
 	protected $_read_only;
 	protected $_display;
 	protected $_template;
 	protected $_token;
+	protected $_check;
 
 	public function __invoke(...$args)
 	{
@@ -41,69 +43,136 @@ class Form2 extends Library
 		return (string)$this->_exec()->append(implode($this->_buttons()));
 	}
 
-	public function check()
+	public function check($load_filters = FALSE)
 	{
-		$post = post();
-
-		foreach ($post as $key => &$value)
+		if ($this->_check === NULL)
 		{
-			if (is_array($value))
-			{
-				array_walk_recursive($value, function(&$v){
-					$v = utf8_htmlentities(trim($v));
-				});
-			}
-			else if ($value !== NULL)
-			{
-				$value = utf8_htmlentities(trim($value));
-			}
-		}
+			$post = post();
 
-		unset($value);
-
-		foreach ($this->_rules as $rule)
-		{
-			if (method_exists($rule, 'bind') && ($callback = $rule->bind()))
-			{
-				$callback(array_key_exists($rule->name(), $post) ? $post[$rule->name()] : $this->_values->{$rule->name()}, $rule);
-			}
-		}
-
-		if (!$this->_read_only && isset($post['_']) && $post['_'] == $this->token())
-		{
-			$success = TRUE;
-			$data    = [];
+			array_walk_recursive($post, function(&$value){
+				$v = utf8_htmlentities(trim($value));
+			});
 
 			foreach ($this->_rules as $rule)
 			{
-				if (method_exists($rule, 'check'))
+				if (method_exists($rule, 'bind') && ($callback = $rule->bind()))
 				{
-					$success = $rule->check($post, $data) && $success;
+					$callback(array_key_exists($rule->name(), $post) ? $post[$rule->name()] : $this->_values->{$rule->name()}, $rule);
 				}
 			}
 
-			if ($success)
-			{
-				if (is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
+			$filters = function($data = NULL, &$session = []) use ($load_filters){
+				$session = [];
+
+				if ($load_filters)
 				{
-					foreach ($data as $key => $value)
+					$filters = FALSE;
+
+					foreach ($this->_rules as $rule)
 					{
-						$this->_values->set($key, $value);
+						if (method_exists($rule, 'name'))
+						{
+							$name = $rule->name();
+
+							$value = '';
+
+							if ($data === NULL)
+							{
+								$value = $rule->default();
+							}
+							else if (array_key_exists($name, $data))
+							{
+								$value = $data[$name];
+							}
+
+							if (method_exists($rule, 'value') && $data !== NULL)
+							{
+								$rule->value($value, TRUE);
+
+								if (!is_empty($value))
+								{
+									$session[$name] = $value;
+								}
+							}
+
+							if (method_exists($rule, 'filter') && ($filter = $rule->filter()))
+							{
+								$filters = TRUE;
+
+								if (array_key_exists($name, $session))
+								{
+									if (isset($filter[1]) && is_a($filter[1], 'closure'))
+									{
+										call_user_func_array($filter[1], [$this->_collection]);
+									}
+
+									if (is_a($filter[0], 'closure'))
+									{
+										call_user_func_array($filter[0], [$this->_collection, $value]);
+									}
+									else
+									{
+										$this->_collection->where($filter[0], $value, 'AND');
+									}
+								}
+							}
+						}
 					}
 
-					$data = $this->_values;
+					if (!$filters)
+					{
+						$session = [];
+					}
+				}
+			};
+
+			$this->_check = !$this->_read_only && isset($post['_']) && $post['_'] == $this->token();
+
+			if ($this->_check)
+			{
+				$success = TRUE;
+				$data    = [];
+
+				foreach ($this->_rules as $rule)
+				{
+					if (method_exists($rule, 'check'))
+					{
+						$success = $rule->check($post, $data) && $success;
+					}
 				}
 
-				foreach ($this->_success as $callback)
+				if ($success)
 				{
-					call_user_func_array($callback, [$data, $this]);
+					$filters($data, $session);
+
+					$this->session->set('table2', 'filters', $this->__id(), $session);
+
+					if ($this->_success)
+					{
+						if (is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
+						{
+							foreach ($data as $key => $value)
+							{
+								$this->_values->set($key, $value);
+							}
+
+							$data = $this->_values;
+						}
+
+						foreach ($this->_success as $callback)
+						{
+							call_user_func_array($callback, [$data, $this]);
+						}
+					}
 				}
 			}
-
-			return TRUE;
+			else
+			{
+				$filters($this->session->get('table2', 'filters', $this->__id()));
+			}
 		}
 
-		return FALSE;
+		return $this->_check;
 	}
 
 	public function token($id = NULL)
@@ -139,6 +208,12 @@ class Form2 extends Library
 
 		$this->_rules[] = $rule;
 
+		return $this;
+	}
+
+	public function collection($collection)
+	{
+		$this->_collection = $collection;
 		return $this;
 	}
 

@@ -14,6 +14,7 @@ class Collection extends Library
 
 	protected $_db;
 	protected $_model;
+	protected $_filters;
 	protected $_aggregates = [];
 
 	public function __invoke($model = NULL)
@@ -96,8 +97,27 @@ class Collection extends Library
 
 	public function paginate($page, $limit = 20)
 	{
+		if ($this->_filters)
+		{
+			$this->_filters->check(TRUE);
+		}
+
 		$this->pagination = NeoFrag()->pagination($this->_db, $page, $limit);
+
 		return $this;
+	}
+
+	public function filters($form = NULL)
+	{
+		if (func_num_args())
+		{
+			$this->_filters = $form->collection($this);
+			return $this;
+		}
+		else
+		{
+			return $this->_filters;
+		}
 	}
 
 	public function view($view)
