@@ -107,7 +107,7 @@ class Widget extends Displayable
 				$name = $widget_data['widget'];
 			}
 
-			return '<div class="'.$type.' '.$type.'-'.$name.($this->_id !== NULL ? ' live-editor-widget" data-widget-id="'.$this->_id.'" data-title="'.$$type->info()->title.'"' : '"').'>'.$output.'</div>';
+			return '<div class="'.$type.' '.$type.'-'.$name.($this->_id !== NULL ? ' live-editor-widget" data-widget-id="'.$this->_id.'" data-widget-style="'.$this->_style.'" data-title="'.$$type->info()->title.'"' : '"').'>'.$output.'</div>';
 		}
 
 		return '';

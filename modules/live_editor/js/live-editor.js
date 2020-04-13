@@ -22,25 +22,28 @@ var modal_style = function(title, $element, styles, callback){
 			</div>\
 		</div>').appendTo('body').data('element', $element).modal();
 
-	$element.data('previous-style', $element.data('original-style'));
+	var $widget = $element.parents('.widget:first');
+
+	$element.data('previous-style', $widget.data('widget-style'));
 
 	$modal.find('[data-style]').each(function(){
-		if ($(this).data('style') == $element.data('original-style')){
+		console.log($(this).data('style'));
+		if ($(this).data('style') == $widget.data('widget-style')){
 			$(this).addClass('active');
 			return false;
 		}
 	});
 
 	$modal.on('hidden.bs.modal', function(){
-		if ($element.data('previous-style') != $element.data('original-style')){
-			$element.switchClass($element.data('previous-style'), $element.data('original-style'), 200);
+		if ($element.data('previous-style') != $widget.data('widget-style')){
+			$element.switchClass($element.data('previous-style'), $widget.data('widget-style'), 200);
 		}
 		$(this).remove();
 	});
 
 	$modal.find('.btn-info:first').on('click', function(){
 		var style = $element.data('previous-style');
-		$element.data('original-style', style);
+		$widget.data('widget-style', style);
 		$modal.modal('hide');
 		callback(style);
 	});
