@@ -141,6 +141,11 @@ function escape_html_tags($string, $callback)
 	return substr($string, 1);
 }
 
+function strtoarray($delimiter, $string, $limit = PHP_INT_MAX)
+{
+	return !is_empty($string) ? explode($delimiter, $string, $limit) : [];
+}
+
 function strtolink($string, $is_html = FALSE)
 {
 	if ($is_html)

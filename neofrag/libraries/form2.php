@@ -159,7 +159,7 @@ class Form2 extends Library
 
 		$found = FALSE;
 
-		foreach (explode(' ', $form) as $form)
+		foreach (strtoarray(' ', $form) as $form)
 		{
 			if ($path = $this->__caller->__path('forms', $form.'.php', $paths))
 			{
