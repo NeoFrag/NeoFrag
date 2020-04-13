@@ -22,9 +22,4 @@ abstract class Displayable extends Array_
 		$this->_id = $id;
 		return $this;
 	}
-
-	function __sleep()
-	{
-		return ['_array'];
-	}
 }

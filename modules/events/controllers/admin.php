@@ -364,7 +364,7 @@ class Admin extends Controller_Module
 
 			if ($form_match->is_valid($post))
 			{
-				$this->db->replace('nf_events_matches', $a = [
+				$this->db->replace('nf_events_matches', [
 					'event_id'    => $event_id,
 					'team_id'     => $post['team'],
 					'opponent_id' => $post['opponent'],

@@ -165,10 +165,7 @@ class Form2 extends Library
 			{
 				$found = TRUE;
 
-				if (is_array($rules = include $path))
-				{
-					$this->_rules = $rules;
-				}
+				include $path;
 			}
 			else
 			{

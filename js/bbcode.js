@@ -4,7 +4,6 @@ $(function(){
 		$(this).removeClass('btn-default').addClass('btn-primary');
 
 		var $parent = $(this).parents('.editor-bbcode-html:first');
-		console.log($parent.find('.wysibb, .textarea textarea').parent());
 		$parent.find('.wysibb, .textarea textarea').parent().toggleClass('hidden');
 		$parent.find('input[type="hidden"]').val($(this).data('type'));
 	});

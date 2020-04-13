@@ -59,19 +59,6 @@ class Table_Col extends Library
 		return $this;
 	}
 
-	public function sort($sort)
-	{
-		$this->_sort = $sort;
-		return $this;
-	}
-
-	public function search_sort($search_sort)
-	{
-		$this->_search = $search_sort;
-		$this->_sort   = $search_sort;
-		return $this;
-	}
-
 	public function display($i, $data)
 	{
 		return $this->html('td')

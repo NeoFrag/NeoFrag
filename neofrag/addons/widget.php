@@ -19,16 +19,9 @@ abstract class Widget extends Addon
 		'user'       => TRUE
 	];
 
-	protected $_output = '';
-
 	static public function __class($name)
 	{
 		return 'Widgets\\'.$name.'\\'.$name;
-	}
-
-	public function __toString()
-	{
-		return $this->_output;
 	}
 
 	public function is_removable()
@@ -48,21 +41,6 @@ abstract class Widget extends Addon
 		{
 			return call_user_func_array([$controller, $type], [$settings]);
 		}
-	}
-
-	public function get_output($type, $settings = [])
-	{
-		if (($controller = $this->controller('index')) && $controller->has_method($type))
-		{
-			if (!is_array($output = call_user_func_array([$controller, $type], [$settings])))
-			{
-				$output = [$output];
-			}
-
-			return $output;
-		}
-
-		return [];
 	}
 
 	public function get_admin($type, $settings = [])

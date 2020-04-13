@@ -10,9 +10,6 @@
 <?php if ($this->config->nf_humans_txt): ?>
 <link rel="author" href="<?php echo url('humans.txt') ?>" type="text/plain">
 <?php endif ?>
-<?php if (($module = $this->module('manifest')) && $module->is_enabled()): ?>
-<link rel="manifest" href="<?php echo url('manifest.json') ?>">
-<?php endif ?>
 <link rel="shortcut icon" href="<?php echo image('favicon.png') ?>" type="image/png">
 <?php echo $this->output->css() ?>
 <?php foreach ($this->config->langs as $lang): ?>

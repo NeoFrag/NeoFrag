@@ -130,30 +130,6 @@ class Table2 extends Library
 			$footer = (string)$pagination;
 		}
 
-		if ($this->url->ajax && ($id = post('_')))
-		{
-			if ($id == $this->__id())
-			{
-				$output = [];
-
-				if ($table)
-				{
-					$output['table'] = $table;
-				}
-
-				if ($footer)
-				{
-					$output['footer'] = $footer;
-				}
-
-				return $this->json($output);
-			}
-			else
-			{
-				return parent::panel();
-			}
-		}
-
 		$panel = parent	::panel()
 						->heading()
 						->style('panel-table')
