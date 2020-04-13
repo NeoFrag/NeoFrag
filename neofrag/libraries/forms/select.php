@@ -32,7 +32,7 @@ class Select extends Multiple
 							->attr('data-options', $encode($this->_data))
 							->attr_if($this->_multiple,          'multiple')
 							->attr_if($this->_disabled,          'disabled')
-							->attr_if(!empty($this->_render[0]), 'data-render-option', $this->_render[0])
+							->attr_if(!empty($this->_render[0]), 'data-render-option', utf8_htmlentities($this->_render[0]))
 							->attr_if($this->_search,            'data-search-field',  $this->_search + 1)
 							->attr_if($this->_value,             'data-value',         implode(',', (array)$this->_value));
 
