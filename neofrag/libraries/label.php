@@ -83,8 +83,15 @@ class Label extends Html
 
 				if (preg_match('/#([0-9A-F]{3}){1,2}/i', $color))
 				{
-					$attrs['style'] = 'background-color: '.$color;
+					if (!isset($attrs['style']))
+					{
+						$attrs['style'] = '';
+					}
+
+					$attrs['style'] .= ';background-color: '.$color;
 					$color = 'default';
+
+					$attrs['style'] = ltrim($attrs['style'], ';');
 				}
 
 				if (isset(get_colors()[$color]))
