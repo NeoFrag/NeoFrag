@@ -87,15 +87,22 @@ class Collection extends Library
 		return $this->_aggregate($this->_db()->row(FALSE));
 	}
 
-	public function aggregate($name, $value = '')
+	public function aggregate($name = '', $value = '', $db = NULL)
 	{
-		if (!$value)
+		if (!func_num_args())
 		{
-			$value = $name;
-			$name = preg_replace('/^.*\./', '', $name);
+			$this->_aggregates = [];
 		}
+		else
+		{
+			if (!$value)
+			{
+				$value = $name;
+				$name = preg_replace('/^.*\./', '', $name);
+			}
 
-		$this->_aggregates[$name] = $value;
+			$this->_aggregates[$name] = [$value, $db];
+		}
 
 		return $this;
 	}
@@ -187,15 +194,17 @@ class Collection extends Library
 	{
 		$select = $this->_db->select() ?: ['_.*'];
 
-		if ($this->_aggregates)
+		foreach ($this->_aggregates as $name => list($value, $db))
 		{
-			foreach ($this->_aggregates as $name => $value)
+			$select[] = $value.' AS `'.$name.'`';
+
+			if (is_a($db, 'closure'))
 			{
-				$select[] = $value.' AS `'.$name.'`';
+				call_user_func_array($db, [$this->_db]);
 			}
 		}
 
-		return call_user_func_array([$this->_db, 'select'], $select)->__invoke();
+		return $this->_db->select(...$select)->__invoke();
 	}
 
 	protected function _aggregate($data)
