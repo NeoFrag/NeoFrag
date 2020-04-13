@@ -238,7 +238,7 @@ class Form extends Library
 							}
 							else if (isset($options['post_upload']) && is_callable($options['post_upload']))
 							{
-								call_user_func_array($options['post_upload'], [$filename]);
+								call_user_func_array($options['post_upload'], [$post[$var]]);
 							}
 						}
 
