@@ -298,6 +298,7 @@ $(function(){
 		$('#live-editor-map').html('<?php echo icon('fas fa-spinner fa-spin').' '.$this->lang('Chargement en cours...') ?>');
 		$('#modules-links-collapse').removeClass('in');
 		$('form[target="live-editor-iframe"]').prop('action', $(this).attr('href')).submit();
+		$('#modules-links-collapse').removeClass('show');
 
 		return false;
 	});
