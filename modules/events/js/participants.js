@@ -1,9 +1,9 @@
 $(function(){
 	$modal = $('#c2dac90bb0731401a293d27ee036757a');
 
-	$modal.find('.accordion .card-title input[type="checkbox"]').click(function(){
+	$modal.find('.accordion .list-group-item input[name="select-all"]').click(function(){
 		var checked = this.checked || this.indeterminate;
-		$(this).parents('.card:first').find('.collapse input[type="checkbox"]').filter(function(){
+		$(this).parents('.list-group-item:first').find('.collapse input[type="checkbox"]').filter(function(){
 			return checked != this.checked;
 		}).trigger('click');
 	});
@@ -18,7 +18,7 @@ $(function(){
 
 			var checked = total = 0;
 
-			$(this).parents('.card:first').find('.collapse input[type="checkbox"]').each(function(){
+			$(this).parents('.list-group-item:first').find('.collapse input[type="checkbox"]').each(function(){
 				total ++;
 
 				if (this.checked){
@@ -26,7 +26,7 @@ $(function(){
 				}
 			});
 
-			var $title_checkbox = $(this).parents('.card:first').find('.card-title input[type="checkbox"]');
+			var $title_checkbox = $(this).parents('.list-group-item:first').find('.list-group-item input[name="select-all"]');
 
 			if (!checked){
 				$title_checkbox.prop('checked', false);
