@@ -18,18 +18,19 @@ class Form2 extends Library
 	protected $_values  = [];
 	protected $_errors  = [];
 	protected $_success = [];
+	protected $_is_model;
 	protected $_read_only;
 	protected $_display;
 	protected $_template;
 	protected $_token;
 
-	public function __invoke($form = '', $values = [])
+	public function __invoke(...$args)
 	{
 		$this->__id();
 
-		if ($form)
+		if ($args)
 		{
-			$this->form($form, $values);
+			$this->form(...$args);
 		}
 
 		return $this;
@@ -148,44 +149,30 @@ class Form2 extends Library
 		array_splice($this->_rules, $i + 1, 0, [$rule]);
 	}
 
-	public function form($form, $values = [])
+	public function form(...$args)
 	{
-		$this->_values = $values;
+		$model = array_pop($args);
+		$this->_is_model = is_a($model, 'NF\NeoFrag\Loadables\Model2');
 
-		if (func_num_args() == 1 && ($model = $this->model2($form)))
+		if ($this->_is_model || is_array($model))
 		{
 			$this->_values = $model;
+			$form = array_pop($args);
 		}
-
-		$found = FALSE;
+		else
+		{
+			$form = $model;
+		}
 
 		foreach (strtoarray(' ', $form) as $form)
 		{
 			if ($path = $this->__caller->__path('forms', $form.'.php', $paths))
 			{
-				$found = TRUE;
-
 				include $path;
 			}
 			else
 			{
 				trigger_error('Unfound form: '.$form.' in paths ['.implode(';', $paths).']', E_USER_WARNING);
-			}
-		}
-
-		if ($found && is_a($this->_values, 'NF\NeoFrag\Loadables\Model2'))
-		{
-			foreach ($this->_rules as $rule)
-			{
-				if (method_exists($rule, 'value'))
-				{
-					if (is_a($value = $this->_values->{$rule->name()}, 'NF\NeoFrag\Loadables\Model2') && !is_a($value, 'NF\NeoFrag\Models\I18n'))
-					{
-						$value = $value->id;
-					}
-
-					$rule->value($value);
-				}
 			}
 		}
 
@@ -350,6 +337,34 @@ class Form2 extends Library
 
 	protected function _exec()
 	{
+		if ($this->_values)
+		{
+			foreach ($this->_rules as $rule)
+			{
+				if (method_exists($rule, 'value'))
+				{
+					$name  = $rule->name();
+					$value = NULL;
+
+					if ($this->_is_model)
+					{
+						$value = $this->_values->$name;
+					}
+					else if (array_key_exists($name, $this->_values))
+					{
+						$value = $this->_values[$name];
+					}
+
+					if (is_a($value, 'NF\NeoFrag\Loadables\Model2') && !is_a($value, 'NF\NeoFrag\Models\I18n'))
+					{
+						$value = $value->id;
+					}
+
+					$rule->value($value);
+				}
+			}
+		}
+
 		$check = $this->check();
 
 		$has_upload = FALSE;
