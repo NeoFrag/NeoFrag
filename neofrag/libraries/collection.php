@@ -141,14 +141,12 @@ class Collection extends Library
 
 	public function update($data)
 	{
-		$db = clone $this->_db;
-		return $db->from('')->update('nf_'.$this->_model->__table, $data);
+		return $this->_db->clone()->from('')->update('nf_'.$this->_model->__table.' `_`', $data);
 	}
 
 	public function delete()
 	{
-		$db = clone $this->_db;
-		return $db->from('')->delete('nf_'.$this->_model->__table);
+		return $this->_db->clone()->from('')->delete('_', 'nf_'.$this->_model->__table.' `_`');
 	}
 
 	public function count()
