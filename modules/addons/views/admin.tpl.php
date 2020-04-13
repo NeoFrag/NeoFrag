@@ -1,26 +1,24 @@
 <div class="row">
 	<div class="col-12">
 		<div class="card">
-			<div class="card-default">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-9">
-							<ul class="list-inline my-0">
-								<li class="list-inline-item"><?php echo icon('fas fa-filter') ?> Filtrer :</li>
-								<li class="list-inline-item"><a href="#" data-filter="all"><?php echo $this->lang('Tous') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".addon-module"><?php echo $this->lang('Modules') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".addon-theme"><?php echo $this->lang('Thèmes') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".addon-widget"><?php echo $this->lang('Widgets') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".addon-language"><?php echo $this->lang('Langues') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".addon-authenticator"><?php echo $this->lang('Authentificateurs') ?></a></li>
-							</ul>
-						</div>
-						<div class="col-3 text-right">
-							<ul class="list-inline my-0">
-								<li class="list-inline-item"><a href="#" data-filter=".activated"><?php echo $this->lang('Actifs') ?></a></li>
-								<li class="list-inline-item"><a href="#" data-filter=".deactivated"><?php echo $this->lang('Inactifs') ?></a></li>
-							</ul>
-						</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-9">
+						<ul class="list-inline my-0">
+							<li class="list-inline-item"><?php echo icon('fas fa-filter') ?> Filtrer :</li>
+							<li class="list-inline-item"><a href="#" data-filter="all"><?php echo $this->lang('Tous') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".addon-module"><?php echo $this->lang('Modules') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".addon-theme"><?php echo $this->lang('Thèmes') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".addon-widget"><?php echo $this->lang('Widgets') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".addon-language"><?php echo $this->lang('Langues') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".addon-authenticator"><?php echo $this->lang('Authentificateurs') ?></a></li>
+						</ul>
+					</div>
+					<div class="col-3 text-right">
+						<ul class="list-inline my-0">
+							<li class="list-inline-item"><a href="#" data-filter=".activated"><?php echo $this->lang('Actifs') ?></a></li>
+							<li class="list-inline-item"><a href="#" data-filter=".deactivated"><?php echo $this->lang('Inactifs') ?></a></li>
+						</ul>
 					</div>
 				</div>
 			</div>

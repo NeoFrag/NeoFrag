@@ -3,7 +3,7 @@
 		<div class="caption text-center">
 			<h6><?php echo $this->lang('Widget blanc') ?></h6>
 		</div>
-		<a href="#" class="thumbnail live-editor-overview" data-style="card-default">
+		<a href="#" class="thumbnail live-editor-overview" data-style="">
 			<img src="<?php echo image('live_editor/card_default.jpg', $this->theme('azuro')) ?>" class="img-fluid" alt="" />
 		</a>
 	</div>
