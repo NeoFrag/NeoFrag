@@ -30,11 +30,11 @@ class Select extends Multiple
 			$input = parent ::html('select')
 							->attr('class', 'form-control selectize')
 							->attr('data-options', $encode($this->_data))
-							->attr_if($this->_multiple,          'multiple')
-							->attr_if($this->_disabled,          'disabled')
-							->attr_if(!empty($this->_render[0]), 'data-render-option', utf8_htmlentities($this->_render[0]))
-							->attr_if($this->_search,            'data-search-field',  $this->_search + 1)
-							->attr_if($this->_value,             'data-value',         implode(',', (array)$this->_value));
+							->attr_if($this->_multiple,                      'multiple')
+							->attr_if($this->_disabled || $this->_read_only, 'disabled')
+							->attr_if(!empty($this->_render[0]),             'data-render-option', utf8_htmlentities($this->_render[0]))
+							->attr_if($this->_search,                        'data-search-field',  $this->_search + 1)
+							->attr_if($this->_value,                         'data-value',         implode(',', (array)$this->_value));
 
 			if ($this->_optgroup)
 			{
@@ -65,7 +65,7 @@ class Select extends Multiple
 	{
 		$label = parent::_label();
 
-		if ($this->_create && ($model = $this->_form->model($this)) && ($action = $model->action('create')) && ($button = $action->__button()))
+		if (!$this->_disabled && !$this->_read_only && $this->_create && ($model = $this->_form->model($this)) && ($action = $model->action('create')) && ($button = $action->__button()))
 		{
 			$label .= $button;
 		}
