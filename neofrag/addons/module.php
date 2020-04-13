@@ -31,7 +31,7 @@ abstract class Module extends Addon
 
 	public function __toString()
 	{
-		return $this->output->data->get('module', 'content');
+		return (string)$this->output->data->get('module', 'content');
 	}
 
 	public function __init()

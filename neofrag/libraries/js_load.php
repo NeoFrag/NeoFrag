@@ -23,6 +23,6 @@ class Js_Load extends Library
 
 	public function __toString()
 	{
-		return $this->_script;
+		return (string)$this->_script;
 	}
 }
