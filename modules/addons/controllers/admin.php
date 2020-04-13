@@ -13,10 +13,12 @@ class Admin extends Controller_Module
 	public function index()
 	{
 		$addons = array_filter(NeoFrag()->collection('addon')->get(), function($addon){
-			if ($controller = $addon->controller())
+			$object = $addon->addon();
+
+			if ($object && ($controller = $addon->controller()))
 			{
-				$actions = $addon->addon()->__actions = $controller->__actions()->filter(function($action) use ($addon){
-					return !isset($action[4]) || $action[4]($addon->addon());
+				$actions = $object->__actions = $controller->__actions()->filter(function($action) use ($object){
+					return !isset($action[4]) || $action[4]($object);
 				});
 
 				return !$actions->empty();

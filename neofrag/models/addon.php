@@ -22,7 +22,7 @@ class Addon extends Model2
 
 	public function addon()
 	{
-		return NeoFrag()->{$this->type() ? $this->type->name : 'addon'}($this->name, $this);
+		return @NeoFrag()->{$this->type() ? $this->type->name : 'addon'}($this->name, $this);
 	}
 
 	public function get($type, $name = NULL, $load = TRUE)
@@ -47,7 +47,7 @@ class Addon extends Model2
 		}
 		else
 		{
-			return $finder->array()->each_if($load, 'addon');
+			return $finder->array()->each_if($load, 'addon')->filter();
 		}
 	}
 
