@@ -23,7 +23,7 @@ $(function(){
 					else {
 						element.on('remove', function(){
 							element.popover('hide');
-						}).data('ajax', $.get('<?php echo url('ajax/events/') ?>'+event.id+'/'+event.url_title+'', function(data){
+						}).data('ajax', $.get('<?php echo url('ajax/events') ?>/'+event.id+'/'+event.url_title+'', function(data){
 							$('<div data-event-id="'+event.id+'"/>').hide()
 																	.addClass('event-cache')
 																	.html(data)
