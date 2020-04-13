@@ -65,7 +65,7 @@ class Collection extends Library
 		return $this->_model;
 	}
 
-	public function get()
+	public function get($cast = TRUE)
 	{
 		$results = [];
 
@@ -74,17 +74,17 @@ class Collection extends Library
 			$this->pagination->limit();
 		}
 
-		foreach ($a = $this->_db()->get(FALSE) as $result)
+		foreach ($this->_db()->get(FALSE) as $result)
 		{
-			$results[] = $this->_aggregate($result);
+			$results[] = $this->_aggregate($result, $cast);
 		}
 
 		return $results;
 	}
 
-	public function row()
+	public function row($cast = TRUE)
 	{
-		return $this->_aggregate($this->_db()->row(FALSE));
+		return $this->_aggregate($this->_db()->row(FALSE), $cast);
 	}
 
 	public function aggregate($name = '', $value = '', $db = NULL)
@@ -205,15 +205,26 @@ class Collection extends Library
 		return $this->_db->select(...$select)->__invoke();
 	}
 
-	protected function _aggregate($data)
+	protected function _aggregate($data, $cast)
 	{
-		$object = $this->_model->load($data);
+		$select = $this->_db()->select();
 
-		foreach ($this->_aggregates as $name => $value)
+		if (in_array('_.*', $select) || $this->_aggregates)
 		{
-			$object->$name = $data[$name];
+			$object = $this->_model->load($data);
+
+			foreach ($this->_aggregates as $name => $value)
+			{
+				$object->$name = $data[$name];
+			}
+
+			$data = $object;
+		}
+		else if ($cast && count($data) == 1)
+		{
+			$data = current($data);
 		}
 
-		return $object;
+		return $data;
 	}
 }
