@@ -161,6 +161,14 @@ class Table2 extends Library
 		return $panel;
 	}
 
+	public function modal($title, $icon = '')
+	{
+		$modal = parent	::modal($title, $icon)
+						->body($this, FALSE);
+
+		return $modal;
+	}
+
 	public function __toString()
 	{
 		$ajax = FALSE;
