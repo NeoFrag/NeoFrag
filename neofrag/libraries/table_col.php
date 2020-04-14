@@ -12,7 +12,7 @@ class Table_Col extends Library
 {
 	protected $_title;
 	protected $_content;
-	protected $_compact;
+	protected $_style = [];
 	protected $_align;
 	protected $_size;
 	protected $_search;
@@ -37,7 +37,12 @@ class Table_Col extends Library
 
 	public function compact()
 	{
-		$this->_compact = TRUE;
+		return $this->style('compact');
+	}
+
+	public function style($style)
+	{
+		$this->_style[] = $style;
 		return $this;
 	}
 
@@ -63,7 +68,7 @@ class Table_Col extends Library
 	{
 		return $this->html('td')
 					->attr_if($this->_align, 'class', 'text-'.$this->_align)
-					->append_attr_if($this->_compact, 'class', 'compact')
+					->append_attr_if($this->_style, 'class', implode(' ', $this->_style))
 					->content($this->execute($i, $data));
 	}
 
@@ -103,9 +108,9 @@ class Table_Col extends Library
 	public function header()
 	{
 		return $this->html('th')
-					->attr_if($this->_align,          'class', 'text-'.$this->_align)
-					->append_attr_if($this->_size,    'class', $this->_size)
-					->append_attr_if($this->_compact, 'class', 'compact')
+					->attr_if($this->_align,        'class', 'text-'.$this->_align)
+					->append_attr_if($this->_size,  'class', $this->_size)
+					->append_attr_if($this->_style, 'class', implode(' ', $this->_style))
 					->content($this->_title);
 	}
 
