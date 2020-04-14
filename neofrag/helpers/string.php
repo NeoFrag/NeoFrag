@@ -34,6 +34,13 @@ function u2ucc($string)
 
 function in_string($needle, $haystack, $strict = TRUE)
 {
+	$needle = (string)$needle;
+
+	if (is_empty($needle))
+	{
+		return FALSE;
+	}
+
 	if ($strict)
 	{
 		return strpos($haystack, $needle) !== FALSE;
