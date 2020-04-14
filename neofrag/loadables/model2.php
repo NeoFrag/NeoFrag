@@ -285,6 +285,10 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 				$this->_updates[$field->i] = $value;
 				unset($this->_values[$field->i]);
 			}
+			else
+			{
+				unset($this->_updates[$field->i], $this->_values[$field->i]);
+			}
 		}
 		else
 		{
