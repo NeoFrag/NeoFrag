@@ -12,8 +12,9 @@ class Table2 extends Library
 {
 	protected $_collection;
 	protected $_data     = [];
-	protected $_no_data = '';
-	protected $_columns = [];
+	protected $_no_data  = '';
+	protected $_columns  = [];
+	protected $_filters  = '';
 
 	public function __invoke($data)
 	{
@@ -145,6 +146,37 @@ class Table2 extends Library
 
 		$panel = parent	::panel()
 						->heading()
+						->heading_if($this->_filters, function($filters){
+							$output = $this	->button('Filtrer', 'fas fa-filter', 'light btn-sm')
+											->align('right')
+											->modal($this	->_filters
+															->info('<small>Le caractère % permet des recherches partielles</small>')
+															->submit('Filtrer')
+															->modal('Filtrer', 'fas fa-filter')
+															->close()
+															->small()
+											);
+
+							if ($this->session->get('table2', 'filters', $this->_filters->__id()))
+							{
+								$output = $this	->html()
+												->attr('class', 'btn-group')
+												->align('right')
+												->append($output)
+												->append($this	->button()
+																->tooltip('Retirer tous les filtres')
+																->icon('fas fa-times')
+																->color('light text-danger btn-sm')
+																->url($this->url->query($this->input->get	->clone()
+																											->merge([
+																												'table_id' => $this->__id(),
+																												'action'   => 'reset_filters'
+																											])))
+												);
+							}
+
+							return $output;
+						})
 						->style('panel-table')
 						->data('id', $this->__id());
 
@@ -174,6 +206,11 @@ class Table2 extends Library
 		$ajax = FALSE;
 
 		$sorts = $this->session('table2', 'sorts', $this->__id()) ?: [];
+
+		if ($this->_collection)
+		{
+			$this->_filters = $this->_collection->filters();
+		}
 
 		if ($post = $this->input->post->get('table2'))
 		{
@@ -219,6 +256,17 @@ class Table2 extends Library
 				return '';
 			}
 		}
+		else if ($this->input->get->get('table_id') == $this->__id())
+		{
+			if ($this->input->get->get('action') == 'reset_filters')
+			{
+				$this->session->destroy('table2', 'filters', $this->_filters->__id());
+
+				redirect($this->url->query($this->input->get->clone()
+															->destroy('table_id')
+															->destroy('action')));
+			}
+		}
 
 		$output = '';
 
@@ -230,6 +278,11 @@ class Table2 extends Library
 		}
 
 		$cols += array_diff_key($this->_columns, $sorts);
+
+		if ($this->_filters)
+		{
+			$this->_filters->check();
+		}
 
 		$order_by = [];
 
