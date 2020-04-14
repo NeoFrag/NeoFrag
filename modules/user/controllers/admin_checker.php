@@ -12,7 +12,24 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [NeoFrag()->collection('user')->paginate($page)];
+		return [
+			$this	->collection('user')
+					->where('deleted', FALSE)
+					->filters(
+						$this	->form2()
+								->rule($this->form_text('username')
+											->title('Pseudo')
+											->data($this->collection('user')->select('username')->where('deleted', FALSE)->array())
+											->filter('_.username LIKE')
+								)
+								->rule($this->form_text('email')
+											->title('Email')
+											->data($this->collection('user')->select('email')->where('deleted', FALSE)->array())
+											->filter('_.email LIKE')
+								)
+					)
+					->paginate($page)
+		];
 	}
 
 	public function _groups_edit()
