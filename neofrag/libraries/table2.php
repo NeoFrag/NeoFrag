@@ -11,7 +11,7 @@ use NF\NeoFrag\Library;
 class Table2 extends Library
 {
 	protected $_collection;
-	protected $_data;
+	protected $_data     = [];
 	protected $_no_data = '';
 	protected $_columns = [];
 
@@ -35,7 +35,9 @@ class Table2 extends Library
 			array_shift($args);
 		}
 
-		if (is_a($data = array_shift($args), 'NF\NeoFrag\Libraries\Collection'))
+		$data = array_shift($args);
+
+		if (is_a($data, 'NF\NeoFrag\Libraries\Collection'))
 		{
 			$this->_collection = $data;
 		}
@@ -43,14 +45,18 @@ class Table2 extends Library
 		{
 			$this->_collection = $data->collection();
 		}
-
-		if (is_a($data, 'NF\NeoFrag\Libraries\Array_'))
+		else if (is_a($data, 'NF\NeoFrag\Libraries\Array_'))
 		{
-			$this->_data = $data->__toArray();
+			$this->_data = $data->values();
 		}
-		else if (is_array($data))
+		else if (method_exists($data, '__toArray'))
 		{
-			$this->_data = $data;
+			$data = $data->__toArray();
+		}
+
+		if (is_array($data))
+		{
+			$this->_data = array_values($data);
 		}
 
 		$this->_no_data = array_shift($args);
