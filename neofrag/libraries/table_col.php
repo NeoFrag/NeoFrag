@@ -83,17 +83,50 @@ class Table_Col extends Library
 			if (!is_a($content, 'closure'))
 			{
 				$content = function($model) use ($content){
-					if ($content === NULL)
+					if ($content == '#id' && !empty($model->id))
 					{
-						return $model;
+						return '#'.$model->id;
 					}
-					else if (method_exists($model, $content))
+					else
 					{
-						return $model->$content();
-					}
-					else if (isset($model->$content))
-					{
-						return $model->$content;
+						$callback = NULL;
+						$force    = FALSE;
+						$value    = '';
+
+						if (preg_match('/^(.+?)\((.+?)\)$/', $content, $match) && function_exists($match[1]))
+						{
+							list(, $callback, $content) = $match;
+						}
+
+						if (preg_match('/^->(.+)/', $content, $match))
+						{
+							$force = TRUE;
+							$content = $match[1];
+						}
+
+						if ($content === NULL)
+						{
+							$value = $model;
+						}
+						else if (!$force && method_exists($model, $content))
+						{
+							$value = $model->$content();
+						}
+						else if (isset($model->$content))
+						{
+							$value = $model->$content;
+						}
+						else if (is_array($model) && array_key_exists($content, $model))
+						{
+							$value = $model[$content];
+						}
+
+						if ($callback)
+						{
+							$value = call_user_func($callback, $value);
+						}
+
+						return $value;
 					}
 				};
 			}
