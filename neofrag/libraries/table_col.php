@@ -15,7 +15,6 @@ class Table_Col extends Library
 	protected $_style = [];
 	protected $_align;
 	protected $_size;
-	protected $_search;
 	protected $_sort;
 
 	public function __invoke()
@@ -58,9 +57,9 @@ class Table_Col extends Library
 		return $this;
 	}
 
-	public function search($search)
+	public function sort($sort, $db = NULL)
 	{
-		$this->_search = $search;
+		$this->_sort = [$sort, $db];
 		return $this;
 	}
 
@@ -138,13 +137,32 @@ class Table_Col extends Library
 
 	}
 
-	public function header()
+	public function header($sorts, $i)
 	{
+		$header = $this->_title;
+
+		if ($this->_sort)
+		{
+			$header = $header ?: icon('fas fa-sort-amount-down');
+
+			if (array_key_exists($i, $sorts))
+			{
+				$header .= icon($sorts[$i] == 'desc' ? 'fas fa-caret-down' : 'fas fa-caret-up');
+
+				if (count($sorts) > 1)
+				{
+					$header .= '<small>'.(array_search($i, array_keys($sorts)) + 1).'</small>';
+				}
+			}
+
+			$header = '<a href="#" data-col="'.$i.'">'.$header.'</a>';
+		}
+
 		return $this->html('th')
 					->attr_if($this->_align,        'class', 'text-'.$this->_align)
 					->append_attr_if($this->_size,  'class', $this->_size)
 					->append_attr_if($this->_style, 'class', implode(' ', $this->_style))
-					->content($this->_title);
+					->content($header);
 	}
 
 	public function has_header()
@@ -152,26 +170,30 @@ class Table_Col extends Library
 		return $this->_title || $this->_sort;
 	}
 
-	public function has_search()
+	public function collection($collection, $sort_by)
 	{
-		return $this->_search;
-	}
-
-	public function collection($collection, $search, $sort)
-	{
-		if ($this->_search && $search)
+		if ($sort_by && $this->_sort)
 		{
-			if (is_a($this->_search, 'closure'))
+			if (is_a($this->_sort[1], 'closure'))
 			{
-				$this->_search = call_user_func_array($this->_search, [$collection]);
+				call_user_func_array($this->_sort[1], [$collection]);
 			}
 
-			$collection->where($this->_search.' LIKE', '%'.$search.'%', 'OR');
-		}
+			$output = [];
 
-		if ($this->_sort)
-		{
+			foreach (strtoarray(', ', $this->_sort[0]) as $sort)
+			{
+				if (preg_match('/^(.+?)(?: (ASC|DESC))?$/', $sort, $match))
+				{
+					$output[] = $match[1].' '.strtoupper($match[2] == 'DESC' ? ($sort_by == 'desc' ? 'asc' : 'desc') : $sort_by);
+				}
+				else
+				{
+					$output[] = $sort.' '.strtoupper($sort_by);
+				}
+			}
 
+			return implode(', ', $output);
 		}
 	}
 }

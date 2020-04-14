@@ -132,11 +132,6 @@ class Table2 extends Library
 		$table  = (string)$this;
 		$footer = '';
 
-		if ($has_search = $this->_has_search())
-		{
-			$this->ajax();
-		}
-
 		if (!empty($this->_collection->pagination) && ($pagination = $this->_collection->pagination->get_pagination()))
 		{
 			$footer = (string)$pagination;
@@ -150,18 +145,6 @@ class Table2 extends Library
 		if ($table)
 		{
 			$panel->body($table, FALSE);
-
-			if ($has_search)
-			{
-				$panel->heading($this	->html('input')
-										->attr('class', 'table-search')
-										->attr('placeholder', 'Rechercher...')
-										->attr('autocomplete', 'off'));
-			}
-		}
-		else
-		{
-			$panel->body($this->_no_data ?: NeoFrag()->lang('Il n\'y a rien ici pour le moment'));
 		}
 
 		if ($footer)
@@ -174,14 +157,86 @@ class Table2 extends Library
 
 	public function __toString()
 	{
-		array_walk($this->_columns, function($col){
-			$col->collection($this->_collection, post('search'), '');
+		$ajax = FALSE;
+
+		$sorts = $this->session('table2', 'sorts', $this->__id()) ?: [];
+
+		if ($post = $this->input->post->get('table2'))
+		{
+			if ($post['id'] == $this->__id())
+			{
+				$ajax = TRUE;
+
+				if (array_key_exists('sort', $post))
+				{
+					$sort = '';
+
+					if (isset($sorts[$post['sort']]))
+					{
+						if ($sorts[$post['sort']] == 'asc')
+						{
+							$sort = 'desc';
+						}
+					}
+					else
+					{
+						$sort = 'asc';
+					}
+
+					if (empty($post['action']))
+					{
+						$sorts = [];
+					}
+
+					if (!$sort || (!empty($post['action']) && $post['action'] == 'drop'))
+					{
+						unset($sorts[$post['sort']]);
+					}
+					else
+					{
+						$sorts[$post['sort']] = $sort;
+					}
+
+					$this->session->set('table2', 'sorts', $this->__id(), $sorts);
+				}
+			}
+			else
+			{
+				return '';
+			}
+		}
+
+		$output = '';
+
+		$cols = [];
+
+		foreach (array_keys($sorts) as $i)
+		{
+			$cols[$i] = $this->_columns[$i];
+		}
+
+		$cols += array_diff_key($this->_columns, $sorts);
+
+		$order_by = [];
+
+		array_walk($cols, function($col, $i) use (&$order_by, $sorts){
+			$order_by[] = $col->collection($this->_collection, isset($sorts[$i]) ? $sorts[$i] : NULL);
 		});
 
-		if ($data = $this->_collection ? $this->_collection->get() : $this->_data)
+		if ($order_by = array_filter($order_by))
 		{
-			NeoFrag()	->css('table2')
-						->js('table2');
+			$this->_collection->order_by(implode(', ', $order_by));
+		}
+
+		$data = $this->_collection ? $this->_collection->get() : $this->_data;
+
+		if ($data)
+		{
+			if (!$ajax)
+			{
+				NeoFrag()	->css('table2')
+							->js('table2');
+			}
 
 			$columns = $this->_columns;
 			$table_id = spl_object_hash($this);
@@ -234,10 +289,21 @@ class Table2 extends Library
 														}, $this->_columns))));
 			}
 
-			return $table->__toString();
+			$output .= $table->__toString();
+		}
+		else
+		{
+			$output .= $this->_no_data ?: NeoFrag()->lang('Il n\'y a rien ici pour le moment');
 		}
 
-		return '';
+		if ($ajax)
+		{
+			return $this->output->json([
+				'content' => $output
+			]);
+		}
+
+		return $output;
 	}
 
 	protected function _has_header()
@@ -245,17 +311,6 @@ class Table2 extends Library
 		foreach ($this->_columns as $col)
 		{
 			if ($col->has_header())
-			{
-				return TRUE;
-			}
-		}
-	}
-
-	protected function _has_search()
-	{
-		foreach ($this->_columns as $col)
-		{
-			if ($col->has_search())
 			{
 				return TRUE;
 			}
