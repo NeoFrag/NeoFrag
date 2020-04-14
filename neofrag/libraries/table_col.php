@@ -64,19 +64,19 @@ class Table_Col extends Library
 		return $this;
 	}
 
-	public function display($i, $data)
+	public function display($table, $i, $data)
 	{
 		return $this->html('td')
 					->attr_if($this->_align, 'class', 'text-'.$this->_align)
 					->append_attr_if($this->_style, 'class', implode(' ', $this->_style))
-					->content($this->execute($i, $data));
+					->content($this->execute($table, $i, $data));
 	}
 
-	public function execute($i, $data)
+	public function execute($table, $i, $data)
 	{
 		static $output = [];
 
-		if (!array_key_exists($id = spl_object_hash($this).'-'.$i, $output))
+		if (!array_key_exists($id = $table.spl_object_hash($this).'-'.$i, $output))
 		{
 			$content = $this->_content;
 

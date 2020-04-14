@@ -178,12 +178,13 @@ class Table2 extends Library
 						->js('table2');
 
 			$columns = $this->_columns;
+			$table_id = spl_object_hash($this);
 
 			foreach ($data as $i => $row)
 			{
 				foreach ($columns as $j => $col)
 				{
-					if ((string)$col->execute($i, $row) !== '')
+					if ($col->execute($table_id, $i, $row) !== '')
 					{
 						unset($columns[$j]);
 						continue;
@@ -206,10 +207,10 @@ class Table2 extends Library
 			$table = $this	->html('table')
 							->attr('class', 'table table-hover table-striped')
 							->content($this	->html('tbody')
-											->content(array_map(function($row) use (&$i){
+											->content(array_map(function($row) use ($table_id, &$i){
 												return $this->html('tr')
-															->content(array_map(function($col) use ($row, &$i){
-																return $col->display($i, $row);
+															->content(array_map(function($col) use ($table_id, $row, $i){
+																return $col->display($table_id, $i, $row);
 															}, $this->_columns))
 															->exec(function() use (&$i){
 																$i++;
@@ -218,10 +219,12 @@ class Table2 extends Library
 
 			if ($this->_has_header())
 			{
+				$i = 0;
+
 				$table->prepend($this	->html('thead')
 										->content($this	->html('tr')
-														->content(array_map(function($col){
-															return $col->header();
+														->content(array_map(function($col) use (&$i, $sorts){
+															return $col->header($sorts, $i++);
 														}, $this->_columns))));
 			}
 
