@@ -64,6 +64,12 @@ class Table2 extends Library
 		return $this;
 	}
 
+	public function set_id($id)
+	{
+		$this->__id($id);
+		return $this;
+	}
+
 	public function col()
 	{
 		$args    = func_get_args();
