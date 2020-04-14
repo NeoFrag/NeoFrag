@@ -57,12 +57,12 @@ function image($file, $caller = NULL)
 	return path($file, 'images', $caller);
 }
 
-function css($file)
+function css($file, $caller = NULL)
 {
-	return path($file, 'css');
+	return path($file, 'css', $caller);
 }
 
-function js($file)
+function js($file, $caller = NULL)
 {
-	return path($file, 'js');
+	return path($file, 'js', $caller);
 }
