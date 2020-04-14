@@ -170,27 +170,42 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		return $values;
 	}
 
-	public function __toArray()
+	public function __toArray($objects = [])
 	{
 		$values = [];
 
-		foreach ($this->_schema() as $name => $field)
+		$objects[$parent = spl_object_hash($this)] = NULL;
+
+		foreach ($this->_attrs as $name => $value)
 		{
-			if (array_key_exists($field->i, $this->_updates))
-			{
-				$values[$name] = $this->_updates[$field->i];
-			}
-			else if (array_key_exists($field->i, $this->_data))
-			{
-				$values[$name] = $this->_data[$field->i];
-			}
+			$values[$name] = $value;
 		}
 
-		foreach (get_object_vars($this) as $name => $value)
+		foreach ($this->_schema() as $name => $field)
 		{
-			if ($name[0] != '_')
+			$values[$name] = $this->_value($field);
+		}
+
+		foreach ($values as &$value)
+		{
+			if (is_a($value, 'NF\NeoFrag\Libraries\Date'))
 			{
-				$values[$name] = $value;
+				$value = $value->sql();
+			}
+			else if (is_a($value, 'NF\NeoFrag\Loadables\Model2') && !$value())
+			{
+				$value = NULL;
+			}
+			else if (method_exists($value, '__toArray'))
+			{
+				if (!array_key_exists($id = spl_object_hash($value), $objects))
+				{
+					$value = $value->__toArray(array_merge([$id => NULL], $objects));
+				}
+				else
+				{
+					$value = '*** RECURSION ***';
+				}
 			}
 		}
 
