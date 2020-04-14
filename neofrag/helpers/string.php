@@ -176,12 +176,12 @@ function unique_id($list = [])
 
 function is_valid_email($email)
 {
-	return filter_var($email, FILTER_VALIDATE_EMAIL) === $email;
+	return filter_var($email, FILTER_VALIDATE_EMAIL) !== FALSE;
 }
 
 function is_valid_url($url)
 {
-	return preg_match('/^(tel|geo):.+/', $url) || filter_var($url, FILTER_VALIDATE_URL) === $url;
+	return preg_match('/^(tel|geo):.+/', $url) || filter_var($url, FILTER_VALIDATE_URL) !== FALSE;
 }
 
 function utf8_htmlentities($string, $flags = ENT_COMPAT)
