@@ -396,7 +396,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function create()
 	{
-		if ($this->_updates && !$this->_data)
+		if (!$this->_data)
 		{
 			$values = $this->_updates();
 
@@ -451,7 +451,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function update()
 	{
-		if ($this->_updates && $this->_data)
+		if ($this->_data)
 		{
 			$updated = FALSE;
 
