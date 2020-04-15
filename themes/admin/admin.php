@@ -77,9 +77,20 @@ class Admin extends Theme
 			});
 		});
 
+		$customize = $this->array();
+		$theme     = NeoFrag()->model2('addon')->get('theme', $this->config->nf_default_theme, FALSE);
+
+		if (@$theme->addon()->controller('admin'))
+		{
+			$customize	->set('title',  'Apparence')
+						->set('icon',   'fas fa-paint-brush')
+						->set('access', $this->user->admin)
+						->set('url',   'admin/addons/customize/'.$theme->url());
+		}
+
 		$this->data->set('sidebar', [
 			'panel' => FALSE,
-			'links' => [
+			'links' => array_filter([
 				[
 					'title' => 'Tableau de bord',
 					'icon'  => 'fas fa-tachometer-alt',
@@ -91,12 +102,7 @@ class Admin extends Theme
 					'access' => $this->user->admin,
 					'url'    => 'admin/settings'
 				],
-				[
-					'title'  => 'Thèmes & Addons',
-					'icon'   => 'fas fa-puzzle-piece',
-					'access' => $this->user->admin,
-					'url'    => 'admin/addons'
-				],
+				$customize->__toArray(),
 				[
 					'title' => 'Utilisateurs',
 					'icon'  => 'fas fa-users',
@@ -129,7 +135,7 @@ class Admin extends Theme
 					'access' => $this->user->admin,
 					'url'    => 'admin/statistics'
 				]
-			]
+			])
 		]);
 	}
 

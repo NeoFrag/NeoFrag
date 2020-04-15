@@ -27,7 +27,7 @@
 </div>
 <div id="addons" class="row">
 	<?php foreach ($addons as $addon): ?>
-		<div class="col-12 col-lg-2 col-md-3 col-sm-4 mix <?php echo ($addon->type ? 'addon-'.$addon->type->name : 'addon').' '.($addon->addon()->is_enabled() ? 'activated' : 'deactivated') ?>">
+		<div class="col-12 col-lg-3 col-md-4 col-sm-4 mix <?php echo ($addon->type ? 'addon-'.$addon->type->name : 'addon').' '.($addon->addon()->is_enabled() ? 'activated' : 'deactivated') ?>">
 			<div class="card">
 				<div class="card-body">
 					<div class="dropdown">

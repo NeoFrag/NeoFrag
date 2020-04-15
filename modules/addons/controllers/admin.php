@@ -48,12 +48,15 @@ class Admin extends Controller_Module
 
 		$this->add_action($this->button('Ajouter', 'fas fa-plus', 'primary')->modal_ajax('admin/ajax/addons/install'));
 
-		return $this->js('mixitup.min')
-					->js('addons')
-					->css('addons')
-					->view('admin', [
-						'addons' => $addons
-					]);
+		return $this->module('settings')->controller('admin')->_layout(function($col) use ($addons){
+			$col->append($this	->js('mixitup.min')
+								->js('addons')
+								->css('addons')
+								->view('admin', [
+									'addons' => $addons
+								])
+			);
+		});
 	}
 
 	public function help($controller, $method)

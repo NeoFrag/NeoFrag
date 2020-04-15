@@ -626,7 +626,7 @@ class Admin extends Controller_Module
 					});
 	}
 
-	protected function _layout($callback)
+	public function _layout($callback)
 	{
 		$menu = $this->widget('navigation')->output('vertical', [
 			'links' => [
@@ -634,6 +634,11 @@ class Admin extends Controller_Module
 					'title' => 'Préférences générales',
 					'icon'  => 'fas fa-cog',
 					'url'   => 'admin/settings'
+				],
+				[
+					'title' => 'Thèmes & addons',
+					'icon'  => 'fas fa-puzzle-piece',
+					'url'   => 'admin/addons'
 				],
 				[
 					'title' => 'Maintenance',
