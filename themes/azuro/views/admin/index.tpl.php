@@ -1,22 +1,21 @@
 <div class="tab-content">
 	<div class="tab-pane" data-tab="dashboard">
 		<div class="row">
-			<div class="col-4">
-				<img class="img-fluid thumbnail m-0" src="<?php echo url($this->__caller->__path('', 'thumbnail.png')) ?>" alt="" />
+			<div class="col-12 col-lg-4">
+				<img class="img-fluid img-thumbnail" src="<?php echo url($this->__caller->__path('', 'thumbnail.png')) ?>" alt="" />
 			</div>
-			<div class="col-8">
-				<h2><?php echo $this->lang('Administration du thème !') ?></h2>
-				<dl class="dl-horizontal m-0">
-					<dt><?php echo $this->lang('Nom du thème') ?></dt>
-					<dd><?php echo $theme->title ?></dd>
-					<dt><?php echo $this->lang('Description') ?></dt>
-					<dd><?php echo $theme->description ?></dd>
-					<dt><?php echo $this->lang('Version') ?></dt>
-					<dd><?php echo $theme->version ?></dd>
-					<dt><?php echo $this->lang('Auteurs') ?></dt>
-					<dd><?php echo utf8_htmlentities($theme->author) ?></dd>
-					<dt><?php echo $this->lang('Licence') ?></dt>
-					<dd><a href="https://neofr.ag/license.html" target="_blank"><?php echo $theme->license ?></a></dd>
+			<div class="col-12 col-lg-8">
+				<dl class="row mt-2 mb-0">
+					<dt class="col-sm-4 col-lg-3 text-truncate"><?php echo $this->lang('Nom du thème') ?></dt>
+					<dd class="col-sm-8 col-lg-9"><?php echo $theme->title ?></dd>
+					<dt class="col-sm-4 col-lg-3 text-truncate"><?php echo $this->lang('Description') ?></dt>
+					<dd class="col-sm-8 col-lg-9"><?php echo $theme->description ?></dd>
+					<dt class="col-sm-4 col-lg-3"><?php echo $this->lang('Version') ?></dt>
+					<dd class="col-sm-8 col-lg-9"><?php echo $theme->version ?></dd>
+					<dt class="col-sm-4 col-lg-3"><?php echo $this->lang('Auteurs') ?></dt>
+					<dd class="col-sm-8 col-lg-9"><?php echo utf8_htmlentities($theme->author) ?></dd>
+					<dt class="col-sm-4 col-lg-3"><?php echo $this->lang('Licence') ?></dt>
+					<dd class="col-sm-8 col-lg-9"><a href="https://neofr.ag/license.html" target="_blank"><?php echo $theme->license ?></a></dd>
 				</dl>
 			</div>
 		</div>
