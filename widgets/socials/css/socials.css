@@ -1,0 +1,21 @@
+.socials-content .row {
+	margin-right: -5px !important;
+	margin-left: -5px !important;
+}
+
+.socials-content .col, .socials-content [class*="col-lg-"] {
+	padding-right: 5px !important;
+	padding-left: 5px !important;
+}
+
+.socials-content .col-lg-12 + .col-lg-12, .socials-content .list-unstyled li + li {
+	margin-top: 5px;
+}
+
+.btn-social, .btn-social:hover, .btn-social:focus {
+	color: #fff;
+}
+
+.btn-social.btn-block + .btn-block {
+	margin-left: 0;
+}

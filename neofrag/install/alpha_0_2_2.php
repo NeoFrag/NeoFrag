@@ -89,5 +89,11 @@ class Alpha_0_2_2 extends Install
 		$this->config('nf_analytics', preg_match('/UA-\d+-\d+/', $this->config->nf_analytics, $match) ? $match[0] : '');
 
 		$this->db->execute('ALTER TABLE `nf_settings` CHANGE `value` `value` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL');
+
+		$this->db()->insert('nf_addon', [
+			'type_id' => 3,
+			'name'    => 'socials',
+			'data'    => 'a:1:{s:7:"enabled";b:1;}'
+		]);
 	}
 }

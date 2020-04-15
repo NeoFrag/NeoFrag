@@ -166,7 +166,8 @@ INSERT INTO `nf_addon` (`id`, `type_id`, `name`, `data`) VALUES
 (58, 5, 'twitter', 'a:4:{s:5:\"order\";i:1;s:7:\"enabled\";b:0;s:3:\"dev\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:4:\"prod\";a:2:{s:2:\"id\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}'),
 (59, 3, 'copyright', 'a:1:{s:7:\"enabled\";b:1;}'),
 (60, 1, 'tools', 'a:1:{s:7:\"enabled\";b:1;}'),
-(61, 3, 'about', 'a:1:{s:7:\"enabled\";b:1;}');
+(61, 3, 'about', 'a:1:{s:7:\"enabled\";b:1;}'),
+(62, 3, 'socials', 'a:1:{s:7:\"enabled\";b:1;}');
 
 -- --------------------------------------------------------
 
