@@ -39,7 +39,8 @@ class Theme extends Controller
 	{
 		$controller	->title($theme->info()->title)
 					->subtitle('Personnalisation du thème')
-					->icon('fas fa-paint-brush');
+					->icon('fas fa-paint-brush')
+					->add_action($this->button('Réinstaller par défaut', 'fas fa-sync', 'warning')->modal($this->reset($theme)));
 
 		return $theme->controller('admin')->index();
 	}
