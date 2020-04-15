@@ -1251,6 +1251,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_default_page', '', '', 'news', 'string'),
 ('nf_default_theme', '', '', 'azuro', 'string'),
 ('nf_description', '', '', 'ALPHA 0.2.1', 'string'),
+('nf_favicon', '', '', '0', 'int'),
 ('nf_http_authentication', '', '', '0', 'bool'),
 ('nf_http_authentication_name', '', '', '', 'string'),
 ('nf_humans_txt', '', '', '/* TEAM */\n	NeoFrag CMS for gamers\n	Contact: contact [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: France\n\n	Developper: Micha&euml;l BILCOT\n	Contact: michael.bilcot [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Paris, France\n\n	Designer: J&eacute;r&eacute;my VALENTIN\n	Contact: jeremy.valentin [at] neofrag.fr\n	Twitter: @NeoFragCMS\n	From: Caen, France', 'string'),

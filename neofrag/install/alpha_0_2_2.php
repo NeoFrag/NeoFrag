@@ -78,6 +78,7 @@ class Alpha_0_2_2 extends Install
 		$this->db->execute('ALTER TABLE `nf_user_profile` CHANGE `user_id` `id` INT(11) UNSIGNED NOT NULL');
 
 		$this->config('nf_registration_status', !$this->nf_registration_status, 'bool');
+		$this->config('nf_favicon',             0, 'int');
 
 		$this->db	->execute('ALTER TABLE `nf_user` DROP INDEX `username`, ADD INDEX `username` (`username`)')
 					->execute('ALTER TABLE `nf_user` DROP INDEX `email`, ADD INDEX `email` (`email`)');

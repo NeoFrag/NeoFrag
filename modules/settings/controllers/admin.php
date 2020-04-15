@@ -61,6 +61,30 @@ class Admin extends Controller_Module
 						'value'  => $this->config->nf_description,
 						'rules'  => 'required'
 					],
+					'favicon' => [
+						'label'  => $this->lang('Favicon du site'),
+						'value'  => $this->config->nf_favicon,
+						'type'   => 'file',
+						'upload' => 'favicons',
+						'info'   => $this->lang(' d\'image (format carré min. %dpx et max. %d Mo)', 16, file_upload_max_size() / 1024 / 1024),
+						'check'  => function($filename, $ext){
+							if (!in_array($ext, ['gif', 'jpeg', 'jpg', 'png', 'ico']))
+							{
+								return $this->lang('Veuiller choisir un fichier d\'image');
+							}
+
+							list($w, $h) = getimagesize($filename);
+
+							if ($w != $h)
+							{
+								return $this->lang('L\'image doit être carré');
+							}
+							else if ($w < 16)
+							{
+								return $this->lang('L\'image doit faire au moins %dpx', 16);
+							}
+						}
+					],
 					'contact' => [
 						'label'  => $this->lang('Email de contact'),
 						'value'  => $this->config->nf_contact,

@@ -11,7 +11,7 @@
 <?php if ($this->config->nf_humans_txt): ?>
 <link rel="author" href="<?php echo url('humans.txt') ?>" type="text/plain">
 <?php endif ?>
-<link rel="shortcut icon" href="<?php echo image('favicon.png') ?>" type="image/png">
+<link rel="shortcut icon" href="<?php echo $path = ($this->config->nf_favicon && ($favicon = NeoFrag()->model2('file', $this->config->nf_favicon)->path())) ? $favicon : image('favicon.png') ?>" type="<?php echo get_mime_by_extension(extension($path)) ?>">
 <?php echo $this->output->css() ?>
 <?php foreach ($this->config->langs as $lang): ?>
 <link rel="alternate" href="<?php echo $this->url->base.implode('/', array_merge([$lang->info()->name], $this->url->segments)).$this->url->query ?>" hreflang="<?php echo $lang->info()->name ?>">
