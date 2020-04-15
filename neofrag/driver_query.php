@@ -187,22 +187,29 @@ class Driver_Query
 		{
 			$sql = $this->driver->escape_keywords($where->name);
 		}
-		else if (is_array($where->value))
-		{
-			if ($where->value)
-			{
-				$sql = $this->driver->escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
-					return $this->bind($a);
-				}, $where->value)).')';
-			}
-			else
-			{
-				$sql = '';
-			}
-		}
 		else
 		{
-			if (preg_match('/^(.+?) FIND_IN_SET$/', $this->driver->escape_keywords($where->name), $match))
+			if (method_exists($where->value, '__toArray'))
+			{
+				$where->value = $where->value->__toArray();
+			}
+
+			if (is_array($where->value))
+			{
+				$where->value = array_unique($where->value);
+
+				if ($where->value)
+				{
+					$sql = $this->driver->escape_keywords($where->name).' IN ('.implode(', ', array_map(function($a){
+						return $this->bind($a);
+					}, $where->value)).')';
+				}
+				else
+				{
+					$sql = '';
+				}
+			}
+			else if (preg_match('/^(.+?) FIND_IN_SET$/', $this->driver->escape_keywords($where->name), $match))
 			{
 				$sql = 'FIND_IN_SET('.$this->bind($where->value).', '.$match[1].')';
 			}
