@@ -38,18 +38,25 @@ class Session extends Core
 							->delete('nf_session');
 			}
 
-			$this->_session = $this->model2('session', isset($_COOKIE[$this->config->nf_cookie_name]) ? $_COOKIE[$this->config->nf_cookie_name] : NULL);
+			$cookie_name = $this->config->nf_cookie_name;
+
+			if ($this->url->https)
+			{
+				$cookie_name .= '_https';
+			}
+
+			$this->_session = $this->model2('session', isset($_COOKIE[$cookie_name]) ? $_COOKIE[$cookie_name] : NULL);
 
 			$this->_data = $this->_session->data->__extends($this);
 
-			$set_cookie = function(){
+			$set_cookie = function() use ($cookie_name){
 				do
 				{
 					$this->_session->set('id', unique_id());
 				}
 				while (!$this->_session->commit());
 
-				setcookie($this->config->nf_cookie_name, $this->_session->id, strtotime('+1 year'), $this->url->base, $this->url->domain, $this->url->https, TRUE);
+				setcookie($cookie_name, $this->_session->id, strtotime('+1 year'), $this->url->base, $this->url->domain, $this->url->https, TRUE);
 			};
 
 			if ($this->_session())
