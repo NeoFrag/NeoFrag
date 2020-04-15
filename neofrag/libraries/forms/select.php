@@ -20,6 +20,11 @@ class Select extends Multiple
 	{
 		$this->_template[] = function(&$input){
 			$encode = function($data){
+				if (method_exists($data, '__toArray'))
+				{
+					$data = $data->__toArray();
+				}
+
 				array_walk($data, function(&$value, $key){
 					$value = array_merge([$key], array_map('utf8_html_entity_decode', (array)$value));
 				});

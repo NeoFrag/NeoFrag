@@ -71,6 +71,10 @@ abstract class Multiple extends Labelable
 				$this->_data[$id] = array_values($row);
 			}
 		}
+		else if (method_exists($data, '__toArray'))
+		{
+			$this->_data = $data->__toArray();
+		}
 		else
 		{
 			$this->_data = $data;
