@@ -10,7 +10,7 @@ use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
 
 class Index extends Controller_Module
 {
-	public function _index($title, $subtitle, $content)
+	public function _index($page_id, $title, $subtitle, $content)
 	{
 		$this	->title($title)
 				->breadcrumb($title);

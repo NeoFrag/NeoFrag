@@ -53,6 +53,9 @@ class Admin extends Controller_Module
 								return $data['published'] ? $this->button()->tooltip($this->lang('Voir la page'))->icon('far fa-eye')->url($data['name'])->compact()->outline() : '';
 							},
 							function($data){
+								return $this->user->admin ? $this->button_access($data['page_id'], 'page') : NULL;
+							},
+							function($data){
 								return $this->is_authorized('modify_pages') ? $this->button_update('admin/pages/'.$data['page_id'].'/'.url_title($data['title'])) : NULL;
 							},
 							function($data){
