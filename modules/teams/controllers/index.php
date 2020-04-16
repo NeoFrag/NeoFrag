@@ -46,8 +46,8 @@ class Index extends Controller_Module
 
 	public function _team($team_id, $name, $title, $image_id, $icon_id, $description, $game_id, $game, $game_icon)
 	{
-		$this	->breadcrumb($title)
-				->title($title);
+		$this	->title($title)
+				->breadcrumb($title);
 
 		if ($this->config->teams_display_matches)
 		{
