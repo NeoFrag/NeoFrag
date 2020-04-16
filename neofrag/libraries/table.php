@@ -482,7 +482,7 @@ class Table extends Library
 
 		if ($this->_ajax)
 		{
-			return $this->json([
+			return $this->output->json([
 				'search'  => [],//array_values(array_unique($this->_words)),
 				'content' => $output
 			]);
