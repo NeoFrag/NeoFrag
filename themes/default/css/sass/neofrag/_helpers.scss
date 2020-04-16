@@ -10,3 +10,32 @@ ul.list-right {
 		}
 	}
 }
+
+table {
+	&.table {
+		thead {
+			.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled, sorting_desc_disabled {
+				background: 0 0;
+			}
+
+			.sorting_asc:after, .sorting_desc:after, .sorting:after {
+				float: right;
+				font-family: "Font Awesome 5 Free";
+				cursor: pointer;
+			}
+
+			.sorting_asc:after {
+				content: "\f0de";
+			}
+
+			.sorting_desc:after {
+				content: "\f0dd";
+			}
+
+			.sorting:after {
+				content: "\f0dc";
+				color: rgba(50,50,50,.5);
+			}
+		}
+	}
+}
