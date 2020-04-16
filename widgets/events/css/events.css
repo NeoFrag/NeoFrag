@@ -10,6 +10,12 @@
 	font-weight: bold;
 }
 
+.widget-events .fc .fc-toolbar h2 {
+	font-size: 14px;
+	font-weight: 600;
+	margin-top: 6px;
+}
+
 .widget-events .fc .fc-toolbar h2:first-letter {
 	text-transform: uppercase;
 }
