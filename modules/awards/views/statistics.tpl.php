@@ -33,7 +33,7 @@
 			<h1><?php echo icon('far fa-star') ?></h1>
 			<p>
 				Meilleur classement<br />
-				<?php if ($best_team): ?>
+				<?php if ($best_team && ($best_team[0]['total_gold'] || $best_team[0]['total_silver'] || $best_team[0]['total_bronze'] || $best_team[0]['total_other'])): ?>
 					<b><a href="<?php echo url('awards/team/'.$best_team[0]['team_id'].'/'.$best_team[0]['name']) ?>"><?php echo $best_team[0]['team_title'] ?></a></b>
 				<?php else: ?>
 					-
