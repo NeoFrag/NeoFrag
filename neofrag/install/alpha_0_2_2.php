@@ -136,5 +136,22 @@ class Alpha_0_2_2 extends Install
 							'disposition' => serialize($disposition['disposition'])
 						]);
 		}
+
+		@array_map('unlink', [
+			'css/icons/font-awesome.min.css',
+			'fonts/font-awesome/FontAwesome.otf',
+			'fonts/font-awesome/fontawesome-webfont.eot',
+			'fonts/font-awesome/fontawesome-webfont.svg',
+			'fonts/font-awesome/fontawesome-webfont.ttf',
+			'fonts/font-awesome/fontawesome-webfont.woff',
+			'fonts/font-awesome/fontawesome-webfont.woff2',
+			'js/bootstrap-iconpicker.min.js',
+			'js/bootstrap-iconpicker-iconset-fontawesome-4.7.0.min.js',
+			'js/user-badge.js',
+			'lib/geshi/geshi/sql.php',
+			'lib/geshi/geshi.php',
+			'lib/phpmailer/class.phpmailer.php',
+			'lib/phpmailer/class.smtp.php'
+		]);
 	}
 }
