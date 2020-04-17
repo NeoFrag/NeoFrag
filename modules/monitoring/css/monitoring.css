@@ -143,3 +143,29 @@ span.icon.expand-icon {
 	padding: 5px 9px;
 	text-transform: uppercase;
 }
+
+#modal-backup .steps-body {
+	padding-top: 20px;
+	padding-bottom: -10px;
+}
+
+#modal-backup .steps-legends {
+	margin-top: -34px;
+	position: relative;
+}
+
+#modal-backup .steps-legends .step {
+	width: 50px;
+	border-radius: 50%;
+	padding: 15px;
+	margin: auto;
+	background-color: #e9ecef;
+}
+
+#modal-backup .steps-legends .step.active {
+	background-color: #007bff;
+}
+
+#modal-backup .steps-legends .step.active i {
+	color: #fff;
+}
