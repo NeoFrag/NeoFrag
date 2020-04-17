@@ -95,5 +95,20 @@ class Alpha_0_2_2 extends Install
 			'name'    => 'socials',
 			'data'    => 'a:1:{s:7:"enabled";b:1;}'
 		]);
+
+		foreach ($this->db()->select('widget_id', 'settings')->from('nf_widgets')->where('widget', 'header')->where('type', 'index')->get() as $widget)
+		{
+			$settings = [];
+
+			foreach (unserialize($widget['settings']) as $key => $value)
+			{
+				$settings[str_replace('-', '_', $key)] = $value;
+			}
+
+			$this->db()	->where('widget_id', $widget['widget_id'])
+						->update('nf_widgets', [
+							'settings' => serialize($settings)
+						]);
+		}
 	}
 }

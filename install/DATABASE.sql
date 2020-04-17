@@ -1656,7 +1656,7 @@ INSERT INTO `nf_widgets` (`widget_id`, `widget`, `type`, `title`, `settings`) VA
 (1, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:4:{i:0;a:2:{s:5:\"title\";s:8:\"Facebook\";s:3:\"url\";s:1:\"#\";}i:1;a:2:{s:5:\"title\";s:7:\"Twitter\";s:3:\"url\";s:1:\"#\";}i:2;a:2:{s:5:\"title\";s:6:\"Origin\";s:3:\"url\";s:1:\"#\";}i:3;a:2:{s:5:\"title\";s:5:\"Steam\";s:3:\"url\";s:1:\"#\";}}}'),
 (2, 'members', 'online_mini', NULL, NULL),
 (3, 'search', 'index', NULL, NULL),
-(4, 'header', 'index', NULL, 'a:6:{s:7:\"display\";s:4:\"logo\";s:5:\"align\";s:11:\"text-center\";s:5:\"title\";s:0:\"\";s:11:\"description\";s:0:\"\";s:11:\"color-title\";s:4:\"#fff\";s:17:\"color-description\";s:7:\"#a4b5c5\";}'),
+(4, 'header', 'index', NULL, 'a:6:{s:7:\"display\";s:4:\"logo\";s:5:\"align\";s:11:\"text-center\";s:5:\"title\";s:0:\"\";s:11:\"description\";s:0:\"\";s:11:\"color_title\";s:4:\"#fff\";s:17:\"color_description\";s:7:\"#a4b5c5\";}'),
 (5, 'navigation', 'index', NULL, 'a:1:{s:5:\"links\";a:6:{i:0;a:2:{s:5:\"title\";s:7:\"Accueil\";s:3:\"url\";s:0:\"\";}i:1;a:2:{s:5:\"title\";s:5:\"Forum\";s:3:\"url\";s:5:\"forum\";}i:2;a:2:{s:5:\"title\";s:14:\"&Eacute;quipes\";s:3:\"url\";s:5:\"teams\";}i:3;a:2:{s:5:\"title\";s:6:\"Matchs\";s:3:\"url\";s:14:\"events/matches\";}i:4;a:2:{s:5:\"title\";s:11:\"Partenaires\";s:3:\"url\";s:8:\"partners\";}i:5;a:2:{s:5:\"title\";s:15:\"Palmar&egrave;s\";s:3:\"url\";s:6:\"awards\";}}}'),
 (6, 'user', 'index_mini', NULL, NULL),
 (7, 'module', 'index', NULL, NULL),

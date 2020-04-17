@@ -32,7 +32,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></span>
 					</div>
-					<input type="text" class="form-control" name="settings[color-title]" value="<?php if (isset(${'color-title'})) echo ${'color-title'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
+					<input type="text" class="form-control" name="settings[color_title]" value="<?php if (isset($color_title)) echo $color_title ?>" placeholder="#000000" /><!-- //TODO color picker -->
 				</div>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text"><?php echo icon('fas fa-paint-brush') ?></span>
 					</div>
-					<input type="text" class="form-control" name="settings[color-description]" value="<?php if (isset(${'color-description'})) echo ${'color-description'} ?>" placeholder="#000000" /><!-- //TODO color picker -->
+					<input type="text" class="form-control" name="settings[color_description]" value="<?php if (isset($color_description)) echo $color_description ?>" placeholder="#000000" /><!-- //TODO color picker -->
 				</div>
 			</div>
 		</div>

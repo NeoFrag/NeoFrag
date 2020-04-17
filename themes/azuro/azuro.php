@@ -74,8 +74,8 @@ class Azuro extends Theme
 								'align'             => 'text-center',
 								'title'             => '',
 								'description'       => '',
-								'color-title'       => '#fff',
-								'color-description' => '#a4b5c5'
+								'color_title'       => '#fff',
+								'color_description' => '#a4b5c5'
 							])
 						]))
 					)
