@@ -240,9 +240,21 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $this->implode();
 	}
 
-	public function __toArray()
+	public function __toArray($recursive = TRUE)
 	{
-		return $this->_array;
+		$array = $this->_array;
+
+		if ($recursive)
+		{
+			array_walk_recursive($array, function(&$item){
+				if (method_exists($item, '__toArray'))
+				{
+					$item = $item->__toArray();
+				}
+			});
+		}
+
+		return $array;
 	}
 
 	public function __sleep()
