@@ -14,7 +14,12 @@ class Date extends Library
 
 	public function __invoke($datetime = NULL)
 	{
-		if ($datetime)
+		if (is_a($datetime, 'NF\NeoFrag\Libraries\Date'))
+		{
+			return $datetime;
+		}
+
+		if ($datetime !== NULL && !is_a($datetime, '\DateTime'))
 		{
 			$datetime = date_create_from_format('U',           $datetime) ?:
 						date_create_from_format('Y-m-d H:i:s', $datetime) ?:
