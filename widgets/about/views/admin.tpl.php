@@ -93,7 +93,7 @@
 					<label class="btn btn-light<?php if ($biographie_align == 'text-left') echo ' active' ?>">
 						<input type="radio" name="settings[biographie_align]" value="text-left"<?php if ($biographie_align == 'text-left') echo ' checked' ?>><?php echo icon('fas fa-align-left') ?>
 					</label>
-					<label class="btn btn-light<?php if ($data['biographie_align'] == 'text-center') echo ' active' ?>">
+					<label class="btn btn-light<?php if ($biographie_align == 'text-center') echo ' active' ?>">
 						<input type="radio" name="settings[biographie_align]" value="text-center"<?php if ($biographie_align == 'text-center') echo ' checked' ?>><?php echo icon('fas fa-align-center') ?>
 					</label>
 					<label class="btn btn-light<?php if ($biographie_align == 'text-right') echo ' active' ?>">
