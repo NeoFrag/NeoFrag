@@ -19,8 +19,17 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		{
 			$array = func_get_args();
 		}
+		else if (is_a($array, 'NF\NeoFrag\Libraries\Array_') && !is_a($this, 'NF\NeoFrag\Displayable'))
+		{
+			return $array;
+		}
 
-		$this->_array = !is_array($array) ?  [$array]: $array;
+		if (!is_array($array))
+		{
+			$array = [$array];
+		}
+
+		$this->_array = $array;
 
 		return $this;
 	}
