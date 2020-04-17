@@ -50,7 +50,7 @@
 					<?php if ($path = $addon->addon()->__path('', 'thumbnail.png')): ?>
 						<div class="image" style="background-image: url(<?php echo url($path) ?>);"></div>
 					<?php else: ?>
-						<div class="icon"><?php echo icon(isset($addon->addon()->info()->icon) ? $addon->addon()->info()->icon : icon($label[2])) ?></div>
+						<div class="addon"><?php echo icon(isset($addon->addon()->info()->icon) ? $addon->addon()->info()->icon : $label[2]) ?></div>
 					<?php endif ?>
 					<h6<?php if (!$addon->addon()->is_enabled()) echo ' class="disabled"' ?>><?php echo $addon->addon()->info()->title ?></h6>
 				</div>
