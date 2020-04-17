@@ -251,6 +251,11 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		return $callback ? $callback($sum) : $sum;
 	}
 
+	public function values()
+	{
+		return array_values($this->_array);
+	}
+
 	public function last_key()
 	{
 		return array_last_key($this->_array);
