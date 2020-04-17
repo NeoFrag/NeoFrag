@@ -140,6 +140,7 @@ span.icon.expand-icon {
 	background-color: #42546a;
 	border-radius: 2px;
 	font-size: 9px;
+	float: right;
 	padding: 5px 9px;
 	text-transform: uppercase;
 }

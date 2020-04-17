@@ -13,11 +13,6 @@ body {
 	text-align: center;
 }
 
-/* Modal */
-.live-editor-modal *:not(.fa):not(.fonticon) {
-	font-family: 'Open Sans', sans-serif !important;
-}
-
 .live-editor-modal .modal-content {
 	background-color: #fff;
 }
@@ -68,6 +63,14 @@ body {
 	text-shadow: none;
 }
 
+.live-editor-modal .modal-content .modal-body form label.radio-inline {
+	padding-top: 6px;
+}
+
+.live-editor-modal .modal-content .modal-body form label.radio-inline + label.radio-inline {
+	margin-left: 10px;
+}
+
 .live-editor-modal .modal-content .modal-body form .btn-group .btn {
 	margin-bottom: 0;
 }
@@ -81,14 +84,14 @@ body {
 }
 
 .live-editor-modal .modal-content .modal-body .border-light {
-	border: 2px solid #E6E9EC;
+	border: 2px solid #E6E9EC !important;
 	border-radius: 5px;
 	padding: 15px 15px 0;
 }
 
 .live-editor-modal .modal-content .modal-footer {
 	background-color: #f0f0f0;
-	border-top: 1px solid #E6E9EC;
+	border-top: 1px solid #E6E9EC !important;
 	padding: 15px;
 }
 
