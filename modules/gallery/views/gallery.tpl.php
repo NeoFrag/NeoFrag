@@ -1,7 +1,7 @@
 <?php if ($category): ?>
 <div class="card mb-4">
 	<div class="card-body">
-		<h6 class="card-title mb-0"><?php echo icon('fas fa-book').' '.$category['title'] ?></h6>
+		<h6 class="card-title mb-0"><?php echo ($category['icon_id'] ? '<img src="'.NeoFrag()->model2('file', $category['icon_id'])->path().'" class="img-icon mr-2" alt="" />' : icon('fas fa-book')).' '.$category['title'] ?></h6>
 	</div>
 	<?php if ($category['image_id']): ?>
 	<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $category['image_id'])->path() ?>" alt="" />
