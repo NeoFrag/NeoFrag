@@ -192,7 +192,7 @@ class Email extends Library
 		{
 			foreach ($debug as $message)
 			{
-				trigger_error($message, E_USER_WARNING);
+				trigger_error(utf8_string($message, is_windows() ? 'CP1252' : ''), E_USER_WARNING);
 			}
 		}
 
