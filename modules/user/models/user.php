@@ -95,9 +95,9 @@ class User extends Model2
 			return '';
 		}
 
-		$this->js('user-badge');
+		$this->js('popover');
 
-		return '<a class="user-badge" data-user-id="'.$user_id.'" data-username="'.url_title($username).'" href="'.url('///user/'.$user_id.'/'.url_title($username)).'">'.$prefix.$username.'</a>';
+		return '<a data-popover-ajax="'.url('ajax/user/'.$user_id.'/'.url_title($username)).'" href="'.url('///user/'.$user_id.'/'.url_title($username)).'">'.$prefix.$username.'</a>';
 	}
 
 	public function avatar()
