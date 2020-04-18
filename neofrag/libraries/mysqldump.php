@@ -159,7 +159,7 @@ class Mysqldump extends Library
 							}
 							else
 							{
-								$values[] = '\''.static::_utf8($this->db->escape_string($value)).'\'';
+								$values[] = '\''.utf8_string($this->db->escape_string($value)).'\'';
 							}
 						}
 
@@ -198,15 +198,5 @@ class Mysqldump extends Library
 	static private function _delimite($s)
 	{
 		return '`'.str_replace('`', '``', $s).'`';
-	}
-
-	static private function _utf8($s)
-	{
-		if (($encoding = mb_detect_encoding($s, 'auto', TRUE)) != 'UTF-8')
-		{
-			$s = mb_convert_encoding($s, 'UTF-8', $encoding ?: 'Windows-1252');
-		}
-
-		return $s;
 	}
 }
