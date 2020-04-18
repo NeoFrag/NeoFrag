@@ -86,5 +86,7 @@ class Alpha_0_2_2 extends Install
 					->execute('ALTER TABLE `nf_user_profile` ADD FOREIGN KEY (`cover`) REFERENCES `nf_file`(`id`) ON DELETE SET NULL ON UPDATE CASCADE');
 
 		$this->config('nf_analytics', preg_match('/UA-\d+-\d+/', $this->config->nf_analytics, $match) ? $match[0] : '');
+
+		$this->db->execute('ALTER TABLE `nf_settings` CHANGE `value` `value` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL');
 	}
 }

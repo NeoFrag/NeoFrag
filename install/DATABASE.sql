@@ -1217,7 +1217,7 @@ CREATE TABLE `nf_settings` (
   `name` varchar(100) NOT NULL,
   `site` varchar(100) NOT NULL DEFAULT '',
   `lang` varchar(5) NOT NULL DEFAULT '',
-  `value` text NOT NULL,
+  `value` text,
   `type` enum('string','bool','int','list','array','float') NOT NULL DEFAULT 'string',
   PRIMARY KEY (`name`,`site`,`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
