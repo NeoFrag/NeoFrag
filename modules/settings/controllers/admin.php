@@ -70,20 +70,26 @@ class Admin extends Controller_Module
 						'type'   => 'select',
 						'rules'  => 'required'
 					],
+					'analytics' => [
+						'label'       => '<a href="https://analytics.google.com" target="_blank">'.$this->lang('Code Google Analytics').'</a>',
+						'description' => 'Format UA-XXXXXXXXX-Y',
+						'value'       => $this->config->nf_analytics,
+						'check'       => function($code){
+							if (!is_empty($code) && !preg_match('/^UA-\d+-\d+$/', $code))
+							{
+								return $this->lang('Ce code est invalide');
+							}
+						}
+					],
 					'humans_txt' => [
-						'label'  => '<a href="http://humanstxt.org/">humans.txt</a>',
+						'label'  => '<a href="http://humanstxt.org" target="_blank">humans.txt</a>',
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_humans_txt
 					],
 					'robots_txt' => [
-						'label'  => '<a href="http://www.robotstxt.org//">robots.txt</a>',
+						'label'  => '<a href="http://www.robotstxt.org" target="_blank">robots.txt</a>',
 						'type'   => 'textarea',
 						'value'  => $this->config->nf_robots_txt
-					],
-					'analytics' => [
-						'label'  => $this->lang('Code analytics'),
-						'type'   => 'textarea',
-						'value'  => $this->config->nf_analytics
 					]
 				])
 				->add_submit($this->lang('Valider'))
@@ -93,11 +99,6 @@ class Admin extends Controller_Module
 		{
 			foreach ($post as $var => $value)
 			{
-				if ($var == 'analytics')
-				{
-					$value = implode("\r\n", array_map('trim', explode("\r\n", trim(preg_replace('#&lt;script.*?&gt;(.*?)&lt;/script&gt;#is', '\1', $value)))));
-				}
-
 				$this->config('nf_'.$var, $value);
 			}
 

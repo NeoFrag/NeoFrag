@@ -7,6 +7,7 @@
 <?php if ($this->config->nf_theme_color): ?>
 <meta name="theme-color" content="<?php echo $this->config->nf_theme_color ?>">
 <?php endif ?>
+<?php if ($this->config->nf_analytics) echo $this->view('theme/analytics') ?>
 <?php if ($this->config->nf_humans_txt): ?>
 <link rel="author" href="<?php echo url('humans.txt') ?>" type="text/plain">
 <?php endif ?>
@@ -47,7 +48,6 @@ $(function(){
 
 	<?php echo $this->output->js_load() ?>
 });
-<?php echo $this->config->nf_analytics ?>
 </script>
 </body>
 </html>
