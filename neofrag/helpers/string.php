@@ -218,11 +218,13 @@ function utf8_html_entity_decode($string, $flags = ENT_COMPAT)
 	return html_entity_decode($string, $flags, 'UTF-8');
 }
 
-function utf8_string($string)
+function utf8_string($string, $default = '')
 {
-	if (($encoding = mb_detect_encoding($string, 'auto', TRUE)) != 'UTF-8')
+	$encoding = mb_detect_encoding($string, 'auto', TRUE);
+
+	if ($encoding != 'UTF-8')
 	{
-		$string = mb_convert_encoding($string, 'UTF-8', $encoding ?: 'ASCII');
+		$string = mb_convert_encoding($string, 'UTF-8', $encoding ?: $default ?: 'ASCII');
 	}
 
 	return $string;
