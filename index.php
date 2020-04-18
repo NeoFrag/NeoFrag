@@ -133,6 +133,7 @@ foreach ([
 			'notify',
 			'statistics',
 			'string',
+			'system',
 			'time',
 			'user_agent'
 		] as $helper

@@ -26,7 +26,7 @@ function timetostr($format, $timestamp = NULL)
 		$timestamp = strtotime($timestamp);
 	}
 
-	if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')
+	if (is_windows())
 	{
 		$format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
 	}
