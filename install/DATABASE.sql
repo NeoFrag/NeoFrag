@@ -1535,8 +1535,10 @@ CREATE TABLE `nf_user_profile` (
   `twitch` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `avatar` (`avatar`),
+  KEY `cover` (`cover`),
   CONSTRAINT `nf_user_profile_ibfk_2` FOREIGN KEY (`avatar`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `nf_user_profile_ibfk_3` FOREIGN KEY (`id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_user_profile_ibfk_3` FOREIGN KEY (`id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nf_user_profile_ibfk_4` FOREIGN KEY (`cover`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

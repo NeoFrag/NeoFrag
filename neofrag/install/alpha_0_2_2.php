@@ -81,5 +81,8 @@ class Alpha_0_2_2 extends Install
 
 		$this->db	->execute('ALTER TABLE `nf_user` DROP INDEX `username`, ADD INDEX `username` (`username`)')
 					->execute('ALTER TABLE `nf_user` DROP INDEX `email`, ADD INDEX `email` (`email`)');
+
+		$this->db	->execute('ALTER TABLE `nf_user_profile` ADD INDEX( `cover`)')
+					->execute('ALTER TABLE `nf_user_profile` ADD FOREIGN KEY (`cover`) REFERENCES `nf_file`(`id`) ON DELETE SET NULL ON UPDATE CASCADE');
 	}
 }
