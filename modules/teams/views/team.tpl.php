@@ -1,6 +1,6 @@
 <?php if ($image_id): ?>
 <span class="badge badge-dark position-absolute mt-4 ml-4"><?php echo icon('fas fa-gamepad').' '.$game ?></span>
-<img class="img-fluid" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="">
+<img class="card-img" src="<?php echo NeoFrag()->model2('file', $image_id)->path() ?>" alt="">
 <?php endif ?>
 <div class="card-body">
 	<div class="row align-items-center">
