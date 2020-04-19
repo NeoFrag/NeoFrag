@@ -83,6 +83,16 @@ class File extends Labelable
 		return $this;
 	}
 
+	public function value($file, $erase = FALSE)
+	{
+		if (!is_a($file, 'NF/NeoFrag/Models/File') && ($file = NeoFrag()->model2('file', $file)) && !$file())
+		{
+			$file = NULL;
+		}
+
+		return parent::value($file, $erase);
+	}
+
 	public function mime($mime)
 	{
 		$this->_mimes[] = $mime;
