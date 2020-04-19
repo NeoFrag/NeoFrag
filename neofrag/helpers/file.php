@@ -47,32 +47,17 @@ function file_upload_max_size()
 
 	if ($max_size < 0)
 	{
-		$max_size = parse_size(ini_get('post_max_size'));
+		$max_size = min(array_filter(array_map(function($a){
+			$size = ini_get($a);
 
-		$upload_max = parse_size(ini_get('upload_max_filesize'));
+			$unit = preg_replace('/[^bkmgtpezy]/i', '', $size);
+			$size = preg_replace('/[^0-9\.]/', '', $size);
 
-		if ($upload_max > 0 && $upload_max < $max_size)
-		{
-			$max_size = $upload_max;
-		}
+			return round($size * ($unit ? pow(1024, stripos('bkmgtpezy', $unit[0])) : 1));
+		}, ['post_max_size', 'upload_max_filesize'])));
 	}
 
 	return $max_size;
-}
-
-function parse_size($size)
-{
-	$unit = preg_replace('/[^bkmgtpezy]/i', '', $size);
-	$size = preg_replace('/[^0-9\.]/', '', $size);
-
-	if ($unit)
-	{
-		return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
-	}
-	else
-	{
-		return round($size);
-	}
 }
 
 function human_size($bytes, $decimals = 2)
