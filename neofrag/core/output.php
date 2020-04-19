@@ -268,7 +268,7 @@ class Output extends Core
 		}
 		else
 		{
-			$this->_theme = parent::theme($this->url->admin && $this->access->admin() && $this->_module->is_authorized() ? $this->_admin_theme : $this->config->nf_default_theme);
+			$this->_theme = parent::theme($this->url->admin && $this->access->admin() && (!$this->_module || $this->_module->is_authorized()) ? $this->_admin_theme : $this->config->nf_default_theme);
 
 			$css     = $this->data->get('css');
 			$js      = $this->data->get('js');
