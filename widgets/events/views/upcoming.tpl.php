@@ -2,7 +2,7 @@
 <ul class="list-group list-group-flush">
 	<?php foreach ($matches as $match): ?>
 	<li class="list-group-item">
-		<div class="row">
+		<div class="row no-gutters align-items-center">
 			<?php if ($match['match']['opponent']['image_id']): ?>
 			<div class="text-center col-1">
 				<img src="<?php echo NeoFrag()->model2('file', $match['match']['opponent']['image_id'])->path() ?>" class="img-fluid" alt="" />

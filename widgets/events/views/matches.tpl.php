@@ -2,7 +2,7 @@
 <ul class="list-group list-group-flush">
 	<?php foreach ($matches as $match): ?>
 	<li class="list-group-item">
-		<div class="row">
+		<div class="row no-gutters align-items-center">
 			<div class="col-1">
 				<?php echo $this->module('events')->model('matches')->display_scores($match['match']['scores'], $color) ?>
 			</div>
