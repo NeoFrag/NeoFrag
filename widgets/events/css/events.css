@@ -18,11 +18,11 @@
 	color: #fff;
 }
 
-.widget-events .row.vcenter {
+.widget-events .row.align-middle {
 	display: table;
 }
 
-.widget-events .vcenter {
+.widget-events .align-middle {
 	display: table-cell;
 	float: none;
 	vertical-align: middle;

@@ -59,7 +59,7 @@ class Index extends Controller_Module
 										return timetostr('%d/%m/%Y', $data['date']);
 									},
 									'size'    => TRUE,
-									'class'   => 'vcenter'
+									'class'   => 'align-middle'
 								],
 								[
 									'content' => function($data){
@@ -72,7 +72,7 @@ class Index extends Controller_Module
 											return '';
 										}
 									},
-									'class'   => 'col-1 text-center vcenter'
+									'class'   => 'col-1 text-center align-middle'
 								],
 								[
 									'title'   => 'Adversaire',
@@ -86,21 +86,21 @@ class Index extends Controller_Module
 
 										return $opponent;
 									},
-									'class'   => 'vcenter'
+									'class'   => 'align-middle'
 								],
 								[
 									'title'   => 'Événement',
 									'content' => function($data){
 										return '<a href="'.url('events/'.$data['event_id'].'/'.url_title($data['title'])).'">'.$data['title'].'</a>';
 									},
-									'class'   => 'vcenter'
+									'class'   => 'align-middle'
 								],
 								[
 									'title'   => '<div class="text-center">Score</div>',
 									'content' => function($data){
 										return $this->module('events')->model('matches')->display_scores($data['match']['scores'], $color).'<span class="'.$color.'">'.$data['match']['scores'][0].':'.$data['match']['scores'][1].'</span>';
 									},
-									'class'   => 'text-center vcenter'
+									'class'   => 'text-center align-middle'
 								]
 							])
 							->data(array_slice($this->_get_team_events($team_id), 0, 10))

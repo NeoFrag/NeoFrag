@@ -57,7 +57,7 @@ $(function(){
 			$.each(data.notifications, function(i, notification){
 				notifications += '	<tr>\
 										<td class="col-2"><span class="badge badge-'+notification[1]+'">'+(notification[1] == 'danger' ? '<?php echo icon('fas fa-bug') ?> Erreur' : (notification[1] == 'warning' ? '<?php echo icon('fas fa-bolt') ?> Anomalie' : '<?php echo icon('fas fa-exclamation-circle') ?> Conseil'))+'</span></td>\
-										<td class="vcenter">'+notification[0]+'</td>\
+										<td class="align-middle">'+notification[0]+'</td>\
 									</tr>';
 				count[notification[1]]++;
 			});
