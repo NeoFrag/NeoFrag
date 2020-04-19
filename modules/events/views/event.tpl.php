@@ -4,7 +4,7 @@
 <?php endif ?>
 <?php if (!empty($match['opponent']))://Matches ?>
 <div class="card-body text-center">
-	<div class="row align-items-center">
+	<div class="row no-gutters align-items-center">
 		<div class="text-right col-<?php echo ($icon = NeoFrag()->model2('file', $match['team']['icon_id'])->path()) ? 4 : 5 ?>">
 			<h5 class="m-0">
 				<a href="<?php echo url('events/team/'.$match['team_id'].'/'.$match['team']['name']) ?>">
