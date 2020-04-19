@@ -16,6 +16,11 @@ abstract class Library extends NeoFrag
 		$this->__caller = $caller;
 	}
 
+	public function __invoke()
+	{
+		return $this;
+	}
+
 	public function __sleep()
 	{
 		return array_filter(array_keys(get_object_vars($this)), function($a){
