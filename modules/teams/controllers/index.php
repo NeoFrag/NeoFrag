@@ -49,7 +49,7 @@ class Index extends Controller_Module
 		$this	->title($title)
 				->breadcrumb($title);
 
-		if ($this->config->teams_display_matches)
+		if ($this->config->teams_display_matches && ($team_events = $this->_get_team_events($team_id)))
 		{
 			$matches = $this->table()
 							->add_columns([
@@ -103,7 +103,7 @@ class Index extends Controller_Module
 									'class'   => 'text-center align-middle'
 								]
 							])
-							->data(array_slice($this->_get_team_events($team_id), 0, 10))
+							->data(array_slice($team_events, 0, 10))
 							->no_data('Aucun match disputé...')
 							->display();
 		}
