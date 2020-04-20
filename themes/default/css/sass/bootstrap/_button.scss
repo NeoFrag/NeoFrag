@@ -7,3 +7,11 @@
 		padding: .15rem .25rem;
 	}
 }
+
+.btn-group-vertical {
+	.btn {
+		+ .btn {
+			margin-left: 0;
+		}
+	}
+}
