@@ -69,6 +69,7 @@ class Index extends Controller_Widget
 		{
 			return $this->panel()
 						->body($this->view('slider', [
+							'id'     => $settings['gallery_id'],
 							'images' => $images
 						]), FALSE);
 		}

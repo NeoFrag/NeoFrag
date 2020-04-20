@@ -1,4 +1,4 @@
-<div id="gallery_Carousel" class="carousel slide" data-ride="carousel">
+<div id="gallery_Carousel<?php echo $id ?>" class="carousel slide" data-ride="carousel">
 	<div class="carousel-inner">
 		<?php foreach ($images as $image): ?>
 		<div class="carousel-item<?php echo !isset($active) ? $active = ' active' : '' ?>">
@@ -6,11 +6,11 @@
 		</div>
 		<?php endforeach ?>
 	</div>
-	<a class="carousel-control-prev" href="#gallery_Carousel" role="button" data-slide="prev">
+	<a class="carousel-control-prev" href="#gallery_Carousel<?php echo $id ?>" role="button" data-slide="prev">
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		<span class="sr-only"><?php echo $this->lang('Précédent') ?></span>
 	</a>
-	<a class="carousel-control-next" href="#gallery_Carousel" role="button" data-slide="next">
+	<a class="carousel-control-next" href="#gallery_Carousel<?php echo $id ?>" role="button" data-slide="next">
 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		<span class="sr-only"><?php echo $this->lang('Suivant') ?></span>
 	</a>
