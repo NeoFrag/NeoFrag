@@ -381,6 +381,8 @@ class Admin_Ajax extends Controller_Module
 
 					$this->_flush(4, 100);
 
+					$this->module('tools')->api()->scss();
+
 					$this	->config('nf_version', version_format($version->version))
 							->config('nf_monitoring_last_check', 0);
 				}
