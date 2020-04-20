@@ -19,7 +19,7 @@ $rules = [
 		'rules'			=> 'required'
 	],
 	'image' => [
-		'label'       => $this->lang('Image'),
+		'label'       => $this->lang('Bannière'),
 		'value'       => $this->form()->value('image_id'),
 		'type'        => 'file',
 		'upload'      => 'teams',
@@ -32,7 +32,7 @@ $rules = [
 		}
 	],
 	'icon' => [
-		'label'       => $this->lang('Icône'),
+		'label'       => $this->lang('Logo'),
 		'value'       => $this->form()->value('icon_id'),
 		'upload'      => 'teams/icons',
 		'type'        => 'file',
@@ -47,11 +47,11 @@ $rules = [
 
 			if ($w != $h)
 			{
-				return $this->lang('L\'icône doit être carré');
+				return $this->lang('Le logo doit être carré');
 			}
 			else if ($w < 16)
 			{
-				return $this->lang('L\'icône doit faire au moins %dpx', 16);
+				return $this->lang('Le logo doit faire au moins %dpx', 16);
 			}
 		},
 		'post_upload' => function($filename){

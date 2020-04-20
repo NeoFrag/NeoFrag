@@ -108,24 +108,28 @@ class Index extends Controller_Module
 							->display();
 		}
 
-		return $this->array([
-			$this	->panel()
-					->body($this->view('team', [
-						'team_id'     => $team_id,
-						'name'        => $name,
-						'title'       => $title,
-						'image_id'    => $image_id,
-						'game'        => $game,
-						'description' => bbcode($description),
-						'players'     => $this->model()->get_players($team_id)
-					]), FALSE)
-					->footer_if($this->_check_team_recruits($team_id), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>'),
-			$team_matches = ($this->_get_team_events($team_id) && $this->config->teams_display_matches) ? $this->panel()
-					->heading('Derniers résultats', 'fas fa-crosshairs')
-					->body($matches)
-					->footer_if((isset($team_matches) && (count($team_matches) > 10)), '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les matchs de cette équipe</a>', 'right') : NULL,
-			$this	->panel_back('teams')
-		]);
+		return $this->array()
+					->append(
+						$this	->panel()
+								->body($this->view('team', [
+									'team_id'     => $team_id,
+									'name'        => $name,
+									'title'       => $title,
+									'icon_id'     => $icon_id,
+									'image_id'    => $image_id,
+									'game'        => $game,
+									'description' => bbcode($description),
+									'players'     => $this->model()->get_players($team_id)
+								]), FALSE)
+								->footer_if($this->_check_team_recruits($team_id), '<div class="text-info text-center font-weight-bold">'.$this->lang('Cette équipe recrute !').'</div>')
+					)
+					->append_if(!empty($team_events), function() use ($team_events, $matches, $team_id, $name){
+						return $this->panel()
+									->heading('Derniers résultats', 'fas fa-crosshairs')
+									->body($matches)
+									->footer_if(count($team_events) > 10, '<a href="'.url('events/team/'.$team_id.'/'.url_title($name)).'">'.icon('far fa-arrow-alt-circle-right').' Voir tous les matchs de cette équipe</a>', 'right');
+					})
+					->append($this->panel_back('teams'));
 	}
 
 	public function _get_team_events($team_id)
