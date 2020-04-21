@@ -37,7 +37,126 @@ class Date extends Library
 
 	public function __toString()
 	{
-		return '<time datetime="'.$this->format('Y-m-d\TH:i:s').'">'.time_span($this->_datetime->getTimestamp()).'</time>';
+		$timestamp = $this->timestamp();
+		$diff      = time() - $timestamp;
+		$output    = '';
+
+		if ($this->_format == 'Y-m-d')
+		{
+			$output = NeoFrag()->lang('Le %s', $this->short_date());
+
+			if ($diff < 0)
+			{
+				if ($timestamp < strtotime('+2 days midnight'))
+				{
+					$output = NeoFrag()->lang('Demain');
+				}
+				else if ($timestamp < strtotime('+8 days midnight'))
+				{
+					$output = NeoFrag()->lang('%s prochain', ucfirst($this->locale('%A')));
+				}
+				else if ($timestamp < strtotime('+22 days midnight'))
+				{
+					$output = NeoFrag()->lang('Dans %d jours', floor($diff / 87840 * -1));
+				}
+			}
+			else if ($diff > 0)
+			{
+				if ($timestamp >= strtotime('yesterday midnight'))
+				{
+					$output = NeoFrag()->lang('Hier');
+				}
+				else if ($timestamp >= strtotime('7 days ago midnight'))
+				{
+					$output = NeoFrag()->lang('%s dernier', ucfirst($this->locale('%A')));
+				}
+				else if ($timestamp >= strtotime('20 days ago midnight'))
+				{
+					$output = NeoFrag()->lang('Il y a %d jours', floor($diff / 87840));
+				}
+			}
+			else
+			{
+				$output = NeoFrag()->lang('Aujourd\'hui');
+			}
+		}
+		else
+		{
+			$output = NeoFrag()->lang('Le %s à %s', $this->short_date(), $this->short_time());
+
+			if ($diff < 0)
+			{
+				if ($timestamp < strtotime('+1 days midnight'))
+				{
+					$output = NeoFrag()->lang('Aujourd\'hui à %s', $this->short_time());
+				}
+				else if ($timestamp < strtotime('+2 days midnight'))
+				{
+					$output = NeoFrag()->lang('Demain à %s', $this->short_time());
+				}
+				else if ($timestamp < strtotime('+8 days midnight'))
+				{
+					$output = NeoFrag()->lang('%s prochain à %s', ucfirst($this->locale('%A')), $this->short_time());
+				}
+				else if ($timestamp < strtotime('+22 days midnight'))
+				{
+					$output = NeoFrag()->lang('Dans %d jours à %s', floor($diff / 87840 * -1), $this->short_time());
+				}
+			}
+			else if ($diff > 0)
+			{
+				if ($diff == strtoseconds('1 seconds'))
+				{
+					$output = NeoFrag()->lang('Il y a une seconde|Il y a %d secondes', 1);
+				}
+				else if ($diff <= strtoseconds('30 seconds'))
+				{
+					$output = NeoFrag()->lang('Il y a une seconde|Il y a %d secondes', $diff, $diff);
+				}
+				else if ($diff < strtoseconds('45 seconds'))
+				{
+					$output = NeoFrag()->lang('Il y a une seconde|Il y a %d secondes', 30, 30);
+				}
+				else if ($diff < strtoseconds('50 seconds'))
+				{
+					$output = NeoFrag()->lang('Il y a une seconde|Il y a %d secondes', 45, 45);
+				}
+				else if ($diff < strtoseconds('55 seconds'))
+				{
+					$output = NeoFrag()->lang('Il y a une seconde|Il y a %d secondes', 50, 50);
+				}
+				else if ($diff < strtoseconds('2 minutes'))
+				{
+					$output = NeoFrag()->lang('Il y a environ une minute|Il y a %d minutes', 1);
+				}
+				else if ($diff <= strtoseconds('59 minutes'))
+				{
+					$output = NeoFrag()->lang('Il y a environ une minute|Il y a %d minutes', $diff = floor($diff / 60), $diff);
+				}
+				else if ($diff < strtoseconds('2 hours'))
+				{
+					$output = NeoFrag()->lang('Il y a environ une heure|Il y a %d heures', 1);
+				}
+				else if ($diff <= strtoseconds('23 hours'))
+				{
+					$output = NeoFrag()->lang('Il y a environ une heure|Il y a %d heures', $diff = floor($diff / 3660), $diff);
+				}
+				else if ($timestamp >= strtotime('yesterday'))
+				{
+					$output = NeoFrag()->lang('Hier à %s', $this->short_time());
+				}
+				else if ($timestamp >= strtotime('6 days ago midnight'))
+				{
+					$output = NeoFrag()->lang('%s dernier à %s', ucfirst($this->locale('%A')), $this->short_time());
+				}
+			}
+			else
+			{
+				$output = NeoFrag()->lang('À l\'instant');
+			}
+		}
+
+		return '<time datetime="'.$this->format().'">'.$output.'</time>';
 	}
 
 	public function __debugInfo()
