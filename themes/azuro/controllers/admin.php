@@ -63,11 +63,9 @@ class Admin extends Controller
 										'rules'  => 'required'
 									],
 									'fixed' => [
-										'value'  => $this->config->{'azuro_background_attachment'},
-										'values' => [
-											'on'  => $this->lang('Image fixe')
-										],
-										'type'   => 'checkbox'
+										'checked' => ['on' => $this->config->{'azuro_background_attachment'} == 'fixed'],
+										'values'  => ['on' => $this->lang('Image fixe')],
+										'type'    => 'checkbox'
 									],
 									'color' => [
 										'label' => $this->lang('Couleur de fond'),
