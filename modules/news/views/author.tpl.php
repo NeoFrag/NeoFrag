@@ -1,5 +1,5 @@
 <div class="media">
-	<?php echo NeoFrag()->model2('user', $user_id)->avatar() ?>
+	<?php echo $this->module('user')->model2('user', $user_id)->avatar() ?>
 	<div class="media-body">
 		<div><?php echo $this->user->link($user_id, $username) ?></div>
 		<p>

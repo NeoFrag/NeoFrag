@@ -14,7 +14,7 @@ class Session_History extends Model2
 	{
 		return [
 			'id'         => self::field()->primary(),
-			'user'       => self::field()->depends('user'),
+			'user'       => self::field()->depends('user/user'),
 			'ip_address' => self::field()->text(39),
 			'host_name'  => self::field()->text(100),
 			'referer'    => self::field()->text(100),

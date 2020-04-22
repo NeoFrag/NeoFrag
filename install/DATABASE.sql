@@ -1517,7 +1517,7 @@ CREATE TABLE `nf_user_auth` (
 
 DROP TABLE IF EXISTS `nf_user_profile`;
 CREATE TABLE `nf_user_profile` (
-  `user_id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `avatar` int(11) unsigned DEFAULT NULL,
@@ -1533,10 +1533,10 @@ CREATE TABLE `nf_user_profile` (
   `github` varchar(100) NOT NULL,
   `instagram` varchar(100) NOT NULL,
   `twitch` varchar(100) NOT NULL,
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`id`),
   KEY `avatar` (`avatar`),
   CONSTRAINT `nf_user_profile_ibfk_2` FOREIGN KEY (`avatar`) REFERENCES `nf_file` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `nf_user_profile_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nf_user_profile_ibfk_3` FOREIGN KEY (`id`) REFERENCES `nf_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

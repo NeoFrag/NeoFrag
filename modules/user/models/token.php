@@ -14,7 +14,7 @@ class Token extends Model2
 	{
 		return [
 			'id'   => self::field()->text(32)->primary(),
-			'user' => self::field()->depends('user')
+			'user' => self::field()->depends('user/user')
 		];
 	}
 }

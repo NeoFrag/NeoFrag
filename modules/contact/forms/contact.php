@@ -23,7 +23,7 @@ $this->rule($this->form_text('subject')
 						->subject($data['subject'])
 						->message(function() use ($data){
 							return [
-								'content' => nl2br(strtolink($data['message'])).($this->user() ? '<br /><br />'.$this->user->view('user/profile') : '')
+								'content' => nl2br(strtolink($data['message'])).($this->user() ? '<br /><br />'.$this->user->view('profile') : '')
 							];
 						})
 						->send();

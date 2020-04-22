@@ -18,7 +18,7 @@ class Index extends Controller_Module
 						$this->col(
 							$this	->panel()
 									->heading('Mon profil')
-									->body($this->user->view('user/profile')),
+									->body($this->user->view('profile')),
 							$this->_panel_navigation()
 						)->size('col-4'),
 						$this->col(
@@ -45,7 +45,7 @@ class Index extends Controller_Module
 						$this->col(
 							$this	->panel()
 									->heading('Mon profil')
-									->body($this->user->view('user/profile')),
+									->body($this->user->view('profile')),
 							$this->_panel_navigation()
 						)->size('col-4'),
 						$this->col(
@@ -214,7 +214,7 @@ class Index extends Controller_Module
 						$this->col(
 							$this	->panel()
 									->heading('Mon profil')
-									->body($this->user->view('user/profile')),
+									->body($this->user->view('profile')),
 							$this->_panel_navigation()
 						)->size('col-4'),
 						$this->col(
@@ -481,7 +481,7 @@ class Index extends Controller_Module
 					->append($this	->col()
 									->size('col-4 user-col')
 									->append($this	->panel()
-													->body($user->view('user/profile'))
+													->body($user->view('profile'))
 									)
 					)
 					->append($this	->col()
@@ -578,7 +578,7 @@ class Index extends Controller_Module
 										->join('nf_forum          f',  't.forum_id  = f.forum_id')
 										->join('nf_forum          f2', 'f.parent_id = f2.forum_id AND f.is_subforum = "1"')
 										->join('nf_user           u',  'm.user_id   = u.id AND u.deleted = "0"')
-										->join('nf_user_profile   up', 'u.id        = up.user_id')
+										->join('nf_user_profile   up', 'u.id        = up.id')
 										->where('m.user_id', $user_id)
 										->where('IFNULL(f2.parent_id, f.parent_id)', $categories)
 										->order_by('m.date DESC')

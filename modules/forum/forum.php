@@ -164,7 +164,7 @@ class Forum extends Module
 		{
 			$profiles[$user_id] = $this->db	->select('u.id as user_id', 'u.username', 'up.avatar', 'up.signature', 'up.sex', 'u.admin', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online')
 											->from('nf_user u')
-											->join('nf_user_profile up', 'u.id = up.user_id')
+											->join('nf_user_profile up', 'u.id = up.id')
 											->join('nf_session      s',  'u.id = s.user_id')
 											->where('u.id', $user_id)
 											->where('u.deleted', FALSE)

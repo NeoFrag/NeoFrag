@@ -8,12 +8,12 @@ namespace NF\NeoFrag\Models;
 
 use NF\NeoFrag\Loadables\Model2;
 
-class User_Profile extends Model2
+class Profile extends Model2
 {
 	static public function __schema()
 	{
 		return [
-			'user'          => self::field()->primary()->depends('user'),
+			'id'            => self::field()->depends('user/user', '')->primary(),
 			'first_name'    => self::field()->text(100),
 			'last_name'     => self::field()->text(100),
 			'avatar'        => self::field()->file(),

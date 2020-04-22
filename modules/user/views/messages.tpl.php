@@ -18,7 +18,7 @@
 				<?php foreach ($messages as $message): ?>
 				<li class="list-group-item message-item px-0 py-2">
 					<div class="media">
-						<span data-toggle="tooltip" title="<?php echo $message['username'] ?>"><?php echo NeoFrag()->model2('user', $message['user_id'])->avatar()->append_attr('class', 'mr-2') ?></span>
+						<span data-toggle="tooltip" title="<?php echo $message['username'] ?>"><?php echo $this->model2('user', $message['user_id'])->avatar()->append_attr('class', 'mr-2') ?></span>
 						<div class="media-body">
 							<?php if ($allow_delete): ?>
 							<div class="float-right">
@@ -45,7 +45,7 @@
 			<h5><?php echo $title ?></h5>
 			<?php foreach ($replies as $reply): ?>
 			<div class="media message">
-				<?php echo NeoFrag()->model2('user', $reply['user_id'])->avatar()->append_attr('class', 'mr-2') ?>
+				<?php echo $this->model2('user', $reply['user_id'])->avatar()->append_attr('class', 'mr-2') ?>
 				<div class="media-body">
 					<h6 class="mt-1 mb-0"><?php echo $this->user->link($reply['user_id'], $reply['username']) ?></h6>
 					<p><small class="text-muted"><?php echo icon('far fa-clock').' '.time_span($reply['date']) ?></small></p>

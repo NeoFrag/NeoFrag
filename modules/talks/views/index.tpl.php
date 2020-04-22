@@ -29,7 +29,7 @@ foreach ($messages as $i => $message)
 	ob_start();
 ?>
 	<div class="media-<?php echo $media ?>">
-		<?php echo NeoFrag()->model2('user', $message['user_id'])->avatar() ?>
+		<?php echo $this->module('user')->model2('user', $message['user_id'])->avatar() ?>
 	</div>
 <?php
 	$avatar = ob_get_clean();

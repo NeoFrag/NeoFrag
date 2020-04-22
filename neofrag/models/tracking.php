@@ -14,7 +14,7 @@ class Tracking extends Model2
 	{
 		return [
 			'id'       => self::field()->primary(),
-			'user'     => self::field()->depends('user')->default(NeoFrag()->user),
+			'user'     => self::field()->depends('user/user')->default(NeoFrag()->user),
 			'model'    => self::field()->text(100)->null(),
 			'model_id' => self::field()->int()->null(),
 			'date'     => self::field()->datetime()

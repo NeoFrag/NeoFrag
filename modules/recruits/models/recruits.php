@@ -15,7 +15,7 @@ class Recruits extends Model
 		$this->db	->select('r.*', 'u.id as user_id', 'u.username', 'up.avatar', 'up.sex', 'COUNT(DISTINCT rc.candidacy_id) as candidacies', 'COUNT(DISTINCT CASE WHEN rc.status = \'1\' THEN rc.candidacy_id END) as candidacies_pending', 'COUNT(DISTINCT CASE WHEN rc.status = \'2\' THEN rc.candidacy_id END) as candidacies_accepted', 'COUNT(DISTINCT CASE WHEN rc.status = \'3\' THEN rc.candidacy_id END) as candidacies_declined', 'tl.title as team_name')
 					->from('nf_recruits r')
 					->join('nf_user u',                  'r.user_id     = u.id')
-					->join('nf_user_profile up',       'up.user_id    = u.id')
+					->join('nf_user_profile up',         'up.id         = u.id')
 					->join('nf_recruits_candidacies rc', 'rc.recruit_id = r.recruit_id')
 					->join('nf_teams_lang tl',           'r.team_id     = tl.team_id')
 					->group_by('r.recruit_id')
@@ -34,7 +34,7 @@ class Recruits extends Model
 		$this->db	->select('r.*', 'u.id as user_id', 'u.username', 'up.avatar', 'up.sex', 'COUNT(DISTINCT rc.candidacy_id) as candidacies', 'COUNT(DISTINCT CASE WHEN rc.status = \'1\' THEN rc.candidacy_id END) as candidacies_pending', 'COUNT(DISTINCT CASE WHEN rc.status = \'2\' THEN rc.candidacy_id END) as candidacies_accepted', 'COUNT(DISTINCT CASE WHEN rc.status = \'3\' THEN rc.candidacy_id END) as candidacies_declined', 'tl.title as team_name')
 					->from('nf_recruits r')
 					->join('nf_user u',                  'r.user_id     = u.id')
-					->join('nf_user_profile up',       'up.user_id    = u.id')
+					->join('nf_user_profile up',         'up.id         = u.id')
 					->join('nf_recruits_candidacies rc', 'rc.recruit_id = r.recruit_id')
 					->join('nf_teams_lang tl',           'r.team_id     = tl.team_id')
 					->group_by('r.recruit_id')
@@ -126,9 +126,9 @@ class Recruits extends Model
 	{
 		$this->db	->select('rc.*', 'u.id as user_id', 'u.username', 'up.avatar', 'up.sex', 'r.title')
 					->from('nf_recruits_candidacies rc')
-					->join('nf_recruits r',        'rc.recruit_id = r.recruit_id')
-					->join('nf_user u',            'rc.user_id    = u.id')
-					->join('nf_user_profile up', 'up.user_id    = u.id')
+					->join('nf_recruits r',      'rc.recruit_id = r.recruit_id')
+					->join('nf_user u',          'rc.user_id    = u.id')
+					->join('nf_user_profile up', 'up.id         = u.id')
 					->order_by('rc.date DESC');
 
 		if ($recruit_id)
@@ -167,7 +167,7 @@ class Recruits extends Model
 								->join('nf_recruits r',        'rc.recruit_id = r.recruit_id')
 								->join('nf_teams_lang tl',     'r.team_id     = tl.team_id')
 								->join('nf_user u',            'rc.user_id    = u.id')
-								->join('nf_user_profile up', 'up.user_id    = u.id')
+								->join('nf_user_profile up',   'up.id         = u.id')
 								->where('rc.candidacy_id', $candidacy_id)
 								->row();
 
@@ -218,7 +218,7 @@ class Recruits extends Model
 		return $this->db->select('rcv.*', 'u.username', 'up.avatar', 'up.sex')
 						->from('nf_recruits_candidacies_votes rcv')
 						->join('nf_user u',            'u.id   = rcv.user_id')
-						->join('nf_user_profile up', 'up.user_id  = u.id')
+						->join('nf_user_profile up',   'up.id  = u.id')
 						->where('rcv.candidacy_id', $candidacy_id)
 						->get();
 	}

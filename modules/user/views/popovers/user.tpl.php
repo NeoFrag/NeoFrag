@@ -1,3 +1,1 @@
-<?php echo NeoFrag()->view('user/profile', [
-	'user' => $user
-]) ?>
+<?php echo $user->view('profile') ?>

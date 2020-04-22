@@ -60,7 +60,7 @@ class Index extends Controller_Widget
 								->join('nf_users_messages_replies r', 'r.message_id = mr.message_id')
 								->join('nf_users_messages m', 'm.message_id = mr.message_id')
 								->join('nf_user u', 'u.id = m.user_id')
-								->join('nf_user_profile up', 'up.user_id = u.id')
+								->join('nf_user_profile up', 'up.id = u.id')
 								->where('r.user_id <>', $this->user->id)
 								->where('mr.user_id', $this->user->id)
 								->where('IFNULL(r.read, mr.read)', FALSE)

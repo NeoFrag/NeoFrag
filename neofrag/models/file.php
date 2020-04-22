@@ -14,7 +14,7 @@ class File extends Model2
 	{
 		return [
 			'id'   => self::field()->primary(),
-			'user' => self::field()->depends('user')->null()->default(NeoFrag()->user),
+			'user' => self::field()->depends('user/user')->default(NeoFrag()->user)->null(),
 			'name' => self::field()->text(100),
 			'path' => self::field()->text(100),
 			'date' => self::field()->datetime()

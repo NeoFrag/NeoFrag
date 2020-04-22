@@ -74,5 +74,7 @@ class Alpha_0_2_2 extends Install
 		}
 
 		file_put_contents('config/email.php', $config);
+
+		$this->db->execute('ALTER TABLE `nf_user_profile` CHANGE `user_id` `id` INT(11) UNSIGNED NOT NULL');
 	}
 }

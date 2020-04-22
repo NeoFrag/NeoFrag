@@ -29,25 +29,20 @@ class User extends Model2
 		];
 	}
 
-	static public function __route($route)
+	static public function __title($model)
 	{
-		$route->delete('Suppression', function($user){
-			return $user->lang('Êtes-vous sûr(e) de vouloir supprimer l\'utilisateur <b>%s</b> ?', $user->username);
-		});
+		return $model->username;
 	}
 
-	static public function __url($model)
-	{
-		return url_title($model->username);
-	}
+	public $__table = 'user';
 
 	public function profile()
 	{
-		$profile = NeoFrag()->model2('user_profile', $this->id);
+		$profile = $this->model2('profile', $this->id);
 
 		if (!$profile())
 		{
-			$profile->set('user', $this->id);
+			$profile->set('id', $this->id);
 		}
 
 		return $profile;
@@ -111,7 +106,7 @@ class User extends Model2
 					->attr('class', 'avatar')
 					->append_attr_if($this->is_online(),  'class', 'online')
 					->append_attr_if(!$this->is_online(), 'class', 'offline')
-					->content($this->view('user/avatar'));
+					->content($this->view('avatar'));
 	}
 
 	public function token()

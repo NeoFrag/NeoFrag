@@ -163,7 +163,7 @@ class Checker extends Module_Checker
 
 	public function _member($id, $username)
 	{
-		if (($user = NeoFrag()->model2('user', $id)->check($username)) && !$user->deleted)
+		if (($user = $this->model2('user', $id)->check($username)) && !$user->deleted)
 		{
 			return [$user];
 		}

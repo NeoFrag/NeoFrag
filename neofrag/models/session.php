@@ -14,7 +14,7 @@ class Session extends Model2
 	{
 		return [
 			'id'            => self::field()->text(32)->primary(),
-			'user'          => self::field()->depends('user')->null(),
+			'user'          => self::field()->depends('user/user')->null(),
 			'remember'      => self::field()->bool()->default(FALSE),
 			'last_activity' => self::field()->datetime(),
 			'data'          => self::field()->serialized()

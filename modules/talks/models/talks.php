@@ -14,8 +14,8 @@ class Talks extends Model
 	{
 		$this->db	->select('m.message_id', 'm.talk_id', 'u.id as user_id', 'm.message', 'm.date', 'u.username', 'up.avatar', 'up.sex')
 					->from('nf_talks_messages m')
-					->join('nf_user u', 'u.id = m.user_id AND u.deleted = "0"')
-					->join('nf_user_profile up', 'u.id = up.user_id');
+					->join('nf_user         u',  'u.id = m.user_id AND u.deleted = "0"')
+					->join('nf_user_profile up', 'u.id = up.id');
 
 		if ($message_id && !$limit)
 		{

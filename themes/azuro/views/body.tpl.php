@@ -51,7 +51,7 @@ if (count($this->url->segments) == 3 && $this->url->segments[0] == 'user' && iss
 {
 	if (($user = $this->module('user')->model2('user', $this->url->segments[1])->check($this->url->segments[2])) && !$user->deleted)
 	{
-		echo NeoFrag()->view('user/cover', ['user' => $user]);
+		echo $user->view('cover');
 	}
 }
 ?>

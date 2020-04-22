@@ -14,7 +14,7 @@ class Auth extends Model2
 	{
 		return [
 			'id'            => self::field()->primary(),
-			'user'          => self::field()->depends('user'),
+			'user'          => self::field()->depends('user/user'),
 			'authenticator' => self::field()->depends('addon'),
 			'key'           => self::field()->text(100),
 			'username'      => self::field()->text(100),

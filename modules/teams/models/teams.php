@@ -60,7 +60,7 @@ class Teams extends Model
 		return $this->db->select('u.id as user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) > DATE_SUB(NOW(), INTERVAL 5 MINUTE) as online', 'r.title')
 						->from('nf_teams_users    tu')
 						->join('nf_user           u',  'tu.user_id = u.id AND u.deleted = "0"', 'INNER')
-						->join('nf_user_profile up', 'u.id       = up.user_id')
+						->join('nf_user_profile up', 'u.id         = up.id')
 						->join('nf_teams_roles    r',  'r.role_id  = tu.role_id')
 						->join('nf_session        s',  'u.id       = s.user_id')
 						->where('tu.team_id', $team_id)

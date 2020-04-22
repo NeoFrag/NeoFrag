@@ -14,7 +14,7 @@
 	<ul class="list-inline mb-0">
 		<?php foreach ($players as $player): ?>
 		<li class="list-inline-item text-center" data-toggle="tooltip" title="<?php echo $player['username'] ?>">
-			<?php echo NeoFrag()->model2('user', $player['user_id'])->avatar()->append_attr('class', 'm-auto') ?>
+			<?php echo $this->module('user')->model2('user', $player['user_id'])->avatar()->append_attr('class', 'm-auto') ?>
 			<small class="text-muted"><?php echo $player['title'] ?></small>
 		</li>
 		<?php endforeach ?>

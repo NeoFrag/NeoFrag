@@ -43,8 +43,8 @@ class Index extends Controller_Widget
 
 		foreach ($this->db	->select('u.id as user_id', 'u.username', 'u.admin', 'up.avatar', 'up.sex', 'MAX(s.last_activity) AS last_activity')
 							->from('nf_session s')
-							->join('nf_user u', 'u.id = s.user_id AND u.deleted = "0"', 'INNER')
-							->join('nf_user_profile up', 'u.id = up.user_id')
+							->join('nf_user         u',  'u.id = s.user_id AND u.deleted = "0"', 'INNER')
+							->join('nf_user_profile up', 'u.id = up.id')
 							->where('s.last_activity > DATE_SUB(NOW(), INTERVAL 5 MINUTE)')
 							->group_by('u.id')
 							->order_by('u.username')
