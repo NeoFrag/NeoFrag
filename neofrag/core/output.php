@@ -167,19 +167,23 @@ class Output extends Core
 				//Routage automatique
 				if (!isset($method))
 				{
-					//Routage via crud
-					if (!empty($module->info()->crud))
+					if (	array_key_exists(3, $segments) &&
+							($model = @$module->model2($segments[0], $segments[2])) &&
+							$model->check($segments[3]) &&
+							($action = @$model->action(str_replace('-', '_', $segments[1]))) &&
+							$action->__check()
+						)
 					{
-						foreach ($module->info()->crud as $model)
-						{
-							if ((($model = $module->model2($model)) || ($model = NeoFrag()->model2($model))) && ($route = $model->route()))
-							{
-								if ($output = $route->execute($segments))
-								{
-									return $output;
-								}
-							}
-						}
+						return $action;
+					}
+					else if (	array_key_exists(1, $segments) &&
+								$segments[1] == 'create' &&
+								($model = @$module->model2($segments[0])) &&
+								($action = @$model->action(str_replace('-', '_', $segments[1]))) &&
+								$action->__check()
+						)
+					{
+						return $action;
 					}
 
 					$method = str_replace('-', '_', array_shift($segments));

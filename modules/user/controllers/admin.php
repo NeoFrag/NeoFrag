@@ -68,9 +68,7 @@ class Admin extends Controller_Module
 			),
 			$this->col(
 				$this	->table2($members)
-						->col('Membre', function($user){
-							return $user->link();
-						})
+						->col('Membre', 'link')
 						->col('Email', function($user){
 							return '<a href="mailto:'.$user->email.'">'.$user->email.'</a>';
 						})
@@ -84,111 +82,6 @@ class Admin extends Controller_Module
 						->size('col-12 col-lg-9')
 			)
 		);
-	}
-
-	public function edit($user)
-	{
-		$form_groups = $this
-			->form()
-			->add_rules([
-				'groups' => [
-					'type'   => 'checkbox',
-					'values' => array_filter($this->groups(), function($group){
-						return !$group['auto'] || $group['auto'] == 'neofrag' || $group['users'] !== NULL;
-					}),
-					'rules'  => 'required'
-				]
-			])
-			->save();
-
-		if ($form_groups->is_valid($post))
-		{
-			$this->db	->where('user_id', $user->id)
-						->delete('nf_users_groups');
-
-			$this->db	->where('id', $user->id)
-						->update('nf_user', [
-							'admin' => FALSE
-						]);
-
-			if (in_array('admins', $post['groups']))
-			{
-				$this->db	->where('id', $user->id)
-							->update('nf_user', [
-								'admin' => TRUE
-							]);
-			}
-
-			foreach ($post['groups'] as $group_id)
-			{
-				if ($this->groups()[$group_id]['auto'])
-				{
-					continue;
-				}
-
-				$this->db->insert('nf_users_groups', [
-					'user_id'  => $user->id,
-					'group_id' => $group_id
-				]);
-			}
-
-			notify('Groupes du membre édités');
-
-			redirect_back('admin/user');
-		}
-
-		return $this->title($this->lang('Édition du membre'))
-					->subtitle($user->username)
-					->css('groups')
-					->js('groups')
-					->row()
-					->append(
-						$this	->col()
-								->size('col-12 col-lg-7')
-								->append(
-									$this	->form2('username email new_password', $user)
-											->success(function($user){
-												$user->update();
-												notify($this->lang('Membre modifié'));
-												redirect('admin/user/edit/'.$user->url());
-											})
-											->panel()
-											->title('Membre')
-								)
-								->append(
-									$this	->form2('profile', $user->profile())
-											->success(function($profile){
-												$profile->commit();
-												notify($this->lang('Profil modifié'));
-												refresh();
-											})
-											->panel()
-											->title('Profil')
-								)
-								->append(
-									$this	->form2('profile_socials', $user->profile())
-											->success(function($profile){
-												$profile->update();
-												notify($this->lang('Profil modifié'));
-												refresh();
-											})
-											->panel()
-											->title('Liens', 'fas fa-globe')
-								)
-					)
-					->append($this->col(
-						$this	->panel()
-								->heading($this->lang('Groupes'), 'fas fa-users')
-								->body($this->view('admin/groups', [
-									'user_id' => $user->id,
-									'form_id' => $form_groups->token()
-								]))
-								->size('col-12 col-lg-5'),
-						$this	->table2('session', $user->sessions())
-								->panel()
-								->title($this->lang('Sessions actives'), 'fas fa-globe')
-								->size('col-12 col-lg-5')
-					));
 	}
 
 	public function _groups_add()

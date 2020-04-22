@@ -65,7 +65,7 @@ class Select extends Multiple
 	{
 		$label = parent::_label();
 
-		if ($this->_create && ($model = $this->_form->model($this)) && ($button = $model->route()->button_create()))
+		if ($this->_create && ($model = $this->_form->model($this)) && ($action = $model->action('create')) && ($button = $action->__button()))
 		{
 			$label .= $button;
 		}

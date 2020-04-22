@@ -101,18 +101,24 @@ class Table2 extends Library
 		);
 	}
 
+	public function action($action)
+	{
+		return $this->compact(function($model) use ($action){
+			if ($action = $model->action($action))
+			{
+				return $action->__button();
+			}
+		});
+	}
+
 	public function update()
 	{
-		return $this->compact(function($model){
-			return $model->route()->button_update();
-		});
+		return $this->action('update');
 	}
 
 	public function delete()
 	{
-		return $this->compact(function($model){
-			return $model->route()->button_delete();
-		});
+		return $this->action('delete');
 	}
 
 	public function panel()

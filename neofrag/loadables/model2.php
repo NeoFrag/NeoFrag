@@ -60,10 +60,6 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 	}
 
-	static protected function __route($route)
-	{
-	}
-
 	static protected function __url($model)
 	{
 		if (isset($model->name))
@@ -316,10 +312,16 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		]));
 	}
 
-	public function route()
+	public function action($action)
 	{
-		$this::__route($route = NeoFrag()->___load('', 'route', [$this]));
-		return $route;
+		$caller = $this->__caller;
+
+		if ($caller == NeoFrag() && $this->__name == 'user')
+		{
+			$caller = NeoFrag()->module($this->__name);
+		}
+
+		return $caller->___load('models', $this->__name.'/'.$action, [$this, $action]);
 	}
 
 	public function url()
@@ -338,9 +340,9 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function popover()
 	{
-		if ($button = $this->route()->button_read())
+		if ($action = $this->action('popover'))
 		{
-			return $button->title($this);
+			return $action->__button();
 		}
 	}
 

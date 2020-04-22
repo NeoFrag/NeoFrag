@@ -103,6 +103,16 @@ class Panel extends Library
 		return $this;
 	}
 
+	public function create($name)
+	{
+		if (($model = @$this->model2($name)) && ($action = @$model->action('create')))
+		{
+			$this->_heading[] = $action->__button()->align('right');
+		}
+
+		return $this;
+	}
+
 	public function body($body = '', $add_body_tags = TRUE)
 	{
 		if (func_get_args())

@@ -15,14 +15,6 @@ class Admin_Checker extends Module_Checker
 		return [NeoFrag()->collection('user')->paginate($page)];
 	}
 
-	public function edit($id, $username)
-	{
-		if ($user = NeoFrag()->model2('user', $id)->check($username))
-		{
-			return [$user];
-		}
-	}
-
 	public function _groups_edit()
 	{
 		if ($group = $this->groups->check_group(func_get_args()))
