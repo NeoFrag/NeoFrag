@@ -60,11 +60,19 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 	{
 	}
 
+	static protected function __title($model)
+	{
+	}
+
 	static protected function __url($model)
 	{
 		if (isset($model->name))
 		{
 			return $model->name;
+		}
+		else if (($title = static::__title($model)) !== NULL)
+		{
+			return url_title($title);
 		}
 		else if (method_exists($model, 'title'))
 		{
@@ -221,7 +229,26 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function __toString()
 	{
-		return isset($this->title) ? (string)$this->title : '';
+		$output = '';
+
+		if (($title = static::__title($this)) !== NULL)
+		{
+			$output = $title;
+		}
+		else if (method_exists($this, 'title'))
+		{
+			$output = $this->title();
+		}
+		else if (isset($this->title))
+		{
+			$output = $this->title;
+		}
+		else if (isset($this->name))
+		{
+			$output = $this->name;
+		}
+
+		return (string)$output;
 	}
 
 	public function __clone()
