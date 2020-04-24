@@ -20,9 +20,7 @@ class Admin_Ajax extends Controller_Module
 					->success(function($data){
 						if ($zip = zip_open($tmp_file = $data['addon']))
 						{
-							while (file_exists($tmp = (ini_get('upload_tmp_dir') ?: sys_get_temp_dir()).'/'.unique_id()));
-
-							dir_create($tmp);
+							dir_create($tmp = dir_temp());
 
 							while ($zip_entry = zip_read($zip))
 							{

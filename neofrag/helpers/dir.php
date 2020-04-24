@@ -12,6 +12,12 @@ function dir_create()
 	}
 }
 
+function dir_temp()
+{
+	while (file_exists($tmp = (ini_get('upload_tmp_dir') ?: sys_get_temp_dir()).'/'.unique_id()));
+	return $tmp;
+}
+
 function dir_scan($dirs = '.', $callback = NULL, $dir_callback = NULL)
 {
 	$result = [];
