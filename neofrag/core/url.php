@@ -133,7 +133,7 @@ class Url extends Core
 					$segments($request);
 				}
 			}
-			else if (!$this->cli && !preg_match('_^user/auth/_', $this->request))
+			else if (!defined('NEOFRAG_INSTALL') && !$this->cli && !preg_match('_^user/auth/_', $this->request))
 			{
 				$this->on('config_lang_selected', function(){
 					redirect($this->request.$this->query);

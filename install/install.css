@@ -1,0 +1,162 @@
+html,body {
+	height: 100%;
+	display: table;
+	width: 100%;
+}
+
+body {
+	background: url('background.jpg') bottom left no-repeat #111b1f;
+	color: #c5c7c8;
+	display: table-cell;
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6,p.lead {
+	color: #fff;
+}
+
+h1 {
+	font-size: 60px;
+	font-weight: 300;
+	letter-spacing: -2px;
+}
+
+a.logo {
+	bottom: 50px;
+	left: 50px;
+	position: absolute;
+}
+
+section.step {
+	display: none;
+	padding: 60px 0;
+}
+
+section.step .heading {
+	margin-bottom: 50px;
+}
+
+.legend, .jumbotron {
+	background-color: rgba(0,0,0,.4);
+	border-radius: 4px;
+}
+
+.legend {
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+.legend h3 {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.jumbotron {
+	padding: 45px;
+}
+
+.legend hr, .jumbotron hr {
+	border-color: rgba(255,255,255,.15);
+}
+
+.btn {
+	font-weight: 600;
+	border-radius: 3px;
+	padding: 10px 18px;
+}
+
+.btn-action {
+	margin-top: 22px;
+	padding: 20px 75px 20px 20px;
+	position: relative;
+}
+
+.btn-action.btn-link {
+	border: 2px solid rgba(255,255,255,.1);
+}
+
+.btn-action.btn-link:hover, .btn-action.btn-link:focus {
+	border: 2px solid rgba(255,255,255,.2);
+}
+
+.btn-action + .btn-action {
+	margin-left: 8px;
+}
+
+.btn-action i.fa {
+	background-color: rgba(0,0,0,.15);
+	border-radius: 6px;
+	color: #fff;
+	font-size: 34px;
+	top: 5px;
+	padding: 10px;
+	position: absolute;
+	right: 5px;
+	text-align: center;
+	width: 50px;
+}
+
+.btn-link {
+	color: #c5c7c8;
+	text-decoration: none;
+}
+
+.btn-link:hover, .btn-link:focus {
+	color: #fff;
+	text-decoration: none;
+}
+
+#collaps-options {
+	margin-top: 30px;
+}
+
+ul.list-group {
+	border-color: rgba(0,0,0,.4);
+	border-width: 2px;
+}
+
+ul.list-group > li.list-group-item {
+	background-color: rgba(0,0,0,.3);
+}
+
+ul.list-group > li.list-group-item:hover {
+	background-color: rgba(0,0,0,.15);
+}
+
+ul.list-group > li.list-group-item {
+	border-color: rgba(0,0,0,.4);
+	border-width: 2px;
+	padding: 12px 18px;
+}
+
+ul.list-group > li.list-group-item + li.list-group-item {
+	border-top-width: 0;
+}
+
+ul.list-group > li.list-group-item i.fa {
+	margin-right: 5px;
+}
+
+ul.list-group > li.list-group-item .text-success {
+	color: #6CC54F;
+}
+
+/* Formulaires */
+
+.control-label {
+	padding-top: 11px !important;
+}
+
+.form-control {
+	background-color: #1e292d;
+	border: 2px solid #ccc;
+	border-color: #5C676B;
+	color: #fff;
+	height: 40px;
+}

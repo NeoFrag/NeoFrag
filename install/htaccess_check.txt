@@ -1,0 +1,7 @@
+AddDefaultCharset UTF-8
+DirectorySlash Off
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} /check/install$
+RewriteRule .* index.php [E=REMOTE_USER:%{HTTP:Authorization},E=CONTEXT:%{CONTEXT_PREFIX}]

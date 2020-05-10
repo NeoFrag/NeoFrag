@@ -39,5 +39,8 @@ class Alpha_0_2_2 extends Install
 					->execute('ALTER TABLE `nf_groups` CHANGE `icon` `icon` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL');
 
 		$this->config('nf_copyright', preg_replace('/pull-(left|right)/', 'float-\1', $this->config->nf_copyright));
+
+		dir_remove('install');
+		@rename('.htaccess_old', '.htaccess');
 	}
 }

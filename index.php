@@ -15,6 +15,18 @@ ini_set('error_log',       'logs/php.log');
 ini_set('display_errors',  TRUE);
 ini_set('default_charset', 'UTF-8');
 
+if (file_exists('install/index.php'))
+{
+	if (file_exists('install/db.txt'))
+	{
+		define('NEOFRAG_INSTALL', TRUE);
+	}
+	else
+	{
+		require_once 'install/index.php';
+	}
+}
+
 mb_regex_encoding('UTF-8');
 mb_internal_encoding('UTF-8');
 
@@ -190,5 +202,10 @@ foreach ([
 }
 
 define('NEOFRAG_CORE', TRUE);
+
+if (defined('NEOFRAG_INSTALL'))
+{
+	require_once 'install/index.php';
+}
 
 NeoFrag()->output();
