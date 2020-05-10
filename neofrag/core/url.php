@@ -38,8 +38,18 @@ class Url extends Core
 		$this->_const['host']         = $url['host'];
 		$this->_const['domain']       = isset($config['domain']) && is_a($config['domain'], 'closure') ? call_user_func_array($config['domain'], [$this->_const]) : '';
 		$this->_const['subdomain']    = $this->domain && $this->host != $this->domain ? substr($this->host, 0, -strlen($this->domain) - 1) : '';
-		$this->_const['base']         = substr($_SERVER['SCRIPT_NAME'], 0, -9);//-strlen('index.php')
 		$this->_const['ajax_header']  = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+		$this->_const['base']         = @$_SERVER['REDIRECT_CONTEXT'];
+		$base2                        = substr($_SERVER['SCRIPT_NAME'], 0, -9);//-strlen('index.php')
+
+		if (strpos($this->request, $this->base.$base2) === 0)
+		{
+			$this->_const['base'] .= $base2;
+		}
+		else
+		{
+			$this->_const['base'] .= '/';
+		}
 
 		if (substr($request = substr($url['path'], strlen($this->base)), -1) == '/')
 		{
