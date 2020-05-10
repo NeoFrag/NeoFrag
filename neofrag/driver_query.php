@@ -240,7 +240,7 @@ class Driver_Query
 
 	public function debug()
 	{
-		require_once 'lib/geshi/geshi.php';
-		return geshi_highlight($this->sql, 'sql', NULL, TRUE).(!empty($this->bind) ? '<br />'.NeoFrag()->debug->table($this->bind) : '').(!empty($this->error) ? '<div class="alert alert-danger">'.$this->error.'</div>' : '');
+		require_once 'lib/SqlFormatter/SqlFormatter.php';
+		return \SqlFormatter::format(\SqlFormatter::compress($this->sql)).(!empty($this->bind) ? '<br />'.NeoFrag()->debug->table($this->bind) : '').(!empty($this->error) ? '<div class="alert alert-danger">'.$this->error.'</div>' : '');
 	}
 }
