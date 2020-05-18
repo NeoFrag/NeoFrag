@@ -26,12 +26,13 @@ class Admin_Ajax extends Controller_Module
 							{
 								$entry_name = zip_entry_name($zip_entry);
 
-								if (substr($entry_name, -1) == '/')
+								if (zip_entry_open($zip, $zip_entry, 'r'))
 								{
-									dir_create($tmp.'/'.$entry_name);
-								}
-								else if (zip_entry_open($zip, $zip_entry, 'r'))
-								{
+									if (($dir = dirname($entry_name)) && $dir != '.')
+									{
+										dir_create($tmp.'/'.$dir);
+									}
+
 									file_put_contents($tmp.'/'.$entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
 								}
 
