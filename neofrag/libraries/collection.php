@@ -35,7 +35,7 @@ class Collection extends Library
 
 	public function __call($name, $args)
 	{
-		if ($this->_db)
+		if ($name != 'clone' && $this->_db)
 		{
 			if ($name == 'array')
 			{
@@ -53,6 +53,11 @@ class Collection extends Library
 		}
 
 		return parent::__call($name, $args);
+	}
+
+	public function __clone()
+	{
+		$this->_db = $this->_db->clone();
 	}
 
 	public function model()
