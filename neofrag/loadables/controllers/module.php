@@ -15,38 +15,14 @@ abstract class Module extends Controller
 		parent::__construct($this->module = $caller);
 	}
 
-	public function title($title)
+	public function __call($name, $args)
 	{
-		$this->output->data->set('module', 'title', $title);
-		return $this;
-	}
-
-	public function subtitle($subtitle)
-	{
-		$this->output->data->set('module', 'subtitle', $subtitle);
-		return $this;
-	}
-
-	public function icon($icon)
-	{
-		$this->output->data->set('module', 'icon', $icon);
-		return $this;
-	}
-
-	public function add_action($url, $title = '', $icon = '')
-	{
-		if (!is_a($url, 'NF\NeoFrag\Libraries\Html'))
+		if (method_exists($this->module, $name))
 		{
-			$url = $this->button($title, $icon, 'primary', $url);
+			call_user_func_array([$this->module, $name], $args);
+			return $this;
 		}
 
-		$this->output->data->append('module', 'actions', $url);
-		return $this;
-	}
-
-	public function ajax()
-	{
-		$this->output->data->set('module', 'ajax', TRUE);
-		return $this;
+		return parent::__call($name, $args);
 	}
 }
