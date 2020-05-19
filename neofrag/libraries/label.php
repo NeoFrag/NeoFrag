@@ -158,7 +158,7 @@ class Label extends Html
 			$this->_icon = $icon;
 			return $this;
 		}
-		else
+		else if (!is_empty($this->_icon))
 		{
 			return icon($this->_icon);
 		}
