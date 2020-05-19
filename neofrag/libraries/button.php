@@ -14,17 +14,35 @@ class Button extends Label
 	protected $_style    = [];
 	protected $_data     = [];
 
-	static public function footer($buttons, $align = 'center')
+	static public function footer($buttons, $default = 'left')
 	{
 		$output = NeoFrag()->html();
 
 		if ($buttons)
 		{
-			$footers = [];
+			$footers = NeoFrag()->array();
 
 			foreach ($buttons as $footer)
 			{
-				$footers[] = method_exists($footer, 'align') ? $footer->append_attr('class', 'float-'.$footer->align() ?: $align) : $footer;
+				$align = '';
+
+				if (method_exists($footer, 'align'))
+				{
+					$align = $footer->align();
+				}
+
+				$footers->append($align ?: $default, $footer);
+			}
+
+			if ($footers->count() == 1 && $footers->get($default))
+			{
+				$footers->each('implode');
+			}
+			else
+			{
+				$footers->each(function($buttons, $align){
+					return NeoFrag()->html()->attr('class', 'float-'.$align)->content($buttons);
+				});
 			}
 
 			$output->content($footers);
