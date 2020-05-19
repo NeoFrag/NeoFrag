@@ -40,7 +40,8 @@ class Bbcode extends Textarea
 			$this	->css('wbbtheme')
 					->js('jquery.wysibb.min')
 					->js('jquery.wysibb.fr')
-					->js_load('$(\'textarea.editor\').wysibb({lang: "'.$this->config->lang->info()->name.'"});');
+					->js('form')
+					->js('form_bbcode');
 
 			$input->append_attr('class', 'editor');
 
