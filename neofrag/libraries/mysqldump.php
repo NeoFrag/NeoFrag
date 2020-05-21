@@ -22,9 +22,16 @@ class Mysqldump extends Library
 	const DATA         = 1;
 	const STRUCTURE    = 2;
 
+	protected $_skip_auto_increment;
 	protected $_skip_data;
 	protected $_skip_structure;
 	protected $_tables = [];
+
+	public function skip_auto_increment()
+	{
+		$this->_skip_auto_increment = TRUE;
+		return $this;
+	}
 
 	public function skip_data()
 	{
@@ -107,6 +114,11 @@ class Mysqldump extends Library
 				if ($action & self::STRUCTURE)
 				{
 					$structure = $this->db->table_create($table);
+
+					if ($this->_skip_auto_increment)
+					{
+						$structure = preg_replace('/ AUTO_INCREMENT=\d+/', '', $structure);
+					}
 
 					fwrite($handle, PHP_EOL.
 									'-- --------------------------------------------------------'.PHP_EOL.PHP_EOL.
