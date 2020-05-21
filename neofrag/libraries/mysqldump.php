@@ -121,9 +121,11 @@ class Mysqldump extends Library
 				{
 					$cols = $this->db->table_columns($table);
 
+					$cols_list = implode(', ', array_map([$this, '_delimite'], array_keys($cols)));
+
 					$size = $dump = 0;
 
-					$res = $this->db->query('SELECT * FROM '.self::_delimite($table))->results();
+					$res = $this->db->query('SELECT * FROM '.self::_delimite($table).' ORDER BY '.$cols_list)->results();
 					while ($row = $this->db->fetch($res))
 					{
 						if (!$dump)
@@ -138,7 +140,7 @@ class Mysqldump extends Library
 
 						if ($size == 0)
 						{
-							fwrite($handle, PHP_EOL.'INSERT INTO '.self::_delimite($table).' ('.implode(', ', array_map([$this, '_delimite'], array_keys($cols))).') VALUES'.PHP_EOL);
+							fwrite($handle, PHP_EOL.'INSERT INTO '.self::_delimite($table).' ('.$cols_list.') VALUES'.PHP_EOL);
 						}
 						else
 						{
