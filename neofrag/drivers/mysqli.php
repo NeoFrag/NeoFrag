@@ -21,6 +21,7 @@ class Mysqli extends Driver
 		{
 			$this->db->set_charset('utf8');
 
+			$this->db->query('SET sql_mode  = "'.trim(str_replace('ONLY_FULL_GROUP_BY', '', $this->db->query('SELECT @@sql_mode')->fetch_row()[0]), ',').'"');
 			$this->db->query('SET time_zone = "+00:00"');
 			$this->db->query('SET time_zone = "'.($this->info->time_zone = date_create($this->db->query('SELECT NOW()')->fetch_row()[0])->diff(date_create())->format('%R%H:%I')).'"');
 
