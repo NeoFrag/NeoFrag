@@ -133,7 +133,7 @@ class Session extends Core
 				->set('user',       $user)
 				->set('ip_address', $ip_address = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'])
 				->set('host_name',  utf8_string(gethostbyaddr($ip_address)))
-				->set('referer',    $this('session', 'referer'))
+				->set('referer',    (string)$this('session', 'referer'))
 				->set('user_agent', isset($_SERVER['HTTP_USER_AGENT']) ? utf8_htmlentities($_SERVER['HTTP_USER_AGENT']) : '')
 				->set('auth',       $this('session', 'auth'))
 				->create();
