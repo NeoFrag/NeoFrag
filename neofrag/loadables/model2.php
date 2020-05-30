@@ -275,7 +275,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 		{
 			if ($field->is_i18n())
 			{
-				if ($value !== $this->$name->value)
+				if (!is_empty($value) && $value !== $this->$name->value)
 				{
 					$this->_updates[$field->i] = $this->$name->set('value', $value);
 				}
@@ -412,7 +412,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 			{
 				foreach ($this->_schema() as $name => $field)
 				{
-					if (array_key_exists($field->i, $this->_updates) && $field->is_i18n())
+					if ($field->is_i18n() && array_key_exists($field->i, $this->_updates) && !is_empty($this->_updates[$field->i]))
 					{
 						$this->_data[$field->i] = NeoFrag()	->model2('i18n')
 															->set('lang',     $this->config->lang->__addon)
@@ -457,7 +457,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 			foreach ($this->_schema() as $name => $field)
 			{
-				if (array_key_exists($field->i, $this->_updates) && $field->is_i18n())
+				if ($field->is_i18n() && array_key_exists($field->i, $this->_updates) && !is_empty($this->_updates[$field->i]))
 				{
 					$this->_updates[$field->i]->update();
 					$updated = TRUE;
