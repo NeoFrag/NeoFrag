@@ -85,15 +85,15 @@ class Button extends Label
 		return $this;
 	}
 
-	public function compact()
+	public function compact($compact = TRUE)
 	{
-		$this->_compact = TRUE;
+		$this->_compact = $compact;
 		return $this;
 	}
 
-	public function outline()
+	public function outline($outline = TRUE)
 	{
-		$this->_outline = TRUE;
+		$this->_outline = $outline;
 		return $this;
 	}
 
