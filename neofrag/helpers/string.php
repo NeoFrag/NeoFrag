@@ -260,3 +260,8 @@ function version_format($version)
 
 	return strtolower(trim(preg_replace('/[^\d.]/', '', $version), '.').$rc);
 }
+
+function print_number($number, $decimals = 0)
+{
+	return (string)(float)$number === (string)$number ? number_format($number, $decimals, ',', '&nbsp;') : $number;
+}
