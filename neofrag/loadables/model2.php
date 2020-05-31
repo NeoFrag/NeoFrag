@@ -352,16 +352,7 @@ abstract class Model2 extends NeoFrag implements \NF\NeoFrag\Loadable
 
 	public function url()
 	{
-		$url = [];
-
-		if (isset($this->id))
-		{
-			$url[] = $this->id;
-		}
-
-		$url[] = static::__url($this);
-
-		return implode('/', $url);
+		return implode('/', [$this->_id, static::__url($this)]);
 	}
 
 	public function popover()
