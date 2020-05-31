@@ -308,7 +308,8 @@ class Url extends Core
 		}
 		else
 		{
-			header('Location: '.$_SERVER['REQUEST_URI'].$this->query);
+			//TODO la partie query est inclue dans request ?
+			header('Location: '.$_SERVER['REQUEST_URI']);
 			$output = '';
 		}
 
