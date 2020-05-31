@@ -14,7 +14,6 @@ class Label extends Html
 	protected $_tooltip;
 	protected $_popover;
 	protected $_color;
-	protected $_align;
 
 	public function __invoke()
 	{
@@ -175,18 +174,5 @@ class Label extends Html
 	{
 		$this->_color = $color;
 		return $this;
-	}
-
-	public function align($align = '')
-	{
-		if (func_num_args())
-		{
-			$this->_align = $align;
-			return $this;
-		}
-		else
-		{
-			return $this->_align;
-		}
 	}
 }

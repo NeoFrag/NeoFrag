@@ -16,6 +16,7 @@ class Html extends Library
 	protected $_content   = [];
 	protected $_template  = [];
 	protected $_container;
+	protected $_align;
 
 	public function __invoke()
 	{
@@ -116,5 +117,18 @@ class Html extends Library
 		$this->_end_tag = $end_tag;
 
 		return $this;
+	}
+
+	public function align($align = '')
+	{
+		if (func_num_args())
+		{
+			$this->_align = $align;
+			return $this;
+		}
+		else
+		{
+			return $this->_align;
+		}
 	}
 }
