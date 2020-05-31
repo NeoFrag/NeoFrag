@@ -326,6 +326,23 @@ class Url extends Core
 		$this->trigger('output', $output);
 	}
 
+	public function query($query = [])
+	{
+		if (method_exists($query, '__toArray'))
+		{
+			$query = $query->__toArray();
+		}
+
+		$url = $this->request;
+
+		if ($query)
+		{
+			$url .= '?'.http_build_query($query);
+		}
+
+		return $url;
+	}
+
 	public function __toString()
 	{
 		return ($this->https ? 'https' : 'http').'://'.$this->host;
