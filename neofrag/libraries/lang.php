@@ -46,9 +46,14 @@ class Lang extends Library
 			return $name;
 		}
 
-		$args = array_map(function($a){
-			return (string)$a;
-		}, func_get_args());
+		$args = func_get_args();
+
+		array_walk($args, function(&$a){
+			if (method_exists($a, '__toString'))
+			{
+				$a = $a->__toString();
+			}
+		});
 
 		if (!isset(static::$_objects[$caller = get_class($this->__caller)][$key = serialize($args)]))
 		{
