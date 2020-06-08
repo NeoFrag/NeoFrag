@@ -19,7 +19,7 @@ class Admin extends Controller_Module
 
 		foreach (NeoFrag()->model2('addon')->get('module') as $module)
 		{
-			if (@$module->controller('index') && !in_array($module->info()->name, ['settings']))
+			if (@$module->controller('index') && !in_array($module->info()->name, ['settings', 'user']))
 			{
 				$modules[] = $module;
 			}
@@ -31,7 +31,7 @@ class Admin extends Controller_Module
 
 		foreach ($modules as $module)
 		{
-			$pages[$name = $module->info()->name] = $module->info()->title;
+			$name = $module->info()->name;
 
 			if ($name == 'pages')
 			{
@@ -39,9 +39,13 @@ class Admin extends Controller_Module
 				{
 					if ($page['published'])
 					{
-						$pages['pages/'.$page['name']] = str_repeat('&nbsp;', 10).$page['title'];
+						$pages['pages/'.$page['name']] = 'Page : '.$page['title'];
 					}
 				}
+			}
+			else
+			{
+				$pages[$name] = $module->info()->title;
 			}
 		}
 
