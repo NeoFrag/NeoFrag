@@ -244,5 +244,12 @@ function highlight($string, $keywords, $max_length = 256)
 
 function version_format($version)
 {
-	return strtolower(trim(preg_replace('/[^\d.]/', '', $version), '.'));
+	$rc = '';
+
+	if (preg_match('/(.*?) (RC\d+)?$/', $version, $match))
+	{
+		list(, $version, $rc) = $match;
+	}
+
+	return strtolower(trim(preg_replace('/[^\d.]/', '', $version), '.').$rc);
 }
