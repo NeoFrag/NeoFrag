@@ -34,7 +34,7 @@ class File extends Labelable
 		};
 
 		$this->_check[1] = function($post, &$data) use ($upload_dir){
-			if (!empty($_FILES[$this->_name]))
+			if (($this->_required && !$this->_value) || !empty($_FILES[$this->_name]['name']))
 			{
 				if (!empty($_FILES[$this->_name]['error']))
 				{
