@@ -253,7 +253,9 @@ class Output extends Core
 
 				$output = $exec();
 
-				$output = preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()).$output;
+				$output = $this	->array()
+								->append(preg_replace('/\xEF\xBB\xBF/', '', ob_get_clean()))
+								->append($output);
 			}
 		}
 		catch (\NF\NeoFrag\Exception $e)
