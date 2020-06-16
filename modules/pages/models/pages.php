@@ -64,6 +64,8 @@ class Pages extends Model
 			'subtitle'       => $subtitle,
 			'content'        => $content
 		]);
+
+		$this->access->init('pages', 'page', $page_id);
 	}
 
 	public function edit_page($page_id, $name, $title, $published, $subtitle, $content, $lang)
@@ -110,5 +112,7 @@ class Pages extends Model
 	{
 		$this->db	->where('page_id', $page_id)
 					->delete('nf_pages');
+
+		$this->access->delete('pages', $page_id);
 	}
 }

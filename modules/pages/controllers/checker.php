@@ -14,7 +14,7 @@ class Checker extends Module_Checker
 	{
 		if ($this->url->segments[0] != 'pages' && ($content = $this->db->select('p.page_id', 'pl.title', 'pl.subtitle', 'pl.content')->from('nf_pages p')->join('nf_pages_lang pl', 'p.page_id = pl.page_id')->where('name', $name)->where('published', TRUE)->row()))
 		{
-			if ($this->access('page', 'access_page', $content[0]))
+			if ($this->access('pages', 'access_page', $content['page_id']))
 			{
 				return $content;
 			}
