@@ -498,21 +498,21 @@ class Form extends Library
 		if ($this->_display_captcha)
 		{
 			NeoFrag()->js('https://www.google.com/recaptcha/api.js?hl='.$this->config->lang->info()->name.'&_=');
-			$output .= '<div class="form-group"><div class="'.($this->_fast_mode ? 'input-group' : 'col-offset-3 col-9').'">'.$this->captcha->display().'</div></div>';
+			$output .= '<div class="form-group row"><div class="'.($this->_fast_mode ? 'input-group' : 'offset-3 col-9').'">'.$this->captcha->display().'</div></div>';
 		}
 
 		if ($this->_display_required)
 		{
-			$output .= '<div class="form-group"><div class="col-offset-3 col-9"><em class="text-muted">'.NeoFrag()->lang('* Toutes les informations marquées d\'une étoile sont requises').'</em></div></div>';
+			$output .= '<div class="form-group row"><div class="offset-3 col-9"><em class="text-muted">'.NeoFrag()->lang('* Toutes les informations marquées d\'une étoile sont requises').'</em></div></div>';
 		}
 
 		if (!empty($this->_buttons))
 		{
-			$output .= '<div class="'.($this->_fast_mode ? 'text-center' : 'form-group').'">';
+			$output .= '<div class="'.($this->_fast_mode ? 'text-center' : 'form-group row').'">';
 
 			if (!$this->_fast_mode)
 			{
-				$output .= '<div class="col-offset-3 col-9">';
+				$output .= '<div class="offset-3 col-9">';
 			}
 
 			foreach ($this->_buttons as $i => $button)
