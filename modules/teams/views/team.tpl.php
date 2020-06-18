@@ -20,10 +20,10 @@
 	<?php if ($description): ?>
 	<hr />
 	<h4><?php echo $this->lang('Présentation') ?></h4>
-	<p><?php echo $description ?></p>
+	<?php echo $description ?>
 	<?php endif ?>
 	<?php if ($players): ?>
-	<h4><?php echo $this->lang('Nos joueurs') ?></h4>
+	<h4 class="mt-4"><?php echo $this->lang('Nos joueurs') ?></h4>
 	<ul class="list-inline mb-0">
 		<?php foreach ($players as $player): ?>
 		<li class="list-inline-item text-center" data-toggle="tooltip" title="<?php echo $player['username'] ?>">
