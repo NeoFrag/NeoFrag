@@ -9,7 +9,3 @@ table.table-access th, table.table-access td {
 table.table-access td.no-padding {
 	padding: 5px !important;
 }
-
-table.table-access .label {
-	font-size: 11px;
-}

@@ -8,14 +8,3 @@
 	<li class="list-group-item">Motivations</li>
 	<li class="list-group-item">Expériences</li>
 </ul>
-<!--
-<p><b>Informations personnalisées</b></p>
-<ul class="list-group m-0">
-	<li class="list-group-item"><span class="badge badge-default" data-toggle="tooltip" title="Champ texte"><?php echo icon('fas fa-terminal') ?></span> Champ texte</li>
-	<li class="list-group-item"><span class="badge badge-primary" data-toggle="tooltip" title="Champ mail"><?php echo icon('far fa-envelope') ?></span> Champ e-mail</li>
-	<li class="list-group-item"><span class="badge badge-info" data-toggle="tooltip" title="Zone de texte"><?php echo icon('far fa-file') ?></span> Zone de texte</li>
-	<li class="list-group-item"><span class="badge badge-success" data-toggle="tooltip" title="Choix multiple"><?php echo icon('fas fa-server') ?></span> Choix multiple</li>
-	<li class="list-group-item"><span class="badge badge-warning" data-toggle="tooltip" title="Case à cocher"><?php echo icon('far fa-check-square') ?></span> Case à cocher</li>
-	<li class="list-group-item"><span class="badge badge-danger" data-toggle="tooltip" title="Pièce jointe"><?php echo icon('far fa-image') ?></span> Pièce jointe <i class="text-muted">(image)</i></li>
-</ul>
--->
