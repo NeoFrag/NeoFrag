@@ -28,7 +28,7 @@ class Ajax extends Controller_Module
 			$event['title']     = utf8_html_entity_decode($event['title']);
 			$event['url_title'] = url_title($event['title']);
 			$event['url']       = url('events/'.$event['id'].'/'.$event['url_title']);
-			$event['color']     = color2hex($event['color']);
+			$event['color']     = get_colors($event['color']);
 
 			$events[] = $event;
 		}

@@ -4,7 +4,7 @@ body {
 	background-position: <?php echo $this->config->nf_maintenance_background_position ?: 'center top' ?>;
 	background-repeat: <?php echo $this->config->nf_maintenance_background_repeat ?: 'no-repeat' ?>;
 	background-attachment: scroll;
-	background-color: <?php echo color2hex($this->config->nf_maintenance_background_color) ?: '#343a40' ?>;
+	background-color: <?php echo get_colors($this->config->nf_maintenance_background_color ?: '#343a40') ?>;
 	height: 100%;
 }
 
@@ -67,7 +67,7 @@ a:hover {
 }
 
 header, main, footer {
-	color: <?php echo color2hex($this->config->nf_maintenance_text_color) ?: '#fff' ?>;
+	color: <?php echo get_colors($this->config->nf_maintenance_text_color ?: '#fff') ?>;
 }
 
 @media (min-width: 48em) {

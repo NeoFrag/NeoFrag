@@ -1,7 +1,7 @@
-$primary: <?php echo color2hex($this->config->azuro_primary_color) ?: '#03c1a2' ?>;
+$primary: <?php echo get_colors($this->config->azuro_primary_color ?: '#03c1a2') ?>;
 $primary-hover: #343a40;
 
-$secondary: <?php echo color2hex($this->config->azuro_secondary_color) ?: '#00c7e4' ?>;
+$secondary: <?php echo get_colors($this->config->azuro_secondary_color ?: '#00c7e4') ?>;
 $secondary-hover: #343a40;
 
 $gradient-from: $primary;

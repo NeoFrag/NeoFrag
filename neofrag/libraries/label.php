@@ -91,7 +91,7 @@ class Label extends Html
 
 					$attrs['style'] = ltrim($attrs['style'], ';');
 				}
-				else if (isset(get_colors()[$color]))
+				else if (get_colors($color, FALSE))
 				{
 					$attrs['class'] .= ' badge-'.$color;
 				}

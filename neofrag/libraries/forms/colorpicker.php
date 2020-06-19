@@ -13,7 +13,7 @@ class Colorpicker extends Text
 		parent::__invoke($name);
 
 		$this->_check[] = function($post, &$data){
-			if (isset($post[$this->_name]) && $post[$this->_name] !== '' && !isset(get_colors()[$post[$this->_name]]) && !preg_match('/^#([a-f0-9]{3}){1,2}/i', $post[$this->_name]))
+			if (isset($post[$this->_name]) && $post[$this->_name] !== '' && !get_colors($post[$this->_name]))
 			{
 				$this->_errors[] = 'Couleur invalide';
 			}

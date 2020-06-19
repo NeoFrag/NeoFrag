@@ -2,7 +2,7 @@ form {
 	.col-form-label {
 		font-size: 14px;
 		font-weight: 700;
-		color: <?php echo color2hex($this->config->azuro_text_color) ?: '#212529' ?>;
+		color: <?php echo get_colors($this->config->azuro_text_color ?: '#212529') ?>;
 
 		> em {
 			color: $primary;

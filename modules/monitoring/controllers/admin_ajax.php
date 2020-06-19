@@ -477,11 +477,6 @@ class Admin_Ajax extends Controller_Module
 
 	private function _notify($message, $type = 'danger')
 	{
-		if (!in_array($type, array_keys(get_colors())))
-		{
-			$type = 'danger';
-		}
-
-		$this->_notifications[] = [$message, $type];
+		$this->_notifications[] = [$message, get_colors($type) ? $type : 'danger'];
 	}
 }

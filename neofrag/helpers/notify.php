@@ -6,14 +6,9 @@
 
 function notify($message, $type = 'success')
 {
-	if (!in_array($type, array_keys(get_colors())))
-	{
-		$type = 'success';
-	}
-
 	NeoFrag()->session->append('notifications', [
 		'message' => (string)$message,
-		'type'    => $type
+		'type'    => get_colors($type) ? $type : 'success'
 	]);
 }
 

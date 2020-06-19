@@ -1,6 +1,6 @@
 body {
 	background-color: #f5f5f5;
-	color: <?php echo color2hex($this->config->azuro_text_color) ?: '#212529' ?>;
+	color: <?php echo get_colors($this->config->azuro_text_color ?: '#212529') ?>;
 	font-family: "Open Sans", sans-serif;
 	font-size: 14px;
 	line-height: 1.5;

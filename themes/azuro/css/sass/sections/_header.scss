@@ -4,7 +4,7 @@
 		background-position: <?php echo $this->config->azuro_background_position ?: 'center top' ?>;
 		background-repeat: <?php echo $this->config->azuro_background_repeat ?: 'no-repeat' ?>;
 		background-attachment: <?php echo $this->config->azuro_background_attachment ?: 'scroll' ?>;
-		background-color: <?php echo color2hex($this->config->azuro_background_color) ?: '#343a40' ?>;
+		background-color: <?php echo get_colors($this->config->azuro_background_color ?: '#343a40') ?>;
 	}
 
 	> .header-breadcrumb {
