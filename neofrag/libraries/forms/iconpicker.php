@@ -17,7 +17,7 @@ class Iconpicker extends Labelable
 
 			$input = $this	->html('button')
 							->attr('type', 'button')
-							->attr('class', 'btn btn-'.($this->_errors ? 'danger' : 'default').' iconpicker')
+							->attr('class', 'btn btn-'.($this->_errors ? 'danger' : 'light').' iconpicker')
 							->attr('data-icon', $this->_value)
 							->attr_if($this->_disabled || $this->_read_only, 'disabled')
 							->content('<i class="fa"></i>');

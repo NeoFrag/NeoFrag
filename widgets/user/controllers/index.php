@@ -71,6 +71,6 @@ class Index extends Controller_Widget
 					->body($this->view('messages_inbox', [
 						'messages' => $messages
 					]), FALSE)
-					->footer('<a class="btn btn-default" href="'.url('user/messages').'">'.icon('fas fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fas fa-edit').' '.$this->lang('Rédiger').'</a>');
+					->footer('<a class="btn btn-secondary" href="'.url('user/messages').'">'.icon('fas fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fas fa-edit').' '.$this->lang('Rédiger').'</a>');
 	}
 }

@@ -70,13 +70,13 @@ class Bbcode extends Textarea
 												parent	::button()
 														->title('BBCode')
 														->icon('fas fa-bold')
-														->color($this->_html[1] ? 'primary' : 'default')
+														->color($this->_html[1] ? 'primary' : 'secondary')
 														->data('type', 'bbcode'),
 												'&nbsp;',
 												parent	::button()
 														->title('Code HTML')
 														->icon('fas fa-code')
-														->color(!$this->_html[1] ? 'primary' : 'default')
+														->color(!$this->_html[1] ? 'primary' : 'secondary')
 														->data('type', 'html')
 											])
 								]);

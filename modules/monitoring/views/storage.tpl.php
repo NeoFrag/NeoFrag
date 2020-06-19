@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>
 				<a class="btn btn-primary text-white"><?php echo $this->lang('Lancer la sauvegarde') ?></a>
 			</div>
 		</div>

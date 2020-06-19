@@ -69,7 +69,7 @@ class Button extends Label
 				$class[] = $this->array()
 								->append('btn')
 								->append_if($this->_outline, 'outline')
-								->append($this->_color ?: 'default')
+								->append($this->_color ?: 'secondary')
 								->implode('-');
 
 				if ($this->_compact)

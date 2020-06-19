@@ -119,7 +119,7 @@ class Modal extends Library
 	{
 		array_unshift($this->_buttons, parent	::button()
 												->title($title)
-												->color('light')
+												->color('secondary')
 												->align('right')
 												->data('dismiss', 'modal'));
 

@@ -15,6 +15,6 @@ class Back extends Library
 		return $this->button()
 					->title($title ?: $this->lang('Retour'))
 					->url($this->url->back() ?: $url)
-					->color('light');
+					->color('secondary');
 	}
 }

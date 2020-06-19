@@ -429,7 +429,7 @@ class Form extends Library
 							'.$message.'
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-light" data-dismiss="modal">'.NeoFrag()->lang('Annuler').'</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">'.NeoFrag()->lang('Annuler').'</button>
 							<a class="btn btn-danger delete-confirm" href="'.url($this->url->request).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">'.NeoFrag()->lang('Supprimer').'</a>
 						</div>';
 			}
@@ -437,7 +437,7 @@ class Form extends Library
 			{
 				//TODO
 				/*return 	'<p>'.$message.'</p><p>
-							<button type="button" class="btn btn-default" onclick="$(this).parents(\'.alert\').alert(\'close\');">Annuler</button>
+							<button type="button" class="btn btn-secondary" onclick="$(this).parents(\'.alert\').alert(\'close\');">Annuler</button>
 							<a class="btn btn-danger delete-confirm" href="'.url($this->url->request).'" data-form-id="'.$this->token().'" onclick="return confirm_deletion(this);">Supprimer</a>
 						</p>';*/
 			}
@@ -561,7 +561,7 @@ class Form extends Library
 		}
 		else if (!empty($button['label']) && !empty($button['action']))
 		{
-			return '<a href="'.url($button['action']).'" class="btn btn-default">'.$button['label'].'</a>';
+			return '<a href="'.url($button['action']).'" class="btn btn-secondary">'.$button['label'].'</a>';
 		}
 
 		return '';
@@ -774,7 +774,7 @@ class Form extends Library
 									unselectedClass: ""
 								});');
 
-		return '<button id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" class="btn btn-default'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
+		return '<button id="form_'.$this->token().'_'.$var.'" name="'.$this->token().'['.$var.']" class="btn btn-light'.((isset($this->_errors[$var])) ? ' btn-danger' : '').' iconpicker" data-icon="'.addcslashes($this->_display_value($var, $options), '"').'"></button>';
 	}
 
 	private function _display_colorpicker($var, $options, $post)

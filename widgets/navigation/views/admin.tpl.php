@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-5">
 								<button class="btn btn-primary"><?php echo $this->lang('Ajouter') ?></button>
-								<a class="btn btn-default cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
+								<a class="btn btn-secondary cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
 							</div>
 						</div>
 					</div>
@@ -129,7 +129,7 @@
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-5">
 								<button class="btn btn-primary"><?php echo $this->lang('Ajouter') ?></button>
-								<a class="btn btn-default cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
+								<a class="btn btn-secondary cancel-link"><?php echo icon('fas fa-times').' '.$this->lang('Annuler') ?></a>
 							</div>
 						</div>
 					</div>

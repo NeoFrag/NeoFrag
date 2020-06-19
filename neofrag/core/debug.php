@@ -259,7 +259,7 @@ class Debug extends Core
 								}
 								else if ($type == self::STRICT)
 								{
-									$type = '<span class="badge badge-default">Strict</span>';
+									$type = '<span class="badge badge-secondary">Strict</span>';
 									$strict++;
 								}
 
@@ -282,7 +282,7 @@ class Debug extends Core
 							}
 							else if ($strict)
 							{
-								$label = '<span class="badge badge-default">'.$strict.'</span>';
+								$label = '<span class="badge badge-secondary">'.$strict.'</span>';
 							}
 							else if ($notice)
 							{

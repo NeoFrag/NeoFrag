@@ -2,7 +2,7 @@
 	<div class="input-group input-group-sm">
 		<input type="text" class="form-control" name="q" placeholder="<?php echo $this->lang('Rechercher...') ?>" />
 		<span class="input-group-append">
-			<button class="btn btn-default" type="submit"><?php echo icon('fas fa-search') ?></button>
+			<button class="btn btn-light" type="submit"><?php echo icon('fas fa-search') ?></button>
 		</span>
 	</div>
 </form>

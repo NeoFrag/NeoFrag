@@ -105,7 +105,7 @@ class Groups extends Core
 
 					if (empty($this->_groups[$group_id]['color']))
 					{
-						$this->_groups[$group_id]['color'] = 'default';
+						$this->_groups[$group_id]['color'] = 'secondary';
 					}
 
 					if (empty($this->_groups[$group_id]['hidden']))

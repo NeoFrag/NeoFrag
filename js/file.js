@@ -9,7 +9,7 @@ $(function(){
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"><?php echo $this->lang('Fermer') ?></span></button>\
 							<h4 class="modal-title"><?php echo $this->lang('Supprimer le fichier ?') ?></h4>\
 							<div class="text-right" style="margin-top: 15px;">\
-								<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
+								<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $this->lang('Annuler') ?></button>\
 								<button type="button" class="btn btn-danger"><?php echo $this->lang('Supprimer') ?></button>\
 							</div>\
 						</div>\

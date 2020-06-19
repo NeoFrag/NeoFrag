@@ -15,18 +15,6 @@
 		}
 	}
 
-	&.btn-default {
-		background-color: #f5f5f5;
-		border-color: #f1f1f1;
-		color: $text-dark-gray;
-
-		&:hover, &:focus {
-			background-color: #545b62;
-			border-color: #545b62;
-			color: #fff;
-		}
-	}
-
 	&.btn-link {
 		color: $secondary;
 	}

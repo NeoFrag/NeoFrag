@@ -49,7 +49,7 @@ class Index extends Controller_Widget
 		}
 		else
 		{
-			$label = $this->label('Tous', '', 'default');
+			$label = $this->label('Tous', '', 'light');
 			$events = $this->model()->get_events();
 		}
 
