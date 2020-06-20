@@ -55,22 +55,14 @@ class Index extends Controller_Widget
 
 	public function messages_inbox($config = [])
 	{
-		$messages = $this->db	->select('m.message_id', 'm.title', 'IFNULL(r.content, m.content) as content', 'IFNULL(r.date, m.date) as date', 'm.user_id', 'u.username', 'up.avatar', 'up.sex')
-								->from('nf_users_messages_recipients mr')
-								->join('nf_users_messages_replies r', 'r.message_id = mr.message_id')
-								->join('nf_users_messages m', 'm.message_id = mr.message_id')
-								->join('nf_user u', 'u.id = m.user_id')
-								->join('nf_user_profile up', 'up.id = u.id')
-								->where('r.user_id <>', $this->user->id)
-								->where('mr.user_id', $this->user->id)
-								->where('IFNULL(r.read, mr.read)', FALSE)
-								->get();
-
-		return $this->panel()
-					->heading($this->lang('Messages privés'), 'fas fa-envelope')
-					->body($this->view('messages_inbox', [
-						'messages' => $messages
-					]), FALSE)
-					->footer('<a class="btn btn-secondary" href="'.url('user/messages').'">'.icon('fas fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fas fa-edit').' '.$this->lang('Rédiger').'</a>');
+		if ($this->user())
+		{
+			return $this->panel()
+						->heading($this->lang('Messages privés'), 'fas fa-envelope')
+						->body($this->view('messages_inbox', [
+							'messages' => array_slice($this->module('user')->model('messages')->get_messages_inbox(), 0, 5)
+						]), FALSE)
+						->footer('<a class="btn btn-secondary" href="'.url('user/messages').'">'.icon('fas fa-inbox').' '.$this->lang('Boîte de réception').'</a> <a class="btn btn-primary" href="'.url('user/messages/compose').'">'.icon('fas fa-edit').' '.$this->lang('Rédiger').'</a>');
+		}
 	}
 }
