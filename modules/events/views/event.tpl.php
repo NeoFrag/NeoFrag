@@ -120,7 +120,7 @@ endif;
 		if (!empty($show_details) && $list_participants && $location):
 			foreach ($list_participants as $participant):
 				if ($this->user->admin || ($participant['user_id'] == $this->user->id)): ?>
-					<div style="padding-top: 5px;"><?php if (($location = explode("\n", $location))) echo '<li>'.$this->label(current($location), 'fas fa-map-marker-alt')->popover_if(count($location) > 1, bbcode($location)).'</li>' ?></div>
+					<?php if (($location = explode("\n", $location))) echo '<li class="list-inline-item">'.$this->label(current($location), 'fas fa-map-marker-alt')->popover_if(count($location) > 1, implode('<br>', $location)).'</li>' ?>
 					<?php
 					break;
 				endif;
