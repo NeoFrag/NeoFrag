@@ -59,33 +59,22 @@
 		<p class="<?php echo count($rounds) > 1 ? 'float-right' : 'text-center' ?>"><?php echo icon('fas fa-cog') ?>Mode: <?php echo $mode ?></p>
 	<?php endif ?>
 	<?php if (count($rounds) > 1): ?>
-		<p><?php echo icon('fas fa-chess') ?> <b>Détail des manches</b></p>
-		<table>
-			<tbody>
-				<?php for ($i = 0; $i < count($rounds); $i++) { ?>
-				<tr class="row">
-					<?php if ($rounds[$i]['image_id']): ?>
-					<td class="col-2 align-middle">
-						<img src="<?php echo NeoFrag()->model2('file', $rounds[$i]['image_id'])->path() ?>" class="img-fluid" alt="" />
-					</td>
-					<?php endif ?>
-					<td class="col align-middle">
-						<b>Manche <?php echo $i+1 ?></b><br />
-						<?php echo $rounds[$i]['title'] ?>
-					</td>
-					<td class="col text-right align-middle">
-						<?php echo $match['team']['title'].' '.$this->model('matches')->display_scores([$rounds[$i]['score1'], $rounds[$i]['score2']], $color) ?>
-					</td>
-					<td class="col-1 text-center align-middle">
-						<big><?php echo $rounds[$i]['score1'] ?>:<?php echo $rounds[$i]['score2'] ?></big>
-					</td>
-					<td class="col align-middle">
-						<?php echo $this->model('matches')->display_scores([$rounds[$i]['score1'], $rounds[$i]['score2']], $color, TRUE).' '.$match['opponent']['title'] ?>
-					</td>
-				</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+		<p class="font-weight-bold">Détail des manches</p>
+		<?php for ($i = 0; $i < count($rounds); $i++) { ?>
+			<div class="card-group mb-2">
+				<div class="card text-center justify-content-center">
+					<h6 class="m-0"><?php echo $match['team']['title'].' '.$this->model('matches')->display_scores([$rounds[$i]['score1'], $rounds[$i]['score2']], $color) ?></h6>
+				</div>
+				<div class="card p-2 col-3 text-center">
+					<span class="badge badge-dark">Manche <?php echo $i+1 ?></span>
+					<h4 class="my-2"><?php echo $rounds[$i]['score1'] ?>:<?php echo $rounds[$i]['score2'] ?></h4>
+					<a href="#"><?php echo $this->label($rounds[$i]['title'], 'far fa-map')->popover_if($rounds[$i]['image_id'], function($id){ return utf8_htmlentities('<img src="'.NeoFrag()->model2('file', $id)->path().'" class="img-fluid" alt="" />'); })?></a>
+				</div>
+				<div class="card text-center justify-content-center">
+					<h6 class="m-0"><?php echo $this->model('matches')->display_scores([$rounds[$i]['score1'], $rounds[$i]['score2']], $color, TRUE).' '.$match['opponent']['title'] ?></h6>
+				</div>
+			</div>
+		<?php } ?>
 	<?php endif ?>
 </div>
 <?php endif ?>
