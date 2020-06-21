@@ -14,14 +14,14 @@ class Admin extends Controller_Module
 	{
 		return $this->table2($comments, 'Aucun commentaire')
 					->col('Module', function($comment){
-						return $comment->module;
+						$info = $this->module(preg_replace('/_.*$/', '', $comment->module))->info();
+						return NeoFrag()->label($info->title, $info->icon);
 					})
 					->col('Auteur', function($comment){
 						return $comment->user->link();
 					})
 					->col('Date', 'date')
 					->col('Message', 'content')
-					->panel()
-					->title('Liste des commentaires postés', 'fas fa-bars');
+					->panel();
 	}
 }
