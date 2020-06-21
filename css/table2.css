@@ -37,3 +37,12 @@
 	padding-left: 0;
 	width: 37px;
 }
+
+.table-empty {
+	text-align: center;
+	font-size: 1.1em;
+}
+
+.table-empty .btn {
+	margin-left: 5px;
+}

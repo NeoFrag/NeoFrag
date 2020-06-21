@@ -201,16 +201,7 @@ class Table2 extends Library
 												->attr('class', 'btn-group')
 												->align('right')
 												->append($output)
-												->append($this	->button()
-																->tooltip('Retirer tous les filtres')
-																->icon('fas fa-times')
-																->color('light text-danger btn-sm')
-																->url($this->url->query($this->input->get	->clone()
-																											->merge([
-																												'table_id' => $this->__id(),
-																												'action'   => 'reset_filters'
-																											])))
-												);
+												->append($this->_filters_reset());
 							}
 
 							return $output;
@@ -220,7 +211,14 @@ class Table2 extends Library
 
 		if ($table)
 		{
-			$panel->body($table, FALSE);
+			if ($this->_data === NULL)
+			{
+				$panel->body($table);
+			}
+			else
+			{
+				$panel->body($table, FALSE);
+			}
 		}
 
 		foreach ($footers as $footer)
@@ -298,7 +296,10 @@ class Table2 extends Library
 		{
 			if ($this->input->get->get('action') == 'reset_filters')
 			{
-				$this->session->destroy('table2', 'filters', $this->_filters->__id());
+				if ($this->_filters)
+				{
+					$this->session->destroy('table2', 'filters', $this->_filters->__id());
+				}
 
 				redirect($this->url->query($this->input->get->clone()
 															->destroy('table_id')
@@ -335,12 +336,16 @@ class Table2 extends Library
 
 		$data = $this->_collection ? $this->_collection->get() : $this->_data;
 
+		if (!$ajax)
+		{
+			NeoFrag()->css('table2');
+		}
+
 		if ($data)
 		{
 			if (!$ajax)
 			{
-				NeoFrag()	->css('table2')
-							->js('table2');
+				NeoFrag()->js('table2');
 			}
 
 			$columns = $this->_columns;
@@ -398,7 +403,19 @@ class Table2 extends Library
 		}
 		else
 		{
-			$output .= $this->_no_data ?: NeoFrag()->lang('Il n\'y a rien ici pour le moment');
+			$this->_data = NULL;
+			$output .= $this->html()
+							->attr('class', 'table-empty')
+							->exec(function($html){
+								if ($this->_filters && $this->session->get('table2', 'filters', $this->_filters->__id()))
+								{
+									$html->content(NeoFrag()->lang('Aucun résultat trouvé').$this->_filters_reset()->outline()->color('danger btn-sm'));
+								}
+								else
+								{
+									$html->content(NeoFrag()->lang($this->_no_data ?: 'Il n\'y a rien ici pour le moment'));
+								}
+							});
 		}
 
 		if ($ajax)
@@ -420,5 +437,18 @@ class Table2 extends Library
 				return TRUE;
 			}
 		}
+	}
+
+	protected function _filters_reset()
+	{
+		return $this->button()
+					->tooltip('Retirer tous les filtres')
+					->icon('fas fa-times')
+					->color('light text-danger btn-sm')
+					->url($this->url->query($this->input->get	->clone()
+																->merge([
+																	'table_id' => $this->__id(),
+																	'action'   => 'reset_filters'
+																])));
 	}
 }
