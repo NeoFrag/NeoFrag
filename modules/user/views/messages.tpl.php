@@ -1,4 +1,4 @@
-<div class="card col-1 px-0">
+<div class="card col-lg-1 col-md-2 col-sm-2 px-0">
 	<div class="card-body p-3">
 		<p><a href="<?php echo url('user/messages/compose') ?>" data-toggle="tooltip" title="<?php echo $this->lang('Nouveau message') ?>" class="btn btn-primary btn-block"><?php echo icon('far fa-envelope') ?></a></p>
 		<div class="btn-group-vertical btn-block">
@@ -8,7 +8,7 @@
 		</div>
 	</div>
 </div>
-<div class="card col-4 px-0">
+<div class="card col-lg-4 px-0">
 	<div class="card-body">
 		<h5><?php echo icon($page_icon).' '.$page_title ?></h5>
 		<hr />
@@ -38,7 +38,7 @@
 		<?php endif ?>
 	</div>
 </div>
-<div class="card col-7 px-0">
+<div class="card col-lg-7 px-0">
 	<div class="message-open">
 		<?php if (isset($title)): ?>
 		<div class="card-body">
