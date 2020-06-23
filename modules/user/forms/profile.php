@@ -14,6 +14,12 @@ $this	->rule($this->form_text('first_name')
 		)
 		->rule($this->form_date('date_of_birth')
 					->title('Date de naissance')
+					->check(function($post, $data){
+						if (!is_empty($data['date_of_birth']) && $this->date($data['date_of_birth'])->diff() > 0)
+						{
+							return 'Date de naissance invalide';
+						}
+					})
 					->size('col-6')
 		)
 		->rule($this->form_radio('sex')
