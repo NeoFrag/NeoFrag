@@ -33,7 +33,7 @@ class Admin_Ajax extends Controller_Module
 				}
 				else if ($module = $this->module('pages'))
 				{
-					$url = ['pages', '_index', $url[0], '*'];
+					$url = [$url[0], '*'];
 				}
 			}
 
