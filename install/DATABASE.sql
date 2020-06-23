@@ -981,13 +981,6 @@ CREATE TABLE `nf_news_lang` (
   CONSTRAINT `nf_news_lang_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `nf_news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `nf_news_lang`
---
-
-INSERT INTO `nf_news_lang` (`news_id`, `lang`, `title`, `introduction`, `content`, `tags`) VALUES
-(1, 'fr', 'Bienvenue sur votre site NeoFrag Alpha !', 'Nec vox accusatoris ulla licet subditicii in his malorum quaerebatur acervis ut saltem specie tenus crimina praescriptis legum \r\ncommitterentur, quod aliquotiens fecere principes saevi: sed quicquid \r\nCaesaris mplacabilitati sedisset, id velut fas iusque perpensum \r\nconfestim urgebatur impleri.', 'Omitto iuris dictionem in libera civitate contra leges senatusque consulta; caedes relinquo; libidines praetereo, quarum acerbissimum extat indicium et ad insignem memoriam turpitudinis et paene ad iustum odium imperii nostri, quod constat nobilissimas virgines se in puteos abiecisse et morte voluntaria necessariam turpitudinem depulisse. Nec haec idcirco omitto, quod non gravissima sint, sed quia nunc sine teste dico.', 'NeoFrag,Cms,Alpha');
-
 -- --------------------------------------------------------
 
 --
@@ -1340,8 +1333,8 @@ CREATE TABLE `nf_talks` (
 --
 
 INSERT INTO `nf_talks` (`talk_id`, `name`) VALUES
-(1, 'admin'),
-(2, 'public');
+(1, 'Admin'),
+(2, 'Publique');
 
 -- --------------------------------------------------------
 
