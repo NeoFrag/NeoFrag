@@ -51,7 +51,18 @@ class Date extends Library
 
 		$this->_datetime = $datetime ?: date_create_from_format('U.u', number_format(microtime(TRUE), 6, '.', ''), $timezone);
 
-		return $this->timezone();
+		$this->timezone();
+
+		if ($this->_format == 'Y-m-d')
+		{
+			$this->_datetime->setTime(0, 0);
+		}
+		else if (preg_match('/^H:i/', $this->_format))
+		{
+			$this->_datetime->setDate(1, 1, 1);
+		}
+
+		return $this;
 	}
 
 	public function __toString()
@@ -225,7 +236,7 @@ class Date extends Library
 	{
 		if (!is_a($date, 'NF\NeoFrag\Libraries\Date'))
 		{
-			$date = $this->date($date);
+			$date = $this->date($date, $this->_format, $this->_datetime->getTimezone());
 		}
 
 		if (($diff = date_create('@0')->add($date->_datetime->diff($this->_datetime))->getTimestamp()) < 0)
@@ -266,7 +277,7 @@ class Date extends Library
 	{
 		if (!is_a($date, 'NF\NeoFrag\Libraries\Date'))
 		{
-			$date = $this->date($date);
+			$date = $this->date($date, $this->_format, $this->_datetime->getTimezone());
 		}
 
 		return $this->_datetime->diff($date->_datetime);
