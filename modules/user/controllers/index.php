@@ -153,31 +153,33 @@ class Index extends Controller_Module
 
 	public function profile()
 	{
-		return $this->title('Profil')
-					->icon('fas fa-pencil-alt')
-					->breadcrumb()
-					->row()
-					->append($this	->col()
-									->size('col-7')
-									->append($this	->form2('profile', $this->user->profile())
-													->panel()
-									)
-									->append($this	->form2('profile_socials', $this->user->profile())
-													->panel()
-													->title('Liens', 'fas fa-globe')
-									)
-					)
-					->append($this	->col()
-									->size('col-5')
-									->append($this	->form2('avatar', $this->user->profile())
-													->panel()
-													->title('Avatar', 'fas fa-user-circle')
-									)
-									->append($this	->form2('cover', $this->user->profile())
-													->panel()
-													->title('Photo de couverture', 'far fa-image')
-									)
-					);
+		$this	->title('Profil')
+				->icon('fas fa-pencil-alt')
+				->breadcrumb();
+
+		return $this->_layout(function($row){
+			$row->append($this	->col()
+								->size('col-12 col-lg-7')
+								->append($this	->form2('profile', $this->user->profile())
+												->panel()
+								)
+								->append($this	->form2('profile_socials', $this->user->profile())
+												->panel()
+												->title('Liens', 'fas fa-globe')
+								)
+				)
+				->append($this	->col()
+								->size('col-12 col-lg-5')
+								->append($this	->form2('avatar', $this->user->profile())
+												->panel()
+												->title('Avatar', 'fas fa-user-circle')
+								)
+								->append($this	->form2('cover', $this->user->profile())
+												->panel()
+												->title('Photo de couverture', 'far fa-image')
+								)
+				);
+		});
 	}
 
 	public function sessions($sessions)
@@ -300,15 +302,20 @@ class Index extends Controller_Module
 				->js('jquery.mCustomScrollbar.min')
 				->js('user');
 
-		return $this->panel()
-					->body($this->view('messages', [
-						'page_title'   => $page_title,
-						'page_icon'    => $page_icon,
-						'messages'     => $messages,
-						'allow_delete' => $allow_delete,
-						'box'          => $box
-					]), FALSE)
-					->style('card-group border-0');
+		return $this->_layout(function($row) use ($messages, $allow_delete, $page_title, $page_icon, $box){
+			$row->append($this	->col()
+								->append($this	->panel()
+												->body($this->view('messages', [
+													'page_title'   => $page_title,
+													'page_icon'    => $page_icon,
+													'messages'     => $messages,
+													'allow_delete' => $allow_delete,
+													'box'          => $box
+												]), FALSE)
+												->style('card-group border-0')
+								)
+			);
+		});
 	}
 
 	public function _messages_inbox($messages)
@@ -417,9 +424,14 @@ class Index extends Controller_Module
 			}
 		}
 
-		return $this->panel()
-					->heading()
-					->body($this->form()->display());
+		return $this->_layout(function($row){
+			$row->append($this	->col()
+								->append($this	->panel()
+												->heading()
+												->body($this->form()->display())
+								)
+			);
+		});
 	}
 
 	public function _messages_delete($message_id, $title)
@@ -476,7 +488,7 @@ class Index extends Controller_Module
 					->size('col-4 col-lg-3');
 	}
 
-	public function _panel_navigation()
+	public function _panel_navigation($output = 'vertical')
 	{
 		$navigation = [
 			'panel' => TRUE,
@@ -514,7 +526,7 @@ class Index extends Controller_Module
 			]
 		];
 
-		return $this->widget('navigation')->output('vertical', $navigation);
+		return $this->widget('navigation')->output($output, $navigation);
 	}
 
 	public function _panel_infos($user = NULL)
@@ -566,5 +578,14 @@ class Index extends Controller_Module
 					->body($this->view('activity', [
 						'user_activity' => $user_activity
 					]));
+	}
+
+	private function _layout($callback)
+	{
+		$callback($row = $this->row());
+
+		return $this->array()
+					->append($this->row($this->col($this->_panel_navigation('index'))))
+					->append($row);
 	}
 }

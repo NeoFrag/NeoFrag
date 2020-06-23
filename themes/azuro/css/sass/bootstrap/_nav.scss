@@ -84,22 +84,62 @@ ul.nav {
 				transition: all .15s ease-in-out;
 
 				&:hover {
-					background-color: rgba(0, 0, 0, .1);
+					background-color: rgba(0, 0, 0, .05);
 					color: $primary;
+
+					i.icon {
+						color: $text-dark-gray;
+					}
 				}
 
 				&.active {
-					background-color: rgba(0, 0, 0, .1);
+					background-color: rgba(0, 0, 0, .05);
 					color: $secondary;
 				}
 
 				> i.icon {
 					color: $text-light-gray;
+					transition: all .15s ease-in-out;
 				}
 			}
 
 			+li.nav-item {
 				border-top: 1px solid rgba(0, 0, 0, .1);
+			}
+		}
+	}
+}
+
+.module {
+	ul.nav {
+		> li.nav-item {
+			> a.nav-link {
+				background-color: transparent;
+				color: #212537;
+				font-size: 14px;
+				font-family: "Titillium Web", sans-serif;
+				font-weight: 600;
+				padding: 1rem;
+				transition: all .15s ease-in-out;
+
+				&:hover {
+					background-color: rgba(0, 0, 0, .05);
+					color: $primary;
+
+					i.icon {
+						color: $text-dark-gray;
+					}
+				}
+
+				&.active {
+					background-color: rgba(0, 0, 0, .05);
+					color: $secondary;
+				}
+
+				> i.icon {
+					color: $text-light-gray;
+					transition: all .15s ease-in-out;
+				}
 			}
 		}
 	}
