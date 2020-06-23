@@ -107,6 +107,10 @@
 			opacity: 1 !important;
 		}
 	}
+
+	&.border-primary {
+		border-color: $primary !important;
+	}
 }
 
 .widget {
