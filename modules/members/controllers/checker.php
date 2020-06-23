@@ -12,7 +12,7 @@ class Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [$this->module('user')->collection('user')->paginate($page)];
+		return [$this->module('user')->collection('user')->where('deleted', FALSE)->order_by('username')->paginate($page, 24)];
 	}
 
 	public function _group()
@@ -20,9 +20,9 @@ class Checker extends Module_Checker
 		$args = func_get_args();
 		$page = array_pop($args);
 
-		if ($group = $this->groups->check_group($args))
+		if (($group = $this->groups->check_group($args)) && $group['users'])
 		{
-			return [$group['title'], $group['users'] ? $this->module('user')->collection('user')->where('id', $group['users'])->paginate($page) : []];
+			return [$group['title'], $this->module('user')->collection('user')->where('id', $group['users'])->where('deleted', FALSE)->order_by('username')->paginate($page, 24)];
 		}
 	}
 }
