@@ -3,14 +3,8 @@ body {
 }
 
 #live-editor-map {
-	color: #FFF;
-	font-family: 'Open Sans', sans-serif !important;
-	font-size: 18px;
 	font-weight: 600;
-	height: 60px;
-	line-height: 60px;
-	margin: 0;
-	text-align: center;
+	margin-top: 8px;
 }
 
 .live-editor-modal .modal-content {
@@ -126,11 +120,11 @@ body {
 
 /* Iframe */
 .live-editor-iframe {
-	height: calc(100% - 130px);
+	height: calc(100% - 92px);
 	left: 20px;
 	right: 20px;
 	position: fixed;
-	top: 110px;
+	top: 75px;
 	width: calc(100% - 40px);
 }
 
@@ -165,155 +159,21 @@ body {
 }
 
 /* Navbar */
+
 .live-editor-navbar {
-	background-color: #fff;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 600;
-	font-size: 13px;
-	height: 50px;
-	line-height: 50px;
-}
-
-.live-editor-navbar a {
-	text-decoration: none;
-}
-
-.live-editor-navbar .logo {
-	background: url('<?php echo url('modules/live_editor/images/live_editor.png') ?>') no-repeat 0 50%;
-	display: inline-block;
-	float: left;
-	height: 50px;
-	margin-left: 10px;
-	width: 128px;
-}
-
-.live-editor-navbar a.modules-links {
-	border-left: 1px solid #ebebeb;
-	border-right: 1px solid #ebebeb;
-	color: #607D8B;
-	display: inline-block;
-	float: left;
-	height: 50px;
-	line-height: 50px;
-	margin-left: 20px;
-	padding: 0 15px 0 18px;
-}
-
-.live-editor-navbar a.modules-links i.fa-link {
-	color: #34434A;
-}
-
-.live-editor-navbar a.modules-links:hover, .live-editor-navbar a.modules-links:focus {
-	color: #01A1CF;
-}
-
-.live-editor-navbar #modules-links-collapse {
-	border-top: none;
-	position: absolute;
-	left: 158px;
-	top: 50px;
-	background-color: #E9EBEF;
-	min-width: 200px;
 	z-index: 2;
 }
 
-.live-editor-navbar #modules-links-collapse ul > li > a {
-	color: #607D8B;
-	display: block;
-	padding: 0 12px;
-	font-size: 12px;
+.live-editor-navbar a.navbar-brand {
+	color: #000000;
 }
 
-.live-editor-navbar #modules-links-collapse ul > li > a:first-letter {
-	text-transform: uppercase;
+.live-editor-navbar a.navbar-brand span {
+	color: #545b62;
 }
 
-.live-editor-navbar #modules-links-collapse ul > li > a:hover {
-	background-color: #5F666B;
-	color: #fff;
-}
-
-.live-editor-navbar #modules-links-collapse ul > li + li > a {
-	border-top: 1px solid #DADDE2;
-}
-
-.live-editor-navbar p {
-	color: #607D8B;
-	display: inline;
-	margin: 0;
-	padding-left: 15px;
-	line-height: 50px;
-}
-
-.live-editor-navbar .live-editor-screen, .live-editor-navbar .live-editor-mode {
-	background-color: #ebebeb;
-	border: 1px solid #ebebeb;
-	border-bottom: 2px solid #ebebeb;
-	color: #3a3d43;
-	line-height: 18px;
-	min-width: 40px;
-	outline: 0;
-	padding: 7px;
-	text-align: center;
-}
-
-.live-editor-navbar .live-editor-screen:hover, .live-editor-navbar .live-editor-screen:focus {
-	background-color: #fff;
-	border: 1px solid #9ea7b5;
-	border-bottom: 2px solid #03A9F4;
-	color: #4a4e56;
-}
-
-.live-editor-navbar .btn-group {
-	padding: 0 15px;
-	vertical-align: initial;
-}
-
-.live-editor-navbar .live-editor-screen.active {
-	background-color: #00BCD4;
-	border: 1px solid #03A9F4;
-	color: #fff;
-}
-
-.live-editor-navbar .live-editor-screen.dropdown-toggle + .dropdown-menu {
-	border: 0;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	margin: 0;
-	min-width: 0;
-	padding: 0 15px 15px;
-}
-
-.live-editor-navbar .live-editor-mode:hover, .live-editor-navbar .live-editor-mode:focus {
-	background-color: #fff;
-	border-bottom-color: #01C0DA;
-	color: #4a4e56;
-}
-
-.live-editor-navbar .live-editor-mode.active {
-	background-color: #00c8f4;
-	border-color: #01bedb;
-	color: #fff;
-}
-
-.live-editor-navbar .live-editor-mode i.fa {
-	font-size: 14px;
-}
-
-.live-editor-close {
-	background-color: #EA7C73;
-	color: #fff;
-	display: inline-block;
-	font-size: 13px;
-	font-weight: normal;
-	height: 50px;
-	line-height: 50px;
-	padding: 0 20px;
-}
-
-.live-editor-close:hover, .live-editor-close:focus {
-	background-color: #E84438;
-	color: #fff;
+.live-editor-navbar a.navbar-brand > i.icon {
+	color: #00d7b3;
 }
 
 a.thumbnail {
@@ -329,4 +189,34 @@ a.thumbnail.active, a.thumbnail.active:hover {
 
 a.thumbnail:hover {
 	border-color: #b1b1b1;
+}
+
+.dropdown-menu.screen {
+	min-width: auto;
+}
+
+/* Pulsating Caret */
+[data-typer]:after {
+	content:"";
+	display: inline-block;
+	vertical-align: middle;
+	width: 1px;
+	height: 1em;
+	background: #000;
+	animation: caretPulsate 1s linear infinite;
+	-webkit-animation: caretPulsate 1s linear infinite;
+}
+
+@keyframes caretPulsate {
+	0%   {opacity:1;}
+	50%  {opacity:1;}
+	60%  {opacity:0;}
+	100% {opacity:0;}
+}
+
+@-webkit-keyframes caretPulsate {
+	0%   {opacity:1;}
+	50%  {opacity:1;}
+	60%  {opacity:0;}
+	100% {opacity:0;}
 }
