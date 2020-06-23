@@ -81,6 +81,6 @@ class Field
 
 	public function init()
 	{
-		return $this->_default !== NULL ? $this->_default : NULL;
+		return $this->_default !== NULL && !$this->_nullable ? $this->_default : NULL;
 	}
 }
