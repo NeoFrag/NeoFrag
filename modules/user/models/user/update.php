@@ -86,7 +86,7 @@ class Update extends \NF\NeoFrag\Actions\Update
 												$user->update();
 
 												notify($this->lang('Membre modifié'));
-												redirect('admin/user/edit/'.$user->url());
+												redirect('admin/user/user/update/'.$user->url());
 											})
 											->panel()
 											->title('Membre')
