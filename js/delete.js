@@ -44,7 +44,20 @@ $(function(){
 					}
 				}
 				else{
-					$(anchor).parents('.alert').html('<button data-dismiss="alert" class="close" type="button">×</button>'+data);
+					var json = $.parseJSON(data);
+
+					if (typeof json == 'object' && typeof json.redirect != 'undefined'){
+						if (window.location.pathname == json.redirect.split('#')[0]){
+							window.location.href = json.redirect;
+							location.reload();
+						}
+						else {
+							window.location.href = json.redirect;
+						}
+					}
+					else {
+						$(anchor).parents('.alert').html('<button data-dismiss="alert" class="close" type="button">×</button>'+data);
+					}
 				}
 			}
 		});

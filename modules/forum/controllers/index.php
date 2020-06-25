@@ -512,6 +512,31 @@ class Index extends Controller_Module
 							]);
 			}
 
+			if ($is_topic)
+			{
+				redirect('forum/'.$forum_id.'/'.url_title($this->db()->select('title')->from('nf_forum')->where('forum_id', $forum_id)->row()));
+			}
+			else
+			{
+				$nb_messages = $this->db()->from('nf_forum_messages')->where('topic_id', $topic_id)->count() - 1;
+
+				$page = '';
+
+				if ($nb_messages > $this->config->forum_messages_per_page)
+				{
+					$page = '/page/'.ceil($nb_messages / $this->config->forum_messages_per_page);
+				}
+
+				$last_message_id = $this->db()	->select('message_id')
+												->from('nf_forum_messages')
+												->where('topic_id',     $topic_id)
+												->where('message_id <', $message_id)
+												->order_by('message_id DESC')
+												->row();
+
+				redirect('forum/topic/'.$topic_id.'/'.url_title($title).$page.'#'.$last_message_id);
+			}
+
 			return 'OK';
 		}
 
