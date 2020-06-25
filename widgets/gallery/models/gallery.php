@@ -17,7 +17,6 @@ class Gallery extends Model
 					->join('nf_gallery_lang gl',            'g.gallery_id  = gl.gallery_id')
 					->join('nf_gallery_images gi',          'g.gallery_id  = gi.gallery_id')
 					->where('gl.lang', $this->config->lang->info()->name)
-					->where('g.published', TRUE)
 					->group_by('g.gallery_id')
 					->order_by('g.gallery_id DESC');
 
