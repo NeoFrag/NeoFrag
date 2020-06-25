@@ -1,4 +1,4 @@
--- NeoFrag Alpha 0.2.2
+-- NeoFrag Alpha 0.2.3
 -- https://neofr.ag
 --
 -- Host: neofrag.localhost
@@ -1244,7 +1244,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_copyright', '', '', 'Copyright {copyright} {year} {name}, tous droits r&eacute;serv&eacute;s &lt;div class=&quot;float-right&quot;&gt;Propuls&eacute; par {neofrag}&lt;/div&gt;', 'string'),
 ('nf_default_page', '', '', 'news', 'string'),
 ('nf_default_theme', '', '', 'azuro', 'string'),
-('nf_description', '', '', 'ALPHA 0.2.2', 'string'),
+('nf_description', '', '', 'ALPHA 0.2.3', 'string'),
 ('nf_favicon', '', '', '0', 'int'),
 ('nf_http_authentication', '', '', '0', 'bool'),
 ('nf_http_authentication_name', '', '', '', 'string'),
@@ -1283,7 +1283,7 @@ INSERT INTO `nf_settings` (`name`, `site`, `lang`, `value`, `type`) VALUES
 ('nf_team_type', '', '', '', 'string'),
 ('nf_theme_color', '', '', '#2b373a', 'string'),
 ('nf_update_callback', '', '', '', 'string'),
-('nf_version_css', '', '', '1587141202', 'int'),
+('nf_version_css', '', '', '1593080828', 'int'),
 ('nf_welcome', '', '', '0', 'bool'),
 ('nf_welcome_content', '', '', '', 'string'),
 ('nf_welcome_title', '', '', '', 'string'),
