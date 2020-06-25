@@ -342,7 +342,7 @@ class Admin_Ajax extends Controller_Module
 						{
 							$entry_name = zip_entry_name($zip_entry);
 
-							if (preg_match('#/|^index.php$#', $entry_name) && (!preg_match('#^config/#', $entry_name) || !file_exists($entry_name)) && zip_entry_open($zip, $zip_entry, 'r'))
+							if (preg_match('#/|^index.php$#', $entry_name) && (!preg_match('#^(config|install)/#', $entry_name) || !file_exists($entry_name)) && zip_entry_open($zip, $zip_entry, 'r'))
 							{
 								$callback($zip_entry, $entry_name);
 							}
