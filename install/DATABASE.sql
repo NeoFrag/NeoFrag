@@ -506,7 +506,7 @@ CREATE TABLE `nf_forum_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `topic_id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
-  `message` text NOT NULL,
+  `message` text,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`message_id`),
   KEY `topic_id` (`topic_id`),
