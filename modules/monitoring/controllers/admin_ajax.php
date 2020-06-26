@@ -387,7 +387,7 @@ class Admin_Ajax extends Controller_Module
 						$this->config('nf_version', version_format(NEOFRAG_VERSION));
 					}
 
-					if ($patch = @NeoFrag()->install(preg_replace('/[^a-z0-9]/i', '_', $version->version)))
+					if ($patch = @NeoFrag()->install($patch_name = preg_replace('/[^a-z0-9]/i', '_', $version->version)))
 					{
 						$patch->up();
 					}
@@ -396,7 +396,8 @@ class Admin_Ajax extends Controller_Module
 
 					$this->module('tools')->api()->scss();
 
-					$this	->config('nf_version', version_format($version->version))
+					$this	->config('nf_update_callback',       $patch_name)
+							->config('nf_version',               version_format($version->version))
 							->config('nf_monitoring_last_check', 0);
 				}
 			});

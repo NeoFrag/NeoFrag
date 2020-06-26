@@ -26,13 +26,18 @@ class Admin extends Theme
 
 	public function __init()
 	{
-		if ($update_callback = $this->config->nf_update_callback)
+		if ($this->config->nf_update_callback)
 		{
 			$this->config('nf_update_callback', '');
 
-			foreach (unserialize($update_callback) as $patch)
+			if ($patch = @NeoFrag()->install($this->config->nf_update_callback))
 			{
-				NeoFrag()->install($patch)->post();
+				if (method_exists($patch, 'post'))
+				{
+					$patch->post();
+				}
+
+				unlink('neofrag/install/'.$this->config->nf_update_callback.'.php');
 			}
 
 			refresh();
