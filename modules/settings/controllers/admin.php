@@ -472,6 +472,8 @@ class Admin extends Controller_Module
 			->add_submit($this->lang('Valider'))
 			->save();
 
+		$position = explode(' ', $this->config->nf_maintenance_background_position);
+
 		$form_maintenance = $this->form()
 			->add_rules([
 				'title' => [
@@ -512,7 +514,7 @@ class Admin extends Controller_Module
 				],
 				'repeat' => [
 					'label'  => $this->lang('Répéter l\'image'),
-					'value'  => $this->config->nf_maintenance_background_repeat,
+					'value'  => $this->config->nf_maintenance_background_repeat ?: 'no-repeat',
 					'values' => [
 						'no-repeat' => $this->lang('Non'),
 						'repeat-x'  => $this->lang('Horizontalement'),
@@ -523,7 +525,7 @@ class Admin extends Controller_Module
 				],
 				'positionX' => [
 					'label'  => $this->lang('Position'),
-					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[0] : '',
+					'value'  => isset($position[0]) ? $position[0] : 'center',
 					'values' => [
 						'left'   => $this->lang('Gauche'),
 						'center' => $this->lang('Centré'),
@@ -532,7 +534,7 @@ class Admin extends Controller_Module
 					'type'   => 'radio'
 				],
 				'positionY' => [
-					'value'  => $this->config->nf_maintenance_background_position ? explode(' ', $this->config->nf_maintenance_background_position)[1] : '',
+					'value'  => isset($position[1]) ? $position[1] : 'top',
 					'values' => [
 						'top'    => $this->lang('Haut'),
 						'center' => $this->lang('Milieu'),
@@ -542,13 +544,13 @@ class Admin extends Controller_Module
 				],
 				'background_color' => [
 					'label' => $this->lang('Couleur de fond'),
-					'value' => $this->config->nf_maintenance_background_color,
+					'value' => $this->config->nf_maintenance_background_color ?: '#343a40',
 					'type'  => 'colorpicker',
 					'size'  => 'col-4'
 				],
 				'text_color' => [
 					'label' => $this->lang('Couleur du texte'),
-					'value' => $this->config->nf_maintenance_text_color,
+					'value' => $this->config->nf_maintenance_text_color ?: '#fff',
 					'type'  => 'colorpicker',
 					'size'  => 'col-4'
 				]
@@ -568,9 +570,9 @@ class Admin extends Controller_Module
 					->config('nf_maintenance_logo',                $post['logo'], 'int')
 					->config('nf_maintenance_background',          $post['background'], 'int')
 					->config('nf_maintenance_background_repeat',   $post['repeat'])
-					->config('nf_maintenance_background_position', $post['positionX'].' '.$post['positionY'])
-					->config('nf_maintenance_background_color',    $post['background_color'])
-					->config('nf_maintenance_text_color',          $post['text_color']);
+					->config('nf_maintenance_background_position', trim($post['positionX'].' '.$post['positionY']))
+					->config('nf_maintenance_background_color',    trim($post['background_color']))
+					->config('nf_maintenance_text_color',          trim($post['text_color']));
 
 			$this->module('tools')->api()->scss();
 
