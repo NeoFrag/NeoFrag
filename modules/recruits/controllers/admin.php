@@ -519,7 +519,7 @@ class Admin extends Controller_Module
 		$this->subtitle($title);
 
 		$reply_form = $this	->form()
-							->add_rules($rules = [
+							->add_rules([
 								'reply' => [
 									'label'  => 'Votre réponse',
 									'value'  => $reply,
@@ -605,7 +605,7 @@ class Admin extends Controller_Module
 								->row();
 
 		$vote_form = $this	->form()
-							->add_rules($rules = [
+							->add_rules([
 								'vote' => [
 									'label'  => 'Je suis',
 									'value'  => isset($user_vote['vote']) ? $user_vote['vote'] : NULL,

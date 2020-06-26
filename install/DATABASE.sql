@@ -906,13 +906,6 @@ CREATE TABLE `nf_news` (
   CONSTRAINT `nf_news_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `nf_news_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `nf_news`
---
-
-INSERT INTO `nf_news` (`news_id`, `category_id`, `user_id`, `image_id`, `date`, `published`, `views`, `vote`) VALUES
-(1, 1, 1, NULL, CURRENT_TIMESTAMP, '1', 0, '0');
-
 -- --------------------------------------------------------
 
 --
