@@ -134,7 +134,7 @@ class Pagination extends Library
 
 		if ($this->_items_per_page && $this->count() > $this->_items_per_page)
 		{
-			return $this->display(url($this->get_url()), $this->count(), $size, $this->_items_per_page, $this->_fixed, $this->_page);
+			return $this->display($this->get_url(), $this->count(), $size, $this->_items_per_page, $this->_fixed, $this->_page);
 		}
 
 		return '';
@@ -189,7 +189,16 @@ class Pagination extends Library
 			}
 			else
 			{
-				$buttons[] = '<a class="btn '.(($current_page == $p) ? 'btn-primary' : 'btn-light').'" href="'.$base_url.(($p > 1) ? '/page/'.$p.((!$fixed) ? '/'.$items_per_page : '') : '').(!empty($_GET) ? '?'.http_build_query($_GET, NULL, '&', PHP_QUERY_RFC3986) : '').'">'.$p.'</a>';
+				$url = $this->array()
+							->append_if($p > 1,  'page/'.$p)
+							->append_if(!$fixed, $items_per_page);
+
+				if (!$url->empty() || !is_empty($base_url))
+				{
+					$url->prepend(is_empty($base_url) ? 'index' : $base_url);
+				}
+
+				$buttons[] = '<a class="btn '.(($current_page == $p) ? 'btn-primary' : 'btn-light').'" href="'.url($url->implode('/')).(!empty($_GET) ? '?'.http_build_query($_GET, NULL, '&', PHP_QUERY_RFC3986) : '').'">'.$p.'</a>';
 			}
 		}
 
