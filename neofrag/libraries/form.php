@@ -197,6 +197,11 @@ class Form extends Library
 
 		foreach ($this->_rules as $var => $options)
 		{
+			if (isset($options['type']) && $options['type'] == 'legend')
+			{
+				continue;
+			}
+
 			if (isset($options['type']) && $options['type'] == 'iconpicker' && !empty($post[$var]) && $post[$var] == 'empty')
 			{
 				$post[$var] = '';
