@@ -68,7 +68,7 @@ class Date extends Library
 	public function __toString()
 	{
 		$timestamp = $this->timestamp();
-		$diff      = time() - $timestamp;
+		$diff      = $this->date(NULL, $this->_format, $this->_datetime->getTimezone())->timestamp() - $timestamp;
 		$output    = '';
 
 		if ($this->_format == 'Y-m-d')
