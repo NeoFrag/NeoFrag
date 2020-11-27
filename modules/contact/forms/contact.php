@@ -31,7 +31,7 @@ $this->rule($this->form_text('subject')
 		if ($sent)
 		{
 			notify('Message envoyé');
-			$this->modal->dispose();
+			refresh();
 		}
 		else
 		{
