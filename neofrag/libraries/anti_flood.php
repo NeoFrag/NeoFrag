@@ -17,22 +17,21 @@ class Anti_Flood extends Library
 			if (($attempts = $this->session('anti_flood', 'attempts') ?: 0) < 10)
 			{
 				$this->session->set('anti_flood', 'attempts', $attempts + 1);
-				notify($message ?: $this->lang('anti_flood'), 'danger');
-				$this->output->json();
+				notify($message ?: $this->lang('10 minutes entre chaque message. Merci de patienter !'), 'danger');
+				return FALSE;
 			}
 			else
 			{
-				//TODO Ban current user for flooding
-				$this->session->set('anti_flood', 'attempts', 0);
-				refresh();
+				//TODO Ban current user for flooding - Currently reset attempts to 0.
+				//$this->session->set('anti_flood', 'attempts', 0);
+				return FALSE;
 			}
 		}
 		else
 		{
 			$this->session	->set('anti_flood', 'actions', $this->__id(), $this->date())
 							->set('anti_flood', 'attempt', 0);
+			return TRUE;
 		}
-
-		return $this;
 	}
 }
