@@ -18,20 +18,20 @@ class Anti_Flood extends Library
 			{
 				$this->session->set('anti_flood', 'attempts', $attempts + 1);
 				notify($message ?: $this->lang('10 minutes entre chaque message. Merci de patienter !'), 'danger');
-				return FALSE;
+				return TRUE;
 			}
 			else
 			{
 				//TODO Ban current user for flooding - Currently reset attempts to 0.
 				//$this->session->set('anti_flood', 'attempts', 0);
-				return FALSE;
+				return TRUE;
 			}
 		}
 		else
 		{
 			$this->session	->set('anti_flood', 'actions', $this->__id(), $this->date())
 							->set('anti_flood', 'attempt', 0);
-			return TRUE;
+			return FALSE;
 		}
 	}
 }
