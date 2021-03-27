@@ -46,7 +46,7 @@ class Modes extends Model
 							->from('nf_games_modes m')
 							->join('nf_games g',        'm.game_id = g.game_id')
 							->join('nf_games_lang gl',  'm.game_id = gl.game_id')
-							->where('g.mode_id', $mode_id)
+							->where('m.mode_id', $mode_id)
 							->row();
 
 		if ($mode && url_title($mode['title']) == $title)
