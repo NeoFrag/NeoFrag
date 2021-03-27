@@ -16,8 +16,7 @@ $this->rule($this->form_text('subject')
 	->captcha()
 	->submit('Envoyer')
 	->success(function($data, $form){
-		$sent = $this	->anti_flood()
-						->email
+		$sent = $this			->email
 						->from($this->user->email ?: $data['email'])
 						->to($this->config->nf_contact)
 						->subject($data['subject'])
@@ -28,7 +27,7 @@ $this->rule($this->form_text('subject')
 						})
 						->send();
 
-		if ($sent)
+		if ($sent && $this->anti_flood())
 		{
 			notify('Message envoyé');
 			refresh();
