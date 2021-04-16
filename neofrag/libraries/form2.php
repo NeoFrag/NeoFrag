@@ -50,7 +50,7 @@ class Form2 extends Library
 			$post = post();
 
 			array_walk_recursive($post, function(&$value){
-				$v = utf8_htmlentities(trim($value));
+				$value = utf8_htmlentities(trim($value));
 			});
 
 			foreach ($this->_rules as $rule)
