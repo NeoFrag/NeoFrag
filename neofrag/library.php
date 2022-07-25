@@ -16,10 +16,10 @@ abstract class Library extends NeoFrag
 		$this->__caller = $caller;
 	}
 
-	public function __invoke()
+	/*public function __invoke()
 	{
 		return $this;
-	}
+	}*/
 
 	public function __sleep()
 	{

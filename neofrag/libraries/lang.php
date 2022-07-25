@@ -49,7 +49,7 @@ class Lang extends Library
 		$args = func_get_args();
 
 		array_walk($args, function(&$a){
-			if (method_exists($a, '__toString'))
+			if ((is_string($a) || is_object($a)) && method_exists($a, '__toString'))
 			{
 				$a = $a->__toString();
 			}

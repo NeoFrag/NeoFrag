@@ -236,7 +236,7 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		array_walk($this->_array, function(&$a, $key) use (&$callback){
 			if (is_string($callback))
 			{
-				if (method_exists($a, $callback))
+				if ((is_string($a) || is_object($a)) && method_exists($a, $callback))
 				{
 					$a = $a->$callback();
 				}
@@ -336,7 +336,7 @@ class Array_ extends Library implements \Iterator, \ArrayAccess
 		if ($recursive)
 		{
 			array_walk_recursive($array, function(&$item){
-				if (method_exists($item, '__toArray'))
+				if ((is_string($item) || is_object($item)) && method_exists($item, '__toArray'))
 				{
 					$item = $item->__toArray();
 				}

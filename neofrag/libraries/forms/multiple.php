@@ -71,7 +71,7 @@ abstract class Multiple extends Labelable
 				$this->_data[$id] = array_values($row);
 			}
 		}
-		else if (method_exists($data, '__toArray'))
+		else if ((is_string($data) || is_object($data)) && method_exists($data, '__toArray'))
 		{
 			$this->_data = $data->__toArray();
 		}

@@ -72,7 +72,7 @@ class Url extends Core
 			}
 			else
 			{
-				$this->_const['segments'] = explode('/', $this->extension ? substr($this->request, 0, - strlen($this->extension) - 1) : $this->request ?: 'index');
+				$this->_const['segments'] = explode('/', $this->extension ? substr($this->request, 0, - strlen($this->extension) - 1) : ($this->request ?: 'index'));
 			}
 
 			if (preg_match('/^(humans|robots)\.txt$/', $this->request, $match))
