@@ -20,7 +20,7 @@ class Select extends Multiple
 	{
 		$this->_template[] = function(&$input){
 			$encode = function($data){
-				if (method_exists($data, '__toArray'))
+				if ((is_string($data) || is_object($data)) && method_exists($data, '__toArray'))
 				{
 					$data = $data->__toArray();
 				}

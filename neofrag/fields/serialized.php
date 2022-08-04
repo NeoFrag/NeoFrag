@@ -26,7 +26,7 @@ class Serialized
 	public function raw($value)
 	{
 		$convert = function(&$value) use (&$convert){
-			if (method_exists($value, '__toArray'))
+			if ((is_string($value) || is_object($value)) && method_exists($value, '__toArray'))
 			{
 				$value = $value->__toArray();
 

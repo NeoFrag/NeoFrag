@@ -189,7 +189,7 @@ class Driver_Query
 		}
 		else
 		{
-			if (method_exists($where->value, '__toArray'))
+			if ((is_string($where->value) || is_object($where->value)) && method_exists($where->value, '__toArray'))
 			{
 				$where->value = $where->value->__toArray();
 			}

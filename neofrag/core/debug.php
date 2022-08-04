@@ -26,7 +26,7 @@ class Debug extends Core
 
 		$this('Start');
 
-		set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext){
+		set_error_handler(function($errno, $errstr, $errfile, $errline){
 			if (error_reporting() !== 0)
 			{
 				if (NEOFRAG_DEBUG_BAR || NEOFRAG_LOGS)
