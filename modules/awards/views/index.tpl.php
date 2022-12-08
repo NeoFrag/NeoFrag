@@ -37,7 +37,7 @@
 			foreach ($awards as $award): ?>
 			<tr>
 				<td>
-					<span data-toggle="tooltip" title="<?php echo timetostr($this->lang('%A %e %B %Y'), $award['date']) ?>"><?php echo icon('far fa-calendar') ?></span>
+					<span data-toggle="tooltip" title="<?php echo timetostr($this->lang('l j F Y'), $award['date']) ?>"><?php echo icon('far fa-calendar') ?></span>
 				</td>
 				<td>
 					<?php

@@ -5,7 +5,7 @@
 	</div>
 	<?php endif ?>
 	<div class="col-<?php echo $image_id ? '8' : '12' ?>">
-		<p><b><?php echo icon('far fa-clock') ?> Offre publiée le <?php echo timetostr('%e %b %Y', $date) ?></b></p>
+		<p><b><?php echo icon('far fa-clock') ?> Offre publiée le <?php echo timetostr('j M Y', $date) ?></b></p>
 		<?php echo $introduction ?>
 	</div>
 </div>

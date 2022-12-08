@@ -21,7 +21,7 @@
 		<?php endif ?>
 	</div>
 	<ul class="list-inline<?php echo $description ? '' : ' m-0' ?>">
-		<li class="list-inline-item"><span data-toggle="tooltip" title="Date"><?php echo icon('far fa-calendar').' '.timetostr($this->lang('%d/%m/%Y'), $date) ?></span></li>
+		<li class="list-inline-item"><span data-toggle="tooltip" title="Date"><?php echo icon('far fa-calendar').' '.timetostr($this->lang('d/m/Y'), $date) ?></span></li>
 		<?php if ($location): ?><li class="list-inline-item"><span data-toggle="tooltip" title="Lieu"><?php echo icon('fas fa-map-marker-alt').' '.$location ?></span></li><?php endif ?>
 		<li class="list-inline-item"><span data-toggle="tooltip" title="Jeu"><a href="<?php echo url('awards/game/'.$game_id.'/'.$game_name) ?>"><?php echo icon('fas fa-gamepad').' '.$game_title ?></a></span></li>
 		<li class="list-inline-item"><span data-toggle="tooltip" title="Plateforme"><?php echo icon('fas fa-tv').' '.$platform ?></span></li>

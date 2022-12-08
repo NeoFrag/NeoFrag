@@ -140,7 +140,7 @@ class Groups extends Core
 		$this->_groups['visitors']['order'] = $order;
 
 		uasort($this->_groups, function($a, $b){
-			return $a['order'] > $b['order'];
+			return strnatcmp($a['order'], $b['order']);
 		});
 	}
 

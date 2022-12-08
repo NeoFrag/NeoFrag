@@ -6,7 +6,7 @@
 
 function now($timestamp = NULL)
 {
-	return timetostr('%Y-%m-%d %H:%M:%S', $timestamp);
+	return timetostr('Y-m-d H:i:s', $timestamp);
 }
 
 function strtoseconds($string)
@@ -31,7 +31,7 @@ function timetostr($format, $timestamp = NULL)
 		$format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
 	}
 
-	return utf8_string(ucfirst(preg_replace('/ +/', ' ', strtolower(strftime($format, $timestamp)))));
+	return utf8_string(ucfirst(preg_replace('/ +/', ' ', strtolower(date($format, $timestamp)))));
 }
 
 function time_span($timestamp)

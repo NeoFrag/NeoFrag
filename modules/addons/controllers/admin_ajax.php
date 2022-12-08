@@ -6,7 +6,9 @@
 
 namespace NF\Modules\Addons\Controllers;
 
+use NF\NeoFrag\Core\Debug;
 use NF\NeoFrag\Loadables\Controllers\Module as Controller_Module;
+use ZipArchive;
 
 class Admin_Ajax extends Controller_Module
 {
@@ -15,32 +17,18 @@ class Admin_Ajax extends Controller_Module
 		return $this->form2()
 					->rule($this->form_file('addon')
 								->mime('application/x-zip-compressed')
+								->mime('application/zip')
 								->temp()
 					)
 					->success(function($data){
-						if ($zip = zip_open($tmp_file = $data['addon']))
+						$zip = new ZipArchive;
+						if ($zip->open($tmp_file = $data['addon']) === TRUE)
 						{
 							dir_create($tmp = dir_temp());
-
-							while ($zip_entry = zip_read($zip))
-							{
-								$entry_name = zip_entry_name($zip_entry);
-
-								if (zip_entry_open($zip, $zip_entry, 'r'))
-								{
-									if (($dir = dirname($entry_name)) && $dir != '.')
-									{
-										dir_create($tmp.'/'.$dir);
-									}
-
-									file_put_contents($tmp.'/'.$entry_name, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-								}
-
-								zip_entry_close($zip_entry);
-							}
-
-							zip_close($zip);
-
+																			
+							$zip->extractTo($tmp);
+							$zip->close();
+				    
 							$folders = array_filter(scandir($tmp), function($a) use ($tmp){
 								return !in_array($a, ['.', '..']) && is_dir($tmp.'/'.$a);
 							});

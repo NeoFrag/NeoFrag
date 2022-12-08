@@ -56,7 +56,7 @@ class Index extends Controller_Module
 								[
 									'title'   => 'Date',
 									'content' => function($data){
-										return timetostr('%d/%m/%Y', $data['date']);
+										return timetostr('d/m/Y', $data['date']);
 									},
 									'size'    => TRUE,
 									'class'   => 'align-middle'

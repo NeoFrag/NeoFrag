@@ -19,7 +19,7 @@ $rules = [
 	],
 	'date' => [
 		'label' => 'Date',
-		'value' => $this->form()->value('date') ? timetostr($this->lang('%d/%m/%Y'), strtotime($this->form()->value('date'))) : '',
+		'value' => $this->form()->value('date') ? timetostr($this->lang('d/m/Y'), strtotime($this->form()->value('date'))) : '',
 		'type'  => 'date',
 		'check' => function($value){
 			if ($value && strtotime($value) > strtotime(date('Y-m-d')))

@@ -14,7 +14,7 @@
 			<a class="btn btn-light btn-sm" href="https://plus.google.com/share?url=<?php echo $url ?>" target="_blank"><?php echo icon('fab fa-google-plus-g text-danger') ?></a>
 		</div>
 		<?php endif ?>
-		<footer class="blockquote-footer"><?php echo $this->lang('Par').' '.($user_id ? $this->user->link($user_id, $username) : $this->lang('Visiteur')).' '.$this->lang('le').' '.timetostr('%e %b %Y', $date) ?> / <a href="<?php echo url('news/category/'.$category_id.'/'.$category_name) ?>"><?php echo $category_title ?></a><?php echo (($comments = $this->module('comments')) && $comments->is_enabled()) ? ' / '.$comments->link('news', $news_id, 'news/'.$news_id.'/'.url_title($title)) : '' ?></footer>
+		<footer class="blockquote-footer"><?php echo $this->lang('Par').' '.($user_id ? $this->user->link($user_id, $username) : $this->lang('Visiteur')).' '.$this->lang('le').' '.timetostr('j M Y', $date) ?> / <a href="<?php echo url('news/category/'.$category_id.'/'.$category_name) ?>"><?php echo $category_title ?></a><?php echo (($comments = $this->module('comments')) && $comments->is_enabled()) ? ' / '.$comments->link('news', $news_id, 'news/'.$news_id.'/'.url_title($title)) : '' ?></footer>
 	</blockquote>
 </div>
 <?php if($tags || $content): ?>

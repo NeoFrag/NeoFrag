@@ -53,7 +53,7 @@
 	<ul class="list-inline m-0">
 		<li class="list-inline-item">
 			<?php echo $this->label($type['title'], $type['icon'], $type['color'], 'events/type/'.$type['type_id'].'/'.url_title($type['title'])) ?>
-			<?php echo '<small>'.icon('far fa-clock').timetostr('%d/%m/%Y', $date).'</small>' ?>
+			<?php echo '<small>'.icon('far fa-clock').timetostr('d/m/Y', $date).'</small>' ?>
 		</li>
 		<?php
 		if (!empty($show_details) && $list_participants && $location):

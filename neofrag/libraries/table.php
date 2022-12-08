@@ -32,6 +32,10 @@ class Table extends Library
 		return static::$_table;
 	}
 
+	function __toString()
+	{
+		return (string)$this->_table;
+	}
 	public function add_column($title, $content, $size = NULL, $search = NULL, $sort = NULL, $align = 'left')
 	{
 		$this->_columns[] = [

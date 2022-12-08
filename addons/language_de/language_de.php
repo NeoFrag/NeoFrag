@@ -36,12 +36,12 @@ class Language_De extends Language
 	public function date()
 	{
 		return [
-			'short_date'      => '%d.%m.%Y',
-			'long_date'       => '%A,%e. %B %Y',
-			'long_time'       => '%H:%M:%S',
-			'time_short'      => '%H:%M',
-			'short_date_time' => '%d.%m.%Y %H:%M',
-			'long_date_time'  => '%A, %e. %B %Y %H:%M'
+			'short_date'      => 'd.m.Y',
+			'long_date'       => 'l,j. F Y',
+			'long_time'       => 'H:i:s',
+			'time_short'      => 'H:i',
+			'short_date_time' => 'd.m.Y H:i',
+			'long_date_time'  => 'l, j. F Y H:i'
 		];
 	}
 

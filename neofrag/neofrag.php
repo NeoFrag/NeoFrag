@@ -96,12 +96,12 @@ class NeoFrag
 
 			$$name = NULL;
 
-			if ((@include 'config/'.$name.'.php') && $$name)
+			if (file_exists('config/'.$name.'.php') && (@include 'config/'.$name.'.php') && $$name)
 			{
 				$args[] = $$name;
 			}
 
-			if (!($object = @NeoFrag()->___load($type, $name, $args)))
+			if (!is_null($name) && !($object = @NeoFrag()->___load($type, $name, $args)))
 			{
 				$class = explode('_', $name, 2);
 
@@ -118,7 +118,11 @@ class NeoFrag
 				$this->$name = $object;
 			}
 
-			return $object;
+			if(isset($object))
+			 	return $object;
+			 
+			return false;
+			
 		}
 
 		trigger_error('Undefined property: '.get_class($this).'::$'.$name, E_USER_WARNING);

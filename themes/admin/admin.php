@@ -107,6 +107,12 @@ class Admin extends Theme
 					'access' => $this->user->admin,
 					'url'    => 'admin/settings'
 				],
+				[
+					'title'  => 'Thèmes & addons',
+					'icon'   => 'fas fa-puzzle-piece',
+					'access' => $this->user->admin,
+					'url'    => 'admin/addons'
+				],
 				$customize->__toArray(),
 				[
 					'title' => 'Utilisateurs',
