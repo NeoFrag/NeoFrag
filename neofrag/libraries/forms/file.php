@@ -6,6 +6,8 @@
 
 namespace NF\NeoFrag\Libraries\Forms;
 
+use NF\NeoFrag\Core\Debug;
+
 class File extends Labelable
 {
 	protected $_mimes = [];

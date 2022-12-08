@@ -115,7 +115,7 @@ endif;
 	</div>
 	<ul class="list-inline m-0">
 		<li class="list-inline-item"><?php echo $this->label($type['title'], $type['icon'], $type['color'], 'events/type/'.$type['type_id'].'/'.url_title($type['title'])) ?></li>
-		<li class="list-inline-item"><?php echo icon('far fa-clock') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $date).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $date).'</span>'.($date_end ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="Durée"><i>'.icon('fas fa-hourglass-end').(ceil((strtotime($date_end) - strtotime($date)) / ( 60 * 60 ))).'h</i></span>' : '') ?></li>
+		<li class="list-inline-item"><?php echo icon('far fa-clock') ?> <?php echo '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('l j F Y, H:i'), $date).'">'.timetostr(NeoFrag()->lang('d/m/Y H:i'), $date).'</span>'.($date_end ? '&nbsp;&nbsp;<span data-toggle="tooltip" title="Durée"><i>'.icon('fas fa-hourglass-end').(ceil((strtotime($date_end) - strtotime($date)) / ( 60 * 60 ))).'h</i></span>' : '') ?></li>
 		<?php
 		if (!empty($show_details) && $list_participants && $location):
 			foreach ($list_participants as $participant):

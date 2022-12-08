@@ -230,7 +230,7 @@ class Admin extends Controller_Module
 									[
 										'title'   => $this->lang('Date'),
 										'content' => function($data){
-											return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.time_span($data['date']).'</span>';
+											return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('l j F Y, H:i'), $data['date']).'">'.time_span($data['date']).'</span>';
 										},
 										'align'   => 'left'
 									],

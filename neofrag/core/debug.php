@@ -10,12 +10,6 @@ use NF\NeoFrag\Core;
 
 class Debug extends Core
 {
-	const INFO       = 0;
-	const WARNING    = 1;
-	const ERROR      = 2;
-	const NOTICE     = 3;
-	const DEPRECATED = 4;
-	const STRICT     = 5;
 
 	protected $_logs = [];
 	private $_timeline = [];
@@ -52,7 +46,7 @@ class Debug extends Core
 						$error = 'strict';
 					}
 
-					$this->_logs[] = [[], $errstr, $error, relative_path($errfile), $errline, $this->date(), memory_get_usage()];
+					$this->_logs[] = [[], $errstr, $error, relative_path($errfile), $errline, date_create(), memory_get_usage()];
 				}
 				else
 				{
@@ -120,6 +114,10 @@ class Debug extends Core
 		$this->_logs[] = [$args, $message, 'info', '', 0, $this->date(), $memory];
 	}
 
+	static function debug_to_console($data) {
+		echo "<script>console.log('Debug Objects: " . json_encode($data) . "' );</script>";
+	}
+
 	public function timeline()
 	{
 		if (!func_num_args())
@@ -133,6 +131,7 @@ class Debug extends Core
 
 			foreach ($this->_timeline as $object)
 			{
+				$object = (object)$object;
 				list($time) = $object->__debug->time;
 
 				if (!isset($min, $max))
@@ -193,21 +192,23 @@ class Debug extends Core
 			else
 			{
 				$table = function($data) use (&$table){
-					if (is_array($data) || (is_object($data) && method_exists($value, '__toString')))
+					if (is_array($data) || is_object($data))
 					{
 						$output = '<table class="table table-striped">';
-
+						
 						$data = (array)$data;
 						ksort($data);
-
+						
 						foreach ($data as $key => $value)
 						{
+							if(!is_object($value)) {
 							$output .= '	<tr>
 												<td style="width: 200px;"><b>'.$key.'</b></td>
 												<td>'.$table($value).'</td>
 											</tr>';
+							}
 						}
-
+						
 						$output .= '</table>';
 
 						return $output;
@@ -227,47 +228,60 @@ class Debug extends Core
 				};
 
 				$this	->bar('console', function(&$label){
-							$result = '<table class="table table-striped">';
+							
+						  $result = '<table class="table table-striped">';
 
 							$warning = $error = $notice = $deprecated = $strict = 0;
 
 							foreach ($this->_logs as $i => list($prefix, $text, $type, $file, $line, $date))
 							{
-								if ($type == self::INFO)
+								if ($type == "info")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-success">Info</span>';
 								}
-								else if ($type == self::WARNING)
+								else if ($type == "warning")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-warning">Warning</span>';
 									$warning++;
 								}
-								else if ($type == self::ERROR)
+								else if ($type == "error")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-danger">Error</span>';
 									$error++;
 								}
-								else if ($type == self::NOTICE)
+								else if ($type == "notice")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-info">Notice</span>';
 									$notice++;
 								}
-								else if ($type == self::DEPRECATED)
+								else if ($type == "deprecated")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-warning">Deprecated</span>';
 									$deprecated++;
 								}
-								else if ($type == self::STRICT)
+								else if ($type == "strict")
 								{
+									$class_type = $type;
 									$type = '<span class="badge badge-secondary">Strict</span>';
 									$strict++;
 								}
 
-								$result .= '	<tr>
-													<td class="col-1"><b>'.($i + 1).'</b><div class="float-right">'.$type.'</div></td>
-													<td class="col-8">'.utf8_htmlentities($text).'</td>
+								if($class_type == "info") {
+									$result .= '	<tr class="row-'.$class_type.'" style="display: none;">';
+								}else{
+									$result .= '	<tr class="row-'.$class_type.'">';
+								}
+								
+								$result .= '		<td class="col-3"><b>'.($i + 1).'</b><div class="float-right">'.$type.'</div></td>
+													<td class="col-6">'.utf8_htmlentities($text).'</td>
 													<td class="col-3 text-right">'.$file.' <code>'.$line.'</code></td>
-												</tr>';
+												</tr>';	
+							
 							}
 
 							$result .= '</table>';

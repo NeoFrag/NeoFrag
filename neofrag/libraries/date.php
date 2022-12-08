@@ -57,7 +57,7 @@ class Date extends Library
 		{
 			$this->_datetime->setTime(0, 0);
 		}
-		else if (preg_match('/^H:i/', $this->_format))
+		else if (!is_null($this->_format) && preg_match('/^H:i/', $this->_format))
 		{
 			$this->_datetime->setDate(1, 1, 1);
 		}
@@ -83,7 +83,7 @@ class Date extends Library
 				}
 				else if ($timestamp < strtotime('+8 days midnight'))
 				{
-					$output = NeoFrag()->lang('%s prochain', ucfirst($this->locale('%A')));
+					$output = NeoFrag()->lang('%s prochain', ucfirst($this->locale('l')));
 				}
 				else if ($timestamp < strtotime('+22 days midnight'))
 				{
@@ -98,7 +98,7 @@ class Date extends Library
 				}
 				else if ($timestamp >= strtotime('7 days ago midnight'))
 				{
-					$output = NeoFrag()->lang('%s dernier', ucfirst($this->locale('%A')));
+					$output = NeoFrag()->lang('%s dernier', ucfirst($this->locale('l')));
 				}
 				else if ($timestamp >= strtotime('20 days ago midnight'))
 				{
@@ -126,7 +126,7 @@ class Date extends Library
 				}
 				else if ($timestamp < strtotime('+8 days midnight'))
 				{
-					$output = NeoFrag()->lang('%s prochain à %s', ucfirst($this->locale('%A')), $this->short_time());
+					$output = NeoFrag()->lang('%s prochain à %s', ucfirst($this->locale('l')), $this->short_time());
 				}
 				else if ($timestamp < strtotime('+22 days midnight'))
 				{
@@ -177,7 +177,7 @@ class Date extends Library
 				}
 				else if ($timestamp >= strtotime('6 days ago midnight'))
 				{
-					$output = NeoFrag()->lang('%s dernier à %s', ucfirst($this->locale('%A')), $this->short_time());
+					$output = NeoFrag()->lang('%s dernier à %s', ucfirst($this->locale('l')), $this->short_time());
 				}
 			}
 			else

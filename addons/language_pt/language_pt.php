@@ -36,12 +36,12 @@ class Language_Pt extends Language
 	public function date()
 	{
 		return [
-			'short_date'      => '%d/%m/%Y',
-			'long_date'       => '%e de %B de %Y',
-			'short_time'      => '%H:%M',
-			'long_time'       => '%H:%M:%S',
-			'short_date_time' => '%d/%m/%Y %H:%M',
-			'long_date_time'  => '%A, %e de %B de %Y %H:%M'
+			'short_date'      => 'd/m/Y',
+			'long_date'       => 'j de F de Y',
+			'short_time'      => 'H:i',
+			'long_time'       => 'H:i:s',
+			'short_date_time' => 'd/m/Y H:i',
+			'long_date_time'  => 'l, j de F de Y H:i'
 		];
 	}
 

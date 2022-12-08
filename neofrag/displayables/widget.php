@@ -79,8 +79,8 @@ class Widget extends Displayable
 		if ($widget_data && ($widget = NeoFrag()->widget($widget_data['widget'])) && $widget->is_enabled())
 		{
 			$widget->data = NeoFrag()->array;
-
-			$output = $widget->output($widget_data['type'], is_array($settings = unserialize($widget_data['settings'])) ? $settings : []);
+			
+			$output = $widget->output($widget_data['type'], ($widget_data['settings'] && is_array($settings = unserialize($widget_data['settings']))) ? $settings : []);
 
 			$style = function($output) use ($widget_data){
 				if (is_a($output, 'NF\NeoFrag\Libraries\Panel'))

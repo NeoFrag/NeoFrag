@@ -796,7 +796,7 @@ class Form extends Library
 	{
 		if (isset($options['value']) && $options['value'] !== '')
 		{
-			$options['value'] = timetostr(NeoFrag()->lang('%d/%m/%Y'), $options['value']);
+			$options['value'] = timetostr(NeoFrag()->lang('d/m/Y'), $options['value']);
 		}
 		else
 		{
@@ -810,7 +810,7 @@ class Form extends Library
 	{
 		if (isset($options['value']) && $options['value'] !== '')
 		{
-			$options['value'] = timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $options['value']);
+			$options['value'] = timetostr(NeoFrag()->lang('d/m/Y H:i'), $options['value']);
 		}
 		else
 		{
@@ -824,7 +824,7 @@ class Form extends Library
 	{
 		if (isset($options['value']) && $options['value'] !== '' && $options['value'] !== '00:00:00')
 		{
-			$options['value'] = timetostr(NeoFrag()->lang('%H:%M'), $options['value']);
+			$options['value'] = timetostr(NeoFrag()->lang('H:i'), $options['value']);
 		}
 		else
 		{

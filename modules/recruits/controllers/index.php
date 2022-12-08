@@ -159,7 +159,7 @@ class Index extends Controller_Module
 		{
 			return $this->panel()
 						->heading('Déposer ma candidature', 'fab fa-black-tie')
-						->body('Vous avez déjà déposé votre candidature pour cette offre le <b>'.timetostr('%e %b %Y', $candidacy['date']).'</b> !')
+						->body('Vous avez déjà déposé votre candidature pour cette offre le <b>'.timetostr('j M Y', $candidacy['date']).'</b> !')
 						->footer('<a href="'.url('recruits/candidacy/'.$candidacy['candidacy_id'].'/'.url_title($candidacy['title'])).'" class="btn btn-primary">'.icon('far fa-eye').' Voir ma candidature</a>')
 						->color('info');
 		}

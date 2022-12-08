@@ -48,4 +48,23 @@ $(function(){
 		$.post('<?php echo url('ajax/settings/debug-bar') ?>', {tab: ''});
 		paddingBody();
 	});
+
+	$('.dropdown-toggle').on('click', function (e) {
+		$(this).next().toggle();
+	  });
+	$('.dropdown-menu.keep-open').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$('.console-filter').click(function(){
+		if($(this).children().hasClass('fa-square')) {
+			$(this).children().toggleClass('fa-square').toggleClass('fa-check-square');
+			var filter = $(this).data("filter");
+			$('.row-'+ filter).show();
+		}else if($(this).children().hasClass('fa-check-square')) {
+			$(this).children().toggleClass('fa-check-square').toggleClass('fa-square');
+			var filter = $(this).data("filter");
+			$('.row-'+ filter).hide();
+		}
+	});
 });

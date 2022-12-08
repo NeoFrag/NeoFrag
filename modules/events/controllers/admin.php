@@ -118,7 +118,7 @@ class Admin extends Controller_Module
 							[
 								'title'   => 'Date',
 								'content' => function($data){
-									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('%A %e %B %Y, %H:%M'), $data['date']).'">'.timetostr(NeoFrag()->lang('%d/%m/%Y %H:%M'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fas fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
+									return '<span data-toggle="tooltip" title="'.timetostr(NeoFrag()->lang('l j F Y, H:i'), $data['date']).'">'.timetostr(NeoFrag()->lang('d/m/Y H:i'), $data['date']).($data['date_end'] ? '&nbsp;&nbsp;<i>'.icon('fas fa-hourglass-end').(ceil((strtotime($data['date_end']) - strtotime($data['date'])) / ( 60 * 60 ))).'h</i>' : '').'</span>';
 								},
 								'sort'    => function($data){
 									return $data['date'];

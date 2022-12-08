@@ -22,7 +22,7 @@
 	</li>
 	<?php if ($date_end): ?>
 	<li class="list-group-item">
-		<span class="float-right"><b><?php echo timetostr('%e %b %Y', $date_end) ?></b></span>
+		<span class="float-right"><b><?php echo timetostr('j M Y', $date_end) ?></b></span>
 		<?php echo icon('far fa-calendar') ?> Date limite
 	</li>
 	<?php endif ?>

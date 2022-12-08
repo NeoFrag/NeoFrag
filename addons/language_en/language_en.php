@@ -38,12 +38,12 @@ class Language_En extends Language
 	public function date()
 	{
 		return [
-			'short_date'      => '%m/%d/%Y',
-			'long_date'       => '%B%e, %Y',
-			'short_time'      => '%l:%M %p',
-			'long_time'       => '%l:%M:%S %p',
-			'short_date_time' => '%m/%d/%Y %l:%M %p',
-			'long_date_time'  => '%A, %B %e, %Y %l:%M %p'
+			'short_date'      => 'm/d/Y',
+			'long_date'       => 'F j, Y',
+			'short_time'      => 'g:i A',
+			'long_time'       => 'g:i:s A',
+			'short_date_time' => 'm/d/Y g:i A',
+			'long_date_time'  => 'l, F j, Y g:i A'
 		];
 	}
 

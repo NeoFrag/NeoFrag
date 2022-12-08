@@ -35,7 +35,7 @@ class Col extends Displayable
 			}
 		}
 
-		if (preg_match('/^col-(\d+)$/', $size, $match) && $match[0] < 12)
+		if (!is_null($size) && preg_match('/^col-(\d+)$/', $size, $match) && $match[0] < 12)
 		{
 			$size = 'col-12 col-lg-'.$match[1];
 		}
